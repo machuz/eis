@@ -120,55 +120,103 @@ total = (
 
 ## Quick Start
 
-### Option 1: Claude Code (Recommended)
+### Install via Homebrew
 
 ```bash
-git clone https://github.com/machuz/engineering-impact-score.git
-cd engineering-impact-score
-
-# Configure your repos and team
-cp config.example.yaml config.yaml
-# Edit config.yaml with your repo paths, author aliases, etc.
-
-# Run the analysis
-claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Scores for my team. Use config.yaml for configuration."
+brew tap machuz/tap
+brew install eis
 ```
 
-Claude will read your config, run git commands on your repos, and output full rankings with archetypes and Bus Factor analysis.
-
-### Option 2: Collect Data First, Then Analyze
+### Run
 
 ```bash
-# Collect raw git data from your repos
-./scripts/collect-git-data.sh /path/to/repo1 /path/to/repo2 /path/to/repo3
+# Analyze current repo
+eis analyze .
 
-# Feed collected data to Claude
-claude "Analyze the git data in ./output/<timestamp>/ using the Engineering Impact Score methodology described in PROMPT.md"
+# Analyze multiple repos
+eis analyze /path/to/repo1 /path/to/repo2
+
+# Auto-discover git repos under a directory
+eis analyze --recursive /path/to/workspace
+
+# Search deeper (default depth: 2)
+eis analyze --recursive --depth 3 ~/projects
+```
+
+### Configuration (Optional)
+
+Create `eis.yaml` in your working directory:
+
+```yaml
+aliases:
+  "John Smith": "john"
+  "J. Smith": "john"
+
+exclude_authors:
+  - "dependabot[bot]"
+
+weights:
+  production: 0.15
+  quality: 0.10
+  survival: 0.25
+  design: 0.20
+  breadth: 0.10
+  debt_cleanup: 0.15
+  indispensability: 0.05
+
+tau: 180
+sample_size: 500
+```
+
+```bash
+eis analyze --config eis.yaml --recursive ~/projects
 ```
 
 ### What You Get
 
-- **Rankings table** per domain (BE / FE / Infra) with all 7 axis scores
+- **Rankings table** with all 7 axis scores and total
 - **Archetype classification** (Architect, Solid Cleaner, Mass Producer, Political, etc.)
 - **Bus Factor risk map** showing modules with dangerous ownership concentration
-- **Actionable insights** on team structure, risks, and recommendations
+- Color-coded output for quick visual scanning
 
 ### Requirements
 
 - Git repos cloned locally
-- [Claude Code](https://claude.ai/code) (recommended) or any Claude interface
-- ~30–60 min for 10 repos / 10 engineers
-- ~500K–1.5M tokens (use flat-rate Claude Max plan for best experience)
+- That's it. No AI tokens, no API keys, no cloud dependencies
+
+### Alternative: Claude Code
+
+For deeper qualitative analysis (actionable insights, team recommendations), you can also use Claude Code:
+
+```bash
+claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Scores for my team. Use config.yaml for configuration."
+```
+
+## CLI Options
+
+```
+eis analyze [flags] [path...]
+
+Flags:
+  --config <path>     Config file (default: eis.yaml)
+  --recursive         Recursively find git repos under given paths
+  --depth <n>         Max directory depth for recursive search (default: 2)
+  --tau <days>        Survival decay parameter (default: 180)
+  --sample <n>        Max files to blame per repo (default: 500)
+  --workers <n>       Concurrent blame workers (default: 4)
+```
 
 ## Configuration
 
 See [`config.example.yaml`](config.example.yaml) for all options:
 
-- **Domains**: group repos into BE / FE / Infra
-- **Architecture patterns**: define which files count as "design files" for each domain
 - **Aliases**: merge variant git author names into canonical names
+- **Exclude authors**: filter out bots and non-human contributors
+- **Architecture patterns**: define which files count as "design files"
+- **Blame extensions**: file extensions for blame analysis
 - **Weights**: customize axis weights (default: Survival 25%, Design 20%, Production 15%, Debt 15%, Quality 10%, Breadth 10%, Indispensability 5%)
 - **Survival tau**: decay half-life in days (default: 180)
+- **Debt threshold**: minimum events for debt score (default: 10)
 
 ## Blog Posts
 
@@ -181,10 +229,15 @@ See [`config.example.yaml`](config.example.yaml) for all options:
 - [x] Claude Code analysis prompt
 - [x] Data collection script
 - [x] Configuration template
-- [ ] Standalone CLI tool (no AI dependency)
+- [x] Standalone CLI tool (`eis`) — zero AI dependency
+- [x] Homebrew distribution (`brew install eis`)
+- [x] Recursive repo discovery (`--recursive`)
+- [x] Author alias mapping via config
+- [x] Concurrent blame analysis (worker pool)
 - [ ] GitHub Action for automated quarterly tracking
-- [ ] Dashboard visualization
+- [ ] HTML dashboard visualization
 - [ ] Multi-language commit message support for Quality detection
+- [ ] JSON / CSV output format
 
 ## Support
 

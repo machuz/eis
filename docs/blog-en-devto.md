@@ -405,6 +405,28 @@ Numbers don't lie.
 
 ---
 
+## Try It: The CLI Tool
+
+This started as a blog post and a Claude Code experiment. The formulas are now baked into a standalone CLI — **zero AI tokens, zero API keys, zero cloud dependency.**
+
+```bash
+brew tap machuz/tap
+brew install eis
+```
+
+```bash
+# Analyze current repo
+eis analyze .
+
+# Auto-discover repos under a directory
+eis analyze --recursive ~/projects
+
+# With config (aliases, exclusions, weights)
+eis analyze --config eis.yaml --recursive ~/projects
+```
+
+Runs in seconds to minutes. Color-coded output with 7-axis scores, archetypes, and Bus Factor risks — right in your terminal.
+
 ## Final Thought
 
 Git quietly records the real history of a system. If we analyze that history carefully, we can understand who builds durable systems, who stabilizes them, and where organizational risk exists.
@@ -417,6 +439,6 @@ If you run this model on your own codebase, the results may surprise you. The nu
 
 ---
 
-**GitHub:** [machuz/engineering-impact-score](https://github.com/machuz/engineering-impact-score) — Full formulas, methodology, Claude Code prompt, data collection script, and blog posts in English and Japanese.
+**GitHub:** [machuz/engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, full methodology, and blog posts. Install with `brew tap machuz/tap && brew install eis`.
 
 **Support:** If this helped you see your team differently — [❤️ Sponsor on GitHub](https://github.com/sponsors/machuz) / PayPay: `w_machu7`
