@@ -24,6 +24,7 @@ brews:
   - repository:
       owner: machuz
       name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     homepage: https://github.com/machuz/engineering-impact-score
     description: "Quantify engineer impact from git history alone — 7-axis scoring CLI"
     license: MIT
