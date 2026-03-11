@@ -118,15 +118,72 @@ total = (
 - **Debt threshold** — members with fewer than 10 debt events get a neutral score (50) to avoid extreme ratios
 - **Accuracy scales with codebase design quality** — well-structured codebases (Clean Architecture, DDD) yield more meaningful scores. If the score doesn't match gut feeling, it may signal poor codebase structure rather than a metric problem
 
+## Quick Start
+
+### Option 1: Claude Code (Recommended)
+
+```bash
+git clone https://github.com/machuz/engineering-impact-score.git
+cd engineering-impact-score
+
+# Configure your repos and team
+cp config.example.yaml config.yaml
+# Edit config.yaml with your repo paths, author aliases, etc.
+
+# Run the analysis
+claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Scores for my team. Use config.yaml for configuration."
+```
+
+Claude will read your config, run git commands on your repos, and output full rankings with archetypes and Bus Factor analysis.
+
+### Option 2: Collect Data First, Then Analyze
+
+```bash
+# Collect raw git data from your repos
+./scripts/collect-git-data.sh /path/to/repo1 /path/to/repo2 /path/to/repo3
+
+# Feed collected data to Claude
+claude "Analyze the git data in ./output/<timestamp>/ using the Engineering Impact Score methodology described in PROMPT.md"
+```
+
+### What You Get
+
+- **Rankings table** per domain (BE / FE / Infra) with all 7 axis scores
+- **Archetype classification** (Architect, Solid Cleaner, Mass Producer, Political, etc.)
+- **Bus Factor risk map** showing modules with dangerous ownership concentration
+- **Actionable insights** on team structure, risks, and recommendations
+
+### Requirements
+
+- Git repos cloned locally
+- [Claude Code](https://claude.ai/code) (recommended) or any Claude interface
+- ~30–60 min for 10 repos / 10 engineers
+- ~500K–1.5M tokens (use flat-rate Claude Max plan for best experience)
+
+## Configuration
+
+See [`config.example.yaml`](config.example.yaml) for all options:
+
+- **Domains**: group repos into BE / FE / Infra
+- **Architecture patterns**: define which files count as "design files" for each domain
+- **Aliases**: merge variant git author names into canonical names
+- **Weights**: customize axis weights (default: Survival 25%, Design 20%, Production 15%, Debt 15%, Quality 10%, Breadth 10%, Indispensability 5%)
+- **Survival tau**: decay half-life in days (default: 180)
+
 ## Blog Posts
 
 - [Japanese (はてなブログ)](docs/blog-ja.md) — Full article with real-world measurement results
 - [English](docs/blog-en.md) — Full article (English version)
+- [dev.to](docs/blog-devto.md) — dev.to optimized version with images
 
 ## Roadmap
 
-- [ ] CLI tool for automated measurement
-- [ ] GitHub Action for quarterly tracking
+- [x] Scoring methodology and formulas
+- [x] Claude Code analysis prompt
+- [x] Data collection script
+- [x] Configuration template
+- [ ] Standalone CLI tool (no AI dependency)
+- [ ] GitHub Action for automated quarterly tracking
 - [ ] Dashboard visualization
 - [ ] Multi-language commit message support for Quality detection
 

@@ -1,0 +1,104 @@
+# Engineering Impact Score - Configuration
+# Copy this file to config.yaml and customize for your team.
+
+# Domains: group repositories by BE / FE / Infra
+# Scores are normalized within each domain separately.
+domains:
+  BE:
+    repos:
+      - /path/to/backend/api
+      - /path/to/backend/worker
+      - /path/to/backend/auth-service
+    # Architecture files for Design score (glob patterns)
+    architecture_patterns:
+      - "*/repository/*interface*"
+      - "*/domainservice/"
+      - "*/partprocess/"
+      - "*/delegateprocess/"
+      - "*/router.go"
+      - "*/middleware/"
+      - "di/*.go"
+    # File extensions to include in blame analysis
+    blame_extensions:
+      - "*.go"
+
+  FE:
+    repos:
+      - /path/to/frontend/web-app
+      - /path/to/frontend/admin
+      - /path/to/frontend/mobile-app
+    architecture_patterns:
+      - "*/core/"
+      - "*/stores/"
+      - "*/types/"
+      - "*/hooks/"
+      - "*/lib/"
+      - "*/components/ui/"
+    blame_extensions:
+      - "*.ts"
+      - "*.tsx"
+      - "*.vue"
+
+  # Infra:
+  #   repos:
+  #     - /path/to/infra/terraform
+  #   architecture_patterns: []  # Infra has no Design axis
+  #   blame_extensions:
+  #     - "*.tf"
+  #     - "*.go"
+  #     - "*.sh"
+
+# All repos for Breadth calculation (can include repos not in any domain)
+all_repos:
+  - /path/to/backend/api
+  - /path/to/backend/worker
+  - /path/to/frontend/web-app
+  - /path/to/frontend/admin
+  # ... add all your repos
+
+# Git author aliases (map variant names to canonical name)
+aliases:
+  # "Git Name": "Canonical Name"
+  # Example:
+  # "John D.": "john-doe"
+  # "john.doe@company.com": "john-doe"
+
+# Authors to exclude from analysis
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+
+# Files to exclude from Production (lines changed) calculation
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "docs/swagger*"
+  - "docs/doc.go"
+  - "docs/openapi*"
+  - "*generated*"
+  - "mock_*"
+  - "*.gen.*"
+
+# Scoring weights (must sum to 1.0)
+weights:
+  production: 0.15
+  quality: 0.10
+  survival: 0.25
+  design: 0.20
+  breadth: 0.10
+  debt_cleanup: 0.15
+  indispensability: 0.05
+
+# Survival decay parameter
+survival_tau: 180  # days. weight = exp(-age / tau)
+
+# Debt cleanup threshold
+# Members with fewer than this many total debt events get neutral score (50)
+debt_threshold: 10
+
+# Bus factor thresholds
+bus_factor:
+  critical: 0.80  # >= 80% ownership = CRITICAL
+  high: 0.60      # >= 60% ownership = HIGH
