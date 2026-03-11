@@ -287,14 +287,14 @@ score =
 
 The scale is intentionally strict.
 
-| Score | Assessment | Approx. Hourly Rate (JPY) |
+| Score | Assessment | Approx. Total Comp (USD) |
 |---|---|---|
-| 80+ | Irreplaceable core member | ¥12,000–20,000 |
-| 60–79 | Near-core. Strong | ¥9,000–15,000 |
-| **40–59** | **Senior-level (40+ is genuinely strong)** | **¥7,000–11,000** |
-| 30–39 | Mid-level | ¥6,000–9,000 |
-| 20–29 | Junior–Mid | ¥5,000–8,000 |
-| <20 | Junior | ¥3,500–6,000 |
+| 80+ | Irreplaceable core member | $250K–400K+ |
+| 60–79 | Near-core. Strong | $180K–300K |
+| **40–59** | **Senior-level (40+ is genuinely strong)** | **$140K–220K** |
+| 30–39 | Mid-level | $100K–160K |
+| 20–29 | Junior–Mid | $80K–120K |
+| <20 | Junior | $60K–90K |
 
 **40 = Senior.** With relative scoring across 7 axes, just putting up decent numbers across the board requires serious ability.
 
