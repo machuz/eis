@@ -172,9 +172,8 @@ See [`config.example.yaml`](config.example.yaml) for all options:
 
 ## Blog Posts
 
-- [Japanese (はてなブログ)](docs/blog-ja.md) — Full article with real-world measurement results
-- [English](docs/blog-en.md) — Full article (English version)
-- [dev.to](docs/blog-devto.md) — dev.to optimized version with images
+- [Japanese / はてなブログ](docs/blog-ja-hatena.md) — 日本語版フル記事（実測結果付き）
+- [English / dev.to](docs/blog-en-devto.md) — English version optimized for dev.to with images
 
 ## Roadmap
 
