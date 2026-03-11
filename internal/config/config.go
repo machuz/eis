@@ -62,7 +62,11 @@ func Default() *Config {
 			"*/hooks/",
 			"*/types/",
 		},
-		BlameExtensions: []string{"*.go", "*.ts", "*.tsx", "*.py", "*.rs", "*.java", "*.rb"},
+		BlameExtensions: []string{
+			"*.go", "*.ts", "*.tsx", "*.py", "*.rs", "*.java", "*.rb",
+			"*.c", "*.h", "*.cpp", "*.hpp", "*.cc", "*.S",
+			"*.scala", "*.hs", "*.ml", "*.mli",
+		},
 		ExcludeAuthors:  []string{"github-actions[bot]", "renovate[bot]", "dependabot[bot]"},
 		Aliases:         map[string]string{},
 		Weights: Weights{

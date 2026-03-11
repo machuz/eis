@@ -2,7 +2,7 @@
 title: Measuring Engineering Impact from Git History Alone
 published: true
 description: A 7-axis scoring model that quantifies engineer impact using nothing but git log and git blame. Code survival, debt cleanup, bus factor — all from data you already have.
-tags: engineering, productivity, git, management
+tags: opensource, productivity, git, career
 cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png
 ---
 
