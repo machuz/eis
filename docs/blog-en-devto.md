@@ -415,8 +415,4 @@ If you run this model on your own codebase, the results may surprise you. The nu
 
 **GitHub:** [machuz/engineering-impact-score](https://github.com/machuz/engineering-impact-score) — Full formulas, methodology, Claude Code prompt, data collection script, and blog posts in English and Japanese.
 
-**Support:** If this helped you see your team differently:
-
-[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
-
-PayPay: `w_machu7`
+**Support:** If this helped you see your team differently — [❤️ Sponsor on GitHub](https://github.com/sponsors/machuz) / PayPay: `w_machu7`
