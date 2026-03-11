@@ -8,38 +8,26 @@ cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/m
 
 *Why commit counts, PR counts, and lines of code fail to capture real engineering strength*
 
-As engineering teams grow, one question becomes unavoidable:
+I lead backend and infrastructure for a mid-sized product team. As the team grew, something kept nagging at me: **how do you quantify how strong an engineer actually is?**
 
-**How do you evaluate engineering strength using observable signals instead of intuition?**
+Commit count? Lines of code? Number of PRs? All of these are easy to measure — and easy to misinterpret.
 
-Most organizations fall back on weak proxies.
-
-- Commit count
-- Lines of code
-- Number of PRs
-
-All of these are easy to measure — and easy to misinterpret.
-
-A typo fix and a system-wide architectural change both count as "one PR".
-A generated lockfile can add thousands of lines.
-Commit habits vary wildly between engineers.
+A typo fix and a system-wide architectural change both count as "one PR." A generated lockfile can add thousands of lines. Commit habits vary wildly between engineers.
 
 Yet inside every team, people still have a sense of who the strongest engineers are.
 
 > "This person writes code that lasts."
 > "That person touches everything but somehow nothing improves."
 
-Those intuitions exist, but they are rarely measurable.
+Those intuitions exist, but they are rarely measurable. In salary negotiations, "I just feel like they're strong" doesn't hold up. My hiring instincts have been solid — I've never made a bad hire — but after someone joins, I wanted a way to **quantitatively track how much they actually deliver**.
 
-I wanted a model that uses **only git history** to approximate real technical influence in a codebase.
+I also wanted proof of something I already felt: that my current team is one of the strongest I've ever worked with.
 
-Internally, I sometimes jokingly call it an engineer's **"combat power."**
+So one evening, drinking and pair-programming with Claude Code, I built a scoring model that uses **nothing but git history** — and the results matched my gut feeling with eerie accuracy.
 
-But what it actually measures is something more precise:
+I jokingly call it an engineer's **"combat power."** But what it actually measures is something more precise:
 
 > **observable technical impact recorded in the codebase itself**
-
-This article describes that model.
 
 ---
 
@@ -49,20 +37,11 @@ The strongest engineers don't just write code.
 
 They write code that **continues to exist months later** without needing to be rewritten.
 
-So the most important signal in this model is:
+So the most important signal in this model is **Code Survival**.
 
-**Code Survival**
+But even survival must be handled carefully. Raw git blame favors early contributors. Someone who wrote a lot of code three years ago may dominate blame history even if they haven't contributed since.
 
-But even survival must be handled carefully.
-
-Raw git blame favors early contributors.
-Someone who wrote a lot of code three years ago may dominate blame history even if they haven't contributed since.
-
-To fix this, the model applies **time-decayed survival**.
-
-Recent code counts far more than ancient code.
-
-Example decay weights:
+To fix this, the model applies **time-decayed survival**. Recent code counts far more than ancient code.
 
 | Age | Weight |
 |---|---|
@@ -74,58 +53,48 @@ Example decay weights:
 | 2 years | 0.02 |
 
 ![Time-decayed Survival Weight curve showing exponential decay over 730 days](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/survival-decay-curve.png)
-*Figure 1. Time-decayed survival gives much more weight to recently written code than legacy code that simply remains untouched.*
+*Time-decayed survival gives much more weight to recently written code than legacy code that simply remains untouched.*
 
-This allows the model to approximate:
+This means departed team members' scores naturally decay over time — solving the problem of someone who wrote a ton of code during the founding era dominating the leaderboard forever.
 
-> **who is currently writing durable code**
-
-rather than who wrote the most code historically.
+It approximates **who is currently writing durable code**, not who wrote the most code historically.
 
 ---
 
 ## The 7 Axes of Engineering Impact
 
 ![Framework overview: Git History flows through 7 signals into Engineering Impact Score](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png)
-*Figure 2. The Engineering Impact Score aggregates seven observable signals derived from git history.*
-
-The model evaluates engineers across seven signals.
+*The Engineering Impact Score aggregates seven observable signals derived from git history.*
 
 | Axis | Weight | What it captures |
 |---|---|---|
 | Production | 15% | Volume of code changes |
 | Quality | 10% | Low rate of fix/revert commits |
 | Survival | **25%** | Code that still exists today (time-decayed) |
-| Design | 20% | Contributions to architecture |
+| Design | 20% | Contributions to architecture files |
 | Breadth | 10% | Number of repositories touched |
 | Debt Cleanup | 15% | Fixing issues created by others |
 | Indispensability | 5% | Bus-factor risk |
 
-The highest weight goes to **Survival**, because it reflects **design durability**.
+I started with 5 axes, but real-world measurement revealed two blind spots: "the person who quietly cleans up everyone else's bugs" and "the person whose departure would kill the project." That's why Debt Cleanup and Indispensability were added.
+
+**Survival gets the highest weight (25%)** because it's the core thesis of this model: *are you still writing designs that last?*
+
+Quality is weighted low (10%) because commit-message-based detection is a rough proxy. Indispensability is low (5%) because it conflates "strong, therefore needed" with "nobody bothered to take over." The weight design is intentional.
+
+**BE / FE / Infra are scored separately.** Without this separation, backend code volume contaminates frontend rankings and vice versa.
 
 ---
 
 ## Production: Measure Changes, Not Commits
 
-Commit counts are unreliable.
+Commit counts are unreliable. Some engineers make large commits. Others split work into many small ones. An engineer who changes 100 lines in one commit and one who makes 100 single-line commits shouldn't score the same.
 
-Some engineers make large commits.
-Others split work into many small commits.
+Instead we measure `insertions + deletions`, excluding:
 
-Instead we measure:
-
-```
-insertions + deletions
-```
-
-Certain files must be excluded:
-
-- generated code
-- dependency lockfiles
-- Swagger docs
-- mock files
-
-Otherwise automated changes distort the numbers.
+- `package-lock.json`, `yarn.lock` — library updates move tens of thousands of lines
+- `docs/swagger*` — auto-generated
+- `mock_*`, `*.gen.*` — code generation
 
 Production measures **execution throughput**, but it should never be used alone.
 
@@ -133,27 +102,24 @@ Production measures **execution throughput**, but it should never be used alone.
 
 ## Quality: The Fix Ratio
 
-A rough proxy for first-pass correctness.
-
 ```
 quality = 100 - fix_ratio
-fix_ratio = fix_commits / total_commits
+fix_ratio = fix_commits / total_commits × 100
 ```
 
-Fix commits are detected using patterns like:
+Fix commits are detected using patterns like `fix`, `revert`, `hotfix`, plus language-specific keywords (e.g. `修正` in Japanese teams — if you don't catch these, accuracy drops for non-English teams).
 
-- `fix`, `revert`, `hotfix`
-- Language-specific keywords (e.g. `修正` in Japanese teams)
+A high fix ratio usually means **code that needs frequent correction after being written**. It's a reasonable proxy for first-pass correctness.
 
-This metric is imperfect.
-
-Large refactors and proactive improvements sometimes appear as "fixes", so **Quality is intentionally weighted lower**.
+But large refactors and proactive improvements also trigger "fix" patterns, which is why **Quality is intentionally weighted at only 10%**. Interpret it alongside Design — if someone has low Quality but high Design, the "fixes" are likely aggressive architectural improvements, which is healthy.
 
 ---
 
 ## Survival: The Most Important Metric
 
-To measure survival, we examine git blame lines and apply exponential time decay.
+This is the heart of the model.
+
+Naive git blame gives high scores to "someone who wrote a lot of code three years ago and hasn't done anything since." That's wrong. What we want to know is: **are you actively writing good designs right now?**
 
 ```python
 import math
@@ -168,13 +134,9 @@ for line in blame_lines:
     weighted_survival[line.author] += weight
 ```
 
-Each surviving line contributes a decayed weight to its author.
+Each surviving line contributes a decayed weight to its author. Engineers whose code remains stable accumulate high survival scores. Engineers whose code is constantly rewritten do not.
 
-This captures something powerful:
-
-> Engineers whose code remains stable over time accumulate high survival scores.
-
-Engineers whose code is constantly rewritten do not.
+Raw blame (without decay) is still useful separately — it shows "who built the foundation of this codebase." But for the combat power score, only time-decayed survival is used.
 
 ---
 
@@ -182,36 +144,23 @@ Engineers whose code is constantly rewritten do not.
 
 Architectural work tends to appear in specific areas of a codebase.
 
-**Backend:**
-- repository interfaces, domain services
-- routers, middleware
-- dependency injection
+**Backend:** repository interfaces, domain services, routers, middleware, dependency injection
 
-**Frontend:**
-- core logic, shared stores
-- hooks, type systems
+**Frontend:** core logic, shared stores, hooks, type systems
 
-Frequent commits in these areas signal **architectural involvement**.
-
-Design influence doesn't measure whether a design decision was correct.
-
-It measures **who participates in shaping the system structure**.
+Frequent commits in these areas signal **architectural involvement**. It's not measuring whether a design decision was *correct* — it's measuring **who participates in shaping the system structure**. Someone who never touches architecture files is unlikely to be making good design decisions. As an approximation, it works surprisingly well.
 
 ---
 
 ## Breadth: Operating Across the System
 
-Breadth counts how many repositories an engineer contributes to.
-
-This distinguishes engineers who only operate in one silo vs engineers who understand the system holistically.
+How many repositories does an engineer contribute to? Simple, but it cleanly separates engineers who only operate in their own silo from those who understand the system holistically.
 
 ---
 
 ## Debt Cleanup: The Quiet Heroes
 
-One of the most revealing metrics is **technical debt cleanup**.
-
-When a fix commit modifies code, we check **who originally wrote those lines**.
+One of the most revealing metrics. When a fix commit modifies code, we check **who originally wrote those lines**.
 
 ```python
 for fix_commit in fix_commits:
@@ -226,21 +175,13 @@ debt_ratio = debt_cleaned / max(debt_generated, 1)
 # > 1 = Cleaner  |  < 1 = Debt creator
 ```
 
-If an engineer frequently fixes other people's mistakes, their cleanup score rises.
+The moment I added this metric, the "silent hero" on my team became visible — someone who quietly fixed everyone else's bugs, all the time. Conversely, the "high-output engineer who generates fix work for everyone around them" also became impossible to ignore.
 
-This surfaces engineers who:
-
-- stabilize the system
-- maintain reliability
-- quietly keep things working
-
-These engineers are often undervalued by naive metrics.
+**Note:** Members with fewer than 10 total debt events (generated + cleaned) get a neutral score of 50, because small samples produce extreme ratios.
 
 ---
 
 ## Indispensability: Bus Factor Risk
-
-This metric measures ownership concentration.
 
 ```python
 for module in all_modules:
@@ -253,28 +194,17 @@ for module in all_modules:
 indispensability = critical_count * 1.0 + high_count * 0.5
 ```
 
-If one engineer owns more than 80% of the lines in a module, that module becomes a **bus factor risk**.
-
-Indispensability reflects both:
-
-- expertise
-- organizational fragility
-
-For that reason, it has a low weight.
+If one engineer owns more than 80% of the lines in a module, that module becomes a **bus factor risk**. High indispensability means both expertise *and* organizational fragility — which is why the weight is only 5%. It's as much a **handoff priority alert** as it is an evaluation metric.
 
 ---
 
 ## Scoring
 
-Each metric is normalized within its domain (backend / frontend / infra).
+Each metric is normalized within its domain (BE / FE / Infra separately). The top person in each axis gets 100; everyone else is relative.
 
 ```
 norm(value) = min(value / max_value * 100, 100)
-```
 
-Final score:
-
-```
 score =
   production * 0.15 +
   quality * 0.10 +
@@ -289,53 +219,113 @@ The scale is intentionally strict.
 
 | Score | Assessment | Approx. Total Comp (USD) |
 |---|---|---|
-| 80+ | Irreplaceable core member | $250K–400K+ |
+| 80+ | Irreplaceable core member. 1–2 per team at most | $250K–400K+ |
 | 60–79 | Near-core. Strong | $180K–300K |
-| **40–59** | **Senior-level (40+ is genuinely strong)** | **$140K–220K** |
+| **40–59** | **Senior-level. 40+ is genuinely strong** | **$140K–220K** |
 | 30–39 | Mid-level | $100K–160K |
 | 20–29 | Junior–Mid | $80K–120K |
 | <20 | Junior | $60K–90K |
 
-**40 = Senior.** With relative scoring across 7 axes, just putting up decent numbers across the board requires serious ability.
+**40 = Senior.** If that seems low, consider what it takes: with relative scoring across 7 axes, just putting up decent numbers across the board requires serious, well-rounded ability. Production, quality, survival, design, breadth, debt cleanup — doing well in all of them simultaneously is structurally difficult. If your senior scores 40, that's *normal*. An engineer in the 40s can compete in any market.
 
 ---
 
 ## Patterns That Emerge
 
-Once scores are calculated, recognizable patterns appear.
+Once scores are calculated, recognizable archetypes appear in the 7-axis distribution.
 
 ![Engineering Archetypes plotted in Production vs Survival space](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-archetypes-paper-figure.png)
-*Figure 3. Different engineer archetypes emerge naturally when production and time-decayed survival are plotted together.*
+*Different engineer archetypes emerge naturally when production and time-decayed survival are plotted together.*
 
-### Architect
-High production, survival, design influence, and debt cleanup.
+### Architect: Prod↑ Surv↑ Design↑ Debt↑
 
-These engineers build the structural backbone of the system.
+High output, and all of it survives. Designs the architecture personally. Cleans up others' debt too. The backbone of the team. If this person leaves, the product stalls.
 
-### Cleaner
-Moderate production but extremely high durability and cleanup.
+Quality score sometimes dips — but that's usually because they're **aggressively making design changes** (introducing new architectural layers, refactoring abstractions). When Design is high, low Quality is evidence of *proactive improvement*, not sloppiness.
 
-Often undervalued, but essential for system stability.
+### Mass Producer: Prod↑ Qual↓ Surv↓ Debt↓
 
-### High-Output / Low-Durability
-Large code volume but low survival and frequent fixes.
+Writes a lot of code, but the fix ratio is high and nothing survives. **A cycle of writing and breaking.** Worse — low debt cleanup means their bugs are being fixed by *other people*.
 
-These engineers generate technical churn. They *look* productive, which makes them dangerous to evaluate on output alone.
+This type *looks* productive at first glance, which is what makes them dangerous. **They're actually a debt factory for the team.** If you evaluate on output alone, this person gets a raise they don't deserve.
 
-### Wide Presence / Low Impact
-High repository breadth but limited design or durable code.
+### Solid Cleaner: Prod→ Qual↑ Surv↑ Debt↑
 
-Visible across the system but with shallow influence.
+Not the highest output, but low fix ratio and high durability. Quietly fixes everyone else's bugs. **Writes code once, and it lasts.** Then cleans up the mess around them.
+
+Unsexy but invaluable. This type deserves higher compensation than their production numbers suggest.
+
+### Political: Breadth↑ Prod↓ Surv↓ Design↓
+
+Shows up in many repositories but produces little, designs nothing, and nothing survives. **Wide presence, zero depth.**
+
+In my own experience, I had a high-hourly-rate contractor who fit this pattern exactly. Breadth was the only high axis. Total score: mid-20s. The numbers were brutally honest.
+
+### Specialist / Growing
+
+Specialist: dominant in a narrow area but no cross-repo presence. Bus factor risk, but valuable. Growing: low output but high quality — writing carefully, learning the ropes. If production and design scores increase over time, this person is leveling up.
+
+### Archetype Quick Reference
+
+| Type | Prod | Qual | Surv | Design | Breadth | Debt | Indisp | Risk |
+|---|---|---|---|---|---|---|---|---|
+| Architect | ◎ | △–○ | ◎ | ◎ | ○ | ◎ | ◎ | — |
+| Mass Producer | ◎ | ✕ | ✕ | △ | △ | ✕ | △ | **⚠️ High** |
+| Solid Cleaner | ○ | ◎ | ◎ | ○ | ○ | ◎ | △ | — |
+| Political | ✕ | △ | ✕ | ✕ | ◎ | △ | ✕ | **⚠️ High** |
+| Specialist | ◎ | ◎ | ◎ | ○ | ✕ | ○ | ◎ | △ Silo |
+| Growing | △ | ◎ | ○ | ✕ | △ | ○ | ✕ | — |
+
+**Mass Producer and Political types score low overall but can look impressive on individual metrics.** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them.
+
+---
+
+## Real-World Results
+
+I ran this on my own team (14 repos, 10+ engineers including departed members). Here are anonymized excerpts.
+
+### Backend Rankings (Excerpt)
+
+| # | Member | Prod | Qual | Surv | Design | Breadth | Debt | Indisp | Total | Type |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | machu (me) | 100 | 57 | 100 | 100 | 74 | 100 | 43 | **90.3** | Architect |
+| 2 | Member A (departed) | 69 | 73 | 12 | 67 | 81 | 11 | 100 | **52.8** | Former Architect |
+| 3 | Member B | 17 | 69 | 50 | 14 | 48 | 88 | 35 | **44.5** | Solid Cleaner |
+| 4 | Member C | 27 | 84 | 30 | 28 | 52 | 71 | 8 | **41.8** | Solid |
+| — | Member X (departed) | 6 | 79 | ≈0 | 4 | 78 | —† | 0 | **24.9** | Political |
+
+† Insufficient sample (fewer than 10 fix-commit involvements). Neutral value 50 used in total score calculation.
+
+**Member X** was a high-rate contractor. Total score: 24.9. Breadth was the only high number — Production 6, Design 4, Survival nearly zero. **The Political archetype in its purest form.** If this model had existed earlier, we could have detected it before the contract even started.
+
+**Member A** built the original architecture during the early days — Design 67, Breadth 81. But Indispensability 100 is the highest on the team, meaning **the most modules are still owned by someone who already left**. Time decay dropped their Survival to 12, but the codebase is still shaped by their decisions. The numbers clearly show they were an Architect while active.
+
+**Member B** — Production 17 doesn't turn heads. But Survival 50 (2nd on the team) means their recent code stays. Debt Cleanup 88 means they're quietly fixing everyone else's bugs. **This is exactly the kind of person that Debt Cleanup was designed to surface.**
+
+My own Quality of 57 is low, reflecting aggressive architectural changes (introducing DelegateProcess layers, designing PartProcess abstractions, iterating on domain models in code). Combined with Design 100, it reads as proactive improvement rather than sloppiness.
+
+### Frontend Rankings (Excerpt)
+
+| # | Member | Prod | Qual | Surv | Design | Breadth | Debt | Indisp | Total | Type |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Member D | 100 | 84 | 100 | 100 | 62 | 39 | 100 | **85.4** | Architect |
+| — | Member Y (departed) | 24 | 18 | ≈0 | 17 | 38 | 0 | 0 | **12.6** | Mass Producer |
+
+**Member D** owns essentially all of the frontend core library (180K+ lines). Indispensability 100 — same structural risk as Member A on the backend. **If this person leaves, there is nobody who can make frontend design decisions.** Debt Cleanup 39 is mid-range within FE, but with 129 self-fixes, it shows a self-contained work style: write it, fix it yourself.
+
+**Member Y**: Quality 18 — meaning **82% of their commits were fixes or corrections**. Survival ≈ 0, Debt Cleanup 0. Wrote a lot, fixed a lot, and none of it survived. Never cleaned up anyone else's debt either. The Mass Producer archetype, confirmed by data.
 
 ---
 
 ## Why Revenue Metrics Miss Engineering Health
 
-Business KPIs measure **product success**, not **engineering health**.
+This section is for executives and managers.
 
-A company can grow rapidly while its codebase quietly deteriorates.
+"Revenue is growing, so engineering must be fine" — this is a dangerous assumption. Revenue measures **product-market fit**, not **engineering health**.
 
-Engineering health depends on signals such as:
+Think of it this way: revenue is a car's speed. Engineering health is the engine's condition. An engine can be failing and still produce speed — if you're going downhill. Speed alone doesn't tell you the engine is healthy.
+
+To understand engineering health, you need signals that revenue doesn't capture:
 
 - **Code durability** — are you rewriting the same features every quarter?
 - **Technical debt accumulation** — does adding 1 feature generate 2 bug fixes?
@@ -350,13 +340,27 @@ Git history contains all of these signals.
 
 ## Accuracy Scales with Design Quality
 
-This metric has a property where **higher codebase design quality yields higher accuracy**.
+This model has an interesting property: **higher codebase design quality yields higher scoring accuracy**.
 
-In well-structured codebases (Clean Architecture, DDD), "touching design files = making design decisions" holds true, and high Survival means "the design withstood change pressure."
+In well-structured codebases (Clean Architecture, DDD), the assumptions hold: "touching design files = making design decisions" is true, and high Survival means "the design withstood change pressure."
 
-In chaotic codebases, high Survival might just mean "dead code nobody touches."
+In chaotic codebases, high Survival might just mean "dead code nobody touches." And low Design score might just mean "architecture files don't exist as a clear category."
 
-**The metric's low accuracy is itself a signal of poor design.** If it doesn't match gut feeling, the codebase structure may not withstand measurement. Investing in design is itself infrastructure for improving evaluation accuracy.
+**The metric's low accuracy is itself a signal of poor design.** If the scores don't match your gut feeling, the problem may not be the model — it may be that your codebase structure can't withstand measurement. Investing in design is itself infrastructure for improving evaluation accuracy.
+
+---
+
+## Who Makes the Decisions at Your Company?
+
+If you're reading this and thinking "I should try this on my team," here's a question worth asking:
+
+**What is the combat power ranking of the person making engineering decisions at your company?**
+
+If you want to build a genuinely strong engineering organization, the person making architectural decisions **must** be among the top scorers on the team. Why? Because the quality of design decisions shows up in code. The architect should be someone who writes code personally, and whose code survives. That's the only reliable way to ensure design quality.
+
+When a low-scoring person sits in the decision-making seat, what happens? **High-scoring engineers on the ground have their design decisions overruled by someone whose code doesn't even survive in the codebase.** That's structurally toxic.
+
+If you run this model and discover your engineering lead scores in the bottom half — that's not a metric problem. That's an organizational problem.
 
 ---
 
@@ -364,13 +368,14 @@ In chaotic codebases, high Survival might just mean "dead code nobody touches."
 
 This model is not perfect.
 
-- Commit messages affect fix detection accuracy
-- Blame analysis can be expensive on large repos
-- Frontend refactors reduce survival scores (→ separate BE/FE scoring)
-- Copy-paste inflates production (→ offset by survival and design)
-- Debt cleanup depends on sample size (→ threshold: <10 events = reference value)
+- Commit messages affect fix detection accuracy → Quality is weighted at only 10%
+- Blame analysis can be expensive on large repos → sample up to 500 files
+- Frontend refactors reduce survival scores → separate BE/FE scoring
+- Copy-paste inflates production → offset by survival and design
+- Debt cleanup depends on sample size → threshold: <10 events = neutral value 50
+- Indispensability conflates "strong" with "nobody took over" → weight is only 5%
 
-However, even with imperfections, these signals are far more informative than raw commit counts.
+Not universal. But as **validation of your intuition**, it works far better than "just a feeling." At minimum, it's 100x better than guessing.
 
 ---
 
@@ -380,35 +385,34 @@ This model does **not** measure a person's value.
 
 It estimates **technical influence observable in a codebase**.
 
-Engineers contribute in many ways that git cannot capture:
+Engineers contribute in ways git cannot capture: mentoring, domain expertise, documentation, psychological safety, team culture. Those contributions matter enormously. This score only quantifies what git records — nothing more. It's not universal. But zero measurement is infinitely worse.
 
-- mentoring
-- domain expertise
-- documentation
-- team culture
+---
 
-Those contributions matter. But observable signals are still useful.
+## Measure Every Quarter
+
+This model's real value comes from **tracking changes over time**.
+
+If Survival is rising quarter-over-quarter, that engineer's **design skills are growing**. If fix ratio is dropping, **first-pass quality is improving**. If Debt Cleanup is rising, **team contribution is increasing**.
+
+Conversely, if only Production is rising while everything else flatlines — output increased, but quality didn't.
+
+Numbers don't lie.
 
 ---
 
 ## Final Thought
 
-Git quietly records the real history of a system.
+Git quietly records the real history of a system. If we analyze that history carefully, we can understand who builds durable systems, who stabilizes them, and where organizational risk exists.
 
-If we analyze that history carefully, we can understand:
-
-- who builds durable systems
-- who stabilizes them
-- where organizational risk exists
-
-Numbers will never tell the whole story. But they are far better than guessing.
+Numbers will never tell the whole story. But **quantify what you can, then qualitatively supplement what you can't.** That order matters.
 
 As AI-driven development grows, this model could also measure **the rigidity of AI-generated code**. Is AI a debt factory or a cleaner? Git records humans and AI equally. Quantitatively tracking AI-written code survival and debt ratio — that feels like the next phase of engineering evaluation.
 
-If you run this model on your own codebase, the results may surprise you.
+If you run this model on your own codebase, the results may surprise you. The numbers are more honest than you think.
 
 ---
 
-**GitHub:** [machuz/engineering-impact-score](https://github.com/machuz/engineering-impact-score) — Full formulas, methodology, and blog posts in English and Japanese.
+**GitHub:** [machuz/engineering-impact-score](https://github.com/machuz/engineering-impact-score) — Full formulas, methodology, Claude Code prompt, data collection script, and blog posts in English and Japanese.
 
 **Support:** If this helped you see your team differently — [GitHub Sponsors](https://github.com/sponsors/machuz) / PayPay: `w_machu7`
