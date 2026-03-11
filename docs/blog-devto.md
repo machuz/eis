@@ -3,7 +3,7 @@ title: Measuring Engineering Impact from Git History Alone
 published: true
 description: A 7-axis scoring model that quantifies engineer impact using nothing but git log and git blame. Code survival, debt cleanup, bus factor — all from data you already have.
 tags: engineering, productivity, git, management
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png
 ---
 
 *Why commit counts, PR counts, and lines of code fail to capture real engineering strength*
@@ -86,7 +86,7 @@ rather than who wrote the most code historically.
 
 ## The 7 Axes of Engineering Impact
 
-![Framework overview: Git History flows through 7 signals into Engineering Impact Score](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram.png)
+![Framework overview: Git History flows through 7 signals into Engineering Impact Score](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png)
 *Figure 2. The Engineering Impact Score aggregates seven observable signals derived from git history.*
 
 The model evaluates engineers across seven signals.
