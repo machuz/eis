@@ -1,5 +1,9 @@
 # Engineering Impact Score
 
+[![dev.to](https://img.shields.io/badge/dev.to-Read%20Article-0A0A0A?logo=devdotto&logoColor=white)](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c)
+[![はてなブログ](https://img.shields.io/badge/はてなブログ-記事を読む-00A4DE)](https://ma2k8.hateblo.jp/entry/2026/03/11/153212)
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github)](https://github.com/sponsors/machuz)
+
 **Quantify engineer combat power using nothing but git history.**
 
 A 7-axis scoring model that measures an engineer's real impact on a codebase. No surveys, no subjective reviews — just `git log` and `git blame`.
