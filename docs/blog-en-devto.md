@@ -226,6 +226,8 @@ The scale is intentionally strict.
 | 20–29 | Junior–Mid | $80K–120K |
 | <20 | Junior | $60K–90K |
 
+Comp figures are rough estimates and vary significantly by market (SF vs. Midwest, US vs. Europe, etc.).
+
 **40 = Senior.** If that seems low, consider what it takes: with relative scoring across 7 axes, just putting up decent numbers across the board requires serious, well-rounded ability. Production, quality, survival, design, breadth, debt cleanup — doing well in all of them simultaneously is structurally difficult. If your senior scores 40, that's *normal*. An engineer in the 40s can compete in any market.
 
 ---
@@ -283,6 +285,8 @@ Specialist: dominant in a narrow area but no cross-repo presence. Bus factor ris
 ## Real-World Results
 
 I ran this on my own team (14 repos, 10+ engineers including departed members). Here are anonymized excerpts.
+
+Yes, I score highest. I'm the tech lead and I designed the metric — if the person making architectural decisions *didn't* top the leaderboard, that would be a red flag, not a feature. The real validation is elsewhere: the rankings for everyone else matched the team's gut feeling almost perfectly.
 
 ### Backend Rankings (Excerpt)
 
