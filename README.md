@@ -179,6 +179,10 @@ eis analyze --config eis.yaml --recursive ~/projects
 - **Bus Factor risk map** showing modules with dangerous ownership concentration
 - Color-coded output for quick visual scanning
 
+### Supported Languages
+
+Works out of the box with: Go, TypeScript/JavaScript, Python, Rust, Java, Ruby, C/C++ (including firmware/embedded), Scala, Haskell, OCaml. Additional extensions can be added via `blame_extensions` in `eis.yaml`.
+
 ### Requirements
 
 - Git repos cloned locally
