@@ -224,8 +224,8 @@ See [`config.example.yaml`](config.example.yaml) for all options:
 
 ## Blog Posts
 
-- [Japanese / はてなブログ](docs/blog-ja-hatena.md) — 日本語版フル記事（実測結果付き）
-- [English / dev.to](docs/blog-en-devto.md) — English version optimized for dev.to with images
+- [Japanese / はてなブログ](https://ma2k8.hateblo.jp/entry/2026/03/11/153212) — 日本語版フル記事（実測結果付き）
+- [English / dev.to](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c) — English version with images and real-world rankings
 
 ## Roadmap
 
