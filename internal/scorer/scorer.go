@@ -2,6 +2,7 @@ package scorer
 
 import (
 	"sort"
+	"time"
 
 	"github.com/machuz/engineering-impact-score/internal/config"
 	"github.com/machuz/engineering-impact-score/internal/metric"
@@ -18,10 +19,12 @@ type Result struct {
 	DebtCleanup      float64
 	Indispensability float64
 	Total            float64
+	TotalCommits     int
+	RecentlyActive   bool // true if author has commits within last 6 months
 	Archetype        string
 }
 
-func Score(raw *metric.RawScores, cfg *config.Config) []Result {
+func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]time.Time) []Result {
 	// Production: absolute scale — raw.Production is already per-day rate
 	// Score = min(per_day / production_daily_ref * 100, 100)
 	normProd := make(map[string]float64)
@@ -53,6 +56,12 @@ func Score(raw *metric.RawScores, cfg *config.Config) []Result {
 
 	var results []Result
 	for _, author := range authors {
+		// Determine if author has been active in last 6 months
+		recentlyActive := false
+		if lastDate, ok := authorLastDate[author]; ok {
+			recentlyActive = time.Since(lastDate).Hours()/24 <= 180
+		}
+
 		r := Result{
 			Author:           author,
 			Production:       normProd[author],
@@ -63,6 +72,8 @@ func Score(raw *metric.RawScores, cfg *config.Config) []Result {
 			DebtCleanup:      normDebt[author],
 			Indispensability: normIndisp[author],
 			RawSurvival:      normRawSurv[author],
+			TotalCommits:     raw.TotalCommits[author],
+			RecentlyActive:   recentlyActive,
 		}
 
 		r.Total = r.Production*w.Production +

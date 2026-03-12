@@ -190,6 +190,7 @@ func runAnalyze(args []string) error {
 				acc.authorRepoCommits[c.Author] = make(map[string]int)
 			}
 			acc.authorRepoCommits[c.Author][repoName]++
+			acc.raw.TotalCommits[c.Author]++
 
 			// Track earliest and latest commit dates per author
 			if first, ok := acc.authorFirstDate[c.Author]; !ok || c.Date.Before(first) {
@@ -295,7 +296,7 @@ func runAnalyze(args []string) error {
 		}
 
 		// Score and rank
-		results := scorer.Score(acc.raw, cfg)
+		results := scorer.Score(acc.raw, cfg, acc.authorLastDate)
 
 		// Filter out excluded authors from results
 		var filtered []scorer.Result

@@ -164,10 +164,11 @@ Produce:
    - **Architect**: Prod↑ Surv↑ Design↑ Debt↑
    - **Former Architect**: Design↑ Indisp↑ Surv↓ (system still depends on them but they're inactive)
    - **Solid Cleaner**: Prod→ Qual↑ Surv↑ Debt↑
-   - **Mass Producer**: Prod↑ Qual↓ Surv↓ Debt↓
+   - **Churn Producer**: Prod↑ Qual↓ Surv↓ (high output but terrible quality, constant rework)
+   - **Mass Producer**: Prod↑ Surv↓ (high output but code doesn't survive)
    - **Quality Anchor**: Qual↑ Prod mid — reliable but not yet shaping design
    - **Spreader**: Breadth↑ Prod↓ Surv↓ Design↓
-   - **Silent Killer**: Prod↓ Surv↓ Debt↓ (net drain on team capacity)
+   - **Silent Killer**: Prod↓ Surv↓ Debt↓ (net drain on team capacity; requires >= 100 commits)
    - **Balanced**: Total 30+ but no dominant axis
    - **Specialist**: narrow but deep
    - **Growing**: low volume, high quality

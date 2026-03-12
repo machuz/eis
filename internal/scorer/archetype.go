@@ -19,6 +19,12 @@ func classifyArchetype(r Result) string {
 		return "Former Architect"
 	}
 
+	// Churn Producer: high production but terrible quality AND code doesn't survive
+	// Writes a lot but most commits are fixes/reverts, and nothing lasts
+	if high(r.Production) && low(r.Quality) && low(r.Survival) {
+		return "Churn Producer"
+	}
+
 	// Mass Producer: high production but code doesn't survive (debt factory)
 	if high(r.Production) && low(r.Survival) {
 		return "Mass Producer"
@@ -35,7 +41,9 @@ func classifyArchetype(r Result) string {
 	}
 
 	// Silent Killer: low production, low survival, low debt cleanup (net drain on team)
-	if low(r.Production) && low(r.Survival) && low(r.DebtCleanup) {
+	// Only applies to authors with meaningful commit history (>= 100 commits)
+	// Low-activity contributors get "—" instead — they're not "killing", just absent
+	if r.TotalCommits >= 100 && low(r.Production) && low(r.Survival) && low(r.DebtCleanup) {
 		return "Silent Killer"
 	}
 

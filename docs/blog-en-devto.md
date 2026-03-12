@@ -273,9 +273,13 @@ Detected by the **gap between raw and time-decayed survival**. Code still exists
 
 Their code still shapes the codebase, but nobody is maintaining the design decisions behind it. This archetype functions as a **handoff priority alert** — modules dominated by a Former Architect need active knowledge transfer before they become unmaintainable.
 
-### Mass Producer: Prod↑ Qual↓ Surv↓ Debt↓
+### Churn Producer: Prod↑ Qual↓ Surv↓
 
-Writes a lot of code, but the fix ratio is high and nothing survives. **A cycle of writing and breaking.** Worse — low debt cleanup means their bugs are being fixed by *other people*.
+High production but terrible quality — most commits are fixes or reverts, and code doesn't survive. **A constant stream of rework.** Unlike Mass Producer (who writes some decent first-pass code), the Churn Producer's quality score is near zero. They're not just producing debt — they're producing *churn*.
+
+### Mass Producer: Prod↑ Surv↓ Debt↓
+
+Writes a lot of code, but nothing survives. **A cycle of writing and replacing.** Worse — low debt cleanup means their bugs are being fixed by *other people*.
 
 This type *looks* productive at first glance, which is what makes them dangerous. **They're actually a debt factory for the team.** If you evaluate on output alone, this person gets a raise they don't deserve.
 
@@ -291,9 +295,11 @@ Shows up in many repositories but produces little, designs nothing, and nothing 
 
 In my own experience, I had a high-hourly-rate contractor who fit this pattern exactly. Breadth was the only high axis. Total score: mid-20s. The numbers were brutally honest.
 
-### Silent Killer: Prod↓ Surv↓ Debt↓
+### Silent Killer: Prod↓ Surv↓ Debt↓ (≥100 commits)
 
 Low production, low survival, low debt cleanup. Neither builds nor cleans. **Their presence is a net drain on team capacity** — occupying a seat and consuming review bandwidth without contributing durable output. Unlike a Spreader who at least touches many repos, a Silent Killer may not even have visible breadth. The most dangerous aspect: they're easy to overlook because they don't cause obvious problems. They just don't produce value.
+
+Note: this label only applies to authors with ≥100 commits. Low-activity contributors are not labeled — they're simply absent, not "killing".
 
 ### Specialist / Growing
 
@@ -305,7 +311,8 @@ Specialist: dominant in a narrow area but no cross-repo presence. Bus factor ris
 |---|---|---|---|---|---|---|---|---|
 | Architect | ◎ | △–○ | ◎ | ◎ | ○ | ◎ | ◎ | — |
 | Former Architect | △ | △ | ✕ | ◎ | ○ | △ | ◎ | **⚠️ Handoff** |
-| Mass Producer | ◎ | ✕ | ✕ | △ | △ | ✕ | △ | **⚠️ High** |
+| Churn Producer | ◎ | ✕ | ✕ | △ | △ | ✕ | △ | **⚠️ High** |
+| Mass Producer | ◎ | △ | ✕ | △ | △ | ✕ | △ | **⚠️ High** |
 | Solid Cleaner | ○ | ◎ | ◎ | ○ | ○ | ◎ | △ | — |
 | Quality Anchor | ○ | ◎ | △ | △ | ○ | ○ | △ | — |
 | Spreader | ✕ | △ | ✕ | ✕ | ◎ | △ | ✕ | **⚠️ High** |
@@ -314,7 +321,7 @@ Specialist: dominant in a narrow area but no cross-repo presence. Bus factor ris
 | Specialist | ◎ | ◎ | ◎ | ○ | ✕ | ○ | ◎ | △ Silo |
 | Growing | △ | ◎ | ○ | ✕ | △ | ○ | ✕ | — |
 
-**Mass Producer, Spreader, and Silent Killer types score low overall but can look impressive on individual metrics (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them.
+**Mass Producer, Churn Producer, Spreader, and Silent Killer types score low overall but can look impressive on individual metrics (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them.
 
 ![Archetypes Radar](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/archetypes-radar.png)
 

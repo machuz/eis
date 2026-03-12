@@ -12,14 +12,20 @@ func PrintRankingsCSV(domain string, results []scorer.Result, writeHeader bool) 
 	w := csv.NewWriter(os.Stdout)
 
 	if writeHeader {
-		w.Write([]string{"domain", "rank", "member", "production", "quality", "survival", "design", "breadth", "debt_cleanup", "indispensability", "total", "type"})
+		w.Write([]string{"domain", "rank", "member", "active", "commits", "production", "quality", "survival", "design", "breadth", "debt_cleanup", "indispensability", "total", "type"})
 	}
 
 	for i, r := range results {
+		active := "false"
+		if r.RecentlyActive {
+			active = "true"
+		}
 		w.Write([]string{
 			domain,
 			fmt.Sprintf("%d", i+1),
 			r.Author,
+			active,
+			fmt.Sprintf("%d", r.TotalCommits),
 			fmt.Sprintf("%.1f", r.Production),
 			fmt.Sprintf("%.1f", r.Quality),
 			fmt.Sprintf("%.1f", r.Survival),

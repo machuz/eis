@@ -24,6 +24,8 @@ type jsonDomain struct {
 type jsonMember struct {
 	Rank             int     `json:"rank"`
 	Member           string  `json:"member"`
+	Active           bool    `json:"active"`
+	Commits          int     `json:"commits"`
 	Production       float64 `json:"production"`
 	Quality          float64 `json:"quality"`
 	Survival         float64 `json:"survival"`
@@ -62,6 +64,8 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 		d.Members = append(d.Members, jsonMember{
 			Rank:             i + 1,
 			Member:           r.Author,
+			Active:           r.RecentlyActive,
+			Commits:          r.TotalCommits,
 			Production:       round1(r.Production),
 			Quality:          round1(r.Quality),
 			Survival:         round1(r.Survival),
