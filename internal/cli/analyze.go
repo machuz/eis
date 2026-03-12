@@ -249,16 +249,17 @@ func runAnalyze(args []string) error {
 				acc.changePressure[key] = p
 			}
 
-			// Need at least 2 authors with ≥5000 blame lines for pressure
-			// split to be meaningful. Below that, the repo is effectively
-			// solo-owned and has no real change pressure.
+			// Need at least 2 authors with ≥10% AND ≥1000 blame lines for
+			// pressure split to be meaningful. This filters out solo-dominated
+			// repos while allowing smaller multi-person repos to have pressure.
 			blameByAuthor := make(map[string]int)
 			for _, bl := range blameLines {
 				blameByAuthor[cfg.ResolveAuthor(bl.Author)]++
 			}
+			minShare := float64(len(blameLines)) * 0.10
 			substantialAuthors := 0
 			for _, count := range blameByAuthor {
-				if count >= 5000 {
+				if float64(count) >= minShare && count >= 1000 {
 					substantialAuthors++
 				}
 			}

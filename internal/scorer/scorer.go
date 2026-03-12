@@ -90,11 +90,17 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 		if hasPressureData {
 			robustWeight := w.Survival * 0.80
 			dormantWeight := w.Survival * 0.20
+
+			// Design is only proven when code survives under change pressure.
+			// Scale design contribution by robust survival (floor 0.2).
+			designDamping := r.RobustSurvival/100*0.8 + 0.2 // 0.2 at Robust=0, 1.0 at Robust=100
+			effectiveDesign := r.Design * designDamping
+
 			r.Total = r.Production*w.Production +
 				r.Quality*w.Quality +
 				r.RobustSurvival*robustWeight +
 				r.DormantSurvival*dormantWeight +
-				r.Design*w.Design +
+				effectiveDesign*w.Design +
 				r.Breadth*w.Breadth +
 				r.DebtCleanup*w.DebtCleanup +
 				r.Indispensability*w.Indispensability
