@@ -81,7 +81,10 @@ func classifyArchetypeWithConfidence(r Result) (primary ArchetypeMatch, secondar
 				maxf(highness(r.Design), highness(r.Indispensability)))
 		}},
 		{"Churn Producer", func() float64 {
-			return minf(highness(r.Production), lowness(r.Quality), lowness(r.Survival))
+			if r.Production-r.Survival < 30 {
+				return 0
+			}
+			return minf(notLow(r.Production), lowness(r.Quality), lowness(r.Survival))
 		}},
 		{"Rescue Producer", func() float64 {
 			return minf(highness(r.Production), lowness(r.Survival), highness(r.DebtCleanup))
@@ -120,7 +123,7 @@ func classifyArchetypeWithConfidence(r Result) (primary ArchetypeMatch, secondar
 	var matches []match
 	for i, rule := range rules {
 		score := rule.score()
-		if score > 0 {
+		if score >= 0.10 {
 			matches = append(matches, match{ArchetypeMatch{rule.name, score}, i})
 		}
 	}
