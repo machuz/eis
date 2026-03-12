@@ -306,31 +306,6 @@ State captures **where the engineer is in their trajectory** relative to the cod
 | **Fragile** | Surv↑ Prod↓ Qual<70 | Code survives not because it's well-written, but because nobody is changing it. A hidden risk that will collapse under change pressure |
 | **—** | No lifecycle signal | No clear state detected |
 
-### How the Three Axes Compose
-
-The old single-label system mapped to 3-axis combinations like this:
-
-| Old Archetype | Role | Style | State |
-|---|---|---|---|
-| Architect-Builder | Architect | Builder | Active |
-| Architect | Architect | — | Active |
-| Former Architect | Architect | — | Former |
-| Churn Producer | Producer | Churn | Active |
-| Rescue Producer | Producer | Rescue | Active |
-| Resilient Producer | Producer | Resilient | Active |
-| Mass Producer | Producer | Mass | Active |
-| Solid Cleaner | Anchor | Balanced | Active |
-| Quality Anchor | Anchor | — | Active |
-| Spreader | — | Spread | Active |
-| Silent Killer | — | — | Silent |
-| Fragile Fortress | — | — | Fragile |
-| Specialist | Specialist | — | Active |
-| Growing | — | — | Growing |
-
-The 3-axis model is strictly more expressive. You can now represent combinations that the old system couldn't — like `Specialist / Resilient / Growing` (a specialist who iterates heavily but is still ramping up) or `Architect / Rescue / Active` (an architect who is actively rescuing legacy design decisions).
-
-Each axis includes a confidence score, so you can tell the difference between a strong classification and a borderline one.
-
 ### Why This Matters
 
 **Churn, Mass, Spread, and Silent patterns score low overall but can look impressive on individual metrics (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them. Rescue style is a notable exception — low survival looks alarming, but high debt cleanup reveals active legacy rescue rather than new debt generation. Resilient style is another positive exception — low total survival resembles Mass, but decent robust survival reveals iteration toward durable code. Fragile state is a subtle case — high survival looks reassuring, but combined with low production and mediocre quality, it signals dormant code that will break under change pressure.
