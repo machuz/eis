@@ -76,12 +76,10 @@ func classifyArchetypeWithConfidence(r Result) (primary ArchetypeMatch, secondar
 		{"Architect-Builder", func() float64 {
 			// Designs, builds heavily, AND cleans up others' code.
 			// The full package: high production + high survival + high design + decent debt cleanup.
-			// When pressure data exists, requires robust survival — untested code disqualifies.
-			surv := r.Survival
-			if r.DormantSurvival > 0 || r.RobustSurvival > 0 {
-				surv = r.RobustSurvival
-			}
-			return minf(highness(r.Production), highness(surv), highness(r.Design), notLow(r.DebtCleanup))
+			// Production gate alone filters out solo-inflated non-builders (e.g. izumi Prod=14).
+			// Total survival is used here — robust not required because high production
+			// already proves active engagement with the codebase.
+			return minf(highness(r.Production), highness(r.Survival), highness(r.Design), notLow(r.DebtCleanup))
 		}},
 		{"Architect", func() float64 {
 			// High design influence with durable code, but not necessarily high production.
