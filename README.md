@@ -46,6 +46,7 @@ The 7-axis distribution reveals archetypes:
 | Type | Prod | Qual | Surv | Design | Breadth | Debt | Indisp | Risk |
 |---|---|---|---|---|---|---|---|---|
 | **Architect** | ◎ | △–○ | ◎ | ◎ | ○ | ◎ | ◎ | — |
+| **Former Architect** | △ | △ | ✕ | ◎ | ○ | △ | ◎ | **⚠️ Handoff** |
 | **Mass Producer** | ◎ | ✕ | ✕ | △ | △ | ✕ | △ | **High** |
 | **Solid Cleaner** | ○ | ◎ | ◎ | ○ | ○ | ◎ | △ | — |
 | **Drifter** | ✕ | △ | ✕ | ✕ | ◎ | △ | ✕ | **High** |

@@ -162,6 +162,7 @@ Produce:
 
 2. **Archetype classification** for each member:
    - **Architect**: Prod↑ Surv↑ Design↑ Debt↑
+   - **Former Architect**: Design↑ Indisp↑ Surv↓ (system still depends on them but they're inactive)
    - **Solid Cleaner**: Prod→ Qual↑ Surv↑ Debt↑
    - **Mass Producer**: Prod↑ Qual↓ Surv↓ Debt↓
    - **Drifter**: Breadth↑ Prod↓ Surv↓ Design↓

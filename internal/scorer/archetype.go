@@ -12,6 +12,12 @@ func classifyArchetype(r Result) string {
 		return "Architect"
 	}
 
+	// Former Architect: designed the system but no longer active
+	// High design + indispensability + low survival = the hole hasn't been filled
+	if high(r.Design) && high(r.Indispensability) && low(r.Survival) {
+		return "Former Architect"
+	}
+
 	// Mass Producer: high production but code doesn't survive (debt factory)
 	if high(r.Production) && low(r.Survival) {
 		return "Mass Producer"
