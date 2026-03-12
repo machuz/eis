@@ -13,7 +13,7 @@ func PrintTeamCSV(teams []team.TeamResult) {
 	w := csv.NewWriter(os.Stdout)
 
 	w.Write([]string{
-		"team", "domain", "members", "repos",
+		"team", "domain", "core_members", "effective_members", "total_members", "repos",
 		"character", "structure", "culture", "phase", "risk",
 		"avg_production", "avg_quality", "avg_survival", "avg_robust_survival", "avg_dormant_survival",
 		"avg_design", "avg_breadth", "avg_debt_cleanup", "avg_indispensability", "avg_total",
@@ -28,7 +28,9 @@ func PrintTeamCSV(teams []team.TeamResult) {
 		w.Write([]string{
 			tr.Name,
 			tr.Domain,
+			fmt.Sprintf("%d", tr.CoreMemberCount),
 			fmt.Sprintf("%d", tr.MemberCount),
+			fmt.Sprintf("%d", tr.TotalMemberCount),
 			fmt.Sprintf("%d", tr.RepoCount),
 			c.Character.Name,
 			c.Structure.Name,

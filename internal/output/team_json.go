@@ -14,13 +14,15 @@ type teamJSONOutput struct {
 type teamJSON struct {
 	Name             string           `json:"name"`
 	Domain           string           `json:"domain"`
-	ActiveCount      int              `json:"active_member_count"`
+	CoreMemberCount  int              `json:"core_member_count"`
+	EffectiveCount   int              `json:"effective_member_count"`
 	TotalMemberCount int              `json:"total_member_count"`
 	RepoCount        int              `json:"repo_count"`
 	Classification   teamClassifyJSON `json:"classification"`
 	Averages         teamAverages     `json:"averages"`
 	Health           teamHealthJSON   `json:"health"`
 	Structure        structureJSON    `json:"structure_metrics"`
+	Warnings         []string         `json:"warnings,omitempty"`
 	Roles            map[string]int   `json:"role_distribution"`
 	Styles           map[string]int   `json:"style_distribution"`
 	States           map[string]int   `json:"state_distribution"`
@@ -77,7 +79,8 @@ func PrintTeamJSON(teams []team.TeamResult) error {
 		tj := teamJSON{
 			Name:             tr.Name,
 			Domain:           tr.Domain,
-			ActiveCount:      tr.MemberCount,
+			CoreMemberCount:  tr.CoreMemberCount,
+			EffectiveCount:   tr.MemberCount,
 			TotalMemberCount: tr.TotalMemberCount,
 			RepoCount:        tr.RepoCount,
 			Classification: teamClassifyJSON{
@@ -118,9 +121,10 @@ func PrintTeamJSON(teams []team.TeamResult) error {
 				AnchorDensity:        round2(tr.Health.AnchorDensity),
 				ArchitectureCoverage: round2(tr.Health.ArchitectureCoverage),
 			},
-			Roles:  tr.RoleDist,
-			Styles: tr.StyleDist,
-			States: tr.StateDist,
+			Warnings: tr.Warnings,
+			Roles:    tr.RoleDist,
+			Styles:   tr.StyleDist,
+			States:   tr.StateDist,
 		}
 
 		for i, m := range tr.Members {

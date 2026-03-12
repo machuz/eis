@@ -266,10 +266,37 @@ func classifyPhase(tr TeamResult) TeamLabel {
 			return 0.50 + wActive*0.3
 		}()},
 
-		// Declining: risk states > 30%
+		// Legacy-Heavy: risk states high but core team is strong (AvgTotal >= 40, has Architect)
+		// "Strong but carrying historical weight" — not truly declining
+		{"Legacy-Heavy", func() float64 {
+			if riskRatio < 0.3 || tr.AvgTotal < 40 {
+				return 0
+			}
+			if tr.RoleDist["Architect"] == 0 {
+				return 0
+			}
+			return minf(presence(riskRatio), axisHigh(tr.AvgTotal))
+		}()},
+
+		// Mature with Attrition: moderate risk (20-40%) but active core still dominant
+		{"Mature with Attrition", func() float64 {
+			if riskRatio < 0.2 || riskRatio >= 0.4 {
+				return 0
+			}
+			if activeRatio < 0.4 {
+				return 0
+			}
+			return minf(presence(riskRatio)*0.8, 0.50+wActive*0.3)
+		}()},
+
+		// Declining: risk states > 30% AND core team is weak (no strong leadership)
 		{"Declining", func() float64 {
 			if riskRatio < 0.3 {
 				return 0
+			}
+			// If core team is strong with an Architect, Legacy-Heavy should win
+			if tr.AvgTotal >= 40 && tr.RoleDist["Architect"] > 0 {
+				return presence(riskRatio) * 0.5 // reduced confidence
 			}
 			return presence(riskRatio)
 		}()},

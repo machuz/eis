@@ -56,6 +56,7 @@ func sideBySide(left, right []string) {
 func PrintTeamTable(teams []team.TeamResult) {
 	for _, tr := range teams {
 		printTeamHeader(tr)
+		printWarnings(tr)
 		printClassification2Col(tr)
 		printDistributions2Col(tr)
 		printHealthAndAverages(tr)
@@ -64,12 +65,26 @@ func PrintTeamTable(teams []team.TeamResult) {
 	}
 }
 
+func printWarnings(tr team.TeamResult) {
+	if len(tr.Warnings) == 0 {
+		return
+	}
+	warnFmt := color.New(color.FgHiRed, color.Bold)
+	dimFmt := color.New(color.FgHiYellow)
+	warnFmt.Println("⚠ Warnings:")
+	for _, w := range tr.Warnings {
+		fmt.Printf("  %s\n", dimFmt.Sprint(w))
+	}
+	fmt.Println()
+}
+
 func printTeamHeader(tr team.TeamResult) {
 	fmt.Println()
-	if tr.TotalMemberCount > tr.MemberCount {
+	riskCount := tr.MemberCount - tr.CoreMemberCount
+	if riskCount > 0 || tr.TotalMemberCount > tr.MemberCount {
 		color.New(color.FgHiCyan, color.Bold).Printf(
-			"═══ %s / %s (%d active / %d total, %d repos) ═══\n",
-			tr.Name, tr.Domain, tr.MemberCount, tr.TotalMemberCount, tr.RepoCount,
+			"═══ %s / %s (%d core + %d risk / %d total, %d repos) ═══\n",
+			tr.Name, tr.Domain, tr.CoreMemberCount, riskCount, tr.TotalMemberCount, tr.RepoCount,
 		)
 	} else {
 		color.New(color.FgHiCyan, color.Bold).Printf(
@@ -81,10 +96,11 @@ func printTeamHeader(tr team.TeamResult) {
 	charStr := formatCharacterLabel(tr.Classification.Character)
 	fmt.Printf("  %s\n", charStr)
 
-	if tr.TotalMemberCount > tr.MemberCount {
+	if riskCount > 0 || tr.TotalMemberCount > tr.MemberCount {
+		peripheralCount := tr.TotalMemberCount - tr.MemberCount
 		fmt.Printf("  %s\n",
-			color.New(color.FgHiBlack).Sprintf("%d active / %d total members · %d repos",
-				tr.MemberCount, tr.TotalMemberCount, tr.RepoCount))
+			color.New(color.FgHiBlack).Sprintf("%d core + %d risk members · %d peripheral · %d repos",
+				tr.CoreMemberCount, riskCount, peripheralCount, tr.RepoCount))
 	}
 	fmt.Println()
 }

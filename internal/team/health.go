@@ -83,17 +83,19 @@ func calcDebtBalance(tr TeamResult) float64 {
 	return clamp(tr.AvgDebtCleanup, 0, 100)
 }
 
-// ProductivityDensity: how much output per member.
-// Uses average production score. High score with few people = remarkable.
-// Scale: avgProd itself is 0-100, but we add a "per-capita intensity" bonus
-// for small teams with high output.
+// ProductivityDensity: how much output per core member.
+// Uses average production score (from core members only).
+// Small team bonus uses CoreMemberCount — the real contributors.
 func calcProductivityDensity(tr TeamResult) float64 {
+	if tr.CoreMemberCount == 0 {
+		return 0
+	}
 	base := tr.AvgProduction
 
-	// Small team bonus: < 5 members with high avg production is notable
-	if tr.MemberCount <= 3 && base >= 50 {
+	// Small team bonus: few core members with high avg production is notable
+	if tr.CoreMemberCount <= 3 && base >= 50 {
 		base = clamp(base*1.2, 0, 100)
-	} else if tr.MemberCount <= 5 && base >= 50 {
+	} else if tr.CoreMemberCount <= 5 && base >= 50 {
 		base = clamp(base*1.1, 0, 100)
 	}
 
@@ -101,19 +103,20 @@ func calcProductivityDensity(tr TeamResult) float64 {
 }
 
 // QualityConsistency: team quality level and consistency (low variance = good).
+// Uses CoreMembers only — risk members' quality doesn't reflect active team consistency.
 // score = avgQuality * 0.6 + (100 - stdev) * 0.4
 func calcQualityConsistency(tr TeamResult) float64 {
-	if tr.MemberCount < 2 {
+	if tr.CoreMemberCount < 2 {
 		return clamp(tr.AvgQuality, 0, 100)
 	}
 
-	// Calculate standard deviation of quality
+	// Calculate standard deviation of quality from core members
 	var sumSq float64
-	for _, m := range tr.Members {
+	for _, m := range tr.CoreMembers {
 		diff := m.Quality - tr.AvgQuality
 		sumSq += diff * diff
 	}
-	stdev := math.Sqrt(sumSq / float64(tr.MemberCount))
+	stdev := math.Sqrt(sumSq / float64(tr.CoreMemberCount))
 
 	// Higher avg quality + lower variance = better consistency
 	score := tr.AvgQuality*0.6 + clamp(100-stdev*2, 0, 100)*0.4
