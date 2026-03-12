@@ -68,7 +68,7 @@ It approximates **who is currently writing durable code**, not who wrote the mos
 
 | Axis | Weight | What it captures |
 |---|---|---|
-| Production | 15% | Volume of code changes |
+| Production | 15% | Changes per day (absolute: configurable `production_daily_ref`, default 1000) |
 | Quality | 10% | Low rate of fix/revert commits |
 | Survival | **25%** | Code that still exists today (time-decayed) |
 | Design | 20% | Contributions to architecture files |
@@ -86,17 +86,25 @@ Quality is weighted low (10%) because commit-message-based detection is a rough 
 
 ---
 
-## Production: Measure Changes, Not Commits
+## Production: Changes Per Day, Absolute Scale
 
 Commit counts are unreliable. Some engineers make large commits. Others split work into many small ones. An engineer who changes 100 lines in one commit and one who makes 100 single-line commits shouldn't score the same.
 
-Instead we measure `insertions + deletions`, excluding:
+We measure `insertions + deletions` per day, using **absolute scoring**:
+
+```
+production_score = min(changes_per_day / production_daily_ref * 100, 100)
+```
+
+The daily rate is computed from total changes divided by the span between the author's first and last commit. The reference (`production_daily_ref`, default 1000) is configurable.
+
+Why absolute instead of relative? With relative scoring, **a single-person domain always gives that person a score of 100**, even if they're slow. Absolute scoring makes production comparable across organizations and domains.
+
+Auto-generated files are excluded:
 
 - `package-lock.json`, `yarn.lock` — library updates move tens of thousands of lines
 - `docs/swagger*` — auto-generated
 - `mock_*`, `*.gen.*` — code generation
-
-Production measures **execution throughput**, but it should never be used alone.
 
 ---
 
@@ -204,11 +212,19 @@ If one engineer owns more than 80% of the lines in a module, that module becomes
 
 ## Scoring
 
-Each metric is normalized within its domain (BE / FE / Infra separately). The top person in each axis gets 100; everyone else is relative.
+Metrics use a **hybrid approach**:
+
+**Absolute axes** (comparable across organizations):
+- Production: `min(changes_per_day / production_daily_ref * 100, 100)`
+- Quality: `100 - fix_ratio` (directly on 0-100 scale)
+- Debt Cleanup: bounded 0-100 scale
+
+**Relative axes** (normalized within domain):
+- Survival, Design, Breadth, Indispensability: top person gets 100
+
+Scored per domain (Backend / Frontend / Infra / Firmware separately). Domain is auto-detected from file extensions or configured explicitly.
 
 ```
-norm(value) = min(value / max_value * 100, 100)
-
 score =
   production * 0.15 +
   quality * 0.10 +

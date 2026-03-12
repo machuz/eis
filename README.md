@@ -14,7 +14,7 @@ A 7-axis scoring model that measures an engineer's real impact on a codebase. No
 
 | Axis | Weight | What it measures |
 |---|---|---|
-| **Production** | 15% | Lines changed (excluding auto-generated files) |
+| **Production** | 15% | Changes per day (absolute: configurable `production_daily_ref`, default 1000) |
 | **First-pass Quality** | 10% | Low fix/revert commit ratio |
 | **Code Survival** | **25%** | Recency-weighted blame survival (tau=180 exponential decay) |
 | **Design** | 20% | Commits to architecture files |
@@ -105,10 +105,15 @@ indispensability = critical_count * 1.0 + high_count * 0.5
 ### Normalization & Total Score
 
 ```python
-def norm(value, max_value):
-    return min(value / max_value * 100, 100)
+# Absolute axes (cross-org comparable):
+#   Production: min(changes_per_day / production_daily_ref * 100, 100)
+#   Quality: 100 - fix_ratio (already 0-100)
+#   Debt: bounded 0-100 scale
 
-# Normalize within domain (BE/FE/Infra separately)
+# Relative axes (normalized within domain):
+#   Survival, Design, Breadth, Indispensability
+
+# Scored per domain (Backend/Frontend/Infra/Firmware separately)
 total = (
     norm_production * 0.15
     + norm_quality * 0.10
@@ -122,8 +127,8 @@ total = (
 
 ## Design Principles
 
-- **BE / FE / Infra are scored separately** — mixing them contaminates rankings
-- **Relative scoring within domain** — the top person in each axis gets 100
+- **BE / FE / Infra / Firmware are scored separately** — mixing them contaminates rankings; auto-detected from file extensions or configured explicitly
+- **Hybrid scoring** — Production, Quality, and Debt use absolute scales (cross-org comparable); Survival, Design, Breadth, and Indispensability use relative normalization within domain
 - **Debt threshold** — members with fewer than 10 debt events get a neutral score (50) to avoid extreme ratios
 - **Accuracy scales with codebase design quality** — well-structured codebases (Clean Architecture, DDD) yield more meaningful scores. If the score doesn't match gut feeling, it may signal poor codebase structure rather than a metric problem
 
@@ -180,6 +185,25 @@ aliases:
 
 exclude_authors:
   - "dependabot[bot]"
+
+# Domain separation (overrides auto-detection from file extensions)
+domains:
+  backend:
+    - "api-*"
+    - "worker"
+  frontend:
+    - "web-*"
+    - "app"
+  infra:
+    - "tf-*"
+  firmware:
+    - "raden"
+
+exclude_repos:
+  - "deprecated-service"
+
+# Production: absolute scale (changes per day / this value * 100, capped at 100)
+production_daily_ref: 1000
 
 weights:
   production: 0.15
@@ -240,6 +264,9 @@ Flags:
 
 See [`config.example.yaml`](config.example.yaml) for all options:
 
+- **Domains**: explicit repo-to-domain mapping (Backend/Frontend/Infra/Firmware). Repos not listed use auto-detection from file extensions
+- **Exclude repos**: skip specific repos from analysis
+- **Production daily ref**: baseline for absolute Production scoring (default: 1000 changes/day = score 100)
 - **Aliases**: merge variant git author names into canonical names
 - **Exclude authors**: filter out bots and non-human contributors
 - **Architecture patterns**: define which files count as "design files" for the Design axis. Defaults:
@@ -267,6 +294,9 @@ See [`config.example.yaml`](config.example.yaml) for all options:
 - [x] Recursive repo discovery (`--recursive`)
 - [x] Author alias mapping via config
 - [x] Concurrent blame analysis (worker pool)
+- [x] Domain separation (BE/FE/Infra/Firmware) with auto-detection
+- [x] Absolute scoring for Production (per-day rate) and Quality (fix ratio)
+- [x] Configurable domain mapping, repo exclusion
 - [ ] GitHub Action for automated quarterly tracking
 - [ ] HTML dashboard visualization
 - [ ] Multi-language commit message support for Quality detection
