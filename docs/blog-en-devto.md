@@ -277,6 +277,10 @@ Their code still shapes the codebase, but nobody is maintaining the design decis
 
 High production but terrible quality — most commits are fixes or reverts, and code doesn't survive. **A constant stream of rework.** Unlike Mass Producer (who writes some decent first-pass code), the Churn Producer's quality score is near zero. They're not just producing debt — they're producing *churn*.
 
+### Rescue Producer: Prod↑ Surv↓ Debt↑
+
+High production with low survival but high debt cleanup. **This engineer is actively taking over and cleaning up others' legacy code** — often seen when someone inherits modules from departed team members. Unlike Mass Producer or Churn Producer, the low survival isn't from writing bad code but from rewriting inherited debt. The code doesn't "survive" because it's *replacing* old code, not failing. Detected when the gap between Production and Survival exceeds 30 points.
+
 ### Mass Producer: Prod↑ Surv↓ Debt↓
 
 Writes a lot of code, but nothing survives. **A cycle of writing and replacing.** Worse — low debt cleanup means their bugs are being fixed by *other people*.
@@ -312,6 +316,7 @@ Specialist: dominant in a narrow area but no cross-repo presence. Bus factor ris
 | Architect | ◎ | △–○ | ◎ | ◎ | ○ | ◎ | ◎ | — |
 | Former Architect | △ | △ | ✕ | ◎ | ○ | △ | ◎ | **⚠️ Handoff** |
 | Churn Producer | ◎ | ✕ | ✕ | △ | △ | ✕ | △ | **⚠️ High** |
+| Rescue Producer | ◎ | △ | ✕ | △ | △ | ◎ | △ | Medium |
 | Mass Producer | ◎ | △ | ✕ | △ | △ | ✕ | △ | **⚠️ High** |
 | Solid Cleaner | ○ | ◎ | ◎ | ○ | ○ | ◎ | △ | — |
 | Quality Anchor | ○ | ◎ | △ | △ | ○ | ○ | △ | — |
@@ -321,7 +326,7 @@ Specialist: dominant in a narrow area but no cross-repo presence. Bus factor ris
 | Specialist | ◎ | ◎ | ◎ | ○ | ✕ | ○ | ◎ | △ Silo |
 | Growing | △ | ◎ | ○ | ✕ | △ | ○ | ✕ | — |
 
-**Mass Producer, Churn Producer, Spreader, and Silent Killer types score low overall but can look impressive on individual metrics (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them.
+**Mass Producer, Churn Producer, Spreader, and Silent Killer types score low overall but can look impressive on individual metrics (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them. Rescue Producer is a notable exception — low survival looks alarming, but high debt cleanup reveals they're actively rescuing legacy code rather than generating new debt.
 
 ![Archetypes Radar](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/archetypes-radar.png)
 

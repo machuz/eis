@@ -118,7 +118,7 @@ The 7-axis distribution reveals archetypes:
 
 **Balanced**: no axis stands out, but Total is 30+. Steady contributor without a dominant strength or weakness. Not flashy, but not a problem either.
 
-**Churn Producer**: high production but terrible quality — most commits are fixes or reverts, and code doesn't survive. Unlike Mass Producer (who writes some decent first-pass code), the Churn Producer generates a constant stream of rework.
+**Churn Producer**: mid-to-high production with terrible quality and low survival — detected when the gap between Production and Survival exceeds 30 points. Most commits are fixes or reverts, generating a constant stream of rework. Unlike Mass Producer (who may write decent first-pass code), the Churn Producer's quality score is near zero.
 
 **Rescue Producer**: high production with low survival but high debt cleanup. This engineer is actively taking over and cleaning up others' code — often seen when someone inherits legacy modules from departed team members. Unlike Mass Producer or Churn Producer, the low survival isn't from writing bad code but from rewriting inherited debt.
 
