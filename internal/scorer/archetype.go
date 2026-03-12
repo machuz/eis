@@ -104,6 +104,14 @@ func classifyArchetypeWithConfidence(r Result) (primary ArchetypeMatch, secondar
 			}
 			return minf(lowness(r.Production), lowness(r.Survival), lowness(r.DebtCleanup))
 		}},
+		{"Fragile Fortress", func() float64 {
+			// High survival + low production + mediocre quality = code survives
+			// only because it's not under change pressure, not because it's good.
+			if r.Quality >= 70 {
+				return 0 // genuinely good quality → not fragile
+			}
+			return minf(highness(r.Survival), lowness(r.Production))
+		}},
 		{"Specialist", func() float64 {
 			return minf(highness(r.Survival), lowness(r.Breadth))
 		}},

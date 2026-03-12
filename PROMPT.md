@@ -170,6 +170,7 @@ Produce:
    - **Quality Anchor**: Qual↑ Prod mid — reliable but not yet shaping design
    - **Spreader**: Breadth↑ Prod↓ Surv↓ Design↓
    - **Silent Killer**: Prod↓ Surv↓ Debt↓ (net drain on team capacity; requires >= 100 commits)
+   - **Fragile Fortress**: Surv↑ Prod↓ Qual<70 — code survives only due to low change pressure, not quality
    - **Balanced**: Total 30+ but no dominant axis
    - **Specialist**: narrow but deep
    - **Growing**: low volume, high quality

@@ -106,6 +106,7 @@ The 7-axis distribution reveals archetypes:
 | **Quality Anchor** | ○ | ◎ | △ | △ | ○ | ○ | △ | — |
 | **Spreader** | ✕ | △ | ✕ | ✕ | ◎ | △ | ✕ | **High** |
 | **Silent Killer** | ✕ | ✕ | ✕ | ✕ | △ | ✕ | ✕ | **High** |
+| **Fragile Fortress** | ✕ | ✕-△ | ◎ | △ | △ | △ | △ | **⚠️ Hidden** |
 | **Specialist** | ◎ | ◎ | ◎ | ○ | ✕ | ○ | ◎ | △ Silo |
 | **Balanced** | ○ | ○ | ○ | △ | ○ | ○ | △ | — |
 | **Growing** | △ | ◎ | ○ | ✕ | △ | ○ | ✕ | — |
@@ -123,6 +124,8 @@ The 7-axis distribution reveals archetypes:
 **Rescue Producer**: high production with low survival but high debt cleanup. This engineer is actively taking over and cleaning up others' code — often seen when someone inherits legacy modules from departed team members. Unlike Mass Producer or Churn Producer, the low survival isn't from writing bad code but from rewriting inherited debt.
 
 **Silent Killer**: low production, low survival, low debt cleanup. Neither builds nor cleans — their presence is a net drain on team capacity. Only applied to authors with >= 100 commits; low-activity contributors are not labeled.
+
+**Fragile Fortress**: high survival with low production and mediocre quality (< 70). The code survives not because it's well-written, but because nobody is changing it. If change pressure increases, this code will likely collapse. A hidden risk that survival score alone cannot reveal.
 
 **Mass Producer, Churn Producer, and Spreader types look productive on individual metrics** but score low overall. Only multi-axis evaluation exposes them.
 

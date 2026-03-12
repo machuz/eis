@@ -305,6 +305,10 @@ Low production, low survival, low debt cleanup. Neither builds nor cleans. **The
 
 Note: this label only applies to authors with ≥100 commits. Low-activity contributors are not labeled — they're simply absent, not "killing".
 
+### Fragile Fortress: Surv↑ Prod↓ Qual<70
+
+High survival with low production and mediocre quality. **The code survives not because it's well-written, but because nobody is changing it.** If change pressure increases — new features, refactoring, migration — this code will likely collapse. A hidden risk that survival score alone cannot reveal. Quality ≥ 70 disqualifies: genuinely good code that's stable is not fragile.
+
 ### Specialist / Growing
 
 Specialist: dominant in a narrow area but no cross-repo presence. Bus factor risk, but valuable. Growing: low output but high quality — writing carefully, learning the ropes. If production and design scores increase over time, this person is leveling up.
@@ -322,11 +326,12 @@ Specialist: dominant in a narrow area but no cross-repo presence. Bus factor ris
 | Quality Anchor | ○ | ◎ | △ | △ | ○ | ○ | △ | — |
 | Spreader | ✕ | △ | ✕ | ✕ | ◎ | △ | ✕ | **⚠️ High** |
 | Silent Killer | ✕ | ✕ | ✕ | ✕ | △ | ✕ | ✕ | **⚠️ High** |
+| Fragile Fortress | ✕ | ✕-△ | ◎ | △ | △ | △ | △ | **⚠️ Hidden** |
 | Balanced | ○ | ○ | ○ | △ | ○ | ○ | △ | — |
 | Specialist | ◎ | ◎ | ◎ | ○ | ✕ | ○ | ◎ | △ Silo |
 | Growing | △ | ◎ | ○ | ✕ | △ | ○ | ✕ | — |
 
-**Mass Producer, Churn Producer, Spreader, and Silent Killer types score low overall but can look impressive on individual metrics (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them. Rescue Producer is a notable exception — low survival looks alarming, but high debt cleanup reveals they're actively rescuing legacy code rather than generating new debt.
+**Mass Producer, Churn Producer, Spreader, and Silent Killer types score low overall but can look impressive on individual metrics (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them. Rescue Producer is a notable exception — low survival looks alarming, but high debt cleanup reveals they're actively rescuing legacy code rather than generating new debt. Fragile Fortress is another subtle case — high survival looks reassuring, but combined with low production and mediocre quality, it signals dormant code that will break under change pressure.
 
 ![Archetypes Radar](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/archetypes-radar.png)
 
