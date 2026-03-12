@@ -19,11 +19,19 @@ func classifyTopology(r Result) (role AxisMatch, style AxisMatch, state AxisMatc
 func classifyRole(r Result) AxisMatch {
 	rules := []classifyRule{
 		// Architect: high design influence with durable code under pressure.
-		// Requires robust survival when pressure data exists.
+		// When pressure data exists, use robust survival — but high production
+		// overrides to total survival (the architect's own changes replace their
+		// code, creating a false low robust score).
 		{"Architect", func() float64 {
 			surv := r.Survival
 			if r.DormantSurvival > 0 || r.RobustSurvival > 0 {
-				surv = r.RobustSurvival
+				if highness(r.Production) > 0 {
+					// High production = active builder whose own changes create pressure.
+					// Total survival is the fair measure.
+					surv = r.Survival
+				} else {
+					surv = r.RobustSurvival
+				}
 			}
 			return minf(highness(r.Design), highness(surv), notLow(r.Breadth))
 		}},
