@@ -14,6 +14,8 @@ type Result struct {
 	Quality          float64
 	Survival         float64
 	RawSurvival      float64 // normalized raw blame (no decay), used for archetype detection
+	RobustSurvival   float64 // survival in high change-pressure modules
+	DormantSurvival  float64 // survival in low change-pressure modules
 	Design           float64
 	Breadth          float64
 	DebtCleanup      float64
@@ -38,6 +40,8 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 		normProd[author] = score
 	}
 	normSurv := Normalize(raw.Survival)
+	normRobustSurv := Normalize(raw.RobustSurvival)
+	normDormantSurv := Normalize(raw.DormantSurvival)
 	normDesign := Normalize(raw.Design)
 	normIndisp := Normalize(raw.Indispensability)
 	normRawSurv := Normalize(raw.RawSurvival)
@@ -69,6 +73,8 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 			Production:       normProd[author],
 			Quality:          normQual[author],
 			Survival:         normSurv[author],
+			RobustSurvival:   normRobustSurv[author],
+			DormantSurvival:  normDormantSurv[author],
 			Design:           normDesign[author],
 			Breadth:          normBreadth[author],
 			DebtCleanup:      normDebt[author],
@@ -78,13 +84,29 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 			RecentlyActive:   recentlyActive,
 		}
 
-		r.Total = r.Production*w.Production +
-			r.Quality*w.Quality +
-			r.Survival*w.Survival +
-			r.Design*w.Design +
-			r.Breadth*w.Breadth +
-			r.DebtCleanup*w.DebtCleanup +
-			r.Indispensability*w.Indispensability
+		// When robust/dormant data is available, split survival weight 80/20.
+		// Otherwise fall back to classic single survival.
+		hasPressureData := len(raw.RobustSurvival) > 0 || len(raw.DormantSurvival) > 0
+		if hasPressureData {
+			robustWeight := w.Survival * 0.80
+			dormantWeight := w.Survival * 0.20
+			r.Total = r.Production*w.Production +
+				r.Quality*w.Quality +
+				r.RobustSurvival*robustWeight +
+				r.DormantSurvival*dormantWeight +
+				r.Design*w.Design +
+				r.Breadth*w.Breadth +
+				r.DebtCleanup*w.DebtCleanup +
+				r.Indispensability*w.Indispensability
+		} else {
+			r.Total = r.Production*w.Production +
+				r.Quality*w.Quality +
+				r.Survival*w.Survival +
+				r.Design*w.Design +
+				r.Breadth*w.Breadth +
+				r.DebtCleanup*w.DebtCleanup +
+				r.Indispensability*w.Indispensability
+		}
 
 		primary, secondary := classifyArchetypeWithConfidence(r)
 		r.Archetype = primary.Name

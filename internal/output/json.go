@@ -29,6 +29,8 @@ type jsonMember struct {
 	Production       float64        `json:"production"`
 	Quality          float64        `json:"quality"`
 	Survival         float64        `json:"survival"`
+	RobustSurvival   float64        `json:"robust_survival"`
+	DormantSurvival  float64        `json:"dormant_survival"`
 	Design           float64        `json:"design"`
 	Breadth          float64        `json:"breadth"`
 	DebtCleanup      float64        `json:"debt_cleanup"`
@@ -76,6 +78,8 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 			Production:       round1(r.Production),
 			Quality:          round1(r.Quality),
 			Survival:         round1(r.Survival),
+			RobustSurvival:   round1(r.RobustSurvival),
+			DormantSurvival:  round1(r.DormantSurvival),
 			Design:           round1(r.Design),
 			Breadth:          round1(r.Breadth),
 			DebtCleanup:      round1(r.DebtCleanup),

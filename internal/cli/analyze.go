@@ -27,7 +27,8 @@ type domainAccumulator struct {
 	authorFirstDate   map[string]time.Time      // earliest commit date per author
 	authorLastDate    map[string]time.Time       // latest commit date per author
 	repoCount         int
-	risks             []metric.ModuleRisk // accumulated bus factor risks
+	risks             []metric.ModuleRisk        // accumulated bus factor risks
+	changePressure    metric.ChangePressure      // accumulated change pressure across repos
 }
 
 func newDomainAccumulator() *domainAccumulator {
@@ -38,6 +39,7 @@ func newDomainAccumulator() *domainAccumulator {
 		authorRepoCommits: make(map[string]map[string]int),
 		authorFirstDate:   make(map[string]time.Time),
 		authorLastDate:    make(map[string]time.Time),
+		changePressure:    make(metric.ChangePressure),
 	}
 }
 
@@ -50,6 +52,7 @@ func runAnalyze(args []string) error {
 	recursive := fs.Bool("recursive", false, "Recursively find git repos under given paths")
 	maxDepth := fs.Int("depth", 2, "Max directory depth for recursive search")
 	formatFlag := fs.String("format", "table", "Output format: table, csv, json")
+	pressureMode := fs.String("pressure-mode", "include", "Change pressure mode: include (split robust/dormant) or ignore (classic survival)")
 
 	if err := fs.Parse(args); err != nil {
 		return err
@@ -227,10 +230,26 @@ func runAnalyze(args []string) error {
 		}
 		blameLines = filterBlameLines(blameLines, cfg)
 
-		// Survival
-		survResult := metric.CalcSurvival(blameLines, cfg.Tau, start)
-		mergeMap(acc.raw.Survival, survResult.Decayed)
-		mergeMap(acc.raw.RawSurvival, survResult.Raw)
+		// Survival: split by change pressure or use classic mode
+		if *pressureMode == "include" {
+			repoPressure := metric.CalcChangePressure(commits, blameLines)
+			for mod, p := range repoPressure {
+				key := repoName + "/" + mod
+				acc.changePressure[key] = p
+			}
+
+			pressureThreshold := repoPressure.MedianPressure()
+			survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, start, repoPressure, pressureThreshold)
+			mergeMap(acc.raw.Survival, survResult.Decayed)
+			mergeMap(acc.raw.RawSurvival, survResult.Raw)
+			mergeMap(acc.raw.RobustSurvival, survResult.Robust)
+			mergeMap(acc.raw.DormantSurvival, survResult.Dormant)
+		} else {
+			// Classic mode: single survival score, no pressure split
+			survResult := metric.CalcSurvival(blameLines, cfg.Tau, start)
+			mergeMap(acc.raw.Survival, survResult.Decayed)
+			mergeMap(acc.raw.RawSurvival, survResult.Raw)
+		}
 
 		// Indispensability
 		indisp, risks := metric.CalcIndispensability(blameLines, cfg.BusFactor.Critical, cfg.BusFactor.High)

@@ -22,7 +22,21 @@ func PrintRankings(results []scorer.Result) {
 	headerFmt := color.New(color.FgCyan, color.Bold).SprintfFunc()
 	columnFmt := color.New(color.FgWhite).SprintfFunc()
 
-	tbl := table.New("#", "Member", "Active", "Prod", "Qual", "Surv", "Design", "Breadth", "Debt", "Indisp", "Total", "Type", "2nd")
+	// Detect if pressure data is available
+	hasPressure := false
+	for _, r := range results {
+		if r.RobustSurvival > 0 || r.DormantSurvival > 0 {
+			hasPressure = true
+			break
+		}
+	}
+
+	var tbl table.Table
+	if hasPressure {
+		tbl = table.New("#", "Member", "Active", "Prod", "Qual", "Robust", "Dormant", "Design", "Breadth", "Debt", "Indisp", "Total", "Type", "2nd")
+	} else {
+		tbl = table.New("#", "Member", "Active", "Prod", "Qual", "Surv", "Design", "Breadth", "Debt", "Indisp", "Total", "Type", "2nd")
+	}
 	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt).WithWidthFunc(stripAnsiWidth).WithWriter(os.Stdout)
 
 	nameFmt := color.New(color.FgHiYellow).SprintfFunc()
@@ -45,21 +59,40 @@ func PrintRankings(results []scorer.Result) {
 		if r.Secondary.Name != "" && r.Secondary.Confidence > 0 {
 			secondaryStr = confFmt("%s (%.2f)", r.Secondary.Name, r.Secondary.Confidence)
 		}
-		tbl.AddRow(
-			i+1,
-			nameFmt("%s", r.Author),
-			activeStr,
-			fmt.Sprintf("%.0f", r.Production),
-			fmt.Sprintf("%.0f", r.Quality),
-			fmt.Sprintf("%.0f", r.Survival),
-			fmt.Sprintf("%.0f", r.Design),
-			fmt.Sprintf("%.0f", r.Breadth),
-			fmt.Sprintf("%.0f", r.DebtCleanup),
-			fmt.Sprintf("%.0f", r.Indispensability),
-			totalStr,
-			typeStr,
-			secondaryStr,
-		)
+		if hasPressure {
+			tbl.AddRow(
+				i+1,
+				nameFmt("%s", r.Author),
+				activeStr,
+				fmt.Sprintf("%.0f", r.Production),
+				fmt.Sprintf("%.0f", r.Quality),
+				fmt.Sprintf("%.0f", r.RobustSurvival),
+				fmt.Sprintf("%.0f", r.DormantSurvival),
+				fmt.Sprintf("%.0f", r.Design),
+				fmt.Sprintf("%.0f", r.Breadth),
+				fmt.Sprintf("%.0f", r.DebtCleanup),
+				fmt.Sprintf("%.0f", r.Indispensability),
+				totalStr,
+				typeStr,
+				secondaryStr,
+			)
+		} else {
+			tbl.AddRow(
+				i+1,
+				nameFmt("%s", r.Author),
+				activeStr,
+				fmt.Sprintf("%.0f", r.Production),
+				fmt.Sprintf("%.0f", r.Quality),
+				fmt.Sprintf("%.0f", r.Survival),
+				fmt.Sprintf("%.0f", r.Design),
+				fmt.Sprintf("%.0f", r.Breadth),
+				fmt.Sprintf("%.0f", r.DebtCleanup),
+				fmt.Sprintf("%.0f", r.Indispensability),
+				totalStr,
+				typeStr,
+				secondaryStr,
+			)
+		}
 	}
 
 	fmt.Println()

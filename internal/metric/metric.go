@@ -5,6 +5,8 @@ type RawScores struct {
 	Quality          map[string]float64
 	Survival         map[string]float64
 	RawSurvival      map[string]float64 // non-decayed blame line count
+	RobustSurvival   map[string]float64 // survival in high change-pressure modules
+	DormantSurvival  map[string]float64 // survival in low change-pressure modules
 	Design           map[string]float64
 	Breadth          map[string]float64
 	DebtCleanup      map[string]float64
@@ -18,6 +20,8 @@ func NewRawScores() *RawScores {
 		Quality:          make(map[string]float64),
 		Survival:         make(map[string]float64),
 		RawSurvival:      make(map[string]float64),
+		RobustSurvival:   make(map[string]float64),
+		DormantSurvival:  make(map[string]float64),
 		Design:           make(map[string]float64),
 		Breadth:          make(map[string]float64),
 		DebtCleanup:      make(map[string]float64),

@@ -74,7 +74,12 @@ func classifyArchetypeWithConfidence(r Result) (primary ArchetypeMatch, secondar
 
 	rules := []rule{
 		{"Architect", func() float64 {
-			return minf(highness(r.Production), highness(r.Survival), highness(r.Design))
+			// Prefer RobustSurvival when available (code survives under change pressure)
+			surv := r.Survival
+			if r.RobustSurvival > 0 {
+				surv = r.RobustSurvival
+			}
+			return minf(highness(r.Production), highness(surv), highness(r.Design))
 		}},
 		{"Former Architect", func() float64 {
 			return minf(highness(r.RawSurvival), lowness(r.Survival),
@@ -105,11 +110,16 @@ func classifyArchetypeWithConfidence(r Result) (primary ArchetypeMatch, secondar
 			return minf(lowness(r.Production), lowness(r.Survival), lowness(r.DebtCleanup))
 		}},
 		{"Fragile Fortress", func() float64 {
-			// High survival + low production + mediocre quality = code survives
-			// only because it's not under change pressure, not because it's good.
+			// High dormant survival + low robust survival + mediocre quality
+			// = code survives only because it's not under change pressure.
 			if r.Quality >= 70 {
 				return 0 // genuinely good quality → not fragile
 			}
+			// When robust/dormant data is available, use it for precise detection
+			if r.DormantSurvival > 0 || r.RobustSurvival > 0 {
+				return minf(highness(r.DormantSurvival), lowness(r.RobustSurvival), lowness(r.Production))
+			}
+			// Fallback: original heuristic
 			return minf(highness(r.Survival), lowness(r.Production))
 		}},
 		{"Specialist", func() float64 {
