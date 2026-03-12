@@ -3,6 +3,8 @@ package output
 import (
 	"fmt"
 	"os"
+	"regexp"
+	"unicode/utf8"
 
 	"github.com/fatih/color"
 	"github.com/machuz/engineering-impact-score/internal/metric"
@@ -10,12 +12,18 @@ import (
 	"github.com/rodaine/table"
 )
 
+var ansiRegexp = regexp.MustCompile(`\x1b\[[0-9;]*m`)
+
+func stripAnsiWidth(s string) int {
+	return utf8.RuneCountInString(ansiRegexp.ReplaceAllString(s, ""))
+}
+
 func PrintRankings(results []scorer.Result) {
 	headerFmt := color.New(color.FgCyan, color.Bold).SprintfFunc()
 	columnFmt := color.New(color.FgWhite).SprintfFunc()
 
 	tbl := table.New("#", "Member", "Prod", "Qual", "Surv", "Design", "Breadth", "Debt", "Indisp", "Total", "Type")
-	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt).WithWriter(os.Stdout)
+	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt).WithWidthFunc(stripAnsiWidth).WithWriter(os.Stdout)
 
 	for i, r := range results {
 		totalStr := formatTotal(r.Total)
