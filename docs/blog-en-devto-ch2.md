@@ -280,3 +280,9 @@ All from git history. No surveys. No additional tooling.
 **What you can measure, you can improve. What you can't measure, you can only pray about.**
 
 Let's turn team strength from a prayer into a metric.
+
+---
+
+**GitHub:** [machuz/engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, full methodology, and blog posts. Install with `brew tap machuz/tap && brew install eis`.
+
+**Support:** If this helped you see your team differently — [❤️ Sponsor on GitHub](https://github.com/sponsors/machuz) / PayPay: `w_machu7`

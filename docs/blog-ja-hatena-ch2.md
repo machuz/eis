@@ -304,3 +304,13 @@ eis team --format json --recursive ~/workspace | pbcopy
 **測れるものは改善できる。測れないものは祈るしかない。**
 
 チームの強さを、祈りから指標に変えよう。
+
+---
+
+**GitHub:** [machuz/engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLIツール、計算式、方法論を公開しています。`brew tap machuz/tap && brew install eis` ですぐ使えます。
+
+この記事が参考になったら：
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
+
+PayPay: `w_machu7`
