@@ -10,7 +10,7 @@ It estimates who actually builds and sustains a system by combining production, 
 
 > In practice, this surfaced patterns that naive metrics miss: former architects, silent cleaners, debt generators, and bus-factor risks.
 
-![Terminal Output](docs/images/terminal-output.svg?v=0.9.1)
+![Terminal Output](docs/images/terminal-output.svg?v=0.10.0)
 
 ## Why This Matters
 
@@ -79,6 +79,8 @@ Time-decayed survival is also naturally resistant to gaming — you can't inflat
 | **Indispensability** | 5% | Modules where you own 80%+ of blame lines (Bus Factor) |
 
 **Code Survival is the core thesis** — exponential time decay ensures "are you *still* writing durable designs?" matters most.
+
+**Gravity** (v0.10.0) is shown alongside scores but excluded from the total. It measures structural influence (`Indisp×0.4 + Breadth×0.3 + Design×0.3`) and is color-coded by health: green = durable influence, yellow = moderate, red = fragile dependency.
 
 ## Score Guide
 
@@ -150,7 +152,7 @@ Each engineer gets a 3-label profile. Examples:
 
 **Churn, Mass, and Spread styles look productive on individual metrics** but score low overall. Only multi-axis evaluation exposes them.
 
-![Archetypes Radar](docs/images/archetypes-radar.svg?v=0.9.1)
+![Archetypes Radar](docs/images/archetypes-radar.svg?v=0.10.0)
 
 ## Key Formulas
 
@@ -246,11 +248,13 @@ Shared flags:
   --pressure-mode     Change pressure mode: include (default) or ignore
 ```
 
-### Team Health (7 axes)
+### Team Analysis (`eis team`)
 
-`eis team` aggregates individual scores and computes team-level health:
+Aggregates individual scores into team-level health metrics and **5-axis team classification** (Structure / Culture / Phase / Risk / Character). Classification is influence-weighted — high-scoring members shape the team's identity more.
 
-| Axis | What it measures |
+![Team Output](docs/images/team-output.svg)
+
+| Health Axis | What it measures |
 |---|---|
 | **Complementarity** | Role diversity coverage (5 known roles) |
 | **Growth Potential** | Growing members + mentor (Builder/Cleaner) presence |
@@ -259,6 +263,8 @@ Shared flags:
 | **Productivity Density** | Output per member, with small-team bonus |
 | **Quality Consistency** | Average quality + low variance |
 | **Risk Ratio** | % of members in risk states |
+
+Structural metrics (AAR, Anchor Density, Architecture Coverage) and full classification details are covered in the [Chapter 2 blog posts](#blog-posts).
 
 ## Configuration
 
