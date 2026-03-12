@@ -24,19 +24,12 @@
     <circle cx="0" cy="0" r="27" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
 
     <!-- Axis lines (7 axes, 360/7 ≈ 51.4° apart) -->
-    <!-- Prod: 90° (top) -->
     <line x1="0" y1="0" x2="0" y2="-110" stroke="#ddd" stroke-width="0.5"/>
-    <!-- Qual: 141.4° -->
     <line x1="0" y1="0" x2="87" y2="-67" stroke="#ddd" stroke-width="0.5"/>
-    <!-- Surv: 192.8° -->
     <line x1="0" y1="0" x2="105" y2="34" stroke="#ddd" stroke-width="0.5"/>
-    <!-- Design: 244.3° -->
     <line x1="0" y1="0" x2="65" y2="94" stroke="#ddd" stroke-width="0.5"/>
-    <!-- Breadth: 295.7° -->
     <line x1="0" y1="0" x2="-65" y2="94" stroke="#ddd" stroke-width="0.5"/>
-    <!-- Debt: 347.1° -->
     <line x1="0" y1="0" x2="-105" y2="34" stroke="#ddd" stroke-width="0.5"/>
-    <!-- Indisp: 38.6° -->
     <line x1="0" y1="0" x2="-87" y2="-67" stroke="#ddd" stroke-width="0.5"/>
 
     <!-- Architect shape (high everything) -->
@@ -57,7 +50,7 @@
     <text x="0" y="156" text-anchor="middle" font-size="11" fill="#888">Score: 80-100</text>
   </g>
 
-  <!-- === Chart 2: Mass Producer === -->
+  <!-- === Chart 2: Churn Producer === -->
   <g transform="translate(450,235)">
     <!-- Grid circles -->
     <circle cx="0" cy="0" r="110" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
@@ -74,8 +67,8 @@
     <line x1="0" y1="0" x2="-105" y2="34" stroke="#ddd" stroke-width="0.5"/>
     <line x1="0" y1="0" x2="-87" y2="-67" stroke="#ddd" stroke-width="0.5"/>
 
-    <!-- Mass Producer shape (high prod, low everything else) -->
-    <polygon points="0,-99 16,-12 11,3 6,9 -12,18 -11,3 -9,-7"
+    <!-- Churn Producer shape (high prod, low qual, low surv) -->
+    <polygon points="0,-99 9,-7 5,2 3,5 -6,9 -5,2 -4,-3"
              fill="rgba(224,108,117,0.25)" stroke="#e06c75" stroke-width="2.5"/>
 
     <!-- Axis labels -->
@@ -88,11 +81,11 @@
     <text x="-100" y="-74" text-anchor="end" class="axis-label">Indisp</text>
 
     <!-- Title -->
-    <text x="0" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#e06c75">Mass Producer</text>
-    <text x="0" y="156" text-anchor="middle" font-size="11" fill="#888">Score: 20-35</text>
+    <text x="0" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#e06c75">Churn Producer</text>
+    <text x="0" y="156" text-anchor="middle" font-size="11" fill="#888">Prod↑ Qual↓ Surv↓</text>
   </g>
 
-  <!-- === Chart 3: Spreader === -->
+  <!-- === Chart 3: Rescue Producer === -->
   <g transform="translate(745,235)">
     <!-- Grid circles -->
     <circle cx="0" cy="0" r="110" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
@@ -109,9 +102,9 @@
     <line x1="0" y1="0" x2="-105" y2="34" stroke="#ddd" stroke-width="0.5"/>
     <line x1="0" y1="0" x2="-87" y2="-67" stroke="#ddd" stroke-width="0.5"/>
 
-    <!-- Spreader shape (high breadth only) -->
-    <polygon points="0,-11 9,-7 5,2 3,5 -60,87 -11,3 -4,-3"
-             fill="rgba(97,175,239,0.25)" stroke="#61afef" stroke-width="2.5"/>
+    <!-- Rescue Producer shape (high prod, low surv, high debt cleanup) -->
+    <polygon points="0,-99 16,-12 5,2 3,5 -6,9 -84,27 -4,-3"
+             fill="rgba(230,162,60,0.25)" stroke="#e6a23c" stroke-width="2.5"/>
 
     <!-- Axis labels -->
     <text x="0" y="-118" text-anchor="middle" class="axis-label">Prod</text>
@@ -123,10 +116,10 @@
     <text x="-100" y="-74" text-anchor="end" class="axis-label">Indisp</text>
 
     <!-- Title -->
-    <text x="0" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#61afef">Spreader</text>
-    <text x="0" y="156" text-anchor="middle" font-size="11" fill="#888">Score: 15-25</text>
+    <text x="0" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#e6a23c">Rescue Producer</text>
+    <text x="0" y="156" text-anchor="middle" font-size="11" fill="#888">Prod↑ Surv↓ Debt↑</text>
   </g>
 
   <!-- Subtitle -->
-  <text x="450" y="465" text-anchor="middle" font-size="11" fill="#999" font-family="-apple-system, sans-serif">Multi-axis evaluation exposes archetypes that single metrics miss. Mass Producers and Spreaders look productive on individual axes but score low overall. Silent Killers fly under the radar entirely.</text>
+  <text x="450" y="465" text-anchor="middle" font-size="11" fill="#999" font-family="-apple-system, sans-serif">Multi-axis evaluation with confidence scoring exposes archetypes that single metrics miss. Churn Producers and Rescue Producers share high production but differ in debt cleanup — one generates rework, the other cleans up after others.</text>
 </svg>

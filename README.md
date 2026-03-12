@@ -100,6 +100,7 @@ The 7-axis distribution reveals archetypes:
 | **Architect** | ◎ | △-○ | ◎ | ◎ | ○ | ◎ | ◎ | — |
 | **Former Architect** | △ | △ | ✕ | ◎ | ○ | △ | ◎ | **⚠️ Handoff** |
 | **Churn Producer** | ◎ | ✕ | ✕ | △ | △ | ✕ | △ | **High** |
+| **Rescue Producer** | ◎ | △ | ✕ | △ | △ | ◎ | △ | Medium |
 | **Mass Producer** | ◎ | △ | ✕ | △ | △ | ✕ | △ | **High** |
 | **Solid Cleaner** | ○ | ◎ | ◎ | ○ | ○ | ◎ | △ | — |
 | **Quality Anchor** | ○ | ◎ | △ | △ | ○ | ○ | △ | — |
@@ -118,6 +119,8 @@ The 7-axis distribution reveals archetypes:
 **Balanced**: no axis stands out, but Total is 30+. Steady contributor without a dominant strength or weakness. Not flashy, but not a problem either.
 
 **Churn Producer**: high production but terrible quality — most commits are fixes or reverts, and code doesn't survive. Unlike Mass Producer (who writes some decent first-pass code), the Churn Producer generates a constant stream of rework.
+
+**Rescue Producer**: high production with low survival but high debt cleanup. This engineer is actively taking over and cleaning up others' code — often seen when someone inherits legacy modules from departed team members. Unlike Mass Producer or Churn Producer, the low survival isn't from writing bad code but from rewriting inherited debt.
 
 **Silent Killer**: low production, low survival, low debt cleanup. Neither builds nor cleans — their presence is a net drain on team capacity. Only applied to authors with >= 100 commits; low-activity contributors are not labeled.
 
@@ -236,7 +239,7 @@ See [`config.example.yaml`](config.example.yaml) for all options:
 ### What You Get
 
 - **Rankings table** with all 7 axis scores, total, and **Active** indicator (✓ = committed within last 6 months)
-- **Archetype classification** (Architect, Solid Cleaner, Mass Producer, Churn Producer, Spreader, etc.)
+- **Archetype classification** with confidence scores (0.0-1.0) and secondary archetype — e.g., `Quality Anchor (0.85)` primary, `Former Architect (0.65)` secondary
 - **Bus Factor risk map** showing modules with dangerous ownership concentration
 - Color-coded output for quick visual scanning
 - **JSON / CSV export** (`--format json|csv`) for dashboards and programmatic use

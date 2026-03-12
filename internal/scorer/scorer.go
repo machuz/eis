@@ -20,8 +20,10 @@ type Result struct {
 	Indispensability float64
 	Total            float64
 	TotalCommits     int
-	RecentlyActive   bool // true if author has commits within last 6 months
-	Archetype        string
+	RecentlyActive   bool   // true if author has commits within last 6 months
+	Archetype        string // primary archetype name
+	ArchetypeConf    float64        // primary archetype confidence (0.0-1.0)
+	Secondary        ArchetypeMatch // second-best archetype match
 }
 
 func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]time.Time) []Result {
@@ -84,7 +86,10 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 			r.DebtCleanup*w.DebtCleanup +
 			r.Indispensability*w.Indispensability
 
-		r.Archetype = classifyArchetype(r)
+		primary, secondary := classifyArchetypeWithConfidence(r)
+		r.Archetype = primary.Name
+		r.ArchetypeConf = primary.Confidence
+		r.Secondary = secondary
 
 		results = append(results, r)
 	}

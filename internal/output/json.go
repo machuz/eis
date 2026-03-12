@@ -22,19 +22,26 @@ type jsonDomain struct {
 }
 
 type jsonMember struct {
-	Rank             int     `json:"rank"`
-	Member           string  `json:"member"`
-	Active           bool    `json:"active"`
-	Commits          int     `json:"commits"`
-	Production       float64 `json:"production"`
-	Quality          float64 `json:"quality"`
-	Survival         float64 `json:"survival"`
-	Design           float64 `json:"design"`
-	Breadth          float64 `json:"breadth"`
-	DebtCleanup      float64 `json:"debt_cleanup"`
-	Indispensability float64 `json:"indispensability"`
-	Total            float64 `json:"total"`
-	Type             string  `json:"type"`
+	Rank             int            `json:"rank"`
+	Member           string         `json:"member"`
+	Active           bool           `json:"active"`
+	Commits          int            `json:"commits"`
+	Production       float64        `json:"production"`
+	Quality          float64        `json:"quality"`
+	Survival         float64        `json:"survival"`
+	Design           float64        `json:"design"`
+	Breadth          float64        `json:"breadth"`
+	DebtCleanup      float64        `json:"debt_cleanup"`
+	Indispensability float64        `json:"indispensability"`
+	Total            float64        `json:"total"`
+	Type             string         `json:"type"`
+	TypeConf         float64        `json:"type_confidence"`
+	Secondary        *jsonArchetype `json:"secondary,omitempty"`
+}
+
+type jsonArchetype struct {
+	Type       string  `json:"type"`
+	Confidence float64 `json:"confidence"`
 }
 
 type jsonBusFactor struct {
@@ -61,7 +68,7 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 	}
 
 	for i, r := range results {
-		d.Members = append(d.Members, jsonMember{
+		m := jsonMember{
 			Rank:             i + 1,
 			Member:           r.Author,
 			Active:           r.RecentlyActive,
@@ -75,7 +82,15 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 			Indispensability: round1(r.Indispensability),
 			Total:            round1(r.Total),
 			Type:             r.Archetype,
-		})
+			TypeConf:         r.ArchetypeConf,
+		}
+		if r.Secondary.Name != "" && r.Secondary.Confidence > 0 {
+			m.Secondary = &jsonArchetype{
+				Type:       r.Secondary.Name,
+				Confidence: r.Secondary.Confidence,
+			}
+		}
+		d.Members = append(d.Members, m)
 	}
 
 	for _, r := range risks {
