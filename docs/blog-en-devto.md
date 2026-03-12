@@ -318,7 +318,7 @@ State captures **where the engineer is in their trajectory** relative to the cod
 
 I ran this on my own team (14 repos, 10+ engineers including departed members). Here are anonymized excerpts.
 
-Yes, I score highest. I'm the tech lead and I designed the metric — if the person making architectural decisions *didn't* top the leaderboard, that would be a red flag, not a feature. The real validation is elsewhere: the rankings for everyone else matched the team's gut feeling almost perfectly.
+Yes, I score highest. I'm the tech lead and I designed the metric — if the person making architectural decisions *didn't* top the leaderboard, that would be a red flag, not a feature. It also helps that I log the most hours on this codebase by a wide margin, so take the top spot with a grain of salt. The real validation is elsewhere: the rankings for everyone else matched the team's gut feeling almost perfectly.
 
 ### Backend Rankings (Excerpt)
 
