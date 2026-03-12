@@ -313,8 +313,8 @@ claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Sco
 - [English / dev.to](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c) — English version with images and real-world rankings
 
 **Chapter 2 — Team Analysis**
-- [Japanese / はてなブログ](docs/blog-ja-hatena-ch2.md) — チーム分析の章
-- [English / dev.to](docs/blog-en-devto-ch2.md) — Team health metrics and patterns
+- [Japanese / はてなブログ](https://ma2k8.hateblo.jp/entry/2026/03/13/060851) — チーム分析の章
+- [English / dev.to](https://dev.to/machuz/beyond-individual-scores-measuring-team-health-from-git-history-3n9f) — Team health metrics and patterns
 
 ## Roadmap
 
