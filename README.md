@@ -1,12 +1,12 @@
-# Engineering Impact Score
+# Engineering Impact Score (EIS)
 
 [![dev.to](https://img.shields.io/badge/dev.to-Read%20Article-0A0A0A?logo=devdotto&logoColor=white)](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c)
 [![はてなブログ](https://img.shields.io/badge/はてなブログ-記事を読む-00A4DE)](https://ma2k8.hateblo.jp/entry/2026/03/11/153212)
 [![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github)](https://github.com/sponsors/machuz)
 
-**Quantify engineer combat power using nothing but git history.**
+**A framework that measures real engineering impact using only Git history.**
 
-A 7-axis scoring model that measures an engineer's real impact on a codebase. No surveys, no subjective reviews — just `git log` and `git blame`.
+It estimates who actually builds and sustains a system by combining production, survival, design, and maintenance signals. No surveys, no subjective reviews — just `git log` and `git blame`.
 
 > On my team (14 repos, 10+ engineers), this matched gut feeling with eerie accuracy.
 
@@ -234,6 +234,7 @@ eis analyze --config eis.yaml --recursive ~/projects
 - **Archetype classification** (Architect, Solid Cleaner, Mass Producer, Drifter, etc.)
 - **Bus Factor risk map** showing modules with dangerous ownership concentration
 - Color-coded output for quick visual scanning
+- **JSON / CSV export** (`--format json|csv`) for dashboards and programmatic use
 
 ### Supported Languages
 
@@ -261,6 +262,7 @@ Flags:
   --config <path>     Config file (default: eis.yaml)
   --recursive         Recursively find git repos under given paths
   --depth <n>         Max directory depth for recursive search (default: 2)
+  --format <fmt>      Output format: table, csv, json (default: table)
   --tau <days>        Survival decay parameter (default: 180)
   --sample <n>        Max files to blame per repo (default: 500)
   --workers <n>       Concurrent blame workers (default: 4)
@@ -306,7 +308,7 @@ See [`config.example.yaml`](config.example.yaml) for all options:
 - [ ] GitHub Action for automated quarterly tracking
 - [ ] HTML dashboard visualization
 - [ ] Multi-language commit message support for Quality detection
-- [ ] JSON / CSV output format
+- [x] JSON / CSV output format (`--format json|csv`)
 
 ## Special Thanks
 
