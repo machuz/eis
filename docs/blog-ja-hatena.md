@@ -226,7 +226,7 @@ total = production × 0.15
 
 **40でシニア**。これがこの指標の厳しさだ。7軸の相対評価なので、全軸でそこそこの数字を出すだけでも相当な実力が必要になる。「うちのチーム、シニアが40点しかないんだけど……」と思ったら、それは正常。40点台のエンジニアは市場でも十分に戦える人材だと思ってもらっていい。
 
-![スコアガイド](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.svg)
+![スコアガイド](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png)
 
 ### 指標の分布で見えるエンジニアの「型」
 
@@ -282,7 +282,7 @@ total = production × 0.15
 
 **量産型と漂流型は総合スコアが低くても、個別の指標だけ見ると「活躍しているように見える」のがタチが悪い**。生産量だけ、あるいは幅だけで評価する組織では、このタイプが高評価を受けてしまう。7軸を組み合わせることで初めて炙り出せる。
 
-![アーキタイプ別レーダーチャート](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/archetypes-radar.svg)
+![アーキタイプ別レーダーチャート](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/archetypes-radar.png)
 
 ### 実際に計測してみた
 
@@ -488,7 +488,7 @@ tau: 180
 
 実行すると、7軸スコア・総合点・アーキタイプ・Bus Factorリスクがターミナルに色分けで出力される。数秒〜数分で完了する。
 
-![ターミナル出力例](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/terminal-output.svg)
+![ターミナル出力例](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/terminal-output.png)
 
 **自分のチームの戦闘力、コマンド一発で測れます。**
 
