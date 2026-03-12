@@ -91,9 +91,12 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 			robustWeight := w.Survival * 0.80
 			dormantWeight := w.Survival * 0.20
 
-			// Design is only proven when code survives under change pressure.
-			// Scale design contribution by robust survival (floor 0.2).
-			designDamping := r.RobustSurvival/100*0.8 + 0.2 // 0.2 at Robust=0, 1.0 at Robust=100
+			// Design is only proven when code survives under change pressure
+			// OR when the author actively builds (high production proves design through action).
+			// Low production + high design = likely inflated by solo ownership.
+			robustFactor := r.RobustSurvival/100*0.8 + 0.2 // 0.2 at Robust=0, 1.0 at Robust=100
+			productionFactor := r.Production/100*0.8 + 0.2  // 0.2 at Prod=0, 1.0 at Prod=100
+			designDamping := maxf(robustFactor, productionFactor)
 			effectiveDesign := r.Design * designDamping
 
 			r.Total = r.Production*w.Production +
