@@ -287,8 +287,8 @@ Style captures the engineer's **working pattern** — independent of what they p
 | **Builder** | Prod↑ Surv↑ Design↑ | The full package. Designs, builds heavily, AND maintains. If this person leaves, the product stalls |
 | **Resilient** | Prod↑ RobustSurv○ | Iterates heavily — writes, rewrites, experiments — but what survives under change pressure is durable |
 | **Rescue** | Prod↑ Surv↓ Debt↑ | Actively taking over and cleaning up legacy code. Low survival isn't from writing bad code but from rewriting inherited debt |
-| **Churn** | Prod↑ Qual↓ Surv↓ | A constant stream of rework. High output, but most commits are fixes or reverts. Producing *churn*, not value |
-| **Mass** | Prod↑ Surv↓ Debt↓ | Writes a lot, nothing survives, and bugs are fixed by *other people*. A debt factory that *looks* productive |
+| **Churn** | Prod○ Qual↓ Surv↓ gap≥30 | A constant stream of rework. Most commits are fixes or reverts. Producing *churn*, not value |
+| **Mass** | Prod↑ Surv↓ | Writes a lot, nothing survives |
 | **Balanced** | Even distribution | No extreme peaks or valleys. Well-rounded |
 | **Spread** | Breadth↑ Prod↓ Surv↓ | Wide presence across repos, zero depth. Shows up everywhere, produces little |
 | **—** | No dominant pattern | No clear working style detected |
