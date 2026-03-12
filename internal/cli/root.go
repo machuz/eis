@@ -39,6 +39,8 @@ Examples:
   eis analyze /path/to/repo1 /path/to/repo2      Analyze multiple repos
   eis analyze --recursive /path/to/workspace     Auto-detect repos under directory
   eis analyze --recursive --depth 3 ~/projects   Search up to 3 levels deep
+  eis analyze --format json --recursive ~/work   Output as JSON
+  eis analyze --format csv --recursive ~/work    Output as CSV
 
 Options for analyze:
   --config <path>             Config file (default: eis.yaml in CWD)
@@ -47,6 +49,7 @@ Options for analyze:
   --tau <days>                Survival decay parameter (default: 180)
   --sample <n>                Max files to blame per repo (default: 500)
   --workers <n>               Number of concurrent blame workers (default: 4)
+  --format <fmt>              Output format: table, csv, json (default: table)
 
 Config file (eis.yaml):
   aliases:                    Map git author names to canonical names

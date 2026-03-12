@@ -27,6 +27,7 @@ type domainAccumulator struct {
 	authorFirstDate   map[string]time.Time      // earliest commit date per author
 	authorLastDate    map[string]time.Time       // latest commit date per author
 	repoCount         int
+	risks             []metric.ModuleRisk // accumulated bus factor risks
 }
 
 func newDomainAccumulator() *domainAccumulator {
@@ -48,6 +49,7 @@ func runAnalyze(args []string) error {
 	workers := fs.Int("workers", 4, "Number of concurrent blame workers")
 	recursive := fs.Bool("recursive", false, "Recursively find git repos under given paths")
 	maxDepth := fs.Int("depth", 2, "Max directory depth for recursive search")
+	formatFlag := fs.String("format", "table", "Output format: table, csv, json")
 
 	if err := fs.Parse(args); err != nil {
 		return err
@@ -96,8 +98,11 @@ func runAnalyze(args []string) error {
 		cfg.SampleSize = *sampleSize
 	}
 
+	// Quiet mode for structured output (suppress progress to stderr)
+	quiet := *formatFlag == "json" || *formatFlag == "csv"
+
 	// Print alias info if configured
-	if len(cfg.Aliases) > 0 {
+	if !quiet && len(cfg.Aliases) > 0 {
 		fmt.Fprintf(os.Stderr, "Loaded %d author aliases from config\n", len(cfg.Aliases))
 	}
 
@@ -236,19 +241,27 @@ func runAnalyze(args []string) error {
 		debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.ResolveAuthor)
 		mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
 
-		// Step 4: Output per-repo bus factor
-		if len(risks) > 0 {
+		// Step 4: Accumulate bus factor risks per domain; print immediately for table format
+		acc.risks = append(acc.risks, risks...)
+		if *formatFlag == "table" && len(risks) > 0 {
 			output.PrintBusFactorRisks(risks)
 		}
 	}
 
 	// Score and output per domain
-	fmt.Println()
 	domains := domain.AllDomains()
 	// Also include Unknown if present
 	if _, ok := accumulators[domain.Unknown]; ok {
 		domains = append(domains, domain.Unknown)
 	}
+
+	// For JSON, accumulate all domains before writing
+	var jsonWriter *output.JSONWriter
+	if *formatFlag == "json" {
+		jsonWriter = output.NewJSONWriter()
+	}
+
+	csvHeaderWritten := false
 
 	for _, d := range domains {
 		acc, ok := accumulators[d]
@@ -296,14 +309,30 @@ func runAnalyze(args []string) error {
 			continue
 		}
 
-		// Output with domain header
-		color.New(color.FgHiCyan, color.Bold).Printf("═══ %s ═══\n", d)
-		output.PrintSummary(filtered, acc.repoCount)
-		output.PrintRankings(filtered)
+		switch *formatFlag {
+		case "json":
+			jsonWriter.AddDomain(string(d), acc.repoCount, filtered, acc.risks)
+		case "csv":
+			output.PrintRankingsCSV(string(d), filtered, !csvHeaderWritten)
+			csvHeaderWritten = true
+		default:
+			fmt.Println()
+			color.New(color.FgHiCyan, color.Bold).Printf("═══ %s ═══\n", d)
+			output.PrintSummary(filtered, acc.repoCount)
+			output.PrintRankings(filtered)
+		}
 	}
 
-	elapsed := time.Since(start)
-	color.New(color.FgHiBlack).Printf("Completed in %s (%d repos total)\n", elapsed.Round(time.Second), totalAnalyzed)
+	if *formatFlag == "json" {
+		if err := jsonWriter.Flush(); err != nil {
+			return fmt.Errorf("json output: %w", err)
+		}
+	}
+
+	if *formatFlag == "table" {
+		elapsed := time.Since(start)
+		color.New(color.FgHiBlack).Printf("Completed in %s (%d repos total)\n", elapsed.Round(time.Second), totalAnalyzed)
+	}
 
 	return nil
 }
