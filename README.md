@@ -10,7 +10,7 @@ It estimates who actually builds and sustains a system by combining production, 
 
 > In practice, this surfaced patterns that naive metrics miss: former architects, silent cleaners, debt generators, and bus-factor risks.
 
-![Terminal Output](docs/images/terminal-output.svg)
+![Terminal Output](docs/images/terminal-output.svg?v=0.9.1)
 
 ## Why This Matters
 
@@ -144,7 +144,7 @@ Each engineer gets a 3-label profile. Examples:
 
 **Churn, Mass, and Spread styles look productive on individual metrics** but score low overall. Only multi-axis evaluation exposes them.
 
-![Archetypes Radar](docs/images/archetypes-radar.svg)
+![Archetypes Radar](docs/images/archetypes-radar.svg?v=0.9.1)
 
 ## Key Formulas
 
