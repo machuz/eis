@@ -115,9 +115,114 @@ score = avgQuality × 0.6 + (100 - stdev × 2) × 0.4
 
 Percentage of members in Former, Silent, or Fragile state. Above 25% is a warning. Above 50% is a crisis.
 
+## 5-Axis Team Classification — Reverse-Engineering Structure from Code (v0.10.0)
+
+In Chapter 1, we introduced the 3-axis topology (Role / Style / State) for individual engineers. In v0.10.0, we **aggregate individual topologies into team-level classifications** across five axes.
+
+The insight behind this: **we're reverse-engineering structure from code, through individual engineers.** Starting from raw git log and git blame, we read individual characteristics, then derive team structure bottom-up — code → engineer → team → organizational architecture.
+
+### The Five Axes
+
+| Axis | Derived from | Question |
+|---|---|---|
+| **Structure** | Member Role distribution | What structural roles exist on this team? |
+| **Culture** | Member Style distribution | How does this team work? |
+| **Phase** | Member State distribution | Where is this team in its lifecycle? |
+| **Risk** | Health metrics | What risks does this team carry? |
+| **Character** | Composite of above 4 | In one word, what kind of team is this? |
+
+Character is a meta-classification synthesized from the other four — the team's "face" in a single label.
+
+### Weighted Classification — Strong Members Paint the Team's Color
+
+Classification uses **member Total score as influence weight**:
+
+```
+weight = member.Total / 100  (minimum 0.1)
+```
+
+An Architect scoring 90 and an Architect scoring 15 on the same team don't contribute equally to the team's character. The high-scorer shapes the team far more. Ethnographically, **strong performers with high output propagate more culture to the team**. The formula encodes this directly.
+
+The minimum weight of 0.1 ensures that presence still matters — three Growing members at score 15 each still influence the team's Phase.
+
+### Structure — From Role Distribution
+
+| Label | Condition | Meaning |
+|---|---|---|
+| **Architectural Engine** | Architect+Anchor strong, AAR 0.3-0.8, high coverage | Design and quality engine firing on both cylinders |
+| **Architectural Team** | Architect-heavy | Deep design bench |
+| **Architecture-Heavy** | Architect-skewed, low Anchor | Design exists but implementation can't keep up |
+| **Emerging Architecture** | Few Architects, mostly Anchor/Producer | Design culture is nascent |
+| **Delivery Team** | Producer-dominant | Ship-focused |
+| **Maintenance Team** | Cleaner/Anchor-dominant | Operations and stability focused |
+| **Unstructured** | Mostly "—" roles | No clear structural identity |
+| **Balanced** | No dominant pattern | Evenly distributed |
+
+**AAR (Architect-to-Anchor Ratio)** is the key structural metric. Too many Architects and design outpaces implementation. Too many Anchors and stability dominates at the expense of innovation. The healthy range is 0.3–0.8.
+
+### Culture — From Style Distribution
+
+| Label | Dominant Styles | Meaning |
+|---|---|---|
+| **Builder** | Builder-heavy | Build-and-ship culture |
+| **Stability** | Balanced/Resilient | Conservative, stability-oriented |
+| **Mass Production** | Mass-heavy | Volume over durability |
+| **Firefighting** | Churn/Rescue | Constant emergency response |
+| **Exploration** | Spread-heavy | Wide exploration, thin depth |
+| **Mixed** | No dominant pattern | Blended |
+
+### Phase — From State Distribution
+
+| Label | Dominant States | Meaning |
+|---|---|---|
+| **Emerging** | Growing-heavy | Growth phase |
+| **Scaling** | Active + Growing | Expansion phase |
+| **Mature** | Active-dominant | Mature, productive team |
+| **Stable** | Active + Balanced | Steady state |
+| **Declining** | Former/Silent | Talent attrition |
+| **Rebuilding** | Active + Former mix | Rebuilding after departures |
+
+### Risk — From Health Metrics
+
+| Label | Condition | Meaning |
+|---|---|---|
+| **Design Vacuum** | Low Complementarity | No design leadership |
+| **Talent Drain** | High Risk Ratio | Losing effective contributors |
+| **Debt Spiral** | Low Debt Balance | Accumulating technical debt |
+| **Quality Erosion** | Low Quality Consistency | Quality is degrading |
+| **Healthy** | None of the above | Clean bill of health |
+
+### Character — The Team's Identity
+
+Synthesized from Structure × Culture × Phase × Risk plus structural metrics (AAR, Anchor Density, Productivity Density).
+
+| Character | Key Conditions | Meaning |
+|---|---|---|
+| **Elite** | High SC, healthy AAR, high PD | Design strength meets production velocity |
+| **Fortress** | Good Structure, stable Culture | Robust defensive team |
+| **Pioneer** | Growth Phase, Builder Culture | Trailblazing into new territory |
+| **Academy** | Growing members + Builder present | Active talent development |
+| **Feature Factory** | Producer-dominant, no Architect | Ships features but design is adrift |
+| **Guardian** | Anchor/Cleaner-dominant | Quality and maintenance guardians |
+| **Firefighting** | Churn/Rescue culture | Perpetually fighting fires |
+
+**SC (Structure-Culture complementarity)** measures how well Structure and Culture mesh. Architectural Engine + Builder Culture is the best combination. Delivery Team + Firefighting Culture is the worst.
+
+### Structural Metrics
+
+Three additional metrics quantify the team's structural skeleton:
+
+**AAR (Architect-to-Anchor Ratio)**: Architect count ÷ Anchor count. Healthy range: 0.3–0.8. Too high = design overload (implementation can't keep up). Too low = stability saturation (no design innovation). Architects present with zero Anchors signals Architect Isolation.
+
+**Anchor Density**: Anchors ÷ active members. How thick is the quality and stability foundation?
+
+**Architecture Coverage**: (Architects + Anchors) ÷ total team. What percentage of the team is involved in design and quality?
+
+These metrics reveal **structural quality** that Role distribution alone cannot show — the difference between a team that *has* architects and a team where architecture *actually works*.
+
 ## Patterns of Strong Teams
 
-After running this on multiple teams, patterns emerge:
+After running this on multiple teams — now with 5-axis classification and structural metrics — patterns emerge:
 
 **Strong teams share:**
 - Architect + Builder present (someone designs, someone implements design)

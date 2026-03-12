@@ -128,9 +128,122 @@ riskRatio = (Former + Silent + Fragile) / memberCount × 100  (%)
 
 25%を超えたら要注意。50%超えは危機的。
 
+### チーム5軸分類——コード→エンジニア→構造を逆算する（v0.10.0〜）
+
+第1章でエンジニア個人の3軸トポロジー（Role / Style / State）を導入した。v0.10.0では、この個人トポロジーを**チームレベルに集約**して、チームの「型」を5つの軸で分類する。
+
+**コードからエンジニアの特性を読み取り、エンジニアの分布からチームの構造を逆算している。** git logとgit blameという生データから出発して、個人→チーム→組織構造と、ボトムアップに全体像を組み上げていく。
+
+#### 5つの軸
+
+| 軸 | 何から導出するか | 問い |
+|---|---|---|
+| **Structure**（構造） | メンバーのRole分布 | チームにどんな構造的役割があるか |
+| **Culture**（文化） | メンバーのStyle分布 | チームがどういうやり方で仕事をしているか |
+| **Phase**（フェーズ） | メンバーのState分布 | チームが今どんなライフサイクルにあるか |
+| **Risk**（リスク） | 健全性指標 | どんなリスクを抱えているか |
+| **Character**（キャラクター） | 上4軸の複合 | 一言で言うとどんなチームか |
+
+Characterは他の4軸から合成されるメタ分類。チームの「顔」を一言で表す。
+
+#### 重み付き分類——強い人間ほどチームの色を塗る
+
+分類で面白いのは、**メンバーの総合スコアを分類の重みに使う**点だ。
+
+```
+weight = member.Total / 100  (最低0.1)
+```
+
+総合スコア90点のArchitectと、15点のArchitectが同じチームにいても、前者の方が圧倒的にチームの「色」を決めている。民俗学的に言えば、**強いやつ、アウトプットが多いやつは、チームにより多くの文化を伝播させる**。それをそのまま数式にした。
+
+最低重みを0.1にしているのは、「存在していること自体に意味がある」から。スコアが低くても、Growingメンバーが3人いればチームのPhaseに影響する。
+
+#### Structure（構造）の分類
+
+メンバーのRole分布から導出される、チームの構造的特徴。
+
+| ラベル | 条件 | 意味 |
+|---|---|---|
+| **Architectural Engine** | Architect+Anchor大、AAR 0.3-0.8、カバレッジ高 | 設計と品質の両輪が回るチーム |
+| **Architectural Team** | Architect多い | 設計力が厚い |
+| **Architecture-Heavy** | Architectに偏重 | 設計はあるが実装が追いつかない |
+| **Emerging Architecture** | Architect少数、Anchor/Producerが主 | 設計文化が芽生えつつある |
+| **Delivery Team** | Producer主体 | 出荷重視 |
+| **Maintenance Team** | Cleaner/Anchor主体 | 保守運用重視 |
+| **Unstructured** | 「—」が大半 | 明確な構造がない |
+| **Balanced** | 上記いずれにも該当しない | バランス型 |
+
+**AAR（Architect-to-Anchor Ratio）** がStructure分類の鍵になる。Architectが多すぎても設計だけで実装が進まない。Anchorが多すぎても安定するだけで設計革新が起きない。AAR 0.3〜0.8が健全レンジ。
+
+#### Culture（文化）の分類
+
+メンバーのStyle分布から導出。
+
+| ラベル | 主なStyle | 意味 |
+|---|---|---|
+| **Builder** | Builder多い | 作って残す文化 |
+| **Stability** | Balanced/Resilient多い | 安定志向 |
+| **Mass Production** | Mass多い | 量重視 |
+| **Firefighting** | Churn/Rescue多い | 火消し文化 |
+| **Exploration** | Spread多い | 探索型 |
+| **Mixed** | 偏りなし | 混合 |
+
+#### Phase（フェーズ）の分類
+
+メンバーのState分布から導出。
+
+| ラベル | 主なState | 意味 |
+|---|---|---|
+| **Emerging** | Growing多い | 成長期 |
+| **Scaling** | Active多い + Growing存在 | 拡大期 |
+| **Mature** | Active主体 | 成熟期 |
+| **Stable** | Active + Balanced多い | 安定期 |
+| **Declining** | Former/Silent多い | 衰退期 |
+| **Rebuilding** | Active + Former混在 | 再構築期 |
+
+#### Risk（リスク）の分類
+
+健全性指標から導出。
+
+| ラベル | 条件 | 意味 |
+|---|---|---|
+| **Design Vacuum** | Complementarity低い | 設計リーダー不在 |
+| **Talent Drain** | Risk Ratio高い | 人材流出中 |
+| **Debt Spiral** | Debt Balance低い | 負債が蓄積中 |
+| **Quality Erosion** | Quality Consistency低い | 品質が崩壊中 |
+| **Healthy** | 上記いずれもなし | 健全 |
+
+#### Character（キャラクター）——チームの「顔」
+
+Structure × Culture × Phase × Risk + 構造指標（AAR、Anchor Density、Productivity Density）から合成される、チームの総合的なキャラクター。
+
+| キャラクター | 条件の概要 | 意味 |
+|---|---|---|
+| **Elite** | SC高い、AAR適正、PD高い | 設計力と生産性を兼ね備えた精鋭チーム |
+| **Fortress** | Structure良好、Culture安定 | 堅牢で安定した守りのチーム |
+| **Pioneer** | Phase成長期、Culture Builder | 新領域を切り拓く開拓チーム |
+| **Academy** | Growing多い、Builder在籍 | 人材育成が活発なチーム |
+| **Feature Factory** | Producer主体、Architect不在 | 機能を量産するが設計が弱い |
+| **Guardian** | Anchor/Cleaner主体 | 保守と品質を守るチーム |
+| **Firefighting** | Churn/Rescue文化 | 常に火消しに追われるチーム |
+
+**SC（Structure-Culture complementarity）** はStructureとCultureがどれだけ噛み合っているかの指標。Architectural EngineのStructure + Builder Cultureは最高の組み合わせ。Delivery Team + Firefighting Cultureは最悪。
+
+#### 構造指標
+
+5軸分類に加え、チームの構造的な健全性を測る指標を3つ追加した。
+
+**AAR（Architect-to-Anchor Ratio）**: Architectの数 ÷ Anchorの数。0.3〜0.8が健全レンジ。高すぎると設計過多（実装が追いつかない）、低すぎると安定過多（設計革新が起きない）。Architectがいるのにanchorが0だとAAR=∞でArchitect孤立を示す。
+
+**Anchor Density**: アクティブメンバー中のAnchorの割合。品質と安定性の基盤がどれだけ厚いか。
+
+**Architecture Coverage**: （Architect + Anchor）÷ チーム全員。設計と品質に関与するメンバーがチーム全体の何%を占めるか。
+
+これらの構造指標は、チームの「骨格」を数値化する。Roleの分布だけではわからない、**構造の質**を見る窓になる。
+
 ### 強いチームの条件
 
-チーム健全性の7軸を運用してみて見えてきたパターン：
+チーム健全性の7軸と5軸分類を運用してみて見えてきたパターン：
 
 **強いチームに共通する特徴：**
 - Architect + Builder が在籍（設計する人と、設計を実装に落とせる人）

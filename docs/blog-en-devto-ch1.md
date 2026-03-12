@@ -314,6 +314,41 @@ State captures **where the engineer is in their trajectory** relative to the cod
 
 ---
 
+## Engineer Gravity — Structural Influence (v0.10.0)
+
+The 7-axis score tells you *how strong* an engineer is. The 3-axis topology tells you *what kind* of engineer they are. But there's another dimension: **how much structural influence does this person exert on the codebase?**
+
+That's what **Gravity** measures.
+
+```
+Gravity = Indispensability × 0.40 + Breadth × 0.30 + Design × 0.30
+```
+
+It combines module ownership (bus factor risk), cross-cutting reach (breadth), and architectural involvement (design) into a single number that approximates **structural pull** — how much of the system's shape is determined by this person.
+
+**But high Gravity isn't automatically good.** Gravity has a health dimension.
+
+A high-quality engineer with high Gravity is exerting *healthy structural influence* — their designs form the backbone of the system and those designs are durable. A low-quality engineer with high Gravity is a *fragile structural dependency* — the system depends on them, but the code itself is brittle.
+
+This is expressed through color:
+
+```
+health = Quality × 0.6 + RobustSurvival × 0.4
+
+Gravity < 20  → dim gray (low influence, not worth tracking)
+health ≥ 60   → green (healthy gravity: durable structural influence)
+health ≥ 40   → yellow (moderate: worth watching)
+health < 40   → red (fragile gravity: high influence, poor durability)
+```
+
+In practice, this reveals striking patterns. On my backend team, my own Gravity is 97 (green) — Design 100, Survival 100, and Indispensability 43 indicate well-distributed structural influence backed by durable code. But on our firmware team, one member has Gravity 100 (red) — Indispensability 100 means they own nearly every module, but quality is low. **"If this person leaves, everything collapses" AND "the code itself is fragile"** — the most dangerous combination, instantly visible as red gravity.
+
+Gravity is intentionally excluded from the total score. The total score answers "how strong is this engineer?" Gravity answers a different question: "how much structural influence do they have, and is it healthy?" They're orthogonal dimensions. In terminal output, Gravity appears as a color-coded column next to each member's scores.
+
+We're **reverse-engineering structure from code, through individual engineers** — Gravity is the first step in reading team architecture from git history.
+
+---
+
 ## Real-World Results
 
 I ran this on my own team (14 repos, 10+ engineers including departed members). Here are anonymized excerpts.
