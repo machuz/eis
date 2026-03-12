@@ -308,17 +308,17 @@ Running `eis team` on our actual product (12 Backend repos + 9 Frontend repos):
 - ProdDensity 60 — decent for 4 people, but top contributor accounts for 46% of production
 - `Legacy-Heavy` phase: not declining, but the historical weight is real
 
-**Frontend — Feature Factory / Legacy-Heavy**:
+**Frontend — Pioneer / Mature**:
 
-- 6 core members, 4 risk (all Silent)
-- Architect exists but structural coverage is only 20%
+- 6 core members, 0 risk — everyone is active
+- Architect + Anchor present, structural coverage 33%
+- Sustain 100/100, RiskRatio 0% — clean bill of health
 - Gravity warning: one member has high structural influence with low robust survival
-- 40% risk ratio — nearly half of effective members are inactive
 
 The numbers tell a story:
 
 - **Backend**: Strong but carrying historical weight. An Elite team by character, but fragile — one departure changes everything.
-- **Frontend**: A strong core exists, but the team is trending Feature Factory. Architecture influence hasn't propagated.
+- **Frontend**: A Mature Pioneer. The Architect is functioning, Risk is 0%. One Gravity warning remains, but the team is structurally healthy.
 
 **The numbers started to tell a story.** Not just "who is strong" but "what state is the team in, and what happens next."
 
