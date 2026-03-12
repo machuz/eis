@@ -165,8 +165,10 @@ Produce:
    - **Former Architect**: Design↑ Indisp↑ Surv↓ (system still depends on them but they're inactive)
    - **Solid Cleaner**: Prod→ Qual↑ Surv↑ Debt↑
    - **Mass Producer**: Prod↑ Qual↓ Surv↓ Debt↓
+   - **Quality Anchor**: Qual↑ Prod mid — reliable but not yet shaping design
    - **Spreader**: Breadth↑ Prod↓ Surv↓ Design↓
    - **Silent Killer**: Prod↓ Surv↓ Debt↓ (net drain on team capacity)
+   - **Balanced**: Total 30+ but no dominant axis
    - **Specialist**: narrow but deep
    - **Growing**: low volume, high quality
 

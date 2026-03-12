@@ -101,14 +101,20 @@ The 7-axis distribution reveals archetypes:
 | **Former Architect** | △ | △ | ✕ | ◎ | ○ | △ | ◎ | **⚠️ Handoff** |
 | **Mass Producer** | ◎ | ✕ | ✕ | △ | △ | ✕ | △ | **High** |
 | **Solid Cleaner** | ○ | ◎ | ◎ | ○ | ○ | ◎ | △ | — |
+| **Quality Anchor** | ○ | ◎ | △ | △ | ○ | ○ | △ | — |
 | **Spreader** | ✕ | △ | ✕ | ✕ | ◎ | △ | ✕ | **High** |
 | **Silent Killer** | ✕ | ✕ | ✕ | ✕ | △ | ✕ | ✕ | **High** |
 | **Specialist** | ◎ | ◎ | ◎ | ○ | ✕ | ○ | ◎ | △ Silo |
+| **Balanced** | ○ | ○ | ○ | △ | ○ | ○ | △ | — |
 | **Growing** | △ | ◎ | ○ | ✕ | △ | ○ | ✕ | — |
 
 **Former Architect** is detected by the gap between raw and time-decayed survival: code still exists in the codebase (high raw) but the author is no longer active (low decayed). Combined with high Design or Indispensability, this signals an unfilled departure — a handoff priority alert.
 
+**Quality Anchor**: high first-pass quality with mid-level production. Writes reliable code but hasn't yet reached design influence or high survival. With the right opportunities, this type can grow into Solid Cleaner or Architect.
+
 **Spreader**: wide presence across repos but low production, low survival, and no design involvement. Touches everything, improves nothing.
+
+**Balanced**: no axis stands out, but Total is 30+. Steady contributor without a dominant strength or weakness. Not flashy, but not a problem either.
 
 **Silent Killer**: low production, low survival, low debt cleanup. Neither builds nor cleans — their presence is a net drain on team capacity.
 

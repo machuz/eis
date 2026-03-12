@@ -307,8 +307,10 @@ Specialist: dominant in a narrow area but no cross-repo presence. Bus factor ris
 | Former Architect | △ | △ | ✕ | ◎ | ○ | △ | ◎ | **⚠️ Handoff** |
 | Mass Producer | ◎ | ✕ | ✕ | △ | △ | ✕ | △ | **⚠️ High** |
 | Solid Cleaner | ○ | ◎ | ◎ | ○ | ○ | ◎ | △ | — |
+| Quality Anchor | ○ | ◎ | △ | △ | ○ | ○ | △ | — |
 | Spreader | ✕ | △ | ✕ | ✕ | ◎ | △ | ✕ | **⚠️ High** |
 | Silent Killer | ✕ | ✕ | ✕ | ✕ | △ | ✕ | ✕ | **⚠️ High** |
+| Balanced | ○ | ○ | ○ | △ | ○ | ○ | △ | — |
 | Specialist | ◎ | ◎ | ◎ | ○ | ✕ | ○ | ◎ | △ Silo |
 | Growing | △ | ◎ | ○ | ✕ | △ | ○ | ✕ | — |
 

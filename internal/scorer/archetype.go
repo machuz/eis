@@ -44,6 +44,11 @@ func classifyArchetype(r Result) string {
 		return "Specialist"
 	}
 
+	// Quality Anchor: high quality + mid production — stable and reliable, but not yet shaping design
+	if high(r.Quality) && !low(r.Production) {
+		return "Quality Anchor"
+	}
+
 	// Growing: low production but high quality (learning, writing carefully)
 	if low(r.Production) && high(r.Quality) {
 		return "Growing"
@@ -52,6 +57,9 @@ func classifyArchetype(r Result) string {
 	// Fallback based on total score
 	if r.Total >= 40 {
 		return "Solid"
+	}
+	if r.Total >= 30 {
+		return "Balanced"
 	}
 	return "—"
 }
