@@ -247,6 +247,75 @@ After running this on multiple teams — now with 5-axis classification and stru
 
 **Small-team anomalies are two-sided.** High Productivity Density is both a strength and a risk. If one person leaves a 3-person team scoring 80+ density, the impact is catastrophic.
 
+## Member Tiers & Warnings (v0.10.3)
+
+In v0.10.3, `eis team` introduces **three-tier member classification** and **automatic warnings**.
+
+### Core / Risk / Peripheral
+
+Not every git author is a "team member." A drive-by contributor who touched one file shouldn't dilute your team's health metrics. EIS now splits members into three tiers:
+
+| Tier | Condition | Used for |
+|---|---|---|
+| **Core** | `RecentlyActive && Total >= 20` | Averages, ProductivityDensity, QualityConsistency |
+| **Risk** | State in {Former, Silent, Fragile} | Distributions, RiskRatio, Classification |
+| **Peripheral** | Everyone else | TotalMemberCount only |
+
+This prevents cross-functional helpers from diluting metrics while keeping risk states visible. The header now shows: `4 core + 3 risk / 16 total`.
+
+### Automatic Warnings
+
+EIS detects dangerous metric combinations and surfaces them as plain-text warnings:
+
+```
+⚠ Warnings:
+  43% risk ratio — 3 of 7 effective members are Former/Silent/Fragile
+  Top contributor (machuz) accounts for 46% of core production — ProdDensity drops to 39 without them
+  2 Silent members — headcount says 16 but effective contributors are 4
+  Fragile gravity — okatechnology (Grav 68) has high influence but low robust survival (8)
+```
+
+Warning types:
+- **Bus factor risk**: few core members carrying many repos
+- **Risk ratio**: percentage of inactive/at-risk members
+- **Top contributor concentration**: what happens if they leave (simulated ProdDensity drop)
+- **Silent accumulation**: headcount vs. effective contributor gap
+- **Gravity warnings**: fragile influence centers, low structural coverage despite Architect presence
+
+### Phase Refinement
+
+The Phase axis now distinguishes between truly declining teams and strong teams carrying historical weight:
+
+| Label | Condition | Meaning |
+|---|---|---|
+| **Legacy-Heavy** | Risk high, but AvgTotal ≥ 40 + Architect present | Strong team with accumulated history |
+| **Mature with Attrition** | Moderate risk (20-40%), active core still strong | Natural attrition from mature team |
+| **Declining** | Risk high, weak core | Genuine talent drain |
+
+A Backend team with an Architect scoring 90+ and two Silent former members isn't "Declining" — it's **Legacy-Heavy**. The distinction matters for planning.
+
+## Real-World Results — Our Team
+
+Running `eis team` on our actual product (a poker room management platform, 12 Backend repos + 9 Frontend repos):
+
+**Backend — Elite / Legacy-Heavy**:
+- 4 core members carrying 12 repos, 3 risk members (2 Silent + 1 Former)
+- Architect + 2 Anchors = AAR 0.50 (healthy range)
+- ProdDensity 60 — decent for 4 people, but top contributor accounts for 46% of production
+- `Legacy-Heavy` phase: not declining, but the historical weight is real
+
+**Frontend — Feature Factory / Legacy-Heavy**:
+- 6 core members, 4 risk (all Silent)
+- Architect exists but structural coverage is only 20%
+- Gravity warning: one member has high structural influence with low robust survival
+- 40% risk ratio — nearly half of effective members are inactive
+
+The numbers tell a story:
+- **Backend**: Strong but carrying historical weight. An Elite team by character, but fragile — one departure changes everything.
+- **Frontend**: A strong core exists, but the team is trending Feature Factory. Architecture influence hasn't propagated.
+
+**The numbers started to tell a story.** Not just "who is strong" but "what state is the team in, and what happens next."
+
 ## How to Use It
 
 ![eis team terminal output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/team-output.png)

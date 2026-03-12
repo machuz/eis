@@ -270,6 +270,77 @@ Structure × Culture × Phase × Risk + 構造指標（AAR、Anchor Density、Pr
 
 **「少人数チームの異常値は、すごさとリスクの両面」** ——Productivity Densityが高いチームは確かに生産性が異常だが、1人抜けたときの崩壊リスクも高い。バス係数の個人版がIndispensabilityだとすれば、チーム版がProductivity Densityの裏側にある。
 
+### メンバー3層分類 & 自動Warnings（v0.10.3）
+
+v0.10.3で、`eis team` に **3層メンバー分類** と **自動警告** を追加した。
+
+#### Core / Risk / Peripheral
+
+git上に名前が出る全員が「チームメンバー」とは限らない。ちょっと手伝っただけの人を含めると健全性指標が歪む。v0.10.3ではメンバーを3層に分ける：
+
+| Tier | 条件 | 使われる場所 |
+|---|---|---|
+| **Core** | `最近アクティブ && Total >= 20` | 平均スコア、ProdDensity、QualityConsistency |
+| **Risk** | Stateが Former/Silent/Fragile | 分布、RiskRatio、分類 |
+| **Peripheral** | それ以外 | TotalMemberCountのみ |
+
+ヘッダーは `4 core + 3 risk / 16 total` と表示される。ちょっと手伝った人はPeripheralとして除外され、Silent/Formerなメンバーはリスクとして検知される。
+
+「みんな忙しいのに指標上はそうでもない → 中を覗いたらSilentがいた」というインサイトが自然に浮き上がる設計。
+
+#### 自動 Warnings
+
+危険な指標の組み合わせをプレーンテキストの警告として出力する：
+
+```
+⚠ Warnings:
+  43% risk ratio — 3 of 7 effective members are Former/Silent/Fragile
+  Top contributor (machuz) accounts for 46% of core production — ProdDensity drops to 39 without them
+  2 Silent members — headcount says 16 but effective contributors are 4
+  Fragile gravity — okatechnology (Grav 68) has high influence but low robust survival (8)
+```
+
+警告の種類：
+- **Bus factor risk**: 少人数のcoreが多くのリポを支えている
+- **Risk ratio**: 無効化・リスク状態のメンバー比率
+- **Top contributor concentration**: トップ貢献者が抜けた場合のProdDensity低下シミュレーション
+- **Silent accumulation**: ヘッドカウントと実質貢献者数の乖離
+- **Gravity warnings**: 脆い影響力集中、Architect在籍なのに構造カバレッジが低い
+
+#### Phase 分類の精緻化
+
+Phase軸に **Legacy-Heavy** と **Mature with Attrition** を追加。履歴が長いチームが一律「Declining（衰退）」と判定される問題を修正した：
+
+| Label | 条件 | 意味 |
+|---|---|---|
+| **Legacy-Heavy** | Risk高いがAvgTotal≥40 + Architect在籍 | 強いが履歴が重いチーム |
+| **Mature with Attrition** | 中程度のRisk（20-40%）、Active core健在 | 成熟チームからの自然減 |
+| **Declining** | Risk高 + コアが弱い | 本当の衰退 |
+
+Architectがスコア90超えで、Silent/Formerが何人かいるBackendチームは「衰退」ではない。**Legacy-Heavy**——強いが履歴が重い。この区別が次のアクションを変える。
+
+### 実測結果 — うちのチーム
+
+実際のプロダクト（ポーカールーム店舗管理プラットフォーム、Backend 12リポ + Frontend 9リポ）に対して `eis team` を実行した結果：
+
+**Backend — Elite / Legacy-Heavy**:
+- Core 4人で12リポを運用、Risk 3人（Silent 2 + Former 1）
+- Architect + Anchor 2人 = AAR 0.50（健全レンジ）
+- ProdDensity 60 ——4人としてはまずまずだが、トップ貢献者が生産の46%を占める
+- Phase: `Legacy-Heavy` ——衰退ではないが、歴史の重みが載っている
+
+**Frontend — Feature Factory / Legacy-Heavy**:
+- Core 6人、Risk 4人（全員Silent）
+- Architectは在籍しているが構造カバレッジはわずか20%
+- Gravity警告：1人が高い構造影響力を持つが、robust survivalが低い
+- Risk ratio 40% ——有効メンバーの約半数が非アクティブ
+
+AIに診断させた結果をまとめると：
+- **Backend**: 強いが履歴の重いElite。Characterは最上位だが脆い——1人の離脱がすべてを変える。
+- **Frontend**: 強い中核はあるがFeature Factory寄り。設計の影響力がチーム全体に浸透していない。
+
+**数字が物語を持ち始めた。** 「誰が強いか」だけでなく「チームがどんな状態で、次に何が起きるか」が見えるようになった。
+
 ### 使い方
 
 ![eis team ターミナル出力例](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/team-output.png)
