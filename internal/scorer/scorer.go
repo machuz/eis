@@ -98,6 +98,12 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 				r.Breadth*w.Breadth +
 				r.DebtCleanup*w.DebtCleanup +
 				r.Indispensability*w.Indispensability
+
+			// Penalty: code that has never survived under change pressure
+			// is fundamentally unproven. Apply 0.8x multiplier to Total.
+			if r.RobustSurvival == 0 {
+				r.Total *= 0.80
+			}
 		} else {
 			r.Total = r.Production*w.Production +
 				r.Quality*w.Quality +

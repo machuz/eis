@@ -76,17 +76,19 @@ func classifyArchetypeWithConfidence(r Result) (primary ArchetypeMatch, secondar
 		{"Architect-Builder", func() float64 {
 			// Designs, builds heavily, AND cleans up others' code.
 			// The full package: high production + high survival + high design + decent debt cleanup.
+			// When pressure data exists, requires robust survival — untested code disqualifies.
 			surv := r.Survival
-			if r.RobustSurvival > 0 {
+			if r.DormantSurvival > 0 || r.RobustSurvival > 0 {
 				surv = r.RobustSurvival
 			}
 			return minf(highness(r.Production), highness(surv), highness(r.Design), notLow(r.DebtCleanup))
 		}},
 		{"Architect", func() float64 {
 			// High design influence with durable code, but not necessarily high production.
-			// The classic architect: shapes systems, reviews, guides — delegates much of the implementation.
+			// When pressure data exists, requires robust survival — code that survives only
+			// because nobody touches it does not make an architect.
 			surv := r.Survival
-			if r.RobustSurvival > 0 {
+			if r.DormantSurvival > 0 || r.RobustSurvival > 0 {
 				surv = r.RobustSurvival
 			}
 			return minf(highness(r.Design), highness(surv), notLow(r.Breadth))

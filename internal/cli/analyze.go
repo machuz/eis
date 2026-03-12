@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -54,6 +55,7 @@ func runAnalyze(args []string) error {
 	formatFlag := fs.String("format", "table", "Output format: table, csv, json")
 	pressureMode := fs.String("pressure-mode", "include", "Change pressure mode: include (split robust/dormant) or ignore (classic survival)")
 	activeDays := fs.Int("active-days", 0, "Days to consider author active (overrides config, default 30)")
+	domainFilter := fs.String("domain", "", "Only analyze repos in this domain (e.g. Backend, Frontend, Firmware)")
 
 	if err := fs.Parse(args); err != nil {
 		return err
@@ -155,6 +157,11 @@ func runAnalyze(args []string) error {
 		// Determine domain: config override first, then auto-detect
 		repoDomain := resolveRepoDomain(ctx, repoPath, repoName, cfg)
 
+		// Skip repos outside the requested domain
+		if *domainFilter != "" && !strings.EqualFold(string(repoDomain), *domainFilter) {
+			continue
+		}
+
 		bold := color.New(color.Bold)
 		domainLabel := color.New(color.FgCyan).Sprintf("[%s]", repoDomain)
 		bold.Printf("Analyzing: %s %s\n", repoName, domainLabel)
@@ -242,7 +249,23 @@ func runAnalyze(args []string) error {
 				acc.changePressure[key] = p
 			}
 
+			// Need at least 2 authors with ≥5000 blame lines for pressure
+			// split to be meaningful. Below that, the repo is effectively
+			// solo-owned and has no real change pressure.
+			blameByAuthor := make(map[string]int)
+			for _, bl := range blameLines {
+				blameByAuthor[cfg.ResolveAuthor(bl.Author)]++
+			}
+			substantialAuthors := 0
+			for _, count := range blameByAuthor {
+				if count >= 5000 {
+					substantialAuthors++
+				}
+			}
 			pressureThreshold := repoPressure.MedianPressure()
+			if substantialAuthors < 2 {
+				pressureThreshold = math.Inf(1) // everything becomes dormant
+			}
 			survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, start, repoPressure, pressureThreshold)
 			mergeMap(acc.raw.Survival, survResult.Decayed)
 			mergeMap(acc.raw.RawSurvival, survResult.Raw)
