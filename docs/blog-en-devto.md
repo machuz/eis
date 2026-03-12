@@ -406,6 +406,24 @@ In chaotic codebases, high Survival might just mean "dead code nobody touches." 
 
 ---
 
+## Scores Reflect the Organization, Not Just the Individual
+
+One critical nuance: **a low score doesn't necessarily mean a weak engineer.**
+
+Consider:
+
+- **Ambiguous or frequently changing specs** — even a strong engineer will accumulate fix commits and rewrites. Quality and Survival drop not because of poor coding, but because of poor planning upstream
+- **Slow design reviews or decision bottlenecks** — engineers can't start their next task. Low Production isn't slowness — it's organizational friction
+- **Misalignment between product requirements and engineering** — features get built, then rebuilt because "that's not what we meant." Survival drops not from bad design, but from bad communication
+
+In other words, this metric captures **the environment an engineer operates in** — spec quality, planning precision, decision-making speed — not just their individual ability. If the *entire team* scores low, that's a signal to examine organizational processes before blaming individual engineers.
+
+The flip side is equally true: **improve planning and spec quality, and engineer scores will naturally rise.** The score is simultaneously an engineer's report card and an organizational health barometer.
+
+From the engineer's perspective, raising your score requires more than just writing what you're told. You need to evaluate whether the spec makes sense, push back when it doesn't, engage in design discussions, and deeply understand the product before writing code. Durable code only emerges from correct understanding and correct design decisions. This metric naturally rewards **engineers who care about the product and engage from the spec level, not just the code level.** Do that, and your score will grow. Maybe that's what real "combat power" actually is.
+
+---
+
 ## Who Makes the Decisions at Your Company?
 
 If you're reading this and thinking "I should try this on my team," here's a question worth asking:
