@@ -77,13 +77,27 @@ func BlameFileAtParent(ctx context.Context, repoPath, commitHash, filepath strin
 }
 
 func DiffTreeFiles(ctx context.Context, repoPath, commitHash string) ([]string, error) {
+	// Use raw format to distinguish blobs from submodule commits
 	lines, err := RunLines(ctx, repoPath,
-		"diff-tree", "--no-commit-id", "-r", commitHash, "--name-only",
+		"diff-tree", "--no-commit-id", "-r", commitHash,
 	)
 	if err != nil {
 		return nil, err
 	}
-	return lines, nil
+
+	var files []string
+	for _, line := range lines {
+		// Raw format: ":oldmode newmode oldhash newhash status\tpath"
+		// Submodules have mode 160000; skip them
+		if strings.HasPrefix(line, ":") && strings.Contains(line, " 160000 ") {
+			continue
+		}
+		// Extract path after tab
+		if idx := strings.IndexByte(line, '\t'); idx >= 0 {
+			files = append(files, line[idx+1:])
+		}
+	}
+	return files, nil
 }
 
 func BlameFiles(ctx context.Context, repoPath string, files []string, maxFiles int, progressFn func(done, total int)) ([]BlameLine, error) {
