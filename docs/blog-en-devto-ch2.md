@@ -375,7 +375,9 @@ I think of this as "good design creates common sense." Great design doesn't nece
 
 EIS currently measures quantitative signals — history, code survival rates, structural influence. This "common sense through design" — why a Former member's code still runs healthily — isn't directly observable yet.
 
-But if it becomes possible, we could move beyond simple Legacy-Heavy warnings and distinguish between **"historically heavy but structurally sound"** and **"genuinely dangerous dependency structures."** That may be EIS's next frontier.
+But if it becomes possible, we could move beyond simple Legacy-Heavy warnings and distinguish between **"historically heavy but structurally sound"** and **"genuinely dangerous dependency structures."**
+
+In practice, though, we may not need to measure that directly. A strong team will gradually replace Former members' code with their own, and Legacy-Heavy resolves itself over time. It converges toward where it should be. EIS can naturally capture that convergence through Survival trajectories and Risk Ratio changes.
 
 ## How to Use It
 
