@@ -263,6 +263,8 @@ Comp figures are rough estimates and vary significantly by market (SF vs. Midwes
 
 **40 = Senior.** If that seems low, consider what it takes: with relative scoring across 7 axes, just putting up decent numbers across the board requires serious, well-rounded ability. Production, quality, survival, design, breadth, debt cleanup — doing well in all of them simultaneously is structurally difficult. If your senior scores 40, that's *normal*. An engineer in the 40s can compete in any market.
 
+**One critical caveat.** EIS measures **impact on *this* codebase**, not absolute engineering ability. A high score means "on this codebase, this person's code is surviving, shaping architecture, and cleaning up debt." It does *not* mean they are a better engineer than someone with a lower score. High Survival might even mean the code can't be refactored away because the design is poor — not that the code itself is good. If scores don't match your gut feeling, that's a signal worth investigating: it may reveal codebase design issues rather than people issues. The real question is whether someone can maintain their score under *good* design — that's where true ability shows.
+
 ![Score Guide](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png)
 
 ---
