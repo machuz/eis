@@ -148,9 +148,11 @@ Raw blame (without decay) is still useful separately — it shows "who built the
 
 ### Robust Survival — Measuring Code That Survives Under Change Pressure
 
-There's a second dimension to survival: **Robust Survival**.
+Survival splits into two kinds.
 
-Standard Survival measures whether your code still exists in `git blame`. But code in an untouched module also "survives" — not because it's durable, but because nobody changed it.
+The first is the standard Survival described above — whether your code still exists in `git blame`. But code in an untouched module also "survives" — not because it's durable, but because nobody changed it.
+
+The second is **Robust Survival**.
 
 Robust Survival only counts code that survives in **high-change-pressure files** — files where other engineers are actively making changes. If your code remains in a module that's being actively developed, that's genuine durability.
 
