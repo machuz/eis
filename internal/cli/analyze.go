@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/fatih/color"
@@ -327,20 +328,13 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				fmt.Fprintf(os.Stderr, "\n%s", msg)
 			}
 		}
-		blameStarted := false
+		spin.Clear()
+		blameProg := newLiveProgress("[2/4] Blame")
 		blameLines, err := git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers,
 			func(done, total int) {
-				if !blameStarted {
-					spin.Clear()
-					blameStarted = true
-				}
-				fmt.Fprintf(os.Stderr, "%s\r", progressBar("[2/4] Blame", done, total))
+				blameProg.Update(done, total)
 			}, blameVerbose)
-		if !blameStarted {
-			spin.Stop()
-		} else {
-			fmt.Fprintln(os.Stderr)
-		}
+		blameProg.Stop()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "  Warning: blame error: %v\n", err)
 		}
@@ -402,24 +396,13 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				fmt.Fprintf(os.Stderr, "\n%s", msg)
 			}
 		}
-		debtStarted := false
-		debtTotal := len(fixCommits)
-		if debtTotal > 50 {
-			debtTotal = 50
-		}
+		spin.Clear()
+		debtProg := newLiveProgress("[3/4] Debt")
 		debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.ResolveAuthor,
 			func(done, total int) {
-				if !debtStarted {
-					spin.Clear()
-					debtStarted = true
-				}
-				fmt.Fprintf(os.Stderr, "%s\r", progressBar("[3/4] Debt", done, total))
+				debtProg.Update(done, total)
 			}, debtVerbose)
-		if !debtStarted {
-			spin.Stop()
-		} else {
-			fmt.Fprintln(os.Stderr)
-		}
+		debtProg.Stop()
 		mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
 
 		// Step 4: Accumulate bus factor risks per domain; print immediately for table format
@@ -715,33 +698,96 @@ func spinner(label string) spinResult {
 	}
 }
 
-// spinFrames for inline spinner in progress bar
-var spinFrames = []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"}
-var spinIdx int
+// liveProgress manages a background-animated progress bar.
+// The spinner keeps animating even when progress doesn't update.
+type liveProgress struct {
+	label string
+	done  int
+	total int
+	mu    sync.Mutex
+	quit  chan struct{}
+}
 
-// progressBar renders a compact progress bar with spinner/checkmark prefix
-func progressBar(label string, done, total int) string {
+var spinFrames = []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"}
+
+func newLiveProgress(label string) *liveProgress {
+	lp := &liveProgress{
+		label: label,
+		quit:  make(chan struct{}),
+	}
+	if !spinnerQuiet {
+		go lp.run()
+	}
+	return lp
+}
+
+func (lp *liveProgress) Update(done, total int) {
+	lp.mu.Lock()
+	lp.done = done
+	lp.total = total
+	lp.mu.Unlock()
+}
+
+func (lp *liveProgress) run() {
+	cyan := color.New(color.FgCyan)
+	dim := color.New(color.FgHiBlack)
+	green := color.New(color.FgGreen)
+	i := 0
+	for {
+		select {
+		case <-lp.quit:
+			return
+		default:
+			lp.mu.Lock()
+			done, total := lp.done, lp.total
+			lp.mu.Unlock()
+
+			const barWidth = 20
+			var pct float64
+			if total > 0 {
+				pct = float64(done) / float64(total)
+			}
+			filled := int(pct * barWidth)
+			if filled > barWidth {
+				filled = barWidth
+			}
+			filledBar := cyan.Sprint(strings.Repeat("█", filled))
+			emptyBar := dim.Sprint(strings.Repeat("░", barWidth-filled))
+			count := green.Sprintf("%d/%d", done, total)
+			frame := cyan.Sprint(spinFrames[i%len(spinFrames)])
+			fmt.Fprintf(os.Stderr, "  %s %s [%s%s] %s\r", frame, lp.label, filledBar, emptyBar, count)
+			i++
+			time.Sleep(80 * time.Millisecond)
+		}
+	}
+}
+
+func (lp *liveProgress) Stop() {
+	close(lp.quit)
+	if spinnerQuiet {
+		return
+	}
+	time.Sleep(10 * time.Millisecond)
+	lp.mu.Lock()
+	done, total := lp.done, lp.total
+	lp.mu.Unlock()
+
+	cyan := color.New(color.FgCyan)
+	dim := color.New(color.FgHiBlack)
+	green := color.New(color.FgGreen)
 	const barWidth = 20
-	pct := float64(done) / float64(total)
+	var pct float64
+	if total > 0 {
+		pct = float64(done) / float64(total)
+	}
 	filled := int(pct * barWidth)
 	if filled > barWidth {
 		filled = barWidth
 	}
-	cyan := color.New(color.FgCyan)
-	dim := color.New(color.FgHiBlack)
-	green := color.New(color.FgGreen)
 	filledBar := cyan.Sprint(strings.Repeat("█", filled))
 	emptyBar := dim.Sprint(strings.Repeat("░", barWidth-filled))
 	count := green.Sprintf("%d/%d", done, total)
-
-	var prefix string
-	if done >= total {
-		prefix = green.Sprint("✓")
-	} else {
-		prefix = cyan.Sprint(spinFrames[spinIdx%len(spinFrames)])
-		spinIdx++
-	}
-	return fmt.Sprintf("  %s %s [%s%s] %s", prefix, label, filledBar, emptyBar, count)
+	fmt.Fprintf(os.Stderr, "  %s %s [%s%s] %s\n", green.Sprint("✓"), lp.label, filledBar, emptyBar, count)
 }
 
 // mergeMapAvg keeps a correct running average for quality scores across repos
