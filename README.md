@@ -339,7 +339,7 @@ claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Sco
 ## Special Thanks
 
 - [@reizist](https://github.com/reizist) — identified that `exclude_file_patterns` was not applied to git log and blame targets
-- [@ponsaaan](https://github.com/ponsaaan) — pointed out that `config.example.yaml` was outdated and mismatched with the current config structure
+- [@ponsaaan](https://github.com/ponsaaan) — pointed out that `config.example.yaml` was outdated and mismatched with the current config structure. Also the former architect whose well-designed code continues to serve as the foundation of our product. Living proof that good design creates common sense
 
 ## Support
 
