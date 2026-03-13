@@ -311,7 +311,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 
 		blameLines, err := git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers,
 			func(done, total int) {
-				fmt.Fprintf(os.Stderr, "  [2/4] Blame: %d/%d files\r", done, total)
+				fmt.Fprintf(os.Stderr, "%s\r", progressBar("[2/4] Blame", done, total))
 			})
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "  Warning: blame error: %v\n", err)
@@ -371,7 +371,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		fmt.Fprintf(os.Stderr, "  [3/4] Debt analysis (%d fix commits)...\n", len(fixCommits))
 		debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.ResolveAuthor,
 			func(done, total int) {
-				fmt.Fprintf(os.Stderr, "  [3/4] Debt: %d/%d fix commits\r", done, total)
+				fmt.Fprintf(os.Stderr, "%s\r", progressBar("[3/4] Debt", done, total))
 			})
 		fmt.Fprintln(os.Stderr)
 		mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
@@ -612,6 +612,23 @@ func separateArgs(args []string, fs *flag.FlagSet) (flags []string, paths []stri
 		}
 	}
 	return
+}
+
+// progressBar renders a compact progress bar with color: [████░░░░░░] 12/50
+func progressBar(label string, done, total int) string {
+	const barWidth = 20
+	pct := float64(done) / float64(total)
+	filled := int(pct * barWidth)
+	if filled > barWidth {
+		filled = barWidth
+	}
+	cyan := color.New(color.FgCyan)
+	dim := color.New(color.FgHiBlack)
+	green := color.New(color.FgGreen)
+	filledBar := cyan.Sprint(strings.Repeat("█", filled))
+	emptyBar := dim.Sprint(strings.Repeat("░", barWidth-filled))
+	count := green.Sprintf("%d/%d", done, total)
+	return fmt.Sprintf("  %s [%s%s] %s", label, filledBar, emptyBar, count)
 }
 
 // mergeMapAvg keeps a correct running average for quality scores across repos
