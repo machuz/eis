@@ -146,15 +146,14 @@ Each surviving line contributes a decayed weight to its author. Engineers whose 
 
 Raw blame (without decay) is still useful separately — it shows "who built the foundation of this codebase." But for the combat power score, only time-decayed survival is used.
 
-### Robust Survival — Measuring Code That Survives Under Change Pressure
+### Dormant vs Robust — Separating What "Survived" Actually Means
 
-Survival splits into two kinds.
+Code "surviving" can mean two very different things:
 
-The first is the standard Survival described above — whether your code still exists in `git blame`. But code in an untouched module also "survives" — not because it's durable, but because nobody changed it.
+- **Dormant Survival**: code remains in an untouched module. Not durable — just undisturbed
+- **Robust Survival**: code remains in **files where other engineers are actively making changes**. Only code that survives under real change pressure is counted
 
-The second is **Robust Survival**.
-
-Robust Survival only counts code that survives in **high-change-pressure files** — files where other engineers are actively making changes. If your code remains in a module that's being actively developed, that's genuine durability.
+Standard Survival doesn't distinguish between the two. EIS separates them.
 
 This distinction drives the Style classification. An engineer with low overall Survival but decent Robust Survival is iterating heavily while producing change-resistant code (**Resilient** style). Conversely, high Survival but low Robust Survival suggests code that survives only because nobody touches it (**Fragile** state).
 
