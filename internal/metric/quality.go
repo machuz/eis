@@ -7,7 +7,7 @@ import (
 	"github.com/machuz/engineering-impact-score/internal/git"
 )
 
-var fixPattern = regexp.MustCompile(`(?i)^(fix|revert|hotfix)`)
+var fixPattern = regexp.MustCompile(`(?i)^(\[?\s*(?:fix|revert|hotfix)\s*\]?[:/\s])`)
 
 func CalcQuality(commits []git.Commit) map[string]float64 {
 	type counts struct {
