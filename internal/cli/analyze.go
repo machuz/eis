@@ -296,19 +296,23 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 
 		// Track breadth with commit counts per repo, and date ranges for production rate
 		for _, c := range commits {
-			if _, ok := acc.authorRepoCommits[c.Author]; !ok {
-				acc.authorRepoCommits[c.Author] = make(map[string]int)
-			}
-			acc.authorRepoCommits[c.Author][repoName]++
-			acc.raw.TotalCommits[c.Author]++
-
-			// Track earliest and latest commit dates per author
+			// Date ranges include all commits (merge + non-merge) for activity detection
 			if first, ok := acc.authorFirstDate[c.Author]; !ok || c.Date.Before(first) {
 				acc.authorFirstDate[c.Author] = c.Date
 			}
 			if last, ok := acc.authorLastDate[c.Author]; !ok || c.Date.After(last) {
 				acc.authorLastDate[c.Author] = c.Date
 			}
+
+			// Skip merge commits for counting (breadth, totalCommits)
+			if c.IsMerge {
+				continue
+			}
+			if _, ok := acc.authorRepoCommits[c.Author]; !ok {
+				acc.authorRepoCommits[c.Author] = make(map[string]int)
+			}
+			acc.authorRepoCommits[c.Author][repoName]++
+			acc.raw.TotalCommits[c.Author]++
 		}
 
 		// Step 2: Blame analysis (feeds Survival, Indispensability)

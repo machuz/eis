@@ -18,6 +18,10 @@ func CalcQuality(commits []git.Commit) map[string]float64 {
 	authorCounts := make(map[string]*counts)
 
 	for _, c := range commits {
+		// Skip merge commits for quality ratio — only count regular commits
+		if c.IsMerge {
+			continue
+		}
 		ac, ok := authorCounts[c.Author]
 		if !ok {
 			ac = &counts{}
