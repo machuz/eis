@@ -58,7 +58,15 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 	normBreadth := Normalize(raw.Breadth)
 
 	// Debt is already on 0-100 scale, use directly
-	normDebt := raw.DebtCleanup
+	// Authors not in the debt map get 50 (neutral / insufficient data)
+	normDebt := make(map[string]float64)
+	for _, a := range raw.Authors() {
+		if v, ok := raw.DebtCleanup[a]; ok {
+			normDebt[a] = v
+		} else {
+			normDebt[a] = 50
+		}
+	}
 
 	// Collect all authors
 	authors := raw.Authors()
