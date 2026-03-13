@@ -78,6 +78,14 @@ func classifyStructure(tr TeamResult) TeamLabel {
 	wProducer := weightedRatio(tr.Members, func(m scorer.Result) bool { return m.Role == "Producer" })
 	wAnchor := weightedRatio(tr.Members, func(m scorer.Result) bool { return m.Role == "Anchor" })
 
+	// Count Architect/Builders — they design AND implement, so AAR overload doesn't apply
+	architectBuilders := 0
+	for _, m := range tr.Members {
+		if m.Role == "Architect" && m.Style == "Builder" {
+			architectBuilders++
+		}
+	}
+
 	rules := []labelRule{
 		// Architectural Engine: Architect≥1, Anchor≥2, AAR 0.3-0.8, low unstructured ratio
 		{"Architectural Engine", func() float64 {
@@ -104,10 +112,15 @@ func classifyStructure(tr TeamResult) TeamLabel {
 			return clamp(minf(wArchitect*2.5, wAnchor*2), 0, 0.90)
 		}()},
 
-		// Architecture-Heavy: Architect≥1, AAR>2.0
+		// Architecture-Heavy: Architect≥1, AAR>2.0, but NOT if all Architects are also Builders
+		// Architect/Builders design AND implement, so they don't cause the
+		// "design outpaces implementation" problem.
 		{"Architecture-Heavy", func() float64 {
 			if architects < 1 || aar <= 2.0 {
 				return 0
+			}
+			if architectBuilders == architects {
+				return 0 // all Architects are Builders — no overload
 			}
 			return clamp(wArchitect*2, 0, 0.85)
 		}()},
@@ -380,13 +393,27 @@ func classifyCharacter(tr TeamResult, structure, culture, phase TeamLabel) TeamL
 	aar := tr.Health.AAR
 	pd := tr.Health.ProductivityDensity
 
+	// Count Architect/Builders for AAR relaxation
+	archBuilders := 0
+	totalArchitects := 0
+	for _, m := range tr.Members {
+		if m.Role == "Architect" {
+			totalArchitects++
+			if m.Style == "Builder" {
+				archBuilders++
+			}
+		}
+	}
+	allArchitectsAreBuilders := totalArchitects > 0 && archBuilders == totalArchitects
+
 	rules := []labelRule{
 		// Elite: SC>0.4, AAR 0.3-0.8, PD>35 — balanced architecture + protection + output
+		// AAR constraint relaxed if all Architects are also Builders (they design AND implement)
 		{"Elite", func() float64 {
 			if sc <= 0.4 || pd <= 35 {
 				return 0
 			}
-			if aar < 0.3 || aar > 0.8 {
+			if aar < 0.3 || (aar > 0.8 && !allArchitectsAreBuilders) {
 				return 0
 			}
 			return clamp(sc+pd/100, 0, 1)

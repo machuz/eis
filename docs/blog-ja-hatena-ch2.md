@@ -168,7 +168,7 @@ weight = member.Total / 100  (最低0.1)
 |---|---|---|
 | **Architectural Engine** | Architect+Anchor大、AAR 0.3-0.8、カバレッジ高 | 設計と品質の両輪が回るチーム |
 | **Architectural Team** | Architect多い | 設計力が厚い |
-| **Architecture-Heavy** | Architectに偏重 | 設計はあるが実装が追いつかない |
+| **Architecture-Heavy** | Architectに偏重（ただしArchitect/Builderは除外） | 設計はあるが実装が追いつかない |
 | **Emerging Architecture** | Architect少数、Anchor/Producerが主 | 設計文化が芽生えつつある |
 | **Delivery Team** | Producer主体 | 出荷重視 |
 | **Maintenance Team** | Cleaner/Anchor主体 | 保守運用重視 |
@@ -176,6 +176,8 @@ weight = member.Total / 100  (最低0.1)
 | **Balanced** | 上記いずれにも該当しない | バランス型 |
 
 **AAR（Architect-to-Anchor Ratio）** がStructure分類の鍵になる。Architectが多すぎても設計だけで実装が進まない。Anchorが多すぎても安定するだけで設計革新が起きない。AAR 0.3〜0.8が健全レンジ。
+
+ただし例外がある。**Architect/Builder**（設計も実装もこなすタイプ）は、AARが高くても「設計過多で実装が追いつかない」問題を起こさない。全員がArchitect/Builderのチームであれば、Architecture-Heavyとは判定されない。むしろ、全員がArchitect/Builderのチームは最強の構成かもしれない。
 
 #### Culture（文化）の分類
 
@@ -235,7 +237,7 @@ Structure × Culture × Phase × Risk + 構造指標（AAR、Anchor Density、Pr
 
 5軸分類に加え、チームの構造的な健全性を測る指標を3つ追加した。
 
-**AAR（Architect-to-Anchor Ratio）**: Architectの数 ÷ Anchorの数。0.3〜0.8が健全レンジ。高すぎると設計過多（実装が追いつかない）、低すぎると安定過多（設計革新が起きない）。Architectがいるのにanchorが0だとAAR=∞でArchitect孤立を示す。
+**AAR（Architect-to-Anchor Ratio）**: Architectの数 ÷ Anchorの数。0.3〜0.8が健全レンジ。高すぎると設計過多（実装が追いつかない）、低すぎると安定過多（設計革新が起きない）。Architectがいるのにanchorが0だとAAR=∞でArchitect孤立を示す。ただし、ArchitectがBuilder Styleを兼ねている場合、設計と実装を1人でこなせるためAAR過多の警告は緩和される。
 
 **Anchor Density**: アクティブメンバー中のAnchorの割合。品質と安定性の基盤がどれだけ厚いか。
 

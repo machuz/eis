@@ -153,7 +153,7 @@ The minimum weight of 0.1 ensures that presence still matters — three Growing 
 |---|---|---|
 | **Architectural Engine** | Architect+Anchor strong, AAR 0.3-0.8, high coverage | Design and quality engine firing on both cylinders |
 | **Architectural Team** | Architect-heavy | Deep design bench |
-| **Architecture-Heavy** | Architect-skewed, low Anchor | Design exists but implementation can't keep up |
+| **Architecture-Heavy** | Architect-skewed, low Anchor (excludes Architect/Builders) | Design exists but implementation can't keep up |
 | **Emerging Architecture** | Few Architects, mostly Anchor/Producer | Design culture is nascent |
 | **Delivery Team** | Producer-dominant | Ship-focused |
 | **Maintenance Team** | Cleaner/Anchor-dominant | Operations and stability focused |
@@ -161,6 +161,8 @@ The minimum weight of 0.1 ensures that presence still matters — three Growing 
 | **Balanced** | No dominant pattern | Evenly distributed |
 
 **AAR (Architect-to-Anchor Ratio)** is the key structural metric. Too many Architects and design outpaces implementation. Too many Anchors and stability dominates at the expense of innovation. The healthy range is 0.3–0.8.
+
+There's one exception: **Architect/Builders** — engineers who both design and implement. A high AAR doesn't cause "design outpaces implementation" when the Architects are also shipping code. A team where every Architect is a Builder won't be classified as Architecture-Heavy. In fact, a team of all Architect/Builders might be the strongest composition possible.
 
 ### Culture — From Style Distribution
 
@@ -214,7 +216,7 @@ Synthesized from Structure × Culture × Phase × Risk plus structural metrics (
 
 Three additional metrics quantify the team's structural skeleton:
 
-**AAR (Architect-to-Anchor Ratio)**: Architect count ÷ Anchor count. Healthy range: 0.3–0.8. Too high = design overload (implementation can't keep up). Too low = stability saturation (no design innovation). Architects present with zero Anchors signals Architect Isolation.
+**AAR (Architect-to-Anchor Ratio)**: Architect count ÷ Anchor count. Healthy range: 0.3–0.8. Too high = design overload (implementation can't keep up). Too low = stability saturation (no design innovation). Architects present with zero Anchors signals Architect Isolation. When Architects also carry Builder style, the overload warning is relaxed — they handle both design and implementation.
 
 **Anchor Density**: Anchors ÷ active members. How thick is the quality and stability foundation?
 
