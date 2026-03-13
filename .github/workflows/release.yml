@@ -20,7 +20,22 @@ jobs:
         with:
           go-version: "1.23"
 
+      - name: Check if release already exists
+        id: check_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG=${GITHUB_REF_NAME}
+          ASSETS=$(gh release view "$TAG" --json assets --jq '.assets | length' 2>/dev/null || echo "0")
+          if [ "$ASSETS" -gt "0" ]; then
+            echo "Release $TAG already has $ASSETS assets, skipping GoReleaser"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: goreleaser/goreleaser-action@v6
+        if: steps.check_release.outputs.skip != 'true'
         with:
           version: "~> v2"
           args: release --clean
@@ -28,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update Homebrew tap
-        if: success()
+        if: success() && steps.check_release.outputs.skip != 'true'
         env:
           TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
         run: |
