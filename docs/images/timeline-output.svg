@@ -148,12 +148,12 @@
   <!-- Transition markers -->
   <text x="945" y="235" class="trans-arrow">↑</text>
   <text x="960" y="235" class="transition">Role: Anchor→Producer</text>
-  <text x="945" y="248" class="trans-arrow">↑</text>
-  <text x="960" y="248" class="transition">Style: Builder→Balanced</text>
-  <text x="945" y="255" class="trans-arrow">↑</text>
-  <text x="960" y="255" class="transition">Role: Producer→Architect</text>
-  <text x="945" y="268" class="trans-arrow">↑</text>
-  <text x="960" y="268" class="transition">Style: Balanced→Builder</text>
+  <text x="945" y="251" class="trans-arrow">↑</text>
+  <text x="960" y="251" class="transition">Style: Builder→Balanced</text>
+  <text x="945" y="267" class="trans-arrow">↑</text>
+  <text x="960" y="267" class="transition">Role: Producer→Architect</text>
+  <text x="945" y="283" class="trans-arrow">↑</text>
+  <text x="960" y="283" class="transition">Style: Balanced→Builder</text>
 
   <!-- Separator -->
   <line x1="20" y1="318" x2="1180" y2="318" stroke="#504945" stroke-width="1"/>
