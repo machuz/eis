@@ -10,7 +10,7 @@ cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/m
 
 ## Previously
 
-In [Chapter 5](https://dev.to/machuz/git-archaeology-5-timeline-scores-dont-lie-and-they-capture-hesitation-too-1gi5), I used `eis timeline` to trace individual timelines — Engineer F's departure and machuz's rise, Engineer I's "hesitation" and return.
+In [Chapter 5](https://dev.to/machuz/git-archaeology-5-timeline-scores-dont-lie-and-they-capture-hesitation-too-1gi5), I used `eis timeline` to trace individual timelines — Engineer F's departure and machuz's architectural permeation, Engineer I's "hesitation" and return.
 
 But those were individual stories. **A team is a collection of individuals.** When individuals change, the team's nature changes too.
 
@@ -180,7 +180,7 @@ Here are the evolution models extracted from our timeline data.
 
 ---
 
-### Model 1: There's More Than One Path to Architect
+### Model 1: There's More Than One Path to Architect Manifestation
 
 machuz's Backend timeline:
 
@@ -194,7 +194,13 @@ machuz's Backend timeline:
 
 **Anchor → Producer → Architect.**
 
-A classic "staircase" evolution. First understand structure as Anchor, then prove production capability as Producer, then finally design structure as Architect.
+This looks like a "growth staircase," but the reality is different. machuz already had extensive Architect experience from other teams. However, this team had a predecessor Architect (Engineer F) already in place.
+
+What machuz did was **respect the predecessor's structure while improving it and shipping features at high volume**. The Anchor phase was about understanding the existing structure. The Producer phase was about producing extensively on top of it. Throughout this process, machuz's own architectural vision gradually permeated the codebase.
+
+When Engineer F's scores began declining in 2025-H2, machuz's architecture became the structural backbone. EIS captured this as Architect Builder.
+
+This isn't "growing into an Architect." It's **"an existing architectural vision permeating the codebase until the numbers reflect it."**
 
 Meanwhile, Engineer I's Frontend timeline (from Chapter 5):
 
@@ -203,16 +209,14 @@ Meanwhile, Engineer I's Frontend timeline (from Chapter 5):
 2024-Q4     75.7  Architect Balanced
 ```
 
-**Architect by their second quarter.** Skipping the stairs entirely.
+**Architect by their second quarter.** Engineer I also had Architect experience externally. But unlike machuz, they shortened the adaptation period and immediately began designing with their own architectural approach.
 
-This is the "someone who already had Architect capability externally" pattern. Only one quarter of Anchor (learning the existing structure), then immediately operating as Architect.
+**Even among experienced joiners, the speed of manifestation differs.**
 
-**There are at least two evolution paths:**
+1. **Permeation type** — Respect the predecessor's structure, produce on top of it, and gradually infuse your own design (machuz's path)
+2. **Immediate type** — Brief Anchor phase, then start designing with your own architecture immediately (Engineer I's path)
 
-1. **Climbing type** — Anchor → Producer → Architect (machuz's path)
-2. **Ready-made type** — Anchor (brief) → Architect (Engineer I's path)
-
-The climbing type takes longer but develops deep contextual understanding before reaching Architect. The ready-made type is fast but carries **collision risk with the team**, as Chapter 5 showed.
+The permeation type takes longer but maintains continuity with existing structure. The immediate type is fast but carries **collision risk with the team**, as Chapter 5 showed.
 
 ---
 
@@ -229,7 +233,7 @@ Touched on in Chapter 5, but timelines make it clearer.
 2025-H2   Engineer F  37.5  Anchor               machuz  92.5  Architect Builder
 ```
 
-As an observation, **there was never a period with two simultaneous Architects.** Engineer F stepped down before machuz stepped up. Whether this reflects a structural constraint of Backend's single design axis (one DB schema, one API convention) or simply machuz's growth timing is hard to determine from this sample alone. But at minimum, BE Architects tend to concentrate.
+As an observation, **there was never a period with two simultaneous Architects.** Engineer F stepped down before machuz's architecture became dominant. Whether this reflects a structural constraint of Backend's single design axis (one DB schema, one API convention) or simply the timing of architectural permeation is hard to determine from this sample alone. But at minimum, BE Architects tend to concentrate.
 
 **Frontend:**
 
@@ -385,9 +389,9 @@ machuz (Architect Builder) plus multiple Anchors/Producers. People producing on 
 
 ---
 
-### Model 7: Producer Experience Fuels the Next Architect
+### Model 7: The Producer Phase Is Architectural Groundwork
 
-Look at machuz's evolution one more time:
+Look at machuz's timeline one more time:
 
 ```
 2024-H2     76.4  Anchor  Builder
@@ -395,17 +399,19 @@ Look at machuz's evolution one more time:
 2025-H2     92.5  Architect Builder
 ```
 
-**Architect was reached after passing through a Producer phase in 2025-H1.**
+**Architect Builder appeared in the numbers after passing through a Producer phase in 2025-H1.**
 
-What does the Producer phase mean? "Producing in volume on top of the structure." By using the existing structure extensively, you **internalize both its limitations and its possibilities**.
+machuz's Producer phase wasn't a "learning period." It was **a period of shipping features at high volume on top of the predecessor Architect's (Engineer F's) structure, while gradually weaving in their own design philosophy through improvements**.
 
-When machuz hit 92.5 as Architect Builder in 2025-H2, they entered design mode having intimately understood the structure they'd been producing on — including what needed improvement.
+By using the existing structure extensively, you internalize both its limitations and its possibilities. And within those improvements, you embed your own architecture.
 
-That's why Design hit 100. Design changes backed by deep structural understanding hit their mark. That's why Survival hit 100.
+When 92.5 as Architect Builder appeared in 2025-H2, that was the moment the permeation crossed a threshold. Engineer F's score decline (the structural backbone shifting) and machuz's Design 100 (design changes reaching architecture files) happened simultaneously.
 
-**Becoming Architect without Producer experience risks "armchair design."** Without experience using the structure, you build structures that are hard to use.
+**The Producer phase can serve as groundwork for permeating your architecture into the codebase.** On the surface it looks like Producer work, but beneath the surface, a design philosophy transplant is underway.
 
-Engineer I could become Architect immediately after joining because, we can infer, **they had extensive Producer experience at their previous position.** They had used structures extensively elsewhere. That's why they could quickly identify "what needs to be designed" in a new environment.
+Without this "groundwork" — starting to design without deep understanding of the existing structure — risks "armchair design." Without experience using the structure, you build structures that are hard to use.
+
+Engineer I could become Architect immediately after joining because, we can infer, **they had extensive experience with similar architectures at their previous position.** They had used comparable structures extensively elsewhere. That's why they could quickly identify "what needs to be designed" in a new environment. The groundwork period was unnecessary.
 
 ---
 
@@ -424,8 +430,10 @@ Here are the evolution models extracted from timelines:
 │                  │            ←─────────────┘             │
 │                  │       (metabolism: back to Producer)   │
 │                                                          │
-│  * Ready-made: [Anchor(brief)] → [Architect] direct      │
-│  * Founding:   [Architect] → score decline (= success)   │
+│  * Permeation: respect existing, produce, then permeate   │
+│                [Anchor] → [Producer] → [Architect]        │
+│  * Immediate:  [Anchor(brief)] → [Architect] direct       │
+│  * Founding:   [Architect] → score decline (= success)    │
 │                                                          │
 ├──────────────────────────────────────────────────────────┤
 │  BE: Architect seats tend to concentrate (observed: 1)    │

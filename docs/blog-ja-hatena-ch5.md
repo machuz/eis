@@ -263,7 +263,7 @@ Architectの仕事が終わったことがTransitionsだけで読み取れる。
 2026-Q1     11.3  — Former                   92.4  Architect Builder
 ```
 
-**Engineer Fが退場するタイミングで、machuzがArchitectに昇格している。**
+**Engineer Fが退場するタイミングで、machuzのアーキテクチャが構造の主軸になっている。**
 
 2025-Q3。Engineer Fが49.1まで落ちた四半期で、machuzが93.2を叩き出しArchitect Builderに。
 
@@ -271,7 +271,7 @@ Architectの仕事が終わったことがTransitionsだけで読み取れる。
 
 第4章で書いた「Backend Architectは集中する」という構造がここに現れている。結果的に、**BEで同時にArchitectが2人存在する期間は一つもなかった**。Engineer Fが先にArchitect Builderとして構造を支えていた時期、machuzはまだAnchorだった。machuzがArchitectに到達したのは、Engineer Fのスコアが落ちた後だ。
 
-これがBEの単一設計軸（DB・API方針）に起因するArchitect集中の構造的帰結なのか、単にmachuzの成長タイミングの問題なのかは、このサンプルだけでは断定できない。しかし少なくともこのチームでは、**世代交代として起きた**ことは確かだ。
+これがBEの単一設計軸（DB・API方針）に起因するArchitect集中の構造的帰結なのか、単にアーキテクチャ浸透のタイミングの問題なのかは、このサンプルだけでは断定できない。しかし少なくともこのチームでは、**世代交代として起きた**ことは確かだ。
 
 タイムラインはこの世代交代を可視化する。
 
@@ -293,7 +293,7 @@ Architectの仕事が終わったことがTransitionsだけで読み取れる。
 
 Engineer Iの2025-Q3の「一歩引いた」動きは、おそらく本人も意識的にやっていたことだ。しかしそれが3ヶ月の数字として残り、前後の四半期と並べたときに初めて「あ、あの時か」とわかる。
 
-Engineer Fの退場とmachuzの台頭も、タイムラインなしでは「今この構造になっている」としか言えない。しかしタイムラインがあれば「この世代交代は2025-Q3に起きた」と特定できる。
+Engineer Fの退場とmachuzのアーキテクチャ浸透も、タイムラインなしでは「今この構造になっている」としか言えない。しかしタイムラインがあれば「この世代交代は2025-Q3に起きた」と特定できる。
 
 ---
 
@@ -354,7 +354,7 @@ Guardian → Balanced → Elite。Declining → Mature。Design Vacuum → Healt
 
 スナップショットは「今」を映す。タイムラインは「なぜ今こうなっているか」を映す。
 
-Engineer Fが作った構造の上で、machuzがArchitectになった。Engineer Jが構造を作り切って、Producerに落ち着いた。Engineer Iが一度引いて、また出た。
+Engineer Fが作った構造の上で、machuzのアーキテクチャが浸透しArchitectとして数字に現れた。Engineer Jが構造を作り切って、Producerに落ち着いた。Engineer Iが一度引いて、また出た。
 
 **全部、数字に残っていた。**
 

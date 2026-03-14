@@ -269,7 +269,7 @@ Lining up the timelines reveals one more thing:
 2026-Q1     11.3  -- Former                  92.4  Architect Builder
 ```
 
-**The moment Engineer F exits, machuz ascends to Architect.**
+**The moment Engineer F exits, machuz's architecture becomes the structural backbone.**
 
 2025-Q3. The quarter Engineer F dropped to 49.1, machuz hit 93.2 as Architect Builder.
 
@@ -299,7 +299,7 @@ Things invisible in a point-in-time snapshot become visible in a timeline:
 
 Engineer I's "step back" in 2025-Q3 was probably a conscious decision. But it's preserved as a quarter's worth of data, and only when you line it up against adjacent quarters do you think "ah, that's when it happened."
 
-Engineer F's exit and machuz's rise — without a timeline, you can only say "this is the current structure." With a timeline, you can pinpoint "this generational shift happened in 2025-Q3."
+Engineer F's exit and machuz's architectural permeation — without a timeline, you can only say "this is the current structure." With a timeline, you can pinpoint "this generational shift happened in 2025-Q3."
 
 ---
 
