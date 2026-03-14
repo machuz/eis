@@ -122,7 +122,7 @@ Transitions:
 
 **In 2025-H1, the team briefly became Factory / Delivery Team, then reverted.**
 
-What happened? 2025-H1 was when Engineer I hit peak score (87.5) as Architect Builder. Engineer J was simultaneously Anchor Emergent. **Both designer and producer were at high output.** The team temporarily exhibited Factory (high-throughput) / Delivery Team characteristics.
+What happened? 2025-H1 was when Engineer I scored 83.8 as Architect — not only designing but also shipping at high volume, single-handedly driving both design and implementation. Engineer J was simultaneously Anchor (54.3), delivering steadily. **The designer was producing at high throughput while the Anchor sustained delivery.** The team temporarily exhibited Factory (high-throughput) / Delivery Team characteristics.
 
 But that "maximum output" was temporary. The next half, it reverted to Guardian / Maintenance.
 

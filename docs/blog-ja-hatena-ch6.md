@@ -116,7 +116,7 @@ Transitions:
 
 **2025-H1にFactory / Delivery Teamに変わり、2025-H2に戻っている。**
 
-この一時的な変化は何か。2025-H1はEngineer Iが Architect Builder として最高スコア（87.5）を叩き出した時期だ。同時期にEngineer Jも Anchor Emergent。つまり**設計者と生産者が同時に高稼働した**時期。結果、チームは一時的にFactory（大量生産型）/ Delivery Team（配信チーム）の特性を見せた。
+この一時的な変化は何か。2025-H1はEngineer Iが Architect としてスコア83.8を記録した時期だ。設計だけでなく生産量も高く、一人で設計と実装の両方を高回転で回していた。同時期にEngineer Jも Anchor（54.3）として安定した配信を続けていた。つまり**設計者が高回転で生産も兼ね、Anchorが着実に配信する**構成。結果、チームは一時的にFactory（大量生産型）/ Delivery Team（配信チーム）の特性を見せた。
 
 しかしその「最大出力」は一時的だった。翌半期にはGuardian / Maintenanceに戻る。
 
