@@ -20,7 +20,8 @@
     "hatena_url": ""
   },
   "blog-en-devto-ch3.md": {
-    "devto_id": 3350296
+    "devto_id": 3350296,
+    "devto_url": "https://dev.to/machuz/two-paths-to-architect-how-engineers-evolve-differently-1ga"
   },
   "blog-ja-hatena-ch4.md": {
     "hatena_id": "17179246901364801303",
@@ -50,7 +51,8 @@
     "hatena_url": ""
   },
   "blog-en-devto-ch7.md": {
-    "devto_id": 3351617
+    "devto_id": 3351617,
+    "devto_url": "https://dev.to/machuz/git-archaeology-7-observing-the-universe-of-code-1op0"
   },
   "blog-ja-hatena-ch8.md": {
     "hatena_id": "17179246901364933177",
