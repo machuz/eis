@@ -230,7 +230,7 @@ func loadFromString(t *testing.T, yamlContent string) *Config {
 	if err := os.WriteFile(path, []byte(yamlContent), 0644); err != nil {
 		t.Fatalf("write temp config: %v", err)
 	}
-	cfg, err := Load(path)
+	cfg, err := Load(path, true)
 	if err != nil {
 		t.Fatalf("Load(%s): %v", path, err)
 	}

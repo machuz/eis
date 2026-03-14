@@ -24,18 +24,19 @@ import (
 
 // AnalyzeOptions holds CLI flags for the analysis pipeline.
 type AnalyzeOptions struct {
-	ConfigPath   string
-	Tau          float64
-	SampleSize   int
-	Workers      int
-	Recursive    bool
-	MaxDepth     int
-	Format       string
-	PressureMode string
-	ActiveDays   int
-	DomainFilter string
-	Verbose      bool
-	NoCache      bool
+	ConfigPath     string
+	ExplicitConfig bool // true when --config was explicitly passed
+	Tau            float64
+	SampleSize     int
+	Workers        int
+	Recursive      bool
+	MaxDepth       int
+	Format         string
+	PressureMode   string
+	ActiveDays     int
+	DomainFilter   string
+	Verbose        bool
+	NoCache        bool
 	PerRepo      bool
 }
 
@@ -82,7 +83,7 @@ func newDomainAccumulator() *domainAccumulator {
 
 func runAnalyze(args []string) error {
 	fs := flag.NewFlagSet("analyze", flag.ExitOnError)
-	configPath := fs.String("config", "eis.yaml", "Config file path")
+	configPath := fs.String("config", "", "Config file path")
 	tau := fs.Float64("tau", 0, "Survival decay parameter (overrides config)")
 	sampleSize := fs.Int("sample", 0, "Max files to blame per repo (overrides config)")
 	workers := fs.Int("workers", 4, "Number of concurrent blame workers")
@@ -101,19 +102,25 @@ func runAnalyze(args []string) error {
 		return err
 	}
 
+	explicitConfig := *configPath != ""
+	if !explicitConfig {
+		*configPath = "eis.yaml"
+	}
+
 	opts := AnalyzeOptions{
-		ConfigPath:   *configPath,
-		Tau:          *tau,
-		SampleSize:   *sampleSize,
-		Workers:      *workers,
-		Recursive:    *recursive,
-		MaxDepth:     *maxDepth,
-		Format:       *formatFlag,
-		PressureMode: *pressureMode,
-		ActiveDays:   *activeDays,
-		DomainFilter: *domainFilter,
-		Verbose:      *verbose,
-		NoCache:      *noCache,
+		ConfigPath:     *configPath,
+		ExplicitConfig: explicitConfig,
+		Tau:            *tau,
+		SampleSize:     *sampleSize,
+		Workers:        *workers,
+		Recursive:      *recursive,
+		MaxDepth:       *maxDepth,
+		Format:         *formatFlag,
+		PressureMode:   *pressureMode,
+		ActiveDays:     *activeDays,
+		DomainFilter:   *domainFilter,
+		Verbose:        *verbose,
+		NoCache:        *noCache,
 		PerRepo:      *perRepo,
 	}
 
@@ -209,7 +216,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 	}
 
 	// Load config
-	cfg, err := config.Load(opts.ConfigPath)
+	cfg, err := config.Load(opts.ConfigPath, opts.ExplicitConfig)
 	if err != nil {
 		return nil, nil, fmt.Errorf("load config: %w", err)
 	}

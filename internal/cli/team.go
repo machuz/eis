@@ -11,7 +11,7 @@ import (
 
 func runTeam(args []string) error {
 	fs := flag.NewFlagSet("team", flag.ExitOnError)
-	configPath := fs.String("config", "eis.yaml", "Config file path")
+	configPath := fs.String("config", "", "Config file path")
 	tau := fs.Float64("tau", 0, "Survival decay parameter (overrides config)")
 	sampleSize := fs.Int("sample", 0, "Max files to blame per repo (overrides config)")
 	workers := fs.Int("workers", 4, "Number of concurrent blame workers")
@@ -29,19 +29,25 @@ func runTeam(args []string) error {
 		return err
 	}
 
+	explicitConfig := *configPath != ""
+	if !explicitConfig {
+		*configPath = "eis.yaml"
+	}
+
 	opts := AnalyzeOptions{
-		ConfigPath:   *configPath,
-		Tau:          *tau,
-		SampleSize:   *sampleSize,
-		Workers:      *workers,
-		Recursive:    *recursive,
-		MaxDepth:     *maxDepth,
-		Format:       *formatFlag,
-		PressureMode: *pressureMode,
-		ActiveDays:   *activeDays,
-		DomainFilter: *domainFilter,
-		Verbose:      *verbose,
-		NoCache:      *noCache,
+		ConfigPath:     *configPath,
+		ExplicitConfig: explicitConfig,
+		Tau:            *tau,
+		SampleSize:     *sampleSize,
+		Workers:        *workers,
+		Recursive:      *recursive,
+		MaxDepth:       *maxDepth,
+		Format:         *formatFlag,
+		PressureMode:   *pressureMode,
+		ActiveDays:     *activeDays,
+		DomainFilter:   *domainFilter,
+		Verbose:        *verbose,
+		NoCache:        *noCache,
 	}
 
 	// Run the shared analysis pipeline

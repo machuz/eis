@@ -31,7 +31,7 @@ type TimeWindow struct {
 
 func runTimeline(args []string) error {
 	fs := flag.NewFlagSet("timeline", flag.ExitOnError)
-	configPath := fs.String("config", "eis.yaml", "Config file path")
+	configPath := fs.String("config", "", "Config file path")
 	spanFlag := fs.String("span", "3m", "Period span: 3m, 6m, 1y")
 	periodsFlag := fs.Int("periods", 4, "Number of periods to show (0=all)")
 	sinceFlag := fs.String("since", "", "Start date (e.g. 2024-01-01, overrides --periods)")
@@ -85,8 +85,13 @@ func runTimeline(args []string) error {
 		fmt.Fprintf(os.Stderr, "Found %d git repos\n\n", len(repoPaths))
 	}
 
+	explicitConfig := *configPath != ""
+	if !explicitConfig {
+		*configPath = "eis.yaml"
+	}
+
 	// Load config
-	cfg, err := config.Load(*configPath)
+	cfg, err := config.Load(*configPath, explicitConfig)
 	if err != nil {
 		return fmt.Errorf("load config: %w", err)
 	}

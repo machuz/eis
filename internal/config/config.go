@@ -136,12 +136,14 @@ func Default() *Config {
 	}
 }
 
-func Load(path string) (*Config, error) {
+// Load reads a config file. If explicit is true (user passed --config),
+// a missing file is an error. Otherwise, a missing file returns defaults.
+func Load(path string, explicit bool) (*Config, error) {
 	cfg := Default()
 
 	data, err := os.ReadFile(path)
 	if err != nil {
-		if os.IsNotExist(err) {
+		if os.IsNotExist(err) && !explicit {
 			return cfg, nil
 		}
 		return nil, err
