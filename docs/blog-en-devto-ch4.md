@@ -1,5 +1,5 @@
 ---
-title: "Backend Architects Converge: The Sacred Work of Laying Souls to Rest"
+title: "Git Archaeology #4 — Backend Architects Converge: The Sacred Work of Laying Souls to Rest"
 published: true
 description: "Chapter 4 of Engineering Impact Score. Backend teams evolve differently — and departed Architects leave souls that must be laid to rest."
 tags: opensource, productivity, git, career

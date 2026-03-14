@@ -1,5 +1,5 @@
 ---
-title: "Timeline: Scores Don't Lie, and They Capture Hesitation Too"
+title: "Git Archaeology #5 — Timeline: Scores Don't Lie, and They Capture Hesitation Too"
 published: true
 description: "Chapter 5 of Engineering Impact Score. When you line up quarterly snapshots, numbers start telling stories — including the ones people don't talk about."
 tags: opensource, productivity, git, career
