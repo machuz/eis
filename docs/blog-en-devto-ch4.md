@@ -3,7 +3,7 @@ title: "Git Archaeology #4 — Backend Architects Converge: The Sacred Work of L
 published: true
 description: "Chapter 4 of Engineering Impact Score. Backend teams evolve differently — and departed Architects leave souls that must be laid to rest."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch4.svg
 ---
 
 *Departed Architects leave souls in the codebase. Laying them to rest is sacred work.*
@@ -25,39 +25,11 @@ But when I ran EIS on a Backend team, I saw a completely different landscape.
 
 Here's the Backend team's data:
 
-```
-#   Member     Active  Prod  Qual  Robust  Dormant  Design  Grav  Total  Role              Style             State
-1   machuz     ✓       100   66    100     100      100     97    92.4   Architect (1.00)  Builder (1.00)    Active (0.80)
-2   Engineer F —       93    75    36      21       47      76    55.5   Anchor (0.87)     Resilient (0.66)  Former (0.73)
-3   Engineer G ✓       52    78    21      32       12      26    37.3   Anchor (0.96)     Balanced (0.30)   Active (0.80)
-4   Engineer H ✓       49    90    20      25       10      31    35.6   Anchor (0.98)     Balanced (0.30)   Active (0.80)
-```
+![Backend Team](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch4-backend-team.svg)
 
 And the team metrics:
 
-```
-═══ Backend (4 core + 3 risk / 12 total, 13 repos) ═══
-  ★ Elite (1.00)
-
-⚠ Warnings:
-  43% risk ratio — 3 of 7 effective members are Former/Silent/Fragile
-  Top contributor (machuz) accounts for 46% of core production
-  ProdDensity drops to 39 without them
-
-Classification:
-  Structure: Emerging Architecture (0.66)
-  Phase: Legacy-Heavy (0.67)
-  Risk: Talent Drain (0.43)
-```
-
-The role distribution:
-
-```
-Role Distribution:
-  Architect    █░░░░░░░░░  1 (14%)
-  Anchor       ████░░░░░░  3 (43%)
-  —            ████░░░░░░  3 (43%)
-```
+![Team Classification](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch4-team-classification.svg)
 
 **1 Architect. 3 Anchors. 0 Producers.**
 

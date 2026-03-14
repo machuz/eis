@@ -3,7 +3,7 @@ title: "Git Archaeology #6 — Teams Evolve: The Laws of Organization Revealed b
 published: true
 description: "Chapter 6 of Engineering Impact Score. When individual changes ripple into team-level shifts, patterns emerge — and those patterns have laws."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch6.svg
 ---
 
 *When individuals change, teams change. Team timelines reveal that these changes follow laws.*
@@ -36,17 +36,7 @@ Plus Health metrics (Complementarity, Growth Potential, Sustainability, etc.) an
 
 ## Real Data: The Backend Team's Transformation
 
-```
-═══ Backend — Team Timeline ═══
-
-Classification:
-  Period            2024-H2         2026-H1
-  Character         Balanced        Elite
-  Structure         Unstructured    Architectural Engine
-  Culture           Stability       Builder
-  Phase             Declining       Mature
-  Risk              Design Vacuum   Healthy
-```
+![Backend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch6-backend-team-timeline.svg)
 
 (2024-H2 through 2025-H2 lack classification due to insufficient member count. Comparing 2024-H2 and 2026-H1.)
 
@@ -67,15 +57,7 @@ Engineer F's departure temporarily created a Design Vacuum. But machuz inherited
 
 Looking at Score Averages:
 
-```
-Score Averages:
-  Period            2024-H2         2026-H1
-  Production        0.0             57.7
-  Quality           0.0             64.6
-  Survival          0.0             39.2
-  Design            0.0             36.4
-  Total             0.0             48.3
-```
+![Backend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch6-backend-scores.svg)
 
 Design at 36.4 is still low. Because Architect responsibility is concentrated in machuz alone. Other members' Design scores are mostly 0–30.
 
@@ -87,17 +69,7 @@ Design at 36.4 is still low. Because Architect responsibility is concentrated in
 
 Frontend has longer data coverage, making transitions easier to read.
 
-```
-═══ Frontend — Team Timeline ═══
-
-Classification:
-  Period            2024-H2         2025-H1         2025-H2         2026-H1
-  Character         Guardian        Factory         Guardian        Balanced
-  Structure         Maintenance     Delivery        Maintenance     Maintenance
-  Culture           Stability       Stability       Stability       Builder
-  Phase             Declining       Declining       Declining       Mature
-  Risk              Quality Drift   Quality Drift   Quality Drift   Design Vacuum
-```
+![Frontend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch6-frontend-team-timeline.svg)
 
 First thing that stands out: **Declining → Mature only happened in 2026-H1.** Later than Backend.
 
@@ -112,13 +84,7 @@ Engineer J settled into Producer in 2025-H2, and Engineer I sometimes oscillates
 
 One more interesting pattern in Frontend:
 
-```
-Transitions:
-  [2025-H1] Character: Guardian → Factory
-  [2025-H1] Structure: Maintenance Team → Delivery Team
-  [2025-H2] Character: Factory → Guardian
-  [2025-H2] Structure: Delivery Team → Maintenance Team
-```
+![Frontend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch6-frontend-team-timeline.svg)
 
 **In 2025-H1, the team briefly became Factory / Delivery Team, then reverted.**
 
@@ -134,14 +100,7 @@ But that "maximum output" was temporary. The next half, it reverted to Guardian 
 
 ### Infra: Explorer / Emerging
 
-```
-Classification (2026-H1):
-  Character         Explorer
-  Structure         Balanced
-  Culture           Exploration
-  Phase             Emerging
-  Risk              Design Vacuum
-```
+![Infra & Firmware](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch6-infra-firmware.svg)
 
 Explorer / Exploration / Emerging. **A team still taking shape.**
 
@@ -150,15 +109,6 @@ Every member scores as Growing or Spread. Zero Architects. Design Vacuum is inev
 But Phase: Emerging means **growth is happening**. Not Declining.
 
 ### Firmware: Firefighting
-
-```
-Classification (2026-H1):
-  Character         Firefighting
-  Structure         Maintenance Team
-  Culture           Firefighting
-  Phase             Declining
-  Risk              Design Vacuum
-```
 
 Firmware has only two members. Character: Firefighting. Culture: Firefighting.
 
@@ -184,13 +134,7 @@ Here are the evolution models extracted from our timeline data.
 
 machuz's Backend timeline:
 
-```
-2024-H1     27.6  Anchor  —        Growing
-2024-H2     76.4  Anchor  Builder
-2025-H1     58.4  Producer Balanced
-2025-H2     92.5  Architect Builder
-2026-H1     92.4  Architect Builder  Active
-```
+![machuz Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch6-machuz-timeline.svg)
 
 **Anchor → Producer → Architect.**
 
@@ -226,22 +170,13 @@ Touched on in Chapter 5, but timelines make it clearer.
 
 **Backend:**
 
-```
-2024-H1   Engineer F  93.5  Architect Builder    machuz  27.6  Anchor
-2024-H2   Engineer F  84.1  Architect Builder    machuz  76.4  Anchor Builder
-2025-H1   Engineer F  72.7  Anchor Balanced      machuz  58.4  Producer
-2025-H2   Engineer F  37.5  Anchor               machuz  92.5  Architect Builder
-```
+![BE Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch6-be-architects.svg)
 
 As an observation, **there was never a period with two simultaneous Architects.** Engineer F stepped down before machuz's architecture became dominant. Whether this reflects a structural constraint of Backend's single design axis (one DB schema, one API convention) or simply the timing of architectural permeation is hard to determine from this sample alone. But at minimum, BE Architects tend to concentrate.
 
 **Frontend:**
 
-```
-2024-H2   Engineer I  72.7  Anchor       Engineer J  74.9  Architect Builder
-2025-H1   Engineer I  83.8  Architect    Engineer J  54.3  Anchor
-2025-H2   Engineer I  85.1  Architect    Engineer J  38.6  Anchor
-```
+![FE Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch6-fe-architects.svg)
 
 In Frontend, when Engineer I became Architect, Engineer J dropped to Anchor. **At first glance, it looks like the same "one seat" pattern.**
 

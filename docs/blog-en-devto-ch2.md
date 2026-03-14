@@ -3,7 +3,7 @@ title: "Git Archaeology #2 — Beyond Individual Scores: Measuring Team Health f
 published: true
 description: "Chapter 2 of Engineering Impact Score. Team-level analysis — complementarity, risk ratio, productivity density — all from git data you already have."
 tags: opensource, productivity, git, teams
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch2.svg
 ---
 
 *Individual scores tell you who is strong. Team health tells you whether the team will still be strong next quarter.*
@@ -310,13 +310,7 @@ This prevents cross-functional helpers from diluting metrics while keeping risk 
 
 EIS detects dangerous metric combinations and surfaces them as plain-text warnings:
 
-```
-⚠ Warnings:
-  43% risk ratio — 3 of 7 effective members are Former/Silent/Fragile
-  Top contributor (machuz) accounts for 46% of core production — ProdDensity drops to 39 without them
-  2 Silent members — headcount says 16 but effective contributors are 4
-  Fragile gravity — okatechnology (Grav 68) has high influence but low robust survival (8)
-```
+![Team Warnings](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch2-warnings.svg)
 
 Warning types:
 

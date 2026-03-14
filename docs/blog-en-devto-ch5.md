@@ -3,7 +3,7 @@ title: "Git Archaeology #5 — Timeline: Scores Don't Lie, and They Capture Hesi
 published: true
 description: "Chapter 5 of Engineering Impact Score. When you line up quarterly snapshots, numbers start telling stories — including the ones people don't talk about."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch5.svg
 ---
 
 *When you line up quarterly snapshots, numbers start telling stories.*
@@ -64,19 +64,7 @@ I'll focus on three key members.
 
 ### Engineer F's Arc: An Architect Speaks Even After Departure
 
-```
---- Engineer F (Backend) ---
-Period              Total  Prod  Qual  Surv  Design  Role         Style
-2024-Q1 (Jan)        90.0   100    69   100     100  Architect    Builder
-2024-Q2 (Apr)        94.4   100    71   100      87  Architect    Builder
-2024-Q3 (Jul)        72.5    59    72   100      71  Producer     Balanced
-2024-Q4 (Oct)        90.6   100    77   100     100  Architect    Builder
-2025-Q1 (Jan)        79.2   100    82   100      28  Anchor       Balanced
-2025-Q2 (Apr)        68.4    36    84   100      58  Anchor       Balanced
-2025-Q3 (Jul)        49.1    81    77    51       4  Anchor       Balanced
-2025-Q4 (Oct)        31.2    18    78    23       8  —            Balanced     Fragile
-2026-Q1 (Jan)        11.3     0     0    34       0  —            —            Former
-```
+![Engineer F Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch5-engineer-f-timeline.svg)
 
 **In the first half of 2024, Engineer F was putting up numbers on par with machuz.**
 
@@ -98,19 +86,7 @@ The subject of Chapter 4's "laying souls to rest" is exactly this person. And th
 
 ### Engineer J's Arc: They Were an Architect Builder
 
-```
---- Engineer J (Frontend) ---
-Period              Total  Prod  Qual  Surv  Design  Role         Style
-2024-Q1 (Jan)        28.1    26    73    33       2  Anchor       —            Growing
-2024-Q2 (Apr)        15.5     8   100    16       0  —            —            Growing
-2024-Q3 (Jul)        61.9    52    72    38     100  Architect    Balanced
-2024-Q4 (Oct)        91.7   100    74    96     100  Architect    Builder
-2025-Q1 (Jan)        63.9    90    85    15      61  Anchor       Emergent
-2025-Q2 (Apr)        63.8    48    73    76      81  Architect    Balanced
-2025-Q3 (Jul)        44.7    62    70    18      18  Producer     Emergent
-2025-Q4 (Oct)        39.4    62    60    50       0  Producer     Balanced     Former
-2026-Q1 (Jan)        54.2    43    61   100       1  Producer     Balanced     Active
-```
+![Engineer J Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch5-engineer-j-timeline.svg)
 
 **2024-Q4: Engineer J, Total 91.7. Architect Builder.**
 
@@ -136,17 +112,7 @@ This means "the Architect's work is done." The structure was built. Now they pro
 
 ### Engineer I's Arc: Architect From Day One
 
-```
---- Engineer I (Frontend) ---
-Period              Total  Prod  Qual  Surv  Design  Role         Style
-2024-Q3 (Jul)        56.1   100    97    60       2  Anchor       Balanced
-2024-Q4 (Oct)        75.7    59    84   100      78  Architect    Balanced
-2025-Q1 (Jan)        87.5   100    93   100     100  Architect    Builder
-2025-Q2 (Apr)        73.2    67    91   100     100  Architect    Builder
-2025-Q3 (Jul)        72.4    73    97   100      73  Anchor       Balanced
-2025-Q4 (Oct)        81.7   100    68   100     100  Architect    Balanced
-2026-Q1 (Jan)        78.1   100    84    83     100  Anchor       Builder      Active
-```
+![Engineer I Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch5-engineer-i-timeline.svg)
 
 **Architect by their second quarter. Consistently in Architect territory ever since.**
 
@@ -204,13 +170,7 @@ The timeline alone tells us "design involvement decreased." But `eis analyze --r
 
 Here's Engineer I's per-repo commit distribution:
 
-```
-Quarter      Repo A (existing)   Repo B (existing)   Repo C (new)
-2025-Q2           135                  44                —
-2025-Q3           201                 274                —
-2025-Q4             5                   5             1,352
-2026-Q1             2                   2             1,333
-```
+![Per-Repo Commits](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch5-per-repo-commits.svg)
 
 **The true shape of Q3's "hesitation" emerges.**
 
@@ -309,28 +269,9 @@ Engineer I's timeline and `--per-repo` record that maturation process — quarte
 
 `eis timeline` auto-detects changes:
 
-```
-Notable transitions:
-  * Engineer I: Role Anchor->Architect (2024-Q4 (Oct))
-  * Engineer I: Style Balanced->Builder (2025-Q1 (Jan))
-  * Engineer I: Role Architect->Anchor (2025-Q3 (Jul))     <- friction
-  * Engineer I: Style Builder->Balanced (2025-Q3 (Jul))     <- hesitation
-  * Engineer I: Role Anchor->Architect (2025-Q4 (Oct))      <- return
-  * Engineer I: Role Architect->Anchor (2026-Q1 (Jan))
-  * Engineer I: Style Balanced->Builder (2026-Q1 (Jan))
-```
+![Transitions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch5-transitions.svg)
 
 Just lining up Role and Style changes tells you what happened.
-
-Engineer J's transitions are equally revealing:
-
-```
-  * Engineer J: Style Balanced->Builder (2024-Q4 (Oct))      <- building phase
-  * Engineer J: Role Architect->Anchor (2025-Q1 (Jan))       <- stabilization
-  * Engineer J: Role Anchor->Architect (2025-Q2 (Apr))       <- re-design
-  * Engineer J: Role Architect->Producer (2025-Q3 (Jul))     <- structure complete
-  * Engineer J: State Former->Active (2026-Q1 (Jan))         <- return
-```
 
 Architect → Anchor → Architect → Producer.
 
@@ -344,18 +285,7 @@ You can read that the Architect's work is finished just from the transitions.
 
 Lining up the timelines reveals one more thing:
 
-```
-            Engineer F (BE)                    machuz (BE)
-2024-Q1     90.0  Architect Builder           --
-2024-Q2     94.4  Architect Builder          31.5  Anchor Balanced
-2024-Q3     72.5  Producer Balanced          73.8  Anchor Builder
-2024-Q4     90.6  Architect Builder          64.1  Anchor Builder
-2025-Q1     79.2  Anchor Balanced            61.7  Anchor Builder
-2025-Q2     68.4  Anchor Balanced            49.2  Anchor Balanced
-2025-Q3     49.1  Anchor Balanced            93.2  Architect Builder
-2025-Q4     31.2  -- Fragile                 87.7  Architect Builder
-2026-Q1     11.3  -- Former                  92.4  Architect Builder
-```
+![Comparison](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch5-comparison-table.svg)
 
 **The moment Engineer F exits, machuz's architecture becomes the structural backbone.**
 
@@ -423,16 +353,7 @@ What matters is that it works even in atypical cases. For standard departure sig
 
 `eis timeline` also auto-generates team-level timelines:
 
-```
-=== Backend / Backend -- Team Timeline ===
-
-Classification:
-  Period            2024-Q4         2025-Q4         2026-Q1
-  Character         Guardian        Balanced        Elite
-  Structure         Maintenance     Unstructured    Architectural Engine
-  Phase             Declining       Declining       Mature
-  Risk              Quality Drift   Design Vacuum   Healthy
-```
+![Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch5-team-timeline.svg)
 
 Guardian → Balanced → Elite. Declining → Mature. Design Vacuum → Healthy.
 

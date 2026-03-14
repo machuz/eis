@@ -3,7 +3,7 @@ title: "Git Archaeology #1 — Measuring Engineering Impact from Git History Alo
 published: true
 description: A 7-axis scoring model that quantifies engineer impact using nothing but git log and git blame. Code survival, debt cleanup, bus factor — all from data you already have.
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch1.svg
 ---
 
 *Why commit counts, PR counts, and lines of code fail to capture real engineering strength*
@@ -372,13 +372,7 @@ Yes, I score highest. I'm the tech lead and I designed the metric — if the per
 
 ### Backend Rankings (Excerpt)
 
-| # | Member | Prod | Qual | Surv | Design | Breadth | Debt | Indisp | Total | Topology |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | machu (me) | 100 | 57 | 100 | 100 | 74 | 100 | 43 | **90.3** | Architect / Builder / Active |
-| 2 | Member A (departed) | 69 | 73 | 12 | 67 | 81 | 11 | 100 | **52.8** | Architect / — / Former |
-| 3 | Member B | 17 | 69 | 50 | 14 | 48 | 88 | 35 | **44.5** | Anchor / Balanced / Active |
-| 4 | Member C | 27 | 84 | 30 | 28 | 52 | 71 | 8 | **41.8** | Anchor / Balanced / Active |
-| — | Member X (departed) | 6 | 79 | ≈0 | 4 | 78 | —† | 0 | **24.9** | — / Spread / Former |
+![Backend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch1-backend-table.svg)
 
 † Insufficient sample (fewer than 10 fix-commit involvements). Neutral value 50 used in total score calculation.
 
@@ -392,10 +386,7 @@ My own Quality of 57 is low, reflecting aggressive architectural changes (introd
 
 ### Frontend Rankings (Excerpt)
 
-| # | Member | Prod | Qual | Surv | Design | Breadth | Debt | Indisp | Total | Topology |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Member D | 100 | 84 | 100 | 100 | 62 | 39 | 100 | **85.4** | Architect / Builder / Active |
-| — | Member Y (departed) | 24 | 18 | ≈0 | 17 | 38 | 0 | 0 | **12.6** | Producer / Mass / Former |
+![Frontend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch1-frontend-table.svg)
 
 **Member D** owns essentially all of the frontend core library (180K+ lines). Indispensability 100 — same structural risk as Member A on the backend. **If this person leaves, there is nobody who can make frontend design decisions.** Debt Cleanup 39 is mid-range within FE, but with 129 self-fixes, it shows a self-contained work style: write it, fix it yourself.
 

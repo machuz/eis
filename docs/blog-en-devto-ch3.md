@@ -3,7 +3,7 @@ title: "Git Archaeology #3 — Two Paths to Architect: How Engineers Evolve Diff
 published: true
 description: "Chapter 3 of Engineering Impact Score. Architects don't come from one mold — inheritance vs. emergence, and why cold numbers tell the most human stories."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch3.svg
 ---
 
 *Cold numbers, it turns out, tell the most human stories.*
@@ -45,10 +45,7 @@ Looking at one frontend team's EIS data, I started seeing the evolution paths em
 
 The structural center of the team.
 
-```
-Prod 100 | Qual 84 | Robust 100 | Dormant 100 | Design 100 | Grav 84 | Total 88.9
-Role: Architect (1.00) | Style: Builder (1.00)
-```
+![Engineer Archetypes](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch3-engineer-profiles.svg)
 
 This is the team's gravitational core.
 
@@ -57,11 +54,6 @@ This is the team's gravitational core.
 **Engineer B** — Anchor / Mass / Active
 
 Producing like crazy. But Robust is only 11.
-
-```
-Prod 100 | Qual 87 | Robust 11 | Dormant 18 | Design 39 | Grav 32 | Total 44.6
-Role: Anchor (1.00) | Style: Mass (0.81)
-```
 
 Most of their code gets rewritten by Engineer A.
 
@@ -77,11 +69,6 @@ This isn't just "immature." They're in the early stage of an Anchor-to-Architect
 
 The one who listens to everyone, synthesizes feedback, and writes code that reflects the team's consensus.
 
-```
-Prod 42 | Qual 44 | Robust 39 | Dormant 39 | Design 9 | Grav 29 | Total 39.5
-Role: Producer (0.80) | Style: Balanced (0.30)
-```
-
 That's why their code is robust.
 
 **Producer means they're shipping real code** — not just attending meetings. The label doesn't attach unless you're actually producing. It's proof of standing shoulder-to-shoulder with the team.
@@ -95,11 +82,6 @@ They haven't created gravitational code yet — the kind everyone else builds on
 The only one outside the Architect **generating real gravity**.
 
 Engineers who can create gravity are rare. Genuinely rare.
-
-```
-Prod 49 | Qual 66 | Robust 12 | Dormant 44 | Design 5 | Grav 68 | Indisp 100 | Total 39.0
-Role: Producer (0.96) | Style: Emergent (0.78)
-```
 
 But Dormant is high — **much of their code hasn't been touched by others yet**. They built ahead of the team.
 
@@ -128,11 +110,6 @@ Emergent means "not yet fully formed, but coming into being."
 **Engineer E** — Producer / Churn / —
 
 The more they write, the more debt they create.
-
-```
-Prod 37 | Qual 23 | Robust 10 | Dormant 2 | Design 2 | Grav 35 | Total 19.2
-Role: Producer (0.68) | Style: Churn (0.67)
-```
 
 Their code is systematically replaced.
 
@@ -430,10 +407,7 @@ Everyone writes, nobody cleans up. Everyone pushes forward, nobody solidifies th
 
 EIS makes this instantly visible:
 
-```
-Role Distribution:
-  Producer     ██████████  5 (100%)
-```
+![Producer-Only Warning](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch3-producer-warning.svg)
 
 No Architect. No Anchor. No Cleaner.
 

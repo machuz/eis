@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIS Timeline Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --bg: #282828;
+    --bg-card: #3c3836;
+    --bg-nav: #1d2021;
+    --text: #ebdbb2;
+    --text-muted: #928374;
+    --accent: #83a598;
+    --border: #504945;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+  }
+  nav {
+    width: 260px;
+    min-width: 260px;
+    background: var(--bg-nav);
+    padding: 20px 0;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+  }
+  nav h2 {
+    padding: 0 16px 12px;
+    font-size: 14px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  nav a {
+    display: block;
+    padding: 6px 16px 6px 24px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: background 0.15s, color 0.15s;
+  }
+  nav a:hover { background: rgba(131,165,152,0.15); color: #ebdbb2; }
+  nav .nav-section {
+    padding: 10px 16px 4px;
+    font-size: 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+  main {
+    margin-left: 260px;
+    flex: 1;
+    padding: 30px 40px;
+    max-width: 1200px;
+  }
+  h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #ebdbb2;
+  }
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 30px;
+  }
+  .domain-section { margin-bottom: 40px; }
+  .domain-title {
+    font-size: 18px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  .chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .chart-card h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: #ebdbb2;
+  }
+  .chart-container {
+    position: relative;
+    height: 300px;
+  }
+  .chart-container.bar-chart {
+    height: 220px;
+  }
+  .transitions {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .transition-item {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 8px;
+    margin: 2px 4px 2px 0;
+    border-radius: 4px;
+    background: rgba(131,165,152,0.15);
+    color: var(--accent);
+  }
+  .classification-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .badge-character { background: #8ec07c33; color: #8ec07c; }
+  .badge-structure { background: #d3869b33; color: #d3869b; }
+  .badge-culture   { background: #fe801933; color: #fe8019; }
+  .badge-phase     { background: #83a59833; color: #83a598; }
+  .badge-risk      { background: #fb493433; color: #fb4934; }
+  .class-period {
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+  }
+  .class-period-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  @media (max-width: 768px) {
+    nav { display: none; }
+    main { margin-left: 0; padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <h2>EIS Timeline</h2>
+</nav>
+
+<main>
+  <h1>EIS Timeline Report</h1>
+  <p class="subtitle">Interactive timeline analysis of engineering impact scores</p>
+  <div id="content"></div>
+</main>
+
+<script>
+const DATA = {"domains":[{"domainName":"Backend","span":"3m","timelines":[{"author":"machuz","periods":[{"label":"2025-Q1 (Jan)","total":56.326916021423536,"production":32.65909264905499,"quality":68.58685334598957,"survival":50.16014519844675,"design":83.9506172839506,"role":"Anchor","roleConf":0.57,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":309},{"label":"2025-Q2 (Apr)","total":87.52737854562199,"production":100,"quality":53.471533818435944,"survival":83.60392106042283,"design":100,"role":"Architect","roleConf":1,"style":"Builder","styleConf":1,"state":"Active","stateConf":0.8,"active":true,"commits":681},{"label":"2025-Q3 (Jul)","total":91.66609563317111,"production":100,"quality":74.96585870340202,"survival":100,"design":100,"role":"Architect","roleConf":1,"style":"Builder","styleConf":1,"state":"Active","stateConf":0.8,"active":true,"commits":957},{"label":"2025-Q4 (Oct)","total":92.42605262124916,"production":100,"quality":41.87354837380637,"survival":100,"design":100,"role":"Architect","roleConf":1,"style":"Builder","styleConf":1,"state":"Active","stateConf":0.8,"active":true,"commits":1177}],"transitions":[{"axis":"Role","from":"Anchor","to":"Architect","atPeriod":"2025-Q2 (Apr)"},{"axis":"Style","from":"Balanced","to":"Builder","atPeriod":"2025-Q2 (Apr)"}]},{"author":"Ryunosuke Suzuki","periods":[{"label":"2025-Q1 (Jan)","total":30.50611949583185,"production":17.215030132244948,"quality":70.76923076923076,"survival":4.104721294138692,"design":13.991769547325102,"role":"—","roleConf":0,"style":"Balanced","styleConf":0.3,"state":"Growing","stateConf":0.77,"active":true,"commits":53},{"label":"2025-Q2 (Apr)","total":42.71730226351499,"production":69.14143366108453,"quality":62.29040438642312,"survival":30.49191162490227,"design":9.503083061298513,"role":"Producer","roleConf":1,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":262},{"label":"2025-Q3 (Jul)","total":36.63061086234561,"production":54.68010248957895,"quality":84.86023429131437,"survival":28.582389312357577,"design":15.061372325441008,"role":"Anchor","roleConf":1,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":213},{"label":"2025-Q4 (Oct)","total":40.50287542612722,"production":50.00619422502312,"quality":76.7815431507115,"survival":31.887096901961453,"design":38.2137030995106,"role":"Anchor","roleConf":0.92,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":330}],"transitions":[{"axis":"State","from":"Growing","to":"Active","atPeriod":"2025-Q2 (Apr)"},{"axis":"Role","from":"Producer","to":"Anchor","atPeriod":"2025-Q3 (Jul)"}]},{"author":"pony","periods":[{"label":"2025-Q1 (Jan)","total":32.10918915004449,"production":17.003917264653076,"quality":96.93258529465426,"survival":16.908169529220494,"design":42.38683127572017,"role":"—","roleConf":0,"style":"Balanced","styleConf":0.3,"state":"Growing","stateConf":0.82,"active":true,"commits":117},{"label":"2025-Q2 (Apr)","total":35.67138537332583,"production":42.32289637185262,"quality":93.97326036558451,"survival":18.393776398679098,"design":12.876314834965541,"role":"Anchor","roleConf":0.81,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":296},{"label":"2025-Q3 (Jul)","total":47.46413817896025,"production":100,"quality":98.16353832839198,"survival":26.4768243387184,"design":12.3482460258904,"role":"Anchor","roleConf":1,"style":"Mass","styleConf":0.59,"state":"Active","stateConf":0.8,"active":true,"commits":434},{"label":"2025-Q4 (Oct)","total":38.03596806020857,"production":60.48394183904631,"quality":80.59993562642447,"survival":24.76202015947113,"design":15.37520391517129,"role":"Anchor","roleConf":1,"style":"Mass","styleConf":0.51,"state":"Active","stateConf":0.8,"active":true,"commits":506}],"transitions":[{"axis":"State","from":"Growing","to":"Active","atPeriod":"2025-Q2 (Apr)"},{"axis":"Style","from":"Balanced","to":"Mass","atPeriod":"2025-Q3 (Jul)"}]},{"author":"kzmake","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":32.139231590469194,"production":23.515348944614605,"quality":73.69178440607013,"survival":2.424900914039535,"design":0.2246964920517808,"role":"Anchor","roleConf":0.1,"style":"Spread","styleConf":0.5,"state":"Growing","stateConf":0.66,"active":true,"commits":116},{"label":"2025-Q4 (Oct)","total":22.099005840346226,"production":13.338428694352764,"quality":68.7226129190415,"survival":2.3786897129776086,"design":4.69004893964111,"role":"—","roleConf":0,"style":"Spread","styleConf":0.92,"state":"Growing","stateConf":0.72,"active":true,"commits":117}],"transitions":null},{"author":"Yusuke Taira","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q4 (Oct)","total":20.071767029026226,"production":5.047251217582593,"quality":59.72222222222223,"survival":0.08200918469476569,"design":0.3874388254486134,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":19}],"transitions":null},{"author":"himanoa","periods":[{"label":"2025-Q1 (Jan)","total":24.571076473153028,"production":12.23630337297719,"quality":51.944444444444436,"survival":12.185848103698046,"design":4.663923182441701,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":54},{"label":"2025-Q2 (Apr)","total":16.24779940158615,"production":4.848658210879155,"quality":93.93939393939394,"survival":7.975710224387121,"design":0.09067827348567283,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":26},{"label":"2025-Q3 (Jul)","total":10.959073915350269,"production":2.193630287869171,"quality":93.33333333333333,"survival":3.6577171115547937,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":15},{"label":"2025-Q4 (Oct)","total":16.992281167845576,"production":8.007179585146961,"quality":78.63247863247864,"survival":0.9271413517314734,"design":2.141109298531811,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":0.97,"active":true,"commits":30}],"transitions":[{"axis":"State","from":"Active","to":"Growing","atPeriod":"2025-Q2 (Apr)"}]},{"author":"okatechnology","periods":[{"label":"2025-Q1 (Jan)","total":14,"production":0,"quality":100,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":10.417749364282562,"production":20.39104204850888,"quality":56.25,"survival":0.7229019932113414,"design":0.24483133841131663,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":16},{"label":"2025-Q3 (Jul)","total":0.039523447666725844,"production":0.031650024412593236,"quality":0,"survival":0.46696596539685326,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":2},{"label":"2025-Q4 (Oct)","total":13.779979507466482,"production":4.585294737254215,"quality":19.047619047619047,"survival":0.42208843893169834,"design":0.040783034257748776,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":10}],"transitions":[{"axis":"State","from":"Growing","to":"Active","atPeriod":"2025-Q2 (Apr)"}]},{"author":"ponsaaan","periods":[{"label":"2025-Q1 (Jan)","total":85.11435824357906,"production":74.44925570204533,"quality":77.24697490856028,"survival":100,"design":100,"role":"Architect","roleConf":1,"style":"Builder","styleConf":0.79,"state":"Active","stateConf":0.8,"active":true,"commits":421},{"label":"2025-Q2 (Apr)","total":54.89179301324215,"production":78.72163088376217,"quality":76.29822273642377,"survival":100,"design":8.850199492201668,"role":"Anchor","roleConf":0.91,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":184},{"label":"2025-Q3 (Jul)","total":28.04204494937473,"production":18.89220632317273,"quality":79.44041867954911,"survival":61.766845905151655,"design":4.664967469313837,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Fragile","stateConf":0.91,"active":true,"commits":108},{"label":"2025-Q4 (Oct)","total":11.449776082679193,"production":0,"quality":0,"survival":20.816688729711615,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Former","stateConf":0.73,"active":false,"commits":0}],"transitions":[{"axis":"Role","from":"Architect","to":"Anchor","atPeriod":"2025-Q2 (Apr)"},{"axis":"Style","from":"Builder","to":"Balanced","atPeriod":"2025-Q2 (Apr)"},{"axis":"State","from":"Active","to":"Fragile","atPeriod":"2025-Q3 (Jul)"},{"axis":"State","from":"Fragile","to":"Former","atPeriod":"2025-Q4 (Oct)"}]},{"author":"ko-izumi","periods":[{"label":"2025-Q1 (Jan)","total":12.2499315690739,"production":2.926316011111328,"quality":9.999999999999998,"survival":3.3311595466748942,"design":16.049382716049383,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":60},{"label":"2025-Q2 (Apr)","total":8.008096595265126,"production":0.08258842773815493,"quality":0,"survival":2.019066239061042,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":6},{"label":"2025-Q3 (Jul)","total":-1.3838425279410154,"production":1.0999999999999999,"quality":-100,"survival":1.0636828833906473,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":1},{"label":"2025-Q4 (Oct)","total":10.888906311775319,"production":0.42025080624716266,"quality":100,"survival":0.4563635370000092,"design":0.30587275693311583,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":2}],"transitions":[{"axis":"State","from":"Active","to":"Growing","atPeriod":"2025-Q4 (Oct)"}]},{"author":"Ryota Mannari","periods":[{"label":"2025-Q1 (Jan)","total":7.501504276948317,"production":0,"quality":0,"survival":0.006266892801396015,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":7.503310347323012,"production":0,"quality":0,"survival":0.0037464961078263162,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":7.501306709802089,"production":0,"quality":0,"survival":0.0019694296950634555,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0},{"label":"2025-Q4 (Oct)","total":7.5003154083794925,"production":0,"quality":0,"survival":0.0008078601409215974,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0}],"transitions":null},{"author":"manomekun","periods":[{"label":"2025-Q1 (Jan)","total":30.100130862867182,"production":7.096356761323802,"quality":93.7962962962963,"survival":20.442802761324806,"design":10.2880658436214,"role":"—","roleConf":0,"style":"Spread","styleConf":0.74,"state":"Growing","stateConf":1,"active":true,"commits":74},{"label":"2025-Q2 (Apr)","total":23.131520908427593,"production":4.31447665031266,"quality":100,"survival":15.53171148046335,"design":0.33550961189698947,"role":"—","roleConf":0,"style":"Spread","styleConf":0.67,"state":"Growing","stateConf":1,"active":true,"commits":25},{"label":"2025-Q3 (Jul)","total":3.6108257725908586,"production":0,"quality":0,"survival":7.504626262576772,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0},{"label":"2025-Q4 (Oct)","total":3.1929418610230145,"production":0,"quality":0,"survival":2.865225705663295,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0}],"transitions":null}]},{"domainName":"Frontend","span":"3m","timelines":[{"author":"Ryota Mannari","periods":[{"label":"2025-Q1 (Jan)","total":71.69381845933266,"production":60.69237472190696,"quality":92.67229820327164,"survival":85.5524190306299,"design":85.84713746004068,"role":"Architect","roleConf":1,"style":"Builder","styleConf":0.52,"state":"Active","stateConf":0.8,"active":true,"commits":302},{"label":"2025-Q2 (Apr)","total":73.37303434262708,"production":91.75643917660284,"quality":96.79405645773558,"survival":100,"design":64.66687717082412,"role":"Anchor","roleConf":1,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":414},{"label":"2025-Q3 (Jul)","total":82.11576298422794,"production":100,"quality":81.65530577713318,"survival":100,"design":100,"role":"Architect","roleConf":1,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":1026},{"label":"2025-Q4 (Oct)","total":76.25595028148147,"production":100,"quality":83.31199620673306,"survival":100,"design":100,"role":"Anchor","roleConf":1,"style":"Builder","styleConf":0.55,"state":"Active","stateConf":0.8,"active":true,"commits":1429}],"transitions":[{"axis":"Role","from":"Architect","to":"Anchor","atPeriod":"2025-Q2 (Apr)"},{"axis":"Style","from":"Builder","to":"Balanced","atPeriod":"2025-Q2 (Apr)"},{"axis":"Role","from":"Anchor","to":"Architect","atPeriod":"2025-Q3 (Jul)"},{"axis":"Role","from":"Architect","to":"Anchor","atPeriod":"2025-Q4 (Oct)"},{"axis":"Style","from":"Balanced","to":"Builder","atPeriod":"2025-Q4 (Oct)"}]},{"author":"okatechnology","periods":[{"label":"2025-Q1 (Jan)","total":60.1138125328985,"production":64.23140661246161,"quality":76.47652216516526,"survival":100,"design":100,"role":"Architect","roleConf":1,"style":"Builder","styleConf":0.61,"state":"Active","stateConf":0.8,"active":true,"commits":275},{"label":"2025-Q2 (Apr)","total":49.70626557727927,"production":60.90763654291342,"quality":69.33821253843773,"survival":92.7428811033539,"design":24.02904957372908,"role":"Producer","roleConf":1,"style":"Emergent","styleConf":0.63,"state":"Active","stateConf":0.8,"active":true,"commits":172},{"label":"2025-Q3 (Jul)","total":36.427299032748046,"production":52.04090241187704,"quality":61.51662611516627,"survival":42.3936747096837,"design":0.323923408764096,"role":"Producer","roleConf":1,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":149},{"label":"2025-Q4 (Oct)","total":52.84528300940935,"production":44.71138871992109,"quality":59.51593137254902,"survival":46.12246034771641,"design":1.106439748603181,"role":"Producer","roleConf":0.87,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":229}],"transitions":[{"axis":"Role","from":"Architect","to":"Producer","atPeriod":"2025-Q2 (Apr)"},{"axis":"Style","from":"Builder","to":"Emergent","atPeriod":"2025-Q2 (Apr)"},{"axis":"Style","from":"Emergent","to":"Balanced","atPeriod":"2025-Q3 (Jul)"}]},{"author":"maekawa-kazuma","periods":[{"label":"2025-Q1 (Jan)","total":51.946093553049245,"production":28.72718601594751,"quality":65.85276322118428,"survival":66.22674251959583,"design":60.418482999128166,"role":"Cleaner","roleConf":0.62,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":143},{"label":"2025-Q2 (Apr)","total":47.761517997947855,"production":41.57158722353292,"quality":55.467200712060524,"survival":77.62011572967089,"design":50.64730028418061,"role":"Producer","roleConf":0.79,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":253},{"label":"2025-Q3 (Jul)","total":47.29004514269703,"production":79.84453211412736,"quality":30.02901353965184,"survival":33.460914685600116,"design":12.58104392139055,"role":"Producer","roleConf":1,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":279},{"label":"2025-Q4 (Oct)","total":35.90159393708956,"production":30.806174957118348,"quality":57.952541285874624,"survival":38.788634878759076,"design":0.18787444846304013,"role":"Producer","roleConf":0.52,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":181}],"transitions":[{"axis":"Role","from":"Cleaner","to":"Producer","atPeriod":"2025-Q2 (Apr)"}]},{"author":"machuz","periods":[{"label":"2025-Q1 (Jan)","total":11.779161187678701,"production":0.18945737870954502,"quality":66.66666666666667,"survival":1.3407533371087466,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":0.67,"active":true,"commits":4},{"label":"2025-Q2 (Apr)","total":8.582197702263773,"production":1.4684551629047427,"quality":80,"survival":1.1641172589526652,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":6},{"label":"2025-Q3 (Jul)","total":29.492886222374374,"production":8.055275875068094,"quality":47.70612270612271,"survival":2.4360021835598613,"design":0.18971215217336462,"role":"—","roleConf":0,"style":"Spread","styleConf":1,"state":"Active","stateConf":0.8,"active":true,"commits":119},{"label":"2025-Q4 (Oct)","total":35.819450492051075,"production":41.628665284276146,"quality":35.272237187181865,"survival":7.453812514731119,"design":11.804267871021437,"role":"Producer","roleConf":0.79,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":345}],"transitions":[{"axis":"State","from":"Growing","to":"Active","atPeriod":"2025-Q3 (Jul)"},{"axis":"Style","from":"Spread","to":"Balanced","atPeriod":"2025-Q4 (Oct)"}]},{"author":"himanoa","periods":[{"label":"2025-Q1 (Jan)","total":34.04264062406368,"production":15.614082581876321,"quality":85.33333333333333,"survival":12.921045078390872,"design":43.62104039523395,"role":"—","roleConf":0,"style":"Balanced","styleConf":0.3,"state":"Growing","stateConf":0.86,"active":true,"commits":91},{"label":"2025-Q2 (Apr)","total":69.06214078630792,"production":100,"quality":79.8905472636816,"survival":40.44017772457346,"design":100,"role":"Anchor","roleConf":1,"style":"Builder","styleConf":0.65,"state":"Active","stateConf":0.8,"active":true,"commits":254},{"label":"2025-Q3 (Jul)","total":46.611901254377216,"production":100,"quality":96.09913793103448,"survival":12.739298850913942,"design":64.09899341557556,"role":"Anchor","roleConf":1,"style":"Mass","styleConf":0.93,"state":"Active","stateConf":0.8,"active":true,"commits":186},{"label":"2025-Q4 (Oct)","total":30.383410416576975,"production":43.76619476495707,"quality":93.9885496183206,"survival":16.30254707584502,"design":9.923075510841029,"role":"Anchor","roleConf":0.84,"style":"Balanced","styleConf":0.3,"state":"Active","stateConf":0.8,"active":true,"commits":283}],"transitions":[{"axis":"Style","from":"Balanced","to":"Builder","atPeriod":"2025-Q2 (Apr)"},{"axis":"State","from":"Growing","to":"Active","atPeriod":"2025-Q2 (Apr)"},{"axis":"Style","from":"Builder","to":"Mass","atPeriod":"2025-Q3 (Jul)"},{"axis":"Style","from":"Mass","to":"Balanced","atPeriod":"2025-Q4 (Oct)"}]},{"author":"kzmake","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":24.829518793871525,"production":10.769119331540066,"quality":41.662962962962965,"survival":1.1442780028307502,"design":0.17911652665304373,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":102},{"label":"2025-Q4 (Oct)","total":23.935226787345385,"production":3.6774511124444387,"quality":61.81818181818183,"survival":1.5379670701830104,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":31}],"transitions":null},{"author":"taishi","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":18.777038252834423,"production":4.124446124942397,"quality":16.666666666666664,"survival":0.08944448831470052,"design":0.042382502081283586,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":12},{"label":"2025-Q4 (Oct)","total":22.93779954732256,"production":36.1,"quality":100,"survival":0.0351886012701591,"design":0,"role":"Anchor","roleConf":0.65,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":2}],"transitions":null},{"author":"pony","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":14.494911274480595,"production":16,"quality":100,"survival":0.17060922833534878,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":0.85,"active":true,"commits":3},{"label":"2025-Q3 (Jul)","total":21.14473645785896,"production":0.2678485873880441,"quality":83.33333333333333,"survival":0.135507897194899,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":6},{"label":"2025-Q4 (Oct)","total":19.582259979002842,"production":1.5058654976978532,"quality":58.333333333333336,"survival":0.2966834634589212,"design":0.0018359066625052783,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":15}],"transitions":[{"axis":"State","from":"Growing","to":"Active","atPeriod":"2025-Q4 (Oct)"}]},{"author":"Ryunosuke Suzuki","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":14.361134758729824,"production":0.08929556631828144,"quality":33.333333333333336,"survival":0.0076529852222545465,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":5},{"label":"2025-Q4 (Oct)","total":15.75776179826957,"production":0.9521578922195372,"quality":72.72727272727273,"survival":0.20779722706695875,"design":0.0905713953502604,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":0.82,"active":true,"commits":12}],"transitions":[{"axis":"State","from":"Active","to":"Growing","atPeriod":"2025-Q4 (Oct)"}]},{"author":"ko-izumi","periods":[{"label":"2025-Q1 (Jan)","total":10.126702097551144,"production":19.72222689561339,"quality":0.7936507936507964,"survival":16.9196564552116,"design":6.713164777680906,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":65},{"label":"2025-Q2 (Apr)","total":2.8165110348308118,"production":0,"quality":0,"survival":9.304370527002828,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":2.9709159795669295,"production":0,"quality":0,"survival":2.7098565871721316,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0},{"label":"2025-Q4 (Oct)","total":3.1768647695687666,"production":0,"quality":0,"survival":2.1352784280458823,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0}],"transitions":null},{"author":"manomekun","periods":[{"label":"2025-Q1 (Jan)","total":11.187331327022319,"production":3.7801005535222574,"quality":33.333333333333336,"survival":5.331180316712445,"design":0.11624527753560013,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":8},{"label":"2025-Q2 (Apr)","total":0.2541804404008551,"production":0,"quality":0,"survival":4.040774358475508,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":0.30240856776424585,"production":0,"quality":0,"survival":0.4629210731507858,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0},{"label":"2025-Q4 (Oct)","total":0.23039100290201306,"production":0,"quality":0,"survival":0.3665044747928022,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0}],"transitions":null},{"author":"ponsaaan","periods":[{"label":"2025-Q1 (Jan)","total":17.090162828197915,"production":2.394323259954741,"quality":41.15384615384615,"survival":1.2145128346835656,"design":0.11624527753560013,"role":"—","roleConf":0,"style":"Spread","styleConf":0.5,"state":"Active","stateConf":0.8,"active":true,"commits":22},{"label":"2025-Q2 (Apr)","total":10.082969669874643,"production":0,"quality":100,"survival":0.7609586438543003,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":12.59169568913103,"production":0,"quality":100,"survival":0.13873826894517766,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":false,"commits":0},{"label":"2025-Q4 (Oct)","total":0.0493123522265121,"production":0,"quality":0,"survival":0.07932165998629,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0}],"transitions":[{"axis":"State","from":"Active","to":"Growing","atPeriod":"2025-Q2 (Apr)"}]}]},{"domainName":"Infra","span":"3m","timelines":[{"author":"machuz","periods":[{"label":"2025-Q1 (Jan)","total":14.029442232470169,"production":0.24535193725140053,"quality":100,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":3},{"label":"2025-Q2 (Apr)","total":22.055003903082298,"production":0.4583658590191516,"quality":75,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":0.88,"active":true,"commits":6},{"label":"2025-Q3 (Jul)","total":20.62617634653631,"production":5.912580665580358,"quality":73.95833333333334,"survival":0,"design":0,"role":"—","roleConf":0,"style":"Spread","styleConf":1,"state":"Growing","stateConf":0.85,"active":true,"commits":19},{"label":"2025-Q4 (Oct)","total":25.38232952092938,"production":1.0407801957790093,"quality":67.33333333333334,"survival":0,"design":0,"role":"—","roleConf":0,"style":"Spread","styleConf":1,"state":"Growing","stateConf":0.68,"active":true,"commits":28}],"transitions":null},{"author":"ponsaaan","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":18.2444754475251,"production":2.0372953960425226,"quality":75,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":0.88,"active":true,"commits":3},{"label":"2025-Q4 (Oct)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0}],"transitions":null},{"author":"himanoa","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q4 (Oct)","total":14.048,"production":0.4,"quality":100,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":1}],"transitions":null},{"author":"kzmake","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":19.933566370613555,"production":16.113053088446268,"quality":100,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":0.85,"active":true,"commits":11},{"label":"2025-Q4 (Oct)","total":13.323175557208874,"production":1.3606996524407147,"quality":88.88888888888889,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":9}],"transitions":null},{"author":"manomekun","periods":[{"label":"2025-Q1 (Jan)","total":30.614816878827504,"production":5.123473990229215,"quality":100,"survival":100,"design":0,"role":"—","roleConf":0,"style":"Balanced","styleConf":0.3,"state":"Fragile","stateConf":0.95,"active":true,"commits":32},{"label":"2025-Q2 (Apr)","total":36.319280854605786,"production":4.882896010603747,"quality":96.66666666666666,"survival":100,"design":0,"role":"Cleaner","roleConf":1,"style":"Balanced","styleConf":0.3,"state":"Fragile","stateConf":0.95,"active":true,"commits":20},{"label":"2025-Q3 (Jul)","total":17.395936484423014,"production":0.521692925747317,"quality":66.66666666666667,"survival":100,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Fragile","stateConf":0.95,"active":true,"commits":6},{"label":"2025-Q4 (Oct)","total":8,"production":0,"quality":0,"survival":100,"design":0,"role":"Specialist","roleConf":1,"style":"—","styleConf":0,"state":"Fragile","stateConf":0.95,"active":false,"commits":0}],"transitions":null},{"author":"watarukura","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":11.476730498166859,"production":1.1949763736127097,"quality":91.66666666666667,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Growing","stateConf":1,"active":true,"commits":24},{"label":"2025-Q3 (Jul)","total":20.698934284106034,"production":1.062547605645524,"quality":57.142857142857146,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Active","stateConf":0.8,"active":true,"commits":7},{"label":"2025-Q4 (Oct)","total":6,"production":0,"quality":0,"survival":0,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"—","stateConf":0,"active":false,"commits":0}],"transitions":[{"axis":"State","from":"Growing","to":"Active","atPeriod":"2025-Q3 (Jul)"}]}]},{"domainName":"Firmware","span":"3m","timelines":[{"author":"machuz","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q3 (Jul)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q4 (Oct)","total":39.6450540243014,"production":100,"quality":84.61538461538461,"survival":10.13087549441276,"design":0,"role":"Anchor","roleConf":1,"style":"Rescue","styleConf":1,"state":"Active","stateConf":0.8,"active":true,"commits":16}],"transitions":null},{"author":"ko-izumi","periods":[{"label":"2025-Q1 (Jan)","total":0,"production":0,"quality":0,"survival":0,"design":0,"role":"","roleConf":0,"style":"","styleConf":0,"state":"","stateConf":0,"active":false,"commits":0},{"label":"2025-Q2 (Apr)","total":46.04886103979641,"production":66.98316130144903,"quality":52.96296296296296,"survival":100,"design":100,"role":"Architect","roleConf":1,"style":"Emergent","styleConf":1,"state":"Active","stateConf":0.8,"active":true,"commits":540},{"label":"2025-Q3 (Jul)","total":34.804031435629575,"production":9.442868025014501,"quality":90.77750206782466,"survival":100,"design":100,"role":"—","roleConf":0,"style":"Balanced","styleConf":0.3,"state":"Fragile","stateConf":0.95,"active":true,"commits":119},{"label":"2025-Q4 (Oct)","total":24.440818772893298,"production":3.6734897741108123,"quality":100,"survival":100,"design":0,"role":"—","roleConf":0,"style":"—","styleConf":0,"state":"Fragile","stateConf":0.95,"active":true,"commits":32}],"transitions":[{"axis":"Style","from":"Emergent","to":"Balanced","atPeriod":"2025-Q3 (Jul)"},{"axis":"State","from":"Active","to":"Fragile","atPeriod":"2025-Q3 (Jul)"}]}]}],"teams":[{"teamName":"Backend","domain":"Backend","periods":[{"label":"2025-Q1 (Jan)","coreMembers":6,"effectiveMembers":6,"totalMembers":9,"avgTotal":43.121298374483196,"avgProduction":26.77665931371655,"avgQuality":76.54606417652927,"avgSurvival":33.96694781447146,"avgDesign":42.54686785550983,"complementarity":47,"growthPotential":50,"sustainability":100,"debtBalance":54.68160423420198,"productivityDensity":26.77665931371655,"qualityConsistency":73.63939995770075,"riskRatio":0,"character":"Academy","structure":"Unstructured","culture":"Builder","phase":"Emerging","risk":"Healthy"},{"label":"2025-Q2 (Apr)","coreMembers":5,"effectiveMembers":5,"totalMembers":9,"avgTotal":48.787876020826516,"avgProduction":58.9000875134024,"avgQuality":77.20668426137347,"avgSurvival":49.60426411289351,"avgDesign":26.31302140007254,"complementarity":63,"growthPotential":32,"sustainability":100,"debtBalance":34.03162548864828,"productivityDensity":64.79009626474264,"qualityConsistency":72.06994383799918,"riskRatio":0,"character":"Elite","structure":"Architectural Engine","culture":"Stability","phase":"Mature","risk":"Debt Spiral"},{"label":"2025-Q3 (Jul)","coreMembers":4,"effectiveMembers":5,"totalMembers":10,"avgTotal":51.97501906623654,"avgProduction":69.54886285854839,"avgQuality":82.92035393229463,"avgSurvival":39.37102864127888,"avgDesign":31.9085787108458,"complementarity":47,"growthPotential":32,"sustainability":84,"debtBalance":69.40613844777215,"productivityDensity":76.50374914440323,"qualityConsistency":81.90814916546947,"riskRatio":20,"character":"Elite","structure":"Architectural Engine","culture":"Builder","phase":"Rebuilding","risk":"Healthy"},{"label":"2025-Q4 (Oct)","coreMembers":5,"effectiveMembers":6,"totalMembers":11,"avgTotal":42.62713379539148,"avgProduction":45.77516319520096,"avgQuality":65.53997245844121,"avgSurvival":31.821963191820988,"avgDesign":31.733278955954326,"complementarity":47,"growthPotential":30,"sustainability":86.66666666666667,"debtBalance":50.16772262720423,"productivityDensity":45.77516319520096,"qualityConsistency":68.25474422782996,"riskRatio":16.666666666666664,"character":"Elite","structure":"Emerging Architecture","culture":"Builder","phase":"Stable","risk":"Healthy"}],"transitions":[{"axis":"Character","from":"Academy","to":"Elite","atPeriod":"2025-Q2 (Apr)"},{"axis":"Structure","from":"Unstructured","to":"Architectural Engine","atPeriod":"2025-Q2 (Apr)"},{"axis":"Culture","from":"Builder","to":"Stability","atPeriod":"2025-Q2 (Apr)"},{"axis":"Phase","from":"Emerging","to":"Mature","atPeriod":"2025-Q2 (Apr)"},{"axis":"Risk","from":"Healthy","to":"Debt Spiral","atPeriod":"2025-Q2 (Apr)"},{"axis":"Culture","from":"Stability","to":"Builder","atPeriod":"2025-Q3 (Jul)"},{"axis":"Phase","from":"Mature","to":"Rebuilding","atPeriod":"2025-Q3 (Jul)"},{"axis":"Risk","from":"Debt Spiral","to":"Healthy","atPeriod":"2025-Q3 (Jul)"},{"axis":"Structure","from":"Architectural Engine","to":"Emerging Architecture","atPeriod":"2025-Q4 (Oct)"},{"axis":"Phase","from":"Rebuilding","to":"Stable","atPeriod":"2025-Q4 (Oct)"}]},{"teamName":"Frontend","domain":"Frontend","periods":[{"label":"2025-Q1 (Jan)","coreMembers":4,"effectiveMembers":4,"totalMembers":8,"avgTotal":54.44909129233602,"avgProduction":42.3162624830481,"avgQuality":80.08372923073863,"avgSurvival":66.17505165715414,"avgDesign":72.4716652136007,"complementarity":47,"growthPotential":55,"sustainability":100,"debtBalance":62.19172699765883,"productivityDensity":42.3162624830481,"qualityConsistency":80.03462528844791,"riskRatio":0,"character":"Academy","structure":"Balanced","culture":"Builder","phase":"Stable","risk":"Healthy"},{"label":"2025-Q2 (Apr)","coreMembers":4,"effectiveMembers":4,"totalMembers":9,"avgTotal":59.97573967604053,"avgProduction":73.5589157357623,"avgQuality":75.37250424297885,"avgSurvival":77.70079363939956,"avgDesign":59.835806757183455,"complementarity":37,"growthPotential":20,"sustainability":80,"debtBalance":50.87628159327745,"productivityDensity":80.91480730933853,"qualityConsistency":73.14423503779692,"riskRatio":0,"character":"Balanced","structure":"Maintenance Team","culture":"Evolving","phase":"Mature","risk":"Design Vacuum"},{"label":"2025-Q3 (Jul)","coreMembers":7,"effectiveMembers":7,"totalMembers":12,"avgTotal":41.1303071268793,"avgProduction":50.13966833142865,"avgQuality":63.143214623629255,"avgSurvival":27.472810904254754,"avgDesign":25.338969917793804,"complementarity":63,"growthPotential":8.571428571428571,"sustainability":100,"debtBalance":51.48227696833767,"productivityDensity":50.13966833142865,"qualityConsistency":59.65482213195822,"riskRatio":0,"character":"Balanced","structure":"Emerging Architecture","culture":"Stability","phase":"Mature","risk":"Quality Drift"},{"label":"2025-Q4 (Oct)","coreMembers":7,"effectiveMembers":7,"totalMembers":12,"avgTotal":39.72553063875377,"avgProduction":42.955696405531015,"avgQuality":70.26563392697729,"avgSurvival":30.034372926929255,"avgDesign":17.574522511275525,"complementarity":37,"growthPotential":20,"sustainability":80,"debtBalance":45.91034932752596,"productivityDensity":42.955696405531015,"qualityConsistency":65.107707784513,"riskRatio":0,"character":"Guardian","structure":"Maintenance Team","culture":"Stability","phase":"Mature","risk":"Design Vacuum"}],"transitions":[{"axis":"Character","from":"Academy","to":"Balanced","atPeriod":"2025-Q2 (Apr)"},{"axis":"Structure","from":"Balanced","to":"Maintenance Team","atPeriod":"2025-Q2 (Apr)"},{"axis":"Culture","from":"Builder","to":"Evolving","atPeriod":"2025-Q2 (Apr)"},{"axis":"Phase","from":"Stable","to":"Mature","atPeriod":"2025-Q2 (Apr)"},{"axis":"Risk","from":"Healthy","to":"Design Vacuum","atPeriod":"2025-Q2 (Apr)"},{"axis":"Structure","from":"Maintenance Team","to":"Emerging Architecture","atPeriod":"2025-Q3 (Jul)"},{"axis":"Culture","from":"Evolving","to":"Stability","atPeriod":"2025-Q3 (Jul)"},{"axis":"Risk","from":"Design Vacuum","to":"Quality Drift","atPeriod":"2025-Q3 (Jul)"},{"axis":"Character","from":"Balanced","to":"Guardian","atPeriod":"2025-Q4 (Oct)"},{"axis":"Structure","from":"Emerging Architecture","to":"Maintenance Team","atPeriod":"2025-Q4 (Oct)"},{"axis":"Risk","from":"Quality Drift","to":"Design Vacuum","atPeriod":"2025-Q4 (Oct)"}]},{"teamName":"Infra","domain":"Infra","periods":[{"label":"2025-Q1 (Jan)","coreMembers":0,"effectiveMembers":1,"totalMembers":2,"avgTotal":0,"avgProduction":0,"avgQuality":0,"avgSurvival":0,"avgDesign":0,"complementarity":0,"growthPotential":0,"sustainability":0,"debtBalance":0,"productivityDensity":0,"qualityConsistency":0,"riskRatio":100,"character":"Balanced","structure":"Unstructured","culture":"Stability","phase":"Declining","risk":"Design Vacuum"},{"label":"2025-Q2 (Apr)","coreMembers":1,"effectiveMembers":2,"totalMembers":3,"avgTotal":22.055003903082298,"avgProduction":0.4583658590191516,"avgQuality":75,"avgSurvival":0,"avgDesign":0,"complementarity":21,"growthPotential":50,"sustainability":40,"debtBalance":100,"productivityDensity":0.4583658590191516,"qualityConsistency":75,"riskRatio":50,"character":"Balanced","structure":"Balanced","culture":"Stability","phase":"Emerging","risk":"Design Vacuum"},{"label":"2025-Q3 (Jul)","coreMembers":2,"effectiveMembers":3,"totalMembers":5,"avgTotal":20.66255531532117,"avgProduction":3.487564135612941,"avgQuality":65.55059523809524,"avgSurvival":0,"avgDesign":0,"complementarity":0,"growthPotential":20,"sustainability":53.33333333333334,"debtBalance":75,"productivityDensity":3.487564135612941,"qualityConsistency":72.60416666666667,"riskRatio":33.33333333333333,"character":"Explorer","structure":"Unstructured","culture":"Exploration","phase":"Declining","risk":"Design Vacuum"},{"label":"2025-Q4 (Oct)","coreMembers":1,"effectiveMembers":2,"totalMembers":5,"avgTotal":25.38232952092938,"avgProduction":1.0407801957790093,"avgQuality":67.33333333333334,"avgSurvival":0,"avgDesign":0,"complementarity":16,"growthPotential":30,"sustainability":40,"debtBalance":98.92307692307692,"productivityDensity":1.0407801957790093,"qualityConsistency":67.33333333333334,"riskRatio":50,"character":"Explorer","structure":"Balanced","culture":"Exploration","phase":"Emerging","risk":"Design Vacuum"}],"transitions":[{"axis":"Structure","from":"Unstructured","to":"Balanced","atPeriod":"2025-Q2 (Apr)"},{"axis":"Phase","from":"Declining","to":"Emerging","atPeriod":"2025-Q2 (Apr)"},{"axis":"Character","from":"Balanced","to":"Explorer","atPeriod":"2025-Q3 (Jul)"},{"axis":"Structure","from":"Balanced","to":"Unstructured","atPeriod":"2025-Q3 (Jul)"},{"axis":"Culture","from":"Stability","to":"Exploration","atPeriod":"2025-Q3 (Jul)"},{"axis":"Phase","from":"Emerging","to":"Declining","atPeriod":"2025-Q3 (Jul)"},{"axis":"Structure","from":"Unstructured","to":"Balanced","atPeriod":"2025-Q4 (Oct)"},{"axis":"Phase","from":"Declining","to":"Emerging","atPeriod":"2025-Q4 (Oct)"}]},{"teamName":"Firmware","domain":"Firmware","periods":[{"label":"2025-Q1 (Jan)","coreMembers":0,"effectiveMembers":0,"totalMembers":0,"avgTotal":0,"avgProduction":0,"avgQuality":0,"avgSurvival":0,"avgDesign":0,"complementarity":0,"growthPotential":0,"sustainability":0,"debtBalance":0,"productivityDensity":0,"qualityConsistency":0,"riskRatio":0,"character":"","structure":"","culture":"","phase":"","risk":""},{"label":"2025-Q2 (Apr)","coreMembers":1,"effectiveMembers":1,"totalMembers":1,"avgTotal":46.04886103979641,"avgProduction":66.98316130144903,"avgQuality":52.96296296296296,"avgSurvival":100,"avgDesign":100,"complementarity":26,"growthPotential":0,"sustainability":100,"debtBalance":50,"productivityDensity":80.37979356173884,"qualityConsistency":52.96296296296296,"riskRatio":0,"character":"Balanced","structure":"Balanced","culture":"Mixed","phase":"Mature","risk":"Bus Factor"},{"label":"2025-Q3 (Jul)","coreMembers":0,"effectiveMembers":1,"totalMembers":1,"avgTotal":0,"avgProduction":0,"avgQuality":0,"avgSurvival":0,"avgDesign":0,"complementarity":0,"growthPotential":0,"sustainability":0,"debtBalance":0,"productivityDensity":0,"qualityConsistency":0,"riskRatio":100,"character":"Balanced","structure":"Unstructured","culture":"Stability","phase":"Declining","risk":"Design Vacuum"},{"label":"2025-Q4 (Oct)","coreMembers":1,"effectiveMembers":2,"totalMembers":2,"avgTotal":39.6450540243014,"avgProduction":100,"avgQuality":84.61538461538461,"avgSurvival":10.13087549441276,"avgDesign":0,"complementarity":21,"growthPotential":0,"sustainability":40,"debtBalance":100,"productivityDensity":100,"qualityConsistency":84.61538461538461,"riskRatio":50,"character":"Firefighting","structure":"Maintenance Team","culture":"Firefighting","phase":"Declining","risk":"Design Vacuum"}],"transitions":[{"axis":"Structure","from":"Balanced","to":"Unstructured","atPeriod":"2025-Q3 (Jul)"},{"axis":"Culture","from":"Mixed","to":"Stability","atPeriod":"2025-Q3 (Jul)"},{"axis":"Phase","from":"Mature","to":"Declining","atPeriod":"2025-Q3 (Jul)"},{"axis":"Risk","from":"Bus Factor","to":"Design Vacuum","atPeriod":"2025-Q3 (Jul)"},{"axis":"Character","from":"Balanced","to":"Firefighting","atPeriod":"2025-Q4 (Oct)"},{"axis":"Structure","from":"Unstructured","to":"Maintenance Team","atPeriod":"2025-Q4 (Oct)"},{"axis":"Culture","from":"Stability","to":"Firefighting","atPeriod":"2025-Q4 (Oct)"}]}]};
+
+const COLORS = {
+  total:      '#83a598',
+  production: '#b8bb26',
+  quality:    '#fabd2f',
+  survival:   '#d3869b',
+  design:     '#8ec07c'
+};
+
+const HEALTH_COLORS = [
+  '#83a598', '#b8bb26', '#fabd2f', '#d3869b',
+  '#8ec07c', '#fb4934', '#fe8019'
+];
+
+const MEMBER_COLORS = {
+  core:      '#83a598',
+  effective: '#b8bb26',
+  total:     '#fabd2f'
+};
+
+function makeId(str) {
+  return str.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+}
+
+function buildNav() {
+  const nav = document.getElementById('sidebar');
+  let html = '<h2>EIS Timeline</h2>';
+
+  if (DATA.domains && DATA.domains.length > 0) {
+    html += '<div class="nav-section">Individual</div>';
+    for (const d of DATA.domains) {
+      html += '<a href="#domain-' + makeId(d.domainName) + '" style="font-weight:600;color:#ebdbb2;padding-left:16px">' + d.domainName + '</a>';
+      for (const tl of d.timelines) {
+        html += '<a href="#author-' + makeId(d.domainName + '-' + tl.author) + '">' + tl.author + '</a>';
+      }
+    }
+  }
+
+  if (DATA.teams && DATA.teams.length > 0) {
+    html += '<div class="nav-section">Teams</div>';
+    for (const t of DATA.teams) {
+      html += '<a href="#team-' + makeId(t.teamName) + '">' + t.teamName + '</a>';
+    }
+  }
+
+  nav.innerHTML = html;
+}
+
+function createScoreChart(canvasId, labels, periods, transitions) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+
+  const datasets = [
+    { label: 'Total',      data: periods.map(p => p.total),      borderColor: COLORS.total,      backgroundColor: COLORS.total + '20' },
+    { label: 'Production', data: periods.map(p => p.production), borderColor: COLORS.production, backgroundColor: COLORS.production + '20' },
+    { label: 'Quality',    data: periods.map(p => p.quality),    borderColor: COLORS.quality,    backgroundColor: COLORS.quality + '20' },
+    { label: 'Survival',   data: periods.map(p => p.survival),   borderColor: COLORS.survival,   backgroundColor: COLORS.survival + '20' },
+    { label: 'Design',     data: periods.map(p => p.design),     borderColor: COLORS.design,     backgroundColor: COLORS.design + '20' },
+  ];
+
+  datasets.forEach(ds => {
+    ds.tension = 0.3;
+    ds.borderWidth = 2;
+    ds.pointRadius = 4;
+    ds.pointHoverRadius = 6;
+    ds.fill = false;
+  });
+
+  // Build transition annotations
+  const annotations = {};
+  if (transitions) {
+    transitions.forEach((tr, i) => {
+      const idx = labels.indexOf(tr.atPeriod);
+      if (idx >= 0) {
+        annotations['tr' + i] = {
+          type: 'line',
+          xMin: idx,
+          xMax: idx,
+          borderColor: '#ebdbb244',
+          borderWidth: 1,
+          borderDash: [5, 5],
+          label: {
+            display: true,
+            content: tr.axis + ': ' + tr.from + ' -> ' + tr.to,
+            position: 'start',
+            backgroundColor: '#3c3836',
+            color: '#ebdbb2',
+            font: { size: 10 }
+          }
+        };
+      }
+    });
+  }
+
+  const plugins = {};
+  if (Object.keys(annotations).length > 0) {
+    plugins.annotation = { annotations: annotations };
+  }
+
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels: labels, datasets: datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          min: 0, max: 100,
+          grid: { color: '#504945' },
+          ticks: { color: '#928374' }
+        },
+        x: {
+          grid: { color: '#504945' },
+          ticks: { color: '#928374' }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: '#ebdbb2', usePointStyle: true, pointStyle: 'circle' }
+        },
+        tooltip: {
+          callbacks: {
+            afterBody: function(context) {
+              const idx = context[0].dataIndex;
+              const p = periods[idx];
+              const lines = [];
+              if (p.role) lines.push('Role: ' + p.role + ' (' + (p.roleConf * 100).toFixed(0) + '%)');
+              if (p.style) lines.push('Style: ' + p.style + ' (' + (p.styleConf * 100).toFixed(0) + '%)');
+              if (p.state) lines.push('State: ' + p.state + ' (' + (p.stateConf * 100).toFixed(0) + '%)');
+              if (p.commits) lines.push('Commits: ' + p.commits);
+              lines.push('Active: ' + (p.active ? 'Yes' : 'No'));
+              return lines;
+            }
+          }
+        },
+        ...plugins
+      }
+    }
+  });
+}
+
+function createTeamScoreChart(canvasId, labels, periods) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  const datasets = [
+    { label: 'AvgTotal',      data: periods.map(p => p.avgTotal),      borderColor: COLORS.total },
+    { label: 'AvgProduction', data: periods.map(p => p.avgProduction), borderColor: COLORS.production },
+    { label: 'AvgQuality',    data: periods.map(p => p.avgQuality),    borderColor: COLORS.quality },
+    { label: 'AvgSurvival',   data: periods.map(p => p.avgSurvival),   borderColor: COLORS.survival },
+    { label: 'AvgDesign',     data: periods.map(p => p.avgDesign),     borderColor: COLORS.design },
+  ];
+  datasets.forEach(ds => {
+    ds.tension = 0.3;
+    ds.borderWidth = 2;
+    ds.pointRadius = 4;
+    ds.fill = false;
+  });
+
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { min: 0, max: 100, grid: { color: '#504945' }, ticks: { color: '#928374' } },
+        x: { grid: { color: '#504945' }, ticks: { color: '#928374' } }
+      },
+      plugins: {
+        legend: { labels: { color: '#ebdbb2', usePointStyle: true, pointStyle: 'circle' } }
+      }
+    }
+  });
+}
+
+function createHealthChart(canvasId, labels, periods) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  const metrics = [
+    { key: 'complementarity',     label: 'Complementarity' },
+    { key: 'growthPotential',     label: 'GrowthPotential' },
+    { key: 'sustainability',      label: 'Sustainability' },
+    { key: 'debtBalance',         label: 'DebtBalance' },
+    { key: 'productivityDensity', label: 'ProductivityDensity' },
+    { key: 'qualityConsistency',  label: 'QualityConsistency' },
+    { key: 'riskRatio',           label: 'RiskRatio' },
+  ];
+  const datasets = metrics.map((m, i) => ({
+    label: m.label,
+    data: periods.map(p => p[m.key]),
+    borderColor: HEALTH_COLORS[i],
+    tension: 0.3,
+    borderWidth: 2,
+    pointRadius: 3,
+    fill: false,
+  }));
+
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { min: 0, grid: { color: '#504945' }, ticks: { color: '#928374' } },
+        x: { grid: { color: '#504945' }, ticks: { color: '#928374' } }
+      },
+      plugins: {
+        legend: { labels: { color: '#ebdbb2', usePointStyle: true, pointStyle: 'circle' } }
+      }
+    }
+  });
+}
+
+function createMembershipChart(canvasId, labels, periods) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Core',      data: periods.map(p => p.coreMembers),      backgroundColor: MEMBER_COLORS.core },
+        { label: 'Effective', data: periods.map(p => p.effectiveMembers), backgroundColor: MEMBER_COLORS.effective },
+        { label: 'Total',     data: periods.map(p => p.totalMembers),     backgroundColor: MEMBER_COLORS.total },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#504945' }, ticks: { color: '#928374', stepSize: 1 } },
+        x: { grid: { color: '#504945' }, ticks: { color: '#928374' } }
+      },
+      plugins: {
+        legend: { labels: { color: '#ebdbb2', usePointStyle: true, pointStyle: 'rect' } }
+      }
+    }
+  });
+}
+
+function renderClassification(periods) {
+  let html = '';
+  for (const p of periods) {
+    html += '<div class="class-period">';
+    html += '<div class="class-period-label">' + p.label + '</div>';
+    html += '<div class="classification-row">';
+    if (p.character) html += '<span class="badge badge-character">Character: ' + p.character + '</span>';
+    if (p.structure) html += '<span class="badge badge-structure">Structure: ' + p.structure + '</span>';
+    if (p.culture)   html += '<span class="badge badge-culture">Culture: ' + p.culture + '</span>';
+    if (p.phase)     html += '<span class="badge badge-phase">Phase: ' + p.phase + '</span>';
+    if (p.risk)      html += '<span class="badge badge-risk">Risk: ' + p.risk + '</span>';
+    html += '</div></div>';
+  }
+  return html;
+}
+
+function renderTransitions(transitions) {
+  if (!transitions || transitions.length === 0) return '';
+  let html = '<div class="transitions">';
+  for (const t of transitions) {
+    html += '<span class="transition-item">[' + t.atPeriod + '] ' + t.axis + ': ' + t.from + ' &rarr; ' + t.to + '</span>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function render() {
+  buildNav();
+  const content = document.getElementById('content');
+  let html = '';
+  let chartInits = [];
+  let chartIdx = 0;
+
+  // Individual timelines
+  if (DATA.domains) {
+    for (const d of DATA.domains) {
+      const domainId = 'domain-' + makeId(d.domainName);
+      html += '<div class="domain-section" id="' + domainId + '">';
+      html += '<h2 class="domain-title">' + d.domainName + ' Timeline (' + d.span + ' spans)</h2>';
+
+      for (const tl of d.timelines) {
+        const authorId = 'author-' + makeId(d.domainName + '-' + tl.author);
+        const canvasId = 'chart-' + chartIdx++;
+        html += '<div class="chart-card" id="' + authorId + '">';
+        html += '<h3>' + tl.author + '</h3>';
+        html += '<div class="chart-container"><canvas id="' + canvasId + '"></canvas></div>';
+        html += renderTransitions(tl.transitions);
+        html += '</div>';
+
+        const labels = tl.periods.map(p => p.label);
+        chartInits.push(() => createScoreChart(canvasId, labels, tl.periods, tl.transitions));
+      }
+
+      html += '</div>';
+    }
+  }
+
+  // Team timelines
+  if (DATA.teams && DATA.teams.length > 0) {
+    for (const t of DATA.teams) {
+      const teamId = 'team-' + makeId(t.teamName);
+      html += '<div class="domain-section" id="' + teamId + '">';
+      html += '<h2 class="domain-title">' + t.teamName + ' / ' + t.domain + ' &mdash; Team Timeline</h2>';
+
+      const labels = t.periods.map(p => p.label);
+
+      // Score averages
+      const scoreId = 'chart-' + chartIdx++;
+      html += '<div class="chart-card"><h3>Score Averages</h3>';
+      html += '<div class="chart-container"><canvas id="' + scoreId + '"></canvas></div></div>';
+      chartInits.push(() => createTeamScoreChart(scoreId, labels, t.periods));
+
+      // Health metrics
+      const healthId = 'chart-' + chartIdx++;
+      html += '<div class="chart-card"><h3>Health Metrics</h3>';
+      html += '<div class="chart-container"><canvas id="' + healthId + '"></canvas></div></div>';
+      chartInits.push(() => createHealthChart(healthId, labels, t.periods));
+
+      // Membership
+      const memberId = 'chart-' + chartIdx++;
+      html += '<div class="chart-card"><h3>Membership</h3>';
+      html += '<div class="chart-container bar-chart"><canvas id="' + memberId + '"></canvas></div></div>';
+      chartInits.push(() => createMembershipChart(memberId, labels, t.periods));
+
+      // Classification
+      html += '<div class="chart-card"><h3>Classification</h3>';
+      html += renderClassification(t.periods);
+      html += renderTransitions(t.transitions);
+      html += '</div>';
+
+      html += '</div>';
+    }
+  }
+
+  content.innerHTML = html;
+
+  // Initialize all charts after DOM is updated
+  requestAnimationFrame(() => {
+    chartInits.forEach(fn => fn());
+  });
+}
+
+document.addEventListener('DOMContentLoaded', render);
+</script>
+</body>
+</html>
