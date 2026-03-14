@@ -79,7 +79,7 @@ For example, backend systems often have stable patterns like:
 
 - Domain layer
 - Application layer
-- Repository layer
+- UseCase layer
 - Transaction boundaries
 - Event boundaries
 
@@ -310,7 +310,7 @@ Backend Architects are characterized by **being able to reproduce structure**.
 Say a design like this worked in one codebase:
 
 ```
-Domain + Application + Repository
+Domain + Application + UseCase
 ```
 
 A skilled Backend Architect can **reproduce that structure in a different system**.

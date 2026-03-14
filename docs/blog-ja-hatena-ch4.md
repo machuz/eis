@@ -73,7 +73,7 @@ FEではArchitectが複数生まれる可能性がある。
 
 - Domain層
 - Application層
-- Repository層
+- UseCase層
 - Transaction境界
 - Event境界
 
@@ -308,7 +308,7 @@ Backend Architectの特徴は**構造を再現できること**にある。
 例えばあるコードベースで成立した：
 
 ```
-Domain + Application + Repository
+Domain + Application + UseCase
 ```
 
 という設計があったとする。
