@@ -14,7 +14,7 @@
 
 ## HTML Dashboard：データを眺める体験
 
-まず実用的な話から。`eis timeline --format html` が出力するインタラクティブダッシュボードが、かなり使えるようになった。
+まず実用的な話から。`eis timeline --format html` が出力するインタラクティブダッシュボードが使えるようになった。
 
 ![Timeline HTML Dashboard](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/timeline-html-output.png?v=0.11.0)
 
