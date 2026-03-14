@@ -87,6 +87,20 @@ func classifyStyle(r Result) AxisMatch {
 		{"Mass", func() float64 {
 			return minf(highness(r.Production), lowness(r.Survival))
 		}},
+		// Emergent: creating new structural gravity that hasn't been battle-tested.
+		// High gravity (wide influence + ownership) + meaningful production + low robust survival.
+		// This signals a future Architect candidate whose structures are still being
+		// challenged and refined by the team — the creative friction before convergence.
+		{"Emergent", func() float64 {
+			if r.Gravity < 50 || r.Production < 30 {
+				return 0
+			}
+			robustLow := lowness(r.RobustSurvival) // code doesn't survive pressure yet
+			if robustLow == 0 {
+				return 0 // robust is high → already proven, not "emergent"
+			}
+			return minf(highness(r.Gravity), notLow(r.Production), robustLow)
+		}},
 		// Balanced: steady contributor, no dominant pattern.
 		{"Balanced", func() float64 {
 			if r.Total < 30 {

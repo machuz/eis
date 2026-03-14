@@ -178,6 +178,7 @@ func classifyCulture(tr TeamResult) TeamLabel {
 	wRescue := weightedRatio(tr.Members, func(m scorer.Result) bool { return m.Style == "Rescue" })
 	wChurn := weightedRatio(tr.Members, func(m scorer.Result) bool { return m.Style == "Churn" })
 	wSpread := weightedRatio(tr.Members, func(m scorer.Result) bool { return m.Style == "Spread" })
+	wEmergent := weightedRatio(tr.Members, func(m scorer.Result) bool { return m.Style == "Emergent" })
 
 	rules := []labelRule{
 		// Builder Culture
@@ -212,6 +213,14 @@ func classifyCulture(tr TeamResult) TeamLabel {
 				return 0
 			}
 			return combined
+		}()},
+
+		// Evolving Culture: Builder + Emergent coexist — structure is being challenged and refined
+		{"Evolving", func() float64 {
+			if wBuilder < 0.1 || wEmergent < 0.1 {
+				return 0
+			}
+			return clamp((wBuilder+wEmergent)*1.2, 0, 1)
 		}()},
 
 		// Exploration Culture: Spread dominant
