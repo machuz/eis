@@ -1,223 +1,144 @@
 ---
-title: "Git Archaeology #9 — Collapse: Good Architects and Black Hole Engineers"
+title: "Git Archaeology #9 — Origin: The Big Bang of Code Universes"
 published: true
-description: "Chapter 9 of Engineering Impact Score. Not all strong gravity is good gravity. Some engineers create structure that survives their departure. Others create gravity that collapses without them."
+description: "Chapter 9 of Engineering Impact Score. Every universe has an origin. In code universes, it's the first commit."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch9.png?v=2
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch9.png?v=3
 ---
 
-*The universe has another property. Collapse.*
+*Every universe has an origin. In code universes, it's the first commit.*
 
 ## Previously
 
 In [Chapter 8](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl), I explored Engineering Relativity — how the same engineer gets different scores in different codebases.
 
-This chapter is about another property of gravity.
+From here, we go deeper into the philosophy of git archaeology.
 
-Collapse.
-
----
-
-## Stars Are Not Forever
-
-The universe has another property.
-
-Collapse.
-
-Stars are not forever. Galaxies are not forever.
-
-When gravity breaks down, the structure of the universe changes in an instant.
-
-The same phenomenon occurs in codebases.
+Starting from the very beginning.
 
 ---
 
-## When an Architect Leaves
+## The Big Bang
 
-Architects create universes.
+Every universe has an origin.
 
-They define design, create abstractions, organize dependencies, and build gravitational centers.
+In our universe, it's called the Big Bang. Time and space began there.
 
-But here's the critical point.
+Code universes have the same moment.
 
-**A truly great Architect designs for "the universe after they're gone."**
-
-In a universe built by a good Architect, order is maintained even after they leave.
-
-Because the structure remains.
-
-The gravitational field of the design persists in the universe.
+**It's the first commit.**
 
 ---
 
-## Black Hole Engineer
+## The Primordial Universe
 
-But not all strong gravity is good gravity.
+The first commit has almost no design.
 
-The universe has black holes. Black holes have extremely strong gravity. But their gravity doesn't create structure — it **swallows everything**.
+No structure. Just the impulse: "I want to make something work."
 
-The same type of engineer exists in code universes.
+It resembles the primordial universe.
 
-**Black Hole Engineer.**
+No galaxies yet. No stars yet. Just energy and particles swirling together.
 
-Their characteristics:
+Early codebases are the same.
 
-![Black Hole Pattern](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-black-hole-pattern.png?v=2)
+`if` statements line up. Functions line up. Small utilities line up.
 
-High technical skill. High output. Strong influence.
+Architecture doesn't exist yet.
 
-But — they don't create structure.
+But from that small commit, a universe begins.
 
-Instead — dependency concentrates.
-
----
-
-## A Black Hole Universe
-
-Around a Black Hole Engineer, this happens:
-
-Massive services. Massive utilities. Massive modules.
-
-Work concentrates, dependencies concentrate, code concentrates.
-
-The result — **the center of the universe becomes one engineer.**
-
-![Good Architect vs Black Hole](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-good-vs-blackhole.png?v=2)
-
-A good Architect distributes gravity. Leaves structure. Gives the universe order.
-
-A Black Hole Engineer concentrates gravity. Becomes the center of the universe themselves.
+**Every structure that follows is built on top of that first commit.**
 
 ---
 
-## Collapse
+## Initial Conditions
 
-The problem is when that engineer leaves.
+In cosmology, the Big Bang's initial conditions determine the universe's subsequent structure.
 
-When the black hole disappears, the center of the universe disappears.
+Early density fluctuations eventually become galaxy clusters.
 
-What happens then?
+The same thing happens in code universes.
 
-![Collapse Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-collapse-timeline.png?v=2)
+The first directory structure. The first module split. The first naming convention.
 
-Design decisions stop. Dependencies break. Nobody can touch the code.
+**These initial conditions influence every design decision that follows.**
 
-The code universe collapses in an instant.
+A project that started with `src/` and `lib/` separated will carry that split for years. A project that started as a monolith will be dragged by the monolith's gravity for years.
 
----
-
-## Good Gravity
-
-A good Architect is different from a black hole.
-
-They don't concentrate gravity. They distribute structure.
-
-They share abstractions, clarify boundaries, and leave order in the universe.
-
-So — even after they leave, the universe doesn't collapse.
-
-This is **seasoned, good gravity**.
-
-Remember Chapter 4's "laying souls to rest." A good Architect can be laid to rest. Their code lives on after departure. Survival 100 is proof that the structure remains.
-
-**A Black Hole Engineer cannot be laid to rest.**
-
-Because the code universe collapses the moment they leave.
+The gravity of initial conditions is strong.
 
 ---
 
-## Using EIS to Prevent Collapse
+## The Birth of Constellations
 
-### 1. Monitor Bus Factor
+Looking up at the sky, stars appear to be scattered randomly.
 
-Teams where `eis analyze --team` shows a Bus Factor near 1 are at risk of Black Hole collapse.
+But humans find meaning in them.
 
-![Bus Factor Check](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-bash-team.png?v=2)
+Orion. Cassiopeia. The Big Dipper.
 
-Bus Factor = 1 means "if one person leaves, it collapses." This is the clearest sign of a Black Hole.
+These aren't physical structures. **They're patterns that humans found.**
 
-### 2. Detect Indispensability Concentration
+The same thing happens in codebases.
 
-Use `--per-repo` to examine individual score distributions.
+What starts as a mere collection of files eventually gets assigned meaning by humans.
 
-![Per-Repo Detection](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-bash-per-repo.png?v=2)
+Modules. Services. Packages. Layers.
 
-One person with extremely high Indispensability while everyone else is extremely low — this distribution is the signature of a Black Hole.
+**These are constellations.**
 
-### 3. Watch for "One Person Stays Architect Forever" in Timelines
+Not the stars themselves. Maps that humans created to understand the universe.
 
-![Timeline Detection](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-bash-timeline.png?v=2)
+A great Architect doesn't create stars — they **create constellations**.
 
-A good Architect's timeline shows an Architect → Producer transition (like Engineer J in Chapter 5). Once the structure is built, they produce on top of it.
+They discover structure, organize structure, and share structure.
 
-A Black Hole Engineer's timeline shows **permanent Architect**. They never release the structure. They keep concentrating gravity.
-
-### 4. Judge Gravity Quality Through Surrounding Scores
-
-Use the gravitational lensing effect from Chapter 8.
-
-Around a good Architect:
-- Teammates' Design scores gradually rise (they learn the structure and start contributing)
-- New joiners ramp up quickly (the structure is clear and understandable)
-
-Around a Black Hole Engineer:
-- Teammates' Design scores stay low (they can't touch — or don't dare touch — the structure)
-- New joiners ramp up slowly (you have to ask one person to understand anything)
-
-**The quality of gravity is reflected in the surrounding scores.**
+That is architecture.
 
 ---
 
-## Preventing Collapse Is a Leader's Job
+## Git Archaeology Observes the Big Bang
 
-EIS can detect collapse risk. But detection alone doesn't prevent collapse.
+Run `git log --reverse`.
 
-Preventing collapse is a leader's job.
+You'll see the first commit.
 
-Specifically:
+It has a date. An author. A message.
 
-- When you find Bus Factor = 1, **deliberately expand pair work and code review scope**
-- When you find Indispensability concentration, **create time for that engineer to teach**
-- When you find a permanent Architect pattern, **build mechanisms to distribute design decisions**
+That is the record of this universe's Big Bang.
 
-EIS shows you the universe's structure. How to reshape that structure is a human decision.
+Git archaeology is also the study of observing a universe's history from its Big Bang.
 
----
-
-## Regeneration After Collapse — Engineers Who Can Replace a Black Hole
-
-Collapse isn't necessarily the end.
-
-Just as Engineer I created a new universe in Chapter 5, there are engineers who can bring new gravity to a collapsed universe.
-
-These engineers have specific traits:
-
-- **Architect Reproducibility** (Chapter 8). They can create structure in any universe
-- They can **read** existing gravitational fields. They understand collapsed structures and grasp what was lost
-- They choose designs that **distribute** gravity. They don't repeat the Black Hole mistake
-
-In timelines, the pattern looks like this:
-
-When such an engineer joins a post-collapse team:
-- Team classification recovers from Unstructured → Guardian → Balanced
-- Bus Factor rises from 1 to 2, then 3
-- Multiple members' Design scores start rising simultaneously
-
-**Only an Architect who distributes structure can turn collapse into regeneration.**
-
-What's needed to replace a Black Hole isn't the same strength of gravity. It's a **different quality** of gravity.
+**The codebase in front of you right now is the present state of a continuous universe that began with that first commit.**
 
 ---
 
-## Stars are not forever. That's why structure matters.
+## Initial Conditions and EIS
 
-In the universe, when a star dies, the elements it created remain. Iron, oxygen, carbon — all forged in the star's nuclear fusion.
+EIS reflects the influence of these initial conditions.
 
-A good Architect is the same. What remains after they leave isn't code — it's **structure**.
+In mature codebases, structures created early on persist as Survival 100. The first Architect's commits remain etched in blame for years.
 
-What a Black Hole Engineer leaves behind is — void.
+The "laying souls to rest" from Chapter 4 often targets this initial Architect. The gravity of the person who created the Big Bang lasts the longest in the universe.
 
-**Stars are not forever. That's why structure matters.**
+Conversely, in codebases with weak initial conditions — projects that started without structure — everyone's Design axis is low. Because the gravitational center never existed from the start.
+
+**The universe's present is determined by its Big Bang.**
+
+---
+
+## It All Started Here
+
+The first commit is small.
+
+Maybe just a few lines.
+
+But from there, a universe begins.
+
+Gravity is born, structure forms, constellations are drawn, Architects appear, teams evolve.
+
+**It all started here.**
 
 ---
 
@@ -231,10 +152,18 @@ What a Black Hole Engineer leaves behind is — void.
 - [Chapter 6: Teams Evolve: The Laws of Organization Revealed by Timelines](https://dev.to/machuz/git-archaeology-6-teams-evolve-the-laws-of-organization-revealed-by-timelines-4jf3)
 - [Chapter 7: Observing the Universe of Code](https://dev.to/machuz/git-archaeology-7-observing-the-universe-of-code-1op0)
 - [Chapter 8: Engineering Relativity: Why the Same Engineer Gets Different Scores](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl)
-- **Chapter 9: Collapse: Good Architects and Black Hole Engineers** (this post)
+- **Chapter 9: Origin: The Big Bang of Code Universes** (this post)
+- [Chapter 10: Dark Matter: The Invisible Gravity](https://dev.to/machuz/git-archaeology-10-dark-matter-the-invisible-gravity-SLUG)
+- [Chapter 11: Entropy: The Universe Always Tends Toward Disorder](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-SLUG)
+- [Chapter 12: Collapse: Good Architects and Black Hole Engineers](https://dev.to/machuz/git-archaeology-12-collapse-good-architects-and-black-hole-engineers-SLUG)
+- [Chapter 13: Cosmology of Code](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-SLUG)
 
 **GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 
 If this was useful:
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
+
+---
+
+← [Chapter 8: Engineering Relativity](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl) | [Chapter 10: Dark Matter →](https://dev.to/machuz/git-archaeology-10-dark-matter-the-invisible-gravity-SLUG)

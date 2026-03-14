@@ -1,0 +1,152 @@
+---
+title: "Git Archaeology #10 — Dark Matter: The Invisible Gravity"
+published: true
+description: "Chapter 10 of Engineering Impact Score. Most of the universe's mass is invisible. The same is true in code universes."
+tags: opensource, productivity, git, career
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch10.png?v=3
+---
+
+*Most of the universe's mass cannot be observed. The same is true in code universes.*
+
+## Previously
+
+In [Chapter 9](https://dev.to/machuz/git-archaeology-9-origin-the-big-bang-of-code-universes-SLUG), I wrote about Origin — the Big Bang and the first commit of code universes.
+
+This time, I write about another force that exists in the universe.
+
+An invisible force.
+
+---
+
+## Dark Matter
+
+Most of the universe's mass is said to be dark matter.
+
+Yet it cannot be observed.
+
+Telescopes can't see it. There's no means of direct detection.
+
+Still, we're certain dark matter exists. Because — **it manifests only as gravity, but gravity is undeniably there.**
+
+When you calculate a galaxy's rotation speed, visible matter alone can't explain it. Invisible mass is holding the galaxy together.
+
+---
+
+## Dark Matter in Code Universes
+
+Code universes have dark matter too.
+
+**It's the work that doesn't appear in commits.**
+
+Code review. Design discussions. Pair programming. Dependency cleanup. Small refactors. Documentation fixes.
+
+These are small as commits — or don't even become commits at all.
+
+Yet they support the stability of the universe.
+
+---
+
+## Anchors Are Dark Matter
+
+Remember the Anchor role defined in Chapter 3.
+
+Anchors don't stand out. Neither their Production nor Design scores are exceptional.
+
+But without them, the universe would quickly crumble.
+
+**Anchors are the dark matter of code universes.**
+
+Just as galaxies can't rotate without dark matter, teams can't stay stable without Anchors.
+
+EIS can detect Anchors. But what EIS shows is dark matter's "gravitational effect" — not dark matter itself. The real work of an Anchor lies in the parts that don't appear in code.
+
+---
+
+## Examples of Invisible Work
+
+### Code Review
+
+Reviews don't produce commits.
+
+Yet a codebase without reviews loses its structure.
+
+Review is **observation**. Just like the Observer Effect in physics, observed code always changes.
+
+It might be deleted. It might be improved. New dependencies might emerge.
+
+**Observation changes the universe.**
+
+### Design Discussion
+
+Thirty minutes in front of a whiteboard, and the design is decided.
+
+Those thirty minutes aren't recorded in commits. But they determine the structure of thousands of lines of code that follow.
+
+**Invisible forces determine visible structure.**
+
+### Small Refactors
+
+A 3-line rename. A 5-line method extraction.
+
+In the commit log, they look like "noise."
+
+But this is the act of fighting the universe's entropy. The accumulation of small refactors prevents structural decay.
+
+---
+
+## The Limits of EIS
+
+Here's something I must be honest about.
+
+**EIS cannot see dark matter.**
+
+EIS is a commit-based tool. It can't measure work that doesn't appear in commits.
+
+The quality of reviews. The depth of design discussions. The effect of mentoring. A team's psychological safety.
+
+These are all dark matter.
+
+What EIS shows us is only the "visible part" of the universe — stars and galaxies.
+
+But knowing that dark matter exists lets you interpret EIS numbers correctly.
+
+**An Anchor's score looks low because most of their work is dark matter.**
+
+Judging "this engineer has low productivity" by looking only at numbers is the same mistake as calculating a galaxy's mass from visible matter alone.
+
+---
+
+## Being Aware of Dark Matter
+
+When using EIS, always be aware of dark matter's existence.
+
+- An engineer with a low score might actually be supporting the team's stability
+- Design decisions that don't appear in commits might be the core of the structure
+- The quality of reviews might be lifting the entire team's Quality scores
+
+**Trying to see the invisible. That too is an act of observing the universe.**
+
+---
+
+### Series
+
+- [Chapter 1: Measuring Engineering Impact from Git History Alone](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c)
+- [Chapter 2: Beyond Individual Scores: Measuring Team Health from Git History](https://dev.to/machuz/beyond-individual-scores-measuring-team-health-from-git-history-3n9f)
+- [Chapter 3: Two Paths to Architect: How Engineers Evolve Differently](https://dev.to/machuz/two-paths-to-architect-how-engineers-evolve-differently-1ga)
+- [Chapter 4: Backend Architects Converge: The Sacred Work of Laying Souls to Rest](https://dev.to/machuz/backend-architects-converge-the-sacred-work-of-laying-souls-to-rest-m6d)
+- [Chapter 5: Timeline: Scores Don't Lie, and They Capture Hesitation Too](https://dev.to/machuz/git-archaeology-5-timeline-scores-dont-lie-and-they-capture-hesitation-too-1gi5)
+- [Chapter 6: Teams Evolve: The Laws of Organization Revealed by Timelines](https://dev.to/machuz/git-archaeology-6-teams-evolve-the-laws-of-organization-revealed-by-timelines-4jf3)
+- [Chapter 7: Observing the Universe of Code](https://dev.to/machuz/git-archaeology-7-observing-the-universe-of-code-1op0)
+- [Chapter 8: Engineering Relativity: Why the Same Engineer Gets Different Scores](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl)
+- [Chapter 9: Origin: The Big Bang of Code Universes](https://dev.to/machuz/git-archaeology-9-origin-the-big-bang-of-code-universes-SLUG)
+- **Chapter 10: Dark Matter: The Invisible Gravity** (this post)
+
+**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
+
+If this was useful:
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
+
+---
+
+← [Chapter 9: Origin](https://dev.to/machuz/git-archaeology-9-origin-the-big-bang-of-code-universes-SLUG) | [Chapter 11: Entropy →](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-SLUG)

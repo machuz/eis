@@ -1,217 +1,138 @@
-# git考古学 #9 —— Collapse：良いArchitectとBlack Hole Engineer
+# git考古学 #9 —— Origin：コード宇宙のビッグバン
 
-*宇宙にはもう一つの性質がある。崩壊だ。*
+*すべての宇宙には起源がある。コード宇宙では、それは最初のcommitだ。*
 
 ### 前章までのあらすじ
 
-[第8章](https://ma2k8.hateblo.jp/entry/2026/03/14/220000)ではEngineering Relativity——同じエンジニアでも宇宙が変わればスコアが変わる——について書いた。
+[第8章](https://ma2k8.hateblo.jp/entry/2026/03/14/233602)ではEngineering Relativity——同じエンジニアでも宇宙が変わればスコアが変わる——について書いた。
 
-今回は、重力のもう一つの性質について書く。
+ここから先は、git考古学の思想をさらに深く掘り下げる。
 
-崩壊だ。
-
----
-
-## 恒星は永遠ではない
-
-宇宙にはもう一つの性質がある。
-
-崩壊だ。
-
-恒星は永遠ではない。銀河も永遠ではない。
-
-重力が崩れると、宇宙の構造は一気に変わる。
-
-コードベースでも同じ現象が起きる。
+まず、すべての始まりから。
 
 ---
 
-## Architectが去るとき
+## ビッグバン
 
-Architectは宇宙を作る。
+すべての宇宙には起源がある。
 
-設計を定義し、抽象化を作り、依存関係を整え、重力の中心を作る。
+私たちの宇宙ではそれはビッグバンと呼ばれる。時間と空間がそこから始まった。
 
-しかし重要なのはここだ。
+コード宇宙にも同じ瞬間がある。
 
-**本当に優れたArchitectは「自分がいなくなった後の宇宙」まで設計している。**
-
-良いArchitectが作った宇宙では、その人が去った後でも秩序が維持される。
-
-構造が残るからだ。
-
-設計の重力場が宇宙に残っている。
+**それは最初のcommitだ。**
 
 ---
 
-## Black Hole Engineer
+## 原始宇宙
 
-しかし、すべての強い重力が良い重力とは限らない。
+最初のcommitには設計はほとんど存在しない。
 
-宇宙にはブラックホールが存在する。ブラックホールは極端に強い重力を持つ天体だ。しかしその重力は——構造を作るのではなく、すべてを吸い込む。
+構造もない。ただ「何かを動かしたい」という衝動だけがある。
 
-コード宇宙にも同じタイプのエンジニアが存在する。
+それは原始宇宙に似ている。
 
-**Black Hole Engineer。**
+まだ銀河は存在しない。星も存在しない。ただエネルギーと粒子が混ざり合っている。
 
-特徴はこうだ。
+初期のコードベースも同じだ。
 
-![Black Hole Pattern](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch9-black-hole-pattern.svg)
+ifが並び、関数が並び、小さなutilが並ぶ。
 
-技術力は高い。生産量も多い。影響力も強い。
+そこにはまだarchitectureは存在しない。
 
-しかし——構造を作らない。
+しかしその小さなcommitから、宇宙は始まる。
 
-代わりに——依存が集中する。
-
----
-
-## ブラックホール型の宇宙
-
-Black Hole Engineerの周りではこういう現象が起きる。
-
-巨大なサービス。巨大なユーティリティ。巨大なモジュール。
-
-仕事が集まり、依存が集まり、コードが集まる。
-
-結果として——**宇宙の中心が一人のエンジニアになる。**
-
-![Good Architect vs Black Hole](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch9-good-vs-blackhole.svg)
-
-良いArchitectは重力を分散させる。構造を残し、宇宙に秩序を与える。
-
-Black Hole Engineerは重力を集中させる。自分自身が宇宙の中心になる。
+**その後のすべての構造は、その最初のcommitの上に積み上がる。**
 
 ---
 
-## 崩壊
+## 初期条件
 
-問題は、そのエンジニアが去ったときだ。
+宇宙物理学では、ビッグバンの初期条件がその後の宇宙構造を決定づけるとされる。
 
-ブラックホールが消えると、宇宙の中心が消える。
+初期の密度のゆらぎが、やがて銀河団になる。
 
-すると何が起きるか。
+コード宇宙でも同じことが起きる。
 
-![Collapse Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch9-collapse-timeline.svg)
+最初のディレクトリ構造。最初のモジュール分割。最初の命名規則。
 
-設計判断が止まる。依存関係が壊れる。誰も触れなくなる。
+**これらの初期条件が、その後のすべての設計判断に影響する。**
 
-コード宇宙は一気に崩壊する。
+最初に`src/`と`lib/`を分けたプロジェクトは、その分割を何年も引き継ぐ。最初にモノリスで始めたプロジェクトは、モノリスの重力に何年も引きずられる。
 
----
-
-## 良い重力
-
-良いArchitectはブラックホールとは違う。
-
-彼らは重力を集中させない。構造を分散させる。
-
-抽象化を共有し、境界を明確にし、宇宙の秩序を残す。
-
-だから——去った後でも宇宙は崩壊しない。
-
-これが**練度の高い重力**である。
-
-第4章の「成仏」を思い出してほしい。良いArchitectは成仏できる。去った後もコードが生き続ける。Survival 100は、構造が残っている証拠だ。
-
-**Black Hole Engineerは成仏できない。**
-
-去った瞬間にコード宇宙が崩壊するからだ。
+初期条件の重力は強い。
 
 ---
 
-## EISでCollapseを防ぐ
+## 星座の誕生
 
-### 1. Bus Factorを監視する
+宇宙を見上げると、星はただ散らばっているように見える。
 
-`eis analyze --team` のBus Factorが1に近いチームは、Black Hole型の危険がある。
+しかし人間はそこに意味を見出す。
 
-![Bus Factor Check](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch9-bash-team.svg)
+オリオン座。カシオペア座。北斗七星。
 
-Bus Factor = 1は「一人が去ったら崩壊する」という意味だ。これがBlack Holeの最も明確な兆候である。
+それらは物理的な構造ではない。**人間が見出したパターン**である。
 
-### 2. Indispensabilityの集中を検出する
+コードベースでも同じことが起きる。
 
-`--per-repo` で個人のスコア分布を見る。
+最初はただのファイルの集合だったものが、やがて人間によって意味付けされる。
 
-![Per-Repo Detection](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch9-bash-per-repo.svg)
+モジュール。サービス。パッケージ。レイヤー。
 
-一人だけIndispensabilityが極端に高く、他のメンバーが極端に低い——この分布がBlack Hole型の特徴だ。
+**それらは星座だ。**
 
-### 3. タイムラインで「一人だけ突出し続ける」パターンを警戒する
+星そのものではない。人間が宇宙を理解するために作った地図である。
 
-![Timeline Detection](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch9-bash-timeline.svg)
+優れたArchitectは、星を作るのではなく、**星座を作る**。
 
-良いArchitectのタイムラインでは、Architect → Producerへの移行が見られる（第5章のEngineer Jのパターン）。構造を作り終えたら、その上で生産に移る。
+つまり——構造を発見し、構造を整理し、構造を共有する。
 
-Black Hole Engineerのタイムラインでは、**ずっとArchitectのまま**だ。構造を手放さない。重力を集中させ続ける。
-
-### 4. 周囲のスコアで重力の質を判定する
-
-第8章の重力レンズ効果を使う。
-
-良いArchitectの周囲：
-- チームメイトのDesignスコアが徐々に上がる（構造を学び、貢献し始める）
-- 新規参加者の立ち上がりが速い（構造が明確なので理解しやすい）
-
-Black Hole Engineerの周囲：
-- チームメイトのDesignスコアが低いまま（構造に触れない・触れられない）
-- 新規参加者の立ち上がりが遅い（一人に聞かないとわからない）
-
-**重力の質は、周囲のスコアに映る。**
+それがarchitectureである。
 
 ---
 
-## 崩壊を防ぐのはリーダーの仕事
+## git考古学はビッグバンを観測する
 
-EISは崩壊を検出できる。しかし検出だけでは崩壊は防げない。
+`git log --reverse` を実行してみてほしい。
 
-崩壊を防ぐのはリーダーの仕事だ。
+最初のcommitが見える。
 
-具体的には：
+そこには日付がある。著者がいる。メッセージがある。
 
-- Bus Factor = 1を見つけたら、**意図的にペア作業やコードレビューの範囲を広げる**
-- Indispensabilityの集中を見つけたら、**そのエンジニアに「教える」時間を作る**
-- 一人だけArchitectが続くパターンを見つけたら、**設計判断を分散させる仕組みを作る**
+それはこの宇宙のビッグバンの記録だ。
 
-EISが見せてくれるのは、宇宙の構造だ。その構造をどう整えるかは、人間の判断である。
+git考古学とは、このビッグバンから始まる宇宙の歴史を観測する学問でもある。
 
----
-
-## 崩壊からの再生——Black Holeを置き換えるエンジニア
-
-崩壊は必ずしも終わりではない。
-
-第5章でEngineer Iが新しい宇宙を作ったように、崩壊した宇宙に新しい重力を持ち込めるエンジニアが存在する。
-
-このタイプのエンジニアには特徴がある。
-
-- **Architectの再現性**を持つ（第8章）。どの宇宙でも構造を作れる
-- 既存の重力場を**読める**。崩壊した構造を理解し、何が失われたかを把握できる
-- 重力を**分散させる**設計を選ぶ。Black Holeの二の轍を踏まない
-
-タイムラインで見ると、こういうパターンになる。
-
-崩壊後のチームにこのエンジニアが入ると：
-- チーム分類がUnstructured → Guardian → Balanced と回復する
-- Bus Factorが1から2、3と上がる
-- 複数メンバーのDesignスコアが同時に上がり始める
-
-**崩壊を再生に変えられるのは、構造を分散させるArchitectだけだ。**
-
-Black Holeの置き換えに必要なのは、同じ強さの重力ではない。**質の違う重力**だ。
+**いま目の前にあるコードベースは、その最初のcommitから続く連続した宇宙の、現在の姿だ。**
 
 ---
 
-## 恒星は永遠ではない。だから構造が要る。
+## 初期条件とEIS
 
-宇宙では、恒星が死んでも、その恒星が作った元素は宇宙に残る。鉄も、酸素も、炭素も——すべて恒星の核融合が作ったものだ。
+EISはこの初期条件の影響も映し出す。
 
-良いArchitectも同じだ。去った後に残るのは、コードではなく**構造**だ。
+成熟したコードベースでは、初期に作られた構造がSurvival 100として残り続ける。最初のArchitectのcommitが、何年経ってもblameに刻まれている。
 
-Black Hole Engineerが残すのは——虚空だ。
+第4章で語った「成仏」の対象は、しばしばこの初期のArchitectだ。ビッグバンを作った人間の重力は、宇宙で最も長く残る。
 
-**恒星は永遠ではない。だから構造が要る。**
+逆に、初期条件が弱いコードベース——構造なしに始まったプロジェクト——では、EISのDesign軸が全員低い。重力の中心が最初から存在しないからだ。
+
+**宇宙の現在は、そのビッグバンに規定されている。**
+
+---
+
+## すべてはここから始まった
+
+最初のcommitは小さい。
+
+たった数行かもしれない。
+
+しかしそこから宇宙が始まる。
+
+重力が生まれ、構造ができ、星座が描かれ、Architectが現れ、チームが進化する。
+
+**すべてはここから始まった。**
 
 ---
 
@@ -224,8 +145,12 @@ Black Hole Engineerが残すのは——虚空だ。
 - [第5章：タイムライン：スコアは嘘をつかないし、遠慮も映る](https://ma2k8.hateblo.jp/entry/2026/03/14/180329)
 - [第6章：チームは進化する——タイムラインが暴く組織の法則](https://ma2k8.hateblo.jp/entry/2026/03/14/184223)
 - [第7章：コードの宇宙を観測する](https://ma2k8.hateblo.jp/entry/2026/03/14/213413)
-- [第8章：Engineering Relativity：なぜ同じエンジニアでもスコアが変わるのか](https://ma2k8.hateblo.jp/entry/2026/03/14/220000)
-- **第9章：Collapse：良いArchitectとBlack Hole Engineer**（本記事）
+- [第8章：Engineering Relativity：なぜ同じエンジニアでもスコアが変わるのか](https://ma2k8.hateblo.jp/entry/2026/03/14/233602)
+- **第9章：Origin：コード宇宙のビッグバン**（本記事）
+- [第10章：Dark Matter：見えない重力](https://ma2k8.hateblo.jp/entry/2026/03/15/000000)
+- [第11章：Entropy：宇宙は常に無秩序に向かう](https://ma2k8.hateblo.jp/entry/2026/03/15/000000)
+- [第12章：Collapse：良いArchitectとBlack Hole Engineer](https://ma2k8.hateblo.jp/entry/2026/03/15/000000)
+- [第13章：Cosmology of Code：コード宇宙論](https://ma2k8.hateblo.jp/entry/2026/03/15/000000)
 
 **GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
 
@@ -234,3 +159,7 @@ Black Hole Engineerが残すのは——虚空だ。
 [![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
 
 PayPay: `w_machu7`
+
+---
+
+← [第8章：Engineering Relativity](https://ma2k8.hateblo.jp/entry/2026/03/14/233602) | [第10章：Dark Matter →](https://ma2k8.hateblo.jp/entry/2026/03/15/000000)
