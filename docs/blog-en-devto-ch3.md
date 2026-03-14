@@ -214,6 +214,33 @@ Emergent Architects walk exactly this road.
 
 ---
 
+## The Danger of Untested Code
+
+There's another important state EIS makes visible.
+
+**State: Fragile.**
+
+When code "survives," it can mean two different things:
+
+- **Robust Survival**: Code remains in files that others frequently modify — survived under pressure
+- **Dormant Survival**: Code remains in modules nobody touches — simply untouched
+
+The latter isn't durability. **It's just neglect.**
+
+Fragile state is detected when:
+
+- Dormant ratio is 80%+ (almost nobody touches it)
+- Indispensability is high (held by one person)
+- Production is low (not actively producing)
+
+In other words: **"Code remains, but only because nobody touched it."**
+
+The moment change pressure arrives, this code may collapse. It survives not because it's high quality, but because **it hasn't been tested**.
+
+High Survival feels reassuring, but without checking the Dormant ratio, you miss the truth. EIS separates "dormant code" from "code that survived change pressure" — making both visible.
+
+---
+
 ## What the Team Metrics Show
 
 This team's metrics include a warning:
