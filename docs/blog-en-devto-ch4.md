@@ -444,9 +444,9 @@ That accumulation is what these numbers represent.
 
 ---
 
-I worked with pony before, at another company. We merged our design knowledge back then. So we share common understanding of each other's design approach. Whatever their current score shows, I know they have horsepower. **I know they have the ability to hit 80+ on our team.**
+I worked with Engineer G before, at another company. We merged our design knowledge back then. So we share common understanding of each other's design approach. Whatever their current score shows, I know they have horsepower. **I know they have the ability to hit 80+ on our team.**
 
-Ryuunosuke is doing really good work. When I invited them to join this team, they said "I lack confidence because I don't have much experience." But from my experience, I was absolutely certain they could do good work. So I invited them. **And now, they've become an Anchor.** An Anchor on an Elite team. That's something to brag about anywhere. Deeply moving.
+Engineer H is doing really good work. When I invited them to join this team, they said "I lack confidence because I don't have much experience." But from my experience, I was absolutely certain they could do good work. So I invited them. **And now, they've become an Anchor.** An Anchor on an Elite team. That's something to brag about anywhere. Deeply moving.
 
 ---
 
