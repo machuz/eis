@@ -109,7 +109,11 @@ And Robust is low.
 
 But it's not all gone. Some of it remains. You can't feel that intuitively — but the metrics pick it up.
 
-And as of v0.11.0, **Style: Emergent** captures exactly this state.
+In fact, while writing this article and analyzing Engineer D's state, I realized something.
+
+"High Gravity + producing code + but low Robust" — this combination wasn't captured by existing Styles. It was being labeled Balanced, but that's wrong. **This is exactly what an Emergent Architect candidate looks like.**
+
+So in v0.11.0, I added **Style: Emergent**.
 
 Emergent means "not yet fully formed, but coming into being."
 
@@ -117,7 +121,7 @@ Emergent means "not yet fully formed, but coming into being."
 - Not yet battle-tested by the team (low Robust), but generating gravity
 - The pre-stage before evolving into Architect
 
-**The Emergent Architect candidate is now visible as a Style.**
+**The insight from this article became an evolution of the metrics themselves.**
 
 ---
 
