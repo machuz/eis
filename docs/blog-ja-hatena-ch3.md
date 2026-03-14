@@ -80,7 +80,7 @@ Role: Producer (0.80) | Style: Balanced (0.30)
 
 **Engineer D** — Producer / Emergent / Active（高Gravity）
 
-このチームで唯一、**強い重力を持っている**。
+Architect以外で唯一、**強い重力を持っている**。
 
 エンジニアで重力を出せる人は本当に貴重だ。
 

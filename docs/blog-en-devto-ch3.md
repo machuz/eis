@@ -92,7 +92,7 @@ They haven't created gravitational code yet — the kind everyone else builds on
 
 **Engineer D** — Producer / Emergent / Active (High Gravity)
 
-The only one on this team **generating real gravity**.
+The only one outside the Architect **generating real gravity**.
 
 Engineers who can create gravity are rare. Genuinely rare.
 
