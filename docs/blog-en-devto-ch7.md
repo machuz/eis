@@ -80,7 +80,7 @@ In EIS metrics, such teams have distinctive signatures:
 
 If that gravity disappears — the Architect transfers, quits, moves to another project — the codebase disperses at once. Design consistency crumbles. Structure weakens.
 
-Engineer F's departure in Chapter 5 was exactly this.
+Engineer F's departure in Chapter 5 was the moment this could have happened. But it didn't. machuz reached Architect Builder at the same timing — a **generational shift of gravity** occurred. This was partly fortunate, partly structurally inevitable. But what if machuz hadn't been there? The team would have become "a universe that lost its gravity."
 
 ---
 
