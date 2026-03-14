@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="540" height="66" viewBox="0 0 540 66">
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="44" viewBox="0 0 540 44">
   <defs>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
@@ -7,10 +7,10 @@
   </defs>
 
   <!-- Card background -->
-  <rect width="540" height="66" rx="8" fill="#1d2021"/>
+  <rect width="540" height="44" rx="8" fill="#1d2021"/>
 
   <!-- Accent bar -->
-  <rect x="0" y="0" width="4" height="66" rx="2" fill="#fe8019"/>
+  <rect x="0" y="0" width="4" height="44" rx="2" fill="#fe8019"/>
 
   <!-- Category label -->
   <text x="512" y="18" text-anchor="end" fill="#504945" font-size="10">Bash</text>
