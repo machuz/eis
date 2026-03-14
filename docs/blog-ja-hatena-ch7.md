@@ -24,9 +24,17 @@ eis timeline --format html --output timeline.html --recursive ~/workspace
 
 Chart.jsベースの折れ線グラフで、個人・チームのスコア推移、Health指標、メンバーシップ構成、Classification変遷が一覧できる。ツールチップにはRole/Style/State/Confidenceが表示され、Transitionマーカーが変化のタイミングを示す。
 
+ターミナルでサッと確認したいなら `--format ascii` もある。
+
+![Timeline ASCII Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/timeline-ascii-output.png?v=0.11.0)
+
 何が良いかというと、**AIと一緒にこの画面を眺められる**ことだ。
 
 HTMLをブラウザで開いて、AIに「このチームの2024-H2に何が起きた？」と聞く。数値の変化、Role遷移、Health指標の動き——データを見ながら仮説を立て、AIが解釈を返す。これは`eis analyze`のターミナル出力では難しかった体験だ。
+
+特にチームのHealth Metricsが面白い。Complementarity（補完性）、Growth Potential（成長余地）、Sustainability（持続性）、Debt Balance（負債バランス）——これらが期間ごとにどう変化しているかが一目でわかる。
+
+![Team Health Metrics](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/team-health-metrics-output.png?v=0.11.0)
 
 ---
 
@@ -141,6 +149,27 @@ Classification:
 それは議論ではなくコードに残る。Git履歴には、誰がコードを書いたかだけではなく、**誰がコードベースの重力を作ったか**も残っている。
 
 EISがやろうとしているのは、**声の大きさではなく構造への影響**でエンジニアを見ることだ。
+
+---
+
+## チームの実力を証明する——採用という文脈
+
+この「観測可能性」には、もう一つ実用的な使い道がある。**採用**だ。
+
+エンジニア採用の場面で「うちのチームは技術力が高い」と言うのは簡単だ。しかしそれを**データで示せる**チームはほとんどない。
+
+EISのチームタイムラインがあれば、こういうことができる。
+
+- **Classification: Elite / Architectural Engine / Mature** ——「うちのチームは設計力が分散していて、特定個人に依存しない構造です」
+- **Health: Complementarity 0.85** ——「メンバーのスキルが相互補完的で、偏りが少ないです」
+- **Risk: Healthy** ——「Bus Factor、Design Vacuum、Quality Driftのいずれのリスクもありません」
+- **Phase: Mature → Rebuilding ではなく Mature を維持** ——「安定しつつも停滞していません」
+
+候補者に対して「技術的に面白いチームです」と口で言うのではなく、**グラフを見せる**。スコアの推移を見せる。チームがどう進化してきたかをデータで語る。
+
+これは逆方向にも効く。候補者がチームを選ぶ判断材料になる。「このチームは本当に成長しているのか？」「設計文化があるのか？」——EISのダッシュボードはそれに答えられる。
+
+採用は「マッチング」だ。チームの実力を正直に、定量的に見せられることは、双方にとって価値がある。
 
 ---
 

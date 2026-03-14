@@ -30,9 +30,17 @@ eis timeline --format html --output timeline.html --recursive ~/workspace
 
 Chart.js-based line charts show individual and team score trajectories, health metrics, membership composition, and classification changes at a glance. Tooltips display Role/Style/State with confidence scores. Transition markers highlight exactly when changes happened.
 
+For a quick terminal check, there's also `--format ascii`:
+
+![Timeline ASCII Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/timeline-ascii-output.png?v=0.11.0)
+
 What makes this powerful is that **you can look at this screen alongside an AI**.
 
 Open the HTML in a browser, ask an AI "What happened to this team in 2024-H2?" The AI can see the numbers, the role transitions, the health metric movements — formulate hypotheses from the data and offer interpretations. This kind of experience was difficult with terminal output alone.
+
+The team Health Metrics view is particularly interesting. Complementarity, Growth Potential, Sustainability, Debt Balance — you can see at a glance how these evolve across periods.
+
+![Team Health Metrics](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/team-health-metrics-output.png?v=0.11.0)
 
 ---
 
@@ -147,6 +155,27 @@ Which one is **actually moving the codebase**?
 That answer lives not in discussions but in code. Git history contains not just *who wrote code*, but **who created the gravity of the codebase**.
 
 What EIS tries to do is see engineers by **structural impact, not volume of voice**.
+
+---
+
+## Proving Your Team's Strength — The Hiring Context
+
+This "observability" has another practical application: **hiring**.
+
+In engineering hiring, it's easy to say "our team has strong technical culture." But almost no team can **back that up with data**.
+
+With EIS team timelines, you can:
+
+- **Classification: Elite / Architectural Engine / Mature** — "Our team has distributed design capability. We don't depend on any single individual."
+- **Health: Complementarity 0.85** — "Our members' skills are complementary with low overlap bias."
+- **Risk: Healthy** — "No Bus Factor, Design Vacuum, or Quality Drift risks."
+- **Phase: Sustained Mature** — "Stable without stagnating."
+
+Instead of telling candidates "this is a technically interesting team," you **show them the graphs**. Show score trajectories. Show how the team has evolved over time, backed by data.
+
+This works in reverse too. Candidates can use it to evaluate teams. "Is this team actually growing?" "Does it have a design culture?" — the EIS dashboard can answer that.
+
+Hiring is matching. Being able to show your team's real capability honestly and quantitatively is valuable for both sides.
 
 ---
 
