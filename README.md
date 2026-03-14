@@ -272,9 +272,7 @@ Structural metrics (AAR, Anchor Density, Architecture Coverage) and full classif
 
 Tracks how individual scores, roles, and team health evolve over time. Supports 3-month, 6-month, or yearly spans.
 
-![Timeline Output](docs/images/timeline-output.svg?v=0.11.0)
-
-![Timeline Chart Output](docs/images/timeline-chart-output.svg?v=0.11.0)
+![Timeline Output](docs/images/timeline-html-output.png?v=0.11.0)
 
 ```bash
 eis timeline --recursive ~/workspace                     # Default: last 4 quarters
