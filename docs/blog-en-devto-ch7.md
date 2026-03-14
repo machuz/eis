@@ -3,7 +3,7 @@ title: "Git Archaeology #7 — Observing the Universe of Code"
 published: true
 description: "Chapter 7 of Engineering Impact Score. Codebases have gravitational structures. Great engineers don't just write code — they bend the gravity of codebases."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch7.svg
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch7.png
 ---
 
 *Great engineers don't just write code. They bend the gravity of codebases.*

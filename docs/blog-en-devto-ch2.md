@@ -3,7 +3,7 @@ title: "Git Archaeology #2 — Beyond Individual Scores: Measuring Team Health f
 published: true
 description: "Chapter 2 of Engineering Impact Score. Team-level analysis — complementarity, risk ratio, productivity density — all from git data you already have."
 tags: opensource, productivity, git, teams
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch2.svg
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch2.png
 ---
 
 *Individual scores tell you who is strong. Team health tells you whether the team will still be strong next quarter.*
