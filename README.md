@@ -401,7 +401,7 @@ claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Sco
 
 - [@reizist](https://github.com/reizist) — identified that `exclude_file_patterns` was not applied to git log and blame targets
 - [@ponsaaan](https://github.com/ponsaaan) — pointed out that `config.example.yaml` was outdated and mismatched with the current config structure. Debugged the submodule hang issue in debt analysis. Also the former architect whose well-designed code continues to serve as the foundation of our product. Living proof that good design creates common sense
-- [@exoego](https://github.com/exoego) — implemented fully customizable domains ([#1](https://github.com/machuz/engineering-impact-score/pull/1)): custom domain definitions with extension mapping, `default_domains: false` for complete domain redefinition, and backward-compatible YAML parsing. Shipped with 900+ lines of comprehensive tests
+- [@exoego](https://github.com/exoego) — implemented fully customizable domains ([#1](https://github.com/machuz/engineering-impact-score/pull/1)): custom domain definitions with extension mapping, `default_domains: false` for complete domain redefinition, and backward-compatible YAML parsing. Shipped with 900+ lines of comprehensive tests. Also improved config UX ([#2](https://github.com/machuz/engineering-impact-score/pull/2)): `--config` now raises an early error when the specified file doesn't exist, preventing silent fallback to defaults during long analyses
 
 ## Support
 
