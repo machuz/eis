@@ -108,7 +108,7 @@
   <text x="340" y="240" class="label">71</text>
   <text x="410" y="240" class="label">28</text>
   <text x="480" y="240" class="label">50</text>
-  <text x="570" y="240" class="role">Anchor</text>
+  <text x="570" y="240" class="role">Producer</text>
   <text x="700" y="240" class="label">Balanced</text>
   <text x="830" y="240" class="dim">—</text>
 
@@ -146,12 +146,14 @@
   <text x="830" y="300" class="state-active">Active</text>
 
   <!-- Transition markers -->
-  <text x="945" y="240" class="trans-arrow">↑</text>
-  <text x="960" y="240" class="transition">Style: Builder→Balanced</text>
-  <text x="945" y="260" class="trans-arrow">↑</text>
-  <text x="960" y="260" class="transition">Role: Anchor→Architect</text>
-  <text x="945" y="275" class="trans-arrow">↑</text>
-  <text x="960" y="275" class="transition">Style: Balanced→Builder</text>
+  <text x="945" y="235" class="trans-arrow">↑</text>
+  <text x="960" y="235" class="transition">Role: Anchor→Producer</text>
+  <text x="945" y="248" class="trans-arrow">↑</text>
+  <text x="960" y="248" class="transition">Style: Builder→Balanced</text>
+  <text x="945" y="255" class="trans-arrow">↑</text>
+  <text x="960" y="255" class="transition">Role: Producer→Architect</text>
+  <text x="945" y="268" class="trans-arrow">↑</text>
+  <text x="960" y="268" class="transition">Style: Balanced→Builder</text>
 
   <!-- Separator -->
   <line x1="20" y1="318" x2="1180" y2="318" stroke="#3e4451" stroke-width="1"/>
