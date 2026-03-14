@@ -59,6 +59,7 @@ def devto_headers():
         "api-key": api_key,
         "Content-Type": "application/json",
         "Accept": "application/json",
+        "User-Agent": "EIS-Blog-Publisher/1.0",
     }
 
 
@@ -192,11 +193,11 @@ def hatena_publish(filepath: Path, mapping: dict) -> dict:
             # Extract entry ID from <link rel="edit" href=".../{entry_id}"/>
             ns = {"atom": ATOM_NS}
             edit_link = root.find('.//atom:link[@rel="edit"]', ns)
-            new_id = edit_link.get("href").rstrip("/").split("/")[-1] if edit_link else entry_id
+            new_id = edit_link.get("href").rstrip("/").split("/")[-1] if edit_link is not None else entry_id
 
             # Extract URL
             alt_link = root.find('.//atom:link[@rel="alternate"]', ns)
-            entry_url = alt_link.get("href") if alt_link else ""
+            entry_url = alt_link.get("href") if alt_link is not None else ""
 
             print(f"  OK: {entry_url}")
             return {"hatena_id": new_id, "hatena_url": entry_url}
