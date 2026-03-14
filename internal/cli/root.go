@@ -47,6 +47,7 @@ Examples:
   eis analyze .                                  Analyze current repo
   eis analyze --recursive /path/to/workspace     Auto-detect repos under directory
   eis analyze --format json --recursive ~/work   Output as JSON
+  eis analyze --recursive --per-repo ~/work      Per-repository breakdown
   eis team --recursive /path/to/workspace        Team analysis (auto-group by domain)
   eis team --config eis.yaml --recursive ~/work  Team analysis with team config
   eis timeline --recursive ~/work                Timeline (default: 4 periods, 3m span)
@@ -67,6 +68,7 @@ Options (shared by analyze, team, and timeline):
   --pressure-mode <mode>      Change pressure mode: include or ignore (default: include)
   --domain <name>             Filter to single domain
   --verbose                   Show detailed debug output (file-level timing, slow ops)
+  --per-repo                  Show per-repository breakdown (with --recursive)
 
 Timeline-specific options:
   --span <period>             Period span: 3m, 6m, 1y (default: 3m)

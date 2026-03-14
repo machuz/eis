@@ -111,13 +111,13 @@ Total: 40 inside an Architectural Engine and Total: 40 inside an Unstructured te
 
 The more Architects on a team, the harder it is to raise your Design axis. This is a natural consequence of relative normalization. Scoring Design: 60 in a team with three Architects is likely harder than scoring Design: 100 in a team with none.
 
-### 3. Use `--recursive` for Cross-Repo Analysis
+### 3. Use `--per-repo` for Cross-Repo Analysis
 
 ```bash
-eis analyze --recursive ~/workspace
+eis analyze --recursive --per-repo ~/workspace
 ```
 
-Analyzing across multiple repositories reveals an engineer's "gravity beyond a single universe." Producer in one repo, Architect in another — that pattern reveals adaptability and latent capability.
+The `--per-repo` flag scores each repository independently and produces a cross-repo comparison table. Producer in one repo, Architect in another — that pattern reveals adaptability and latent capability.
 
 ### 4. Watch "Gravitational Field Changes" in Timelines
 
@@ -139,17 +139,19 @@ Different codebase. Different team. Different tech stack. They still build **str
 
 This might be called **Architect Reproducibility**.
 
-When you analyze an entire workspace with `--recursive`, an engineer who is consistently Architect across multiple repositories has "general-purpose design capability" that doesn't depend on any specific codebase.
+When you analyze an entire workspace with `--recursive --per-repo`, an engineer who is consistently Architect across multiple repositories has "general-purpose design capability" that doesn't depend on any specific codebase.
 
 Conversely, an engineer who is Architect in only one repository is creating gravity within that repository's specific context. This is also valuable, but it's a different kind of strength.
 
-EIS cross-repository analysis makes this reproducibility **numerically verifiable**:
+EIS `--per-repo` analysis makes this reproducibility **numerically verifiable**:
 
 ```
-Author     Backend API    Frontend    Firmware   Pattern
-machuz     Architect      Architect   Architect  Reproducible
-alice      Architect      Producer    —          Context-dependent
-bob        Producer       Producer    Producer   Consistently Producer
+─── Backend Per-Repository Breakdown ───
+
+Author     api-manage      api            worker         Pattern
+machuz     Architect 94    Architect 73   Architect 76   Reproducible
+alice      Producer 34     Architect 71   30             Context-dependent
+bob        Anchor 41       30             Cleaner 34     Variable
 ```
 
 ---

@@ -35,6 +35,7 @@ type AnalyzeOptions struct {
 	DomainFilter string
 	Verbose      bool
 	NoCache      bool
+	PerRepo      bool
 }
 
 // DomainResults holds scored results for a single domain.
@@ -43,6 +44,14 @@ type DomainResults struct {
 	Results   []scorer.Result
 	Risks     []metric.ModuleRisk
 	RepoCount int
+	PerRepo   []RepoResult // per-repo breakdown (only when --per-repo is set)
+}
+
+// RepoResult holds scored results for a single repository.
+type RepoResult struct {
+	RepoName string
+	Domain   domain.Domain
+	Results  []scorer.Result
 }
 
 // domainAccumulator holds per-domain scoring state
@@ -84,6 +93,7 @@ func runAnalyze(args []string) error {
 	domainFilter := fs.String("domain", "", "Only analyze repos in this domain (e.g. Backend, Frontend, Firmware)")
 	verbose := fs.Bool("verbose", false, "Show detailed debug output (file-level timing)")
 	noCache := fs.Bool("no-cache", false, "Skip disk cache")
+	perRepo := fs.Bool("per-repo", false, "Show per-repository breakdown (requires --recursive)")
 
 	flagArgs, pathArgs := separateArgs(args, fs)
 	if err := fs.Parse(flagArgs); err != nil {
@@ -103,6 +113,7 @@ func runAnalyze(args []string) error {
 		DomainFilter: *domainFilter,
 		Verbose:      *verbose,
 		NoCache:      *noCache,
+		PerRepo:      *perRepo,
 	}
 
 	domainResults, cfg, err := RunAnalyzePipeline(opts, pathArgs)
@@ -125,14 +136,31 @@ func outputAnalyzeResults(domainResults []DomainResults, cfg *config.Config, for
 		switch format {
 		case "json":
 			jsonWriter.AddDomain(string(dr.Domain), dr.RepoCount, dr.Results, dr.Risks)
+			for _, rr := range dr.PerRepo {
+				jsonWriter.AddPerRepo(string(dr.Domain), rr.RepoName, rr.Results)
+			}
 		case "csv":
 			output.PrintRankingsCSV(string(dr.Domain), dr.Results, !csvHeaderWritten)
 			csvHeaderWritten = true
+			for _, rr := range dr.PerRepo {
+				output.PrintRankingsCSV(string(dr.Domain)+"/"+rr.RepoName, rr.Results, false)
+			}
 		default:
 			fmt.Println()
 			color.New(color.FgHiCyan, color.Bold).Printf("═══ %s ═══\n", dr.Domain)
 			output.PrintSummary(dr.Results, dr.RepoCount)
 			output.PrintRankings(dr.Results)
+
+			if len(dr.PerRepo) > 0 {
+				perRepoData := make([]output.PerRepoData, len(dr.PerRepo))
+				for i, rr := range dr.PerRepo {
+					perRepoData[i] = output.PerRepoData{
+						RepoName: rr.RepoName,
+						Results:  rr.Results,
+					}
+				}
+				output.PrintPerRepoComparison(string(dr.Domain), perRepoData, dr.Results)
+			}
 		}
 	}
 
@@ -215,6 +243,18 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 
 	// Per-domain accumulators
 	accumulators := make(map[domain.Domain]*domainAccumulator)
+
+	// Per-repo accumulators (only when --per-repo)
+	type repoAccState struct {
+		acc             *domainAccumulator
+		repoName        string
+		domain          domain.Domain
+		qualityCounts   map[string]int
+		debtCounts      map[string]int
+		authorFirstDate map[string]time.Time
+		authorLastDate  map[string]time.Time
+	}
+	var repoAccumulators []repoAccState
 
 	// Deduplicate repos by resolving to real paths
 	seen := make(map[string]bool)
@@ -405,6 +445,8 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		blameLines = filterBlameLines(blameLines, cfg)
 
 		// Survival: split by change pressure or use classic mode
+		// Keep per-repo survival maps for --per-repo reuse
+		var repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant map[string]float64
 		if opts.PressureMode == "include" {
 			repoPressure := metric.CalcChangePressure(commits, blameLines)
 			for mod, p := range repoPressure {
@@ -431,15 +473,21 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				pressureThreshold = math.Inf(1) // everything becomes dormant
 			}
 			survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, start, repoPressure, pressureThreshold)
-			mergeMap(acc.raw.Survival, survResult.Decayed)
-			mergeMap(acc.raw.RawSurvival, survResult.Raw)
-			mergeMap(acc.raw.RobustSurvival, survResult.Robust)
-			mergeMap(acc.raw.DormantSurvival, survResult.Dormant)
+			repoSurvDecayed = survResult.Decayed
+			repoSurvRaw = survResult.Raw
+			repoSurvRobust = survResult.Robust
+			repoSurvDormant = survResult.Dormant
+			mergeMap(acc.raw.Survival, repoSurvDecayed)
+			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
+			mergeMap(acc.raw.RobustSurvival, repoSurvRobust)
+			mergeMap(acc.raw.DormantSurvival, repoSurvDormant)
 		} else {
 			// Classic mode: single survival score, no pressure split
 			survResult := metric.CalcSurvival(blameLines, cfg.Tau, start)
-			mergeMap(acc.raw.Survival, survResult.Decayed)
-			mergeMap(acc.raw.RawSurvival, survResult.Raw)
+			repoSurvDecayed = survResult.Decayed
+			repoSurvRaw = survResult.Raw
+			mergeMap(acc.raw.Survival, repoSurvDecayed)
+			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
 		}
 
 		// Indispensability
@@ -484,6 +532,52 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		acc.risks = append(acc.risks, risks...)
 		if opts.Format == "table" && len(risks) > 0 {
 			output.PrintBusFactorRisks(risks)
+		}
+
+		// Per-repo: build independent raw scores for this repo
+		if opts.PerRepo {
+			repoRaw := metric.NewRawScores()
+			mergeMap(repoRaw.Production, prod)
+			mergeMap(repoRaw.Quality, qual)
+			mergeMap(repoRaw.Design, design)
+			mergeMap(repoRaw.Indispensability, indisp)
+			mergeMap(repoRaw.DebtCleanup, debt)
+			// Reuse already-computed survival data
+			mergeMap(repoRaw.Survival, repoSurvDecayed)
+			mergeMap(repoRaw.RawSurvival, repoSurvRaw)
+			if repoSurvRobust != nil {
+				mergeMap(repoRaw.RobustSurvival, repoSurvRobust)
+			}
+			if repoSurvDormant != nil {
+				mergeMap(repoRaw.DormantSurvival, repoSurvDormant)
+			}
+			// Track commit counts and dates per author for this repo
+			repoFirstDate := make(map[string]time.Time)
+			repoLastDate := make(map[string]time.Time)
+			for _, c := range commits {
+				repoRaw.TotalCommits[c.Author]++
+				if first, ok := repoFirstDate[c.Author]; !ok || c.Date.Before(first) {
+					repoFirstDate[c.Author] = c.Date
+				}
+				if last, ok := repoLastDate[c.Author]; !ok || c.Date.After(last) {
+					repoLastDate[c.Author] = c.Date
+				}
+			}
+			for _, c := range mergeCommits {
+				if first, ok := repoFirstDate[c.Author]; !ok || c.Date.Before(first) {
+					repoFirstDate[c.Author] = c.Date
+				}
+				if last, ok := repoLastDate[c.Author]; !ok || c.Date.After(last) {
+					repoLastDate[c.Author] = c.Date
+				}
+			}
+			repoAccumulators = append(repoAccumulators, repoAccState{
+				acc:             &domainAccumulator{raw: repoRaw},
+				repoName:        repoName,
+				domain:          repoDomain,
+				authorFirstDate: repoFirstDate,
+				authorLastDate:  repoLastDate,
+			})
 		}
 	}
 
@@ -541,12 +635,51 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			continue
 		}
 
-		results = append(results, DomainResults{
+		dr := DomainResults{
 			Domain:    d,
 			Results:   filtered,
 			Risks:     acc.risks,
 			RepoCount: acc.repoCount,
-		})
+		}
+
+		// Score per-repo results for this domain
+		if opts.PerRepo {
+			for _, ra := range repoAccumulators {
+				if ra.domain != d {
+					continue
+				}
+				// Convert production to per-day rate
+				for author, total := range ra.acc.raw.Production {
+					first := ra.authorFirstDate[author]
+					last := ra.authorLastDate[author]
+					days := last.Sub(first).Hours() / 24
+					if days < 1 {
+						days = 1
+					}
+					ra.acc.raw.Production[author] = total / days
+				}
+				// Breadth is 1 for single repo
+				for author := range ra.acc.raw.TotalCommits {
+					ra.acc.raw.Breadth[author] = 1
+				}
+				scored := scorer.Score(ra.acc.raw, cfg, ra.authorLastDate)
+				var repoFiltered []scorer.Result
+				for _, r := range scored {
+					if !cfg.IsExcludedAuthor(r.Author) {
+						repoFiltered = append(repoFiltered, r)
+					}
+				}
+				if len(repoFiltered) > 0 {
+					dr.PerRepo = append(dr.PerRepo, RepoResult{
+						RepoName: ra.repoName,
+						Domain:   ra.domain,
+						Results:  repoFiltered,
+					})
+				}
+			}
+		}
+
+		results = append(results, dr)
 	}
 
 	if opts.Format == "table" {

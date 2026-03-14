@@ -109,13 +109,13 @@ Structure: Unstructured          →  弱い重力場（スコアが出やすい
 
 チーム内のArchitectが多いほど、Design軸は上がりにくくなる。これは相対正規化の影響だ。Architectが3人いるチームでDesign: 60を出すことは、Architectが1人もいないチームでDesign: 100を出すことより、おそらく難しい。
 
-### 3. `--recursive` でクロスリポ分析する
+### 3. `--per-repo` でクロスリポ分析する
 
 ```bash
-eis analyze --recursive ~/workspace
+eis analyze --recursive --per-repo ~/workspace
 ```
 
-複数リポジトリを横断的に分析することで、エンジニアの「宇宙を超えた重力」が見える。あるリポではProducerだが、別のリポではArchitectになっている——そういうパターンは、そのエンジニアの適応力と潜在能力を示している。
+`--per-repo` フラグを付けると、ドメイン全体の集約スコアに加えて、リポジトリごとの独立したスコアリング結果が表示される。あるリポではProducerだが、別のリポではArchitectになっている——そういうパターンは、そのエンジニアの適応力と潜在能力を示している。
 
 ### 4. タイムラインで「重力場の変化」を見る
 
@@ -137,17 +137,19 @@ eis timeline --span 6m --periods 0 --recursive ~/workspace
 
 これは **Architectの再現性** と言えるかもしれない。
 
-`--recursive` でワークスペース全体を分析したとき、複数のリポジトリで一貫してArchitectになっているエンジニアは、特定のコードベースに依存しない「汎用的な設計力」を持っている。
+`--recursive --per-repo` でワークスペース全体を分析したとき、複数のリポジトリで一貫してArchitectになっているエンジニアは、特定のコードベースに依存しない「汎用的な設計力」を持っている。
 
 逆に、一つのリポジトリでだけArchitectになっているエンジニアは、そのリポジトリの特殊な文脈で重力を作っている。これも価値があるが、性質が異なる。
 
-EISのクロスリポジトリ分析は、この再現性を**数値で確認**できる。
+EISの `--per-repo` 分析は、この再現性を**数値で確認**できる。
 
 ```
-Author     Backend API    Frontend    Firmware   Pattern
-machuz     Architect      Architect   Architect  再現性あり
-alice      Architect      Producer    —          コンテキスト依存
-bob        Producer       Producer    Producer   一貫してProducer
+─── Backend Per-Repository Breakdown ───
+
+Author     api-manage      api            worker         Pattern
+machuz     Architect 94    Architect 73   Architect 76   Reproducible
+alice      Producer 34     Architect 71   30             Context-dependent
+bob        Anchor 41       30             Cleaner 34     Variable
 ```
 
 ---

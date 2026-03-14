@@ -15,10 +15,16 @@ type jsonOutput struct {
 }
 
 type jsonDomain struct {
-	Name     string           `json:"name"`
-	Repos    int              `json:"repos"`
-	Members  []jsonMember     `json:"members"`
-	BusFactor []jsonBusFactor `json:"bus_factor,omitempty"`
+	Name      string           `json:"name"`
+	Repos     int              `json:"repos"`
+	Members   []jsonMember     `json:"members"`
+	BusFactor []jsonBusFactor  `json:"bus_factor,omitempty"`
+	PerRepo   []jsonRepoResult `json:"per_repo,omitempty"`
+}
+
+type jsonRepoResult struct {
+	RepoName string       `json:"repo_name"`
+	Members  []jsonMember `json:"members"`
 }
 
 type jsonMember struct {
@@ -105,6 +111,43 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 	}
 
 	w.output.Domains = append(w.output.Domains, d)
+}
+
+// AddPerRepo appends per-repo results to the last added domain (or matching domain).
+func (w *JSONWriter) AddPerRepo(domainName, repoName string, results []scorer.Result) {
+	// Find matching domain
+	for i := len(w.output.Domains) - 1; i >= 0; i-- {
+		if w.output.Domains[i].Name == domainName {
+			rr := jsonRepoResult{RepoName: repoName}
+			for j, r := range results {
+				rr.Members = append(rr.Members, jsonMember{
+					Rank:             j + 1,
+					Member:           r.Author,
+					Active:           r.RecentlyActive,
+					Commits:          r.TotalCommits,
+					Production:       round1(r.Production),
+					Quality:          round1(r.Quality),
+					Survival:         round1(r.Survival),
+					RobustSurvival:   round1(r.RobustSurvival),
+					DormantSurvival:  round1(r.DormantSurvival),
+					Design:           round1(r.Design),
+					Breadth:          round1(r.Breadth),
+					DebtCleanup:      round1(r.DebtCleanup),
+					Indispensability: round1(r.Indispensability),
+					Gravity:          round1(r.Gravity),
+					Total:            round1(r.Total),
+					Role:             r.Role,
+					RoleConf:         r.RoleConf,
+					Style:            r.Style,
+					StyleConf:        r.StyleConf,
+					State:            r.State,
+					StateConf:        r.StateConf,
+				})
+			}
+			w.output.Domains[i].PerRepo = append(w.output.Domains[i].PerRepo, rr)
+			return
+		}
+	}
 }
 
 func (w *JSONWriter) Flush() error {

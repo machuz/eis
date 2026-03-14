@@ -178,6 +178,133 @@ func formatTotal(total float64) string {
 	}
 }
 
+// PerRepoData holds per-repo scored results for cross-repo comparison output.
+type PerRepoData struct {
+	RepoName string
+	Results  []scorer.Result
+}
+
+// PrintPerRepoComparison prints a cross-repo comparison table showing each author's
+// Role, Style, State and Total score per repository, with a Pattern column.
+func PrintPerRepoComparison(domainName string, perRepo []PerRepoData, aggregated []scorer.Result) {
+	if len(perRepo) == 0 {
+		return
+	}
+
+	fmt.Println()
+	color.New(color.FgHiCyan, color.Bold).Printf("─── %s Per-Repository Breakdown ───\n\n", domainName)
+
+	// Collect all authors from aggregated results (sorted by total desc)
+	authors := make([]string, 0, len(aggregated))
+	for _, r := range aggregated {
+		authors = append(authors, r.Author)
+	}
+
+	// Build repo name list
+	repoNames := make([]string, 0, len(perRepo))
+	for _, rr := range perRepo {
+		repoNames = append(repoNames, rr.RepoName)
+	}
+
+	// Build lookup: author -> repoName -> Result
+	lookup := make(map[string]map[string]*scorer.Result)
+	for _, rr := range perRepo {
+		for i := range rr.Results {
+			r := &rr.Results[i]
+			if lookup[r.Author] == nil {
+				lookup[r.Author] = make(map[string]*scorer.Result)
+			}
+			lookup[r.Author][rr.RepoName] = r
+		}
+	}
+
+	// Build table header
+	headerFmt := color.New(color.FgCyan, color.Bold).SprintfFunc()
+	columnFmt := color.New(color.FgWhite).SprintfFunc()
+
+	headers := []interface{}{"Author"}
+	for _, rn := range repoNames {
+		headers = append(headers, rn)
+	}
+	headers = append(headers, "Pattern")
+
+	tbl := table.New(headers...)
+	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt).WithWidthFunc(stripAnsiWidth).WithWriter(os.Stdout)
+
+	nameFmt := color.New(color.FgHiYellow).SprintfFunc()
+	dimFmt := color.New(color.FgHiBlack).SprintfFunc()
+	patternFmt := color.New(color.FgHiGreen, color.Bold).SprintfFunc()
+
+	for _, author := range authors {
+		row := []interface{}{nameFmt("%s", author)}
+		roles := make([]string, 0)
+		for _, rn := range repoNames {
+			r, ok := lookup[author][rn]
+			if !ok {
+				row = append(row, dimFmt("—"))
+			} else {
+				var cell string
+				if r.Role != "" && r.Role != "—" {
+					cell = fmt.Sprintf("%s %.0f", r.Role, r.Total)
+				} else {
+					cell = dimFmt("%.0f", r.Total)
+				}
+				row = append(row, cell)
+				roles = append(roles, r.Role)
+			}
+		}
+		pattern := derivePattern(roles)
+		row = append(row, patternFmt("%s", pattern))
+		tbl.AddRow(row...)
+	}
+
+	tbl.Print()
+	fmt.Println()
+}
+
+// derivePattern determines an author's cross-repo pattern from their roles.
+func derivePattern(roles []string) string {
+	if len(roles) == 0 {
+		return "—"
+	}
+	if len(roles) == 1 {
+		return "Single Repo"
+	}
+
+	// Check if all roles are the same
+	allSame := true
+	first := roles[0]
+	for _, r := range roles[1:] {
+		if r != first {
+			allSame = false
+			break
+		}
+	}
+	if allSame {
+		if first == "Architect" {
+			return "Reproducible"
+		}
+		if first == "" || first == "—" {
+			return "Emerging"
+		}
+		return "Consistently " + first
+	}
+
+	// Check if any repo has Architect
+	hasArchitect := false
+	for _, r := range roles {
+		if r == "Architect" {
+			hasArchitect = true
+			break
+		}
+	}
+	if hasArchitect {
+		return "Context-dependent"
+	}
+
+	return "Variable"
+}
+
 func PrintSummary(results []scorer.Result, repoCount int) {
 	fmt.Printf("Analyzed %d repo(s), %d engineers\n", repoCount, len(results))
 	fmt.Println()
