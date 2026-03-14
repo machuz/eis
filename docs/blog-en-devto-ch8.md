@@ -179,6 +179,7 @@ But that gravity looks different depending on the universe.
 - [Chapter 6: Teams Evolve: The Laws of Organization Revealed by Timelines](https://dev.to/machuz/git-archaeology-6-teams-evolve-the-laws-of-organization-revealed-by-timelines-4jf3)
 - [Chapter 7: Observing the Universe of Code](https://dev.to/machuz/git-archaeology-7-observing-the-universe-of-code)
 - **Chapter 8: Engineering Relativity: Why the Same Engineer Gets Different Scores** (this post)
+- [Chapter 9: Collapse: Good Architects and Black Hole Engineers](https://dev.to/machuz/git-archaeology-9-collapse-good-architects-and-black-hole-engineers)
 
 **GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

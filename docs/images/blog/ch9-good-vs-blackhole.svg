@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="158" viewBox="0 0 620 158">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      text { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+    </style>
+  </defs>
+
+  <!-- Card background -->
+  <rect width="620" height="158" rx="8" fill="#1d2021"/>
+
+  <!-- Accent bar -->
+  <rect x="0" y="0" width="4" height="158" rx="2" fill="#d3869b"/>
+
+  <!-- Category label -->
+  <text x="592" y="18" text-anchor="end" fill="#504945" font-size="10">Comparison</text>
+
+  <text y="28" font-size="12" font-weight="700"><tspan x="24" fill="#b8bb26">  ★ Good Architect</tspan></text>
+  <text y="46" font-size="12"><tspan x="24" fill="#928374">    Design shared    → teammates learn structure</tspan></text>
+  <text y="64" font-size="12"><tspan x="24" fill="#928374">    Gravity distributed → survives departure</tspan></text>
+  <text y="82" font-size="12"><tspan x="24" fill="#928374">    Architect → Producer transition (healthy)</tspan></text>
+
+  <text y="104" font-size="12" font-weight="700"><tspan x="24" fill="#fb4934">  ● Black Hole Engineer</tspan></text>
+  <text y="122" font-size="12"><tspan x="24" fill="#928374">    Design monopolized → teammates excluded</tspan></text>
+  <text y="140" font-size="12"><tspan x="24" fill="#928374">    Gravity concentrated → collapses on departure</tspan></text>
+</svg>
