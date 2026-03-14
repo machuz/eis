@@ -84,7 +84,7 @@ Naturally, 60 looks "better."
 
 But if **Repo A has an extremely strong gravitational field** — multiple Architects, highly refined structure, battle-tested abstractions — then **35 in that context may actually be remarkable**.
 
-In Chapter 4, I wrote about the "normalization trap": the top score in one repo might be mediocre in another. That was about relative normalization mechanics. This chapter is more fundamental.
+There's a "normalization trap" here. EIS's relative normalization means the top contributor in each team scores 100 — so the top score in one repo might be mediocre in another. But this chapter's point is more fundamental than normalization mechanics. Normalization is a calculation issue; Engineering Relativity is a **structural** issue.
 
 **The codebase itself changes the *meaning* of the score.**
 
