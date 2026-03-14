@@ -121,9 +121,7 @@ Codebase structure isn't static. Member departures, refactoring, new features �
 
 ## The Reproducibility of Architects
 
-Here's where it gets interesting.
-
-**Truly great engineers create gravity in any universe.**
+Looking at EIS across multiple codebases, you notice a certain type of engineer exists. **Engineers who create gravity no matter what universe they're in.**
 
 Different codebase. Different team. Different tech stack. They still build **structural centers**.
 
@@ -161,25 +159,9 @@ You can observe this in `eis timeline --team`: the moment a gravitational center
 
 ---
 
-## What Relativity Teaches Us
+## Great engineers create gravity in every universe.
 
-Engineering Relativity might seem like a "limitation" of EIS. If scores change with the environment, how can you make fair comparisons?
-
-But I see this not as a limitation — as a **feature**.
-
-When relativity was discovered in physics, the fact that "there is no absolute time or space" was counterintuitive. But accepting it led to an exponentially deeper understanding of the universe.
-
-EIS is the same.
-
-The fact that scores change with environment teaches us that **comparing engineers while ignoring their environment is inherently meaningless**.
-
-An engineer's real capability cannot be measured in a vacuum. It always exists **in relationship with the codebase — the universe they operate in**.
-
----
-
-## Great engineers create gravity in any universe.
-
-Truly great engineers create gravity in any universe.
+Truly great engineers create gravity in every universe.
 
 But that gravity looks different depending on the universe.
 
