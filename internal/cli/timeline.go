@@ -495,7 +495,15 @@ func runTimeline(args []string) error {
 				acc.raw.Production[author] = total / days
 			}
 
-			scored := scorer.ScoreAt(acc.raw, cfg, acc.authorLastDate, window.End)
+			// For timeline, anyone who committed in the period is "recently active".
+			// Override ActiveDays to cover the full period span so team.Aggregate
+			// includes them as core members.
+			periodCfg := *cfg
+			periodDays := int(window.End.Sub(window.Start).Hours()/24) + 1
+			if periodDays > periodCfg.ActiveDays {
+				periodCfg.ActiveDays = periodDays
+			}
+			scored := scorer.ScoreAt(acc.raw, &periodCfg, acc.authorLastDate, window.End)
 
 			// Filter excluded authors
 			var filtered []scorer.Result
