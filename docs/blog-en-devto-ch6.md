@@ -3,7 +3,7 @@ title: "Git Archaeology #6 — Teams Evolve: The Laws of Organization Revealed b
 published: true
 description: "Chapter 6 of Engineering Impact Score. When individual changes ripple into team-level shifts, patterns emerge — and those patterns have laws."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch6.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch6.svg
 ---
 
 *When individuals change, teams change. Team timelines reveal that these changes follow laws.*

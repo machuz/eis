@@ -3,7 +3,7 @@ title: "Git Archaeology #3 — Two Paths to Architect: How Engineers Evolve Diff
 published: true
 description: "Chapter 3 of Engineering Impact Score. Architects don't come from one mold — inheritance vs. emergence, and why cold numbers tell the most human stories."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch3.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch3.svg
 ---
 
 *Cold numbers, it turns out, tell the most human stories.*

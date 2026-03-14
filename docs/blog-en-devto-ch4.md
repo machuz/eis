@@ -3,7 +3,7 @@ title: "Git Archaeology #4 — Backend Architects Converge: The Sacred Work of L
 published: true
 description: "Chapter 4 of Engineering Impact Score. Backend teams evolve differently — and departed Architects leave souls that must be laid to rest."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch4.png
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/cover-ch4.svg
 ---
 
 *Departed Architects leave souls in the codebase. Laying them to rest is sacred work.*
