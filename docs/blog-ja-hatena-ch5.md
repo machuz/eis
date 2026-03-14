@@ -269,7 +269,9 @@ Architectの仕事が終わったことがTransitionsだけで読み取れる。
 
 これは偶然ではない。
 
-第4章で書いた「Backend Architectは集中する」という構造がここに現れている。Architectの座は一つしかない。先代が退場して初めて、次代が座に着く。
+第4章で書いた「Backend Architectは集中する」という構造がここに現れている。結果的に、**BEで同時にArchitectが2人存在する期間は一つもなかった**。Engineer Fが先にArchitect Builderとして構造を支えていた時期、machuzはまだAnchorだった。machuzがArchitectに到達したのは、Engineer Fのスコアが落ちた後だ。
+
+これがBEの単一設計軸（DB・API方針）に起因するArchitect集中の構造的帰結なのか、単にmachuzの成長タイミングの問題なのかは、このサンプルだけでは断定できない。しかし少なくともこのチームでは、**世代交代として起きた**ことは確かだ。
 
 タイムラインはこの世代交代を可視化する。
 

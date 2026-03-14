@@ -275,9 +275,11 @@ Lining up the timelines reveals one more thing:
 
 This isn't coincidence.
 
-The structure described in Chapter 4 — "Backend Architects concentrate" — is visible right here. There's only one Architect seat. The next generation takes it only when the previous one departs.
+The structure described in Chapter 4 — "Backend Architects concentrate" — is visible right here. **There was never a period where two Backend Architects existed simultaneously.** While Engineer F held the Architect Builder position, machuz was still an Anchor. machuz reached Architect only after Engineer F's scores declined.
 
-The timeline visualizes this generational transition.
+Whether this is a structural consequence of Backend's single design axis (DB schema, API conventions) or simply a matter of growth timing is hard to determine from this sample alone. But at minimum, **it happened as a generational transition** in this team.
+
+The timeline visualizes this transition.
 
 ---
 
