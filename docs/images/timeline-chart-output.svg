@@ -2,31 +2,32 @@
   <defs>
     <style>
       text { font-family: 'Helvetica Neue', 'Arial', sans-serif; }
-      .title { font-size: 14px; font-weight: 700; fill: #333; }
-      .axis-label { font-size: 10px; fill: #666; }
-      .axis-name { font-size: 11px; fill: #666; }
-      .legend-text { font-size: 10px; fill: #333; }
-      .grid { stroke: #e6e6e6; stroke-width: 1; }
-      .line-total { stroke: #4a90d9; stroke-width: 2.5; fill: none; }
-      .line-prod { stroke: #50c878; stroke-width: 2.5; fill: none; }
-      .line-qual { stroke: #ffb347; stroke-width: 2.5; fill: none; }
-      .line-surv { stroke: #9b59b6; stroke-width: 2.5; fill: none; }
-      .line-design { stroke: #1abc9c; stroke-width: 2.5; fill: none; }
-      .dot-total { fill: #4a90d9; }
-      .dot-prod { fill: #50c878; }
-      .dot-qual { fill: #ffb347; }
-      .dot-surv { fill: #9b59b6; }
-      .dot-design { fill: #1abc9c; }
+      .title { font-size: 14px; font-weight: 700; fill: #ebdbb2; }
+      .axis-label { font-size: 10px; fill: #a89984; }
+      .axis-name { font-size: 11px; fill: #a89984; }
+      .legend-text { font-size: 10px; fill: #ebdbb2; }
+      .grid { stroke: #504945; stroke-width: 1; }
+      .line-total { stroke: #83a598; stroke-width: 2.5; fill: none; }
+      .line-prod { stroke: #b8bb26; stroke-width: 2.5; fill: none; }
+      .line-qual { stroke: #fabd2f; stroke-width: 2.5; fill: none; }
+      .line-surv { stroke: #d3869b; stroke-width: 2.5; fill: none; }
+      .line-design { stroke: #8ec07c; stroke-width: 2.5; fill: none; }
+      .dot-total { fill: #83a598; }
+      .dot-prod { fill: #b8bb26; }
+      .dot-qual { fill: #fabd2f; }
+      .dot-surv { fill: #d3869b; }
+      .dot-design { fill: #8ec07c; }
     </style>
   </defs>
 
   <!-- Background -->
-  <rect width="820" height="460" fill="white" rx="4"/>
+  <rect width="820" height="460" fill="#282828" rx="4"/>
 
   <!-- Title -->
   <text x="410" y="28" text-anchor="middle" class="title">machuz - Backend</text>
 
   <!-- Chart area: x=80..760, y=50..370 -->
+  <rect x="80" y="50" width="680" height="320" fill="#32302f"/>
   <!-- Y axis: 0-100 -->
   <!-- Grid lines -->
   <line x1="80" y1="50" x2="760" y2="50" class="grid"/>
@@ -151,17 +152,17 @@
   <circle cx="760" cy="50"    r="4" class="dot-design"/>
 
   <!-- Legend -->
-  <rect x="90" y="420" width="12" height="12" rx="2" fill="#4a90d9"/>
+  <rect x="90" y="420" width="12" height="12" rx="2" fill="#83a598"/>
   <text x="106" y="431" class="legend-text">Total</text>
-  <rect x="170" y="420" width="12" height="12" rx="2" fill="#50c878"/>
+  <rect x="170" y="420" width="12" height="12" rx="2" fill="#b8bb26"/>
   <text x="186" y="431" class="legend-text">Production</text>
-  <rect x="280" y="420" width="12" height="12" rx="2" fill="#ffb347"/>
+  <rect x="280" y="420" width="12" height="12" rx="2" fill="#fabd2f"/>
   <text x="296" y="431" class="legend-text">Quality</text>
-  <rect x="370" y="420" width="12" height="12" rx="2" fill="#9b59b6"/>
+  <rect x="370" y="420" width="12" height="12" rx="2" fill="#d3869b"/>
   <text x="386" y="431" class="legend-text">Survival</text>
-  <rect x="460" y="420" width="12" height="12" rx="2" fill="#1abc9c"/>
+  <rect x="460" y="420" width="12" height="12" rx="2" fill="#8ec07c"/>
   <text x="476" y="431" class="legend-text">Design</text>
 
   <!-- Subtle border -->
-  <rect width="820" height="460" fill="none" stroke="#e0e0e0" stroke-width="1" rx="4"/>
+  <rect width="820" height="460" fill="none" stroke="#504945" stroke-width="1" rx="4"/>
 </svg>

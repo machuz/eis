@@ -34,7 +34,17 @@ type Result struct {
 	StateConf      float64 // State confidence (0.0-1.0)
 }
 
+// ScoreAt is like Score but uses refTime as the "now" reference for RecentlyActive calculation.
+// This is essential for timeline analysis where past periods must not compare against real "now".
+func ScoreAt(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]time.Time, refTime time.Time) []Result {
+	return scoreImpl(raw, cfg, authorLastDate, refTime)
+}
+
 func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]time.Time) []Result {
+	return scoreImpl(raw, cfg, authorLastDate, time.Now())
+}
+
+func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]time.Time, refTime time.Time) []Result {
 	// Production: absolute scale — raw.Production is already per-day rate
 	// Score = min(per_day / production_daily_ref * 100, 100)
 	normProd := make(map[string]float64)
@@ -79,7 +89,7 @@ func Score(raw *metric.RawScores, cfg *config.Config, authorLastDate map[string]
 		// Determine if author has been active in last 6 months
 		recentlyActive := false
 		if lastDate, ok := authorLastDate[author]; ok {
-			recentlyActive = time.Since(lastDate).Hours()/24 <= float64(cfg.ActiveDays)
+			recentlyActive = refTime.Sub(lastDate).Hours()/24 <= float64(cfg.ActiveDays)
 		}
 
 		r := Result{

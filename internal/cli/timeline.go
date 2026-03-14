@@ -495,7 +495,7 @@ func runTimeline(args []string) error {
 				acc.raw.Production[author] = total / days
 			}
 
-			scored := scorer.Score(acc.raw, cfg, acc.authorLastDate)
+			scored := scorer.ScoreAt(acc.raw, cfg, acc.authorLastDate, window.End)
 
 			// Filter excluded authors
 			var filtered []scorer.Result

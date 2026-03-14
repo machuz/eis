@@ -30,12 +30,21 @@ type seriesConfig struct {
 	Color drawing.Color
 }
 
+// Gruvbox Dark palette
+var (
+	gruvboxBg     = drawing.Color{R: 40, G: 40, B: 40, A: 255}     // #282828
+	gruvboxBgSoft = drawing.Color{R: 50, G: 48, B: 47, A: 255}     // #32302f
+	gruvboxFg     = drawing.Color{R: 235, G: 219, B: 178, A: 255}  // #ebdbb2
+	gruvboxFgDim  = drawing.Color{R: 168, G: 153, B: 132, A: 255}  // #a89984
+	gruvboxGrid   = drawing.Color{R: 80, G: 73, B: 69, A: 255}     // #504945
+)
+
 var scoreSeries = []seriesConfig{
-	{"Total", drawing.Color{R: 74, G: 144, B: 217, A: 255}},
-	{"Production", drawing.Color{R: 80, G: 200, B: 120, A: 255}},
-	{"Quality", drawing.Color{R: 255, G: 179, B: 71, A: 255}},
-	{"Survival", drawing.Color{R: 155, G: 89, B: 182, A: 255}},
-	{"Design", drawing.Color{R: 26, G: 188, B: 156, A: 255}},
+	{"Total", drawing.Color{R: 69, G: 133, B: 136, A: 255}},       // #458588 gruvbox blue
+	{"Production", drawing.Color{R: 152, G: 151, B: 26, A: 255}},  // #98971a gruvbox green
+	{"Quality", drawing.Color{R: 250, G: 189, B: 47, A: 255}},     // #fabd2f gruvbox yellow
+	{"Survival", drawing.Color{R: 211, G: 134, B: 155, A: 255}},   // #d3869b gruvbox purple
+	{"Design", drawing.Color{R: 142, G: 192, B: 124, A: 255}},     // #8ec07c gruvbox aqua
 }
 
 // WriteTimelineSVG generates SVG chart files for each author and team timeline.
@@ -152,7 +161,7 @@ func writeSVGChart(path, title string, labels []string, values [][]float64) erro
 				StrokeColor: sc.Color,
 				StrokeWidth: 2.5,
 				DotColor:    sc.Color,
-				DotWidth:    4,
+				DotWidth:    5,
 			},
 			XValues: xValues,
 			YValues: values[si],
@@ -162,52 +171,54 @@ func writeSVGChart(path, title string, labels []string, values [][]float64) erro
 	graph := chart.Chart{
 		Title: title,
 		TitleStyle: chart.Style{
-			FontSize:  14,
-			FontColor: drawing.Color{R: 51, G: 51, B: 51, A: 255},
+			FontSize:  16,
+			FontColor: gruvboxFg,
 		},
-		Width:  800,
-		Height: 400,
+		Width:  1000,
+		Height: 500,
 		Background: chart.Style{
-			FillColor: drawing.ColorWhite,
+			FillColor: gruvboxBg,
 			Padding: chart.Box{
-				Top:    40,
-				Left:   10,
-				Right:  10,
-				Bottom: 10,
+				Top:    50,
+				Left:   20,
+				Right:  20,
+				Bottom: 20,
 			},
 		},
 		Canvas: chart.Style{
-			FillColor: drawing.ColorWhite,
+			FillColor: gruvboxBgSoft,
 		},
 		XAxis: chart.XAxis{
 			Name: "Period",
 			NameStyle: chart.Style{
-				FontSize:  11,
-				FontColor: drawing.Color{R: 102, G: 102, B: 102, A: 255},
+				FontSize:  12,
+				FontColor: gruvboxFgDim,
 			},
 			Style: chart.Style{
-				FontSize:  10,
-				FontColor: drawing.Color{R: 102, G: 102, B: 102, A: 255},
+				FontSize:  11,
+				FontColor: gruvboxFgDim,
+				StrokeColor: gruvboxGrid,
 			},
 			Ticks: ticks,
 			GridMajorStyle: chart.Style{
-				StrokeColor: drawing.Color{R: 230, G: 230, B: 230, A: 255},
+				StrokeColor: gruvboxGrid,
 				StrokeWidth: 1,
 			},
 		},
 		YAxis: chart.YAxis{
 			Name: "Score",
 			NameStyle: chart.Style{
-				FontSize:  11,
-				FontColor: drawing.Color{R: 102, G: 102, B: 102, A: 255},
+				FontSize:  12,
+				FontColor: gruvboxFgDim,
 			},
 			Style: chart.Style{
-				FontSize:  10,
-				FontColor: drawing.Color{R: 102, G: 102, B: 102, A: 255},
+				FontSize:  11,
+				FontColor: gruvboxFgDim,
+				StrokeColor: gruvboxGrid,
 			},
 			Range: &chart.ContinuousRange{Min: 0, Max: 100},
 			GridMajorStyle: chart.Style{
-				StrokeColor: drawing.Color{R: 230, G: 230, B: 230, A: 255},
+				StrokeColor: gruvboxGrid,
 				StrokeWidth: 1,
 			},
 		},
@@ -216,9 +227,10 @@ func writeSVGChart(path, title string, labels []string, values [][]float64) erro
 
 	graph.Elements = []chart.Renderable{
 		chart.LegendLeft(&graph, chart.Style{
-			FontSize:  10,
-			FontColor: drawing.Color{R: 51, G: 51, B: 51, A: 255},
-			FillColor: drawing.ColorWhite,
+			FontSize:  11,
+			FontColor: gruvboxFg,
+			FillColor: gruvboxBgSoft,
+			StrokeColor: gruvboxGrid,
 		}),
 	}
 
