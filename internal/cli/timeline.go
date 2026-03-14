@@ -178,6 +178,9 @@ func runTimeline(args []string) error {
 	// Initialize cache
 	cacheStore := cache.New(!*noCache)
 
+	// Build extension-to-domain map from config + defaults
+	extMap := domain.BuildExtMap(cfg.CustomExtensions(), cfg.UseDefaultDomains())
+
 	// Deduplicate repos
 	seen := make(map[string]bool)
 	var dedupedPaths []string
@@ -212,7 +215,7 @@ func runTimeline(args []string) error {
 			continue
 		}
 
-		repoDomain := resolveRepoDomain(ctx, repoPath, repoName, cfg)
+		repoDomain := resolveRepoDomain(ctx, repoPath, repoName, cfg, extMap)
 		if *domainFilter != "" && !strings.EqualFold(string(repoDomain), *domainFilter) {
 			continue
 		}
@@ -281,10 +284,11 @@ func runTimeline(args []string) error {
 
 	var domainTimelines []domainTimeline
 
-	allDomains := domain.AllDomains()
-	if _, ok := domainRepos[domain.Unknown]; ok {
-		allDomains = append(allDomains, domain.Unknown)
+	var domainKeys []domain.Domain
+	for d := range domainRepos {
+		domainKeys = append(domainKeys, d)
 	}
+	allDomains := domain.SortDomains(domainKeys)
 
 	for _, d := range allDomains {
 		drepos, ok := domainRepos[d]

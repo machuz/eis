@@ -23,7 +23,7 @@ internal/
 │   ├── root.go                        # コマンドディスパッチ & help
 │   └── analyze.go                     # 分析オーケストレーション
 ├── config/config.go                   # YAML設定パース & バリデーション
-├── domain/detect.go                   # ドメイン自動検出 (BE/FE/Infra/FW)
+├── domain/detect.go                   # ドメイン自動検出 (BE/FE/Infra/FW + カスタム)
 ├── git/
 │   ├── runner.go                      # git コマンド実行ラッパー
 │   ├── log.go                         # git log --numstat パーサー
@@ -150,7 +150,7 @@ go test ./...
 ## 設計思想
 
 - **ゲーム耐性**: 時間減衰survivalは忙しさでは膨らまない。残ったコードだけがカウントされる
-- **ドメイン分離**: BE/FE/Infra/FWは別々にスコアリング。混ぜると汚染される
+- **ドメイン分離**: BE/FE/Infra/FW（+ カスタムドメイン）は別々にスコアリング。混ぜると汚染される
 - **ハイブリッドスコアリング**: 絶対値（組織横断比較可能）+ 相対値（ドメイン内順位）
 - **40点 = シニア**: 7軸で40+を出すのは意図的に厳しい基準
 

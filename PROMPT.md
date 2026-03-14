@@ -41,7 +41,7 @@ You are calculating Engineering Impact Scores for a software team. This is a 7-a
 
 **Read `config.yaml` first** to understand the repo paths, domains, aliases, and settings.
 
-Then execute the following steps for each domain (BE, FE, Infra):
+Then execute the following steps for each domain (BE, FE, Infra, or any custom domain defined in config):
 
 #### Step 1: Production (lines changed)
 

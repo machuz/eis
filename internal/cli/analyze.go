@@ -7,6 +7,7 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -61,10 +62,10 @@ type domainAccumulator struct {
 	debtCounts        map[string]int
 	authorRepoCommits map[string]map[string]int // author -> repo -> commit count
 	authorFirstDate   map[string]time.Time      // earliest commit date per author
-	authorLastDate    map[string]time.Time       // latest commit date per author
+	authorLastDate    map[string]time.Time      // latest commit date per author
 	repoCount         int
-	risks             []metric.ModuleRisk        // accumulated bus factor risks
-	changePressure    metric.ChangePressure      // accumulated change pressure across repos
+	risks             []metric.ModuleRisk   // accumulated bus factor risks
+	changePressure    metric.ChangePressure // accumulated change pressure across repos
 }
 
 func newDomainAccumulator() *domainAccumulator {
@@ -241,6 +242,9 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 	// Initialize cache
 	cacheStore := cache.New(!opts.NoCache)
 
+	// Build extension-to-domain map from config + defaults
+	extMap := domain.BuildExtMap(cfg.CustomExtensions(), cfg.UseDefaultDomains())
+
 	// Per-domain accumulators
 	accumulators := make(map[domain.Domain]*domainAccumulator)
 
@@ -290,7 +294,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 
 		// Determine domain: config override first, then auto-detect
-		repoDomain := resolveRepoDomain(ctx, repoPath, repoName, cfg)
+		repoDomain := resolveRepoDomain(ctx, repoPath, repoName, cfg, extMap)
 
 		// Skip repos outside the requested domain
 		if opts.DomainFilter != "" && !strings.EqualFold(string(repoDomain), opts.DomainFilter) {
@@ -581,11 +585,12 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 	}
 
-	// Score per domain
-	domains := domain.AllDomains()
-	if _, ok := accumulators[domain.Unknown]; ok {
-		domains = append(domains, domain.Unknown)
+	// Score per domain (stable order: built-in first, then custom alphabetically, Unknown last)
+	var domainKeys []domain.Domain
+	for d := range accumulators {
+		domainKeys = append(domainKeys, d)
 	}
+	domains := domain.SortDomains(domainKeys)
 
 	var results []DomainResults
 
@@ -691,20 +696,20 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 }
 
 // resolveRepoDomain determines the domain for a repo.
-// Config overrides take priority, then auto-detection from file extensions.
-func resolveRepoDomain(ctx context.Context, repoPath, repoName string, cfg *config.Config) domain.Domain {
-	// Check config overrides first
-	if domain.MatchRepoPattern(repoName, cfg.Domains.Backend) {
-		return domain.Backend
+// Config repo patterns take priority (checked in sorted key order for determinism),
+// then auto-detection from file extensions.
+func resolveRepoDomain(ctx context.Context, repoPath, repoName string, cfg *config.Config, extMap map[string]domain.Domain) domain.Domain {
+	// Check config repo pattern overrides first (sorted for deterministic results)
+	names := make([]string, 0, len(cfg.Domains))
+	for name := range cfg.Domains {
+		names = append(names, name)
 	}
-	if domain.MatchRepoPattern(repoName, cfg.Domains.Frontend) {
-		return domain.Frontend
-	}
-	if domain.MatchRepoPattern(repoName, cfg.Domains.Infra) {
-		return domain.Infra
-	}
-	if domain.MatchRepoPattern(repoName, cfg.Domains.Firmware) {
-		return domain.Firmware
+	sort.Strings(names)
+	for _, name := range names {
+		entry := cfg.Domains[name]
+		if len(entry.Repos) > 0 && domain.MatchRepoPattern(repoName, entry.Repos) {
+			return domain.NormalizeName(name)
+		}
 	}
 
 	// Auto-detect from file extensions
@@ -713,7 +718,7 @@ func resolveRepoDomain(ctx context.Context, repoPath, repoName string, cfg *conf
 		return domain.Unknown
 	}
 
-	return domain.DetectFromFiles(files)
+	return domain.DetectFromFiles(files, extMap)
 }
 
 // findGitRepos walks a directory tree up to maxDepth and returns paths containing .git

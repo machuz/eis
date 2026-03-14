@@ -16,6 +16,17 @@ exclude_authors:
 # Domain classification (overrides auto-detection from file extensions)
 # Repos not listed here use auto-detection.
 # Scores are normalized within each domain separately.
+#
+# Two formats supported:
+#   Legacy (list of repo patterns):
+#     backend: [api, worker]
+#   Extended (object with repos and/or extensions):
+#     mobile:
+#       repos: [ios-app, android-app]
+#       extensions: [.swift, .kt]
+#
+# Custom extensions override defaults (e.g. .ts defaults to Frontend,
+# but you can reassign it to Backend with extensions: [.ts]).
 domains:
   backend:
     - api
@@ -24,7 +35,17 @@ domains:
   frontend:
     - web-app
     - admin
-    - mobile-app
+  # Custom domain example:
+  # mobile:
+  #   repos:
+  #     - ios-app
+  #     - android-app
+  #   extensions:
+  #     - .swift
+  #     - .kt
+  # data:
+  #   extensions:
+  #     - .ipynb
   # infra:
   #   - terraform
   #   - deployment

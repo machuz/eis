@@ -212,7 +212,7 @@ indispensability = critical_count * 1.0 + high_count * 0.5
 # Relative axes (normalized within domain):
 #   Survival, Design, Breadth, Indispensability
 
-# Scored per domain (Backend/Frontend/Infra/Firmware separately)
+# Scored per domain (Backend/Frontend/Infra/Firmware + custom domains, separately)
 total = (
     norm_production * 0.15
     + norm_quality * 0.10
@@ -226,7 +226,7 @@ total = (
 
 ## Design Principles
 
-- **BE / FE / Infra / Firmware are scored separately** — mixing them contaminates rankings; auto-detected from file extensions or configured explicitly
+- **Domains are scored separately** (Backend/Frontend/Infra/Firmware by default, plus custom domains) — mixing them contaminates rankings; auto-detected from file extensions or configured explicitly
 - **Hybrid scoring** — Production, Quality, and Debt use absolute scales (cross-org comparable); Survival, Design, Breadth, and Indispensability use relative normalization within domain
 - **Debt threshold** — members with fewer than 10 debt events get a neutral score (50) to avoid extreme ratios
 - **Accuracy scales with codebase design quality** — well-structured codebases (Clean Architecture, DDD) yield more meaningful scores. If the score doesn't match gut feeling, it may signal poor codebase structure rather than a metric problem
@@ -245,7 +245,7 @@ Shared flags:
   --tau <days>        Survival decay parameter (default: 180)
   --sample <n>        Max files to blame per repo (default: 500)
   --workers <n>       Concurrent blame workers (default: 4)
-  --domain <name>     Only analyze repos in this domain (e.g. Backend, Frontend, Firmware)
+  --domain <name>     Only analyze repos in this domain (e.g. Backend, Frontend, Mobile)
   --active-days <n>   Days to consider author active (default: 30)
   --pressure-mode     Change pressure mode: include (default) or ignore
 ```
@@ -286,7 +286,7 @@ eis timeline --format ascii ~/workspace                      # Terminal line cha
 
 See [`config.example.yaml`](config.example.yaml) for all options:
 
-- **Domains**: explicit repo-to-domain mapping (Backend/Frontend/Infra/Firmware). Repos not listed use auto-detection from file extensions
+- **Domains**: explicit repo-to-domain mapping. Defaults are Backend/Frontend/Infra/Firmware; custom domains (e.g. Mobile, Data) can be added with `repos:` patterns and/or `extensions:` for auto-detection. Repos not listed use auto-detection from file extensions
 - **Exclude repos**: skip specific repos from analysis
 - **Production daily ref**: baseline for absolute Production scoring (default: 1000 changes/day = score 100)
 - **Aliases**: merge variant git author names into canonical names
@@ -359,7 +359,7 @@ claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Sco
 - [x] Recursive repo discovery (`--recursive`)
 - [x] Author alias mapping via config
 - [x] Concurrent blame analysis (worker pool)
-- [x] Domain separation (BE/FE/Infra/Firmware) with auto-detection
+- [x] Domain separation (BE/FE/Infra/Firmware + custom) with auto-detection
 - [x] Absolute scoring for Production (per-day rate) and Quality (fix ratio)
 - [x] Configurable domain mapping, repo exclusion
 - [x] JSON / CSV output format (`--format json|csv`)

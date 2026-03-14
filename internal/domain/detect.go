@@ -2,10 +2,12 @@ package domain
 
 import (
 	"path/filepath"
+	"sort"
 	"strings"
+	"unicode"
 )
 
-// Domain represents a scoring domain (BE, FE, Infra, Firmware)
+// Domain represents a scoring domain (BE, FE, Infra, Firmware, or custom)
 type Domain string
 
 const (
@@ -16,13 +18,13 @@ const (
 	Unknown  Domain = "Unknown"
 )
 
-// AllDomains returns all known domains in display order
-func AllDomains() []Domain {
-	return []Domain{Backend, Frontend, Infra, Firmware}
+// builtInOrder defines display priority for built-in domains.
+var builtInOrder = map[Domain]int{
+	Backend: 0, Frontend: 1, Infra: 2, Firmware: 3,
 }
 
-// file extension -> domain mapping
-var extDomain = map[string]Domain{
+// DefaultExtDomain is the default file extension to domain mapping.
+var defaultExtDomain = map[string]Domain{
 	// Backend
 	".go":    Backend,
 	".py":    Backend,
@@ -50,11 +52,11 @@ var extDomain = map[string]Domain{
 	".html":   Frontend,
 
 	// Infra
-	".tf":     Infra,
-	".hcl":    Infra,
-	".yaml":   Infra,
-	".yml":    Infra,
-	".toml":   Infra,
+	".tf":   Infra,
+	".hcl":  Infra,
+	".yaml": Infra,
+	".yml":  Infra,
+	".toml": Infra,
 
 	// Firmware
 	".c":   Firmware,
@@ -67,14 +69,79 @@ var extDomain = map[string]Domain{
 	".ld":  Firmware,
 }
 
+// NormalizeName converts a domain name to Title Case (e.g. "backend" → "Backend", "mobile" → "Mobile").
+func NormalizeName(name string) Domain {
+	if len(name) == 0 {
+		return Unknown
+	}
+	r := []rune(name)
+	r[0] = unicode.ToUpper(r[0])
+	return Domain(string(r))
+}
+
+// BuildExtMap creates an extension-to-domain map by merging defaults with custom config.
+// customExts maps domain names (as in config, e.g. "backend", "mobile") to extension lists.
+// Custom extensions override defaults (e.g. moving .py from Backend to "Data").
+// If includeDefaults is false, only custom extensions are used (no built-in mappings).
+func BuildExtMap(customExts map[string][]string, includeDefaults bool) map[string]Domain {
+	m := make(map[string]Domain, len(defaultExtDomain))
+	if includeDefaults {
+		for ext, d := range defaultExtDomain {
+			m[ext] = d
+		}
+	}
+	for name, exts := range customExts {
+		d := NormalizeName(name)
+		for _, ext := range exts {
+			ext = strings.ToLower(ext)
+			if !strings.HasPrefix(ext, ".") {
+				ext = "." + ext
+			}
+			m[ext] = d
+		}
+	}
+	return m
+}
+
+// SortDomains returns domains in stable display order:
+// built-in domains first (Backend, Frontend, Infra, Firmware), then custom alphabetically, then Unknown last.
+func SortDomains(ds []Domain) []Domain {
+	result := make([]Domain, len(ds))
+	copy(result, ds)
+	sort.SliceStable(result, func(i, j int) bool {
+		di, dj := result[i], result[j]
+		// Unknown always last
+		if di == Unknown || dj == Unknown {
+			return dj == Unknown && di != Unknown
+		}
+		pi, oki := builtInOrder[di]
+		pj, okj := builtInOrder[dj]
+		// Both built-in: compare by priority
+		if oki && okj {
+			return pi < pj
+		}
+		// Built-in before custom
+		if oki != okj {
+			return oki
+		}
+		// Both custom: alphabetical
+		return di < dj
+	})
+	return result
+}
+
 // DetectFromFiles determines the domain of a repo based on file extension distribution.
-// Returns the domain with the highest file count.
-func DetectFromFiles(files []string) Domain {
+// If extMap is nil, uses the default extension mapping.
+func DetectFromFiles(files []string, extMap map[string]Domain) Domain {
+	if extMap == nil {
+		extMap = defaultExtDomain
+	}
+
 	counts := make(map[Domain]int)
 
 	for _, f := range files {
 		ext := strings.ToLower(filepath.Ext(f))
-		if d, ok := extDomain[ext]; ok {
+		if d, ok := extMap[ext]; ok {
 			counts[d]++
 		}
 	}
@@ -84,8 +151,7 @@ func DetectFromFiles(files []string) Domain {
 	}
 
 	// Special case: .yaml/.yml files alone don't make it Infra.
-	// Only classify as Infra if Infra has more files than BE+FE combined,
-	// or if there are .tf/.hcl files present.
+	// Only classify as Infra if there are .tf/.hcl files present.
 	if counts[Infra] > 0 {
 		hasTerraform := false
 		for _, f := range files {
@@ -101,17 +167,31 @@ func DetectFromFiles(files []string) Domain {
 		}
 	}
 
-	// Find domain with highest count
+	// Find domain with highest count (tie-break: built-in priority, then alphabetical)
 	var best Domain
 	bestCount := 0
 	for d, c := range counts {
-		if c > bestCount {
+		if c > bestCount || (c == bestCount && betterDomain(d, best)) {
 			best = d
 			bestCount = c
 		}
 	}
 
 	return best
+}
+
+// betterDomain returns true if a should take priority over b in a tie.
+// Built-in domains have priority over custom, then alphabetical.
+func betterDomain(a, b Domain) bool {
+	pa, oka := builtInOrder[a]
+	pb, okb := builtInOrder[b]
+	if oka && okb {
+		return pa < pb
+	}
+	if oka != okb {
+		return oka
+	}
+	return a < b
 }
 
 // MatchRepoPattern checks if a repo name matches a glob pattern

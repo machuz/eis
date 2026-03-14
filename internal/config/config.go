@@ -9,16 +9,17 @@ import (
 )
 
 type Config struct {
-	Tau                  float64           `yaml:"tau"`
-	SampleSize           int               `yaml:"sample_size"`
-	DebtThreshold        int               `yaml:"debt_threshold"`
-	ExcludeFilePatterns  []string          `yaml:"exclude_file_patterns"`
-	ArchitecturePatterns []string          `yaml:"architecture_patterns"`
-	BlameExtensions      []string          `yaml:"blame_extensions"`
-	ExcludeAuthors       []string          `yaml:"exclude_authors"`
-	Aliases              map[string]string `yaml:"aliases"`
-	Weights              Weights           `yaml:"weights"`
-	BusFactor            BusFactor         `yaml:"bus_factor"`
+	Tau                  float64              `yaml:"tau"`
+	SampleSize           int                  `yaml:"sample_size"`
+	DebtThreshold        int                  `yaml:"debt_threshold"`
+	ExcludeFilePatterns  []string             `yaml:"exclude_file_patterns"`
+	ArchitecturePatterns []string             `yaml:"architecture_patterns"`
+	BlameExtensions      []string             `yaml:"blame_extensions"`
+	ExcludeAuthors       []string             `yaml:"exclude_authors"`
+	Aliases              map[string]string    `yaml:"aliases"`
+	Weights              Weights              `yaml:"weights"`
+	BusFactor            BusFactor            `yaml:"bus_factor"`
+	DefaultDomains       *bool                `yaml:"default_domains"`
 	Domains              DomainsConfig        `yaml:"domains"`
 	Teams                map[string]TeamEntry `yaml:"teams"`
 	BreadthMax           int                  `yaml:"breadth_max"`
@@ -34,12 +35,35 @@ type TeamEntry struct {
 	Members []string `yaml:"members"`
 }
 
-// DomainsConfig allows explicit repo-to-domain mapping (overrides auto-detection)
-type DomainsConfig struct {
-	Backend  []string `yaml:"backend"`
-	Frontend []string `yaml:"frontend"`
-	Infra    []string `yaml:"infra"`
-	Firmware []string `yaml:"firmware"`
+// DomainsConfig maps domain names to their configuration.
+// Supports both legacy format (list of repo patterns) and new format (object with repos + extensions).
+//
+//	legacy:  backend: [api, worker]
+//	new:     mobile: { repos: [ios-app], extensions: [.swift, .kt] }
+type DomainsConfig map[string]DomainEntry
+
+// DomainEntry defines repo patterns and file extensions for a domain.
+type DomainEntry struct {
+	Repos      []string `yaml:"repos"`
+	Extensions []string `yaml:"extensions"`
+}
+
+// UnmarshalYAML supports both legacy format (list of strings) and new format (object).
+func (e *DomainEntry) UnmarshalYAML(value *yaml.Node) error {
+	// Try list of strings first (legacy format: repo patterns only)
+	var list []string
+	if err := value.Decode(&list); err == nil {
+		e.Repos = list
+		return nil
+	}
+	// Object format
+	type raw DomainEntry
+	var r raw
+	if err := value.Decode(&r); err != nil {
+		return err
+	}
+	*e = DomainEntry(r)
+	return nil
 }
 
 type Weights struct {
@@ -59,10 +83,10 @@ type BusFactor struct {
 
 func Default() *Config {
 	return &Config{
-		Tau:          180,
-		SampleSize:   500,
-		DebtThreshold: 10,
-		BreadthMax:        5,
+		Tau:                180,
+		SampleSize:         500,
+		DebtThreshold:      10,
+		BreadthMax:         5,
 		ActiveDays:         30,
 		BlameTimeout:       120,
 		ProductionDailyRef: 1000,
@@ -94,8 +118,8 @@ func Default() *Config {
 			"*.c", "*.h", "*.cpp", "*.hpp", "*.cc", "*.S",
 			"*.scala", "*.hs", "*.ml", "*.mli",
 		},
-		ExcludeAuthors:  []string{"github-actions[bot]", "renovate[bot]", "dependabot[bot]"},
-		Aliases:         map[string]string{},
+		ExcludeAuthors: []string{"github-actions[bot]", "renovate[bot]", "dependabot[bot]"},
+		Aliases:        map[string]string{},
 		Weights: Weights{
 			Production:       0.15,
 			Quality:          0.10,
@@ -156,6 +180,27 @@ func (c *Config) Validate() error {
 	}
 
 	return nil
+}
+
+// UseDefaultDomains returns whether built-in domain extension mappings should be used.
+// Defaults to true when default_domains is not set in config.
+func (c *Config) UseDefaultDomains() bool {
+	if c.DefaultDomains == nil {
+		return true
+	}
+	return *c.DefaultDomains
+}
+
+// CustomExtensions returns a map of domain names to their custom extension lists.
+// Used with domain.BuildExtMap to create the merged extension-to-domain map.
+func (c *Config) CustomExtensions() map[string][]string {
+	m := make(map[string][]string)
+	for name, entry := range c.Domains {
+		if len(entry.Extensions) > 0 {
+			m[name] = entry.Extensions
+		}
+	}
+	return m
 }
 
 func (c *Config) ResolveAuthor(name string) string {
