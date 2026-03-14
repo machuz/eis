@@ -10,7 +10,7 @@ cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/m
 
 ## Previously
 
-In [Chapter 3](https://dev.to/machuz/two-paths-to-architect-how-engineers-evolve-differently-xxxx), I explored a frontend team and discovered two evolution paths for Architects:
+In [Chapter 3](https://dev.to/machuz/two-paths-to-architect-how-engineers-evolve-differently-1ga), I explored a frontend team and discovered two evolution paths for Architects:
 
 - **Inheritance Architect**: Anchor → guards and refines existing structure
 - **Emergent Architect**: High-Gravity Producer → creates new gravitational fields
