@@ -456,6 +456,14 @@ Does the code survive? Are they involved in design? Are they creating debt, or c
 
 So I built the numbers on this playing field.
 
+Of course, this isn't everything.
+
+**Whether the product that emerges is good, whether it fits the market — that needs to be judged on a different axis.**
+
+EIS measures technical impact on the codebase. But product value isn't determined by code quality alone. Is it reaching users? Is it viable as a business? That's a different conversation.
+
+EIS visualizes "strength as a technical organization." What you build on top of that is a separate decision.
+
 And those numbers matched my intuition. The team really was strong.
 
 ---
