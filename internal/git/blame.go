@@ -263,6 +263,160 @@ func ConcurrentBlameFiles(ctx context.Context, repoPath string, files []string, 
 	return allLines, nil
 }
 
+// BlameFileAtCommit runs blame at a specific commit hash.
+func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath string) ([]BlameLine, error) {
+	stdout, cmd, err := RunStream(ctx, repoPath,
+		"blame", "--line-porcelain", "-w", commitHash, "--", filepath,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer stdout.Close()
+
+	var result []BlameLine
+	var author string
+	var committerTime time.Time
+	filename := filepath
+
+	scanner := bufio.NewScanner(stdout)
+	scanner.Buffer(make([]byte, 1024*1024), 1024*1024)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		switch {
+		case strings.HasPrefix(line, "author "):
+			author = strings.TrimPrefix(line, "author ")
+		case strings.HasPrefix(line, "committer-time "):
+			ts, err := strconv.ParseInt(strings.TrimPrefix(line, "committer-time "), 10, 64)
+			if err == nil {
+				committerTime = time.Unix(ts, 0)
+			}
+		case strings.HasPrefix(line, "filename "):
+			filename = strings.TrimPrefix(line, "filename ")
+		case strings.HasPrefix(line, "\t"):
+			if author != "" {
+				result = append(result, BlameLine{
+					Author:        author,
+					CommitterTime: committerTime,
+					Filename:      filename,
+				})
+			}
+			author = ""
+		}
+	}
+
+	_ = cmd.Wait()
+	return result, scanner.Err()
+}
+
+// ListFilesAtCommit returns tracked files at a specific commit hash, filtered by patterns.
+func ListFilesAtCommit(ctx context.Context, repoPath, commitHash string, patterns []string) ([]string, error) {
+	lines, err := RunLines(ctx, repoPath,
+		"ls-tree", "-r", "--name-only", commitHash,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(patterns) == 0 {
+		return lines, nil
+	}
+
+	// Filter by extension patterns (e.g. "*.go", "*.ts")
+	var filtered []string
+	for _, f := range lines {
+		for _, p := range patterns {
+			// Simple glob: *.ext
+			if strings.HasPrefix(p, "*.") {
+				ext := p[1:] // ".go"
+				if strings.HasSuffix(f, ext) {
+					filtered = append(filtered, f)
+					break
+				}
+			} else if strings.Contains(f, p) {
+				filtered = append(filtered, f)
+				break
+			}
+		}
+	}
+	return filtered, nil
+}
+
+// ConcurrentBlameFilesAtCommit runs blame at a specific commit on files concurrently.
+func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash string, files []string, maxFiles, workers int, progressFn func(done, total int), verboseFn func(string)) ([]BlameLine, error) {
+	sampled := SampleFiles(files, maxFiles)
+	total := len(sampled)
+
+	if workers <= 0 {
+		workers = 4
+	}
+
+	type result struct {
+		file  string
+		lines []BlameLine
+		err   error
+		dur   time.Duration
+	}
+
+	fileCh := make(chan string, total)
+	resultCh := make(chan result, total)
+
+	// Start workers
+	for w := 0; w < workers; w++ {
+		go func() {
+			for f := range fileCh {
+				start := time.Now()
+				lines, err := BlameFileAtCommit(ctx, repoPath, commitHash, f)
+				resultCh <- result{f, lines, err, time.Since(start)}
+			}
+		}()
+	}
+
+	// Send files
+	for _, f := range sampled {
+		fileCh <- f
+	}
+	close(fileCh)
+
+	// Collect results
+	var allLines []BlameLine
+	for i := 0; i < total; i++ {
+		r := <-resultCh
+		if r.err == nil {
+			allLines = append(allLines, r.lines...)
+		}
+		if verboseFn != nil && (r.dur > 2*time.Second || r.err != nil) {
+			if r.err != nil {
+				verboseFn(fmt.Sprintf("  [blame@%s] %s: error (%v)", commitHash[:8], r.file, r.err))
+			} else {
+				verboseFn(fmt.Sprintf("  [blame@%s] %s: %d lines (SLOW: %v)", commitHash[:8], r.file, len(r.lines), r.dur.Round(time.Millisecond)))
+			}
+		}
+		if progressFn != nil && (i+1)%50 == 0 {
+			progressFn(i+1, total)
+		}
+	}
+	if progressFn != nil {
+		progressFn(total, total)
+	}
+
+	return allLines, nil
+}
+
+// FindCommitAtDate returns the latest commit hash on or before the given date.
+func FindCommitAtDate(ctx context.Context, repoPath string, before time.Time) (string, error) {
+	lines, err := RunLines(ctx, repoPath,
+		"log", "--all", "--format=%H", "-1", "--before="+before.Format("2006-01-02T15:04:05"),
+	)
+	if err != nil {
+		return "", err
+	}
+	if len(lines) == 0 {
+		return "", fmt.Errorf("no commits found before %s", before.Format("2006-01-02"))
+	}
+	return lines[0], nil
+}
+
 // IsShallowRepo checks if the repository is a shallow clone
 func IsShallowRepo(ctx context.Context, repoPath string) bool {
 	lines, err := RunLines(ctx, repoPath, "rev-parse", "--is-shallow-repository")

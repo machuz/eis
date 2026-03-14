@@ -15,6 +15,8 @@ func Run(args []string) error {
 		return runAnalyze(args[1:])
 	case "team":
 		return runTeam(args[1:])
+	case "timeline":
+		return runTimeline(args[1:])
 	case "version":
 		fmt.Printf("eis v%s\n", version)
 		return nil
@@ -33,6 +35,7 @@ func printUsage() {
 Usage:
   eis analyze [path...]       Analyze git repos and output individual rankings
   eis team [path...]          Analyze and aggregate into team-level metrics
+  eis timeline [path...]      Track score evolution over time periods
   eis version                 Print version
   eis help                    Show this help
 
@@ -42,8 +45,12 @@ Examples:
   eis analyze --format json --recursive ~/work   Output as JSON
   eis team --recursive /path/to/workspace        Team analysis (auto-group by domain)
   eis team --config eis.yaml --recursive ~/work  Team analysis with team config
+  eis timeline --recursive ~/work                Timeline (default: 4 periods, 3m span)
+  eis timeline --span 6m --periods 0 ~/work      Full history in 6-month spans
+  eis timeline --since 2024-01-01 ~/work         From specific date
+  eis timeline --author alice,bob ~/work         Filter to specific authors
 
-Options (shared by analyze and team):
+Options (shared by analyze, team, and timeline):
   --config <path>             Config file (default: eis.yaml in CWD)
   --recursive                 Recursively find git repos under given paths
   --depth <n>                 Max directory depth for recursive search (default: 2)
@@ -55,6 +62,12 @@ Options (shared by analyze and team):
   --pressure-mode <mode>      Change pressure mode: include or ignore (default: include)
   --domain <name>             Filter to single domain
   --verbose                   Show detailed debug output (file-level timing, slow ops)
+
+Timeline-specific options:
+  --span <period>             Period span: 3m, 6m, 1y (default: 3m)
+  --periods <n>               Number of periods to show (default: 4, 0=all)
+  --since <date>              Start date (e.g. 2024-01-01, overrides --periods)
+  --author <names>            Filter to specific author(s), comma-separated
 
 Config file (eis.yaml):
   aliases:                    Map git author names to canonical names
