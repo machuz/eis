@@ -274,6 +274,8 @@ Tracks how individual scores, roles, and team health evolve over time. Supports 
 
 ![Timeline Output](docs/images/timeline-output.svg)
 
+![Timeline Chart Output](docs/images/timeline-chart-output.svg)
+
 ```bash
 eis timeline --recursive ~/workspace                     # Default: last 4 quarters
 eis timeline --span 6m --periods 0 --recursive ~/workspace  # Full history, 6-month spans

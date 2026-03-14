@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="460" viewBox="0 0 820 460">
+  <defs>
+    <style>
+      text { font-family: 'Helvetica Neue', 'Arial', sans-serif; }
+      .title { font-size: 14px; font-weight: 700; fill: #333; }
+      .axis-label { font-size: 10px; fill: #666; }
+      .axis-name { font-size: 11px; fill: #666; }
+      .legend-text { font-size: 10px; fill: #333; }
+      .grid { stroke: #e6e6e6; stroke-width: 1; }
+      .line-total { stroke: #4a90d9; stroke-width: 2.5; fill: none; }
+      .line-prod { stroke: #50c878; stroke-width: 2.5; fill: none; }
+      .line-qual { stroke: #ffb347; stroke-width: 2.5; fill: none; }
+      .line-surv { stroke: #9b59b6; stroke-width: 2.5; fill: none; }
+      .line-design { stroke: #1abc9c; stroke-width: 2.5; fill: none; }
+      .dot-total { fill: #4a90d9; }
+      .dot-prod { fill: #50c878; }
+      .dot-qual { fill: #ffb347; }
+      .dot-surv { fill: #9b59b6; }
+      .dot-design { fill: #1abc9c; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="460" fill="white" rx="4"/>
+
+  <!-- Title -->
+  <text x="410" y="28" text-anchor="middle" class="title">machuz - Backend</text>
+
+  <!-- Chart area: x=80..760, y=50..370 -->
+  <!-- Y axis: 0-100 -->
+  <!-- Grid lines -->
+  <line x1="80" y1="50" x2="760" y2="50" class="grid"/>
+  <line x1="80" y1="114" x2="760" y2="114" class="grid"/>
+  <line x1="80" y1="178" x2="760" y2="178" class="grid"/>
+  <line x1="80" y1="242" x2="760" y2="242" class="grid"/>
+  <line x1="80" y1="306" x2="760" y2="306" class="grid"/>
+  <line x1="80" y1="370" x2="760" y2="370" class="grid"/>
+
+  <!-- Y axis labels -->
+  <text x="72" y="54" text-anchor="end" class="axis-label">100</text>
+  <text x="72" y="118" text-anchor="end" class="axis-label">80</text>
+  <text x="72" y="182" text-anchor="end" class="axis-label">60</text>
+  <text x="72" y="246" text-anchor="end" class="axis-label">40</text>
+  <text x="72" y="310" text-anchor="end" class="axis-label">20</text>
+  <text x="72" y="374" text-anchor="end" class="axis-label">0</text>
+
+  <!-- Y axis name -->
+  <text x="20" y="210" text-anchor="middle" class="axis-name" transform="rotate(-90 20 210)">Score</text>
+
+  <!-- X axis name -->
+  <text x="420" y="410" text-anchor="middle" class="axis-name">Period</text>
+
+  <!-- X axis vertical grid lines and labels -->
+  <!-- 8 periods: Q2'24, Q3'24, Q4'24, Q1'25, Q2'25, Q3'25, Q4'25, Q1'26 -->
+  <!-- x positions: 80, 177, 274, 371, 468, 565, 662, 760 -->
+
+  <line x1="80" y1="50" x2="80" y2="370" class="grid"/>
+  <line x1="177" y1="50" x2="177" y2="370" class="grid"/>
+  <line x1="274" y1="50" x2="274" y2="370" class="grid"/>
+  <line x1="371" y1="50" x2="371" y2="370" class="grid"/>
+  <line x1="468" y1="50" x2="468" y2="370" class="grid"/>
+  <line x1="565" y1="50" x2="565" y2="370" class="grid"/>
+  <line x1="662" y1="50" x2="662" y2="370" class="grid"/>
+  <line x1="760" y1="50" x2="760" y2="370" class="grid"/>
+
+  <text x="80" y="390" text-anchor="middle" class="axis-label">2024-Q2</text>
+  <text x="177" y="390" text-anchor="middle" class="axis-label">2024-Q3</text>
+  <text x="274" y="390" text-anchor="middle" class="axis-label">2024-Q4</text>
+  <text x="371" y="390" text-anchor="middle" class="axis-label">2025-Q1</text>
+  <text x="468" y="390" text-anchor="middle" class="axis-label">2025-Q2</text>
+  <text x="565" y="390" text-anchor="middle" class="axis-label">2025-Q3</text>
+  <text x="662" y="390" text-anchor="middle" class="axis-label">2025-Q4</text>
+  <text x="760" y="390" text-anchor="middle" class="axis-label">2026-Q1</text>
+
+  <!-- Data from timeline-output.svg:
+    Q2'24: Total=31.5, Prod=25, Qual=92, Surv=0,   Design=46
+    Q3'24: Total=73.8, Prod=72, Qual=83, Surv=98,  Design=100
+    Q4'24: Total=64.1, Prod=53, Qual=72, Surv=40,  Design=100
+    Q1'25: Total=61.7, Prod=53, Qual=72, Surv=40,  Design=100
+    Q2'25: Total=49.2, Prod=49, Qual=71, Surv=28,  Design=50
+    Q3'25: Total=93.2, Prod=100,Qual=68, Surv=100, Design=100
+    Q4'25: Total=87.7, Prod=100,Qual=68, Surv=100, Design=100
+    Q1'26: Total=92.4, Prod=100,Qual=41, Surv=100, Design=100
+
+    Y mapping: score S -> y = 370 - S * 3.2
+  -->
+
+  <!-- Total line (blue) -->
+  <polyline class="line-total" points="
+    80,269.2  177,133.8  274,164.9  371,172.6  468,212.6  565,71.8  662,89.4  760,74.3
+  "/>
+  <circle cx="80"  cy="269.2" r="4" class="dot-total"/>
+  <circle cx="177" cy="133.8" r="4" class="dot-total"/>
+  <circle cx="274" cy="164.9" r="4" class="dot-total"/>
+  <circle cx="371" cy="172.6" r="4" class="dot-total"/>
+  <circle cx="468" cy="212.6" r="4" class="dot-total"/>
+  <circle cx="565" cy="71.8"  r="4" class="dot-total"/>
+  <circle cx="662" cy="89.4"  r="4" class="dot-total"/>
+  <circle cx="760" cy="74.3"  r="4" class="dot-total"/>
+
+  <!-- Production line (green) -->
+  <polyline class="line-prod" points="
+    80,290  177,139.6  274,200.4  371,200.4  468,213.2  565,50  662,50  760,50
+  "/>
+  <circle cx="80"  cy="290"   r="4" class="dot-prod"/>
+  <circle cx="177" cy="139.6" r="4" class="dot-prod"/>
+  <circle cx="274" cy="200.4" r="4" class="dot-prod"/>
+  <circle cx="371" cy="200.4" r="4" class="dot-prod"/>
+  <circle cx="468" cy="213.2" r="4" class="dot-prod"/>
+  <circle cx="565" cy="50"    r="4" class="dot-prod"/>
+  <circle cx="662" cy="50"    r="4" class="dot-prod"/>
+  <circle cx="760" cy="50"    r="4" class="dot-prod"/>
+
+  <!-- Quality line (orange) -->
+  <polyline class="line-qual" points="
+    80,75.6  177,104.4  274,139.6  371,139.6  468,142.8  565,152.4  662,152.4  760,238.8
+  "/>
+  <circle cx="80"  cy="75.6"  r="4" class="dot-qual"/>
+  <circle cx="177" cy="104.4" r="4" class="dot-qual"/>
+  <circle cx="274" cy="139.6" r="4" class="dot-qual"/>
+  <circle cx="371" cy="139.6" r="4" class="dot-qual"/>
+  <circle cx="468" cy="142.8" r="4" class="dot-qual"/>
+  <circle cx="565" cy="152.4" r="4" class="dot-qual"/>
+  <circle cx="662" cy="152.4" r="4" class="dot-qual"/>
+  <circle cx="760" cy="238.8" r="4" class="dot-qual"/>
+
+  <!-- Survival line (purple) -->
+  <polyline class="line-surv" points="
+    80,370  177,56.4  274,242  371,242  468,280.4  565,50  662,50  760,50
+  "/>
+  <circle cx="80"  cy="370"   r="4" class="dot-surv"/>
+  <circle cx="177" cy="56.4"  r="4" class="dot-surv"/>
+  <circle cx="274" cy="242"   r="4" class="dot-surv"/>
+  <circle cx="371" cy="242"   r="4" class="dot-surv"/>
+  <circle cx="468" cy="280.4" r="4" class="dot-surv"/>
+  <circle cx="565" cy="50"    r="4" class="dot-surv"/>
+  <circle cx="662" cy="50"    r="4" class="dot-surv"/>
+  <circle cx="760" cy="50"    r="4" class="dot-surv"/>
+
+  <!-- Design line (teal) -->
+  <polyline class="line-design" points="
+    80,222.8  177,50  274,50  371,50  468,210  565,50  662,50  760,50
+  "/>
+  <circle cx="80"  cy="222.8" r="4" class="dot-design"/>
+  <circle cx="177" cy="50"    r="4" class="dot-design"/>
+  <circle cx="274" cy="50"    r="4" class="dot-design"/>
+  <circle cx="371" cy="50"    r="4" class="dot-design"/>
+  <circle cx="468" cy="210"   r="4" class="dot-design"/>
+  <circle cx="565" cy="50"    r="4" class="dot-design"/>
+  <circle cx="662" cy="50"    r="4" class="dot-design"/>
+  <circle cx="760" cy="50"    r="4" class="dot-design"/>
+
+  <!-- Legend -->
+  <rect x="90" y="420" width="12" height="12" rx="2" fill="#4a90d9"/>
+  <text x="106" y="431" class="legend-text">Total</text>
+  <rect x="170" y="420" width="12" height="12" rx="2" fill="#50c878"/>
+  <text x="186" y="431" class="legend-text">Production</text>
+  <rect x="280" y="420" width="12" height="12" rx="2" fill="#ffb347"/>
+  <text x="296" y="431" class="legend-text">Quality</text>
+  <rect x="370" y="420" width="12" height="12" rx="2" fill="#9b59b6"/>
+  <text x="386" y="431" class="legend-text">Survival</text>
+  <rect x="460" y="420" width="12" height="12" rx="2" fill="#1abc9c"/>
+  <text x="476" y="431" class="legend-text">Design</text>
+
+  <!-- Subtle border -->
+  <rect width="820" height="460" fill="none" stroke="#e0e0e0" stroke-width="1" rx="4"/>
+</svg>
