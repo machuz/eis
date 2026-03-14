@@ -450,6 +450,52 @@ And those numbers matched my intuition. The team really was strong.
 
 ---
 
+## Spec Changes and Robust
+
+A team member asked:
+
+> Do spec changes that overwrite code get reflected in Robust scores?
+
+**Yes, they do.**
+
+When spec changes cause code rewrites, the original author's Robust score drops.
+
+This means **planner precision also affects these scores**.
+
+If specs are unstable, code gets rewritten. If planning is sloppy, no matter how good the code an engineer writes, it disappears.
+
+That this team achieves strong Robust scores isn't just an engineering achievement. **It's the achievement of the entire development organization, including planners.**
+
+---
+
+### Renovations and Scores
+
+Another question came up:
+
+> If we do a major renovation, will the people who wrote pre-renovation code see their scores drop?
+
+**Yes.**
+
+If renovation replaces previous code, the previous authors' scores drop.
+
+But here's the key point.
+
+**Can you adapt?**
+
+- Can you weave your opinions into the post-renovation design?
+- Can you produce scores even on top of the new good design?
+- More broadly, **can you produce scores across multiple codebases**, whether they're good or bad?
+
+That's what real engineering strength is.
+
+Scoring high on one codebase is possible if you're lucky with your environment.
+
+But **being able to adapt and generate gravity on any codebase, any team** — that's what a real engineer looks like.
+
+EIS measures impact on a single codebase. But if you repeat that measurement across multiple codebases, you start seeing **reproducibility that transcends environment**.
+
+---
+
 ## What This Discovery Means
 
 Chapter 3 showed frontend's branching evolution model.
