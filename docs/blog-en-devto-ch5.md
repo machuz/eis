@@ -198,6 +198,96 @@ EIS captured this precisely:
 
 ---
 
+### `--per-repo` Reveals the True Structure of "Hesitation"
+
+The timeline alone tells us "design involvement decreased." But `eis analyze --recursive --per-repo` decomposes the picture to individual repositories — and the structure becomes far more precise.
+
+Here's Engineer I's per-repo commit distribution:
+
+```
+Quarter      Repo A (existing)   Repo B (existing)   Repo C (new)
+2025-Q2           135                  44                —
+2025-Q3           201                 274                —
+2025-Q4             5                   5             1,352
+2026-Q1             2                   2             1,333
+```
+
+**The true shape of Q3's "hesitation" emerges.**
+
+In Q3, Engineer I poured 274 commits into Repo B — their highest-ever quarter in that repo. Production didn't decline — it increased. But it was **production on top of already-established design**, not work that moved the architecture itself.
+
+That's why Design dropped from 100 to 73. You can ship massive volume in an existing repo, but if you're not moving the structural center, the Design axis won't register it.
+
+---
+
+### The Conversation: "Wait for Me"
+
+Behind this "hesitation" was a conversation.
+
+Engineer I had a design vision they'd been carrying — a conviction about how Frontend should be structured. I trusted their design instinct and their technical ability.
+
+But the timing wasn't right yet.
+
+**"Once we're past the proof phase and into the business phase, I'll hand it to you. Wait for me."**
+
+I was certain their design was right. I was certain the whole team would benefit from a structure built around their strengths. So — please, wait a little longer.
+
+Q3's "hesitation" wasn't just friction. It was also **strategic patience**.
+
+---
+
+### A New Universe
+
+```
+Quarter      Repo A (existing)   Repo B (existing)   Repo C (new)
+2025-Q4             5                   5             1,352          ← here
+```
+
+In 2025-Q4, the new product launched.
+
+I handed it to Engineer I.
+
+Commits to existing repos dropped to single digits. In their place: 1,352 commits to the new repo. **1,352 commits in three months.** The following quarter, another 1,333. That's 2,685 commits in six months.
+
+This number is extraordinary. One engineer producing this volume in half a year can't be explained by raw productivity alone.
+
+```
+2025-Q3 (Jul)        72.4    73    97   100      73  Anchor       Balanced     ← producing in existing structure
+2025-Q4 (Oct)        81.7   100    68   100     100  Architect    Balanced     ← creating new structure
+```
+
+Design: 73 → 100. Anchor → Architect.
+
+**On a greenfield, the designer's true nature exploded.**
+
+Engineer I was a rare breed — an engineer who could also design. Not just code architecture, but visual design.
+
+Initially, the new product was expected to follow the existing design language. But Engineer I wanted to build from scratch.
+
+**Two weeks later**, they came back with a prototype: dark theme, mobile-responsive, beautiful visuals, a side-pane architecture that enabled rich expressiveness — a level of polish that the existing design's incremental extension could never have reached.
+
+Something interesting happened. An excellent external designer was involved in the project. When this designer saw Engineer I's design work, they redefined their own role. Rather than competing on visual design, they **stepped back and focused on what they did best — deep information architecture expertise**.
+
+The result: engineering design skill and information design expertise locked together. The new product became a major success. The team decided to adopt the new codebase as the design reference going forward.
+
+---
+
+### Reinterpreting "Hesitation"
+
+With `--per-repo`, the "hesitation" gains three dimensions:
+
+1. **Surface**: Reduced design involvement due to team friction
+2. **Structure**: Heavy production work concentrated in existing repos (274 commits)
+3. **Context**: Waiting for the right moment to be entrusted with a new product
+
+Q4 connected everything. A new universe was born, and Engineer I created gravity in it.
+
+This is the very phenomenon Chapter 8 calls "Engineering Relativity" — **the same engineer produces different gravity in different universes**. In a mature gravitational field, Engineer I was an Anchor. In a brand new universe, they became Architect instantly.
+
+Their ability didn't change. **The universe changed.**
+
+---
+
 ### And Then, the Return
 
 ```
@@ -205,15 +295,13 @@ EIS captured this precisely:
 2026-Q1 (Jan)        78.1   100    84    83     100  Anchor       Builder      Active
 ```
 
-The following quarter, Design returned to 100. Total: 81.7. Architect again.
+Design stayed at 100 the following quarter too. The structure-building in web-admin continued.
 
-Having navigated the friction, having found the right distance from the team, they re-engaged with design.
+Through friction, through strategic patience, they found their stage in a new universe. This "step back, then emerge somewhere new" pattern signals **Architect maturity**.
 
-This "step back, then step forward" pattern signals **Architect maturity**.
+A young Architect who hits friction either retreats or bulldozes. A mature Architect **pulls back to read the team's reaction, then re-engages**. And a good leader **reads the timing and prepares the stage**.
 
-A young Architect who hits friction either retreats or bulldozes. A mature Architect **pulls back to read the team's reaction, then re-engages**.
-
-Engineer I's timeline records that maturation process, quarter by quarter.
+Engineer I's timeline and `--per-repo` record that maturation process — quarter by quarter, repository by repository.
 
 ---
 
