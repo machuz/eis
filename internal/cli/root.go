@@ -48,7 +48,7 @@ Examples:
   eis timeline --recursive ~/work                Timeline (default: 4 periods, 3m span)
   eis timeline --span 6m --periods 0 ~/work      Full history in 6-month spans
   eis timeline --since 2024-01-01 ~/work         From specific date
-  eis timeline --author alice,bob ~/work         Filter to specific authors
+  eis timeline --author machuz,ponsaaan ~/work    Filter to specific authors
 
 Options (shared by analyze, team, and timeline):
   --config <path>             Config file (default: eis.yaml in CWD)

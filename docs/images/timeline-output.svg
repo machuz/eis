@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      text { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; font-size: 12px; }
+      .header { fill: #56b6c2; font-weight: 700; }
+      .name { fill: #e5c07b; font-weight: 700; font-size: 13px; }
+      .label { fill: #abb2bf; }
+      .score-high { fill: #c678dd; font-weight: 700; }
+      .score-mid { fill: #98c379; font-weight: 700; }
+      .score-low { fill: #e5c07b; }
+      .score-dim { fill: #5c6370; }
+      .role { fill: #61afef; }
+      .style { fill: #e06c75; }
+      .state-active { fill: #98c379; }
+      .state-former { fill: #e06c75; }
+      .state-growing { fill: #e5c07b; }
+      .domain-title { fill: #e06c75; font-weight: 700; font-size: 15px; }
+      .prompt { fill: #98c379; font-size: 13px; }
+      .cmd { fill: #abb2bf; font-size: 13px; }
+      .transition { fill: #56b6c2; font-size: 11px; }
+      .trans-arrow { fill: #e5c07b; font-size: 11px; }
+      .dim { fill: #5c6370; }
+      .separator { fill: #3e4451; }
+    </style>
+  </defs>
+
+  <!-- Terminal background -->
+  <rect width="1200" height="680" rx="10" fill="#282c34"/>
+
+  <!-- Title bar -->
+  <rect width="1200" height="32" rx="10" fill="#21252b"/>
+  <rect y="22" width="1200" height="10" fill="#21252b"/>
+  <circle cx="20" cy="16" r="6" fill="#e06c75"/>
+  <circle cx="40" cy="16" r="6" fill="#e5c07b"/>
+  <circle cx="60" cy="16" r="6" fill="#98c379"/>
+  <text x="600" y="20" text-anchor="middle" fill="#5c6370" font-size="12">Terminal — eis timeline</text>
+
+  <!-- Command line -->
+  <text x="20" y="58" class="prompt">❯</text>
+  <text x="36" y="58" class="cmd">eis timeline --span 3m --since 2024-01-01 --recursive ~/workspace</text>
+
+  <!-- Domain title -->
+  <text x="20" y="90" class="domain-title">═══ Backend Timeline (3-month spans) ═══</text>
+
+  <!-- machuz header -->
+  <text x="20" y="118" class="name">--- machuz ---</text>
+
+  <!-- Column headers -->
+  <text x="20" y="138" class="header">Period</text>
+  <text x="200" y="138" class="header">Total</text>
+  <text x="270" y="138" class="header">Prod</text>
+  <text x="340" y="138" class="header">Qual</text>
+  <text x="410" y="138" class="header">Surv</text>
+  <text x="480" y="138" class="header">Design</text>
+  <text x="570" y="138" class="header">Role</text>
+  <text x="700" y="138" class="header">Style</text>
+  <text x="830" y="138" class="header">State</text>
+
+  <!-- 2024-Q2 -->
+  <text x="20" y="160" class="label">2024-Q2 (Apr)</text>
+  <text x="200" y="160" class="score-low">31.5</text>
+  <text x="270" y="160" class="label">25</text>
+  <text x="340" y="160" class="score-mid">92</text>
+  <text x="410" y="160" class="score-dim">0</text>
+  <text x="480" y="160" class="label">46</text>
+  <text x="570" y="160" class="role">Anchor</text>
+  <text x="700" y="160" class="dim">—</text>
+  <text x="830" y="160" class="state-growing">Growing</text>
+
+  <!-- 2024-Q3 -->
+  <text x="20" y="180" class="label">2024-Q3 (Jul)</text>
+  <text x="200" y="180" class="score-mid">73.8</text>
+  <text x="270" y="180" class="label">72</text>
+  <text x="340" y="180" class="score-mid">83</text>
+  <text x="410" y="180" class="score-mid">98</text>
+  <text x="480" y="180" class="score-high">100</text>
+  <text x="570" y="180" class="role">Anchor</text>
+  <text x="700" y="180" class="style">Builder</text>
+  <text x="830" y="180" class="dim">—</text>
+
+  <!-- 2024-Q4 -->
+  <text x="20" y="200" class="label">2024-Q4 (Oct)</text>
+  <text x="200" y="200" class="score-mid">64.1</text>
+  <text x="270" y="200" class="label">53</text>
+  <text x="340" y="200" class="label">72</text>
+  <text x="410" y="200" class="label">40</text>
+  <text x="480" y="200" class="score-high">100</text>
+  <text x="570" y="200" class="role">Anchor</text>
+  <text x="700" y="200" class="style">Builder</text>
+  <text x="830" y="200" class="dim">—</text>
+
+  <!-- 2025-Q1 -->
+  <text x="20" y="220" class="label">2025-Q1 (Jan)</text>
+  <text x="200" y="220" class="score-mid">61.7</text>
+  <text x="270" y="220" class="label">53</text>
+  <text x="340" y="220" class="label">72</text>
+  <text x="410" y="220" class="label">40</text>
+  <text x="480" y="220" class="score-high">100</text>
+  <text x="570" y="220" class="role">Anchor</text>
+  <text x="700" y="220" class="style">Builder</text>
+  <text x="830" y="220" class="dim">—</text>
+
+  <!-- 2025-Q2 -->
+  <text x="20" y="240" class="label">2025-Q2 (Apr)</text>
+  <text x="200" y="240" class="label">49.2</text>
+  <text x="270" y="240" class="label">49</text>
+  <text x="340" y="240" class="label">71</text>
+  <text x="410" y="240" class="label">28</text>
+  <text x="480" y="240" class="label">50</text>
+  <text x="570" y="240" class="role">Anchor</text>
+  <text x="700" y="240" class="label">Balanced</text>
+  <text x="830" y="240" class="dim">—</text>
+
+  <!-- 2025-Q3 -->
+  <text x="20" y="260" class="label">2025-Q3 (Jul)</text>
+  <text x="200" y="260" class="score-high">93.2</text>
+  <text x="270" y="260" class="score-high">100</text>
+  <text x="340" y="260" class="label">68</text>
+  <text x="410" y="260" class="score-high">100</text>
+  <text x="480" y="260" class="score-high">100</text>
+  <text x="570" y="260" class="role">Architect</text>
+  <text x="700" y="260" class="style">Builder</text>
+  <text x="830" y="260" class="dim">—</text>
+
+  <!-- 2025-Q4 -->
+  <text x="20" y="280" class="label">2025-Q4 (Oct)</text>
+  <text x="200" y="280" class="score-high">87.7</text>
+  <text x="270" y="280" class="score-high">100</text>
+  <text x="340" y="280" class="label">68</text>
+  <text x="410" y="280" class="score-high">100</text>
+  <text x="480" y="280" class="score-high">100</text>
+  <text x="570" y="280" class="role">Architect</text>
+  <text x="700" y="280" class="style">Builder</text>
+  <text x="830" y="280" class="dim">—</text>
+
+  <!-- 2026-Q1 -->
+  <text x="20" y="300" class="label">2026-Q1 (Jan)</text>
+  <text x="200" y="300" class="score-high">92.4</text>
+  <text x="270" y="300" class="score-high">100</text>
+  <text x="340" y="300" class="label">41</text>
+  <text x="410" y="300" class="score-high">100</text>
+  <text x="480" y="300" class="score-high">100</text>
+  <text x="570" y="300" class="role">Architect</text>
+  <text x="700" y="300" class="style">Builder</text>
+  <text x="830" y="300" class="state-active">Active</text>
+
+  <!-- Transition markers -->
+  <text x="945" y="240" class="trans-arrow">↑</text>
+  <text x="960" y="240" class="transition">Style: Builder→Balanced</text>
+  <text x="945" y="260" class="trans-arrow">↑</text>
+  <text x="960" y="260" class="transition">Role: Anchor→Architect</text>
+  <text x="945" y="275" class="trans-arrow">↑</text>
+  <text x="960" y="275" class="transition">Style: Balanced→Builder</text>
+
+  <!-- Separator -->
+  <line x1="20" y1="318" x2="1180" y2="318" stroke="#3e4451" stroke-width="1"/>
+
+  <!-- Notable transitions section -->
+  <text x="20" y="340" class="header">Notable transitions:</text>
+  <text x="30" y="360" class="transition">• machuz: Role Anchor→Producer (2025-Q2)</text>
+  <text x="30" y="376" class="transition">• machuz: Style Builder→Balanced (2025-Q2)</text>
+  <text x="30" y="392" class="transition">• machuz: Role Producer→Architect (2025-Q3)</text>
+  <text x="30" y="408" class="transition">• machuz: Style Balanced→Builder (2025-Q3)</text>
+
+  <!-- Separator -->
+  <line x1="20" y1="426" x2="1180" y2="426" stroke="#3e4451" stroke-width="1"/>
+
+  <!-- Team Timeline section -->
+  <text x="20" y="452" class="domain-title">═══ Backend / Backend — Team Timeline ═══</text>
+
+  <!-- Team Classification -->
+  <text x="20" y="478" class="header">Classification:</text>
+  <text x="30" y="498" class="label">Period</text>
+  <text x="250" y="498" class="label">2024-Q4</text>
+  <text x="450" y="498" class="label">2025-Q4</text>
+  <text x="650" y="498" class="label">2026-Q1</text>
+
+  <text x="30" y="518" class="label">Character</text>
+  <text x="250" y="518" class="role">Guardian</text>
+  <text x="450" y="518" class="role">Balanced</text>
+  <text x="650" y="518" class="score-high">Elite</text>
+
+  <text x="30" y="538" class="label">Structure</text>
+  <text x="250" y="538" class="dim">Maintenance</text>
+  <text x="450" y="538" class="dim">Unstructured</text>
+  <text x="650" y="538" class="score-high">Architectural Engine</text>
+
+  <text x="30" y="558" class="label">Phase</text>
+  <text x="250" y="558" class="state-former">Declining</text>
+  <text x="450" y="558" class="state-former">Declining</text>
+  <text x="650" y="558" class="state-active">Mature</text>
+
+  <text x="30" y="578" class="label">Risk</text>
+  <text x="250" y="578" class="state-former">Quality Drift</text>
+  <text x="450" y="578" class="state-former">Design Vacuum</text>
+  <text x="650" y="578" class="state-active">Healthy</text>
+
+  <!-- Team transitions -->
+  <text x="20" y="608" class="header">Transitions:</text>
+  <text x="30" y="628" class="transition">[2026-Q1] Character: Balanced → Elite</text>
+  <text x="30" y="644" class="transition">[2026-Q1] Structure: Unstructured → Architectural Engine</text>
+  <text x="30" y="660" class="transition">[2026-Q1] Phase: Declining → Mature</text>
+</svg>

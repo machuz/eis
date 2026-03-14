@@ -268,6 +268,20 @@ Aggregates individual scores into team-level health metrics and **5-axis team cl
 
 Structural metrics (AAR, Anchor Density, Architecture Coverage) and full classification details are covered in the [Chapter 2 blog posts](#blog-posts).
 
+### `eis timeline` — Time-Series Analysis
+
+Tracks how individual scores, roles, and team health evolve over time. Supports 3-month, 6-month, or yearly spans.
+
+![Timeline Output](docs/images/timeline-output.svg)
+
+```bash
+eis timeline --recursive ~/workspace                     # Default: last 4 quarters
+eis timeline --span 6m --periods 0 --recursive ~/workspace  # Full history, 6-month spans
+eis timeline --format html --output timeline.html ~/workspace  # Interactive HTML dashboard
+eis timeline --format svg --output ./charts/ ~/workspace     # SVG images for blog posts
+eis timeline --format ascii ~/workspace                      # Terminal line charts
+```
+
 ## Configuration
 
 See [`config.example.yaml`](config.example.yaml) for all options:
