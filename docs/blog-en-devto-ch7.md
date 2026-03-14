@@ -36,7 +36,7 @@ For a quick terminal check, there's also `--format ascii`:
 
 What makes this powerful is that **you can look at this screen alongside an AI**.
 
-Open the HTML in a browser, ask an AI "What happened to this team in 2024-H2?" The AI can see the numbers, the role transitions, the health metric movements — formulate hypotheses from the data and offer interpretations. This kind of experience was difficult with terminal output alone.
+Open the HTML in a browser, feed `eis timeline --format json` output to an AI, and ask "What happened to this team in 2024-H2?" The AI reads the score changes, role transitions, and health metric movements — formulates hypotheses and offers interpretations. This kind of experience was difficult with terminal output alone.
 
 The team Health Metrics view is particularly interesting. Complementarity, Growth Potential, Sustainability, Debt Balance — you can see at a glance how these evolve across periods.
 
@@ -205,12 +205,16 @@ They might be **someone who bends the gravity of codebases**.
 
 ### Series
 
-- [Chapter 1: Measuring Real Engineering Impact from Git History Alone](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c)
-- [Chapter 2: Team Analysis — How Individual Scores Reveal Team Health](https://dev.to/machuz/git-archaeology-2-team-analysis-how-individual-scores-reveal-team-health-4e6a)
-- [Chapter 3: Archetypes — Behind the Numbers, There Are People](https://dev.to/machuz/git-archaeology-3-archetypes-behind-the-numbers-there-are-people-48kl)
-- [Chapter 4: The Normalization Trap — "Top in a Repo" Means Nothing](https://dev.to/machuz/git-archaeology-4-the-normalization-trap-top-of-a-repo-means-nothing-11c5)
-- [Chapter 5: Timeline — Scores Don't Lie, and They Capture Hesitation Too](https://dev.to/machuz/git-archaeology-5-timeline-scores-dont-lie-and-they-capture-hesitation-too-1gi5)
-- [Chapter 6: Teams Evolve — The Laws of Organization Revealed by Timelines](https://dev.to/machuz/git-archaeology-6-teams-evolve-the-laws-of-organization-revealed-by-timelines-4jf3)
+- [Chapter 1: Measuring Engineering Impact from Git History Alone](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c)
+- [Chapter 2: Beyond Individual Scores: Measuring Team Health from Git History](https://dev.to/machuz/git-archaeology-2-team-analysis-how-individual-scores-reveal-team-health-4e6a)
+- [Chapter 3: Two Paths to Architect: How Engineers Evolve Differently](https://dev.to/machuz/git-archaeology-3-archetypes-behind-the-numbers-there-are-people-48kl)
+- [Chapter 4: Backend Architects Converge: The Sacred Work of Laying Souls to Rest](https://dev.to/machuz/git-archaeology-4-the-normalization-trap-top-of-a-repo-means-nothing-11c5)
+- [Chapter 5: Timeline: Scores Don't Lie, and They Capture Hesitation Too](https://dev.to/machuz/git-archaeology-5-timeline-scores-dont-lie-and-they-capture-hesitation-too-1gi5)
+- [Chapter 6: Teams Evolve: The Laws of Organization Revealed by Timelines](https://dev.to/machuz/git-archaeology-6-teams-evolve-the-laws-of-organization-revealed-by-timelines-4jf3)
 - **Chapter 7: Observing the Universe of Code** (this post)
 
-**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score)
+**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
+
+If this was useful:
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
