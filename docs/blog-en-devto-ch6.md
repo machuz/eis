@@ -36,7 +36,7 @@ Plus Health metrics (Complementarity, Growth Potential, Sustainability, etc.) an
 
 ## Real Data: The Backend Team's Transformation
 
-![Backend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-backend-team-timeline.png)
+![Backend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-backend-team-timeline.png?v=2)
 
 (2024-H2 through 2025-H2 lack classification due to insufficient member count. Comparing 2024-H2 and 2026-H1.)
 
@@ -57,7 +57,7 @@ Engineer F's departure temporarily created a Design Vacuum. But machuz inherited
 
 Looking at Score Averages:
 
-![Backend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-backend-scores.png)
+![Backend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-backend-scores.png?v=2)
 
 Design at 36.4 is still low. Because Architect responsibility is concentrated in machuz alone. Other members' Design scores are mostly 0–30.
 
@@ -69,7 +69,7 @@ Design at 36.4 is still low. Because Architect responsibility is concentrated in
 
 Frontend has longer data coverage, making transitions easier to read.
 
-![Frontend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-frontend-team-timeline.png)
+![Frontend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-frontend-team-timeline.png?v=2)
 
 First thing that stands out: **Declining → Mature only happened in 2026-H1.** Later than Backend.
 
@@ -84,7 +84,7 @@ Engineer J settled into Producer in 2025-H2, and Engineer I sometimes oscillates
 
 One more interesting pattern in Frontend:
 
-![Frontend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-frontend-team-timeline.png)
+![Frontend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-frontend-team-timeline.png?v=2)
 
 **In 2025-H1, the team briefly became Factory / Delivery Team, then reverted.**
 
@@ -100,7 +100,7 @@ But that "maximum output" was temporary. The next half, it reverted to Guardian 
 
 ### Infra: Explorer / Emerging
 
-![Infra & Firmware](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-infra-firmware.png)
+![Infra & Firmware](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-infra-firmware.png?v=2)
 
 Explorer / Exploration / Emerging. **A team still taking shape.**
 
@@ -134,7 +134,7 @@ Here are the evolution models extracted from our timeline data.
 
 machuz's Backend timeline:
 
-![machuz Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-machuz-timeline.png)
+![machuz Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-machuz-timeline.png?v=2)
 
 **Anchor → Producer → Architect.**
 
@@ -148,7 +148,7 @@ This isn't "growing into an Architect." It's **"an existing architectural vision
 
 Meanwhile, Engineer I's Frontend timeline (from Chapter 5):
 
-![Architect by Q4](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-architect-quarter.png)
+![Architect by Q4](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-architect-quarter.png?v=2)
 
 **Architect by their second quarter.** Engineer I also had Architect experience externally. But unlike machuz, they shortened the adaptation period and immediately began designing with their own architectural approach.
 
@@ -167,19 +167,19 @@ Touched on in Chapter 5, but timelines make it clearer.
 
 **Backend:**
 
-![BE Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-be-architects.png)
+![BE Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-be-architects.png?v=2)
 
 As an observation, **there was never a period with two simultaneous Architects.** Engineer F stepped down before machuz's architecture became dominant. Whether this reflects a structural constraint of Backend's single design axis (one DB schema, one API convention) or simply the timing of architectural permeation is hard to determine from this sample alone. But at minimum, BE Architects tend to concentrate.
 
 **Frontend:**
 
-![FE Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-fe-architects.png)
+![FE Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-fe-architects.png?v=2)
 
 In Frontend, when Engineer I became Architect, Engineer J dropped to Anchor. **At first glance, it looks like the same "one seat" pattern.**
 
 But quarterly data (Chapter 5) reveals:
 
-![Simultaneous Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-simultaneous.png)
+![Simultaneous Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-simultaneous.png?v=2)
 
 **In 2025-Q2, two Architects existed simultaneously.**
 
@@ -199,7 +199,7 @@ The **Design Vacuum risk** in Frontend's team timeline is the flip side of this 
 
 Look at Engineer J's transitions again:
 
-![Engineer J Transitions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-engineer-j-transitions.png)
+![Engineer J Transitions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-engineer-j-transitions.png?v=2)
 
 **An Architect who finishes building structure becomes a Producer.**
 
@@ -213,7 +213,7 @@ The same pattern can be predicted for machuz's Backend. Currently maintaining 92
 
 This is where Backend's team Health metric becomes meaningful:
 
-![Growth Potential](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-health.png)
+![Growth Potential](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-health.png?v=2)
 
 Growth Potential at 20. **The seeds of the next-generation Architect are still weak.** This is Backend's medium-term risk.
 
@@ -223,7 +223,7 @@ Growth Potential at 20. **The seeds of the next-generation Architect are still w
 
 In the Frontend 6-month timeline, one engineer has a uniquely dramatic trajectory.
 
-![Engineer K](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-engineer-k.png)
+![Engineer K](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-engineer-k.png?v=2)
 
 **Total 87.8 in 2024-H1. Architect Builder.** Production 81, Survival 100, Design 100.
 
@@ -239,7 +239,7 @@ But as the team grew and other engineers (Engineer I, Engineer J) joined and beg
 
 This isn't failure. It's **proof of success.** Other engineers are building on top of the structure you created alone. That's why the score drops.
 
-![Gravity Transfer](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-gravity-transfer.png)
+![Gravity Transfer](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-gravity-transfer.png?v=2)
 
 **Engineer K's score transferred to Engineers I and J.** The total isn't conserved, but the generational transfer of structural influence is clear.
 
@@ -253,7 +253,7 @@ EIS captures both.
 
 Timeline data shows that **reaching Architect almost always requires passing through Builder**:
 
-![Evolution Paths](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-evolution-paths.png)
+![Evolution Paths](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-evolution-paths.png?v=2)
 
 machuz passed through Anchor Builder before reaching Architect. Engineer I went Architect Balanced → Architect Builder. Engineer J also went Architect Balanced → Architect Builder.
 
@@ -277,7 +277,7 @@ Look at Backend 2024-H2. machuz as Anchor Builder (76.4), Engineer F as Architec
 
 That period's team classification:
 
-![Producer Vacuum](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-producer-vacuum.png)
+![Producer Vacuum](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-producer-vacuum.png?v=2)
 
 **The Architect builds structure, the Anchor maintains it. But nobody is producing on top of that structure.**
 
@@ -285,7 +285,7 @@ Structure without production. That's Producer Vacuum.
 
 Compare with Backend 2026-H1:
 
-![Effective Members](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-effective-members.png)
+![Effective Members](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-effective-members.png?v=2)
 
 machuz (Architect Builder) plus multiple Anchors/Producers. People producing on top of the structure. That's why it reached Elite / Architectural Engine.
 
@@ -297,7 +297,7 @@ machuz (Architect Builder) plus multiple Anchors/Producers. People producing on 
 
 Look at machuz's timeline one more time:
 
-![machuz Phases](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-machuz-phases.png)
+![machuz Phases](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-machuz-phases.png?v=2)
 
 **Architect Builder appeared in the numbers after passing through a Producer phase in 2025-H1.**
 
@@ -319,7 +319,7 @@ Engineer I could become Architect immediately after joining because, we can infe
 
 Here are the evolution models extracted from timelines:
 
-![Evolution Model](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-evolution-model.png)
+![Evolution Model](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-evolution-model.png?v=2)
 
 These laws were inductively derived from our team's real data. Whether the same laws hold for other teams is unknown.
 
@@ -331,7 +331,7 @@ But with `eis timeline`, **you can discover your own team's laws yourself.**
 
 ### 1. Organizational Review
 
-![Timeline Command](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-bash-timeline.png)
+![Timeline Command](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-bash-timeline.png?v=2)
 
 Generate half-year team timelines and track Phase / Risk trends. If Declining persists, something needs to change.
 

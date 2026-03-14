@@ -52,7 +52,7 @@ To fix this, the model applies **time-decayed survival**. Recent code counts far
 | 1 year | 0.13 |
 | 2 years | 0.02 |
 
-![Time-decayed Survival Weight curve showing exponential decay over 730 days](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/survival-decay-curve.png)
+![Time-decayed Survival Weight curve showing exponential decay over 730 days](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/survival-decay-curve.png?v=2)
 *Time-decayed survival gives much more weight to recently written code than legacy code that simply remains untouched.*
 
 This means departed team members' scores naturally decay over time — solving the problem of someone who wrote a ton of code during the founding era dominating the leaderboard forever.
@@ -63,7 +63,7 @@ It approximates **who is currently writing durable code**, not who wrote the mos
 
 ## The 7 Axes of Engineering Impact
 
-![Framework overview: Git History flows through 7 signals into Engineering Impact Score](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png)
+![Framework overview: Git History flows through 7 signals into Engineering Impact Score](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png?v=2)
 *The Engineering Impact Score aggregates seven observable signals derived from git history.*
 
 | Axis | Weight | What it captures |
@@ -92,7 +92,7 @@ Commit counts are unreliable. Some engineers make large commits. Others split wo
 
 We measure `insertions + deletions` per day, using **absolute scoring**:
 
-![Production Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-production.png)
+![Production Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-production.png?v=2)
 
 The daily rate is computed from total changes divided by the span between the author's first and last commit. The reference (`production_daily_ref`, default 1000) is configurable.
 
@@ -108,7 +108,7 @@ Auto-generated files are excluded:
 
 ## Quality: The Fix Ratio
 
-![Quality Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-quality.png)
+![Quality Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-quality.png?v=2)
 
 Fix commits are detected using patterns like `fix`, `revert`, `hotfix`, plus language-specific keywords (e.g. `修正` in Japanese teams — if you don't catch these, accuracy drops for non-English teams).
 
@@ -124,7 +124,7 @@ This is the heart of the model.
 
 Naive git blame gives high scores to "someone who wrote a lot of code three years ago and hasn't done anything since." That's wrong. What we want to know is: **are you actively writing good designs right now?**
 
-![Survival Calculation](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-code-survival.png)
+![Survival Calculation](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-code-survival.png?v=2)
 
 Each surviving line contributes a decayed weight to its author. Engineers whose code remains stable accumulate high survival scores. Engineers whose code is constantly rewritten do not.
 
@@ -169,7 +169,7 @@ How many repositories does an engineer contribute to? Simple, but it cleanly sep
 
 One of the most revealing metrics. When a fix commit modifies code, we check **who originally wrote those lines**.
 
-![Debt Cleanup Tracking](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-code-debt.png)
+![Debt Cleanup Tracking](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-code-debt.png?v=2)
 
 The moment I added this metric, the "silent hero" on my team became visible — someone who quietly fixed everyone else's bugs, all the time. Conversely, the "high-output engineer who generates fix work for everyone around them" also became impossible to ignore.
 
@@ -179,7 +179,7 @@ The moment I added this metric, the "silent hero" on my team became visible — 
 
 ## Indispensability: Bus Factor Risk
 
-![Indispensability Detection](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-code-indispensability.png)
+![Indispensability Detection](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-code-indispensability.png?v=2)
 
 If one engineer owns more than 80% of the lines in a module, that module becomes a **bus factor risk**. High indispensability means both expertise *and* organizational fragility — which is why the weight is only 5%. It's as much a **handoff priority alert** as it is an evaluation metric.
 
@@ -201,7 +201,7 @@ Metrics use a **hybrid approach**:
 
 Scored per domain (Backend / Frontend / Infra / Firmware separately). Domain is auto-detected from file extensions or configured explicitly.
 
-![Total Score Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-total.png)
+![Total Score Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-total.png?v=2)
 
 The scale is intentionally strict.
 
@@ -220,7 +220,7 @@ Comp figures are rough estimates and vary significantly by market (SF vs. Midwes
 
 **One critical caveat.** EIS measures **impact on *this* codebase**, not absolute engineering ability. A high score means "on this codebase, this person's code is surviving, shaping architecture, and cleaning up debt." It does *not* mean they are a better engineer than someone with a lower score. High Survival might even mean the code can't be refactored away because the design is poor — not that the code itself is good. If scores don't match your gut feeling, that's a signal worth investigating: it may reveal codebase design issues rather than people issues. The real question is whether someone can maintain their score under *good* design — that's where true ability shows.
 
-![Score Guide](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png)
+![Score Guide](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png?v=2)
 
 ---
 
@@ -232,7 +232,7 @@ An engineer can be an Architect in *role*, a Builder in *style*, and Active in *
 
 Starting in v0.9.0, the model decomposes engineer topology into **three independent axes**:
 
-![Engineering Archetypes plotted in Production vs Survival space](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-archetypes-paper-figure.png)
+![Engineering Archetypes plotted in Production vs Survival space](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-archetypes-paper-figure.png?v=2)
 *Different engineer profiles emerge naturally when production and time-decayed survival are plotted together.*
 
 ### Axis 1: Role — *What* they contribute
@@ -290,7 +290,7 @@ The 7-axis score tells you *how strong* an engineer is. The 3-axis topology tell
 
 That's what **Gravity** measures.
 
-![Gravity Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-gravity.png)
+![Gravity Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-gravity.png?v=2)
 
 It combines module ownership (bus factor risk), cross-cutting reach (breadth), and architectural involvement (design) into a single number that approximates **structural pull** — how much of the system's shape is determined by this person.
 
@@ -300,7 +300,7 @@ A high-quality engineer with high Gravity is exerting *healthy structural influe
 
 This is expressed through color:
 
-![Gravity Health](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-gravity-health.png)
+![Gravity Health](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-gravity-health.png?v=2)
 
 In practice, this reveals striking patterns. On my backend team, my own Gravity is 97 (green) — Design 100, Survival 100, and Indispensability 43 indicate well-distributed structural influence backed by durable code. On another domain, one member has Gravity 100 (red) — extremely high Indispensability means they own the vast majority of modules, but quality is lacking. **"If this person leaves, everything collapses" AND "the code itself is fragile"** — the most dangerous combination, instantly visible as red gravity.
 
@@ -318,7 +318,7 @@ Yes, I score highest. I'm the tech lead and I designed the metric — if the per
 
 ### Backend Rankings (Excerpt)
 
-![Backend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-backend-table.png)
+![Backend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-backend-table.png?v=2)
 
 † Insufficient sample (fewer than 10 fix-commit involvements). Neutral value 50 used in total score calculation.
 
@@ -332,7 +332,7 @@ My own Quality of 57 is low, reflecting aggressive architectural changes (introd
 
 ### Frontend Rankings (Excerpt)
 
-![Frontend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-frontend-table.png)
+![Frontend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-frontend-table.png?v=2)
 
 **Member D** owns essentially all of the frontend core library (180K+ lines). Indispensability 100 — same structural risk as Member A on the backend. **If this person leaves, there is nobody who can make frontend design decisions.** Debt Cleanup 39 is mid-range within FE, but with 129 self-fixes, it shows a self-contained work style: write it, fix it yourself.
 
@@ -467,9 +467,9 @@ Numbers don't lie.
 
 This started as a blog post and a Claude Code experiment. The formulas are now baked into a standalone CLI — **zero AI tokens, zero API keys, zero cloud dependency.**
 
-![Install](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-bash-install.png)
+![Install](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-bash-install.png?v=2)
 
-![Usage](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-bash-usage.png)
+![Usage](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-bash-usage.png?v=2)
 
 Runs in seconds to minutes. Color-coded output with 7-axis scores, 3-axis topology (Role / Style / State), and Bus Factor risks — right in your terminal.
 
