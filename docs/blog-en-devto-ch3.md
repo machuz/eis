@@ -230,6 +230,22 @@ Because **the current structure and the next structure coexist**.
 
 ---
 
+## Why These Three Roles Exist
+
+Step back and think about it from an ecological perspective.
+
+A codebase ecosystem requires three roles:
+
+- **Architect** = **Creates** structure. Shapes the terrain, builds an environment where others can thrive
+- **Anchor** = **Maintains** structure. Stabilizes the soil, prevents ecosystem collapse
+- **Producer** = **Extends** structure. Thrives on existing ground, generates user value
+
+Remove any one and the ecosystem breaks. Architects alone create structure but no features. Producers alone build features but structure crumbles. Without Anchors, both structure and features rot over time.
+
+**A healthy codebase has all three coexisting.**
+
+---
+
 ## Two Evolution Paths
 
 Now for the main thesis.

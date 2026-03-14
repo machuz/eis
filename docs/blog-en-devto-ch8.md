@@ -87,6 +87,12 @@ There's a "normalization trap" here. EIS's relative normalization means the top 
 
 That's Engineering Relativity.
 
+Let me be explicit about something important:
+
+**EIS does not directly measure an engineer's ability. It measures their impact within a code universe.**
+
+Ability and impact are different things. A highly capable engineer may show modest impact in a universe with strong existing gravity. An average engineer may show outsized impact in a young universe. What EIS measures is "how much gravity did this engineer create in this universe" — not "how talented is this engineer."
+
 ---
 
 ## Reading EIS with Relativity in Mind

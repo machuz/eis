@@ -23,6 +23,10 @@ Those intuitions exist, but they are rarely measurable. In salary negotiations, 
 
 I also wanted proof of something I already felt: that my current team is one of the strongest I've ever worked with.
 
+The trigger was simple: **I knew this team was strong. But I had no words to explain it.**
+
+I wanted to say "this team is seriously good" — but I had no evidence. Not volume of voice, not politics, but **facts recorded in code**. That's what I wanted to speak with.
+
 So one evening, drinking and pair-programming with Claude Code, I built a scoring model that uses **nothing but git history** — and the results matched my gut feeling with eerie accuracy.
 
 I jokingly call it an engineer's **"combat power."** But what it actually measures is something more precise:

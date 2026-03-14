@@ -58,6 +58,8 @@ In EIS terms, this is an **Architect**. High Design axis, high Survival axis. Me
 
 This is the gravity of a codebase.
 
+Every codebase has an invisible **structural gravitational field**. New code is pulled into place by existing gravity. New engineers learn design by following the gravitational field. The stronger the field, the more stable the structure. The weaker it is, the more things drift toward chaos.
+
 ---
 
 ## A Universe with Only One Gravity
