@@ -10,7 +10,7 @@ cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/m
 
 ## Previously
 
-In [Chapter 9](https://dev.to/machuz/git-archaeology-9-origin-the-big-bang-of-code-universes-SLUG), I wrote about Origin — the Big Bang and the first commit of code universes.
+In [Chapter 9](https://dev.to/machuz/git-archaeology-9-collapse-good-architects-and-black-hole-engineers-1dcn), I wrote about Origin — the Big Bang and the first commit of code universes.
 
 This time, I write about another force that exists in the universe.
 
@@ -138,8 +138,11 @@ When using EIS, always be aware of dark matter's existence.
 - [Chapter 6: Teams Evolve: The Laws of Organization Revealed by Timelines](https://dev.to/machuz/git-archaeology-6-teams-evolve-the-laws-of-organization-revealed-by-timelines-4jf3)
 - [Chapter 7: Observing the Universe of Code](https://dev.to/machuz/git-archaeology-7-observing-the-universe-of-code-1op0)
 - [Chapter 8: Engineering Relativity: Why the Same Engineer Gets Different Scores](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl)
-- [Chapter 9: Origin: The Big Bang of Code Universes](https://dev.to/machuz/git-archaeology-9-origin-the-big-bang-of-code-universes-SLUG)
+- [Chapter 9: Origin: The Big Bang of Code Universes](https://dev.to/machuz/git-archaeology-9-collapse-good-architects-and-black-hole-engineers-1dcn)
 - **Chapter 10: Dark Matter: The Invisible Gravity** (this post)
+- [Chapter 11: Entropy: The Universe Always Tends Toward Disorder](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-ak9)
+- [Chapter 12: Collapse: Good Architects and Black Hole Engineers](https://dev.to/machuz/git-archaeology-12-collapse-good-architects-and-black-hole-engineers-3fed)
+- [Chapter 13: Cosmology of Code](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-dci)
 
 **GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 
@@ -149,4 +152,4 @@ If this was useful:
 
 ---
 
-← [Chapter 9: Origin](https://dev.to/machuz/git-archaeology-9-origin-the-big-bang-of-code-universes-SLUG) | [Chapter 11: Entropy →](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-SLUG)
+← [Chapter 9: Origin](https://dev.to/machuz/git-archaeology-9-collapse-good-architects-and-black-hole-engineers-1dcn) | [Chapter 11: Entropy →](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-ak9)
