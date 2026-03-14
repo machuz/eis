@@ -6,11 +6,20 @@ on:
     paths:
       - 'docs/blog-*.md'
 
-  # Manual trigger for republishing
+  # Manual trigger
   workflow_dispatch:
     inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        type: choice
+        options:
+          - init
+          - publish-all
+          - publish-file
+        default: 'init'
       file:
-        description: 'Specific file to publish (e.g. docs/blog-en-devto-ch8.md), or "all" for all blog files'
+        description: 'File path (only for publish-file, e.g. docs/blog-en-devto-ch8.md)'
         required: false
         default: ''
 
@@ -35,8 +44,17 @@ jobs:
           HATENA_API_KEY: ${{ secrets.HATENA_API_KEY }}
         run: python scripts/publish-blog.py --changed
 
-      - name: Publish specific file (manual)
-        if: github.event_name == 'workflow_dispatch' && inputs.file != '' && inputs.file != 'all'
+      - name: Initialize mapping
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'init'
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          HATENA_USER_ID: ${{ secrets.HATENA_USER_ID }}
+          HATENA_BLOG_ID: ${{ secrets.HATENA_BLOG_ID }}
+          HATENA_API_KEY: ${{ secrets.HATENA_API_KEY }}
+        run: python scripts/publish-blog.py --init
+
+      - name: Publish specific file
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'publish-file'
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           HATENA_USER_ID: ${{ secrets.HATENA_USER_ID }}
@@ -44,8 +62,8 @@ jobs:
           HATENA_API_KEY: ${{ secrets.HATENA_API_KEY }}
         run: python scripts/publish-blog.py "${{ inputs.file }}"
 
-      - name: Publish all blog posts (manual)
-        if: github.event_name == 'workflow_dispatch' && inputs.file == 'all'
+      - name: Publish all blog posts
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'publish-all'
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           HATENA_USER_ID: ${{ secrets.HATENA_USER_ID }}
