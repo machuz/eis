@@ -4,7 +4,7 @@
 
 ### 前章までのあらすじ
 
-[第4章](https://ma2k8.hateblo.jp/entry/2026/03/14/xxxxxx)では、BackendチームのArchitect集中構造と、退職したArchitectの「成仏」について語った。
+[第4章](https://ma2k8.hateblo.jp/entry/2026/03/14/155124)では、BackendチームのArchitect集中構造と、退職したArchitectの「成仏」について語った。
 
 しかしあの分析には限界がある。**ある一時点のスナップショットでしかない**。
 

@@ -4,7 +4,7 @@
 
 ### 前章までのあらすじ
 
-[第5章](https://ma2k8.hateblo.jp/entry/2026/03/14/xxxxxx)では `eis timeline` で個人のタイムラインを追い、Engineer Fの退場とmachuzのアーキテクチャ浸透、Engineer Iの「遠慮」と復帰を読み取った。
+[第5章](https://ma2k8.hateblo.jp/entry/2026/03/14/180329)では `eis timeline` で個人のタイムラインを追い、Engineer Fの退場とmachuzのアーキテクチャ浸透、Engineer Iの「遠慮」と復帰を読み取った。
 
 しかしあれは個人の話だった。**チームは個人の集合体だ。** 個人が変われば、チームの性質も変わる。
 

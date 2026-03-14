@@ -4,7 +4,7 @@
 
 ### 前章までのあらすじ
 
-[第3章](https://ma2k8.hateblo.jp/entry/2026/03/14/xxxxxx)では、FEチームを題材に、Architectには2つの進化経路があることを紹介した。
+[第3章](https://ma2k8.hateblo.jp/entry/2026/03/14/135648)では、FEチームを題材に、Architectには2つの進化経路があることを紹介した。
 
 - **継承型Architect**: Anchor → 既存構造を守り洗練
 - **創発型Architect**: High-Gravity Producer → 新しい重力場を創発
