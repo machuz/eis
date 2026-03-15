@@ -230,9 +230,11 @@ Observe the team's starlight — the track record preserved in commits — throu
 
 As I wrote in Chapter 10, dark matter doesn't appear in commits. Design discussions, spec negotiations, technical persuasion — none of these become starlight.
 
-But if the telescope accurately captures the team's starlight, **the existence of dark matter becomes believable too.**
+But if the telescope accurately captures the team's starlight, **dark matter starts to believe in the existence and value of the stars.**
 
-"A team that emits this kind of starlight is working at the same density in the invisible places too" — that becomes a credible argument.
+Just as starlight cannot see dark matter, dark matter could not see us either.
+
+The telescope bridges that gap. "A team that emits this kind of starlight is working at the same density in the invisible places too" — that becomes a credible argument.
 
 When EIS functions as negotiation material for building better things — that's the ultimate reward for its creator.
 
