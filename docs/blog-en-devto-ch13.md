@@ -277,11 +277,17 @@ R.S. also appears in the FE domain in Growing state. A backend engineer reaching
 
 **BE P. — The other gravity supporting the crunch:**
 
-| Author | Q3 | Q4 | Q1 | Lines(Q1) | Role | Style |
-|---|---|---|---|---|---|---|
-| P. | 34.2 | 51.4 | 40.0 | +42k/-12k | Anchor | **Mass** |
+| Period | Total | Prod | Quality | Design | Debt | Lines | Commits | Role | Style | State |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2025-Q3 | 35.5 | 42 | **94** | 12 | 26 | +28k/-10k | 296 | Anchor | Balanced | Active |
+| 2025-Q4 | **48.3** | **100** | **98** | 13 | **55** | +52k/-92k | 438 | Anchor | **Mass** | Active |
+| 2026-Q1 | 37.6 | 60 | 80 | 13 | 30 | +41k/-11k | **502** | Anchor | Mass | Active |
 
-P. with Mass style — charging forward with high-volume commits, supporting the crunch. And P. was simultaneously handling the handover and deadlines of an entirely separate domain while putting up these scores. The coordination and knowledge transfer that don't appear in commits — the ratio of dark matter work was enormous.
+P. with Mass style — charging forward with high-volume commits, supporting the crunch.
+
+The standout metric is Quality — **94→98→80**. Maintaining this quality while operating in Mass style is an anomaly. In Q4, Prod=100 and Quality=98 simultaneously — pushing both volume and quality to extremes at the same time. Lines +52k/-92k reveals that this development involved large-scale refactoring of existing code.
+
+And P. was simultaneously handling the handover and deadlines of an entirely separate domain while putting up these scores. The coordination and knowledge transfer that don't appear in commits — the ratio of dark matter work was enormous.
 
 **FE O. — Laid the foundation, then committed to the finish:**
 
