@@ -303,7 +303,7 @@ And Debt Cleanup — 54 → 58 → 35. Quietly fixing other people's bugs. Resol
 
 R.S. also appears in the FE domain in Growing state. A backend engineer reaching into frontend territory.
 
-**When you see an engineer hovering around Total 40, do you see "mid-tier"? Or do you see "stabilizing the team's gravitational field while guarding the last line of user experience"?** As the name Anchor implies — without this person, the team's gravity would have wavered.
+**Stabilizing the team's gravitational field while guarding the last line of user experience.** As the name Anchor implies — without this person, the team's gravity would have wavered.
 
 **BE P. — The other gravity supporting the crunch:**
 
@@ -351,7 +351,7 @@ The key metric is Survival — **79 rising to 90.** High Survival means the code
 
 In Q4, Design drops to 0 and Production falls. This isn't decline — it's a shift from building new structure to **polishing and perfecting the existing design for the end user.** And the polish was right — users have been sending overwhelmingly positive feedback.
 
-**An engineer whose scores look low may actually be determining the product's value.** This is the dark matter of Chapter 10, in the flesh.
+**Not generating high gravity, but an engineer who can move like this is the one actually determining the product's value.** This is the dark matter of Chapter 10, in the flesh.
 
 **FE H. — The struggle of knowledge transfer:**
 
