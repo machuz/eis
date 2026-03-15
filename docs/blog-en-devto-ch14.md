@@ -276,6 +276,26 @@ In OSS civilization, CONTRIBUTING guides and architecture documents are the **le
 
 ---
 
+## When Civilization Becomes Culture
+
+Civilization was about structure persisting beyond time.
+
+But there is a stage beyond.
+
+When structure begins to change how people behave — it becomes **culture.**
+
+Imagine two Architects committing different design philosophies to the same module. In verbal design debates, the loudest voice might win. But run `eis timeline` and track the Design axis — history shows which design survived, which generated gravity.
+
+**Code becomes the judge.**
+
+In early Silicon Valley, they say that simply posting task progress on a board was enough to make talented engineers compete with natural intensity. That wasn't visibility creating competition. **It was visibility creating pride.**
+
+Run `eis timeline` every week. See what gravity you left behind. When that becomes a team's routine — culture already exists.
+
+Civilization is structure surviving after the Architect leaves. Culture is **the next Architect emerging naturally** without anyone forcing it. Structure changes behavior, behavior creates new structure. When that cycle starts turning, a codebase transcends civilization and becomes culture.
+
+---
+
 ## Our Civilization
 
 Let me be honest.
@@ -291,7 +311,7 @@ But the team I described in Chapter 13 shows **signs**:
 
 Whether we become a civilization depends on what comes next.
 
-But we have proof from another universe. In past codebases, we built structure that survived beyond team turnover. So I'm confident. **The conviction that this team can build a civilization — that was taught to us by a previous universe.**
+But we have proof from another universe. In past codebases, we built structure that survived beyond team turnover. And the culture we shared in that previous universe — the culture of visualizing design gravity, of taking pride in structure — we've carried it into this team. So I'm confident. **The conviction that this team can build a civilization — that was taught to us by a previous universe.**
 
 **Will this structure survive after I leave?**
 
