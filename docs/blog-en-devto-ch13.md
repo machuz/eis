@@ -339,7 +339,7 @@ But H. is fundamentally an emergent Architect — someone who creates structure 
 
 Meanwhile, Dormant drops from 31 → 3 → 10. Even in low change-pressure areas, survival rates fell — the new infrastructure's ripple effects reached the entire existing structure. **Watching your own architecture get rewritten by another engineer.** The numbers capture that struggle.
 
-And yet Quality — **80 → 96 → 94.** Even while being rewritten, code quality never drops. Absorbing the reality of replacement while actually improving the precision of every line written.
+And yet Quality — **80 → 96 → 94.** On a high-quality, high-gravity field, continuing to build new code even while being rewritten.
 
 Q2 Lines = +75k/-133k — deletions far exceed additions. Evidence of restructuring and cleaning up existing architecture. From Q3 onward, +78k/-75k and +25k/-13k stabilize, showing continued forward momentum even while being rewritten.
 
