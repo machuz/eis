@@ -3,12 +3,12 @@ title: "Git Archaeology #13 — Cosmology of Code"
 published: true
 description: "Final chapter of Engineering Impact Score. Git archaeology is the astronomy of code universes."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch13.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch13.png?v=4
 ---
 
 *Git archaeology is the astronomy of code universes.*
 
-![Code cosmology star map](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch13-iconic.png?v=3)
+![Code cosmology star map](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch13-iconic.png?v=4)
 
 ## Previously
 

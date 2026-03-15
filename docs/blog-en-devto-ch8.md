@@ -3,12 +3,12 @@ title: "Git Archaeology #8 — Engineering Relativity: Why the Same Engineer Get
 published: true
 description: "Chapter 8 of Engineering Impact Score. The same engineer produces different EIS scores in different codebases — and that's not a bug, it's physics."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch8.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch8.png?v=4
 ---
 
 *The same object is lighter on the Moon and heavier on Jupiter. The same thing happens in codebases.*
 
-![Same engineer, different scores across repos](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch8-iconic.png?v=3)
+![Same engineer, different scores across repos](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch8-iconic.png?v=4)
 
 ## Previously
 

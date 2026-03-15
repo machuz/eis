@@ -3,12 +3,12 @@ title: "Git Archaeology #12 — Collapse: Good Architects and Black Hole Enginee
 published: true
 description: "Chapter 12 of Engineering Impact Score. Not all strong gravity is good gravity. Some engineers create structure that survives their departure. Others create gravity that collapses without them."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch12.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch12.png?v=4
 ---
 
 *The universe has another property. Collapse.*
 
-![Good Architect vs Black Hole Engineer](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch12-iconic.png?v=3)
+![Good Architect vs Black Hole Engineer](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch12-iconic.png?v=4)
 
 ## Previously
 

@@ -3,12 +3,12 @@ title: "Git Archaeology #11 — Entropy: The Universe Always Tends Toward Disord
 published: true
 description: "Chapter 11 of Engineering Impact Score. Entropy always increases. Engineers fight it."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch11.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch11.png?v=4
 ---
 
 *Entropy always increases. Engineers fight it.*
 
-![Entropy — ordered blocks decay into disorder](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch11-iconic.png?v=3)
+![Entropy — ordered blocks decay into disorder](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch11-iconic.png?v=4)
 
 ## Previously
 

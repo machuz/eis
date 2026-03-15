@@ -3,12 +3,12 @@ title: "Git Archaeology #1 — Measuring Engineering Impact from Git History Alo
 published: true
 description: A 7-axis scoring model that quantifies engineer impact using nothing but git log and git blame. Code survival, debt cleanup, bus factor — all from data you already have.
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch1.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch1.png?v=4
 ---
 
 *Why commit counts, PR counts, and lines of code fail to capture real engineering strength*
 
-![7-axis score visualization](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-iconic.png?v=3)
+![7-axis score visualization](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-iconic.png?v=4)
 
 I lead backend and infrastructure for a mid-sized product team. As the team grew, something kept nagging at me: **how do you quantify how strong an engineer actually is?**
 

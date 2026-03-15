@@ -3,12 +3,12 @@ title: "Git Archaeology #9 — Origin: The Big Bang of Code Universes"
 published: true
 description: "Chapter 9 of Engineering Impact Score. Every universe has an origin. In code universes, it's the first commit."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch9.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch9.png?v=4
 ---
 
 *Every universe has an origin. In code universes, it's the first commit.*
 
-![Big Bang — the origin of a code universe](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-iconic.png?v=3)
+![Big Bang — the origin of a code universe](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-iconic.png?v=4)
 
 ## Previously
 

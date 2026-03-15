@@ -3,12 +3,12 @@ title: "Git Archaeology #10 — Dark Matter: The Invisible Gravity"
 published: true
 description: "Chapter 10 of Engineering Impact Score. Most of the universe's mass is invisible. The same is true in code universes."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch10.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch10.png?v=4
 ---
 
 *Most of the universe's mass cannot be observed. The same is true in code universes.*
 
-![Dark Matter — visible vs invisible contributions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch10-iconic.png?v=3)
+![Dark Matter — visible vs invisible contributions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch10-iconic.png?v=4)
 
 ## Previously
 

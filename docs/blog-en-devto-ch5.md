@@ -3,12 +3,12 @@ title: "Git Archaeology #5 — Timeline: Scores Don't Lie, and They Capture Hesi
 published: true
 description: "Chapter 5 of Engineering Impact Score. When you line up quarterly snapshots, numbers start telling stories — including the ones people don't talk about."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch5.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch5.png?v=4
 ---
 
 *When you line up quarterly snapshots, numbers start telling stories.*
 
-![Timeline with role transitions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-iconic.png?v=3)
+![Timeline with role transitions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-iconic.png?v=4)
 
 ## Previously
 

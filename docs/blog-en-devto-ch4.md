@@ -3,12 +3,12 @@ title: "Git Archaeology #4 — Backend Architects Converge: The Sacred Work of L
 published: true
 description: "Chapter 4 of Engineering Impact Score. Backend teams evolve differently — and departed Architects leave souls that must be laid to rest."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch4.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch4.png?v=4
 ---
 
 *Departed Architects leave souls in the codebase. Laying them to rest is sacred work.*
 
-![Convergence — multiple paths to one architectural destination](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-iconic.png?v=3)
+![Convergence — multiple paths to one architectural destination](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-iconic.png?v=4)
 
 ## Previously
 
@@ -257,7 +257,7 @@ Backend Architects are characterized by **being able to reproduce structure**.
 
 Say a design like this worked in one codebase:
 
-![Design pattern: Domain + Presentation + UseCase + Infrastructure](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-design-pattern.png?v=3)
+![Design pattern: Domain + Presentation + UseCase + Infrastructure](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-design-pattern.png?v=4)
 
 A skilled Backend Architect can **reproduce that structure in a different system**.
 
