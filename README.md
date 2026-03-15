@@ -18,7 +18,7 @@ Point it at a codebase, and hidden patterns emerge:
 
 - **Architects** — who actually shaped the system's structure
 - **Anchors** — the quiet forces holding the system together
-- **Dark matter** — silent contributions invisible to naive metrics
+- **Dark matter** — invisible work that stabilizes the system
 - **Collapse risk** — bus-factor concentrations before they become emergencies
 - **Entropy** — where code is decaying and who is fighting it
 
