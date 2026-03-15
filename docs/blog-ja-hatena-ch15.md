@@ -6,7 +6,7 @@
 
 ### 前章までのあらすじ
 
-[第14章](https://ma2k8.hateblo.jp/entry/2026/03/15/062612)ではCivilization——なぜ一部のコードベースだけが文明になるのか——について書いた。
+[第14章](https://ma2k8.hateblo.jp/entry/2026/03/15/215211)ではCivilization——なぜ一部のコードベースだけが文明になるのか——について書いた。
 
 文明の三要素：Architect（構造を作る）、Anchor（秩序を維持する）、Producer（領土を拡張する）。
 
@@ -495,9 +495,9 @@ AI時代にこそ、望遠鏡を覗いてほしい。あなたのコード宇宙
 - [第11章：Entropy：宇宙は常に無秩序に向かう](https://ma2k8.hateblo.jp/entry/2026/03/15/062609)
 - [第12章：Collapse：良いArchitectとBlack Hole Engineer](https://ma2k8.hateblo.jp/entry/2026/03/15/062610)
 - [第13章：Cosmology of Code：コード宇宙論](https://ma2k8.hateblo.jp/entry/2026/03/15/062611)
-- [第14章：Civilization：なぜ一部のコードベースだけが文明になるのか](https://ma2k8.hateblo.jp/entry/2026/03/15/062612)
+- [第14章：Civilization：なぜ一部のコードベースだけが文明になるのか](https://ma2k8.hateblo.jp/entry/2026/03/15/215211)
 - **第15章：AI Creates Stars, Not Gravity**（本記事）
-- [第16章：The Engineers Who Shape Gravity：重力を作るエンジニアたち](https://ma2k8.hateblo.jp/entry/2026/03/15/062614) — **最終章**
+- [第16章：The Engineers Who Shape Gravity：重力を作るエンジニアたち](https://ma2k8.hateblo.jp/entry/2026/03/15/231040) — **最終章**
 
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
 
@@ -511,4 +511,4 @@ PayPay: `w_machu7`
 
 ---
 
-← [第14章：Civilization](https://ma2k8.hateblo.jp/entry/2026/03/15/062612) | [第16章：The Engineers Who Shape Gravity →](https://ma2k8.hateblo.jp/entry/2026/03/15/062614)
+← [第14章：Civilization](https://ma2k8.hateblo.jp/entry/2026/03/15/215211) | [第16章：The Engineers Who Shape Gravity →](https://ma2k8.hateblo.jp/entry/2026/03/15/231040)
