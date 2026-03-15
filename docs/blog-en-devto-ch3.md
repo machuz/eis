@@ -41,21 +41,21 @@ The scores consistently matched my intuition.
 
 Looking at one frontend team's EIS data, I started seeing the evolution paths emerge.
 
-![Engineer Archetypes](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-engineer-profiles.png?v=4)
+![R.M.rchetypes](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-engineer-profiles.png?v=4)
 
 ---
 
-**Engineer A** — Architect / Builder / Active
+**R.M.** — Architect / Builder / Active
 
 The structural center of the team. This is the team's gravitational core.
 
 ---
 
-**Engineer B** — Anchor / Mass / Active
+**H.** — Anchor / Mass / Active
 
 Producing like crazy. But Robust is only 11.
 
-Most of their code gets rewritten by Engineer A.
+Most of their code gets rewritten by R.M..
 
 But **they keep producing until 11% survives**.
 
@@ -65,7 +65,7 @@ This isn't just "immature." They're in the early stage of an Anchor-to-Architect
 
 ---
 
-**Engineer C** — Producer / Balanced / Active
+**K.M.** — Producer / Balanced / Active
 
 The one who listens to everyone, synthesizes feedback, and writes code that reflects the team's consensus.
 
@@ -77,7 +77,7 @@ They haven't created gravitational code yet — the kind everyone else builds on
 
 ---
 
-**Engineer D** — Producer / Emergent / Active (High Gravity)
+**O.** — Producer / Emergent / Active (High Gravity)
 
 The only one outside the Architect **generating real gravity**.
 
@@ -87,11 +87,11 @@ But Dormant is high — **much of their code hasn't been touched by others yet**
 
 And Robust is low.
 
-**This is the number that shows Engineer D's struggle most clearly.** Their gravitational field is getting overwritten. The code they shaped is being reshaped.
+**This is the number that shows O.'s struggle most clearly.** Their gravitational field is getting overwritten. The code they shaped is being reshaped.
 
 But it's not all gone. Some of it remains. You can't feel that intuitively — but the metrics pick it up.
 
-In fact, while writing this article and analyzing Engineer D's state, I realized something.
+In fact, while writing this article and analyzing O.'s state, I realized something.
 
 "High Gravity + producing code + but low Robust" — this combination wasn't captured by existing Styles. It was being labeled Balanced, but that's wrong. **This is exactly what an Emergent Architect candidate looks like.**
 
@@ -107,7 +107,7 @@ Emergent means "not yet fully formed, but coming into being."
 
 ---
 
-**Engineer E** — Producer / Churn / —
+**X.** — Producer / Churn / —
 
 The more they write, the more debt they create.
 
@@ -123,9 +123,9 @@ Here's what struck me looking at this data.
 
 **These metrics visualize the stories that accumulate day by day.**
 
-Engineer B: "Producing like mad, but only 11% survives. And yet — still producing." That's pain. But it's also grit. Both show up in the numbers.
+H.: "Producing like mad, but only 11% survives. And yet — still producing." That's pain. But it's also grit. Both show up in the numbers.
 
-Engineer D: "Has gravity. But keeps getting overwritten. But not completely erased." That's pain too. But something remains. Something you can't feel intuitively — but the metrics catch it.
+O.: "Has gravity. But keeps getting overwritten. But not completely erased." That's pain too. But something remains. Something you can't feel intuitively — but the metrics catch it.
 
 **Cold numbers turn out to be the most emotional.**
 
@@ -143,15 +143,15 @@ EIS calculates Gravity as:
 
 ![Gravity Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-gravity.png?v=4)
 
-For Engineer D:
+For O.:
 
-![Engineer D Gravity Calculation](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-gravity-calc-d.png?v=4)
+![O. Gravity Calculation](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-gravity-calc-d.png?v=4)
 
 Most of that 68 comes from **Indispensability (sole ownership) and Breadth (spread)**. Design is only 5. This isn't "structural center" — it's "widely held by one person."
 
-For Engineer A:
+For R.M.:
 
-![Engineer A Gravity Calculation](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-gravity-calc-a.png?v=4)
+![R.M. Gravity Calculation](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-gravity-calc-a.png?v=4)
 
 Design 100 drives this Gravity. They're creating the structural center.
 
@@ -171,9 +171,9 @@ Indispensability-based. Widely held by one person. Nobody else has touched it.
 
 When we say "engineers who create gravity are rare" or "great engineers generate gravity wherever they go" — **these two types are qualitatively different**.
 
-Engineer A has structural gravity. Engineer D has occupancy gravity.
+R.M. has structural gravity. O. has occupancy gravity.
 
-But this isn't a dismissal of Engineer D.
+But this isn't a dismissal of O..
 
 **Occupancy gravity is the precursor to structural gravity.**
 
@@ -218,7 +218,7 @@ This team's metrics include a warning:
 
 ![Data Warning](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-data-warning.png?v=4)
 
-**Engineer D's struggle surfaces as a Warning.** High gravity, but low robust survival.
+**O.'s struggle surfaces as a Warning.** High gravity, but low robust survival.
 
 Yet this team is strong:
 
@@ -304,11 +304,11 @@ What's needed is someone who **brings a different structural proposal, clashes w
 
 ---
 
-## Reading Engineer D
+## Reading O.
 
 That earlier pattern:
 
-![Engineer D Pattern](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-data-pattern.png?v=4)
+![O. Pattern](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-data-pattern.png?v=4)
 
 isn't just immaturity.
 
@@ -318,11 +318,11 @@ So "Architect candidate" is imprecise. More accurately: **Emergent Architect can
 
 ---
 
-## Reading Engineer B
+## Reading H.
 
-Engineer B shows:
+H. shows:
 
-![Engineer B Pattern](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-data-anchor-mass.png?v=4)
+![H. Pattern](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-data-anchor-mass.png?v=4)
 
 This doesn't mean "unlikely to become Architect."
 
@@ -344,7 +344,7 @@ How things evolve from here depends on the ecosystem.
 
 But engineers who can produce this kind of gravity — even if their score temporarily drops, even if they go through painful stretches — **will eventually settle into a score commensurate with their intellectual potential**.
 
-If anyone on this team will hit 60–80 and challenge Engineer A's dominance through domain knowledge and craft — **it's Engineer D and no one else**.
+If anyone on this team will hit 60–80 and challenge R.M.'s dominance through domain knowledge and craft — **it's O. and no one else**.
 
 ---
 
@@ -409,10 +409,10 @@ What this team needs isn't another Producer. It's **an Architect — or at least
 
 With this lens, the team looks cleaner:
 
-- **Engineer A**: Architect holding the current structure
-- **Engineer B**: Anchor who can grow toward Inheritance Architect
-- **Engineer C**: Adaptive Producer pushing the team forward
-- **Engineer D**: Emergent Architect candidate with high gravity
+- **R.M.**: Architect holding the current structure
+- **H.**: Anchor who can grow toward Inheritance Architect
+- **K.M.**: Adaptive Producer pushing the team forward
+- **O.**: Emergent Architect candidate with high gravity
 
 This isn't "one Architect + followers."
 

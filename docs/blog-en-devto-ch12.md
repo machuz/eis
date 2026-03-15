@@ -150,7 +150,7 @@ One person with extremely high Indispensability while everyone else is extremely
 
 ![Timeline Detection](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch12-bash-timeline.png?v=4)
 
-A good Architect's timeline shows an Architect → Producer transition (like Engineer J in Chapter 5). Once the structure is built, they produce on top of it.
+A good Architect's timeline shows an Architect → Producer transition (like O. in Chapter 5). Once the structure is built, they produce on top of it.
 
 A Black Hole Engineer's timeline shows **permanent Architect**. They never release the structure. They keep concentrating gravity.
 
@@ -190,7 +190,7 @@ EIS shows you the universe's structure. How to reshape that structure is a human
 
 Collapse isn't necessarily the end.
 
-Just as Engineer I created a new universe in Chapter 5, there are engineers who can bring new gravity to a collapsed universe.
+Just as R.M. created a new universe in Chapter 5, there are engineers who can bring new gravity to a collapsed universe.
 
 These engineers have specific traits:
 

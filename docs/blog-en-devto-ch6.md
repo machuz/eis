@@ -12,7 +12,7 @@ cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/m
 
 ## Previously
 
-In [Chapter 5](https://dev.to/machuz/git-archaeology-5-timeline-scores-dont-lie-and-they-capture-hesitation-too-1gi5), I used `eis timeline` to trace individual timelines — Engineer F's departure and machuz's architectural permeation, Engineer I's "hesitation" and return.
+In [Chapter 5](https://dev.to/machuz/git-archaeology-5-timeline-scores-dont-lie-and-they-capture-hesitation-too-1gi5), I used `eis timeline` to trace individual timelines — Y.Y.'s departure and machuz's architectural permeation, R.M.'s "hesitation" and return.
 
 But those were individual stories. **A team is a collection of individuals.** When individuals change, the team's nature changes too.
 
@@ -48,14 +48,14 @@ Every axis improved.
 
 Why? As Chapter 5 showed:
 
-- **2024**: Engineer F sustained the structure as Architect Builder
-- **2025-H1**: Engineer F declined from Anchor → Fragile. No structure owner
+- **2024**: Y.Y. sustained the structure as Architect Builder
+- **2025-H1**: Y.Y. declined from Anchor → Fragile. No structure owner
 - **2025-H2**: machuz reached Architect Builder
 - **2026-H1**: Team reached Elite / Architectural Engine / Mature / Healthy
 
 **A generational transition at the individual level manifested as a team-level transformation.**
 
-Engineer F's departure temporarily created a Design Vacuum. But machuz inherited the Architect role, new members joined, and the team reached a healthier state than before.
+Y.Y.'s departure temporarily created a Design Vacuum. But machuz inherited the Architect role, new members joined, and the team reached a healthier state than before.
 
 Looking at Score Averages:
 
@@ -75,14 +75,14 @@ Frontend has longer data coverage, making transitions easier to read.
 
 First thing that stands out: **Declining → Mature only happened in 2026-H1.** Later than Backend.
 
-Then **Culture: Stability → Builder**. This is largely Engineer I's influence (Architect from day one, as covered in Chapter 5). Engineer I's continuous involvement in design files shifted team culture from Stability (defensive) to Builder (offensive).
+Then **Culture: Stability → Builder**. This is largely R.M.'s influence (Architect from day one, as covered in Chapter 5). R.M.'s continuous involvement in design files shifted team culture from Stability (defensive) to Builder (offensive).
 
 Meanwhile, Risk shifted from **Quality Drift → Design Vacuum**. This looks like a deterioration, but the meaning is different:
 
 - **Quality Drift**: Quality varies across members (many Producers)
 - **Design Vacuum**: Designers are scarce (Architect departed or absent)
 
-Engineer J settled into Producer in 2025-H2, and Engineer I sometimes oscillates to Anchor. **There aren't always two Architects simultaneously**, hence the Design Vacuum risk.
+O. settled into Producer in 2025-H2, and R.M. sometimes oscillates to Anchor. **There aren't always two Architects simultaneously**, hence the Design Vacuum risk.
 
 One more interesting pattern in Frontend:
 
@@ -90,7 +90,7 @@ One more interesting pattern in Frontend:
 
 **In 2025-H1, the team briefly became Factory / Delivery Team, then reverted.**
 
-What happened? 2025-H1 was when Engineer I scored 83.8 as Architect — not only designing but also shipping at high volume, single-handedly driving both design and implementation. Engineer J was simultaneously Anchor (54.3), delivering steadily. **The designer was producing at high throughput while the Anchor sustained delivery.** The team temporarily exhibited Factory (high-throughput) / Delivery Team characteristics.
+What happened? 2025-H1 was when R.M. scored 83.8 as Architect — not only designing but also shipping at high volume, single-handedly driving both design and implementation. O. was simultaneously Anchor (54.3), delivering steadily. **The designer was producing at high throughput while the Anchor sustained delivery.** The team temporarily exhibited Factory (high-throughput) / Delivery Team characteristics.
 
 But that "maximum output" was temporary. The next half, it reverted to Guardian / Maintenance.
 
@@ -140,24 +140,24 @@ machuz's Backend timeline:
 
 **Anchor → Producer → Architect.**
 
-This looks like a "growth staircase," but the reality is different. machuz already had extensive Architect experience from other teams. However, this team had a predecessor Architect (Engineer F) already in place.
+This looks like a "growth staircase," but the reality is different. machuz already had extensive Architect experience from other teams. However, this team had a predecessor Architect (Y.Y.) already in place.
 
 What machuz did was **respect the predecessor's structure while improving it and shipping features at high volume**. The Anchor phase was about understanding the existing structure. The Producer phase was about producing extensively on top of it. Throughout this process, machuz's own architectural vision gradually permeated the codebase.
 
-When Engineer F's scores began declining in 2025-H2, machuz's architecture became the structural backbone. EIS captured this as Architect Builder.
+When Y.Y.'s scores began declining in 2025-H2, machuz's architecture became the structural backbone. EIS captured this as Architect Builder.
 
 This isn't "growing into an Architect." It's **"an existing architectural vision permeating the codebase until the numbers reflect it."**
 
-Meanwhile, Engineer I's Frontend timeline (from Chapter 5):
+Meanwhile, R.M.'s Frontend timeline (from Chapter 5):
 
 ![Architect by Q4](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-architect-quarter.png?v=4)
 
-**Architect by their second quarter.** Engineer I also had Architect experience externally. But unlike machuz, they shortened the adaptation period and immediately began designing with their own architectural approach.
+**Architect by their second quarter.** R.M. also had Architect experience externally. But unlike machuz, they shortened the adaptation period and immediately began designing with their own architectural approach.
 
 **Even among experienced joiners, the speed of manifestation differs.**
 
 1. **Permeation type** — Respect the predecessor's structure, produce on top of it, and gradually infuse your own design (machuz's path)
-2. **Immediate type** — Brief Anchor phase, then start designing with your own architecture immediately (Engineer I's path)
+2. **Immediate type** — Brief Anchor phase, then start designing with your own architecture immediately (R.M.'s path)
 
 The permeation type takes longer but maintains continuity with existing structure. The immediate type is fast but carries **collision risk with the team**, as Chapter 5 showed.
 
@@ -171,13 +171,13 @@ Touched on in Chapter 5, but timelines make it clearer.
 
 ![BE Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-be-architects.png?v=4)
 
-As an observation, **there was never a period with two simultaneous Architects.** Engineer F stepped down before machuz's architecture became dominant. Whether this reflects a structural constraint of Backend's single design axis (one DB schema, one API convention) or simply the timing of architectural permeation is hard to determine from this sample alone. But at minimum, BE Architects tend to concentrate.
+As an observation, **there was never a period with two simultaneous Architects.** Y.Y. stepped down before machuz's architecture became dominant. Whether this reflects a structural constraint of Backend's single design axis (one DB schema, one API convention) or simply the timing of architectural permeation is hard to determine from this sample alone. But at minimum, BE Architects tend to concentrate.
 
 **Frontend:**
 
 ![FE Architects](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-fe-architects.png?v=4)
 
-In Frontend, when Engineer I became Architect, Engineer J dropped to Anchor. **At first glance, it looks like the same "one seat" pattern.**
+In Frontend, when R.M. became Architect, O. dropped to Anchor. **At first glance, it looks like the same "one seat" pattern.**
 
 But quarterly data (Chapter 5) reveals:
 
@@ -199,9 +199,9 @@ The **Design Vacuum risk** in Frontend's team timeline is the flip side of this 
 
 ### Model 3: Producer Is Metabolism
 
-Look at Engineer J's transitions again:
+Look at O.'s transitions again:
 
-![Engineer J Transitions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-engineer-j-transitions.png?v=4)
+![O. Transitions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-engineer-j-transitions.png?v=4)
 
 **An Architect who finishes building structure becomes a Producer.**
 
@@ -225,7 +225,7 @@ Growth Potential at 20. **The seeds of the next-generation Architect are still w
 
 In the Frontend 6-month timeline, one engineer has a uniquely dramatic trajectory.
 
-![Engineer K](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-engineer-k.png?v=4)
+![X.](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-engineer-k.png?v=4)
 
 **Total 87.8 in 2024-H1. Architect Builder.** Production 81, Survival 100, Design 100.
 
@@ -233,9 +233,9 @@ The next half: Total 14.6. After that, effectively zero.
 
 This is the **founding Architect lifecycle**.
 
-Engineer K built Frontend's initial structure. In 2024-H1, the codebase's blame was dominated by Engineer K. Architect Builder was the natural result.
+X. built Frontend's initial structure. In 2024-H1, the codebase's blame was dominated by X.. Architect Builder was the natural result.
 
-But as the team grew and other engineers (Engineer I, Engineer J) joined and began rewriting the structure, Engineer K's Survival dropped rapidly. Blame lines were replaced by other members.
+But as the team grew and other engineers (R.M., O.) joined and began rewriting the structure, X.'s Survival dropped rapidly. Blame lines were replaced by other members.
 
 **A founding Architect's score drops as the team grows.**
 
@@ -243,9 +243,9 @@ This isn't failure. It's **proof of success.** Other engineers are building on t
 
 ![Gravity Transfer](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-gravity-transfer.png?v=4)
 
-**Engineer K's score transferred to Engineers I and J.** The total isn't conserved, but the generational transfer of structural influence is clear.
+**X.'s score transferred to Engineers I and J.** The total isn't conserved, but the generational transfer of structural influence is clear.
 
-This is a different kind of "exit" from Engineer F's departure (Chapter 5). Engineer F exited due to **team departure**. Engineer K exited due to **team growth**.
+This is a different kind of "exit" from Y.Y.'s departure (Chapter 5). Y.Y. exited due to **team departure**. X. exited due to **team growth**.
 
 EIS captures both.
 
@@ -257,7 +257,7 @@ Timeline data shows that **reaching Architect almost always requires passing thr
 
 ![Evolution Paths](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-evolution-paths.png?v=4)
 
-machuz passed through Anchor Builder before reaching Architect. Engineer I went Architect Balanced → Architect Builder. Engineer J also went Architect Balanced → Architect Builder.
+machuz passed through Anchor Builder before reaching Architect. R.M. went Architect Balanced → Architect Builder. O. also went Architect Balanced → Architect Builder.
 
 **Engineers who can't become Builders don't become Architects.**
 
@@ -275,7 +275,7 @@ It's no coincidence that the moment Frontend's Culture shifted from Stability �
 
 What happens when a team has no Producers?
 
-Look at Backend 2024-H2. machuz as Anchor Builder (76.4), Engineer F as Architect Builder (84.1). But zero Producers.
+Look at Backend 2024-H2. machuz as Anchor Builder (76.4), Y.Y. as Architect Builder (84.1). But zero Producers.
 
 That period's team classification:
 
@@ -303,17 +303,17 @@ Look at machuz's timeline one more time:
 
 **Architect Builder appeared in the numbers after passing through a Producer phase in 2025-H1.**
 
-machuz's Producer phase wasn't a "learning period." It was **a period of shipping features at high volume on top of the predecessor Architect's (Engineer F's) structure, while gradually weaving in their own design philosophy through improvements**.
+machuz's Producer phase wasn't a "learning period." It was **a period of shipping features at high volume on top of the predecessor Architect's (Y.Y.'s) structure, while gradually weaving in their own design philosophy through improvements**.
 
 By using the existing structure extensively, you internalize both its limitations and its possibilities. And within those improvements, you embed your own architecture.
 
-When 92.5 as Architect Builder appeared in 2025-H2, that was the moment the permeation crossed a threshold. Engineer F's score decline (the structural backbone shifting) and machuz's Design 100 (design changes reaching architecture files) happened simultaneously.
+When 92.5 as Architect Builder appeared in 2025-H2, that was the moment the permeation crossed a threshold. Y.Y.'s score decline (the structural backbone shifting) and machuz's Design 100 (design changes reaching architecture files) happened simultaneously.
 
 **The Producer phase can serve as groundwork for permeating your architecture into the codebase.** On the surface it looks like Producer work, but beneath the surface, a design philosophy transplant is underway.
 
 Without this "groundwork" — starting to design without deep understanding of the existing structure — risks "armchair design." Without experience using the structure, you build structures that are hard to use.
 
-Engineer I could become Architect immediately after joining because, we can infer, **they had extensive experience with similar architectures at their previous position.** They had used comparable structures extensively elsewhere. That's why they could quickly identify "what needs to be designed" in a new environment. The groundwork period was unnecessary.
+R.M. could become Architect immediately after joining because, we can infer, **they had extensive experience with similar architectures at their previous position.** They had used comparable structures extensively elsewhere. That's why they could quickly identify "what needs to be designed" in a new environment. The groundwork period was unnecessary.
 
 ---
 
@@ -362,7 +362,7 @@ Chapter 5 gained the time axis. Chapter 6 **gained laws**.
 Snapshots show "now." Timelines show "change." Laws predict "what happens next."
 
 - When machuz transitions to Producer, the next Architect will be needed
-- If Frontend's Design Vacuum persists, either wait for Engineer I's Architect return or develop a new Architect
+- If Frontend's Design Vacuum persists, either wait for R.M.'s Architect return or develop a new Architect
 - For Infra to progress from Emerging → Mature, it needs Builders first
 
 **Deriving laws from cold numbers, then reading the future from those laws.** That's the true power of the timeline.

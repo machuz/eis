@@ -25,10 +25,10 @@
 
   <!-- Left side: Convergence timeline -->
   <text x="30" y="220" fill="#8ec07c" font-size="11" font-weight="700">Backend Architect Concentration</text>
-  <text y="244" font-size="11"><tspan x="30" fill="#928374">2024-H1 </tspan><tspan fill="#d3869b">*</tspan><tspan fill="#83a598"> Engineer F </tspan><tspan fill="#928374">machuz</tspan></text>
-  <text y="264" font-size="11"><tspan x="30" fill="#928374">2024-H2 </tspan><tspan fill="#d3869b">*</tspan><tspan fill="#83a598"> Engineer F </tspan><tspan fill="#83a598">machuz (Builder)</tspan></text>
-  <text y="284" font-size="11"><tspan x="30" fill="#928374">2025-H1 </tspan><tspan fill="#83a598">.</tspan><tspan fill="#fabd2f"> Engineer F </tspan><tspan fill="#928374">machuz</tspan></text>
-  <text y="304" font-size="11"><tspan x="30" fill="#928374">2025-H2 </tspan><tspan fill="#928374">.</tspan><tspan fill="#928374"> Engineer F </tspan><tspan fill="#d3869b" font-weight="700">machuz (Architect)</tspan></text>
+  <text y="244" font-size="11"><tspan x="30" fill="#928374">2024-H1 </tspan><tspan fill="#d3869b">*</tspan><tspan fill="#83a598"> Y.Y. </tspan><tspan fill="#928374">machuz</tspan></text>
+  <text y="264" font-size="11"><tspan x="30" fill="#928374">2024-H2 </tspan><tspan fill="#d3869b">*</tspan><tspan fill="#83a598"> Y.Y. </tspan><tspan fill="#83a598">machuz (Builder)</tspan></text>
+  <text y="284" font-size="11"><tspan x="30" fill="#928374">2025-H1 </tspan><tspan fill="#83a598">.</tspan><tspan fill="#fabd2f"> Y.Y. </tspan><tspan fill="#928374">machuz</tspan></text>
+  <text y="304" font-size="11"><tspan x="30" fill="#928374">2025-H2 </tspan><tspan fill="#928374">.</tspan><tspan fill="#928374"> Y.Y. </tspan><tspan fill="#d3869b" font-weight="700">machuz (Architect)</tspan></text>
 
   <!-- Bottom -->
   <text x="30" y="350" fill="#928374" font-size="11">The seat converges to one. Always.</text>

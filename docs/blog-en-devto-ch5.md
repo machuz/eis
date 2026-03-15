@@ -49,11 +49,11 @@ I'll focus on three key members.
 
 ---
 
-### Engineer F's Arc: An Architect Speaks Even After Departure
+### Y.Y.'s Arc: An Architect Speaks Even After Departure
 
-![Engineer F Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-engineer-f-timeline.png?v=4)
+![Y.Y. Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-engineer-f-timeline.png?v=4)
 
-**In the first half of 2024, Engineer F was putting up numbers on par with machuz.**
+**In the first half of 2024, Y.Y. was putting up numbers on par with machuz.**
 
 Total above 90. Architect Builder. Production 100, Design 100, Survival 100.
 
@@ -71,17 +71,17 @@ The subject of Chapter 4's "laying souls to rest" is exactly this person. And th
 
 ---
 
-### Engineer J's Arc: They Were an Architect Builder
+### O.'s Arc: They Were an Architect Builder
 
-![Engineer J Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-engineer-j-timeline.png?v=4)
+![O. Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-engineer-j-timeline.png?v=4)
 
-**2024-Q4: Engineer J, Total 91.7. Architect Builder.**
+**2024-Q4: O., Total 91.7. Architect Builder.**
 
-This number is extraordinary. When you consider that machuz (Backend) was at 64.1 in the same quarter, **Engineer J had the highest structural influence across all teams that quarter**.
+This number is extraordinary. When you consider that machuz (Backend) was at 64.1 in the same quarter, **O. had the highest structural influence across all teams that quarter**.
 
 Design 100. Production 100. Survival 96.
 
-In other words, that quarter's Frontend structure was **built by Engineer J**.
+In other words, that quarter's Frontend structure was **built by O.**.
 
 The Role transitions afterward are fascinating:
 
@@ -95,9 +95,9 @@ This means "the Architect's work is done." The structure was built. Now they pro
 
 ---
 
-### Engineer I's Arc: Architect From Day One
+### R.M.'s Arc: Architect From Day One
 
-![Engineer I Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-engineer-i-timeline.png?v=4)
+![R.M. Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-engineer-i-timeline.png?v=4)
 
 **Architect by their second quarter. Consistently in Architect territory ever since.**
 
@@ -131,7 +131,7 @@ What happened that quarter?
 
 Specifically, there was a disagreement over Frontend architecture direction.
 
-Engineer I had been driving design decisions since joining. That design philosophy didn't align with existing team members at certain points.
+R.M. had been driving design decisions since joining. That design philosophy didn't align with existing team members at certain points.
 
 The result: **they deliberately reduced their involvement in design decisions**.
 
@@ -149,13 +149,13 @@ EIS captured this precisely:
 
 The timeline alone tells us "design involvement decreased." But `eis analyze --recursive --per-repo` decomposes the picture to individual repositories — and the structure becomes far more precise.
 
-Here's Engineer I's per-repo commit distribution:
+Here's R.M.'s per-repo commit distribution:
 
 ![Per-Repo Commits](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-per-repo-commits.png?v=4)
 
 **The true shape of Q3's "hesitation" emerges.**
 
-In Q3, Engineer I poured 274 commits into Repo B — their highest-ever quarter in that repo. Production didn't decline — it increased. But it was **production on top of already-established design**, not work that moved the architecture itself.
+In Q3, R.M. poured 274 commits into Repo B — their highest-ever quarter in that repo. Production didn't decline — it increased. But it was **production on top of already-established design**, not work that moved the architecture itself.
 
 That's why Design dropped from 100 to 73. You can ship massive volume in an existing repo, but if you're not moving the structural center, the Design axis won't register it.
 
@@ -165,7 +165,7 @@ That's why Design dropped from 100 to 73. You can ship massive volume in an exis
 
 Behind this "hesitation" was a conversation.
 
-Engineer I had a design vision they'd been carrying — a conviction about how Frontend should be structured. I trusted their design instinct and their technical ability.
+R.M. had a design vision they'd been carrying — a conviction about how Frontend should be structured. I trusted their design instinct and their technical ability.
 
 But the timing wasn't right yet.
 
@@ -183,7 +183,7 @@ Q3's "hesitation" wasn't just friction. It was also **strategic patience**.
 
 In 2025-Q4, the new product launched.
 
-I handed it to Engineer I.
+I handed it to R.M..
 
 Honestly, whether we could hit the tight schedule was uncertain. But given I's implementation speed and ability, and with me covering the gaps, I judged the odds of success were far from low. I told the business side we'd go with a new engineering structure — and got their buy-in.
 
@@ -197,13 +197,13 @@ Design: 73 → 100. Anchor → Architect.
 
 **On a greenfield, the designer's true nature exploded.**
 
-Engineer I was a rare breed — an engineer who could also design. Not just code architecture, but visual design.
+R.M. was a rare breed — an engineer who could also design. Not just code architecture, but visual design.
 
-Initially, the new product was expected to follow the existing design language. But Engineer I wanted to build from scratch.
+Initially, the new product was expected to follow the existing design language. But R.M. wanted to build from scratch.
 
 **Two weeks later**, they came back with a prototype: dark theme, mobile-responsive, beautiful visuals, a side-pane architecture that enabled rich expressiveness — a level of polish that the existing design's incremental extension could never have reached.
 
-Something interesting happened. An excellent external designer was involved in the project. When this designer saw Engineer I's design work, they redefined their own role. Rather than competing on visual design, they **stepped back and focused on what they did best — deep information architecture expertise**.
+Something interesting happened. An excellent external designer was involved in the project. When this designer saw R.M.'s design work, they redefined their own role. Rather than competing on visual design, they **stepped back and focused on what they did best — deep information architecture expertise**.
 
 The result: engineering design skill and information design expertise locked together. The new product became a major success. The team decided to adopt the new codebase as the design reference going forward.
 
@@ -217,9 +217,9 @@ With `--per-repo`, the "hesitation" gains three dimensions:
 2. **Structure**: Heavy production work concentrated in existing repos (274 commits)
 3. **Context**: Waiting for the right moment to be entrusted with a new product
 
-Q4 connected everything. A new universe was born, and Engineer I created gravity in it.
+Q4 connected everything. A new universe was born, and R.M. created gravity in it.
 
-This is the very phenomenon Chapter 8 calls "Engineering Relativity" — **the same engineer produces different gravity in different universes**. In a mature gravitational field, Engineer I was an Anchor. In a brand new universe, they became Architect instantly.
+This is the very phenomenon Chapter 8 calls "Engineering Relativity" — **the same engineer produces different gravity in different universes**. In a mature gravitational field, R.M. was an Anchor. In a brand new universe, they became Architect instantly.
 
 Their ability didn't change. **The universe changed.**
 
@@ -235,9 +235,9 @@ Through friction, through strategic patience, they found their stage in a new un
 
 A young Architect who hits friction either retreats or bulldozes. A mature Architect **pulls back to read the team's reaction, then re-engages**. And a good leader **reads the timing and prepares the stage**.
 
-Engineer I's timeline and `--per-repo` record that maturation process — quarter by quarter, repository by repository.
+R.M.'s timeline and `--per-repo` record that maturation process — quarter by quarter, repository by repository.
 
-And here's another telling number. Engineer H, an existing team member, started joining Engineer I's new universe. Engineer H's commits in web-admin jumped from 86 in Q4 to 283 in Q1 — more than tripling. They were adapting to the gravitational field Engineer I created, and accelerating. The new structure wasn't just one person's output — it was beginning to function as the team's gravity.
+And here's another telling number. R.S., an existing team member, started joining R.M.'s new universe. R.S.'s commits in web-admin jumped from 86 in Q4 to 283 in Q1 — more than tripling. They were adapting to the gravitational field R.M. created, and accelerating. The new structure wasn't just one person's output — it was beginning to function as the team's gravity.
 
 ---
 
@@ -257,19 +257,19 @@ You can read that the Architect's work is finished just from the transitions.
 
 ---
 
-## Engineer F vs. machuz
+## Y.Y. vs. machuz
 
 Lining up the timelines reveals one more thing:
 
 ![Comparison](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-comparison-table.png?v=4)
 
-**The moment Engineer F exits, machuz's architecture becomes the structural backbone.**
+**The moment Y.Y. exits, machuz's architecture becomes the structural backbone.**
 
-2025-Q3. The quarter Engineer F dropped to 49.1, machuz hit 93.2 as Architect Builder.
+2025-Q3. The quarter Y.Y. dropped to 49.1, machuz hit 93.2 as Architect Builder.
 
 This isn't coincidence.
 
-The structure described in Chapter 4 — "Backend Architects concentrate" — is visible right here. **There was never a period where two Backend Architects existed simultaneously.** While Engineer F held the Architect Builder position, machuz was still an Anchor. machuz reached Architect only after Engineer F's scores declined.
+The structure described in Chapter 4 — "Backend Architects concentrate" — is visible right here. **There was never a period where two Backend Architects existed simultaneously.** While Y.Y. held the Architect Builder position, machuz was still an Anchor. machuz reached Architect only after Y.Y.'s scores declined.
 
 Whether this is a structural consequence of Backend's single design axis (DB schema, API conventions) or simply a matter of growth timing is hard to determine from this sample alone. But at minimum, **it happened as a generational transition** in this team.
 
@@ -291,9 +291,9 @@ Things invisible in a point-in-time snapshot become visible in a timeline:
 
 **Numbers don't lie. And they capture hesitation too.**
 
-Engineer I's "step back" in 2025-Q3 was probably a conscious decision. But it's preserved as a quarter's worth of data, and only when you line it up against adjacent quarters do you think "ah, that's when it happened."
+R.M.'s "step back" in 2025-Q3 was probably a conscious decision. But it's preserved as a quarter's worth of data, and only when you line it up against adjacent quarters do you think "ah, that's when it happened."
 
-Engineer F's exit and machuz's architectural permeation — without a timeline, you can only say "this is the current structure." With a timeline, you can pinpoint "this generational shift happened in 2025-Q3."
+Y.Y.'s exit and machuz's architectural permeation — without a timeline, you can only say "this is the current structure." With a timeline, you can pinpoint "this generational shift happened in 2025-Q3."
 
 ---
 
@@ -317,7 +317,7 @@ Check a new member's timeline 3-6 months after joining. If you see a Growing →
 
 The Active → Fragile → Former transition pattern tells you the departure trajectory. **In theory, you can intervene at the Active → Fragile stage.**
 
-Engineer F's case, however, was not a typical departure pattern. They didn't leave by choice — they were pulled away when an **inter-company investment relationship was dissolved**. This wasn't personal dissatisfaction or motivation loss. It was Fragile → Former driven by external factors.
+Y.Y.'s case, however, was not a typical departure pattern. They didn't leave by choice — they were pulled away when an **inter-company investment relationship was dissolved**. This wasn't personal dissatisfaction or motivation loss. It was Fragile → Former driven by external factors.
 
 Yet EIS captured the change accurately. Regardless of the reason, **if codebase involvement drops, the numbers reflect it**. When Fragile appears, you check "why" — whether it's voluntary departure preparation or an external factor, the numbers alone can't tell you. But **the fact that change is occurring is detectable**.
 
@@ -343,7 +343,7 @@ Chapter 5 **gains the time axis**.
 
 Snapshots show "now." Timelines show "why it's like this now."
 
-Engineer F built the structure. machuz became Architect on top of it. Engineer J built a structure, then settled into producing. Engineer I stepped back, then stepped forward again.
+Y.Y. built the structure. machuz became Architect on top of it. O. built a structure, then settled into producing. R.M. stepped back, then stepped forward again.
 
 **All of it was preserved in the numbers.**
 

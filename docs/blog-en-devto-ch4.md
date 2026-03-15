@@ -78,11 +78,11 @@ This structure isn't unusual for Backend teams.
 
 ## The Soul of a Departed Architect
 
-Look at Engineer F:
+Look at Y.Y.:
 
-![Engineer F profile](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-engineer-f.png?v=4)
+![Y.Y. profile](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-engineer-f.png?v=4)
 
-Engineer F is a **departed Architect**.
+Y.Y. is a **departed Architect**.
 
 But even with time decay applied, **they're still ranked #2 on the team**.
 
@@ -106,7 +106,7 @@ This means: **"This person once shaped the structure. They're no longer active. 
 
 You don't become Former just by leaving. **Only those who left assets worth leaving** become Former.
 
-Engineer F meets exactly these conditions.
+Y.Y. meets exactly these conditions.
 
 ---
 
@@ -116,7 +116,7 @@ This is the emotional part.
 
 EIS uses **time-decayed Survival**. Code from 2 years ago has a weight of just 0.02.
 
-And yet Engineer F is still #2.
+And yet Y.Y. is still #2.
 
 This means **they continue to have massive influence on the codebase even after departure**.
 
@@ -148,7 +148,7 @@ Here's an important fact.
 
 **This team hasn't collapsed.**
 
-Several modules that only Engineer F touched still exist. Most of git blame belongs to the Former member.
+Several modules that only Y.Y. touched still exist. Most of git blame belongs to the Former member.
 
 Yet the team functions normally.
 
@@ -216,9 +216,9 @@ The departed Architect's soul, through active members' hands, gradually dissolve
 
 This Backend team has 3 Anchors:
 
-- Engineer F (Former)
-- Engineer G
-- Engineer H
+- Y.Y. (Former)
+- P.
+- R.S.
 
 Anchor isn't just "quality guardian."
 
@@ -361,9 +361,9 @@ But honestly, **I also work an absurd number of hours**.
 
 And there's another thing that makes me happy.
 
-**I could only achieve this Architect score because I inherited solid design from Engineer F and made it even better.**
+**I could only achieve this Architect score because I inherited solid design from Y.Y. and made it even better.**
 
-Backend has time-tested good design passed down through generations — structures refined by those who came before. I learned them and built on them. Engineer F also learned them and built on them. When we met, we already shared the same understanding. That's why common sense emerged and inheritance became possible.
+Backend has time-tested good design passed down through generations — structures refined by those who came before. I learned them and built on them. Y.Y. also learned them and built on them. When we met, we already shared the same understanding. That's why common sense emerged and inheritance became possible.
 
 On top of that foundation, I added `delegateProcess` and `partProcess` — not textbook patterns, but ones I'm convinced are useful. I enhanced existing concepts that already had business impact. I organized and modeled new core business functionality well.
 
@@ -371,9 +371,9 @@ That accumulation is what these numbers represent.
 
 ---
 
-I worked with Engineer G before, at another company. We merged our design knowledge back then. So we share common understanding of each other's design approach. Whatever their current score shows, I know they have horsepower. **I know they have the ability to hit 80+ on our team.**
+I worked with P. before, at another company. We merged our design knowledge back then. So we share common understanding of each other's design approach. Whatever their current score shows, I know they have horsepower. **I know they have the ability to hit 80+ on our team.**
 
-Engineer H is doing really good work. When I invited them to join this team, they said "I lack confidence because I don't have much experience." But from my experience, I was absolutely certain they could do good work. So I invited them. **And now, they've become an Anchor.** An Anchor on an Elite team. That's something to brag about anywhere. Deeply moving.
+R.S. is doing really good work. When I invited them to join this team, they said "I lack confidence because I don't have much experience." But from my experience, I was absolutely certain they could do good work. So I invited them. **And now, they've become an Anchor.** An Anchor on an Elite team. That's something to brag about anywhere. Deeply moving.
 
 ---
 
@@ -495,7 +495,7 @@ If this was useful: [❤️ Sponsor on GitHub](https://github.com/sponsors/machu
 - [Chapter 5: Timeline: Scores Don't Lie, and They Capture Hesitation Too](https://dev.to/machuz/git-archaeology-5-timeline-scores-dont-lie-and-they-capture-hesitation-too-1gi5)
 - [Chapter 6: Teams Evolve: The Laws of Organization Revealed by Timelines](https://dev.to/machuz/git-archaeology-6-teams-evolve-the-laws-of-organization-revealed-by-timelines-4lei)
 - [Chapter 7: Observing the Universe of Code](https://dev.to/machuz/git-archaeology-7-observing-the-universe-of-code-1op0)
-- [Chapter 8: Engineering Relativity: Why the Same Engineer Gets Different Scores](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl)
+- [Chapter 8: Engineering Relativity: Why the Same P.ets Different Scores](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl)
 - [Chapter 9: Origin: The Big Bang of Code Universes](https://dev.to/machuz/git-archaeology-9-collapse-good-architects-and-black-hole-engineers-1dcn)
 - [Chapter 10: Dark Matter: The Invisible Gravity](https://dev.to/machuz/git-archaeology-10-dark-matter-the-invisible-gravity-45ne)
 - [Chapter 11: Entropy: The Universe Always Tends Toward Disorder](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-ak9)

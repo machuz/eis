@@ -328,11 +328,11 @@ Yes, I score highest. I'm the tech lead and I designed the metric — if the per
 
 † Insufficient sample (fewer than 10 fix-commit involvements). Neutral value 50 used in total score calculation.
 
-**Member X** was a high-rate contractor. Total score: 24.9. Breadth was the only high number — Production 6, Design 4, Survival nearly zero. **Spread style in its purest form.** If this model had existed earlier, we could have detected it before the contract even started.
+**Z.** was a high-rate contractor. Total score: 24.9. Breadth was the only high number — Production 6, Design 4, Survival nearly zero. **Spread style in its purest form.** If this model had existed earlier, we could have detected it before the contract even started.
 
-**Member A** built the original architecture during the early days — Design 67, Breadth 81. But Indispensability 100 is the highest on the team, meaning **the most modules are still owned by someone who already left**. Time decay dropped their Survival to 12, but the codebase is still shaped by their decisions. The 3-axis topology — `Architect / — / Former` — clearly shows they were an Architect in role, now in Former state.
+**Y.Y.** built the original architecture during the early days — Design 67, Breadth 81. But Indispensability 100 is the highest on the team, meaning **the most modules are still owned by someone who already left**. Time decay dropped their Survival to 12, but the codebase is still shaped by their decisions. The 3-axis topology — `Architect / — / Former` — clearly shows they were an Architect in role, now in Former state.
 
-**Member B** — Production 17 doesn't turn heads. But Survival 50 (2nd on the team) means their recent code stays. Debt Cleanup 88 means they're quietly fixing everyone else's bugs. **This is exactly the kind of person that Debt Cleanup was designed to surface.** The Anchor role captures this perfectly.
+**R.S.** — Production 17 doesn't turn heads. But Survival 50 (2nd on the team) means their recent code stays. Debt Cleanup 88 means they're quietly fixing everyone else's bugs. **This is exactly the kind of person that Debt Cleanup was designed to surface.** The Anchor role captures this perfectly.
 
 My own Quality of 57 is low, reflecting aggressive architectural changes (introducing DelegateProcess layers, designing PartProcess abstractions, iterating on domain models in code). Combined with Design 100, it reads as proactive improvement rather than sloppiness. The Builder style reflects that I'm not just designing — I'm building heavily too.
 
@@ -340,9 +340,9 @@ My own Quality of 57 is low, reflecting aggressive architectural changes (introd
 
 ![Frontend Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-frontend-table.png?v=4)
 
-**Member D** owns essentially all of the frontend core library (180K+ lines). Indispensability 100 — same structural risk as Member A on the backend. **If this person leaves, there is nobody who can make frontend design decisions.** Debt Cleanup 39 is mid-range within FE, but with 129 self-fixes, it shows a self-contained work style: write it, fix it yourself.
+**R.M.** owns essentially all of the new product's FE repository core library (200K+ lines). Indispensability 100 — same structural risk as Y.Y. on the backend. **If this person leaves, there is nobody who can make frontend design decisions.** Debt Cleanup 39 is mid-range within FE, but with 129 self-fixes, it shows a self-contained work style: write it, fix it yourself.
 
-**Member Y**: Quality 18 — meaning **82% of their commits were fixes or corrections**. Survival ≈ 0, Debt Cleanup 0. Wrote a lot, fixed a lot, and none of it survived. Never cleaned up anyone else's debt either. `Producer / Mass / Former` — the topology tells the whole story in three words.
+**X.**: Quality 18 — meaning **82% of their commits were fixes or corrections**. Survival ≈ 0, Debt Cleanup 0. Wrote a lot, fixed a lot, and none of it survived. Never cleaned up anyone else's debt either. `Producer / Mass / Former` — the topology tells the whole story in three words.
 
 ---
 
