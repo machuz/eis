@@ -226,11 +226,11 @@ Let's point the telescope at this period.
 
 **Backend — machuz (the author) timeline:**
 
-| Period | Total | Quality | Commits | Breadth | Indisp | Role | Style |
-|---|---|---|---|---|---|---|---|
-| 2025-Q3 | 93.2 | 67.4 | 1004 | — | — | Architect | Builder |
-| 2025-Q4 | 87.7 | 74.5 | 656 | — | — | Architect | Builder |
-| 2026-Q1 | 92.4 | **41.4** | **1120** | **100** | **100** | Architect | Builder |
+| Period | Total | Quality | Commits | Lines | Breadth | Indisp | Role | Style |
+|---|---|---|---|---|---|---|---|---|
+| 2025-Q3 | 93.2 | 67.4 | 1004 | +113k/-48k | — | — | Architect | Builder |
+| 2025-Q4 | 87.7 | 74.5 | 656 | +153k/-208k | — | — | Architect | Builder |
+| 2026-Q1 | 92.4 | **41.4** | **1120** | **+140k/-33k** | **100** | **100** | Architect | Builder |
 
 Q1 2026 — the height of the new product crunch. Quality plummets from 74.5 to **41.4**.
 
@@ -240,12 +240,12 @@ This isn't quality degradation. **It's the trace of debugging and finishing duri
 
 Looking at the **frontend timeline** too:
 
-| Author | Period | Commits | Role | Style | State |
-|---|---|---|---|---|---|
-| machuz | 2025-Q4 | 85 | — | Spread | Active |
-| machuz | 2026-Q1 | **313** | — | **Rescue** | Active |
-| R.M. | 2025-Q4 | **1241** | **Architect** | Builder | Active |
-| R.M. | 2026-Q1 | 592 | Architect | Builder | Active |
+| Author | Period | Commits | Lines | Role | Style | State |
+|---|---|---|---|---|---|---|
+| machuz | 2025-Q4 | 85 | +5k/-2k | — | Spread | Active |
+| machuz | 2026-Q1 | **313** | **+26k/-10k** | — | **Rescue** | Active |
+| R.M. | 2025-Q4 | **1241** | — | **Architect** | Builder | Active |
+| R.M. | 2026-Q1 | 592 | — | Architect | Builder | Active |
 
 machuz accumulated 313 commits on the FE side too, Style shifting from Spread to **Rescue**. A backend engineer diving into frontend to support integration.
 
@@ -253,21 +253,21 @@ Meanwhile, FE lead R.M. evolved from Anchor to **Architect** in Q4 with 1241 com
 
 **Backend team members timeline:**
 
-| Author | Q3 | Q4 | Q1 | Role | Style |
-|---|---|---|---|---|---|
-| R.S. | 36.4 | 46.1 | 40.4 | Anchor | Balanced |
-| P. | 34.2 | 51.4 | 40.0 | Anchor | **Mass** |
+| Author | Q3 | Q4 | Q1 | Lines(Q1) | Role | Style |
+|---|---|---|---|---|---|---|
+| R.S. | 36.4 | 46.1 | 40.4 | +37k/-6k | Anchor | Balanced |
+| P. | 34.2 | 51.4 | 40.0 | +42k/-12k | Anchor | **Mass** |
 
 R.S. — a steady Anchor holding the team's gravitational field. P. with Mass style — charging forward with high-volume commits, supporting the crunch. And P. was simultaneously handling the handover and deadlines of an entirely separate domain while putting up these scores. The coordination and knowledge transfer that don't appear in commits — the ratio of dark matter work was enormous.
 
 **FE O. — Laid the foundation, then committed to the finish:**
 
-| Period | Total | Prod | Quality | **Survival** | Design | Role | Style |
-|---|---|---|---|---|---|---|---|
-| 2025-Q1 | 60.1 | 64 | 76 | 24 | **100** | **Architect** | Builder |
-| 2025-Q2 | 48.5 | 61 | 69 | 12 | 24 | Producer | Emergent |
-| 2025-Q3 | 36.5 | 52 | 62 | 44 | 0 | Producer | Balanced |
-| 2025-Q4 | 52.8 | 45 | 60 | **100** | 1 | Producer | Balanced |
+| Period | Total | Prod | Quality | **Survival** | Design | Lines | Role | Style |
+|---|---|---|---|---|---|---|---|---|
+| 2025-Q1 | 60.1 | 64 | 76 | 24 | **100** | — | **Architect** | Builder |
+| 2025-Q2 | 48.5 | 61 | 69 | 12 | 24 | +31k/-23k | Producer | Emergent |
+| 2025-Q3 | 36.5 | 52 | 62 | 44 | 0 | +32k/-13k | Producer | Balanced |
+| 2025-Q4 | 52.8 | 45 | 60 | **100** | 1 | +25k/-12k | Producer | Balanced |
 
 In Q1, Architect/Builder with Design=100 — a star creating FE structure. But through discussions with R.M., some of O.'s structure was replaced by R.M.'s. Survival at 24 → 12 reflects this — two gravitational fields were colliding within the same repository.
 
@@ -277,10 +277,10 @@ Q4 Survival=100 — not a single line of code was rewritten. **The existing stru
 
 **FE K.M. — Guardian of the user experience:**
 
-| Period | Total | Prod | Quality | **Survival** | Design | Role | Style |
-|---|---|---|---|---|---|---|---|
-| 2025-Q3 | 47.8 | 78 | 30 | **79** | 13 | Producer | Balanced |
-| 2025-Q4 | 35.9 | 31 | 58 | **90** | 0 | Producer | Balanced |
+| Period | Total | Prod | Quality | **Survival** | Design | Lines | Role | Style |
+|---|---|---|---|---|---|---|---|---|
+| 2025-Q3 | 47.8 | 78 | 30 | **79** | 13 | +49k/-21k | Producer | Balanced |
+| 2025-Q4 | 35.9 | 31 | 58 | **90** | 0 | +19k/-8k | Producer | Balanced |
 
 K.M. owned the domain most directly tied to user experience and brought it to completion.
 
@@ -292,11 +292,11 @@ In Q4, Design drops to 0 and Production falls. This isn't decline — it's a shi
 
 **FE H. — The struggle of knowledge transfer:**
 
-| Period | Total | Prod | Quality | Design | Role | Style | State |
-|---|---|---|---|---|---|---|---|
-| 2025-Q2 | 70.4 | 100 | 80 | **100** | Anchor | **Builder** | Active |
-| 2025-Q3 | 46.5 | 100 | **96** | 64 | Anchor | **Mass** | Active |
-| 2025-Q4 | 30.4 | 44 | **94** | 10 | Anchor | Balanced | Active |
+| Period | Total | Prod | Quality | Surv | Robust | Dormant | Design | Lines | Role | Style | State |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2025-Q2 | 70.4 | 100 | 80 | 44 | **71** | 31 | **100** | +75k/-133k | Anchor | **Builder** | Active |
+| 2025-Q3 | 46.5 | 100 | **96** | 11 | **30** | 3 | 64 | +78k/-75k | Anchor | **Mass** | Active |
+| 2025-Q4 | 30.4 | 44 | **94** | 16 | **28** | 10 | 10 | +25k/-13k | Anchor | Balanced | Active |
 
 H. was the engineer responsible for web-admin knowledge transfer.
 
@@ -304,23 +304,31 @@ In Q2, Design=100, Style=Builder — a star that creates structure. But from Q3 
 
 This isn't decline. **It's the trace of pouring energy into knowledge transfer.** Instead of building new structure themselves, they're teaching other engineers how to build it. What appears in commits is only code, but behind it lies pair programming, design explanations, and transmission of the codebase's history.
 
-The key is Quality — **80 → 96 → 94.** Even while struggling through the transfer, code quality never drops. While maintaining the invisible gravitational field of knowledge transfer, the precision of their code actually improved.
+The Survival breakdown reveals another layer of struggle. **Look at Robust Survival — 71 → 30 → 28.** Robust Survival measures how much code survives in high change-pressure modules — the areas under active development. From 71 in Q2, it crashes to 30 in Q3.
+
+This means R.M.'s new infrastructure was replacing the structure H. had built. **Watching your own architecture get rewritten by another engineer.** The numbers capture that anguish.
+
+Meanwhile, Dormant drops from 31 → 3 → 10. Even in low change-pressure areas, survival rates fell — the new infrastructure's ripple effects reached the entire existing structure.
+
+And yet Quality — **80 → 96 → 94.** Even while being rewritten, code quality never drops. Absorbing the reality of replacement while actually improving the precision of every line written. All while maintaining the invisible gravitational field of knowledge transfer.
+
+Q2 Lines = +75k/-133k — deletions far exceed additions. Evidence of restructuring and cleaning up existing architecture. From Q3 onward, +78k/-75k and +25k/-13k stabilize, showing continued forward momentum even while being rewritten.
 
 At the same time, H. appears in the BE domain in Growing state (Quality 94-97). Handing off FE knowledge while stepping into backend territory themselves.
 
-**When Total drops from 70.4 to 30.4, do you see "declining performance"? Or do you see "transmitting structure for the team's future"?** Without the telescope, it looks like the former. With the telescope — the high Quality and the Style transitions tell the truth.
+**When Total drops from 70.4 to 30.4, do you see "declining performance"? Or do you see "transmitting structure for the team's future"?** Without the telescope, it looks like the former. With the telescope — the high Quality, the Robust Survival crash, and the Style transitions tell the truth.
 
 **machuz's long-term timeline** tells another story:
 
-| Period | Total | Role | Style |
-|---|---|---|---|
-| 2024-Q3 | 59.9 | Anchor | Builder |
-| 2024-Q4 | 68.3 | Anchor | Builder |
-| 2025-Q1 | 76.4 | Anchor | Builder |
-| 2025-Q2 | 83.1 | **Architect** | Builder |
-| 2025-Q3 | 93.2 | Architect | Builder |
-| 2025-Q4 | 87.7 | Architect | Builder |
-| 2026-Q1 | 92.4 | Architect | Builder |
+| Period | Total | Lines | Role | Style |
+|---|---|---|---|---|
+| 2024-Q3 | 59.9 | +43k/-13k | Anchor | Builder |
+| 2024-Q4 | 68.3 | +42k/-19k | Anchor | Builder |
+| 2025-Q1 | 76.4 | +53k/-20k | Anchor | Builder |
+| 2025-Q2 | 83.1 | +17k/-11k | **Architect** | Builder |
+| 2025-Q3 | 93.2 | +113k/-48k | Architect | Builder |
+| 2025-Q4 | 87.7 | +153k/-208k | Architect | Builder |
+| 2026-Q1 | 92.4 | +140k/-33k | Architect | Builder |
 
 The evolution from Anchor to Architect is visible. The Architect Reproducibility from Chapter 8 — **engineers who create gravity regardless of which universe they enter** — is inscribed in the timeline.
 
