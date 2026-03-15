@@ -16,6 +16,8 @@
 Git records commits.
 EIS reveals the structure of the code universe.
 
+> *Software Cosmology* — the idea that codebases behave like universes: with gravity, entropy, collapse, and structure. EIS is the telescope used to observe them.
+
 ### What the telescope reveals
 
 Point it at a codebase, and hidden patterns emerge:
