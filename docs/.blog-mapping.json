@@ -110,5 +110,13 @@
   "blog-ja-hatena-ch14.md": {
     "hatena_id": "17179246901365255905",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/03/15/215211"
+  },
+  "blog-en-devto-ch15.md": {
+    "devto_id": 3354946,
+    "devto_url": "https://dev.to/machuz/git-archaeology-15-the-age-of-ai-the-starburst-that-code-universes-were-never-prepared-for-o7k"
+  },
+  "blog-ja-hatena-ch15.md": {
+    "hatena_id": "17179246901365263666",
+    "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/03/15/221250"
   }
 }
