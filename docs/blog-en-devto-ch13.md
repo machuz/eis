@@ -220,6 +220,66 @@ The result: a beautiful product was born. The "proof" phase of our engineering o
 
 ---
 
+### What the Telescope Revealed
+
+Let's point the telescope at this period.
+
+**Backend — machuz (the author) timeline:**
+
+| Period | Total | Quality | Commits | Breadth | Indisp | Role | Style |
+|---|---|---|---|---|---|---|---|
+| 2025-Q3 | 93.2 | 67.4 | 1004 | — | — | Architect | Builder |
+| 2025-Q4 | 87.7 | 74.5 | 656 | — | — | Architect | Builder |
+| 2026-Q1 | 92.4 | **41.4** | **1120** | **100** | **100** | Architect | Builder |
+
+Q1 2026 — the height of the new product crunch. Quality plummets from 74.5 to **41.4**.
+
+This isn't quality degradation. **It's the trace of debugging and finishing during the frontend integration phase.** The ratio of fix commits rose, pushing Quality scores down. But Commits hit their peak at 1120, Breadth=100 (commits across every repository), Indisp=100 (every module depends on this engineer).
+
+**One engineer crossing all domains, building structure, and simultaneously debugging to the finish line.** That's what the scores show.
+
+Looking at the **frontend timeline** too:
+
+| Author | Period | Commits | Role | Style | State |
+|---|---|---|---|---|---|
+| machuz | 2025-Q4 | 85 | — | Spread | Active |
+| machuz | 2026-Q1 | **313** | — | **Rescue** | Active |
+| Ryota Mannari | 2025-Q4 | **1241** | **Architect** | Builder | Active |
+| Ryota Mannari | 2026-Q1 | 592 | Architect | Builder | Active |
+
+machuz accumulated 313 commits on the FE side too, Style shifting from Spread to **Rescue**. A backend engineer diving into frontend to support integration.
+
+Meanwhile, FE lead Ryota Mannari evolved from Anchor to **Architect** in Q4 with 1241 commits. Building the entire frontend structure single-handedly.
+
+**Backend team members timeline:**
+
+| Author | Q3 | Q4 | Q1 | Role | Style |
+|---|---|---|---|---|---|
+| Ryunosuke Suzuki | 36.4 | 46.1 | 40.4 | Anchor | Balanced |
+| pony | 34.2 | 51.4 | 40.0 | Anchor | **Mass** |
+
+Ryunosuke Suzuki — a steady Anchor holding the team's gravitational field. pony with Mass style — charging forward with high-volume commits, supporting the crunch.
+
+**machuz's long-term timeline** tells another story:
+
+| Period | Total | Role | Style |
+|---|---|---|---|
+| 2024-Q3 | 59.9 | Anchor | Builder |
+| 2024-Q4 | 68.3 | Anchor | Builder |
+| 2025-Q1 | 76.4 | Anchor | Builder |
+| 2025-Q2 | 83.1 | **Architect** | Builder |
+| 2025-Q3 | 93.2 | Architect | Builder |
+| 2025-Q4 | 87.7 | Architect | Builder |
+| 2026-Q1 | 92.4 | Architect | Builder |
+
+The evolution from Anchor to Architect is visible. The Architect Reproducibility from Chapter 8 — **engineers who create gravity regardless of which universe they enter** — is inscribed in the timeline.
+
+This is the starlight the telescope revealed. Behind the numbers, you can see 3.5 months of battle. Behind the Quality crash, days of debugging. Behind Breadth=100, cross-repository design work. Behind "Rescue," the moment a backend engineer leapt into frontend.
+
+**Commit light doesn't lie. And a team's starlight can be told in numbers, not opinions.**
+
+---
+
 ### The Telescope as Negotiation
 
 This is where EIS becomes meaningful.

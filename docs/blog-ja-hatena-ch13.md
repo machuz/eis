@@ -214,6 +214,66 @@ EISを作った動機は単純だ。**チームをドヤりたかった。**
 
 ---
 
+### 望遠鏡が映し出した星光
+
+では、望遠鏡でこの期間を観測してみよう。
+
+**Backend — machuz（筆者）のタイムライン:**
+
+| 期間 | Total | Quality | Commits | Breadth | Indisp | Role | Style |
+|---|---|---|---|---|---|---|---|
+| 2025-Q3 | 93.2 | 67.4 | 1004 | — | — | Architect | Builder |
+| 2025-Q4 | 87.7 | 74.5 | 656 | — | — | Architect | Builder |
+| 2026-Q1 | 92.4 | **41.4** | **1120** | **100** | **100** | Architect | Builder |
+
+Q1 2026——新プロダクトの佳境。Qualityが74.5から**41.4に急落**している。
+
+これは品質低下ではない。**FEとの繋ぎ込みフェーズで、デバッグしながら仕上げていった痕跡だ。** fix commitの比率が上がり、Qualityの数値を押し下げている。しかしCommitsは1120と最大を記録し、Breadth=100（全リポジトリに横断的にcommit）、Indisp=100（全モジュールがこのエンジニアに依存）。
+
+**一人のエンジニアが全領域を横断して構造を作りながら、同時にデバッグで仕上げている。** これがスコアに現れている。
+
+さらに、**FE側のタイムライン**も観測すると：
+
+| Author | 期間 | Commits | Role | Style | State |
+|---|---|---|---|---|---|
+| machuz | 2025-Q4 | 85 | — | Spread | Active |
+| machuz | 2026-Q1 | **313** | — | **Rescue** | Active |
+| Ryota Mannari | 2025-Q4 | **1241** | **Architect** | Builder | Active |
+| Ryota Mannari | 2026-Q1 | 592 | Architect | Builder | Active |
+
+machuzがFE側でも313 commitを積み、StyleがSpreadから**Rescue**に変化している。BEエンジニアがFEに飛び込み、繋ぎ込みを支援している姿だ。
+
+一方、FEリードのRyota MannariはQ4に1241 commitでAnchorから**Architect**に進化。FEの構造を一人で作り上げている。
+
+**BEチームメンバーのタイムライン:**
+
+| Author | Q3 | Q4 | Q1 | Role | Style |
+|---|---|---|---|---|---|
+| Ryunosuke Suzuki | 36.4 | 46.1 | 40.4 | Anchor | Balanced |
+| pony | 34.2 | 51.4 | 40.0 | Anchor | **Mass** |
+
+Ryunosuke Suzukiは安定したAnchor——チームの重力場を支える存在。ponyはMass style——大量のcommitで突進するスタイルで、修羅場を支えている。
+
+**machuzの長期タイムライン**も見てみよう：
+
+| 期間 | Total | Role | Style |
+|---|---|---|---|
+| 2024-Q3 | 59.9 | Anchor | Builder |
+| 2024-Q4 | 68.3 | Anchor | Builder |
+| 2025-Q1 | 76.4 | Anchor | Builder |
+| 2025-Q2 | 83.1 | **Architect** | Builder |
+| 2025-Q3 | 93.2 | Architect | Builder |
+| 2025-Q4 | 87.7 | Architect | Builder |
+| 2026-Q1 | 92.4 | Architect | Builder |
+
+Anchor → Architectへの進化が見える。第8章で書いたArchitectの再現性——**宇宙が変わっても重力を作れるエンジニア**——が、タイムラインに刻まれている。
+
+これが望遠鏡が映し出した星光だ。数字の裏に、3.5ヶ月の修羅場が見える。Quality急落の裏にデバッグの日々が見える。Breadth=100の裏にリポジトリを横断した設計が見える。Rescueの裏にBEエンジニアがFEに飛び込んだ瞬間が見える。
+
+**commit lightは嘘をつかない。そしてチームの星光は、主観ではなく数字で語れる。**
+
+---
+
 ### 望遠鏡が交渉材料になる
 
 ここでEISが意味を持つ。
