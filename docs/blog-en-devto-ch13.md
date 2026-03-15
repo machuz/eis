@@ -200,6 +200,44 @@ This is Observer Theory — the observation philosophy of EIS.
 
 ---
 
+## Why I Built the Telescope
+
+Let me get personal.
+
+The motivation for building EIS was simple. **I wanted to brag about my team.**
+
+We had a new product development planned for six months. The frontend team was exploring the new version ahead of us, but the backend — caught between enhancing the existing product and building the new one — had **only 3.5 months** of actual development time.
+
+The scope was enormous. Abstracting the existing account system. Adding new concepts. Making those new concepts work with the existing product too. Integration, QA, fine-tuning for edge cases. We were desperately short on time.
+
+But we charged ahead.
+
+Why? **Because I had teammates I'd been through hell with before, and I knew exactly how strong they were.**
+
+This is exactly the Architect Reproducibility from Chapter 8 — engineers who create gravity regardless of which universe they enter. We'd built structure together in a different codebase. We knew each other's gravitational fields. That's why we could leap into an unknown universe.
+
+The result: a beautiful product was born. The "proof" phase of our engineering organization was complete, and we felt the culture of building good things take root across the company.
+
+---
+
+### The Telescope as Negotiation
+
+This is where EIS becomes meaningful.
+
+Observe the team's starlight — the track record preserved in commits — through the telescope, and turn it into numbers. Then "our team is strong" stops being subjective.
+
+**If you can prove the team's capability, then even when aligning with business direction is hard, dark matter work becomes worth doing.**
+
+As I wrote in Chapter 10, dark matter doesn't appear in commits. Design discussions, spec negotiations, technical persuasion — none of these become starlight.
+
+But if the telescope accurately captures the team's starlight, **the existence of dark matter becomes believable too.**
+
+"A team that emits this kind of starlight is working at the same density in the invisible places too" — that becomes a credible argument.
+
+When EIS functions as negotiation material for building better things — that's the ultimate reward for its creator.
+
+---
+
 ## What Was Git Archaeology?
 
 Over 13 chapters, git archaeology demonstrated the following:
@@ -249,6 +287,8 @@ That is for you to decide.
 - [Chapter 11: Entropy: The Universe Always Tends Toward Disorder](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-ak9)
 - [Chapter 12: Collapse: Good Architects and Black Hole Engineers](https://dev.to/machuz/git-archaeology-12-collapse-good-architects-and-black-hole-engineers-3fed)
 - **Chapter 13: Cosmology of Code**
+
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png)
 
 **GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 
