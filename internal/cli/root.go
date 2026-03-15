@@ -1,6 +1,10 @@
 package cli
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 var version = "dev"
 
@@ -20,18 +24,7 @@ func Run(args []string) error {
 	case "cache":
 		return runCache(args[1:])
 	case "version":
-		fmt.Printf("\n"+
-			"        \033[33m✦\033[0m       \033[36m*\033[0m        \033[35m✧\033[0m\n"+
-			"\n"+
-			"         ╭────────╮\n"+
-			"        │  \033[33m✦\033[0m  \033[36m.\033[0m  \033[35m✦\033[0m │\n"+
-			"         ╰────┬───╯\n"+
-			"     \033[36m.\033[0m        │\n"+
-			"              │\n"+
-			"           ___│___\n"+
-			"          /_______\\\n"+
-			"\n"+
-			"     \033[35m✧\033[0m     the Git Telescope  v%s     \033[33m✦\033[0m\n\n", version)
+		printVersion()
 		return nil
 	case "help", "-h", "--help":
 		printUsage()
@@ -40,6 +33,89 @@ func Run(args []string) error {
 		printUsage()
 		return fmt.Errorf("unknown command: %s", args[0])
 	}
+}
+
+func printVersion() {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	stars := []string{"✦", "*", "✧", "·", "⋆", "∗"}
+	outerColors := []string{"\033[33m", "\033[36m", "\033[35m"} // yellow, cyan, magenta
+	lensColors := []string{"\033[33m", "\033[36m"}              // yellow, cyan only (no magenta inside lens)
+	reset := "\033[0m"
+
+	randOuterStar := func() string {
+		c := outerColors[r.Intn(len(outerColors))]
+		s := stars[r.Intn(len(stars))]
+		return c + s + reset
+	}
+
+	randLensStar := func() string {
+		// Bias toward yellow (warm center of lens)
+		c := lensColors[0] // yellow
+		if r.Intn(3) == 0 {
+			c = lensColors[1] // cyan 1/3 of the time
+		}
+		s := stars[r.Intn(len(stars))]
+		return c + s + reset
+	}
+
+	// Sky line: 30 chars wide, place 3 stars at random non-overlapping positions
+	sky := make([]byte, 30)
+	for i := range sky {
+		sky[i] = ' '
+	}
+	type starPos struct {
+		pos int
+		str string
+	}
+	var placed []starPos
+	for i := 0; i < 3; i++ {
+		pos := r.Intn(28)
+		overlap := false
+		for _, p := range placed {
+			if pos >= p.pos-2 && pos <= p.pos+2 {
+				overlap = true
+				break
+			}
+		}
+		if !overlap {
+			placed = append(placed, starPos{pos, randOuterStar()})
+		}
+	}
+
+	// Build sky string
+	skyStr := "    "
+	cur := 0
+	for _, p := range placed {
+		for cur < p.pos {
+			skyStr += " "
+			cur++
+		}
+		skyStr += p.str
+		cur++
+	}
+
+	// Lens: single star (yellow or cyan only)
+	lens := randLensStar()
+
+	// Outer stars (can be any color including magenta)
+	bot1 := randOuterStar()
+	bot2 := randOuterStar()
+	side := randOuterStar()
+
+	fmt.Printf("\n"+
+		"%s\n"+
+		"\n"+
+		"         ╭────────╮\n"+
+		"        │    %s    │\n"+
+		"         ╰────┬───╯\n"+
+		"     %s        │\n"+
+		"              │\n"+
+		"           ___│___\n"+
+		"          /_______\\\n"+
+		"\n"+
+		"     %s     the Git Telescope  v%s     %s\n\n",
+		skyStr, lens, side, bot1, version, bot2)
 }
 
 func printUsage() {
