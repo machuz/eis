@@ -48,7 +48,7 @@ Let me organize the cosmic metaphors used throughout this series.
 | Observation | The act of reading git log (Ch. 7) |
 | Telescope | Git |
 | Starlight | Commits |
-| Instrument | EIS |
+| Instrument | EIS — the Git Telescope |
 
 ---
 
@@ -184,7 +184,7 @@ Architect Reproducibility from Chapter 8 — engineers who create gravity regard
 
 Finally, let me clarify EIS's position.
 
-**EIS is not an evaluation tool. It's an observation instrument.**
+**EIS is not an evaluation tool. It's an observation instrument — the Git Telescope.**
 
 Astronomy doesn't score stars. A telescope doesn't judge a star as "good" or "bad." It simply observes.
 

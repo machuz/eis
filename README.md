@@ -4,7 +4,7 @@
 [![はてなブログ](https://img.shields.io/badge/はてなブログ-記事を読む-00A4DE)](https://ma2k8.hateblo.jp/entry/2026/03/11/153212)
 [![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github)](https://github.com/sponsors/machuz)
 
-**A framework that measures real engineering impact using only Git history.**
+**EIS — the Git Telescope.** A framework that measures real engineering impact using only Git history.
 
 It estimates who actually builds and sustains a system by combining production, survival, design, and maintenance signals. No surveys, no subjective reviews — just `git log` and `git blame`.
 

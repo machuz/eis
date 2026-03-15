@@ -32,7 +32,7 @@ func Run(args []string) error {
 }
 
 func printUsage() {
-	fmt.Println(`eis - Engineering Impact Score
+	fmt.Println(`eis - Engineering Impact Score — the Git Telescope
 
 Usage:
   eis analyze [path...]       Analyze git repos and output individual rankings
