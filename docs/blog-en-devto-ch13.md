@@ -291,6 +291,8 @@ The Mass period in Q4-Q1 was when P. took on the most complex and operation-heav
 
 And P. was simultaneously handling the handover and deadlines of an entirely separate domain while putting up these scores. The coordination and knowledge transfer that don't appear in commits — the ratio of dark matter work was enormous.
 
+P. has also inherited my architecture in the past. In another universe, P. served as an Architect who carried structure on their shoulders. That means knowledge embedded in architecture transfers smoothly between us, and I know that if needed, P. can take over design wholesale. **Having an engineer you can trust at your back.** In this crucible, that mattered more than any score can show.
+
 **FE O. — Laid the foundation, then committed to the finish:**
 
 | Period | Total | Prod | Quality | **Survival** | Design | Lines | Role | Style |
