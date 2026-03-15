@@ -424,6 +424,20 @@ claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Sco
 - [Japanese / はてなブログ](https://ma2k8.hateblo.jp/entry/2026/03/15/062611) — git考古学 #13：Cosmology of Code——コード宇宙論
 - [English / dev.to](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-dci) — Git Archaeology #13: Cosmology of Code
 
+```
+        *  .  *
+    .  *    *   .
+      *  ✦  *
+   .    (●)    .
+       /|  |\
+      / |  | \
+     /  |  |  \
+    /___|__|___\
+        ||
+    ════╩╩════
+   the Git Telescope
+```
+
 ## Roadmap
 
 - [x] Scoring methodology and formulas
