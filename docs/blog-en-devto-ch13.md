@@ -226,7 +226,7 @@ This is where EIS becomes meaningful.
 
 Observe the team's starlight — the track record preserved in commits — through the telescope, and turn it into numbers. Then "our team is strong" stops being subjective.
 
-**If you can prove the team's capability, then even when aligning with business direction is hard, dark matter work becomes worth doing.**
+**If you can prove the team's capability, then even when aligning with business direction is hard, you can move as dark matter with conviction and purpose.**
 
 As I wrote in Chapter 10, dark matter doesn't appear in commits. Design discussions, spec negotiations, technical persuasion — none of these become starlight.
 
