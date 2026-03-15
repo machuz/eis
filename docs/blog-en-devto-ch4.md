@@ -50,8 +50,9 @@ The reason is simple.
 For example, backend systems often have stable patterns like:
 
 - Domain layer
-- Application layer
+- Presentation layer
 - UseCase layer
+- Infrastructure layer
 - Transaction boundaries
 - Event boundaries
 
@@ -254,7 +255,7 @@ Backend Architects are characterized by **being able to reproduce structure**.
 
 Say a design like this worked in one codebase:
 
-![Design pattern: Domain + Application + UseCase](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-design-pattern.png?v=2)
+![Design pattern: Domain + Presentation + UseCase + Infrastructure](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-design-pattern.png?v=3)
 
 A skilled Backend Architect can **reproduce that structure in a different system**.
 

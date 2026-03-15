@@ -46,8 +46,9 @@ FEではArchitectが複数生まれる可能性がある。
 例えばBackendでは、次のような構造が比較的安定した解として存在する：
 
 - Domain層
-- Application層
+- Presentation層
 - UseCase層
+- Infrastructure層
 - Transaction境界
 - Event境界
 
@@ -254,7 +255,7 @@ Backend Architectの特徴は**構造を再現できること**にある。
 
 例えばあるコードベースで成立した：
 
-![設計パターン：Domain + Application + UseCase](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch4-data-design-pattern.svg)
+![設計パターン：Domain + Presentation + UseCase + Infrastructure](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch4-data-design-pattern.svg)
 
 という設計があったとする。
 
