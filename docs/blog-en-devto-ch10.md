@@ -122,9 +122,45 @@ Judging "this engineer has low productivity" by looking only at numbers is the s
 
 When using EIS, always be aware of dark matter's existence.
 
+Dark matter doesn't only exist within engineers. **It exists in every layer of the organization and business.**
+
+### Engineer Dark Matter
+
 - An engineer with a low score might actually be supporting the team's stability
 - Design decisions that don't appear in commits might be the core of the structure
 - The quality of reviews might be lifting the entire team's Quality scores
+
+### Planning Dark Matter
+
+A planner pouring their soul into the business, producing precise specifications — this doesn't appear in a single line of commits.
+
+But without that precision, code gets rewritten over and over. Survival drops. Quality crumbles.
+
+**A team's high Robust score isn't just engineering skill. It's because the specs are stable.** And the one creating that stability is a planner — dark matter fighting invisible battles with the business.
+
+### Cultural Dark Matter
+
+In organizations without a tech-company culture, business decisions rain down that ignore the state of the code.
+
+Sudden pivots. Schedules that don't account for technical constraints. Pressure to "just make it work."
+
+The result: gravitational fields get torn apart. Architects disappear. If engineers are still moving forward despite this — those engineers are dark matter itself, holding together a universe on the verge of collapse.
+
+Conversely, in organizations with good culture — where failure is tolerated, where time for Debt Cleanup is secured, where design discussions are valued — Growing engineers develop, Cleaners function, and Architects are reproduced.
+
+**Culture is the largest dark matter of all.** It never appears in commits, but it determines the entire structure of the universe.
+
+### Hiring Dark Matter
+
+Having strong engineers on the team is no accident.
+
+Someone identified them, persuaded them, built the right environment. That work is never recorded in commits. But it determines the team's initial conditions — the Big Bang from Chapter 9.
+
+**The one who sets the universe's initial conditions is also dark matter.**
+
+---
+
+When you look at EIS numbers, never forget that layers upon layers of dark matter exist behind them.
 
 **Trying to see the invisible. That too is an act of observing the universe.**
 
