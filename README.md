@@ -2,6 +2,8 @@
   <img src="docs/images/logo-full.svg" alt="EIS — the Git Telescope" width="420">
 </p>
 
+<p align="center"><em>EIS doesn't measure activity. It measures gravity.</em></p>
+
 <p align="right">
   <a href="https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c"><img src="https://img.shields.io/badge/dev.to-Read%20Article-0A0A0A?logo=devdotto&logoColor=white" alt="dev.to"></a>
   <a href="https://ma2k8.hateblo.jp/entry/2026/03/11/153212"><img src="https://img.shields.io/badge/はてなブログ-記事を読む-00A4DE" alt="はてなブログ"></a>
