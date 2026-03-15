@@ -471,17 +471,17 @@ In the AI era especially, look through the telescope. Does your code universe ha
 ```
 
 ```
-        *  .  *
-    .  *    *   .
-      *  ✦  *
-   .    (●)    .
-       /|  |\
-      / |  | \
-     /  |  |  \
-    /___|__|___\
-        ||
-    ════╩╩════
-   the Git Telescope
+      ✦       *        ✧
+
+       ╭────────╮
+      │    ✦     │
+       ╰────┬───╯
+   .        │
+            │
+         ___│___
+        /_______\
+
+   ✧     the Git Telescope     ✦
 ```
 
 ---

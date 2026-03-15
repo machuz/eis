@@ -425,17 +425,17 @@ claude "Follow the instructions in PROMPT.md to calculate Engineering Impact Sco
 - [English / dev.to](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-dci) — Git Archaeology #13: Cosmology of Code
 
 ```
-        *  .  *
-    .  *    *   .
-      *  ✦  *
-   .    (●)    .
-       /|  |\
-      / |  | \
-     /  |  |  \
-    /___|__|___\
-        ||
-    ════╩╩════
-   the Git Telescope
+      ✦       *        ✧
+
+       ╭────────╮
+      │    ✦     │
+       ╰────┬───╯
+   .        │
+            │
+         ___│___
+        /_______\
+
+   ✧     the Git Telescope     ✦
 ```
 
 ## Roadmap
