@@ -357,9 +357,10 @@ Let's turn team strength from a prayer into a metric.
 
 ---
 
-**GitHub:** [machuz/engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, full methodology, and blog posts. Install with `brew tap machuz/tap && brew install eis`.
+**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 
-**Support:** If this helped you see your team differently — [❤️ Sponsor on GitHub](https://github.com/sponsors/machuz) / PayPay: `w_machu7`
+
+If this was useful: [❤️ Sponsor on GitHub](https://github.com/sponsors/machuz)
 
 ---
 
