@@ -13,7 +13,7 @@
   <rect width="800" height="450" fill="#282828"/>
 
   <!-- Title -->
-  <text x="400" y="60" text-anchor="middle" fill="#fabd2f" font-size="22" font-weight="700">The Age of AI</text>
+  <text x="400" y="60" text-anchor="middle" fill="#fabd2f" font-size="22" font-weight="700">AI Creates Stars, Not Gravity</text>
   <text x="400" y="85" text-anchor="middle" fill="#928374" font-size="13">AI creates stars. But it doesn't create gravity.</text>
 
   <!-- Starburst glow -->

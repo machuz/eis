@@ -8,7 +8,7 @@ cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/m
 
 *AI creates stars. But it doesn't create gravity.*
 
-![The Age of AI](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch15-iconic.png?v=4)
+![AI Creates Stars, Not Gravity](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch15-iconic.png?v=4)
 
 ## Previously
 

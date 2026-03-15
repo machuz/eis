@@ -21,7 +21,7 @@
 
   <text x="400" y="200" text-anchor="middle" fill="#3c3836" font-size="200" font-weight="700">15</text>
 
-  <text x="400" y="330" text-anchor="middle" fill="#fabd2f" font-size="30" font-weight="700">The Age of AI</text>
+  <text x="400" y="330" text-anchor="middle" fill="#fabd2f" font-size="30" font-weight="700">AI Creates Stars, Not Gravity</text>
   <text x="400" y="380" text-anchor="middle" fill="#928374" font-size="18">AIがもたらす星の爆発</text>
 
   <!-- Starburst visualization -->
