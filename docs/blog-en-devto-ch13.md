@@ -287,7 +287,7 @@ P. with Mass style — charging forward with high-volume commits, supporting the
 
 The standout metric is Quality — **94→98→80**. Maintaining this quality while operating in Mass style is an anomaly. In Q4, Prod=100 and Quality=98 simultaneously — pushing both volume and quality to extremes at the same time. Lines +52k/-92k reveals that this development involved large-scale refactoring of existing code.
 
-The Mass period in Q4-Q1 was when P. took on the most complex and operation-heavy domain in the entire project head-on. The original design we'd agreed on turned out to be unworkable once implementation began. I deferred to P.'s judgment — and P. rebuilt that domain with a design of their own, and delivered it.
+The Mass period in Q4-Q1 was when P. took on the most complex and operation-heavy domain in the entire project head-on — with zero prior domain knowledge. The original design we'd agreed on turned out to be unworkable once implementation began. I deferred to P.'s judgment — and P. rebuilt that domain with a design of their own, and delivered it.
 
 And P. was simultaneously handling the handover and deadlines of an entirely separate domain while putting up these scores. The coordination and knowledge transfer that don't appear in commits — the ratio of dark matter work was enormous.
 
