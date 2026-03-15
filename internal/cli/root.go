@@ -20,7 +20,18 @@ func Run(args []string) error {
 	case "cache":
 		return runCache(args[1:])
 	case "version":
-		fmt.Printf("eis v%s\n", version)
+		fmt.Printf(`        *  .  *
+    .  *    *   .
+      *  ✦  *
+   .    (●)    .
+       /|  |\
+      / |  | \
+     /  |  |  \
+    /___|__|___\
+        ||
+    ════╩╩════
+   the Git Telescope  v%s
+`, version)
 		return nil
 	case "help", "-h", "--help":
 		printUsage()
