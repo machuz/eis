@@ -377,7 +377,11 @@ The telescope observes commit light. But this project had massive gravitational 
 
 R.M., ignited by S.T.'s passion, was building UI while saying "I want to make S.T. happy…!" I witnessed the moment when love for a product was converted into commits.
 
-**EIS can only observe commit light. But there was dark matter that provided the fuel generating that light — vision, planning, organizational coordination, and passion.** Massive dark matter that built a culture of quality. Knowing the telescope's limits is also the observer's duty.
+**QA T.Y.** — yet another massive dark matter. Together with S.T., T.Y. powered through an enormous volume of QA. In the final week before release, there was a phase of crushing hundreds of bugs — and T.Y. worked through them steadily, methodically, until we reached release day with zero obvious bugs in normal user flows.
+
+QA never appears in commits. But without QA, an engineer's commits remain "code that might work." Only after passing QA verification does a commit become "code that works." QA is the entity that converts commit light into starlight — light that actually reaches users. Dark matter invisible to the telescope, yet determining the product's quality.
+
+**EIS can only observe commit light. But there was dark matter that provided the fuel generating that light — vision, planning, organizational coordination, passion, and the last line of defense for quality.** Massive dark matter that built a culture of quality. Knowing the telescope's limits is also the observer's duty.
 
 ---
 
