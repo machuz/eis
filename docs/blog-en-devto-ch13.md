@@ -475,24 +475,6 @@ Just by looking through the telescope, the laws of the universe become visible.
 
 ---
 
-## In Closing
-
-To everyone who read this series, I want to convey one thing.
-
-**Your commits remain in the universe.**
-
-Even a small commit. Even a review comment. Even a 3-line refactor.
-
-It's released into the universe as starlight, and someday someone will observe it.
-
-The code you wrote continues to exist in the universe after you leave.
-
-Whether it carries structure or leaves a void —
-
-That is for you to decide.
-
----
-
 ### Series
 
 - [Chapter 1: Measuring Engineering Impact from Git History Alone](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c)
