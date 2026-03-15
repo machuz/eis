@@ -150,7 +150,7 @@ But code doesn't lie.
 
 `git blame` records who actually built the structure. `git log` records who actually did the work.
 
-**EIS doesn't ask people about people. It asks code.**
+**EIS doesn't ask people about people. It makes the effort preserved in code visible — through code.**
 
 This is a restoration of justice.
 
