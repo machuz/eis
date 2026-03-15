@@ -60,7 +60,11 @@ teams:
 
 How many of the 5 known roles are present? Architect gets the biggest bonus because design leadership is the most critical gap.
 
-![Complementarity Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-formula-complementarity.png?v=4)
+```
+coverage = uniqueRoles / 5
+bonus    = Architect(+10) + Anchor(+5) + Cleaner(+5)
+score    = coverage × 80 + bonus  (clamped 0-100)
+```
 
 A team with only Producers and no Architect scores 16. A fully diverse team hits 100.
 
@@ -68,7 +72,9 @@ A team with only Producers and no Architect scores 16. A fully diverse team hits
 
 Growing members + mentoring capacity.
 
-![Growth Potential Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-formula-growth.png?v=4)
+```
+score = growingRatio × 60 + Builder(+20) + Cleaner(+20)
+```
 
 Having Growing juniors is necessary but not sufficient. Without a Builder or Cleaner as a role model, growth stalls. Both must be present for the score to climb.
 
@@ -76,7 +82,10 @@ Having Growing juniors is necessary but not sufficient. Without a Builder or Cle
 
 What percentage of the team is in a risk state (Former, Silent, Fragile)?
 
-![Sustainability Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-formula-sustainability.png?v=4)
+```
+riskRatio = (Former + Silent + Fragile) / memberCount
+score     = (1 - riskRatio) × 80 + Architect(+20)
+```
 
 Former members whose code still dominates blame. Silent members who haven't meaningfully contributed in months. Fragile members whose code survives only because nobody touches it. These are the hidden drags on team velocity.
 
@@ -88,7 +97,12 @@ Average Debt Cleanup score across members. 50 is neutral; above 50 means the tea
 
 Average production score with a small-team bonus. Three people running a large-scale API server will show an abnormally high density — impressive, but also risky.
 
-![Productivity Density Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-formula-productivity.png?v=4)
+```
+base = avg(members.Production)
+bonus:
+  ≤3 members && base ≥ 50 → ×1.2
+  ≤5 members && base ≥ 50 → ×1.1
+```
 
 This quantifies the "this amount of code from this few people is insane" feeling.
 
@@ -96,7 +110,9 @@ This quantifies the "this amount of code from this few people is insane" feeling
 
 A team averaging 80 quality with tight variance is healthy. A team averaging 80 but ranging from 95 to 40 is not — the low end drags reviews, and quality gates become performative.
 
-![Quality Consistency Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-formula-quality-consistency.png?v=4)
+```
+score = avgQuality × 0.6 + (100 - stdev × 2) × 0.4
+```
 
 ### 7. Risk Ratio — Blunt Truth
 
@@ -126,7 +142,9 @@ Character is a meta-classification synthesized from the other four — the team'
 
 Classification uses **member Total score as influence weight**:
 
-![Weighted Classification](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-formula-weight.png?v=4)
+```
+weight = member.Total / 100  (minimum 0.1)
+```
 
 An Architect scoring 90 and an Architect scoring 15 on the same team don't contribute equally to the team's character. The high-scorer shapes the team far more. Ethnographically, **strong performers with high output propagate more culture to the team**. The formula encodes this directly.
 

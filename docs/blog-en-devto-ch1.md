@@ -98,7 +98,9 @@ Commit counts are unreliable. Some engineers make large commits. Others split wo
 
 We measure `insertions + deletions` per day, using **absolute scoring**:
 
-![Production Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-production.png?v=4)
+```
+production_score = min(changes_per_day / production_daily_ref × 100, 100)
+```
 
 The daily rate is computed from total changes divided by the span between the author's first and last commit. The reference (`production_daily_ref`, default 1000) is configurable.
 
@@ -114,7 +116,10 @@ Auto-generated files are excluded:
 
 ## Quality: The Fix Ratio
 
-![Quality Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-quality.png?v=4)
+```
+quality    = 100 - fix_ratio
+fix_ratio  = fix_commits / total_commits × 100
+```
 
 Fix commits are detected using patterns like `fix`, `revert`, `hotfix`, plus language-specific keywords (e.g. `修正` in Japanese teams — if you don't catch these, accuracy drops for non-English teams).
 
@@ -207,7 +212,16 @@ Metrics use a **hybrid approach**:
 
 Scored per domain (Backend / Frontend / Infra / Firmware separately). Domain is auto-detected from file extensions or configured explicitly.
 
-![Total Score Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-total.png?v=4)
+```
+score =
+  production       × 0.15
+  + quality        × 0.10
+  + survival       × 0.25
+  + design         × 0.20
+  + breadth        × 0.10
+  + debt_cleanup   × 0.15
+  + indispensability × 0.05
+```
 
 The scale is intentionally strict.
 
@@ -296,7 +310,9 @@ The 7-axis score tells you *how strong* an engineer is. The 3-axis topology tell
 
 That's what **Gravity** measures.
 
-![Gravity Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-gravity.png?v=4)
+```
+Gravity = Indispensability × 0.40 + Breadth × 0.30 + Design × 0.30
+```
 
 It combines module ownership (bus factor risk), cross-cutting reach (breadth), and architectural involvement (design) into a single number that approximates **structural pull** — how much of the system's shape is determined by this person.
 
@@ -306,7 +322,14 @@ A high-quality engineer with high Gravity is exerting *healthy structural influe
 
 This is expressed through color:
 
-![Gravity Health](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-gravity-health.png?v=4)
+```
+health = Quality × 0.6 + RobustSurvival × 0.4
+
+Gravity < 20  → dim gray  (low influence)
+health ≥ 60   → green     (healthy gravity)
+health ≥ 40   → yellow    (moderate)
+health < 40   → red       (fragile gravity)
+```
 
 In practice, this reveals striking patterns. On my backend team, my own Gravity is 97 (green) — Design 100, Survival 100, and Indispensability 43 indicate well-distributed structural influence backed by durable code. On another domain, one member has Gravity 100 (red) — extremely high Indispensability means they own the vast majority of modules, but quality is lacking. **"If this person leaves, everything collapses" AND "the code itself is fragile"** — the most dangerous combination, instantly visible as red gravity.
 

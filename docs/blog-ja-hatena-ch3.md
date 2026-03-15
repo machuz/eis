@@ -131,7 +131,9 @@ O.の「重力を出せる。でもまだ置き換えられている。でも全
 
 EISのGravityは以下で計算される：
 
-![Gravity計算式](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch1-formula-gravity.svg)
+```
+Gravity = Indispensability × 0.40 + Breadth × 0.30 + Design × 0.30
+```
 
 O.の場合：
 

@@ -141,7 +141,9 @@ Here's an important nuance.
 
 EIS calculates Gravity as:
 
-![Gravity Formula](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-formula-gravity.png?v=4)
+```
+Gravity = Indispensability × 0.40 + Breadth × 0.30 + Design × 0.30
+```
 
 For O.:
 
