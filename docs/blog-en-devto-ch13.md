@@ -257,6 +257,8 @@ Meanwhile, FE lead R.M. evolved from Anchor to **Architect** in Q4 with 1241 com
 
 **FE R.M. — The star that created a new universe alone:**
 
+First, scores across all FE repositories:
+
 | Period | Total | Prod | Quality | Survival | Design | Lines | Commits | Role | Style | State |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 2025-Q2 | 71.5 | 60 | **92** | 100 | 86 | +30k/-15k | 290 | Architect | Balanced | Active |
@@ -264,15 +266,24 @@ Meanwhile, FE lead R.M. evolved from Anchor to **Architect** in Q4 with 1241 com
 | 2025-Q4 | **83.4** | **100** | 73 | 100 | **100** | **+178k/-122k** | **1038** | **Architect** | Balanced | Active |
 | 2026-Q1 | 76.4 | 100 | 84 | 84 | 100 | +169k/-69k | **1417** | Anchor | **Builder** | Active |
 
+Total 83.4, commits=1038 across all FE. Already high. But to see R.M.'s true gravitational field, we need to observe the new project's repository alone:
+
+| Period | Total | Prod | Quality | Survival | Design | Lines | Commits | Role | Style | State |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2025-Q4 | 51.8 | **100** | 85 | **100** | **100** | **+174k/-119k** | **993** | **Architect** | **Emergent** | Active |
+| 2026-Q1 | 50.4 | **100** | 80 | **100** | **100** | +168k/-68k | **1398** | **Architect** | **Emergent** | Active |
+
 R.M. is the engineer who built the new project's FE repository from scratch — creating its entire structure. On top of that, R.M. personally took on a significant share of the UI design. Architecture, implementation, and UI — all driven through by a single person.
 
-Q4 — Design=100, Prod=100, commits=1038, Lines=+178k/-122k. **A single engineer triggering the Big Bang of a new universe.** This is exactly the "initial conditions determine structure" from Chapter 9. The architecture R.M. laid down in this period defined the gravitational field for the entire frontend that followed.
+**Design=100, Survival=100, Role=Architect — both periods.** Style=Emergent — the creative type. Not inheriting existing design, but generating structure from zero.
 
-In Q1, commits reached **1417** and Style shifted from Balanced to **Builder**. The transition from creating structure to building on top of it. Survival also drops from 100 to 84 for the first time — but this is evidence that other members started writing code on R.M.'s structure. Having your code rewritten is also proof that your architecture has taken root.
+**Total 51.8/50.4 may look low.** This is by design in EIS. In a new repository where no one else has touched the code yet, relative metrics like Breadth and Indispensability don't fully activate. EIS measures "gravity within a team" — in a universe of one, relative gravity is hard to express.
 
-The Quality trajectory — 92→97→73→84 — is also telling. The dip to 73 in Q4 coincides with generating +178k lines at high velocity. But in Q1 it recovers to 84 — quality restored in the finishing phase.
+But I know. **From another universe, I know this design carries refined, high-quality gravity.** R.M. and I built structure together in a different codebase, and I've experienced firsthand the soundness of this architectural thinking. How much structural intelligence lives behind these Total numbers — the telescope alone can't see it. Only an observer who has shared another universe can understand the true intensity of this light.
 
-**Total 83.4, Design=100, commits=1038.** This is the gravity of an Architect.
+Q4 — Prod=100, commits=993, Lines=+174k/-119k. **A single engineer triggering the Big Bang of a new universe.** This is exactly the "initial conditions determine structure" from Chapter 9. The architecture R.M. laid down in this period defined the gravitational field for the entire frontend that followed.
+
+In Q1, commits reached **1398**. Lines shift to +168k/-68k with deletions dropping sharply — the exploratory phase of destruction and reconstruction has given way to building up.
 
 **BE R.S. — The stable core holding the team's gravitational field:**
 
