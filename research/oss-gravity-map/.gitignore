@@ -1,0 +1,5 @@
+# Cloned repositories (too large for git)
+data/repos/
+
+# Keep directory structure
+!data/repos/.gitkeep

@@ -1,0 +1,181 @@
+# OSS Gravity Map — Dataset Definition
+# 25 major open-source projects for EIS validation
+#
+# Selection criteria:
+#   - GitHub stars > 10k
+#   - Commit history > 3 years
+#   - Contributors > 100
+#   - Architecture owners relatively well-known
+#   - Language/ecosystem diversity
+
+# =============================================================================
+# Tier 1: Famous Projects (5)
+# Purpose: Architect detection — EIS gravity ≈ community architect recognition
+# =============================================================================
+
+tier1:
+  - name: react
+    repo: facebook/react
+    language: JavaScript
+    why: "Architecture authors well-known (Jordan Walke, Dan Abramov, Sebastian Markbage)"
+    known_architects:
+      - jordwalke        # Creator
+      - gaearon          # Dan Abramov — Redux, hooks, React architecture
+      - sebmarkbage      # Sebastian Markbage — Fiber architecture
+      - acdlite          # Andrew Clark — concurrent mode
+      - sophiebits       # Sophie Alpert — core maintainer
+
+  - name: kubernetes
+    repo: kubernetes/kubernetes
+    language: Go
+    why: "Very large ecosystem, multiple known architects"
+    known_architects:
+      - brendandburns    # Co-creator
+      - jbeda            # Joe Beda — co-creator
+      - thockin          # Tim Hockin — networking, core
+      - liggitt          # Jordan Liggitt — API, auth
+      - deads2k          # David Eads — API machinery
+      - lavalamp         # Daniel Smith — API machinery
+
+  - name: terraform
+    repo: hashicorp/terraform
+    language: Go
+    why: "Module architecture, known creator"
+    known_architects:
+      - mitchellh        # Mitchell Hashimoto — creator
+      - jbardin          # James Bardin — core
+      - apparentlymart   # Martin Atkins — HCL, configs
+
+  - name: redis
+    repo: redis/redis
+    language: C
+    why: "Strong single-architect phase (antirez)"
+    known_architects:
+      - antirez          # Salvatore Sanfilippo — creator, sole architect for years
+      - oranagra         # Oran Agra — post-antirez core
+      - YaacovHawormo    # Yossi Gotlieb
+
+  - name: rust
+    repo: rust-lang/rust
+    language: Rust
+    why: "Language compiler + ecosystem, distributed architecture"
+    known_architects:
+      - graydon          # Graydon Hoare — creator
+      - nikomatsakis     # Niko Matsakis — type system, borrow checker
+      - aturon           # Aaron Turon — libs, ecosystem
+      - pnkfelix         # Felix Klock — compiler
+      - eddyb            # Eduard-Mihai Burtescu — compiler internals
+
+# =============================================================================
+# Tier 2: Mid-size Projects (20)
+# Purpose: Hidden architect discovery + entropy fighter detection
+# =============================================================================
+
+tier2:
+  # --- Infrastructure ---
+  infrastructure:
+    - name: prometheus
+      repo: prometheus/prometheus
+      language: Go
+      category: infrastructure
+
+    - name: grafana
+      repo: grafana/grafana
+      language: Go/TypeScript
+      category: infrastructure
+
+    - name: loki
+      repo: grafana/loki
+      language: Go
+      category: infrastructure
+
+    - name: argocd
+      repo: argoproj/argo-cd
+      language: Go
+      category: infrastructure
+
+    - name: envoy
+      repo: envoyproxy/envoy
+      language: C++
+      category: infrastructure
+
+  # --- Backend Frameworks ---
+  backend_frameworks:
+    - name: fastapi
+      repo: fastapi/fastapi
+      language: Python
+      category: backend_framework
+
+    - name: nestjs
+      repo: nestjs/nest
+      language: TypeScript
+      category: backend_framework
+
+    - name: spring-boot
+      repo: spring-projects/spring-boot
+      language: Java
+      category: backend_framework
+
+    - name: express
+      repo: expressjs/express
+      language: JavaScript
+      category: backend_framework
+
+    - name: phoenix
+      repo: phoenixframework/phoenix
+      language: Elixir
+      category: backend_framework
+
+  # --- Developer Tools ---
+  developer_tools:
+    - name: esbuild
+      repo: evanw/esbuild
+      language: Go
+      category: developer_tool
+
+    - name: swc
+      repo: swc-project/swc
+      language: Rust
+      category: developer_tool
+
+    - name: vite
+      repo: vitejs/vite
+      language: TypeScript
+      category: developer_tool
+
+    - name: prettier
+      repo: prettier/prettier
+      language: JavaScript
+      category: developer_tool
+
+    - name: eslint
+      repo: eslint/eslint
+      language: JavaScript
+      category: developer_tool
+
+  # --- Data / Systems ---
+  data_systems:
+    - name: duckdb
+      repo: duckdb/duckdb
+      language: C++
+      category: data_system
+
+    - name: clickhouse
+      repo: ClickHouse/ClickHouse
+      language: C++
+      category: data_system
+
+    - name: arrow
+      repo: apache/arrow
+      language: C++/Multi
+      category: data_system
+
+    - name: polars
+      repo: pola-rs/polars
+      language: Rust
+      category: data_system
+
+    - name: superset
+      repo: apache/superset
+      language: Python/TypeScript
+      category: data_system
