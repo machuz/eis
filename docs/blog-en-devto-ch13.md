@@ -333,15 +333,13 @@ H. is the engineer who dove into the entirely new FE repository that R.M. built 
 
 In Q2, Design=100, Style=Builder — a star that creates structure. But from Q3 onward, Design drops from 64 to 10, and Style shifts from Builder → Mass → Balanced.
 
-This isn't decline. **It's the trace of pouring energy into knowledge transfer.** Instead of building new structure themselves, they're teaching other engineers how to build it. What appears in commits is only code, but behind it lies pair programming, design explanations, and transmission of the codebase's history.
+This isn't decline. **It's the trace of building structure that didn't take root — and the struggle that followed.** Robust Survival tells the story — 71→30→28. The structure H. poured design into was being rewritten by R.M.'s new infrastructure. Code that embodied architectural intent didn't survive.
 
-The Survival breakdown reveals another layer of struggle. **Look at Robust Survival — 71 → 30 → 28.** Robust Survival measures how much code survives in high change-pressure modules — the areas under active development. From 71 in Q2, it crashes to 30 in Q3.
+But H. is fundamentally an emergent Architect — someone who creates structure from zero. And now, inside the new repository R.M. built, H. is absorbing feedback through code reviews, calibrating design sensibility, and evolving into a succession Architect.
 
-This means R.M.'s new infrastructure was replacing the structure H. had built. **Watching your own architecture get rewritten by another engineer.** The numbers capture that anguish.
+Meanwhile, Dormant drops from 31 → 3 → 10. Even in low change-pressure areas, survival rates fell — the new infrastructure's ripple effects reached the entire existing structure. **Watching your own architecture get rewritten by another engineer.** The numbers capture that struggle.
 
-Meanwhile, Dormant drops from 31 → 3 → 10. Even in low change-pressure areas, survival rates fell — the new infrastructure's ripple effects reached the entire existing structure.
-
-And yet Quality — **80 → 96 → 94.** Even while being rewritten, code quality never drops. Absorbing the reality of replacement while actually improving the precision of every line written. All while maintaining the invisible gravitational field of knowledge transfer.
+And yet Quality — **80 → 96 → 94.** Even while being rewritten, code quality never drops. Absorbing the reality of replacement while actually improving the precision of every line written.
 
 Q2 Lines = +75k/-133k — deletions far exceed additions. Evidence of restructuring and cleaning up existing architecture. From Q3 onward, +78k/-75k and +25k/-13k stabilize, showing continued forward momentum even while being rewritten.
 
