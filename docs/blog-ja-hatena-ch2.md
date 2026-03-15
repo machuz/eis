@@ -1,6 +1,6 @@
 # git考古学 #2 —— エンジニアの「戦闘力」から、チームの「構造力」へ
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch2.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch2.png)
 
 ### 前回のあらすじ
 

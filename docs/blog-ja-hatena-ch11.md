@@ -1,6 +1,6 @@
 # git考古学 #11 —— Entropy：宇宙は常に無秩序に向かう
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch11.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch11.png)
 
 *エントロピーは常に増大する。エンジニアはそれと戦っている。*
 

@@ -1,6 +1,6 @@
 # git考古学 #6 —— チームは進化する——タイムラインが暴く組織の法則
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch6.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch6.png)
 
 *個人が変われば、チームも変わる。チームタイムラインは、その変化に法則があることを教えてくれる。*
 

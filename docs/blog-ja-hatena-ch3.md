@@ -1,6 +1,6 @@
 # git考古学 #3 —— Architectには流派がある：Git履歴が暴く進化の分岐モデル
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch3.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch3.png)
 
 ### 前章までのあらすじ
 

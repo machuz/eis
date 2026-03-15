@@ -1,6 +1,6 @@
 # git考古学 #10 —— Dark Matter：見えない重力
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch10.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch10.png)
 
 *宇宙の質量の大部分は、観測できない。コード宇宙でも同じだ。*
 

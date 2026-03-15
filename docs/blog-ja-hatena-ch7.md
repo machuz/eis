@@ -1,6 +1,6 @@
 # git考古学 #7 —— コードの宇宙を観測する
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch7.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch7.png)
 
 *優秀なエンジニアとは、単にコードを書く人ではない。コードベースの重力を曲げる人なのかもしれない。*
 
