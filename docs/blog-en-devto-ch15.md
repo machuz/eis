@@ -338,25 +338,33 @@ Just as civilizations persist across generations, a codebase's structure is inhe
 
 ---
 
-## AI Makes Dark Matter Visible
+## The Articulation of Structure and the Birth of New Culture
 
-In Chapter 10, I wrote about "dark matter" — invisible forces that don't appear in commit logs. Design intent, team tacit knowledge, the context of "why we did it this way."
+In Chapter 10, I wrote about "dark matter" — invisible forces that don't appear directly in commit logs. Design intent, team tacit knowledge, the context of "why we did it this way."
 
-Dark matter previously existed only in engineers' heads. It couldn't be visualized. It couldn't be measured. But it undeniably existed, supporting the structure of the code universe.
+But dark matter isn't truly invisible. If you carefully read the commit history, you can extract the structural intent buried within. That's exactly what the EIS telescope shows. The problem was that **people without the skill to read structure from code couldn't see it.**
 
-Here's the ironic paradox of the AI era:
+What changes in the AI era?
 
-**The need to teach AI about structure forced us to articulate dark matter.**
+As teams maintain documents like CLAUDE.md for AI, **the probability that structural knowledge exists as text from the start goes up.** Even without the skill to decode commit history, both humans and AI can access the Architect's design intent.
 
-Think about writing a CLAUDE.md file. "This module was built on this design philosophy." "Dependencies should flow in this direction." "The reason for following this pattern is this." Without documenting these, AI can't understand the structure.
+This alone is an interesting byproduct of the AI era. But beyond it lies something far bigger.
 
-In other words, AI's arrival **forced humans to articulate their dark matter.**
+### When Architects' Souls Accumulate
 
-This is an unexpected side effect. Documentation written for AI serves humans too. It works for onboarding new team members. It becomes a code review standard. When "why we did it this way" is written down, dark matter stops being dark matter.
+A single CLAUDE.md contains one Architect's design philosophy.
 
-**AI creates stars. But simultaneously, it makes dark matter visible.**
+But what if it crosses the boundaries of a single team, a single product? When the structural knowledge of multiple Architects accumulates, gets refined, and becomes reusable as a **common language of good design** — that's no longer the story of a single codebase.
 
-Invisible forces become visible. This is another gift of the AI era.
+A high-quality accumulation of structural knowledge that has absorbed the souls of many Architects. When shared beyond organizational boundaries, **a new unit of "culture" may be born.**
+
+In Chapter 14, I wrote about "organizational civilization" and "open source civilization." Common coding conventions, architecture patterns, naming conventions — these become civilization's legal codex.
+
+The AI era's codex has the potential to evolve one layer higher. The accumulation of structural knowledge that both humans and AI reference could form a **grand culture** that transcends individual codebases.
+
+Linux culture, Go culture, React culture — these have existed as community tacit knowledge. In the AI era, that knowledge gets accumulated more explicitly, more systematically. And as AI faithfully embodies that culture, the speed of cultural diffusion increases dramatically.
+
+**AI can become a carrier of culture itself.**
 
 ---
 
