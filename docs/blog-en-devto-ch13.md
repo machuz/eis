@@ -218,6 +218,10 @@ This is exactly the Architect Reproducibility from Chapter 8 — engineers who c
 
 The result: a beautiful product was born. The "proof" phase of our engineering organization was complete, and we felt the culture of building good things take root across the company.
 
+So — I want to point EIS at this crucible and see what it reveals.
+
+Thirteen chapters of building this telescope. Now I'm turning it toward my own team. Not theory — actual commit logs, actual blame data, observing what happened during those three months.
+
 ---
 
 ### What the Telescope Revealed
