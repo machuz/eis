@@ -49,6 +49,12 @@ An engineer who writes 10,000 lines that get rewritten next month left no gravit
 
 **EIS measures the gravity engineers leave in the codebase** — structure that survives, design that endures, and debt that gets cleaned up.
 
+EIS is not a performance metric. It is an observational instrument. Like Galileo's telescope, it doesn't decide what exists — it simply reveals structures that were already there.
+
+### Prior art
+
+The individual signals EIS uses — code ownership, bus factor, survival analysis, developer productivity — have been studied extensively. EIS was developed independently, not derived from these works, but the underlying ideas overlap. What EIS adds is the integration: a single weighted framework that combines these signals into a structural observation tool, mapped to a cosmological model of software.
+
 ---
 
 ## How it works
