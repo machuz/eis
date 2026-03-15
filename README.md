@@ -8,8 +8,10 @@
   <a href="https://github.com/sponsors/machuz"><img src="https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github" alt="Sponsor"></a>
 </p>
 
+**Engineering Impact Score** (EIS, pronounced *"ace"*)
+
 Git records commits.
-**EIS reveals the structure of the code universe.**
+EIS reveals the structure of the code universe.
 
 ### What the telescope reveals
 
