@@ -118,5 +118,13 @@
   "blog-ja-hatena-ch15.md": {
     "hatena_id": "17179246901365263666",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/03/15/221250"
+  },
+  "blog-en-devto-ch16.md": {
+    "devto_id": 3355099,
+    "devto_url": "https://dev.to/machuz/git-archaeology-16-the-engineers-who-shape-gravity-3fmi"
+  },
+  "blog-ja-hatena-ch16.md": {
+    "hatena_id": "17179246901365282170",
+    "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/03/15/231040"
   }
 }
