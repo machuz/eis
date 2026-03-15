@@ -244,21 +244,21 @@ Looking at the **frontend timeline** too:
 |---|---|---|---|---|---|
 | machuz | 2025-Q4 | 85 | — | Spread | Active |
 | machuz | 2026-Q1 | **313** | — | **Rescue** | Active |
-| Ryota Mannari | 2025-Q4 | **1241** | **Architect** | Builder | Active |
-| Ryota Mannari | 2026-Q1 | 592 | Architect | Builder | Active |
+| R.M. | 2025-Q4 | **1241** | **Architect** | Builder | Active |
+| R.M. | 2026-Q1 | 592 | Architect | Builder | Active |
 
 machuz accumulated 313 commits on the FE side too, Style shifting from Spread to **Rescue**. A backend engineer diving into frontend to support integration.
 
-Meanwhile, FE lead Ryota Mannari evolved from Anchor to **Architect** in Q4 with 1241 commits. Building the entire frontend structure single-handedly.
+Meanwhile, FE lead R.M. evolved from Anchor to **Architect** in Q4 with 1241 commits. Building the entire frontend structure single-handedly.
 
 **Backend team members timeline:**
 
 | Author | Q3 | Q4 | Q1 | Role | Style |
 |---|---|---|---|---|---|
-| Ryunosuke Suzuki | 36.4 | 46.1 | 40.4 | Anchor | Balanced |
-| pony | 34.2 | 51.4 | 40.0 | Anchor | **Mass** |
+| R.S. | 36.4 | 46.1 | 40.4 | Anchor | Balanced |
+| P. | 34.2 | 51.4 | 40.0 | Anchor | **Mass** |
 
-Ryunosuke Suzuki — a steady Anchor holding the team's gravitational field. pony with Mass style — charging forward with high-volume commits, supporting the crunch.
+R.S. — a steady Anchor holding the team's gravitational field. P. with Mass style — charging forward with high-volume commits, supporting the crunch.
 
 **machuz's long-term timeline** tells another story:
 

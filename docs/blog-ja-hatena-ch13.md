@@ -238,21 +238,21 @@ Q1 2026——新プロダクトの佳境。Qualityが74.5から**41.4に急落**
 |---|---|---|---|---|---|
 | machuz | 2025-Q4 | 85 | — | Spread | Active |
 | machuz | 2026-Q1 | **313** | — | **Rescue** | Active |
-| Ryota Mannari | 2025-Q4 | **1241** | **Architect** | Builder | Active |
-| Ryota Mannari | 2026-Q1 | 592 | Architect | Builder | Active |
+| R.M. | 2025-Q4 | **1241** | **Architect** | Builder | Active |
+| R.M. | 2026-Q1 | 592 | Architect | Builder | Active |
 
 machuzがFE側でも313 commitを積み、StyleがSpreadから**Rescue**に変化している。BEエンジニアがFEに飛び込み、繋ぎ込みを支援している姿だ。
 
-一方、FEリードのRyota MannariはQ4に1241 commitでAnchorから**Architect**に進化。FEの構造を一人で作り上げている。
+一方、FEリードのR.M.はQ4に1241 commitでAnchorから**Architect**に進化。FEの構造を一人で作り上げている。
 
 **BEチームメンバーのタイムライン:**
 
 | Author | Q3 | Q4 | Q1 | Role | Style |
 |---|---|---|---|---|---|
-| Ryunosuke Suzuki | 36.4 | 46.1 | 40.4 | Anchor | Balanced |
-| pony | 34.2 | 51.4 | 40.0 | Anchor | **Mass** |
+| R.S. | 36.4 | 46.1 | 40.4 | Anchor | Balanced |
+| P. | 34.2 | 51.4 | 40.0 | Anchor | **Mass** |
 
-Ryunosuke Suzukiは安定したAnchor——チームの重力場を支える存在。ponyはMass style——大量のcommitで突進するスタイルで、修羅場を支えている。
+R.S.は安定したAnchor——チームの重力場を支える存在。P.はMass style——大量のcommitで突進するスタイルで、修羅場を支えている。
 
 **machuzの長期タイムライン**も見てみよう：
 
