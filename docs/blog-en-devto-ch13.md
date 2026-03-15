@@ -260,6 +260,41 @@ Meanwhile, FE lead R.M. evolved from Anchor to **Architect** in Q4 with 1241 com
 
 R.S. — a steady Anchor holding the team's gravitational field. P. with Mass style — charging forward with high-volume commits, supporting the crunch. And P. was simultaneously handling the handover and deadlines of an entirely separate domain while putting up these scores. The coordination and knowledge transfer that don't appear in commits — the ratio of dark matter work was enormous.
 
+**FE K.M. — Guardian of the user experience:**
+
+| Period | Total | Prod | Quality | **Survival** | Design | Role | Style |
+|---|---|---|---|---|---|---|---|
+| 2025-Q3 | 47.8 | 78 | 30 | **79** | 13 | Producer | Balanced |
+| 2025-Q4 | 35.9 | 31 | 58 | **90** | 0 | Producer | Balanced |
+
+K.M. owned the domain most directly tied to user experience and brought it to completion.
+
+The key metric is Survival — **79 rising to 90.** High Survival means the code they wrote wasn't rewritten. It survived. Meaning they got the design right the first time.
+
+In Q4, Design drops to 0 and Production falls. This isn't decline — it's a shift from building new structure to **polishing and perfecting the existing design for the end user.** And the polish was right — users have been sending overwhelmingly positive feedback.
+
+**An engineer whose scores look low may actually be determining the product's value.** This is the dark matter of Chapter 10, in the flesh.
+
+**FE H. — The struggle of knowledge transfer:**
+
+| Period | Total | Prod | Quality | Design | Role | Style | State |
+|---|---|---|---|---|---|---|---|
+| 2025-Q2 | 70.4 | 100 | 80 | **100** | Anchor | **Builder** | Active |
+| 2025-Q3 | 46.5 | 100 | **96** | 64 | Anchor | **Mass** | Active |
+| 2025-Q4 | 30.4 | 44 | **94** | 10 | Anchor | Balanced | Active |
+
+H. was the engineer responsible for web-admin knowledge transfer.
+
+In Q2, Design=100, Style=Builder — a star that creates structure. But from Q3 onward, Design drops from 64 to 10, and Style shifts from Builder → Mass → Balanced.
+
+This isn't decline. **It's the trace of pouring energy into knowledge transfer.** Instead of building new structure themselves, they're teaching other engineers how to build it. What appears in commits is only code, but behind it lies pair programming, design explanations, and transmission of the codebase's history.
+
+The key is Quality — **80 → 96 → 94.** Even while struggling through the transfer, code quality never drops. While maintaining the invisible gravitational field of knowledge transfer, the precision of their code actually improved.
+
+At the same time, H. appears in the BE domain in Growing state (Quality 94-97). Handing off FE knowledge while stepping into backend territory themselves.
+
+**When Total drops from 70.4 to 30.4, do you see "declining performance"? Or do you see "transmitting structure for the team's future"?** Without the telescope, it looks like the former. With the telescope — the high Quality and the Style transitions tell the truth.
+
 **machuz's long-term timeline** tells another story:
 
 | Period | Total | Role | Style |
