@@ -1,6 +1,6 @@
 # git考古学 #14 —— Civilization：なぜ一部のコードベースだけが文明になるのか
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch14.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch14.png?v=1)
 
 *多くのコード宇宙は消えていく。文明になれるのは、ほんの一握りだ。*
 

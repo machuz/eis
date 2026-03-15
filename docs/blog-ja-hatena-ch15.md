@@ -1,6 +1,6 @@
 # git考古学 #15 —— The Age of AI：AIがもたらす星の爆発
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch15.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch15.png?v=1)
 
 *AIは星を作る。しかし重力は作らない。*
 
