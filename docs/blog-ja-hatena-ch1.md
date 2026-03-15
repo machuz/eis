@@ -1,5 +1,7 @@
 # git考古学 #1 —— 履歴だけでエンジニアの「戦闘力」を定量化する
 
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch1.png)
+
 ### はじめに
 
 こんにちは。うっすら転職してポーカー系の事業でBEインフラリードをやっています。エンタメはいいぞ。

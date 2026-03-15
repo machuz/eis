@@ -1,5 +1,7 @@
 # git考古学 #3 —— Architectには流派がある：Git履歴が暴く進化の分岐モデル
 
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch3.png)
+
 ### 前章までのあらすじ
 
 [第1章](https://ma2k8.hateblo.jp/entry/2026/03/11/153212)では、gitの履歴データだけでエンジニア個人の「戦闘力」を7軸で定量化する手法を紹介した。[第2章](https://ma2k8.hateblo.jp/entry/2026/03/13/060851)では、個人スコアをチームレベルに集約し、チームの健全性と5軸分類を導入した。

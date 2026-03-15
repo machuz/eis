@@ -1,5 +1,7 @@
 # git考古学 #8 —— Engineering Relativity：なぜ同じエンジニアでもスコアが変わるのか
 
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch8.png)
+
 *同じ物体でも、月では軽く、木星では重い。コードベースでも同じことが起きる。*
 
 ### 前章までのあらすじ

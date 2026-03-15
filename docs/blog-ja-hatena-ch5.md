@@ -1,5 +1,7 @@
 # git考古学 #5 —— タイムライン：スコアは嘘をつかないし、遠慮も映る
 
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch5.png)
+
 *3ヶ月ごとのスナップショットを並べたとき、数字はストーリーを語り始める。*
 
 ### 前章までのあらすじ

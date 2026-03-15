@@ -1,5 +1,7 @@
 # git考古学 #4 —— Backend Architectは収束する：成仏という聖なる仕事
 
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch4.png)
+
 *退職したArchitectの魂を成仏させる——それは聖なる仕事だ。*
 
 ### 前章までのあらすじ

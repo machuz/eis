@@ -1,5 +1,7 @@
 # git考古学 #2 —— エンジニアの「戦闘力」から、チームの「構造力」へ
 
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch2.png)
+
 ### 前回のあらすじ
 
 [第1章](https://ma2k8.hateblo.jp/entry/2026/03/11/153212)では、gitの履歴データだけでエンジニア個人の「戦闘力」を7軸で定量化する手法を紹介した。3軸トポロジー（Role / Style / State）による分類も加え、「この人はどんなエンジニアか」を一言で表現できるようになった。
