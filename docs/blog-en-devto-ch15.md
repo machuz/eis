@@ -380,6 +380,20 @@ In Chapter 12, I wrote about the danger of Black Holes — when gravity concentr
 
 **AI carries the gravity an Architect created to every corner of the universe.**
 
+### My Own Transformation
+
+Of course, I use AI extensively in my own development.
+
+I've been an Architect/Builder for much of my career, but before AI, my work was almost entirely about facing code. Design the structure, implement it with my own hands. That alone would fill a day.
+
+After acquiring AI, this changed fundamentally.
+
+With AI handling the Producer role and writing large volumes of code, **I now have time for dark matter work too.** Maintaining design documents, expanding CLAUDE.md, having design discussions with team members, making structural decisions — things that were squeezed out by "time spent writing code" are now possible.
+
+And code output hasn't decreased — it's increased. Through pair programming with AI, I can produce massive amounts of structurally-aware code at high speed.
+
+Building structure as an Architect/Builder, making dark matter visible, and weaving large volumes of features through AI. **A way of working that was impossible before AI** is now routine.
+
 This is the true power of the Architect/Builder in the AI era.
 
 ---
