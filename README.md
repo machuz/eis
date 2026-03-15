@@ -8,9 +8,8 @@
   <a href="https://github.com/sponsors/machuz"><img src="https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github" alt="Sponsor"></a>
 </p>
 
-**EIS — the Git Telescope.** A framework that measures real engineering impact using only Git history.
-
-It estimates who actually builds and sustains a system by combining production, survival, design, and maintenance signals. No surveys, no subjective reviews — just `git log` and `git blame`.
+Git records commits.
+**EIS reveals the structure of the code universe.**
 
 ### What the telescope reveals
 
