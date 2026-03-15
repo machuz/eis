@@ -12,7 +12,7 @@ cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/m
 
 ## Previously
 
-In [Chapter 14](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-3a9b), I wrote about Civilization — why only some codebases become self-sustaining structures that outlast their creators.
+In [Chapter 14](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-2nl3), I wrote about Civilization — why only some codebases become self-sustaining structures that outlast their creators.
 
 The three elements of civilization: Architect (creates structure), Anchor (maintains order), Producer (expands territory).
 
@@ -501,7 +501,7 @@ In the AI era especially, look through the telescope. Does your code universe ha
 - [Chapter 11: Entropy: The Universe Always Tends Toward Disorder](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-ak9)
 - [Chapter 12: Collapse: Good Architects and Black Hole Engineers](https://dev.to/machuz/git-archaeology-12-collapse-good-architects-and-black-hole-engineers-3fed)
 - [Chapter 13: Cosmology of Code](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-dci)
-- [Chapter 14: Civilization — Why Only Some Codebases Become Civilizations](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-3a9b)
+- [Chapter 14: Civilization — Why Only Some Codebases Become Civilizations](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-2nl3)
 - **Chapter 15: AI Creates Stars, Not Gravity** (this post)
 
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
@@ -513,4 +513,4 @@ If this was useful: [Sponsor on GitHub](https://github.com/sponsors/machuz)
 
 ---
 
-← [Chapter 14: Civilization](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-3a9b) | **Final Chapter**
+← [Chapter 14: Civilization](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-2nl3) | **Final Chapter**

@@ -356,7 +356,7 @@ Maybe you'll see the signs of civilization in your codebase too.
 - [Chapter 12: Collapse: Good Architects and Black Hole Engineers](https://dev.to/machuz/git-archaeology-12-collapse-good-architects-and-black-hole-engineers-3fed)
 - [Chapter 13: Cosmology of Code](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-dci)
 - **Chapter 14: Civilization — Why Only Some Codebases Become Civilizations**
-- [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity)
+- [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
 
@@ -367,4 +367,4 @@ If this was useful: [Sponsor on GitHub](https://github.com/sponsors/machuz)
 
 ---
 
-← [Chapter 13: Cosmology of Code](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-dci) | [Chapter 15: AI Creates Stars, Not Gravity →](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity)
+← [Chapter 13: Cosmology of Code](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-dci) | [Chapter 15: AI Creates Stars, Not Gravity →](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)

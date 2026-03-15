@@ -508,8 +508,8 @@ That is for you to decide.
 - [Chapter 11: Entropy: The Universe Always Tends Toward Disorder](https://dev.to/machuz/git-archaeology-11-entropy-the-universe-always-tends-toward-disorder-ak9)
 - [Chapter 12: Collapse: Good Architects and Black Hole Engineers](https://dev.to/machuz/git-archaeology-12-collapse-good-architects-and-black-hole-engineers-3fed)
 - **Chapter 13: Cosmology of Code**
-- [Chapter 14: Civilization — Why Only Some Codebases Become Civilizations](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-3a9b)
-- [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity)
+- [Chapter 14: Civilization — Why Only Some Codebases Become Civilizations](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-2nl3)
+- [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
 
@@ -520,4 +520,4 @@ If this was useful: [❤️ Sponsor on GitHub](https://github.com/sponsors/machu
 
 ---
 
-← [Chapter 12: Collapse](https://dev.to/machuz/git-archaeology-12-collapse-good-architects-and-black-hole-engineers-3fed) | [Chapter 14: Civilization →](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-3a9b)
+← [Chapter 12: Collapse](https://dev.to/machuz/git-archaeology-12-collapse-good-architects-and-black-hole-engineers-3fed) | [Chapter 14: Civilization →](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-2nl3)
