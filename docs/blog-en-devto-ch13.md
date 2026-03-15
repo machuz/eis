@@ -379,6 +379,22 @@ At the same time, H. appears in the BE domain in Growing state (Quality 94-97). 
 
 **When Total drops from 70.4 to 30.4, do you see "declining performance"? Or do you see "transmitting structure for the team's future"?** Without the telescope, it looks like the former. With the telescope — the high Quality, the Robust Survival crash, and the Style transitions tell the truth.
 
+---
+
+#### Why I want to remain an Architect/Builder
+
+A brief aside about myself.
+
+My scores consistently show **Architect / Builder**. Why do I refuse to let go of Builder?
+
+Backend design — Clean Architecture, DDD layering — has established patterns. But the real art is in modeling. The subtle nuances of a domain, the gradations, where to draw boundaries. This is impossible without being a Builder. Classical Architects who define structure without writing code are valuable. Distributing well-designed starting points across the codebase is real, important work.
+
+But I want to **keep modeling on top of structure, fighting the unknown, producing high gravity with my own hands.** That's why I write code.
+
+This is precisely why H.'s "succession Architect" carries different weight. **A succession Architect in an Architect/Builder environment is fundamentally different from one in a classical Architect environment.** They're not just inheriting structural scaffolding — they're absorbing the depth of modeling, the gradations of design judgment, the density of a high-gravity field. What they inherit is denser.
+
+---
+
 **machuz's long-term timeline** tells another story:
 
 | Period | Total | Lines | Role | Style |
