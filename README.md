@@ -12,7 +12,17 @@
 
 It estimates who actually builds and sustains a system by combining production, survival, design, and maintenance signals. No surveys, no subjective reviews — just `git log` and `git blame`.
 
-> In practice, this surfaced patterns that naive metrics miss: former architects, silent cleaners, debt generators, and bus-factor risks.
+### What the telescope reveals
+
+Point it at a codebase, and hidden patterns emerge:
+
+- **Stars** — who actually built the architecture, not just who committed the most
+- **Anchors** — the quiet forces holding the system together
+- **Dark matter** — silent contributions invisible to naive metrics
+- **Collapse risk** — bus-factor concentrations before they become emergencies
+- **Entropy** — where code is decaying and who is fighting it
+
+All from `git log` and `git blame`. Nothing else.
 
 ![Terminal Output](docs/images/terminal-output.svg?v=0.11.0)
 
