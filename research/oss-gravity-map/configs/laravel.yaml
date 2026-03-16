@@ -1,0 +1,57 @@
+# EIS config for laravel
+# Language: PHP
+# Repo: laravel/framework
+
+sample_size: 1500
+blame_timeout: 600
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "*generated*"
+  - "*.gen.*"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+
+architecture_patterns:
+  # Core framework
+  - "src/Illuminate/Foundation/*.php"
+  - "src/Illuminate/Container/*.php"
+  - "src/Illuminate/Routing/*.php"
+  - "src/Illuminate/Database/*.php"
+  - "src/Illuminate/Database/Eloquent/*.php"
+  - "src/Illuminate/Database/Query/*.php"
+  - "src/Illuminate/Http/*.php"
+  - "src/Illuminate/Support/*.php"
+  - "src/Illuminate/Queue/*.php"
+  - "src/Illuminate/Events/*.php"
+  - "src/Illuminate/Auth/*.php"
+  - "src/Illuminate/Console/*.php"
+  - "src/Illuminate/Pipeline/*.php"
+  - "src/Illuminate/Contracts/**/*.php"
+  # Generic
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+
+blame_extensions:
+  - "*.php"
+
+aliases:
+  "taylorotwell": "Taylor Otwell"
+  "themsaid": "Mohamed Said"
+  "driesvints": "Dries Vints"
+  "nunomaduro": "Nuno Maduro"
+  "timacdonald": "Tim MacDonald"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "StyleCI Bot"

@@ -1,0 +1,63 @@
+# EIS config for rails
+# Language: Ruby
+# Repo: rails/rails
+
+sample_size: 1500
+blame_timeout: 600
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "*generated*"
+  - "*.gen.*"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+
+architecture_patterns:
+  # Core framework
+  - "activerecord/lib/active_record/*.rb"
+  - "activerecord/lib/active_record/connection_adapters/*.rb"
+  - "actionpack/lib/action_controller/*.rb"
+  - "actionpack/lib/action_dispatch/*.rb"
+  - "actionpack/lib/action_dispatch/routing/*.rb"
+  - "activesupport/lib/active_support/*.rb"
+  - "activesupport/lib/active_support/core_ext/**/*.rb"
+  - "activemodel/lib/active_model/*.rb"
+  - "actionview/lib/action_view/*.rb"
+  - "activejob/lib/active_job/*.rb"
+  - "actionmailer/lib/action_mailer/*.rb"
+  - "actioncable/lib/action_cable/*.rb"
+  - "railties/lib/rails/*.rb"
+  - "railties/lib/rails/generators/**/*.rb"
+  # Generic
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+
+blame_extensions:
+  - "*.rb"
+
+aliases:
+  "dhh": "David Heinemeier Hansson"
+  "tenderlove": "Aaron Patterson"
+  "rafaelfranca": "Rafael Mendonça França"
+  "fxn": "Xavier Noria"
+  "jeremy": "Jeremy Daer"
+  "matthewd": "Matthew Draper"
+  "eileencodes": "Eileen Uchitelle"
+  "jonathanhefner": "Jonathan Hefner"
+  "byroot": "Jean Boussier"
+  "pixeltrix": "Andrew White"
+  "amatsuda": "Akira Matsuda"
+  "kaspth": "Kasper Timm Hansen"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
