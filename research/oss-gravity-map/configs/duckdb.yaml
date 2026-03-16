@@ -1,0 +1,66 @@
+# EIS config for duckdb
+# Language: cpp
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 1000
+blame_timeout: 120
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "*.h"
+  - "*.hpp"
+  - "*/include/**/*.h"
+  - "*/source/**/factory*"
+  - "*/source/**/registry*"
+  - "*/source/**/config*"
+  - "*/api/*.h"
+  - "*/core/*.h"
+  - "src/include/**/*.hpp"
+  - "src/execution/**/*.cpp"
+  - "src/optimizer/**/*.cpp"
+  - "src/planner/**/*.cpp"
+  - "src/storage/**/*.cpp"
+  - "src/parser/**/*.cpp"
+  - "src/catalog/**/*.cpp"
+
+blame_extensions:
+  - "*.cpp"
+  - "*.hpp"
+  - "*.cc"
+  - "*.h"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+

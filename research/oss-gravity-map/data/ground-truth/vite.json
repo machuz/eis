@@ -1,0 +1,532 @@
+{
+  "repo": "vitejs/vite",
+  "name": "vite",
+  "metadata": {
+    "created_at": "2020-04-21T05:03:57Z",
+    "default_branch": "main",
+    "description": "Next generation frontend tooling. It's fast!",
+    "forks": 7918,
+    "full_name": "vitejs/vite",
+    "language": "TypeScript",
+    "pushed_at": "2026-03-15T13:24:07Z",
+    "stars": 79016
+  },
+  "top_contributors": [
+    {
+      "contributions": 1921,
+      "login": "yyx990803",
+      "type": "User"
+    },
+    {
+      "contributions": 1667,
+      "login": "sapphi-red",
+      "type": "User"
+    },
+    {
+      "contributions": 1010,
+      "login": "patak-cat",
+      "type": "User"
+    },
+    {
+      "contributions": 570,
+      "login": "bluwy",
+      "type": "User"
+    },
+    {
+      "contributions": 392,
+      "login": "renovate[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 207,
+      "login": "antfu",
+      "type": "User"
+    },
+    {
+      "contributions": 137,
+      "login": "btea",
+      "type": "User"
+    },
+    {
+      "contributions": 112,
+      "login": "hi-ogawa",
+      "type": "User"
+    },
+    {
+      "contributions": 112,
+      "login": "underfin",
+      "type": "User"
+    },
+    {
+      "contributions": 76,
+      "login": "poyoho",
+      "type": "User"
+    },
+    {
+      "contributions": 74,
+      "login": "ArnaudBarre",
+      "type": "User"
+    },
+    {
+      "contributions": 72,
+      "login": "aleclarson",
+      "type": "User"
+    },
+    {
+      "contributions": 69,
+      "login": "Shinigami92",
+      "type": "User"
+    },
+    {
+      "contributions": 69,
+      "login": "benmccann",
+      "type": "User"
+    },
+    {
+      "contributions": 67,
+      "login": "sun0day",
+      "type": "User"
+    },
+    {
+      "contributions": 54,
+      "login": "shulaoda",
+      "type": "User"
+    },
+    {
+      "contributions": 49,
+      "login": "dominikg",
+      "type": "User"
+    },
+    {
+      "contributions": 46,
+      "login": "ygj6",
+      "type": "User"
+    },
+    {
+      "contributions": 43,
+      "login": "haoqunjiang",
+      "type": "User"
+    },
+    {
+      "contributions": 39,
+      "login": "fi3ework",
+      "type": "User"
+    },
+    {
+      "contributions": 36,
+      "login": "sheremet-va",
+      "type": "User"
+    },
+    {
+      "contributions": 34,
+      "login": "brillout",
+      "type": "User"
+    },
+    {
+      "contributions": 32,
+      "login": "Copilot",
+      "type": "Bot"
+    },
+    {
+      "contributions": 30,
+      "login": "Y1D7NG",
+      "type": "User"
+    },
+    {
+      "contributions": 28,
+      "login": "CHOYSEN",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "jeffydc",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "iiio2",
+      "type": "User"
+    },
+    {
+      "contributions": 24,
+      "login": "TheAlexLichter",
+      "type": "User"
+    },
+    {
+      "contributions": 23,
+      "login": "csr632",
+      "type": "User"
+    },
+    {
+      "contributions": 21,
+      "login": "Dunqing",
+      "type": "User"
+    },
+    {
+      "contributions": 18,
+      "login": "cawa-93",
+      "type": "User"
+    },
+    {
+      "contributions": 16,
+      "login": "nihalgonsalves",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "IanVS",
+      "type": "User"
+    },
+    {
+      "contributions": 14,
+      "login": "chenfan0",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "Niputi",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "pd4d10",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "XiSenao",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "egoist",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "chaejunlee",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "hyf0",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "remorses",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "fwouts",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "daychongyang",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "jay-es",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "GrygrFlzr",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "sxzz",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "danielroe",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "dario-piotrowicz",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "ElMassimo",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "smeng9",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "zheeeng",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "Gumball12",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "frandiox",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "TrySound",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "hannoeru",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "OnlyWick",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "manucorporat",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "userquin",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "kiaking",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "PengBoUESTC",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "caoxiemeihao",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "sanyuan0704",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "DreierF",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "matthewp",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "AlexandreBonaventure",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "cyco130",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "zhangyuang",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "lsdsjy",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "shuuji3",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "Simon-He95",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "rschristian",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "Rich-Harris",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "jamesgeorge007",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "sibbng",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "meteorlxy",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "kazupon",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "dependabot[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 6,
+      "login": "tjk",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "threepointone",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "g-plane",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "marvinhagemeister",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "jonaskuske",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "jamesopstad",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "Artur-",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "webfansplz",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "yuzheng14",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "gtm-nayan",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "ferdinando-ferreira",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "anncwb",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "thebanjomatic",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "andylizi",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "AriPerkkio",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "brc-dd",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "innocenzi",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "susnux",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "mathieumure",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "tony19",
+      "type": "User"
+    },
+    {
+      "contributions": 4,
+      "login": "xiaoxiangmoe",
+      "type": "User"
+    },
+    {
+      "contributions": 4,
+      "login": "nozomuikuta",
+      "type": "User"
+    },
+    {
+      "contributions": 4,
+      "login": "unrevised6419",
+      "type": "User"
+    }
+  ],
+  "release_authors": [
+    "github-actions[bot]"
+  ],
+  "architect_candidates": [
+    "yyx990803",
+    "sapphi-red",
+    "patak-cat",
+    "bluwy",
+    "antfu",
+    "btea",
+    "hi-ogawa",
+    "underfin",
+    "poyoho"
+  ],
+  "codeowners_present": false,
+  "fetched_at": "2026-03-15T23:59:25Z"
+}

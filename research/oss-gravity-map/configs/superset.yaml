@@ -1,0 +1,64 @@
+# EIS config for superset
+# Language: python
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 1000
+blame_timeout: 120
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "*/__init__.py"
+  - "*/routing*.py"
+  - "*/middleware*.py"
+  - "*/dependencies*.py"
+  - "*/config*.py"
+  - "*/core/*.py"
+  - "*/base*.py"
+  - "*/abc*.py"
+  - "*/protocols*.py"
+  - "superset/views/**/*.py"
+  - "superset/models/**/*.py"
+  - "superset/security/**/*.py"
+  - "superset/config.py"
+  - "superset-frontend/src/dashboard/**/*.ts"
+
+blame_extensions:
+  - "*.py"
+  - "*.ts"
+  - "*.tsx"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+

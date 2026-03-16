@@ -1,0 +1,85 @@
+# EIS config for kubernetes
+# Language: go
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 1500
+blame_timeout: 300
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+  - "*_test.go"
+  - "staging/**/fake/**"
+  - "hack/**"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "*/router*.go"
+  - "*/middleware/*.go"
+  - "*/handler/*.go"
+  - "*/server/*.go"
+  - "*/config/*.go"
+  - "*/cmd/*.go"
+  - "**/interface*.go"
+  - "*_interface.go"
+  - "*/registry/*.go"
+  - "*/provider/*.go"
+  - "*/plugin/*.go"
+  - "*/api/*.go"
+  - "pkg/api/**/*.go"
+  - "staging/src/k8s.io/apimachinery/**/*.go"
+  - "staging/src/k8s.io/apiserver/**/*.go"
+  - "staging/src/k8s.io/client-go/**/*.go"
+  - "pkg/scheduler/*.go"
+  - "pkg/controller/**/*.go"
+  - "pkg/kubelet/*.go"
+
+blame_extensions:
+  - "*.go"
+
+aliases:
+  "brendandburns": "Brendan Burns"
+  "thockin": "Tim Hockin"
+  "liggitt": "Jordan Liggitt"
+  "smarterclayton": "Clayton Coleman"
+  "lavalamp": "Daniel Smith"
+  "deads2k": "David Eads"
+  "Kubernetes Submit Queue": "k8s-bot"
+  "Kubernetes Prow Robot": "k8s-bot"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+  - "k8s-bot"
+  - "Kubernetes Submit Queue"
+  - "Kubernetes Prow Robot"
+  - "k8s-merge-robot"
+  - "k8s-ci-robot"
+

@@ -1,0 +1,67 @@
+# EIS config for ClickHouse
+# Language: cpp
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 1500
+blame_timeout: 300
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+  - "**/*Test*"
+  - "**/gtest*"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "*.h"
+  - "*.hpp"
+  - "*/include/**/*.h"
+  - "*/source/**/factory*"
+  - "*/source/**/registry*"
+  - "*/source/**/config*"
+  - "*/api/*.h"
+  - "*/core/*.h"
+  - "src/Interpreters/**/*.h"
+  - "src/Storages/**/*.h"
+  - "src/Parsers/**/*.h"
+  - "src/Processors/**/*.h"
+  - "src/Server/**/*.h"
+  - "src/Core/**/*.h"
+
+blame_extensions:
+  - "*.cpp"
+  - "*.hpp"
+  - "*.cc"
+  - "*.h"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+

@@ -1,0 +1,533 @@
+{
+  "repo": "phoenixframework/phoenix",
+  "name": "phoenix",
+  "metadata": {
+    "created_at": "2014-01-20T14:14:11Z",
+    "default_branch": "main",
+    "description": "Peace of mind from prototype to production",
+    "forks": 3055,
+    "full_name": "phoenixframework/phoenix",
+    "language": "Elixir",
+    "pushed_at": "2026-03-13T23:39:09Z",
+    "stars": 22961
+  },
+  "top_contributors": [
+    {
+      "contributions": 2450,
+      "login": "chrismccord",
+      "type": "User"
+    },
+    {
+      "contributions": 874,
+      "login": "josevalim",
+      "type": "User"
+    },
+    {
+      "contributions": 590,
+      "login": "lancehalvorsen",
+      "type": "User"
+    },
+    {
+      "contributions": 184,
+      "login": "Gazler",
+      "type": "User"
+    },
+    {
+      "contributions": 155,
+      "login": "SteffenDE",
+      "type": "User"
+    },
+    {
+      "contributions": 136,
+      "login": "dependabot[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 102,
+      "login": "scrogson",
+      "type": "User"
+    },
+    {
+      "contributions": 72,
+      "login": "gjaldon",
+      "type": "User"
+    },
+    {
+      "contributions": 50,
+      "login": "aaronrenner",
+      "type": "User"
+    },
+    {
+      "contributions": 43,
+      "login": "rhcarvalho",
+      "type": "User"
+    },
+    {
+      "contributions": 37,
+      "login": "eksperimental",
+      "type": "User"
+    },
+    {
+      "contributions": 37,
+      "login": "wojtekmach",
+      "type": "User"
+    },
+    {
+      "contributions": 35,
+      "login": "darkofabijan",
+      "type": "User"
+    },
+    {
+      "contributions": 35,
+      "login": "ugisozols",
+      "type": "User"
+    },
+    {
+      "contributions": 30,
+      "login": "mcrumm",
+      "type": "User"
+    },
+    {
+      "contributions": 28,
+      "login": "snewcomer",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "fertapric",
+      "type": "User"
+    },
+    {
+      "contributions": 25,
+      "login": "ericmj",
+      "type": "User"
+    },
+    {
+      "contributions": 23,
+      "login": "LostKobrakai",
+      "type": "User"
+    },
+    {
+      "contributions": 23,
+      "login": "michalmuskala",
+      "type": "User"
+    },
+    {
+      "contributions": 21,
+      "login": "stevedomin",
+      "type": "User"
+    },
+    {
+      "contributions": 20,
+      "login": "rossta",
+      "type": "User"
+    },
+    {
+      "contributions": 19,
+      "login": "michallepicki",
+      "type": "User"
+    },
+    {
+      "contributions": 18,
+      "login": "whatyouhide",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "mitchellhenke",
+      "type": "User"
+    },
+    {
+      "contributions": 14,
+      "login": "nathanl",
+      "type": "User"
+    },
+    {
+      "contributions": 14,
+      "login": "phoebe100",
+      "type": "User"
+    },
+    {
+      "contributions": 14,
+      "login": "milmazz",
+      "type": "User"
+    },
+    {
+      "contributions": 14,
+      "login": "bcardarella",
+      "type": "User"
+    },
+    {
+      "contributions": 14,
+      "login": "chulkilee",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "appdevnick",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "henrik",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "mveytsman",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "ma2gedev",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "jayjun",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "rmoorman",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "wsmoak",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "ephe-meral",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "optikfluffel",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "bryanstearns",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "moogle19",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "Kosmas",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "c4710n",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "hubertlepicki",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "lexmag",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "leandrocp",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "foxnewsnetwork",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "doomspork",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "ShPakvel",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "koudelka",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "tonini",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "TheFirstAvenger",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "laurocaetano",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "axelson",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "voltone",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "aptinio",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "chenxsan",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "willykaram",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "bradengroom",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "kianmeng",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "pel-daniel",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "BjRo",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "elliotcm",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "aaronjensen",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "parkerl",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "jakgajtk",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "petermm",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "sb8244",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "alexgaribay",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "benjamintanweihao",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "mobileoverlord",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "hugo",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "ricn",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "bemesa21",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "xtian",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "mcelaney",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "ybur-yug",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "sharils",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "ponychicken",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "jamilabreu",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "fxn",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "HashNuke",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "napcs",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "davydog187",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "jeregrine",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "jesseshieh",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "leighlondon",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "tokafish",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "ramortegui",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "rstacruz",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "philss",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "pma",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "mtrudel",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "leikind",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "mgwidmann",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "hashrocketeer",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "edmz",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "angrycandy",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "gabrieltaylor",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "thisistonydang",
+      "type": "User"
+    }
+  ],
+  "release_authors": [
+    "josevalim",
+    "chrismccord"
+  ],
+  "architect_candidates": [
+    "chrismccord",
+    "josevalim",
+    "lancehalvorsen",
+    "Gazler",
+    "SteffenDE",
+    "scrogson",
+    "gjaldon",
+    "aaronrenner",
+    "rhcarvalho"
+  ],
+  "codeowners_present": false,
+  "fetched_at": "2026-03-15T23:59:16Z"
+}

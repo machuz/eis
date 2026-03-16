@@ -1,0 +1,72 @@
+# EIS config for terraform
+# Language: go
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 1000
+blame_timeout: 120
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+  - "*_test.go"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "*/router*.go"
+  - "*/middleware/*.go"
+  - "*/handler/*.go"
+  - "*/server/*.go"
+  - "*/config/*.go"
+  - "*/cmd/*.go"
+  - "**/interface*.go"
+  - "*_interface.go"
+  - "*/registry/*.go"
+  - "*/provider/*.go"
+  - "*/plugin/*.go"
+  - "*/api/*.go"
+  - "internal/command/*.go"
+  - "internal/terraform/*.go"
+  - "internal/configs/*.go"
+  - "internal/providers/*.go"
+  - "internal/backend/*.go"
+  - "internal/states/*.go"
+
+blame_extensions:
+  - "*.go"
+
+aliases:
+  "mitchellh": "Mitchell Hashimoto"
+  "apparentlymart": "Martin Atkins"
+  "jbardin": "James Bardin"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+

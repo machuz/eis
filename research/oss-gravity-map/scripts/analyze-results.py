@@ -89,7 +89,34 @@ class GlobalGravityEntry:
 # =============================================================================
 
 def load_eis_results(results_dir: str) -> dict[str, list[EngineerScore]]:
-    """Load EIS JSON results for all repos."""
+    """Load EIS JSON results for all repos.
+
+    EIS JSON format (flat per member):
+    {
+      "domains": [{
+        "name": "...",
+        "members": [{
+          "rank": 1,
+          "member": "Author Name",
+          "production": 50.0,
+          "quality": 80.0,
+          "survival": 60.0,
+          "design": 40.0,
+          "breadth": 30.0,
+          "debt_cleanup": 20.0,
+          "indispensability": 10.0,
+          "gravity": 45.0,
+          "total": 55.0,
+          "role": "Architect",
+          "role_confidence": 0.8,
+          "style": "Builder",
+          "style_confidence": 0.6,
+          "state": "Active",
+          "state_confidence": 0.9
+        }]
+      }]
+    }
+    """
     all_results = {}
 
     for f in Path(results_dir).glob("*.json"):
@@ -105,29 +132,28 @@ def load_eis_results(results_dir: str) -> dict[str, list[EngineerScore]]:
         domains = data.get("domains", [])
         for domain in domains:
             for member in domain.get("members", []):
-                scores = member.get("scores", {})
-                classifications = member.get("classifications", {})
-
                 eng = EngineerScore(
-                    author=member.get("author", ""),
+                    author=member.get("member", ""),
                     repo=repo_name,
-                    total=scores.get("total", 0),
-                    production=scores.get("production", 0),
-                    quality=scores.get("quality", 0),
-                    survival=scores.get("survival", 0),
-                    design=scores.get("design", 0),
-                    breadth=scores.get("breadth", 0),
-                    debt_cleanup=scores.get("debt_cleanup", 0),
-                    indispensability=scores.get("indispensability", 0),
-                    role=classifications.get("role", {}).get("name", ""),
-                    role_confidence=classifications.get("role", {}).get("confidence", 0),
-                    style=classifications.get("style", {}).get("name", ""),
-                    style_confidence=classifications.get("style", {}).get("confidence", 0),
-                    state=classifications.get("state", {}).get("name", ""),
-                    state_confidence=classifications.get("state", {}).get("confidence", 0),
+                    total=member.get("total", 0),
+                    production=member.get("production", 0),
+                    quality=member.get("quality", 0),
+                    survival=member.get("survival", 0),
+                    design=member.get("design", 0),
+                    breadth=member.get("breadth", 0),
+                    debt_cleanup=member.get("debt_cleanup", 0),
+                    indispensability=member.get("indispensability", 0),
+                    role=member.get("role", ""),
+                    role_confidence=member.get("role_confidence", 0),
+                    style=member.get("style", ""),
+                    style_confidence=member.get("style_confidence", 0),
+                    state=member.get("state", ""),
+                    state_confidence=member.get("state_confidence", 0),
+                    gravity=member.get("gravity", 0),
                 )
-                # Gravity = structural influence composite
-                eng.gravity = eng.survival + eng.design + eng.debt_cleanup
+                # If gravity not in output, compute it
+                if eng.gravity == 0 and (eng.survival + eng.design + eng.debt_cleanup) > 0:
+                    eng.gravity = eng.survival + eng.design + eng.debt_cleanup
                 engineers.append(eng)
 
         all_results[repo_name] = engineers

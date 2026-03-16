@@ -2,13 +2,16 @@
 set -euo pipefail
 
 # Run EIS analysis on all cloned repositories
+# Uses per-repo config files from configs/ directory
 # Usage: ./analyze-repos.sh [data-dir] [results-dir]
 #
 # Requires: eis CLI in PATH (brew install machuz/tap/eis)
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-DATA_DIR="${1:-$SCRIPT_DIR/../data/repos}"
-RESULTS_DIR="${2:-$SCRIPT_DIR/../data/results}"
+PROJECT_DIR="$SCRIPT_DIR/.."
+DATA_DIR="${1:-$PROJECT_DIR/data/repos}"
+RESULTS_DIR="${2:-$PROJECT_DIR/data/results}"
+CONFIG_DIR="$PROJECT_DIR/configs"
 
 mkdir -p "$RESULTS_DIR"
 
@@ -56,7 +59,16 @@ for repo_path in "${repos[@]}"; do
   echo "[$current/$total] ANALYZE $name ..."
   start_time=$(date +%s)
 
-  if eis analyze --format json "$repo_path" > "$result_file" 2>"$log_file"; then
+  # Use per-repo config if available
+  config_file="$CONFIG_DIR/${name}.yaml"
+  config_flag=""
+  if [ -f "$config_file" ]; then
+    config_flag="--config $config_file"
+    echo "  -> using config: ${name}.yaml"
+  fi
+
+  # Run EIS, strip progress lines from JSON output
+  if eis analyze $config_flag --format json "$repo_path" 2>"$log_file" | sed '/^Analyzing:/d; /^Loaded /d; /^SKIP:/d' > "$result_file"; then
     end_time=$(date +%s)
     elapsed=$((end_time - start_time))
     # Count members in result

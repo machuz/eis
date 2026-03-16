@@ -1,0 +1,69 @@
+# EIS config for spring-boot
+# Language: java
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 1000
+blame_timeout: 120
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+  - "*Test.java"
+  - "*Tests.java"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "**/interface*.java"
+  - "*Interface.java"
+  - "*/config/*.java"
+  - "*Configuration.java"
+  - "*/autoconfigure/*.java"
+  - "*/factory/*.java"
+  - "*Factory.java"
+  - "*/registry/*.java"
+  - "*/boot/*.java"
+  - "*/starter/*.java"
+  - "*/actuator/*.java"
+  - "spring-boot-project/spring-boot/src/main/**/*.java"
+  - "spring-boot-project/spring-boot-autoconfigure/src/main/**/*.java"
+  - "spring-boot-project/spring-boot-actuator/src/main/**/*.java"
+
+blame_extensions:
+  - "*.java"
+
+aliases:
+  "philwebb": "Phillip Webb"
+  "wilkinsona": "Andy Wilkinson"
+  "snicoll": "Stephane Nicoll"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+

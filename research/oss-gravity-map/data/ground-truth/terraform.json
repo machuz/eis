@@ -1,0 +1,533 @@
+{
+  "repo": "hashicorp/terraform",
+  "name": "terraform",
+  "metadata": {
+    "created_at": "2014-03-13T22:25:48Z",
+    "default_branch": "main",
+    "description": "Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned.",
+    "forks": 10250,
+    "full_name": "hashicorp/terraform",
+    "language": "Go",
+    "pushed_at": "2026-03-13T19:45:43Z",
+    "stars": 47935
+  },
+  "top_contributors": [
+    {
+      "contributions": 4096,
+      "login": "jbardin",
+      "type": "User"
+    },
+    {
+      "contributions": 4025,
+      "login": "mitchellh",
+      "type": "User"
+    },
+    {
+      "contributions": 2955,
+      "login": "apparentlymart",
+      "type": "User"
+    },
+    {
+      "contributions": 2121,
+      "login": "stack72",
+      "type": "User"
+    },
+    {
+      "contributions": 1728,
+      "login": "catsby",
+      "type": "User"
+    },
+    {
+      "contributions": 1259,
+      "login": "radeksimko",
+      "type": "User"
+    },
+    {
+      "contributions": 1245,
+      "login": "phinze",
+      "type": "User"
+    },
+    {
+      "contributions": 1116,
+      "login": "jen20",
+      "type": "User"
+    },
+    {
+      "contributions": 819,
+      "login": "alisdair",
+      "type": "User"
+    },
+    {
+      "contributions": 611,
+      "login": "DanielMSchmidt",
+      "type": "User"
+    },
+    {
+      "contributions": 567,
+      "login": "laurapacilio",
+      "type": "User"
+    },
+    {
+      "contributions": 530,
+      "login": "mildwonkey",
+      "type": "User"
+    },
+    {
+      "contributions": 500,
+      "login": "grubernaut",
+      "type": "User"
+    },
+    {
+      "contributions": 489,
+      "login": "jtopjian",
+      "type": "User"
+    },
+    {
+      "contributions": 360,
+      "login": "armon",
+      "type": "User"
+    },
+    {
+      "contributions": 297,
+      "login": "pearkes",
+      "type": "User"
+    },
+    {
+      "contributions": 276,
+      "login": "cgriggs01",
+      "type": "User"
+    },
+    {
+      "contributions": 263,
+      "login": "nfagerlund",
+      "type": "User"
+    },
+    {
+      "contributions": 222,
+      "login": "pselle",
+      "type": "User"
+    },
+    {
+      "contributions": 201,
+      "login": "sethvargo",
+      "type": "User"
+    },
+    {
+      "contributions": 185,
+      "login": "crw",
+      "type": "User"
+    },
+    {
+      "contributions": 184,
+      "login": "tombuildsstuff",
+      "type": "User"
+    },
+    {
+      "contributions": 183,
+      "login": "gdavison",
+      "type": "User"
+    },
+    {
+      "contributions": 167,
+      "login": "SarahFrench",
+      "type": "User"
+    },
+    {
+      "contributions": 136,
+      "login": "brandonc",
+      "type": "User"
+    },
+    {
+      "contributions": 135,
+      "login": "kmoe",
+      "type": "User"
+    },
+    {
+      "contributions": 129,
+      "login": "sean-",
+      "type": "User"
+    },
+    {
+      "contributions": 125,
+      "login": "bflad",
+      "type": "User"
+    },
+    {
+      "contributions": 113,
+      "login": "vancluever",
+      "type": "User"
+    },
+    {
+      "contributions": 112,
+      "login": "bschaatsbergen",
+      "type": "User"
+    },
+    {
+      "contributions": 106,
+      "login": "danawillow",
+      "type": "User"
+    },
+    {
+      "contributions": 105,
+      "login": "jasoncostello",
+      "type": "User"
+    },
+    {
+      "contributions": 99,
+      "login": "mbfrahry",
+      "type": "User"
+    },
+    {
+      "contributions": 94,
+      "login": "sparkprime",
+      "type": "User"
+    },
+    {
+      "contributions": 91,
+      "login": "chrisarcand",
+      "type": "User"
+    },
+    {
+      "contributions": 87,
+      "login": "justincampbell",
+      "type": "User"
+    },
+    {
+      "contributions": 86,
+      "login": "jrperritt",
+      "type": "User"
+    },
+    {
+      "contributions": 85,
+      "login": "lwander",
+      "type": "User"
+    },
+    {
+      "contributions": 79,
+      "login": "jar-b",
+      "type": "User"
+    },
+    {
+      "contributions": 79,
+      "login": "hc-github-team-tf-core",
+      "type": "User"
+    },
+    {
+      "contributions": 76,
+      "login": "dbanck",
+      "type": "User"
+    },
+    {
+      "contributions": 73,
+      "login": "radditude",
+      "type": "User"
+    },
+    {
+      "contributions": 71,
+      "login": "paultyng",
+      "type": "User"
+    },
+    {
+      "contributions": 71,
+      "login": "sebasslash",
+      "type": "User"
+    },
+    {
+      "contributions": 65,
+      "login": "dsa0x",
+      "type": "User"
+    },
+    {
+      "contributions": 59,
+      "login": "kwilczynski",
+      "type": "User"
+    },
+    {
+      "contributions": 55,
+      "login": "nicolai86",
+      "type": "User"
+    },
+    {
+      "contributions": 55,
+      "login": "Ninir",
+      "type": "User"
+    },
+    {
+      "contributions": 54,
+      "login": "appilon",
+      "type": "User"
+    },
+    {
+      "contributions": 48,
+      "login": "mutahhir",
+      "type": "User"
+    },
+    {
+      "contributions": 46,
+      "login": "ctiwald",
+      "type": "User"
+    },
+    {
+      "contributions": 46,
+      "login": "heimweh",
+      "type": "User"
+    },
+    {
+      "contributions": 46,
+      "login": "Maed223",
+      "type": "User"
+    },
+    {
+      "contributions": 44,
+      "login": "amadeus",
+      "type": "User"
+    },
+    {
+      "contributions": 44,
+      "login": "fatmcgav",
+      "type": "User"
+    },
+    {
+      "contributions": 43,
+      "login": "trujillo-adam",
+      "type": "User"
+    },
+    {
+      "contributions": 42,
+      "login": "paddycarver",
+      "type": "User"
+    },
+    {
+      "contributions": 41,
+      "login": "brandontosch",
+      "type": "User"
+    },
+    {
+      "contributions": 41,
+      "login": "cblecker",
+      "type": "User"
+    },
+    {
+      "contributions": 40,
+      "login": "pmcatominey",
+      "type": "User"
+    },
+    {
+      "contributions": 40,
+      "login": "octo",
+      "type": "User"
+    },
+    {
+      "contributions": 39,
+      "login": "rkoron007",
+      "type": "User"
+    },
+    {
+      "contributions": 39,
+      "login": "BrianMMcClain",
+      "type": "User"
+    },
+    {
+      "contributions": 39,
+      "login": "evandbrown",
+      "type": "User"
+    },
+    {
+      "contributions": 38,
+      "login": "Uk1288",
+      "type": "User"
+    },
+    {
+      "contributions": 38,
+      "login": "cjobermaier",
+      "type": "User"
+    },
+    {
+      "contributions": 37,
+      "login": "ewbankkit",
+      "type": "User"
+    },
+    {
+      "contributions": 37,
+      "login": "tpounds",
+      "type": "User"
+    },
+    {
+      "contributions": 35,
+      "login": "dependabot[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 34,
+      "login": "jamtur01",
+      "type": "User"
+    },
+    {
+      "contributions": 32,
+      "login": "ceh",
+      "type": "User"
+    },
+    {
+      "contributions": 32,
+      "login": "chrislovecnm",
+      "type": "User"
+    },
+    {
+      "contributions": 32,
+      "login": "tpoindessous",
+      "type": "User"
+    },
+    {
+      "contributions": 31,
+      "login": "barrettclark",
+      "type": "User"
+    },
+    {
+      "contributions": 29,
+      "login": "raphink",
+      "type": "User"
+    },
+    {
+      "contributions": 29,
+      "login": "thrashr888",
+      "type": "User"
+    },
+    {
+      "contributions": 29,
+      "login": "johnrengelman",
+      "type": "User"
+    },
+    {
+      "contributions": 28,
+      "login": "megan07",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "ggiamarchi",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "hashicorp-ci",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "findkim",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "elblivion",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "HoardingInfo",
+      "type": "User"
+    },
+    {
+      "contributions": 26,
+      "login": "kjmkznr",
+      "type": "User"
+    },
+    {
+      "contributions": 26,
+      "login": "mars",
+      "type": "User"
+    },
+    {
+      "contributions": 26,
+      "login": "danieldreier",
+      "type": "User"
+    },
+    {
+      "contributions": 26,
+      "login": "omarismail",
+      "type": "User"
+    },
+    {
+      "contributions": 25,
+      "login": "alvin-huang",
+      "type": "User"
+    },
+    {
+      "contributions": 25,
+      "login": "cbednarski",
+      "type": "User"
+    },
+    {
+      "contributions": 24,
+      "login": "RonRicardo",
+      "type": "User"
+    },
+    {
+      "contributions": 24,
+      "login": "anniehedgpeth",
+      "type": "User"
+    },
+    {
+      "contributions": 23,
+      "login": "captainill",
+      "type": "User"
+    },
+    {
+      "contributions": 22,
+      "login": "pmoust",
+      "type": "User"
+    },
+    {
+      "contributions": 22,
+      "login": "pkolyvas",
+      "type": "User"
+    },
+    {
+      "contributions": 22,
+      "login": "lamdor",
+      "type": "User"
+    },
+    {
+      "contributions": 22,
+      "login": "ColinHebert",
+      "type": "User"
+    },
+    {
+      "contributions": 21,
+      "login": "maxenglander",
+      "type": "User"
+    },
+    {
+      "contributions": 20,
+      "login": "ojongerius",
+      "type": "User"
+    },
+    {
+      "contributions": 20,
+      "login": "uturunku1",
+      "type": "User"
+    },
+    {
+      "contributions": 20,
+      "login": "aznashwan",
+      "type": "User"
+    }
+  ],
+  "release_authors": [
+    "hc-github-team-es-release-engineering"
+  ],
+  "architect_candidates": [
+    "jbardin",
+    "mitchellh",
+    "apparentlymart",
+    "stack72",
+    "catsby",
+    "radeksimko",
+    "phinze",
+    "jen20",
+    "alisdair",
+    "DanielMSchmidt"
+  ],
+  "codeowners_present": true,
+  "fetched_at": "2026-03-15T23:58:31Z"
+}

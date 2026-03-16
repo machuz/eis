@@ -60,16 +60,40 @@ make analyze        # Run EIS on all repos
 make report         # Generate RESULTS.md
 ```
 
+## Architecture Configs (PR Welcome)
+
+Each repository has a dedicated `configs/<repo>.yaml` defining **architecture patterns** — the files EIS treats as structurally significant.
+
+These configs are **open for community contribution**. If you know a project well and think the architecture patterns are wrong or incomplete, submit a PR.
+
+```yaml
+# configs/react.yaml (example)
+architecture_patterns:
+  - "packages/react/src/*.js"
+  - "packages/react-reconciler/src/*.js"
+  - "packages/scheduler/src/*.js"
+  ...
+```
+
+**Why this matters:** Architecture patterns directly affect the Design score, which feeds into gravity. Getting these right is essential for fair analysis. Open-sourcing the configs ensures transparency and accountability.
+
+See [`configs/`](configs/) for all 25 repository configs.
+
 ## Project Structure
 
 ```
 research/oss-gravity-map/
 ├── dataset.yaml              # 25 repos + known architects
 ├── Makefile                  # Pipeline automation
+├── configs/                  # Per-repo eis.yaml configs (PR welcome!)
+│   ├── react.yaml
+│   ├── kubernetes.yaml
+│   └── ...
 ├── scripts/
 │   ├── clone-repos.sh        # Clone all target repos
-│   ├── analyze-repos.sh      # Run EIS analysis
+│   ├── analyze-repos.sh      # Run EIS analysis (uses configs/)
 │   ├── fetch-ground-truth.sh # GitHub API ground truth
+│   ├── generate-configs.py   # Config generator (initial bootstrap)
 │   └── analyze-results.py    # Statistical analysis
 ├── data/
 │   ├── repos/                # Cloned repositories (gitignored)

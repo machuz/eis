@@ -1,0 +1,533 @@
+{
+  "repo": "spring-projects/spring-boot",
+  "name": "spring-boot",
+  "metadata": {
+    "created_at": "2012-10-19T15:02:57Z",
+    "default_branch": "main",
+    "description": "Spring Boot helps you to create Spring-powered, production-grade applications and services with absolute minimum fuss.",
+    "forks": 41868,
+    "full_name": "spring-projects/spring-boot",
+    "language": "Java",
+    "pushed_at": "2026-03-13T17:21:40Z",
+    "stars": 80272
+  },
+  "top_contributors": [
+    {
+      "contributions": 20216,
+      "login": "wilkinsona",
+      "type": "User"
+    },
+    {
+      "contributions": 18264,
+      "login": "snicoll",
+      "type": "User"
+    },
+    {
+      "contributions": 7850,
+      "login": "philwebb",
+      "type": "User"
+    },
+    {
+      "contributions": 2778,
+      "login": "mhalbritter",
+      "type": "User"
+    },
+    {
+      "contributions": 1538,
+      "login": "mbhave",
+      "type": "User"
+    },
+    {
+      "contributions": 881,
+      "login": "scottfrederick",
+      "type": "User"
+    },
+    {
+      "contributions": 856,
+      "login": "bclozel",
+      "type": "User"
+    },
+    {
+      "contributions": 791,
+      "login": "izeye",
+      "type": "User"
+    },
+    {
+      "contributions": 547,
+      "login": "dreis2211",
+      "type": "User"
+    },
+    {
+      "contributions": 228,
+      "login": "spring-builds",
+      "type": "User"
+    },
+    {
+      "contributions": 174,
+      "login": "nosan",
+      "type": "User"
+    },
+    {
+      "contributions": 169,
+      "login": "eddumelendez",
+      "type": "User"
+    },
+    {
+      "contributions": 163,
+      "login": "vpavic",
+      "type": "User"
+    },
+    {
+      "contributions": 129,
+      "login": "quaff",
+      "type": "User"
+    },
+    {
+      "contributions": 127,
+      "login": "cdupuis",
+      "type": "User"
+    },
+    {
+      "contributions": 84,
+      "login": "dependabot[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 60,
+      "login": "garyrussell",
+      "type": "User"
+    },
+    {
+      "contributions": 59,
+      "login": "sdeleuze",
+      "type": "User"
+    },
+    {
+      "contributions": 55,
+      "login": "ngocnhan-tran1996",
+      "type": "User"
+    },
+    {
+      "contributions": 46,
+      "login": "onobc",
+      "type": "User"
+    },
+    {
+      "contributions": 40,
+      "login": "jonatan-ivanov",
+      "type": "User"
+    },
+    {
+      "contributions": 37,
+      "login": "igor-suhorukov",
+      "type": "User"
+    },
+    {
+      "contributions": 31,
+      "login": "ayudovin",
+      "type": "User"
+    },
+    {
+      "contributions": 30,
+      "login": "artembilan",
+      "type": "User"
+    },
+    {
+      "contributions": 28,
+      "login": "michael-simons",
+      "type": "User"
+    },
+    {
+      "contributions": 27,
+      "login": "kazuki43zoo",
+      "type": "User"
+    },
+    {
+      "contributions": 22,
+      "login": "polarbear567",
+      "type": "User"
+    },
+    {
+      "contributions": 21,
+      "login": "odrotbohm",
+      "type": "User"
+    },
+    {
+      "contributions": 21,
+      "login": "gregturn",
+      "type": "User"
+    },
+    {
+      "contributions": 19,
+      "login": "terminux",
+      "type": "User"
+    },
+    {
+      "contributions": 19,
+      "login": "htynkn",
+      "type": "User"
+    },
+    {
+      "contributions": 18,
+      "login": "spring-operator",
+      "type": "User"
+    },
+    {
+      "contributions": 17,
+      "login": "shakuzen",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "mp911de",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "mbenson",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "PiyalAhmed",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "tobias-lippert",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "rajadilipkolli",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "weixsun",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "isopov",
+      "type": "User"
+    },
+    {
+      "contributions": 15,
+      "login": "jkschneider",
+      "type": "User"
+    },
+    {
+      "contributions": 14,
+      "login": "mdeinum",
+      "type": "User"
+    },
+    {
+      "contributions": 13,
+      "login": "ttddyy",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "krzyk",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "hpoettker",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "BenchmarkingBuffalo",
+      "type": "User"
+    },
+    {
+      "contributions": 12,
+      "login": "wonwoo",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "maciejwalkowiak",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "htztomic",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "filiphr",
+      "type": "User"
+    },
+    {
+      "contributions": 11,
+      "login": "candrews",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "tsachev",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "BigMichi1",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "scordio",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "spencergibb",
+      "type": "User"
+    },
+    {
+      "contributions": 10,
+      "login": "making",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "asashour",
+      "type": "User"
+    },
+    {
+      "contributions": 9,
+      "login": "runningcode",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "joshiste",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "rwinch",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "XenoAmess",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "venilnoronha",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "marcingrzejszczak",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "larsgrefer",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "kedar-joshi",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "jvalkeal",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "wanger26",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "meistermeier",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "dmitrysulman",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "liujiong1982",
+      "type": "User"
+    },
+    {
+      "contributions": 8,
+      "login": "AlexFalappa",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "cdalexndr",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "nguyensach",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "johnktims",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "royclarkson",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "rstoyanchev",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "nebhale",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "lijunyzzZ",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "hengyunabc",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "cbo-indeed",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "Shredder121",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "rgoers",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "jprinet",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "Hanope",
+      "type": "User"
+    },
+    {
+      "contributions": 7,
+      "login": "pirgeo",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "ielatif",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "christophstrobl",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "jnizet",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "bijukunjummen",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "ericdahl",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "hekonsek",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "emacampolo",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "joshlong",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "joshthornhill",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "mateusscheper",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "arefbehboudi",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "oscr",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "Wzy19930507",
+      "type": "User"
+    },
+    {
+      "contributions": 6,
+      "login": "rajadileepkolli",
+      "type": "User"
+    },
+    {
+      "contributions": 5,
+      "login": "drumonii",
+      "type": "User"
+    }
+  ],
+  "release_authors": [
+    "spring-builds"
+  ],
+  "architect_candidates": [
+    "wilkinsona",
+    "snicoll",
+    "philwebb",
+    "mhalbritter",
+    "mbhave",
+    "scottfrederick",
+    "bclozel",
+    "izeye",
+    "dreis2211",
+    "spring-builds"
+  ],
+  "codeowners_present": false,
+  "fetched_at": "2026-03-15T23:59:09Z"
+}

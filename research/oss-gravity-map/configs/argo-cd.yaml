@@ -1,0 +1,64 @@
+# EIS config for argo-cd
+# Language: go
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 800
+blame_timeout: 120
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "*/router*.go"
+  - "*/middleware/*.go"
+  - "*/handler/*.go"
+  - "*/server/*.go"
+  - "*/config/*.go"
+  - "*/cmd/*.go"
+  - "**/interface*.go"
+  - "*_interface.go"
+  - "*/registry/*.go"
+  - "*/provider/*.go"
+  - "*/plugin/*.go"
+  - "*/api/*.go"
+  - "controller/**/*.go"
+  - "server/**/*.go"
+  - "reposerver/**/*.go"
+  - "util/**/*.go"
+
+blame_extensions:
+  - "*.go"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+

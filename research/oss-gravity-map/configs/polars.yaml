@@ -1,0 +1,69 @@
+# EIS config for polars
+# Language: rust
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 800
+blame_timeout: 120
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "*/lib.rs"
+  - "*/mod.rs"
+  - "*/traits/*.rs"
+  - "**/trait*.rs"
+  - "*/compiler/*.rs"
+  - "*/parser/*.rs"
+  - "*/ast/*.rs"
+  - "*/ir/*.rs"
+  - "*/codegen/*.rs"
+  - "*/typeck/*.rs"
+  - "*/resolve/*.rs"
+  - "*/hir/*.rs"
+  - "*/mir/*.rs"
+  - "crates/polars-core/src/**/*.rs"
+  - "crates/polars-lazy/src/**/*.rs"
+  - "crates/polars-plan/src/**/*.rs"
+  - "crates/polars-expr/src/**/*.rs"
+  - "crates/polars-io/src/**/*.rs"
+
+blame_extensions:
+  - "*.rs"
+
+aliases:
+  "ritchie46": "Ritchie Vink"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+

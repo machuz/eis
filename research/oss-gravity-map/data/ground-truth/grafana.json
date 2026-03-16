@@ -1,0 +1,533 @@
+{
+  "repo": "grafana/grafana",
+  "name": "grafana",
+  "metadata": {
+    "created_at": "2013-12-11T15:59:56Z",
+    "default_branch": "main",
+    "description": "The open and composable observability and data visualization platform. Visualize metrics, logs, and traces from multiple sources like Prometheus, Loki, Elasticsearch, InfluxDB, Postgres and many more. ",
+    "forks": 13551,
+    "full_name": "grafana/grafana",
+    "language": "TypeScript",
+    "pushed_at": "2026-03-15T22:42:52Z",
+    "stars": 72675
+  },
+  "top_contributors": [
+    {
+      "contributions": 10304,
+      "login": "torkelo",
+      "type": "User"
+    },
+    {
+      "contributions": 3109,
+      "login": "bergquist",
+      "type": "User"
+    },
+    {
+      "contributions": 2390,
+      "login": "renovate[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 1901,
+      "login": "ryantxu",
+      "type": "User"
+    },
+    {
+      "contributions": 1722,
+      "login": "marefr",
+      "type": "User"
+    },
+    {
+      "contributions": 1308,
+      "login": "ashharrison90",
+      "type": "User"
+    },
+    {
+      "contributions": 897,
+      "login": "daniellee",
+      "type": "User"
+    },
+    {
+      "contributions": 872,
+      "login": "dprokop",
+      "type": "User"
+    },
+    {
+      "contributions": 831,
+      "login": "hugohaggmark",
+      "type": "User"
+    },
+    {
+      "contributions": 758,
+      "login": "ivanahuckova",
+      "type": "User"
+    },
+    {
+      "contributions": 708,
+      "login": "sunker",
+      "type": "User"
+    },
+    {
+      "contributions": 687,
+      "login": "joshhunt",
+      "type": "User"
+    },
+    {
+      "contributions": 649,
+      "login": "alexanderzobnin",
+      "type": "User"
+    },
+    {
+      "contributions": 591,
+      "login": "Clarity-89",
+      "type": "User"
+    },
+    {
+      "contributions": 547,
+      "login": "gabor",
+      "type": "User"
+    },
+    {
+      "contributions": 527,
+      "login": "peterholmberg",
+      "type": "User"
+    },
+    {
+      "contributions": 504,
+      "login": "yuri-tceretian",
+      "type": "User"
+    },
+    {
+      "contributions": 493,
+      "login": "kaydelaney",
+      "type": "User"
+    },
+    {
+      "contributions": 476,
+      "login": "aknuds1",
+      "type": "User"
+    },
+    {
+      "contributions": 461,
+      "login": "aocenas",
+      "type": "User"
+    },
+    {
+      "contributions": 460,
+      "login": "kalleep",
+      "type": "User"
+    },
+    {
+      "contributions": 439,
+      "login": "leeoniya",
+      "type": "User"
+    },
+    {
+      "contributions": 431,
+      "login": "gillesdemey",
+      "type": "User"
+    },
+    {
+      "contributions": 430,
+      "login": "tskarhed",
+      "type": "User"
+    },
+    {
+      "contributions": 429,
+      "login": "papagian",
+      "type": "User"
+    },
+    {
+      "contributions": 425,
+      "login": "davkal",
+      "type": "User"
+    },
+    {
+      "contributions": 422,
+      "login": "jackw",
+      "type": "User"
+    },
+    {
+      "contributions": 418,
+      "login": "andresmgot",
+      "type": "User"
+    },
+    {
+      "contributions": 412,
+      "login": "dsotirakis",
+      "type": "User"
+    },
+    {
+      "contributions": 406,
+      "login": "xlson",
+      "type": "User"
+    },
+    {
+      "contributions": 395,
+      "login": "wbrowne",
+      "type": "User"
+    },
+    {
+      "contributions": 389,
+      "login": "Ijin08",
+      "type": "User"
+    },
+    {
+      "contributions": 387,
+      "login": "mtanda",
+      "type": "User"
+    },
+    {
+      "contributions": 386,
+      "login": "jschill",
+      "type": "User"
+    },
+    {
+      "contributions": 376,
+      "login": "imatwawana",
+      "type": "User"
+    },
+    {
+      "contributions": 376,
+      "login": "itsmylife",
+      "type": "User"
+    },
+    {
+      "contributions": 373,
+      "login": "stephaniehingtgen",
+      "type": "User"
+    },
+    {
+      "contributions": 361,
+      "login": "matyax",
+      "type": "User"
+    },
+    {
+      "contributions": 354,
+      "login": "tomratcliffe",
+      "type": "User"
+    },
+    {
+      "contributions": 353,
+      "login": "svenklemm",
+      "type": "User"
+    },
+    {
+      "contributions": 339,
+      "login": "soniaAguilarPeiron",
+      "type": "User"
+    },
+    {
+      "contributions": 336,
+      "login": "gamab",
+      "type": "User"
+    },
+    {
+      "contributions": 332,
+      "login": "oddlittlebird",
+      "type": "User"
+    },
+    {
+      "contributions": 325,
+      "login": "utkarshcmu",
+      "type": "User"
+    },
+    {
+      "contributions": 319,
+      "login": "svennergr",
+      "type": "User"
+    },
+    {
+      "contributions": 318,
+      "login": "grafana-pr-automation[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 311,
+      "login": "IevaVasiljeva",
+      "type": "User"
+    },
+    {
+      "contributions": 307,
+      "login": "Jguer",
+      "type": "User"
+    },
+    {
+      "contributions": 307,
+      "login": "aangelisc",
+      "type": "User"
+    },
+    {
+      "contributions": 300,
+      "login": "kylebrandt",
+      "type": "User"
+    },
+    {
+      "contributions": 288,
+      "login": "toddtreece",
+      "type": "User"
+    },
+    {
+      "contributions": 272,
+      "login": "joey-grafana",
+      "type": "User"
+    },
+    {
+      "contributions": 271,
+      "login": "adela-almasan",
+      "type": "User"
+    },
+    {
+      "contributions": 270,
+      "login": "macabu",
+      "type": "User"
+    },
+    {
+      "contributions": 265,
+      "login": "kminehart",
+      "type": "User"
+    },
+    {
+      "contributions": 257,
+      "login": "dependabot[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 255,
+      "login": "oscarkilhed",
+      "type": "User"
+    },
+    {
+      "contributions": 255,
+      "login": "eleijonmarck",
+      "type": "User"
+    },
+    {
+      "contributions": 251,
+      "login": "MissingRoberto",
+      "type": "User"
+    },
+    {
+      "contributions": 251,
+      "login": "alexander-akhmetov",
+      "type": "User"
+    },
+    {
+      "contributions": 250,
+      "login": "mgyongyosi",
+      "type": "User"
+    },
+    {
+      "contributions": 248,
+      "login": "ifrost",
+      "type": "User"
+    },
+    {
+      "contributions": 248,
+      "login": "mckn",
+      "type": "User"
+    },
+    {
+      "contributions": 238,
+      "login": "zoltanbedi",
+      "type": "User"
+    },
+    {
+      "contributions": 237,
+      "login": "mdvictor",
+      "type": "User"
+    },
+    {
+      "contributions": 233,
+      "login": "nmarrs",
+      "type": "User"
+    },
+    {
+      "contributions": 233,
+      "login": "grobinson-grafana",
+      "type": "User"
+    },
+    {
+      "contributions": 225,
+      "login": "alexweav",
+      "type": "User"
+    },
+    {
+      "contributions": 220,
+      "login": "DanCech",
+      "type": "User"
+    },
+    {
+      "contributions": 219,
+      "login": "eledobleefe",
+      "type": "User"
+    },
+    {
+      "contributions": 212,
+      "login": "konrad147",
+      "type": "User"
+    },
+    {
+      "contributions": 206,
+      "login": "ivanortegaalba",
+      "type": "User"
+    },
+    {
+      "contributions": 206,
+      "login": "JohnnyQQQQ",
+      "type": "User"
+    },
+    {
+      "contributions": 199,
+      "login": "zserge",
+      "type": "User"
+    },
+    {
+      "contributions": 195,
+      "login": "evictorero",
+      "type": "User"
+    },
+    {
+      "contributions": 190,
+      "login": "ppcano",
+      "type": "User"
+    },
+    {
+      "contributions": 189,
+      "login": "santihernandezc",
+      "type": "User"
+    },
+    {
+      "contributions": 188,
+      "login": "idafurjes",
+      "type": "User"
+    },
+    {
+      "contributions": 184,
+      "login": "grafanabot",
+      "type": "User"
+    },
+    {
+      "contributions": 179,
+      "login": "grafana-delivery-bot[bot]",
+      "type": "Bot"
+    },
+    {
+      "contributions": 179,
+      "login": "gtk-grafana",
+      "type": "User"
+    },
+    {
+      "contributions": 178,
+      "login": "axelavargas",
+      "type": "User"
+    },
+    {
+      "contributions": 178,
+      "login": "gelicia",
+      "type": "User"
+    },
+    {
+      "contributions": 178,
+      "login": "brendamuir",
+      "type": "User"
+    },
+    {
+      "contributions": 178,
+      "login": "Elfo404",
+      "type": "User"
+    },
+    {
+      "contributions": 177,
+      "login": "juanicabanas",
+      "type": "User"
+    },
+    {
+      "contributions": 171,
+      "login": "leventebalogh",
+      "type": "User"
+    },
+    {
+      "contributions": 168,
+      "login": "JacobsonMT",
+      "type": "User"
+    },
+    {
+      "contributions": 167,
+      "login": "jdbaldry",
+      "type": "User"
+    },
+    {
+      "contributions": 162,
+      "login": "fastfrwrd",
+      "type": "User"
+    },
+    {
+      "contributions": 160,
+      "login": "achatterjee-grafana",
+      "type": "User"
+    },
+    {
+      "contributions": 157,
+      "login": "bohandley",
+      "type": "User"
+    },
+    {
+      "contributions": 155,
+      "login": "harisrozajac",
+      "type": "User"
+    },
+    {
+      "contributions": 153,
+      "login": "ArturWierzbicki",
+      "type": "User"
+    },
+    {
+      "contributions": 150,
+      "login": "owensmallwood",
+      "type": "User"
+    },
+    {
+      "contributions": 148,
+      "login": "AgnesToulet",
+      "type": "User"
+    },
+    {
+      "contributions": 147,
+      "login": "chri2547",
+      "type": "User"
+    },
+    {
+      "contributions": 147,
+      "login": "academo",
+      "type": "User"
+    },
+    {
+      "contributions": 143,
+      "login": "linoman",
+      "type": "User"
+    },
+    {
+      "contributions": 142,
+      "login": "dmihai",
+      "type": "User"
+    }
+  ],
+  "release_authors": [
+    "github-actions[bot]",
+    "kminehart"
+  ],
+  "architect_candidates": [
+    "torkelo",
+    "bergquist",
+    "ryantxu",
+    "marefr",
+    "ashharrison90",
+    "daniellee",
+    "dprokop",
+    "hugohaggmark",
+    "ivanahuckova"
+  ],
+  "codeowners_present": false,
+  "fetched_at": "2026-03-15T23:58:47Z"
+}

@@ -1,0 +1,72 @@
+# EIS config for redis
+# Language: c
+#
+# Architecture patterns define which files represent structural decisions.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/engineering-impact-score/tree/main/research/oss-gravity-map
+
+sample_size: 500
+blame_timeout: 120
+
+exclude_file_patterns:
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "go.sum"
+  - "*generated*"
+  - "*.gen.*"
+  - "*_test.go"
+  - "*_test.rs"
+  - "*_test.py"
+  - "test_*.py"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "vendor/**"
+  - "node_modules/**"
+  - "*.pb.go"
+  - "*.pb.cc"
+  - "*.pb.h"
+
+architecture_patterns:
+  - "*/types/*"
+  - "*/core/*"
+  - "*/internal/*"
+  - "*.h"
+  - "*/server.c"
+  - "*/networking.c"
+  - "*/aof.c"
+  - "*/rdb.c"
+  - "*/cluster.c"
+  - "*/replication.c"
+  - "*/module.c"
+  - "src/server.h"
+  - "src/server.c"
+  - "src/networking.c"
+  - "src/aof.c"
+  - "src/rdb.c"
+  - "src/cluster.c"
+  - "src/replication.c"
+  - "src/module.c"
+  - "src/dict.c"
+  - "src/sds.c"
+  - "src/ae.c"
+
+blame_extensions:
+  - "*.c"
+  - "*.h"
+
+aliases:
+  "antirez": "Salvatore Sanfilippo"
+  "oranagra": "Oran Agra"
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
+  - "rust-timer"
+  - "rust-log-analyzer"
+
