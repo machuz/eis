@@ -195,7 +195,7 @@ By observing universes with different physical laws side by side — comparing D
 
 Furthermore — language and type system choices **influence culture**. A team whose culture is to express constraints through types and a team whose culture is to guarantee correctness through tests will produce Architects with different characteristics and Entropy Fighters with different behaviors. The laws of physics of the universe shape the ecosystem of engineers who live within it.
 
-This is still a hypothesis. But the results of observing 25+ OSS projects across universes are beginning to show glimpses.
+This is still a hypothesis. But the results of observing 27 OSS projects and 44,000 engineers across universes are [beginning to show glimpses](https://github.com/machuz/engineering-impact-score/blob/main/research/oss-gravity-map/analysis/cross-language-gravity.md). Gravity concentration varies by **4.5x** between language families.
 
 ---
 
