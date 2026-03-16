@@ -171,6 +171,34 @@ You can observe this in `eis timeline --team`: the moment a gravitational center
 
 ---
 
+## The Laws of Physics Are Not Uniform Across Universes
+
+Engineering Relativity has one more deep implication.
+
+**Each universe has its own laws of physics.**
+
+In a universe built on a certain framework, structure is implicitly delegated to the framework itself. There's less design freedom, but a small team can bootstrap a universe quickly. Observed through EIS, the Design axis tends to be low across the board, with Production dominating.
+
+In a universe built with a language whose type system is highly expressive, design decisions are explicitly inscribed in code. Interface design, constraints expressed through types, layers of abstraction — all of it is recorded in commits. Observed through EIS, the Design axis tends to be higher, and Survival stabilizes.
+
+This is not about superiority. **It's about different laws of physics.**
+
+In a small-to-medium universe where complexity is manageable, delegating structure to a framework is the right call. The universe runs efficiently with minimal gravity. Most engineers know this intuitively.
+
+But when the universe expands, complexity explodes, and many engineers begin working on it simultaneously — **implicit structure can no longer maintain order.** Explicit design decisions, inscribed in code, become necessary to resist entropy.
+
+The question of "which laws of physics suit which scale of universe" has been an **aerial battle** for years. "That tech choice was right." "No, it was wrong." — backed by nothing but experience and gut feeling.
+
+EIS might bring observational data to this aerial battle.
+
+By observing universes with different physical laws side by side — comparing Design axis, Survival axis, Robust Survival, and team structure tendencies — it may become possible to test hypotheses like "beyond a certain scale, type system expressiveness has a significant impact on Survival" using commit light.
+
+Furthermore — language and type system choices **influence culture**. A team whose culture is to express constraints through types and a team whose culture is to guarantee correctness through tests will produce Architects with different characteristics and Entropy Fighters with different behaviors. The laws of physics of the universe shape the ecosystem of engineers who live within it.
+
+This is still a hypothesis. But the results of observing 25+ OSS projects across universes are beginning to show glimpses.
+
+---
+
 ## Great engineers create gravity in every universe.
 
 Truly great engineers create gravity in every universe.
