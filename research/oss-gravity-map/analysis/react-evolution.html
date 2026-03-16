@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React — Generational Evolution</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#0d1117;color:#c9d1d9;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    line-height:1.6;padding:0 16px 80px;
+  }
+  ::selection{background:#388bfd44;color:#fff}
+
+  header{max-width:960px;margin:0 auto;padding:60px 0 24px;text-align:center}
+  h1{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;color:#f0f6fc;letter-spacing:-.02em;margin-bottom:8px}
+  h1 span{color:#58a6ff}
+  .subtitle{font-size:clamp(.85rem,1.8vw,1.05rem);color:#8b949e;margin-bottom:0}
+
+  .container{max-width:960px;margin:0 auto}
+
+  .section{margin-top:56px}
+  .section-title{
+    font-size:1.3rem;font-weight:700;color:#f0f6fc;margin-bottom:8px;
+    padding-bottom:8px;border-bottom:1px solid #21262d;
+  }
+  .section-desc{font-size:.9rem;color:#8b949e;margin-bottom:20px}
+  .section-subtitle{
+    font-size:1.05rem;font-weight:600;color:#c9d1d9;margin:28px 0 12px;
+  }
+
+  /* Stacked bar chart */
+  .chart-wrap{
+    background:#161b22;border:1px solid #30363d;border-radius:12px;
+    padding:24px;overflow-x:auto;
+  }
+
+  /* Role tables */
+  .table-scroll{overflow-x:auto;margin-bottom:8px}
+  .role-table{
+    border-collapse:collapse;width:100%;font-size:.85rem;
+  }
+  .role-table th{
+    padding:8px 10px;text-align:center;color:#8b949e;font-weight:600;
+    border-bottom:1px solid #30363d;white-space:nowrap;
+  }
+  .role-table th:first-child{text-align:left;min-width:180px}
+  .role-table td{padding:6px 10px;text-align:center;border-bottom:1px solid #161b22}
+  .role-table .name-cell{
+    text-align:left;font-weight:500;color:#e6edf3;white-space:nowrap;
+    max-width:200px;overflow:hidden;text-overflow:ellipsis;
+  }
+  .cell-active{
+    background:#1f6feb22;color:#79c0ff;font-weight:600;font-variant-numeric:tabular-nums;
+  }
+  .cell-empty{color:#21262d}
+
+  /* Leaderboard */
+  .lb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+  .lb-period{
+    background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px;
+  }
+  .lb-period-label{
+    font-size:1.1rem;font-weight:700;color:#f0f6fc;margin-bottom:12px;
+    padding-bottom:8px;border-bottom:1px solid #21262d;
+  }
+  .lb-card{
+    display:flex;align-items:center;gap:8px;padding:5px 0;
+  }
+  .lb-rank{font-size:.85rem;font-weight:700;color:#484f58;width:28px;font-variant-numeric:tabular-nums}
+  .lb-name{font-weight:600;font-size:.9rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lb-grav{font-size:.8rem;color:#8b949e;font-variant-numeric:tabular-nums;margin-right:4px}
+  .lb-role-tag{
+    font-size:.65rem;font-weight:600;padding:1px 6px;border:1px solid;border-radius:8px;
+    text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;
+  }
+  .badge-new{
+    display:inline-block;font-size:.6rem;font-weight:700;
+    background:#238636;color:#fff;padding:1px 5px;border-radius:6px;
+    margin-left:4px;vertical-align:middle;
+  }
+  .lb-departed{
+    margin-top:8px;padding-top:8px;border-top:1px solid #21262d;
+    font-size:.75rem;color:#f8514966;font-style:italic;
+  }
+
+  /* Sparklines */
+  .spark-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+  .spark-card{
+    background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px 16px;
+  }
+  .spark-header{display:flex;justify-content:space-between;align-items:baseline}
+  .spark-name{font-weight:600;font-size:.95rem}
+  .spark-peak{font-size:.75rem;color:#8b949e;font-variant-numeric:tabular-nums}
+  .spark-meta{font-size:.72rem;color:#484f58;margin:2px 0 8px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span>React</span> — Generational Evolution</h1>
+  <p class="subtitle">How structural gravity transferred across 10 years</p>
+</header>
+
+<div class="container">
+
+  <!-- Section 1: Role Composition -->
+  <div class="section">
+    <h2 class="section-title">Role Composition Timeline</h2>
+    <p class="section-desc">Active engineers per role in each period. Shows how the team's role balance evolved.</p>
+    <div class="chart-wrap">
+      <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px">
+  <rect x="114" y="275.4" width="60" height="14.6" fill="#79c0ff" rx="2"><title>Anchor: 22</title></rect>
+  <rect x="114" y="30.0" width="60" height="245.4" fill="#484f58" rx="2"><title>Other: 370</title></rect>
+  <text x="144.0" y="24.0" text-anchor="middle" fill="#8b949e" font-size="11">392</text>
+  <text x="144.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2016</text>
+  <rect x="182" y="280.7" width="60" height="9.3" fill="#79c0ff" rx="2"><title>Anchor: 14</title></rect>
+  <rect x="182" y="280.1" width="60" height="0.7" fill="#56d364" rx="2"><title>Producer: 1</title></rect>
+  <rect x="182" y="99.6" width="60" height="180.4" fill="#484f58" rx="2"><title>Other: 272</title></rect>
+  <text x="212.0" y="93.6" text-anchor="middle" fill="#8b949e" font-size="11">287</text>
+  <text x="212.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2017</text>
+  <rect x="250" y="288.7" width="60" height="1.3" fill="#79c0ff" rx="2"><title>Anchor: 2</title></rect>
+  <rect x="250" y="288.0" width="60" height="0.7" fill="#56d364" rx="2"><title>Producer: 1</title></rect>
+  <rect x="250" y="164.6" width="60" height="123.4" fill="#484f58" rx="2"><title>Other: 186</title></rect>
+  <text x="280.0" y="158.6" text-anchor="middle" fill="#8b949e" font-size="11">189</text>
+  <text x="280.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2018</text>
+  <rect x="318" y="284.7" width="60" height="5.3" fill="#79c0ff" rx="2"><title>Anchor: 8</title></rect>
+  <rect x="318" y="283.4" width="60" height="1.3" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="318" y="194.5" width="60" height="88.9" fill="#484f58" rx="2"><title>Other: 134</title></rect>
+  <text x="348.0" y="188.5" text-anchor="middle" fill="#8b949e" font-size="11">144</text>
+  <text x="348.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2019</text>
+  <rect x="386" y="288.7" width="60" height="1.3" fill="#f97583" rx="2"><title>Architect: 2</title></rect>
+  <rect x="386" y="286.7" width="60" height="2.0" fill="#79c0ff" rx="2"><title>Anchor: 3</title></rect>
+  <rect x="386" y="286.0" width="60" height="0.7" fill="#56d364" rx="2"><title>Producer: 1</title></rect>
+  <rect x="386" y="192.5" width="60" height="93.5" fill="#484f58" rx="2"><title>Other: 141</title></rect>
+  <text x="416.0" y="186.5" text-anchor="middle" fill="#8b949e" font-size="11">147</text>
+  <text x="416.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2020</text>
+  <rect x="454" y="284.0" width="60" height="6.0" fill="#79c0ff" rx="2"><title>Anchor: 9</title></rect>
+  <rect x="454" y="216.4" width="60" height="67.7" fill="#484f58" rx="2"><title>Other: 102</title></rect>
+  <text x="484.0" y="210.4" text-anchor="middle" fill="#8b949e" font-size="11">111</text>
+  <text x="484.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2021</text>
+  <rect x="522" y="282.7" width="60" height="7.3" fill="#79c0ff" rx="2"><title>Anchor: 11</title></rect>
+  <rect x="522" y="282.0" width="60" height="0.7" fill="#56d364" rx="2"><title>Producer: 1</title></rect>
+  <rect x="522" y="281.4" width="60" height="0.7" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="522" y="211.1" width="60" height="70.3" fill="#484f58" rx="2"><title>Other: 106</title></rect>
+  <text x="552.0" y="205.1" text-anchor="middle" fill="#8b949e" font-size="11">119</text>
+  <text x="552.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2022</text>
+  <rect x="590" y="289.3" width="60" height="0.7" fill="#f97583" rx="2"><title>Architect: 1</title></rect>
+  <rect x="590" y="282.7" width="60" height="6.6" fill="#79c0ff" rx="2"><title>Anchor: 10</title></rect>
+  <rect x="590" y="282.0" width="60" height="0.7" fill="#56d364" rx="2"><title>Producer: 1</title></rect>
+  <rect x="590" y="223.7" width="60" height="58.4" fill="#484f58" rx="2"><title>Other: 88</title></rect>
+  <text x="620.0" y="217.7" text-anchor="middle" fill="#8b949e" font-size="11">100</text>
+  <text x="620.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2023</text>
+  <rect x="658" y="279.4" width="60" height="10.6" fill="#79c0ff" rx="2"><title>Anchor: 16</title></rect>
+  <rect x="658" y="278.7" width="60" height="0.7" fill="#56d364" rx="2"><title>Producer: 1</title></rect>
+  <rect x="658" y="189.2" width="60" height="89.5" fill="#484f58" rx="2"><title>Other: 135</title></rect>
+  <text x="688.0" y="183.2" text-anchor="middle" fill="#8b949e" font-size="11">152</text>
+  <text x="688.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2024</text>
+  <rect x="726" y="275.4" width="60" height="14.6" fill="#79c0ff" rx="2"><title>Anchor: 22</title></rect>
+  <rect x="726" y="274.7" width="60" height="0.7" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="726" y="203.8" width="60" height="71.0" fill="#484f58" rx="2"><title>Other: 107</title></rect>
+  <text x="756.0" y="197.8" text-anchor="middle" fill="#8b949e" font-size="11">130</text>
+  <text x="756.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2025</text>
+  <rect x="114" y="317" width="10" height="10" fill="#f97583" rx="2"/>
+  <text x="128" y="326" fill="#8b949e" font-size="11">Architect</text>
+  <rect x="207" y="317" width="10" height="10" fill="#79c0ff" rx="2"/>
+  <text x="221" y="326" fill="#8b949e" font-size="11">Anchor</text>
+  <rect x="279" y="317" width="10" height="10" fill="#56d364" rx="2"/>
+  <text x="293" y="326" fill="#8b949e" font-size="11">Producer</text>
+  <rect x="365" y="317" width="10" height="10" fill="#d2a8ff" rx="2"/>
+  <text x="379" y="326" fill="#8b949e" font-size="11">Cleaner</text>
+  <rect x="444" y="317" width="10" height="10" fill="#ffa657" rx="2"/>
+  <text x="458" y="326" fill="#8b949e" font-size="11">Specialist</text>
+  <rect x="544" y="317" width="10" height="10" fill="#484f58" rx="2"/>
+  <text x="558" y="326" fill="#8b949e" font-size="11">Other</text>
+</svg>
+    </div>
+  </div>
+
+  <!-- Section 2: Architects & Anchors -->
+  <div class="section">
+    <h2 class="section-title">Who Were the Architects & Anchors?</h2>
+    <p class="section-desc">Cells show gravity score. Blank = not in this role that period. This is the generational change view.</p>
+    
+        <h3 class="section-subtitle">Architects (structural leaders)</h3>
+        <div class="table-scroll">
+        <table class="role-table">
+          <thead><tr><th>Name</th><th>2016</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr></thead>
+          <tbody><tr><td class="name-cell">Dan Abramov</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Dan Abramov — gravity 85, 187 commits">85</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Andrew Clark</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Andrew Clark — gravity 74, 207 commits">74</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Andrew Clark — gravity 60, 321 commits">60</td><td class="cell-empty"></td><td class="cell-empty"></td></tr></tbody>
+        </table>
+        </div>
+    
+        <h3 class="section-subtitle">Anchors (gravity holders)</h3>
+        <div class="table-scroll">
+        <table class="role-table">
+          <thead><tr><th>Name</th><th>2016</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr></thead>
+          <tbody><tr><td class="name-cell">Dan Abramov</td><td class="cell-active" title="Dan Abramov — gravity 41, 431 commits">41</td><td class="cell-active" title="Dan Abramov — gravity 73, 553 commits">73</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Paul O’Shannessy</td><td class="cell-active" title="Paul O’Shannessy — gravity 70, 236 commits">70</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">tomocchino</td><td class="cell-active" title="tomocchino — gravity 32, 7 commits">32</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Travis CI</td><td class="cell-active" title="Travis CI — gravity 30, 83 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Jack Cross</td><td class="cell-active" title="Jack Cross — gravity 30, 4 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Eric Nakagawa</td><td class="cell-active" title="Eric Nakagawa — gravity 30, 4 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Kevin Lacker</td><td class="cell-active" title="Kevin Lacker — gravity 30, 9 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">aleclarsoniv</td><td class="cell-active" title="aleclarsoniv — gravity 30, 1 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Andres Suarez</td><td class="cell-active" title="Andres Suarez — gravity 30, 4 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">aleclarson</td><td class="cell-active" title="aleclarson — gravity 30, 7 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Spencer Ahrens</td><td class="cell-active" title="Spencer Ahrens — gravity 30, 3 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Benoit Girard</td><td class="cell-active" title="Benoit Girard — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Benoit Girard — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">ogom</td><td class="cell-active" title="ogom — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Dhyey Thakore</td><td class="cell-active" title="Dhyey Thakore — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">却痕</td><td class="cell-active" title="却痕 — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Michael Jackson</td><td class="cell-active" title="Michael Jackson — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Cheng Lou</td><td class="cell-active" title="Cheng Lou — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">tokikuch</td><td class="cell-active" title="tokikuch — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">J. Renée Beach</td><td class="cell-active" title="J. Renée Beach — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Leland Richardson</td><td class="cell-active" title="Leland Richardson — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">scloudyy</td><td class="cell-active" title="scloudyy — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Rafael Angeline</td><td class="cell-active" title="Rafael Angeline — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Brian Vaughn</td><td class="cell-empty"></td><td class="cell-active" title="Brian Vaughn — gravity 65, 194 commits">65</td><td class="cell-empty"></td><td class="cell-active" title="Brian Vaughn — gravity 82, 673 commits">82</td><td class="cell-empty"></td><td class="cell-active" title="Brian Vaughn — gravity 79, 240 commits">79</td><td class="cell-active" title="Brian Vaughn — gravity 70, 16 commits">70</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Andrew Clark</td><td class="cell-empty"></td><td class="cell-active" title="Andrew Clark — gravity 82, 193 commits">82</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Andrew Clark — gravity 50, 129 commits">50</td><td class="cell-empty"></td></tr><tr><td class="name-cell">Marks Polakovs</td><td class="cell-empty"></td><td class="cell-active" title="Marks Polakovs — gravity 30, 3 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">wacii</td><td class="cell-empty"></td><td class="cell-active" title="wacii — gravity 30, 3 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">facts-tracker</td><td class="cell-empty"></td><td class="cell-active" title="facts-tracker — gravity 30, 15 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Daniel Lo Nigro</td><td class="cell-empty"></td><td class="cell-active" title="Daniel Lo Nigro — gravity 30, 5 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Jack Hou</td><td class="cell-empty"></td><td class="cell-active" title="Jack Hou — gravity 8, 1 commits">8</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">rivenhk</td><td class="cell-empty"></td><td class="cell-active" title="rivenhk — gravity 1, 1 commits">1</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Jeremias Menichelli</td><td class="cell-empty"></td><td class="cell-active" title="Jeremias Menichelli — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Philipp Spieß</td><td class="cell-empty"></td><td class="cell-active" title="Philipp Spieß — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Whien</td><td class="cell-empty"></td><td class="cell-active" title="Whien — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Iacami Gevaerd</td><td class="cell-empty"></td><td class="cell-active" title="Iacami Gevaerd — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Anton Arboleda</td><td class="cell-empty"></td><td class="cell-active" title="Anton Arboleda — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Caleb Meredith</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Caleb Meredith — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Andrew Patton</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Andrew Patton — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Laura González</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Laura González — gravity 31, 21 commits">31</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Laura buns</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Laura buns — gravity 2, 2 commits">2</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Ricky Vetter</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Ricky Vetter — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Jessica Franco</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Jessica Franco — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Emanuel Tesař</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Emanuel Tesař — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Will Douglas</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Will Douglas — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Minh Nguyen</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Minh Nguyen — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">CY Lim</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="CY Lim — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Richard Maisano</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Richard Maisano — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Jordan Eldredge</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Jordan Eldredge — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Justin Grant</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Justin Grant — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Bao Pham</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Bao Pham — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Xuan Huang (黄玄)</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Xuan Huang (黄玄) — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Michaël De Boey</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Michaël De Boey — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Michelle Chen</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Michelle Chen — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Holger Benl</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Holger Benl — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">irinakk</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="irinakk — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">lauren</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="lauren — gravity 60, 20 commits">60</td><td class="cell-empty"></td><td class="cell-active" title="lauren — gravity 59, 300 commits">59</td><td class="cell-empty"></td></tr><tr><td class="name-cell">Jan Kassens</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Jan Kassens — gravity 43, 118 commits">43</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">poteto</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="poteto — gravity 30, 17 commits">30</td><td class="cell-empty"></td><td class="cell-active" title="poteto — gravity 32, 58 commits">32</td><td class="cell-active" title="poteto — gravity 38, 92 commits">38</td></tr><tr><td class="name-cell">Sebastian Markbage</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Sebastian Markbage — gravity 30, 34 commits">30</td><td class="cell-active" title="Sebastian Markbage — gravity 30, 203 commits">30</td><td class="cell-active" title="Sebastian Markbage — gravity 32, 286 commits">32</td><td class="cell-active" title="Sebastian Markbage — gravity 30, 254 commits">30</td></tr><tr><td class="name-cell">Joe Savona</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Joe Savona — gravity 30, 209 commits">30</td><td class="cell-active" title="Joe Savona — gravity 31, 548 commits">31</td><td class="cell-active" title="Joe Savona — gravity 30, 349 commits">30</td><td class="cell-active" title="Joe Savona — gravity 31, 1573 commits">31</td></tr><tr><td class="name-cell">kassens</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="kassens — gravity 30, 42 commits">30</td><td class="cell-active" title="kassens — gravity 30, 144 commits">30</td><td class="cell-active" title="kassens — gravity 30, 95 commits">30</td><td class="cell-active" title="kassens — gravity 30, 28 commits">30</td></tr><tr><td class="name-cell">Rick Hanlon</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Rick Hanlon — gravity 30, 3 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Joseph Savona</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Joseph Savona — gravity 30, 36 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Joseph Savona — gravity 30, 155 commits">30</td></tr><tr><td class="name-cell">gnoff</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="gnoff — gravity 30, 11 commits">30</td><td class="cell-active" title="gnoff — gravity 30, 148 commits">30</td><td class="cell-active" title="gnoff — gravity 30, 85 commits">30</td><td class="cell-empty"></td></tr><tr><td class="name-cell">Colin McDonnell</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Colin McDonnell — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">josephsavona</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="josephsavona — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-active" title="josephsavona — gravity 31, 201 commits">31</td></tr><tr><td class="name-cell">sammy-SC</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="sammy-SC — gravity 30, 10 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">yungsters</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="yungsters — gravity 30, 4 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">hoxyq</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="hoxyq — gravity 30, 117 commits">30</td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">gsathya</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="gsathya — gravity 0, 2 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Michael Vitousek</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Michael Vitousek — gravity 0, 1 commits">0</td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Sebastian Markbåge</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Sebastian Markbåge — gravity 100, 350 commits">100</td><td class="cell-active" title="Sebastian Markbåge — gravity 70, 388 commits">70</td></tr><tr><td class="name-cell">Mofei Zhang</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Mofei Zhang — gravity 30, 438 commits">30</td><td class="cell-active" title="Mofei Zhang — gravity 30, 150 commits">30</td></tr><tr><td class="name-cell">Mike Vitousek</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Mike Vitousek — gravity 30, 179 commits">30</td><td class="cell-empty"></td></tr><tr><td class="name-cell">rickhanlonii</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="rickhanlonii — gravity 30, 83 commits">30</td><td class="cell-active" title="rickhanlonii — gravity 30, 39 commits">30</td></tr><tr><td class="name-cell">jackpope</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="jackpope — gravity 30, 52 commits">30</td><td class="cell-empty"></td></tr><tr><td class="name-cell">Aditya Subramanyam</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Aditya Subramanyam — gravity 0, 1 commits">0</td><td class="cell-empty"></td></tr><tr><td class="name-cell">Tim Yung</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Tim Yung — gravity 0, 2 commits">0</td><td class="cell-empty"></td></tr><tr><td class="name-cell">Piotr Tomczewski</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Piotr Tomczewski — gravity 0, 1 commits">0</td><td class="cell-active" title="Piotr Tomczewski — gravity 0, 1 commits">0</td></tr><tr><td class="name-cell">noahlemen</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="noahlemen — gravity 0, 2 commits">0</td><td class="cell-empty"></td></tr><tr><td class="name-cell">Jorge Cabiedes</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Jorge Cabiedes — gravity 60, 82 commits">60</td></tr><tr><td class="name-cell">Lauren Tan</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Lauren Tan — gravity 34, 507 commits">34</td></tr><tr><td class="name-cell">mofeiZ</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="mofeiZ — gravity 32, 73 commits">32</td></tr><tr><td class="name-cell">eps1lon</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="eps1lon — gravity 30, 70 commits">30</td></tr><tr><td class="name-cell">Jorge Cabiedes Acosta</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Jorge Cabiedes Acosta — gravity 30, 290 commits">30</td></tr><tr><td class="name-cell">Yukimasa Funaoka</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Yukimasa Funaoka — gravity 0, 1 commits">0</td></tr><tr><td class="name-cell">SamChou19815</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="SamChou19815 — gravity 0, 2 commits">0</td></tr><tr><td class="name-cell">Eliot Pontarelli</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Eliot Pontarelli — gravity 0, 1 commits">0</td></tr><tr><td class="name-cell">Azat S.</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Azat S. — gravity 0, 1 commits">0</td></tr><tr><td class="name-cell">James Friend</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="James Friend — gravity 0, 2 commits">0</td></tr><tr><td class="name-cell">Niklas Mollenhauer</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Niklas Mollenhauer — gravity 0, 2 commits">0</td></tr><tr><td class="name-cell">Mateusz Burzyński</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Mateusz Burzyński — gravity 0, 1 commits">0</td></tr></tbody>
+        </table>
+        </div>
+  </div>
+
+  <!-- Section 3: Gravity Leadership Board -->
+  <div class="section">
+    <h2 class="section-title">Gravity Leadership Board</h2>
+    <p class="section-desc">Top 5 by gravity each period. <span style="color:#238636;font-weight:600">NEW</span> = just entered top 5. Departed names listed below.</p>
+    <div class="lb-grid">
+      <div class="lb-period"><div class="lb-period-label">2016</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#79c0ff">Paul O’Shannessy</span><span class="lb-grav">70</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Sebastian Markbåge</span><span class="lb-grav">68</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Brandon Dail</span><span class="lb-grav">46</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Sophie Alpert</span><span class="lb-grav">45</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#79c0ff">Dan Abramov</span><span class="lb-grav">41</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div></div><div class="lb-period"><div class="lb-period-label">2017</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#79c0ff">Andrew Clark <span class="badge-new">NEW</span></span><span class="lb-grav">82</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#79c0ff">Dan Abramov</span><span class="lb-grav">73</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Sebastian Markbåge</span><span class="lb-grav">72</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#79c0ff">Brian Vaughn <span class="badge-new">NEW</span></span><span class="lb-grav">65</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Paul O’Shannessy</span><span class="lb-grav">48</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Brandon Dail, Sophie Alpert</div></div><div class="lb-period"><div class="lb-period-label">2018</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Brian Vaughn</span><span class="lb-grav">79</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Andrew Clark</span><span class="lb-grav">60</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Dan Abramov</span><span class="lb-grav">58</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Sebastian Markbåge</span><span class="lb-grav">33</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Sophie Alpert <span class="badge-new">NEW</span></span><span class="lb-grav">32</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Paul O’Shannessy</div></div><div class="lb-period"><div class="lb-period-label">2019</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#79c0ff">Brian Vaughn</span><span class="lb-grav">82</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Andrew Clark</span><span class="lb-grav">69</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Sebastian Markbåge</span><span class="lb-grav">60</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Dan Abramov</span><span class="lb-grav">49</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Dominic Gannaway <span class="badge-new">NEW</span></span><span class="lb-grav">39</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Sophie Alpert</div></div><div class="lb-period"><div class="lb-period-label">2020</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#f97583">Dan Abramov</span><span class="lb-grav">85</span><span class="lb-role-tag" style="border-color:#f97583;color:#f97583">Architect</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Brian Vaughn</span><span class="lb-grav">76</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#f97583">Andrew Clark</span><span class="lb-grav">74</span><span class="lb-role-tag" style="border-color:#f97583;color:#f97583">Architect</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Sebastian Markbåge</span><span class="lb-grav">66</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Dominic Gannaway</span><span class="lb-grav">36</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div></div><div class="lb-period"><div class="lb-period-label">2021</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#79c0ff">Brian Vaughn</span><span class="lb-grav">79</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Andrew Clark</span><span class="lb-grav">70</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Sebastian Markbåge</span><span class="lb-grav">63</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Dan Abramov</span><span class="lb-grav">56</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Luna Ruan <span class="badge-new">NEW</span></span><span class="lb-grav">33</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Dominic Gannaway</div></div><div class="lb-period"><div class="lb-period-label">2022</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#79c0ff">Brian Vaughn</span><span class="lb-grav">70</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Sebastian Markbåge</span><span class="lb-grav">63</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#79c0ff">lauren <span class="badge-new">NEW</span></span><span class="lb-grav">60</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#d2a8ff">Andrew Clark</span><span class="lb-grav">55</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Dan Abramov</span><span class="lb-grav">52</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Luna Ruan</div></div><div class="lb-period"><div class="lb-period-label">2023</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#f97583">Andrew Clark</span><span class="lb-grav">60</span><span class="lb-role-tag" style="border-color:#f97583;color:#f97583">Architect</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Sebastian Markbåge</span><span class="lb-grav">38</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Ruslan Lesiutin <span class="badge-new">NEW</span></span><span class="lb-grav">34</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Dan Abramov</span><span class="lb-grav">33</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Noah Lemen <span class="badge-new">NEW</span></span><span class="lb-grav">33</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Brian Vaughn, lauren</div></div><div class="lb-period"><div class="lb-period-label">2024</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#79c0ff">Sebastian Markbåge</span><span class="lb-grav">100</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#79c0ff">lauren <span class="badge-new">NEW</span></span><span class="lb-grav">59</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#79c0ff">Andrew Clark</span><span class="lb-grav">50</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Dan Abramov</span><span class="lb-grav">42</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">michael faith <span class="badge-new">NEW</span></span><span class="lb-grav">42</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Noah Lemen, Ruslan Lesiutin</div></div><div class="lb-period"><div class="lb-period-label">2025</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#79c0ff">Sebastian Markbåge</span><span class="lb-grav">70</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#79c0ff">Jorge Cabiedes <span class="badge-new">NEW</span></span><span class="lb-grav">60</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Dan Abramov</span><span class="lb-grav">48</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Andrew Clark</span><span class="lb-grav">42</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Jan Kassens <span class="badge-new">NEW</span></span><span class="lb-grav">38</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: lauren, michael faith</div></div>
+    </div>
+  </div>
+
+  <!-- Section 4: Individual Trajectories -->
+  <div class="section">
+    <h2 class="section-title">Individual Trajectories</h2>
+    <p class="section-desc">Gravity over time for key figures (anyone ever in top 10). Dot color = role. Hover for details.</p>
+    <div class="spark-grid">
+      <div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#79c0ff">Sebastian Markbåge</span><span class="spark-peak">peak 100</span></div><div class="spark-meta">2016–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,14.3 30.4,13.1 58.9,25.4 87.3,16.8 115.8,14.8 144.2,15.8 172.7,15.7 201.1,24.0 229.6,4.0 258.0,13.5" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="14.3" r="3" fill="#484f58"><title>2016: 68 (Other)</title></circle>
+  <circle cx="30.4" cy="13.1" r="3" fill="#484f58"><title>2017: 72 (Other)</title></circle>
+  <circle cx="58.9" cy="25.4" r="3" fill="#484f58"><title>2018: 33 (Other)</title></circle>
+  <circle cx="87.3" cy="16.8" r="3" fill="#484f58"><title>2019: 60 (Other)</title></circle>
+  <circle cx="115.8" cy="14.8" r="3" fill="#484f58"><title>2020: 66 (Other)</title></circle>
+  <circle cx="144.2" cy="15.8" r="3" fill="#484f58"><title>2021: 63 (Other)</title></circle>
+  <circle cx="172.7" cy="15.7" r="3" fill="#484f58"><title>2022: 63 (Other)</title></circle>
+  <circle cx="201.1" cy="24.0" r="3" fill="#484f58"><title>2023: 38 (Other)</title></circle>
+  <circle cx="229.6" cy="4.0" r="3" fill="#79c0ff"><title>2024: 100 (Anchor)</title></circle>
+  <circle cx="258.0" cy="13.5" r="3" fill="#79c0ff"><title>2025: 70 (Anchor)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#f97583">Dan Abramov</span><span class="spark-peak">peak 85</span></div><div class="spark-meta">2016–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,20.7 30.4,8.5 58.9,14.1 87.3,17.5 115.8,4.0 144.2,15.0 172.7,16.5 201.1,23.4 229.6,20.1 258.0,18.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="20.7" r="3" fill="#79c0ff"><title>2016: 41 (Anchor)</title></circle>
+  <circle cx="30.4" cy="8.5" r="3" fill="#79c0ff"><title>2017: 73 (Anchor)</title></circle>
+  <circle cx="58.9" cy="14.1" r="3" fill="#484f58"><title>2018: 58 (Other)</title></circle>
+  <circle cx="87.3" cy="17.5" r="3" fill="#484f58"><title>2019: 49 (Other)</title></circle>
+  <circle cx="115.8" cy="4.0" r="3" fill="#f97583"><title>2020: 85 (Architect)</title></circle>
+  <circle cx="144.2" cy="15.0" r="3" fill="#484f58"><title>2021: 56 (Other)</title></circle>
+  <circle cx="172.7" cy="16.5" r="3" fill="#484f58"><title>2022: 52 (Other)</title></circle>
+  <circle cx="201.1" cy="23.4" r="3" fill="#484f58"><title>2023: 33 (Other)</title></circle>
+  <circle cx="229.6" cy="20.1" r="3" fill="#484f58"><title>2024: 42 (Other)</title></circle>
+  <circle cx="258.0" cy="18.0" r="3" fill="#484f58"><title>2025: 48 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#79c0ff">Brian Vaughn</span><span class="spark-peak">peak 82</span></div><div class="spark-meta">2016–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,24.3 30.4,10.8 58.9,5.2 87.3,4.0 115.8,6.7 144.2,5.5 172.7,8.8 201.1,36.0 229.6,23.6 258.0,24.2" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="24.3" r="3" fill="#484f58"><title>2016: 30 (Other)</title></circle>
+  <circle cx="30.4" cy="10.8" r="3" fill="#79c0ff"><title>2017: 65 (Anchor)</title></circle>
+  <circle cx="58.9" cy="5.2" r="3" fill="#484f58"><title>2018: 79 (Other)</title></circle>
+  <circle cx="87.3" cy="4.0" r="3" fill="#79c0ff"><title>2019: 82 (Anchor)</title></circle>
+  <circle cx="115.8" cy="6.7" r="3" fill="#484f58"><title>2020: 76 (Other)</title></circle>
+  <circle cx="144.2" cy="5.5" r="3" fill="#79c0ff"><title>2021: 79 (Anchor)</title></circle>
+  <circle cx="172.7" cy="8.8" r="3" fill="#79c0ff"><title>2022: 70 (Anchor)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="23.6" r="3" fill="#484f58"><title>2024: 32 (Other)</title></circle>
+  <circle cx="258.0" cy="24.2" r="3" fill="#484f58"><title>2025: 30 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#79c0ff">Andrew Clark</span><span class="spark-peak">peak 82</span></div><div class="spark-meta">2016–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,24.0 30.4,4.0 58.9,12.5 87.3,8.9 115.8,7.2 144.2,8.6 172.7,14.4 201.1,12.5 229.6,16.4 258.0,19.4" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="24.0" r="3" fill="#484f58"><title>2016: 31 (Other)</title></circle>
+  <circle cx="30.4" cy="4.0" r="3" fill="#79c0ff"><title>2017: 82 (Anchor)</title></circle>
+  <circle cx="58.9" cy="12.5" r="3" fill="#484f58"><title>2018: 60 (Other)</title></circle>
+  <circle cx="87.3" cy="8.9" r="3" fill="#484f58"><title>2019: 69 (Other)</title></circle>
+  <circle cx="115.8" cy="7.2" r="3" fill="#f97583"><title>2020: 74 (Architect)</title></circle>
+  <circle cx="144.2" cy="8.6" r="3" fill="#484f58"><title>2021: 70 (Other)</title></circle>
+  <circle cx="172.7" cy="14.4" r="3" fill="#d2a8ff"><title>2022: 55 (Cleaner)</title></circle>
+  <circle cx="201.1" cy="12.5" r="3" fill="#f97583"><title>2023: 60 (Architect)</title></circle>
+  <circle cx="229.6" cy="16.4" r="3" fill="#79c0ff"><title>2024: 50 (Anchor)</title></circle>
+  <circle cx="258.0" cy="19.4" r="3" fill="#484f58"><title>2025: 42 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#79c0ff">Paul O’Shannessy</span><span class="spark-peak">peak 70</span></div><div class="spark-meta">2016–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,4.0 30.4,14.0 58.9,36.0 87.3,34.6 115.8,34.3 144.2,34.2 172.7,33.4 201.1,36.0 229.6,33.6 258.0,33.5" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="4.0" r="3" fill="#79c0ff"><title>2016: 70 (Anchor)</title></circle>
+  <circle cx="30.4" cy="14.0" r="3" fill="#484f58"><title>2017: 48 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="34.6" r="3" fill="#484f58"><title>2019: 3 (Other)</title></circle>
+  <circle cx="115.8" cy="34.3" r="3" fill="#484f58"><title>2020: 4 (Other)</title></circle>
+  <circle cx="144.2" cy="34.2" r="3" fill="#484f58"><title>2021: 4 (Other)</title></circle>
+  <circle cx="172.7" cy="33.4" r="3" fill="#484f58"><title>2022: 6 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="33.6" r="3" fill="#484f58"><title>2024: 5 (Other)</title></circle>
+  <circle cx="258.0" cy="33.5" r="3" fill="#484f58"><title>2025: 6 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#79c0ff">Jorge Cabiedes</span><span class="spark-peak">peak 60</span></div><div class="spark-meta">2025–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,36.0 258.0,4.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="4.0" r="3" fill="#79c0ff"><title>2025: 60 (Anchor)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#79c0ff">lauren</span><span class="spark-peak">peak 60</span></div><div class="spark-meta">2022–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,4.0 201.1,20.0 229.6,4.7 258.0,20.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="4.0" r="3" fill="#79c0ff"><title>2022: 60 (Anchor)</title></circle>
+  <circle cx="201.1" cy="20.0" r="3" fill="#484f58"><title>2023: 30 (Other)</title></circle>
+  <circle cx="229.6" cy="4.7" r="3" fill="#79c0ff"><title>2024: 59 (Anchor)</title></circle>
+  <circle cx="258.0" cy="20.0" r="3" fill="#484f58"><title>2025: 30 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Brandon Dail</span><span class="spark-peak">peak 46</span></div><div class="spark-meta">2016–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,4.0 30.4,9.1 58.9,14.9 87.3,13.8 115.8,34.7 144.2,34.6 172.7,34.4 201.1,36.0 229.6,34.1 258.0,34.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="4.0" r="3" fill="#484f58"><title>2016: 46 (Other)</title></circle>
+  <circle cx="30.4" cy="9.1" r="3" fill="#484f58"><title>2017: 38 (Other)</title></circle>
+  <circle cx="58.9" cy="14.9" r="3" fill="#484f58"><title>2018: 30 (Other)</title></circle>
+  <circle cx="87.3" cy="13.8" r="3" fill="#484f58"><title>2019: 32 (Other)</title></circle>
+  <circle cx="115.8" cy="34.7" r="3" fill="#484f58"><title>2020: 2 (Other)</title></circle>
+  <circle cx="144.2" cy="34.6" r="3" fill="#484f58"><title>2021: 2 (Other)</title></circle>
+  <circle cx="172.7" cy="34.4" r="3" fill="#484f58"><title>2022: 2 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="34.1" r="3" fill="#484f58"><title>2024: 3 (Other)</title></circle>
+  <circle cx="258.0" cy="34.0" r="3" fill="#484f58"><title>2025: 3 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Sophie Alpert</span><span class="spark-peak">peak 45</span></div><div class="spark-meta">2016–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,4.0 30.4,6.1 58.9,12.9 87.3,13.6 115.8,12.1 144.2,32.5 172.7,11.5 201.1,14.3 229.6,11.6 258.0,10.8" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="4.0" r="3" fill="#484f58"><title>2016: 45 (Other)</title></circle>
+  <circle cx="30.4" cy="6.1" r="3" fill="#484f58"><title>2017: 42 (Other)</title></circle>
+  <circle cx="58.9" cy="12.9" r="3" fill="#484f58"><title>2018: 32 (Other)</title></circle>
+  <circle cx="87.3" cy="13.6" r="3" fill="#484f58"><title>2019: 32 (Other)</title></circle>
+  <circle cx="115.8" cy="12.1" r="3" fill="#484f58"><title>2020: 34 (Other)</title></circle>
+  <circle cx="144.2" cy="32.5" r="3" fill="#484f58"><title>2021: 5 (Other)</title></circle>
+  <circle cx="172.7" cy="11.5" r="3" fill="#484f58"><title>2022: 35 (Other)</title></circle>
+  <circle cx="201.1" cy="14.3" r="3" fill="#484f58"><title>2023: 31 (Other)</title></circle>
+  <circle cx="229.6" cy="11.6" r="3" fill="#484f58"><title>2024: 34 (Other)</title></circle>
+  <circle cx="258.0" cy="10.8" r="3" fill="#484f58"><title>2025: 36 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#79c0ff">Jan Kassens</span><span class="spark-peak">peak 43</span></div><div class="spark-meta">2022–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,4.0 201.1,12.6 229.6,12.9 258.0,7.7" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="4.0" r="3" fill="#79c0ff"><title>2022: 43 (Anchor)</title></circle>
+  <circle cx="201.1" cy="12.6" r="3" fill="#484f58"><title>2023: 32 (Other)</title></circle>
+  <circle cx="229.6" cy="12.9" r="3" fill="#484f58"><title>2024: 31 (Other)</title></circle>
+  <circle cx="258.0" cy="7.7" r="3" fill="#484f58"><title>2025: 38 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">michael faith</span><span class="spark-peak">peak 42</span></div><div class="spark-meta">2024–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,4.0 258.0,30.7" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="4.0" r="3" fill="#484f58"><title>2024: 42 (Other)</title></circle>
+  <circle cx="258.0" cy="30.7" r="3" fill="#484f58"><title>2025: 7 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Lauren Tan</span><span class="spark-peak">peak 41</span></div><div class="spark-meta">2022–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,12.2 201.1,12.0 229.6,4.0 258.0,9.1" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="12.2" r="3" fill="#484f58"><title>2022: 30 (Other)</title></circle>
+  <circle cx="201.1" cy="12.0" r="3" fill="#484f58"><title>2023: 31 (Other)</title></circle>
+  <circle cx="229.6" cy="4.0" r="3" fill="#484f58"><title>2024: 41 (Other)</title></circle>
+  <circle cx="258.0" cy="9.1" r="3" fill="#79c0ff"><title>2025: 34 (Anchor)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Nathan Hunzaker</span><span class="spark-peak">peak 40</span></div><div class="spark-meta">2016–2018</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,4.0 30.4,10.5 58.9,11.7 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="4.0" r="3" fill="#484f58"><title>2016: 40 (Other)</title></circle>
+  <circle cx="30.4" cy="10.5" r="3" fill="#484f58"><title>2017: 32 (Other)</title></circle>
+  <circle cx="58.9" cy="11.7" r="3" fill="#484f58"><title>2018: 30 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Dominic Gannaway</span><span class="spark-peak">peak 39</span></div><div class="spark-meta">2016–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,11.5 30.4,4.9 58.9,11.1 87.3,4.0 115.8,6.7 144.2,32.7 172.7,33.2 201.1,36.0 229.6,31.7 258.0,32.7" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="11.5" r="3" fill="#484f58"><title>2016: 30 (Other)</title></circle>
+  <circle cx="30.4" cy="4.9" r="3" fill="#484f58"><title>2017: 38 (Other)</title></circle>
+  <circle cx="58.9" cy="11.1" r="3" fill="#484f58"><title>2018: 30 (Other)</title></circle>
+  <circle cx="87.3" cy="4.0" r="3" fill="#484f58"><title>2019: 39 (Other)</title></circle>
+  <circle cx="115.8" cy="6.7" r="3" fill="#484f58"><title>2020: 36 (Other)</title></circle>
+  <circle cx="144.2" cy="32.7" r="3" fill="#484f58"><title>2021: 4 (Other)</title></circle>
+  <circle cx="172.7" cy="33.2" r="3" fill="#484f58"><title>2022: 3 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="31.7" r="3" fill="#484f58"><title>2024: 5 (Other)</title></circle>
+  <circle cx="258.0" cy="32.7" r="3" fill="#484f58"><title>2025: 4 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Josh Story</span><span class="spark-peak">peak 38</span></div><div class="spark-meta">2021–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,10.7 172.7,5.9 201.1,8.6 229.6,4.0 258.0,7.2" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="10.7" r="3" fill="#484f58"><title>2021: 30 (Other)</title></circle>
+  <circle cx="172.7" cy="5.9" r="3" fill="#484f58"><title>2022: 36 (Other)</title></circle>
+  <circle cx="201.1" cy="8.6" r="3" fill="#484f58"><title>2023: 32 (Other)</title></circle>
+  <circle cx="229.6" cy="4.0" r="3" fill="#484f58"><title>2024: 38 (Other)</title></circle>
+  <circle cx="258.0" cy="7.2" r="3" fill="#484f58"><title>2025: 34 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#79c0ff">poteto</span><span class="spark-peak">peak 38</span></div><div class="spark-meta">2022–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,10.3 201.1,36.0 229.6,9.2 258.0,4.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="10.3" r="3" fill="#79c0ff"><title>2022: 30 (Anchor)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="9.2" r="3" fill="#79c0ff"><title>2024: 32 (Anchor)</title></circle>
+  <circle cx="258.0" cy="4.0" r="3" fill="#79c0ff"><title>2025: 38 (Anchor)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#d2a8ff">Sebastian &quot;Sebbie&quot; Silbermann</span><span class="spark-peak">peak 37</span></div><div class="spark-meta">2024–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,9.9 258.0,4.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="9.9" r="3" fill="#484f58"><title>2024: 30 (Other)</title></circle>
+  <circle cx="258.0" cy="4.0" r="3" fill="#d2a8ff"><title>2025: 37 (Cleaner)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Devon Govett</span><span class="spark-peak">peak 35</span></div><div class="spark-meta">2024–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,4.0 258.0,33.5" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="4.0" r="3" fill="#484f58"><title>2024: 35 (Other)</title></circle>
+  <circle cx="258.0" cy="33.5" r="3" fill="#484f58"><title>2025: 3 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Keyan Zhang</span><span class="spark-peak">peak 35</span></div><div class="spark-meta">2016–2016</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,4.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="4.0" r="3" fill="#484f58"><title>2016: 35 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Jason Quense</span><span class="spark-peak">peak 35</span></div><div class="spark-meta">2016–2018</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,4.0 30.4,8.6 58.9,8.6 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="4.0" r="3" fill="#484f58"><title>2016: 35 (Other)</title></circle>
+  <circle cx="30.4" cy="8.6" r="3" fill="#484f58"><title>2017: 30 (Other)</title></circle>
+  <circle cx="58.9" cy="8.6" r="3" fill="#484f58"><title>2018: 30 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Marshall Bowers</span><span class="spark-peak">peak 35</span></div><div class="spark-meta">2016–2016</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,4.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="4.0" r="3" fill="#484f58"><title>2016: 35 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Christoph Pojer</span><span class="spark-peak">peak 35</span></div><div class="spark-meta">2016–2016</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,4.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="4.0" r="3" fill="#484f58"><title>2016: 35 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Nicolas Gallagher</span><span class="spark-peak">peak 34</span></div><div class="spark-meta">2019–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,4.0 115.8,32.6 144.2,32.3 172.7,33.9 201.1,36.0 229.6,31.1 258.0,33.4" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="4.0" r="3" fill="#484f58"><title>2019: 34 (Other)</title></circle>
+  <circle cx="115.8" cy="32.6" r="3" fill="#484f58"><title>2020: 4 (Other)</title></circle>
+  <circle cx="144.2" cy="32.3" r="3" fill="#484f58"><title>2021: 4 (Other)</title></circle>
+  <circle cx="172.7" cy="33.9" r="3" fill="#484f58"><title>2022: 2 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="31.1" r="3" fill="#484f58"><title>2024: 5 (Other)</title></circle>
+  <circle cx="258.0" cy="33.4" r="3" fill="#484f58"><title>2025: 3 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Ricky</span><span class="spark-peak">peak 34</span></div><div class="spark-meta">2019–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,8.0 115.8,7.2 144.2,6.9 172.7,7.7 201.1,7.3 229.6,4.0 258.0,8.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="8.0" r="3" fill="#484f58"><title>2019: 30 (Other)</title></circle>
+  <circle cx="115.8" cy="7.2" r="3" fill="#484f58"><title>2020: 31 (Other)</title></circle>
+  <circle cx="144.2" cy="6.9" r="3" fill="#484f58"><title>2021: 31 (Other)</title></circle>
+  <circle cx="172.7" cy="7.7" r="3" fill="#484f58"><title>2022: 30 (Other)</title></circle>
+  <circle cx="201.1" cy="7.3" r="3" fill="#484f58"><title>2023: 31 (Other)</title></circle>
+  <circle cx="229.6" cy="4.0" r="3" fill="#484f58"><title>2024: 34 (Other)</title></circle>
+  <circle cx="258.0" cy="8.0" r="3" fill="#484f58"><title>2025: 30 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Ruslan Lesiutin</span><span class="spark-peak">peak 34</span></div><div class="spark-meta">2023–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,4.0 229.6,7.6 258.0,8.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="4.0" r="3" fill="#484f58"><title>2023: 34 (Other)</title></circle>
+  <circle cx="229.6" cy="7.6" r="3" fill="#484f58"><title>2024: 30 (Other)</title></circle>
+  <circle cx="258.0" cy="8.0" r="3" fill="#484f58"><title>2025: 30 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Luna Ruan</span><span class="spark-peak">peak 33</span></div><div class="spark-meta">2019–2024</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,5.3 115.8,6.9 144.2,4.0 172.7,5.3 201.1,36.0 229.6,33.4 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="5.3" r="3" fill="#484f58"><title>2019: 32 (Other)</title></circle>
+  <circle cx="115.8" cy="6.9" r="3" fill="#484f58"><title>2020: 30 (Other)</title></circle>
+  <circle cx="144.2" cy="4.0" r="3" fill="#484f58"><title>2021: 33 (Other)</title></circle>
+  <circle cx="172.7" cy="5.3" r="3" fill="#484f58"><title>2022: 32 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="33.4" r="3" fill="#484f58"><title>2024: 3 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Rick Hanlon</span><span class="spark-peak">peak 33</span></div><div class="spark-meta">2020–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,6.4 144.2,36.0 172.7,6.8 201.1,6.7 229.6,4.0 258.0,33.3" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="6.4" r="3" fill="#484f58"><title>2020: 30 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="6.8" r="3" fill="#79c0ff"><title>2022: 30 (Anchor)</title></circle>
+  <circle cx="201.1" cy="6.7" r="3" fill="#484f58"><title>2023: 30 (Other)</title></circle>
+  <circle cx="229.6" cy="4.0" r="3" fill="#484f58"><title>2024: 33 (Other)</title></circle>
+  <circle cx="258.0" cy="33.3" r="3" fill="#484f58"><title>2025: 3 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Noah Lemen</span><span class="spark-peak">peak 33</span></div><div class="spark-meta">2023–2023</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,36.0 172.7,36.0 201.1,4.0 229.6,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="4.0" r="3" fill="#484f58"><title>2023: 33 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Juan</span><span class="spark-peak">peak 32</span></div><div class="spark-meta">2021–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,36.0 144.2,4.0 172.7,34.9 201.1,36.0 229.6,36.0 258.0,34.6" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="144.2" cy="4.0" r="3" fill="#484f58"><title>2021: 32 (Other)</title></circle>
+  <circle cx="172.7" cy="34.9" r="3" fill="#484f58"><title>2022: 1 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="34.6" r="3" fill="#484f58"><title>2025: 1 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">E-Liang Tan</span><span class="spark-peak">peak 32</span></div><div class="spark-meta">2020–2020</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 30.4,36.0 58.9,36.0 87.3,36.0 115.8,4.0 144.2,36.0 172.7,36.0 201.1,36.0 229.6,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="30.4" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="58.9" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="87.3" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="115.8" cy="4.0" r="3" fill="#484f58"><title>2020: 32 (Other)</title></circle>
+  <circle cx="144.2" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="172.7" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="201.1" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="229.6" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+</svg></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

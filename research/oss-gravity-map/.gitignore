@@ -3,3 +3,9 @@ data/repos/
 
 # Keep directory structure
 !data/repos/.gitkeep
+
+# Analysis logs and large generated files
+data/results/*.log
+data/results/*.stderr
+data/results/*-timeline.json
+data/results/*-timeline.html

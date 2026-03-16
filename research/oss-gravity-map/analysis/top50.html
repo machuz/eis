@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSS Gravity Map - Top 50 Engineers</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    line-height:1.6;padding:0 16px 80px;
+  }
+  ::selection{background:#388bfd44;color:#fff}
+
+  /* Fade-in animation */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  .fade-in{animation:fadeUp .5s ease both}
+  .delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}
+
+  /* Header */
+  header{max-width:960px;margin:0 auto;padding:60px 0 40px;text-align:center}
+  h1{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;color:#f0f6fc;letter-spacing:-.02em;margin-bottom:8px}
+  h1 span{color:#58a6ff}
+  .subtitle{font-size:clamp(.85rem,1.8vw,1.05rem);color:#8b949e;margin-bottom:32px}
+
+  /* Narrative */
+  .narrative{
+    max-width:760px;margin:0 auto 48px;padding:28px 32px;
+    background:#161b22;border:1px solid #30363d;border-radius:12px;
+    font-size:.935rem;color:#b1bac4;line-height:1.75;
+  }
+  .narrative p{margin-bottom:14px}
+  .narrative p:last-child{margin-bottom:0}
+  .narrative strong{color:#e6edf3}
+
+  /* Table container */
+  .table-wrap{max-width:960px;margin:0 auto}
+
+  /* Card row */
+  .card{
+    display:grid;
+    grid-template-columns:44px 1fr auto;
+    align-items:center;
+    gap:12px 16px;
+    padding:14px 20px;
+    border-bottom:1px solid #21262d;
+    transition:background .15s;
+  }
+  .card:hover{background:#161b2266}
+  .card:nth-child(-n+3){border-left:3px solid #f0883e}
+  .card:nth-child(-n+3) .rank{color:#f0883e}
+
+  /* Rank */
+  .rank{
+    font-size:1.15rem;font-weight:700;color:#484f58;text-align:center;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* Engineer info */
+  .info{min-width:0}
+  .name{font-size:1.05rem;font-weight:600;color:#f0f6fc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;align-items:center}
+
+  /* Project badge */
+  .project{
+    display:inline-block;font-size:.72rem;font-weight:600;
+    padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.04em;
+  }
+
+  /* Project colors */
+  .proj-eslint{background:#4b32c3;color:#d4c8ff}
+  .proj-phoenix{background:#4e2a8e;color:#d8c4ff}
+  .proj-swc{background:#e8590c;color:#fff3e0}
+  .proj-clickhouse{background:#fadb14;color:#1a1a1a}
+  .proj-prometheus{background:#e6522c;color:#ffeee8}
+  .proj-express{background:#353535;color:#c9d1d9}
+  .proj-superset{background:#1f9cf0;color:#e8f4fd}
+  .proj-duckdb{background:#ffc107;color:#1a1a1a}
+  .proj-esbuild{background:#ffcf00;color:#1a1a1a}
+  .proj-redis{background:#d82c20;color:#ffe8e6}
+  .proj-nest{background:#e0234e;color:#ffe0e8}
+  .proj-fastapi{background:#009688;color:#e0f2f1}
+  .proj-polars{background:#cd792c;color:#fff3e0}
+  .proj-envoy{background:#ac6ee1;color:#f3e8ff}
+  .proj-prettier{background:#56b3b4;color:#e0f7f7}
+  .proj-spring-boot{background:#6db33f;color:#f0fce8}
+  .proj-argo-cd{background:#ef7b4d;color:#fff3eb}
+  .proj-loki{background:#f46800;color:#fff3e0}
+  .proj-vite{background:#646cff;color:#e8e9ff}
+  .proj-terraform{background:#7b42bc;color:#ece0ff}
+  .proj-arrow{background:#00b4d8;color:#e0f8ff}
+  .proj-rust{background:#dea584;color:#1a1a1a}
+  .proj-kubernetes{background:#326ce5;color:#e0ecff}
+  .proj-grafana{background:#ff6600;color:#fff3e0}
+  .proj-react{background:#61dafb;color:#1a1a1a}
+
+  /* Role badge */
+  .role-badge{
+    display:inline-block;font-size:.7rem;font-weight:600;
+    padding:2px 8px;border-radius:10px;letter-spacing:.03em;
+  }
+  .role-architect{background:#8b5cf622;color:#a78bfa;border:1px solid #8b5cf644}
+  .role-anchor{background:#3b82f622;color:#60a5fa;border:1px solid #3b82f644}
+  .role-producer{background:#22c55e22;color:#4ade80;border:1px solid #22c55e44}
+  .role-cleaner{background:#14b8a622;color:#2dd4bf;border:1px solid #14b8a644}
+  .role-specialist{background:#f97316;color:#fff;border:1px solid #f9731644}
+
+  /* Status badge */
+  .status-badge{
+    display:inline-block;font-size:.65rem;font-weight:600;
+    padding:1px 7px;border-radius:8px;letter-spacing:.04em;text-transform:uppercase;
+  }
+  .badge-hidden{background:#da3633;color:#fff}
+  .badge-maintainer{background:#238636;color:#fff}
+  .badge-known{background:#8957e5;color:#fff}
+
+  /* Right column: scores */
+  .scores{text-align:right;min-width:200px}
+  .gravity-row{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+  .gravity-label{font-size:.75rem;color:#8b949e;min-width:52px;text-align:right;font-variant-numeric:tabular-nums}
+  .bar-track{width:120px;height:7px;background:#21262d;border-radius:4px;overflow:hidden;flex-shrink:0}
+  .bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+  .total-score{font-size:.72rem;color:#484f58;margin-top:3px;font-variant-numeric:tabular-nums}
+
+  /* Summary */
+  .summary{
+    max-width:960px;margin:56px auto 0;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;
+  }
+  .stat-card{
+    background:#161b22;border:1px solid #30363d;border-radius:12px;
+    padding:24px;text-align:center;
+  }
+  .stat-num{font-size:2rem;font-weight:700;color:#f0f6fc;margin-bottom:4px}
+  .stat-num.accent-blue{color:#58a6ff}
+  .stat-num.accent-red{color:#f85149}
+  .stat-num.accent-green{color:#3fb950}
+  .stat-label{font-size:.82rem;color:#8b949e}
+
+  /* Footer */
+  footer{max-width:960px;margin:48px auto 0;text-align:center;color:#484f58;font-size:.78rem}
+  footer a{color:#58a6ff;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  /* Responsive */
+  @media(max-width:640px){
+    .card{grid-template-columns:36px 1fr;gap:8px 10px;padding:12px 12px}
+    .scores{grid-column:1/-1;text-align:left;min-width:0}
+    .gravity-row{justify-content:flex-start}
+    .bar-track{width:100%;max-width:180px}
+    .name{font-size:.95rem}
+  }
+</style>
+</head>
+<body>
+
+<header class="fade-in">
+  <h1>OSS Gravity Map <span>&mdash;</span> Top 50 Engineers</h1>
+  <div class="subtitle">42,593 engineers across 25 projects, measured by EIS</div>
+</header>
+
+<div class="narrative fade-in delay-1">
+  <p>We pointed the Git Telescope at 25 of the world's most influential open-source projects &mdash; React, Kubernetes, Terraform, Redis, Rust, ClickHouse, and 19 others &mdash; and measured 42,593 engineers.</p>
+  <p>The first thing the data confirmed was something we already sensed but had never quantified: <strong>the people we call "famous" in OSS are famous for a reason.</strong> Salvatore Sanfilippo (Redis), Alexey Milovidov (ClickHouse), Jose Valim (Phoenix), Ritchie Vink (Polars) &mdash; their gravity scores saturate the scale. They don't just write code; they lay down structural bedrock that thousands of other engineers build upon. Their survival rates are near-perfect. Their design fingerprints are everywhere. They are, in the language of Software Cosmology, the stars around which entire ecosystems orbit.</p>
+  <p>But the more remarkable finding was the <strong>440 engineers the world has never heard of.</strong></p>
+  <p>They don't give conference talks. They don't have mass Twitter followings. Many of them don't even appear in the official maintainer lists. Yet when we traced the gravitational field lines through the codebase, there they were &mdash; quietly holding the architecture together, cleaning up entropy, ensuring that the code written three years ago still survives today.</p>
+  <p>We call them <strong>Hidden Architects</strong>.</p>
+  <p>Niko Matsakis designed Rust's borrow checker &mdash; the conceptual backbone of the entire language &mdash; yet doesn't appear in the top GitHub contributor charts. Sebastian Markb&aring;ge shaped React's Reconciler, the engine that powers millions of web applications, and the data labels him a "Cleaner" &mdash; someone who spends more energy maintaining structural integrity than producing new features. These are not supporting roles. These are the roles that make everything else possible.</p>
+  <p>And then there are the <strong>Entropy Fighters</strong> &mdash; 33 engineers across 25 projects who score high on both Debt Cleanup and Survival. They are the people who wake up and choose to fight the second law of thermodynamics in code. Without them, every project would eventually collapse under its own weight.</p>
+  <p>To the famous architects: the data shows what we already knew. Your gravity is real, it is immense, and it is measurable.</p>
+  <p>To the hidden ones: <strong>thank you.</strong> The mass of your contribution was invisible until now, but it was never unfelt. Every developer who builds on top of your work &mdash; whether they know your name or not &mdash; owes a piece of their productivity to the structural decisions you made and the entropy you fought.</p>
+  <p>This map is for you.</p>
+</div>
+
+<div class="table-wrap fade-in delay-2" id="ranking"></div>
+
+<div class="summary fade-in delay-3">
+  <div class="stat-card">
+    <div class="stat-num accent-blue">42,593</div>
+    <div class="stat-label">Total Engineers Analyzed</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num accent-red">440</div>
+    <div class="stat-label">Hidden Architects Found</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num accent-green">33</div>
+    <div class="stat-label">Entropy Fighters</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">25</div>
+    <div class="stat-label">Projects Analyzed</div>
+  </div>
+</div>
+
+<footer class="fade-in delay-3">
+  Generated by <a href="https://github.com/machupicchubeta/engineering-impact-score">EIS (Engineering Impact Score)</a>
+</footer>
+
+<script>
+const data = [
+  {"author":"Josh Goldberg \u2728","repo":"eslint","gravity":100,"total":51.3,"role":"Architect","style":"Emergent","is_known_architect":false,"is_maintainer":false},
+  {"author":"Jose Valim","repo":"phoenix","gravity":100,"total":54.4,"role":"Architect","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Donny (kdy1)","repo":"swc","gravity":100,"total":52.5,"role":"Architect","style":"Emergent","is_known_architect":false,"is_maintainer":true},
+  {"author":"Alexey Milovidov","repo":"ClickHouse","gravity":100,"total":60.3,"role":"Anchor","style":"Builder","is_known_architect":false,"is_maintainer":true},
+  {"author":"Fabian Reinartz","repo":"prometheus","gravity":100,"total":37.9,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":true},
+  {"author":"TJ Holowaychuk","repo":"express","gravity":100,"total":32.1,"role":"\u2014","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Maxime Beauchemin","repo":"superset","gravity":100,"total":31.7,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":true},
+  {"author":"Mark Raasveldt","repo":"duckdb","gravity":100,"total":60.5,"role":"Anchor","style":"Mass","is_known_architect":false,"is_maintainer":false},
+  {"author":"Evan Wallace","repo":"esbuild","gravity":100,"total":37.8,"role":"Anchor","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Salvatore Sanfilippo","repo":"redis","gravity":100,"total":69.5,"role":"Architect","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Kamil My\u015bliwiec","repo":"nest","gravity":100,"total":29.5,"role":"\u2014","style":"\u2014","is_known_architect":false,"is_maintainer":false},
+  {"author":"Sebastian Ramirez","repo":"fastapi","gravity":100,"total":32.5,"role":"\u2014","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Ritchie Vink","repo":"polars","gravity":100,"total":62.7,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":true},
+  {"author":"code","repo":"envoy","gravity":96.8,"total":32.5,"role":"\u2014","style":"Balanced","is_known_architect":false,"is_maintainer":false},
+  {"author":"Christopher Chedeau","repo":"prettier","gravity":95.2,"total":35.3,"role":"\u2014","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Andy Wilkinson","repo":"spring-boot","gravity":93.5,"total":63.2,"role":"Architect","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Alexander Matyushentsev","repo":"argo-cd","gravity":92.3,"total":48.2,"role":"Producer","style":"Mass","is_known_architect":false,"is_maintainer":true},
+  {"author":"renovate-sh-app[bot]","repo":"loki","gravity":86.7,"total":50.1,"role":"Architect","style":"Emergent","is_known_architect":false,"is_maintainer":false},
+  {"author":"\u7fe0 / green","repo":"vite","gravity":85.7,"total":27,"role":"\u2014","style":"\u2014","is_known_architect":false,"is_maintainer":false},
+  {"author":"Sandeep Sukhani","repo":"loki","gravity":85,"total":42.5,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":true},
+  {"author":"Martin Atkins","repo":"terraform","gravity":84.3,"total":50.1,"role":"Anchor","style":"Mass","is_known_architect":false,"is_maintainer":true},
+  {"author":"Phillip Webb","repo":"spring-boot","gravity":83.9,"total":72.8,"role":"Architect","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Michael Crenshaw","repo":"argo-cd","gravity":81.7,"total":72.2,"role":"Architect","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Ryan McKinley","repo":"grafana","gravity":80.8,"total":29.8,"role":"\u2014","style":"\u2014","is_known_architect":false,"is_maintainer":true},
+  {"author":"Nicholas C. Zakas","repo":"eslint","gravity":78.4,"total":20.8,"role":"\u2014","style":"Spread","is_known_architect":false,"is_maintainer":true},
+  {"author":"Wes McKinney","repo":"arrow","gravity":77.8,"total":35.9,"role":"\u2014","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Ralf Jung","repo":"rust","gravity":77.4,"total":23.1,"role":"\u2014","style":"\u2014","is_known_architect":false,"is_maintainer":true},
+  {"author":"Jordan Liggitt","repo":"kubernetes","gravity":77.3,"total":47,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":true},
+  {"author":"James Bardin","repo":"terraform","gravity":76.3,"total":58,"role":"Anchor","style":"Mass","is_known_architect":false,"is_maintainer":true},
+  {"author":"Moritz Halbritter","repo":"spring-boot","gravity":76.3,"total":42.2,"role":"\u2014","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Sutou Kouhei","repo":"arrow","gravity":76.1,"total":23.9,"role":"\u2014","style":"Spread","is_known_architect":false,"is_maintainer":true},
+  {"author":"Robert Schulze","repo":"ClickHouse","gravity":75.2,"total":32,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":true},
+  {"author":"\u7fe0","repo":"vite","gravity":75,"total":53.2,"role":"Cleaner","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Niko Matsakis","repo":"rust","gravity":74.9,"total":24.2,"role":"\u2014","style":"\u2014","is_known_architect":false,"is_maintainer":false},
+  {"author":"Zalathar","repo":"rust","gravity":74.9,"total":22.8,"role":"\u2014","style":"Spread","is_known_architect":false,"is_maintainer":false},
+  {"author":"Ben Kochie","repo":"prometheus","gravity":74.8,"total":46,"role":"Anchor","style":"Mass","is_known_architect":false,"is_maintainer":false},
+  {"author":"Davanum Srinivas","repo":"kubernetes","gravity":73.3,"total":45.6,"role":"Architect","style":"Emergent","is_known_architect":false,"is_maintainer":false},
+  {"author":"Ville Brofeldt","repo":"superset","gravity":73.2,"total":24.6,"role":"\u2014","style":"Spread","is_known_architect":false,"is_maintainer":true},
+  {"author":"Sebastian Markb\u00e5ge","repo":"react","gravity":72,"total":42.1,"role":"Cleaner","style":"Balanced","is_known_architect":false,"is_maintainer":false},
+  {"author":"Francesco Trotta","repo":"eslint","gravity":71.6,"total":28.5,"role":"\u2014","style":"Spread","is_known_architect":false,"is_maintainer":true},
+  {"author":"Evan You","repo":"vite","gravity":71.4,"total":26.1,"role":"\u2014","style":"\u2014","is_known_architect":false,"is_maintainer":true},
+  {"author":"Philipp Krones","repo":"rust","gravity":70.7,"total":22.5,"role":"\u2014","style":"Spread","is_known_architect":false,"is_maintainer":false},
+  {"author":"David Eads","repo":"kubernetes","gravity":70.5,"total":22.7,"role":"\u2014","style":"\u2014","is_known_architect":false,"is_maintainer":true},
+  {"author":"fisker Cheung","repo":"prettier","gravity":70.3,"total":76.4,"role":"Architect","style":"Balanced","is_known_architect":false,"is_maintainer":true},
+  {"author":"Cyril Tovena","repo":"loki","gravity":70.1,"total":29,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":true},
+  {"author":"Aleksey Kladov","repo":"rust","gravity":70,"total":25.6,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":false},
+  {"author":"Julien Pivotto","repo":"prometheus","gravity":68.8,"total":22.6,"role":"\u2014","style":"Spread","is_known_architect":false,"is_maintainer":false},
+  {"author":"Laurens Kuiper","repo":"duckdb","gravity":68.7,"total":39.9,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":false},
+  {"author":"alyssawilk","repo":"envoy","gravity":68.4,"total":23.2,"role":"\u2014","style":"\u2014","is_known_architect":false,"is_maintainer":true},
+  {"author":"Torkel \u00d6degaard","repo":"grafana","gravity":68,"total":45.6,"role":"Anchor","style":"Emergent","is_known_architect":false,"is_maintainer":true}
+];
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+function projClass(repo){return 'proj-'+repo.toLowerCase().replace(/[^a-z0-9]+/g,'-')}
+
+function roleBadge(role){
+  if(!role||role==='\u2014')return '';
+  const cls={'Architect':'role-architect','Anchor':'role-anchor','Producer':'role-producer','Cleaner':'role-cleaner','Specialist':'role-specialist'};
+  return '<span class="role-badge '+(cls[role]||'')+'">'+ esc(role)+'</span>';
+}
+
+function statusBadge(d){
+  if(d.is_known_architect)return '<span class="status-badge badge-known">Known Architect</span>';
+  if(d.is_maintainer)return '<span class="status-badge badge-maintainer">Maintainer</span>';
+  return '<span class="status-badge badge-hidden">Hidden</span>';
+}
+
+function barColor(g){
+  if(g>=90)return '#f0883e';
+  if(g>=75)return '#58a6ff';
+  if(g>=60)return '#3fb950';
+  return '#8b949e';
+}
+
+const wrap=document.getElementById('ranking');
+data.forEach((d,i)=>{
+  const rank=i+1;
+  const pct=Math.min(d.gravity,100);
+  const c=document.createElement('div');
+  c.className='card';
+  c.style.animationDelay=(0.02*i)+'s';
+  c.innerHTML=
+    '<div class="rank">'+rank+'</div>'+
+    '<div class="info">'+
+      '<div class="name">'+esc(d.author)+'</div>'+
+      '<div class="meta">'+
+        '<span class="project '+projClass(d.repo)+'">'+esc(d.repo)+'</span>'+
+        roleBadge(d.role)+
+        statusBadge(d)+
+      '</div>'+
+    '</div>'+
+    '<div class="scores">'+
+      '<div class="gravity-row">'+
+        '<div class="gravity-label">'+d.gravity.toFixed(1)+'</div>'+
+        '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+barColor(d.gravity)+'"></div></div>'+
+      '</div>'+
+      '<div class="total-score">Total: '+d.total.toFixed(1)+'</div>'+
+    '</div>';
+  wrap.appendChild(c);
+});
+</script>
+</body>
+</html>
