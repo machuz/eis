@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+  <rect width="800" height="420" fill="#0d1117" rx="12"/>
+  <text x="400" y="35" text-anchor="middle" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="600">Rails vs Laravel: Governance Physics</text>
+  <text x="400" y="55" text-anchor="middle" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">Same framework-driven category. Opposite authority structures.</text>
+
+  <!-- Legend -->
+  <rect x="290" y="68" width="14" height="14" rx="3" fill="#cc0000"/>
+  <text x="310" y="80" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="12">Rails (6,512 engineers)</text>
+  <rect x="490" y="68" width="14" height="14" rx="3" fill="#ff5722"/>
+  <text x="510" y="80" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="12">Laravel (4,449 engineers)</text>
+
+  <!-- Grid -->
+  <line x1="250" y1="100" x2="250" y2="380" stroke="#21262d" stroke-width="1"/>
+  <line x1="387" y1="100" x2="387" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="524" y1="100" x2="524" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="661" y1="100" x2="661" y2="380" stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="250" y="396" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">0</text>
+  <text x="387" y="396" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">20</text>
+  <text x="524" y="396" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">40</text>
+  <text x="661" y="396" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">60</text>
+
+  <!-- Top10 Design: Rails 51.2, Laravel 17.2 -->
+  <text x="240" y="128" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Top10 Design</text>
+  <rect x="250" y="112" width="351" height="20" rx="3" fill="#cc0000" opacity="0.85"/>
+  <text x="609" y="127" fill="#cc0000" font-family="-apple-system,sans-serif" font-size="12" font-weight="700">51.2</text>
+  <rect x="250" y="136" width="118" height="20" rx="3" fill="#ff5722" opacity="0.85"/>
+  <text x="376" y="151" fill="#ff5722" font-family="-apple-system,sans-serif" font-size="12" font-weight="700">17.2</text>
+
+  <!-- Top10 Survival: Rails 7.3, Laravel 15.3 -->
+  <text x="240" y="198" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Top10 Survival</text>
+  <rect x="250" y="182" width="50" height="20" rx="3" fill="#cc0000" opacity="0.85"/>
+  <text x="308" y="197" fill="#cc0000" font-family="-apple-system,sans-serif" font-size="12" font-weight="700">7.3</text>
+  <rect x="250" y="206" width="105" height="20" rx="3" fill="#ff5722" opacity="0.85"/>
+  <text x="363" y="221" fill="#ff5722" font-family="-apple-system,sans-serif" font-size="12" font-weight="700">15.3</text>
+
+  <!-- Top10 Gravity: Rails 54.0, Laravel 56.2 -->
+  <text x="240" y="268" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Top10 Gravity</text>
+  <rect x="250" y="252" width="370" height="20" rx="3" fill="#cc0000" opacity="0.85"/>
+  <text x="628" y="267" fill="#cc0000" font-family="-apple-system,sans-serif" font-size="12" font-weight="700">54.0</text>
+  <rect x="250" y="276" width="385" height="20" rx="3" fill="#ff5722" opacity="0.85"/>
+  <text x="643" y="291" fill="#ff5722" font-family="-apple-system,sans-serif" font-size="12" font-weight="700">56.2</text>
+
+  <!-- Gravity Concentration: Rails 0.9%, Laravel 1.5% -->
+  <text x="240" y="338" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Grav. Concentration</text>
+  <rect x="250" y="322" width="62" height="20" rx="3" fill="#cc0000" opacity="0.85"/>
+  <text x="320" y="337" fill="#cc0000" font-family="-apple-system,sans-serif" font-size="12" font-weight="700">0.9%</text>
+  <rect x="250" y="346" width="103" height="20" rx="3" fill="#ff5722" opacity="0.85"/>
+  <text x="361" y="361" fill="#ff5722" font-family="-apple-system,sans-serif" font-size="12" font-weight="700">1.5%</text>
+
+  <!-- Annotations -->
+  <text x="660" y="127" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="10" font-style="italic">← 3x higher</text>
+  <text x="415" y="221" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="10" font-style="italic">← 2x higher</text>
+</svg>

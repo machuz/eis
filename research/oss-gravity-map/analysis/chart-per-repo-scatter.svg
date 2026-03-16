@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+  <rect width="900" height="520" fill="#0d1117" rx="12"/>
+  <text x="450" y="35" text-anchor="middle" fill="#f0f6fc" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="600">Gravity Concentration vs Project Size</text>
+  <text x="450" y="55" text-anchor="middle" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="12">29 repositories — color-coded by language category</text>
+
+  <!-- Legend -->
+  <circle cx="180" cy="78" r="5" fill="#42a5f5"/><text x="190" y="82" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="10">Go</text>
+  <circle cx="230" cy="78" r="5" fill="#ffd700"/><text x="240" y="82" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="10">Dynamic</text>
+  <circle cx="305" cy="78" r="5" fill="#ab47bc"/><text x="315" y="82" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="10">Expressive</text>
+  <circle cx="400" cy="78" r="5" fill="#ef5350"/><text x="410" y="82" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="10">Framework</text>
+  <circle cx="495" cy="78" r="5" fill="#66bb6a"/><text x="505" y="82" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="10">Systems</text>
+
+  <!-- Axes -->
+  <!-- X axis: Engineers (log scale): 100, 200, 500, 1000, 2000, 5000, 8000 -->
+  <!-- Plot area: x=100..850, y=100..460 -->
+  <!-- logScale: x = 100 + (log10(N) - log10(100)) / (log10(8000) - log10(100)) * 750 -->
+  <!-- log10(100)=2, log10(8000)=3.903. range=1.903 -->
+  <!-- Y axis: 0% to 100%, y = 460 - (pct/100)*360 -->
+
+  <line x1="100" y1="460" x2="850" y2="460" stroke="#30363d" stroke-width="1"/>
+  <line x1="100" y1="460" x2="100" y2="100" stroke="#30363d" stroke-width="1"/>
+
+  <!-- X grid + labels -->
+  <!-- 100: x=100 -->
+  <line x1="100" y1="460" x2="100" y2="455" stroke="#484f58"/>
+  <text x="100" y="478" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">100</text>
+  <!-- 200: x=100+(0.301/1.903)*750=218.6 -->
+  <line x1="219" y1="100" x2="219" y2="460" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="219" y="478" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">200</text>
+  <!-- 500: x=100+(0.699/1.903)*750=375.3 -->
+  <line x1="375" y1="100" x2="375" y2="460" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="375" y="478" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">500</text>
+  <!-- 1000: x=100+(1.0/1.903)*750=494.0 -->
+  <line x1="494" y1="100" x2="494" y2="460" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="494" y="478" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">1K</text>
+  <!-- 2000: x=100+(1.301/1.903)*750=612.7 -->
+  <line x1="613" y1="100" x2="613" y2="460" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="613" y="478" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">2K</text>
+  <!-- 5000: x=100+(1.699/1.903)*750=769.4 -->
+  <line x1="769" y1="100" x2="769" y2="460" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="769" y="478" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">5K</text>
+
+  <!-- Y grid + labels -->
+  <line x1="100" y1="424" x2="850" y2="424" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="90" y="428" text-anchor="end" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">10%</text>
+  <line x1="100" y1="388" x2="850" y2="388" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="90" y="392" text-anchor="end" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">20%</text>
+  <line x1="100" y1="280" x2="850" y2="280" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="90" y="284" text-anchor="end" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">50%</text>
+  <line x1="100" y1="100" x2="850" y2="100" stroke="#21262d" stroke-width="1" stroke-dasharray="3,5"/>
+  <text x="90" y="104" text-anchor="end" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">100%</text>
+
+  <text x="450" y="500" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="11">Number of Engineers (log scale)</text>
+  <text x="30" y="280" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="11" transform="rotate(-90,30,280)">Gravity Concentration (%)</text>
+
+  <!-- Data points -->
+  <!-- Helper: x(N) = 100 + (log10(N)-2)/1.903 * 750, y(pct) = 460 - pct/100*360 -->
+
+  <!-- === Go (blue #42a5f5) === -->
+  <!-- esbuild: 125, 92.5% → x=138, y=127 -->
+  <circle cx="138" cy="127" r="8" fill="#42a5f5" opacity="0.85"/>
+  <text x="150" y="123" fill="#42a5f5" font-family="-apple-system,sans-serif" font-size="9" font-weight="600">esbuild 92.5%</text>
+  <!-- argo-cd: 1889, 4.0% → x=602, y=446 -->
+  <circle cx="602" cy="446" r="6" fill="#42a5f5" opacity="0.7"/>
+  <!-- grafana: 2893, 1.9% → x=654, y=453 -->
+  <circle cx="654" cy="453" r="6" fill="#42a5f5" opacity="0.7"/>
+  <!-- kubernetes: 5217, 0.8% → x=775, y=457 -->
+  <circle cx="775" cy="457" r="6" fill="#42a5f5" opacity="0.7"/>
+  <!-- loki: 1319, 7.8% → x=561, y=432 -->
+  <circle cx="561" cy="432" r="6" fill="#42a5f5" opacity="0.7"/>
+  <!-- prometheus: 1281, 5.4% → x=558, y=441 -->
+  <circle cx="558" cy="441" r="6" fill="#42a5f5" opacity="0.7"/>
+  <!-- terraform: 2223, 2.4% → x=622, y=451 -->
+  <circle cx="622" cy="451" r="6" fill="#42a5f5" opacity="0.7"/>
+
+  <!-- === Dynamic (gold #ffd700) === -->
+  <!-- eslint: 1180, 8.1% → x=549, y=431 -->
+  <circle cx="549" cy="431" r="6" fill="#ffd700" opacity="0.7"/>
+  <!-- express: 391, 23.9% → x=334, y=374 -->
+  <circle cx="334" cy="374" r="7" fill="#ffd700" opacity="0.85"/>
+  <text x="346" y="370" fill="#ffd700" font-family="-apple-system,sans-serif" font-size="9" font-weight="600">express 23.9%</text>
+  <!-- prettier: 799, 13.4% → x=465, y=412 -->
+  <circle cx="465" cy="412" r="6" fill="#ffd700" opacity="0.7"/>
+  <!-- react: 2010, 3.4% → x=609, y=448 -->
+  <circle cx="609" cy="448" r="6" fill="#ffd700" opacity="0.7"/>
+  <!-- superset: 1477, 4.5% → x=574, y=444 -->
+  <circle cx="574" cy="444" r="6" fill="#ffd700" opacity="0.7"/>
+  <!-- vite: 1247, 9.3% → x=555, y=427 -->
+  <circle cx="555" cy="427" r="6" fill="#ffd700" opacity="0.7"/>
+
+  <!-- === Expressive (purple #ab47bc) === -->
+  <!-- polars: 694, 7.0% → x=447, y=435 -->
+  <circle cx="447" cy="435" r="6" fill="#ab47bc" opacity="0.7"/>
+  <!-- rust: 7914, 0.6% → x="823", y=458 -->
+  <circle cx="823" cy="458" r="6" fill="#ab47bc" opacity="0.7"/>
+  <!-- scala: 794, 6.8% → x=464, y=436 -->
+  <circle cx="464" cy="436" r="6" fill="#ab47bc" opacity="0.7"/>
+  <!-- scala3: 995, 3.3% → x=488, y=448 -->
+  <circle cx="488" cy="448" r="6" fill="#ab47bc" opacity="0.7"/>
+  <!-- swc: 357, 15.7% → x=324, y=403 -->
+  <circle cx="324" cy="403" r="7" fill="#ab47bc" opacity="0.85"/>
+  <text x="336" y="399" fill="#ab47bc" font-family="-apple-system,sans-serif" font-size="9" font-weight="600">swc 15.7%</text>
+
+  <!-- === Framework (red #ef5350) === -->
+  <!-- rails: 6512, 0.9% → x=797, y=457 -->
+  <circle cx="797" cy="457" r="6" fill="#ef5350" opacity="0.7"/>
+  <text x="785" y="450" text-anchor="end" fill="#ef5350" font-family="-apple-system,sans-serif" font-size="9">rails</text>
+  <!-- laravel: 4449, 1.5% → x=751, y=455 -->
+  <circle cx="751" cy="455" r="6" fill="#ef5350" opacity="0.7"/>
+  <text x="739" y="448" text-anchor="end" fill="#ef5350" font-family="-apple-system,sans-serif" font-size="9">laravel</text>
+  <!-- spring-boot: 1504, 7.3% → x=576, y=434 -->
+  <circle cx="576" cy="434" r="6" fill="#ef5350" opacity="0.7"/>
+  <!-- nest: 684, 7.0% → x=445, y=435 -->
+  <circle cx="445" cy="435" r="6" fill="#ef5350" opacity="0.7"/>
+  <!-- fastapi: 897, 9.4% → x=478, y=426 -->
+  <circle cx="478" cy="426" r="6" fill="#ef5350" opacity="0.7"/>
+  <!-- phoenix: 1424, 4.5% → x=569, y=444 -->
+  <circle cx="569" cy="444" r="6" fill="#ef5350" opacity="0.7"/>
+
+  <!-- === Systems (green #66bb6a) === -->
+  <!-- ClickHouse: 2563, 1.4% → x=638, y=455 -->
+  <circle cx="638" cy="455" r="6" fill="#66bb6a" opacity="0.7"/>
+  <!-- arrow: 1466, 3.8% → x=573, y=446 -->
+  <circle cx="573" cy="446" r="6" fill="#66bb6a" opacity="0.7"/>
+  <!-- duckdb: 690, 4.5% → x=446, y=444 -->
+  <circle cx="446" cy="444" r="6" fill="#66bb6a" opacity="0.7"/>
+  <!-- envoy: 1444, 3.5% → x=571, y=447 -->
+  <circle cx="571" cy="447" r="6" fill="#66bb6a" opacity="0.7"/>
+  <!-- redis: 905, 4.0% → x=479, y=446 -->
+  <circle cx="479" cy="446" r="6" fill="#66bb6a" opacity="0.7"/>
+
+  <!-- Annotation arrow for esbuild -->
+  <line x1="138" y1="140" x2="138" y2="200" stroke="#42a5f5" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="138" y="215" text-anchor="middle" fill="#42a5f5" font-family="-apple-system,sans-serif" font-size="9" opacity="0.7">Gravitational</text>
+  <text x="138" y="227" text-anchor="middle" fill="#42a5f5" font-family="-apple-system,sans-serif" font-size="9" opacity="0.7">Singularity</text>
+</svg>

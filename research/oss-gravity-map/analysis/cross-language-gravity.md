@@ -51,6 +51,8 @@ This is an empirical investigation using EIS (Engineering Impact Score) data fro
 
 #### 1. Go Concentrates Gravity — Expressive Types Distribute It
 
+![Gravity Concentration by Category](chart-gravity-concentration.svg)
+
 | Category | Gravity Concentration |
 |---|---|
 | **Go (Self-structured)** | **16.4%** |
@@ -71,6 +73,8 @@ When Rails, Laravel, Spring, or Phoenix defines the routing, DI, middleware, and
 
 #### 3. Design Influence Tells the Story
 
+![Top 10 Design Score by Category](chart-top10-design.svg)
+
 | Category | Top10 Design |
 |---|---|
 | **Go (Self-structured)** | **31.3** |
@@ -84,6 +88,8 @@ Go leads Design because its architects write the interfaces, the routing structu
 ---
 
 ## Deep Dive: Rails vs Laravel
+
+![Rails vs Laravel](chart-rails-vs-laravel.svg)
 
 Both are iconic framework-driven projects with legendary creator-architects. Both creators are still active (or recently active). Yet the gravity physics are strikingly different.
 
@@ -137,6 +143,8 @@ This suggests that the Framework-driven category itself has a spectrum: from dis
 
 ### Per-Repository Detail
 
+![Gravity Concentration vs Project Size](chart-per-repo-scatter.svg)
+
 | Repository | Category | Language | Engineers | Top10 Design | Top10 Survival | Top10 Gravity | Grav Conc |
 |---|---|---|---|---|---|---|---|
 | polars | Expressive | Rust | 694 | 17.4 | 29.8 | 41.3 | 7.0% |
@@ -174,6 +182,8 @@ This suggests that the Framework-driven category itself has a spectrum: from dis
 ## Interpretation
 
 ### Three Modes of Structural Authority
+
+![Three Modes of Structural Authority](chart-three-modes.svg)
 
 The data reveals three distinct ways that code universes distribute structural authority:
 

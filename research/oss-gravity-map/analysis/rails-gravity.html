@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rails — The Multi-Architect Civilization | OSS Gravity Map</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.container{max-width:1000px;margin:0 auto;padding:20px}
+h2{color:#f0f6fc;font-size:1.3em;margin:36px 0 16px;border-bottom:1px solid #30363d;padding-bottom:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75em;font-weight:600;color:#fff}
+.hero{background:linear-gradient(135deg,#1a1015 0%,#0d1117 100%);border:2px solid #cc0000;border-radius:16px;padding:40px;margin-bottom:36px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:18px;background:linear-gradient(135deg,rgba(204,0,0,.12),rgba(204,0,0,.04));z-index:0;pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero-name{font-size:2.8em;font-weight:800;color:#f0f6fc;margin-bottom:8px}
+.hero-tagline{font-size:1.15em;color:#cc0000;font-weight:600;margin-bottom:4px}
+.hero-desc{color:#8b949e;font-size:.95em;line-height:1.7;margin-bottom:20px;max-width:700px}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap}
+.big-stats{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.big-stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px 24px;text-align:center;flex:1;min-width:140px}
+.big-num{font-size:2em;font-weight:800}
+.big-label{color:#8b949e;font-size:.78em;margin-top:4px}
+.rank-table{width:100%;border-collapse:collapse}
+.rank-table th{text-align:left;padding:10px 12px;border-bottom:2px solid #30363d;color:#8b949e;font-size:.8em;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.rank-table td{padding:10px 12px;border-bottom:1px solid #21262d}
+.rank-table tr:hover{background:#161b22}
+.rank-table tr.hl{background:rgba(204,0,0,.08)}
+.rank-num{color:#8b949e;font-weight:700}.member-name{font-weight:600;color:#f0f6fc}
+.gravity-bar{position:relative;height:20px;background:#21262d;border-radius:10px;min-width:120px;overflow:hidden}
+.gravity-fill{height:100%;border-radius:10px}
+.gravity-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.8em;font-weight:700;color:#f0f6fc}
+.insight{background:rgba(204,0,0,.06);border-left:3px solid #cc0000;border-radius:4px;padding:16px 20px;margin:20px 0;font-size:.95em;line-height:1.7}
+.insight strong{color:#f0f6fc}
+.chart-section{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin:20px 0}
+.footer{margin-top:48px;padding-top:16px;border-top:1px solid #30363d;color:#484f58;font-size:.8em;text-align:center}
+.footer a{color:#58a6ff;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="hero-name">Rails</div>
+  <div class="hero-tagline">The Multi-Architect Civilization</div>
+  <div class="hero-desc">
+    6,512 engineers, 20+ years of distributed governance.<br>
+    DHH created the gravitational center, but <strong>6 architects now share structural authority</strong>.<br>
+    Top10 Design of <strong>51.2</strong> is higher than most Go projects &mdash; Rails is internally self-structured despite being framework-driven externally.
+  </div>
+  <div class="hero-badges">
+    <span class="badge" style="background:#cc0000">Framework-driven (Ruby)</span>
+    <span class="badge" style="background:#e65100">6,512 Engineers</span>
+    <span class="badge" style="background:#ff6f00">6 Design Architects</span>
+    <span class="badge" style="background:#d32f2f">Top10 Design: 51.2</span>
+  </div>
+</div>
+
+<div class="big-stats">
+  <div class="big-stat"><div class="big-num" style="color:#cc0000">6,512</div><div class="big-label">Engineers</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#ff6f00">0.9%</div><div class="big-label">Gravity Concentration</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#ffd700">51.2</div><div class="big-label">Top10 Design</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#e65100">54.0</div><div class="big-label">Top10 Gravity</div></div>
+</div>
+
+<h2>Top 10 Gravity Ranking</h2>
+<table class="rank-table"><thead><tr><th>#</th><th>Engineer</th><th>Gravity</th><th>Design</th><th>Indisp.</th><th>Survival</th><th>Role</th></tr></thead><tbody>
+<tr class="hl"><td class="rank-num">1</td><td class="member-name">David Heinemeier Hansson</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:100%;background:#cc0000"></div><span class="gravity-val">100.0</span></div></td><td>100.0</td><td>100.0</td><td>11.5</td><td><span class="badge" style="background:#f44336">Former</span></td></tr>
+<tr><td class="rank-num">2</td><td class="member-name">Aaron Patterson</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:64%;background:#e65100"></div><span class="gravity-val">64.0</span></div></td><td>54.0</td><td>44.4</td><td>0.9</td><td><span class="badge" style="background:#78909c">Silent</span></td></tr>
+<tr><td class="rank-num">3</td><td class="member-name">Jeremy Kemper</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:58.9%;background:#e65100"></div><span class="gravity-val">58.9</span></div></td><td>89.0</td><td>5.6</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td></tr>
+<tr><td class="rank-num">4</td><td class="member-name">Rafael Mendonca Franca</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:55%;background:#ff6f00"></div><span class="gravity-val">55.0</span></div></td><td>68.4</td><td>11.1</td><td>25.0</td><td><span class="badge" style="background:#00e676;color:#000">Growing</span></td></tr>
+<tr><td class="rank-num">5</td><td class="member-name">Pratik Naik</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:50.4%;background:#ff6f00"></div><span class="gravity-val">50.4</span></div></td><td>31.1</td><td>27.8</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td></tr>
+<tr><td class="rank-num">6</td><td class="member-name">Xavier Noria</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:48.2%;background:#ff6f00"></div><span class="gravity-val">48.2</span></div></td><td>45.8</td><td>11.1</td><td>30.2</td><td><span class="badge" style="background:#00e676;color:#000">Growing</span></td></tr>
+<tr><td class="rank-num">7</td><td class="member-name">Jose Valim</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:41.8%;background:#42a5f5"></div><span class="gravity-val">41.8</span></div></td><td>39.4</td><td>0.0</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td></tr>
+<tr><td class="rank-num">8</td><td class="member-name">Joshua Peek</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:41%;background:#42a5f5"></div><span class="gravity-val">41.0</span></div></td><td>36.6</td><td>0.0</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td></tr>
+<tr><td class="rank-num">9</td><td class="member-name">Sean Griffin</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:41%;background:#42a5f5"></div><span class="gravity-val">41.0</span></div></td><td>14.4</td><td>16.7</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td></tr>
+<tr><td class="rank-num">10</td><td class="member-name">Ryuta Kamizono</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:40.1%;background:#42a5f5"></div><span class="gravity-val">40.1</span></div></td><td>33.6</td><td>0.0</td><td>5.0</td><td><span class="badge" style="background:#00e676;color:#000">Growing</span></td></tr>
+</tbody></table>
+
+<h2>Design Authority Distribution</h2>
+<div class="chart-section">
+  <h3>6 contributors exceed Design 35 &mdash; a distributed design authority</h3>
+  <svg width="100%" height="300" viewBox="0 0 900 300" preserveAspectRatio="xMidYMid meet">
+    <rect width="900" height="300" fill="#161b22" rx="8"/>
+    <!-- Grid -->
+    <line x1="220" y1="30" x2="880" y2="30" stroke="#21262d"/><text x="212" y="34" fill="#484f58" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">100</text>
+    <line x1="220" y1="80" x2="880" y2="80" stroke="#21262d"/><text x="212" y="84" fill="#484f58" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">75</text>
+    <line x1="220" y1="130" x2="880" y2="130" stroke="#21262d"/><text x="212" y="134" fill="#484f58" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">50</text>
+    <line x1="220" y1="180" x2="880" y2="180" stroke="#21262d"/><text x="212" y="184" fill="#484f58" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">25</text>
+    <line x1="220" y1="230" x2="880" y2="230" stroke="#21262d"/><text x="212" y="234" fill="#484f58" font-size="10" text-anchor="end" font-family="-apple-system,sans-serif">0</text>
+    <!-- Threshold line -->
+    <line x1="220" y1="160" x2="880" y2="160" stroke="#cc0000" stroke-dasharray="6,4" opacity="0.5"/>
+    <text x="875" y="155" fill="#cc0000" font-size="9" text-anchor="end" opacity="0.7" font-family="-apple-system,sans-serif">Design &gt; 35</text>
+    <!-- Bars -->
+    <rect x="235" y="30" width="60" height="200" fill="#cc0000" rx="4" opacity="0.9"/><text x="265" y="22" fill="#f0f6fc" font-size="11" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">100</text><text x="265" y="250" fill="#c9d1d9" font-size="9" text-anchor="middle" font-family="-apple-system,sans-serif">DHH</text>
+    <rect x="310" y="52" width="60" height="178" fill="#e65100" rx="4" opacity="0.9"/><text x="340" y="44" fill="#f0f6fc" font-size="11" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">89.0</text><text x="340" y="250" fill="#c9d1d9" font-size="9" text-anchor="middle" font-family="-apple-system,sans-serif">J.Kemper</text>
+    <rect x="385" y="93" width="60" height="137" fill="#ff6f00" rx="4" opacity="0.9"/><text x="415" y="85" fill="#f0f6fc" font-size="11" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">68.4</text><text x="415" y="250" fill="#c9d1d9" font-size="9" text-anchor="middle" font-family="-apple-system,sans-serif">R.Franca</text>
+    <rect x="460" y="122" width="60" height="108" fill="#ff6f00" rx="4" opacity="0.9"/><text x="490" y="114" fill="#f0f6fc" font-size="11" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">54.0</text><text x="490" y="250" fill="#c9d1d9" font-size="9" text-anchor="middle" font-family="-apple-system,sans-serif">A.Patterson</text>
+    <rect x="535" y="138" width="60" height="92" fill="#ff8f00" rx="4" opacity="0.9"/><text x="565" y="130" fill="#f0f6fc" font-size="11" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">45.8</text><text x="565" y="250" fill="#c9d1d9" font-size="9" text-anchor="middle" font-family="-apple-system,sans-serif">X.Noria</text>
+    <rect x="610" y="151" width="60" height="79" fill="#ff8f00" rx="4" opacity="0.9"/><text x="640" y="143" fill="#f0f6fc" font-size="11" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">39.4</text><text x="640" y="250" fill="#c9d1d9" font-size="9" text-anchor="middle" font-family="-apple-system,sans-serif">J.Valim</text>
+    <rect x="685" y="157" width="60" height="73" fill="#42a5f5" rx="4" opacity="0.9"/><text x="715" y="149" fill="#f0f6fc" font-size="11" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">36.6</text><text x="715" y="250" fill="#c9d1d9" font-size="9" text-anchor="middle" font-family="-apple-system,sans-serif">J.Peek</text>
+    <rect x="760" y="163" width="60" height="67" fill="#42a5f5" rx="4" opacity="0.9"/><text x="790" y="155" fill="#f0f6fc" font-size="11" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">33.6</text><text x="790" y="250" fill="#c9d1d9" font-size="9" text-anchor="middle" font-family="-apple-system,sans-serif">R.Kamizono</text>
+    <!-- Legend -->
+    <rect x="30" y="270" width="12" height="12" fill="#cc0000" rx="2"/><text x="48" y="280" fill="#8b949e" font-size="10" font-family="-apple-system,sans-serif">Creator</text>
+    <rect x="110" y="270" width="12" height="12" fill="#e65100" rx="2"/><text x="128" y="280" fill="#8b949e" font-size="10" font-family="-apple-system,sans-serif">Design &gt; 50</text>
+    <rect x="240" y="270" width="12" height="12" fill="#ff8f00" rx="2"/><text x="258" y="280" fill="#8b949e" font-size="10" font-family="-apple-system,sans-serif">Design &gt; 35</text>
+    <rect x="360" y="270" width="12" height="12" fill="#42a5f5" rx="2"/><text x="378" y="280" fill="#8b949e" font-size="10" font-family="-apple-system,sans-serif">Design &gt; 30</text>
+  </svg>
+</div>
+
+<h2>Insight</h2>
+<div class="insight">
+  <strong>Rails has evolved from a creator-centric kingdom into a multi-architect civilization.</strong><br><br>
+  David Heinemeier Hansson created the gravitational center &mdash; Design 100, Indispensability 100, Gravity 100. But unlike Laravel or esbuild, <strong>multiple architects now share structural authority</strong>. Jeremy Kemper (Design 89), Rafael Franca (68.4), Aaron Patterson (54), Xavier Noria (45.8), and Jose Valim (39.4) &mdash; six people with Design above 35.<br><br>
+  This is extraordinary for a framework-driven project. Top10 Design of <strong>51.2</strong> exceeds most Go projects. Rails is "framework-driven" in its user-facing API, but internally it functions more like a self-structured project with distributed governance.<br><br>
+  Gravity Concentration of <strong>0.9%</strong> is among the lowest measured &mdash; comparable to Kubernetes (0.8%) and Rust compiler (0.6%). <strong>Rails has achieved architect succession at scale.</strong>
+</div>
+
+<div class="footer">
+  Generated by <a href="https://github.com/machuz/engineering-impact-score">EIS (Engineering Impact Score)</a> &mdash; OSS Gravity Map Project<br>
+  rails/rails &middot; 6,512 engineers &middot; Gravity = Indispensability &times; 0.40 + Breadth &times; 0.30 + Design &times; 0.30
+</div>
+</div>
+</body>
+</html>

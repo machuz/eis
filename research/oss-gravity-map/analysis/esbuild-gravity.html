@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>esbuild — The One-Person Universe | OSS Gravity Map</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.container{max-width:1000px;margin:0 auto;padding:20px}
+h2{color:#f0f6fc;font-size:1.3em;margin:36px 0 16px;border-bottom:1px solid #30363d;padding-bottom:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75em;font-weight:600;color:#fff}
+.hero{background:linear-gradient(135deg,#1a1708 0%,#0d1117 100%);border:2px solid #f5c211;border-radius:16px;padding:40px;margin-bottom:36px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:18px;background:linear-gradient(135deg,rgba(245,194,17,.15),rgba(245,194,17,.03));z-index:0;pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero-name{font-size:2.8em;font-weight:800;color:#f0f6fc;margin-bottom:8px}
+.hero-tagline{font-size:1.15em;color:#f5c211;font-weight:600;margin-bottom:4px}
+.hero-desc{color:#8b949e;font-size:.95em;line-height:1.7;margin-bottom:20px;max-width:700px}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap}
+.big-stats{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.big-stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px 24px;text-align:center;flex:1;min-width:140px}
+.big-num{font-size:2em;font-weight:800}
+.big-label{color:#8b949e;font-size:.78em;margin-top:4px}
+.singularity{background:#161b22;border:2px solid #f5c211;border-radius:16px;padding:40px;margin:28px 0;text-align:center}
+.singularity-title{font-size:1.4em;font-weight:700;color:#f5c211;margin-bottom:24px}
+.comparison{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.comparison-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;flex:1;min-width:180px;text-align:center}
+.comparison-name{color:#8b949e;font-size:.85em;margin-bottom:6px}
+.comparison-val{font-size:1.6em;font-weight:800}
+.rank-table{width:100%;border-collapse:collapse}
+.rank-table th{text-align:left;padding:10px 12px;border-bottom:2px solid #30363d;color:#8b949e;font-size:.8em;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.rank-table td{padding:10px 12px;border-bottom:1px solid #21262d}
+.rank-table tr:hover{background:#161b22}
+.rank-table tr.hl{background:rgba(245,194,17,.08)}
+.rank-num{color:#8b949e;font-weight:700}.member-name{font-weight:600;color:#f0f6fc}
+.gravity-bar{position:relative;height:20px;background:#21262d;border-radius:10px;min-width:120px;overflow:hidden}
+.gravity-fill{height:100%;border-radius:10px}
+.gravity-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.8em;font-weight:700;color:#f0f6fc}
+.insight{background:rgba(245,194,17,.06);border-left:3px solid #f5c211;border-radius:4px;padding:16px 20px;margin:20px 0;font-size:.95em;line-height:1.7}
+.insight strong{color:#f0f6fc}
+.footer{margin-top:48px;padding-top:16px;border-top:1px solid #30363d;color:#484f58;font-size:.8em;text-align:center}
+.footer a{color:#58a6ff;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="hero-name">esbuild</div>
+  <div class="hero-tagline">The One-Person Universe</div>
+  <div class="hero-desc">
+    125 engineers in the contributor list, but <strong>one person holds 92.5% of all structural gravity</strong>.<br>
+    Evan Wallace wrote 4,208 commits with every metric at 100. The #2 contributor has Gravity 30 with Design 0, Indispensability 0.<br>
+    This is a gravitational singularity.
+  </div>
+  <div class="hero-badges">
+    <span class="badge" style="background:#f5c211;color:#000">Go (Self-structured)</span>
+    <span class="badge" style="background:#e6a800;color:#000">125 Engineers</span>
+    <span class="badge" style="background:#c49000;color:#fff">92.5% Concentration</span>
+    <span class="badge" style="background:#a67c00;color:#fff">Singularity</span>
+  </div>
+</div>
+
+<div class="big-stats">
+  <div class="big-stat"><div class="big-num" style="color:#f5c211">125</div><div class="big-label">Engineers</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#ff6f00">92.5%</div><div class="big-label">Gravity Concentration</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#ffd700">4,208</div><div class="big-label">Evan Wallace Commits</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#e65100">100</div><div class="big-label">All Axes: 100</div></div>
+</div>
+
+<h2>The Singularity</h2>
+<div class="singularity">
+  <div class="singularity-title">92.5% of structural gravity belongs to one person</div>
+  <svg width="100%" height="320" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet">
+    <rect width="600" height="320" fill="#161b22" rx="8"/>
+    <!-- Evan Wallace: massive circle -->
+    <circle cx="300" cy="150" r="110" fill="#f5c211" opacity="0.15"/>
+    <circle cx="300" cy="150" r="85" fill="#f5c211" opacity="0.25"/>
+    <circle cx="300" cy="150" r="60" fill="#f5c211" opacity="0.5"/>
+    <text x="300" y="140" text-anchor="middle" fill="#f0f6fc" font-size="16" font-weight="800" font-family="-apple-system,sans-serif">Evan Wallace</text>
+    <text x="300" y="162" text-anchor="middle" fill="#f5c211" font-size="13" font-weight="600" font-family="-apple-system,sans-serif">Gravity: 100 | Design: 100</text>
+    <text x="300" y="180" text-anchor="middle" fill="#f5c211" font-size="13" font-weight="600" font-family="-apple-system,sans-serif">Indispensability: 100 | Survival: 100</text>
+    <!-- Tiny orbiting dots: other contributors -->
+    <circle cx="440" cy="80" r="4" fill="#42a5f5" opacity="0.5"/>
+    <circle cx="460" cy="130" r="3" fill="#42a5f5" opacity="0.4"/>
+    <circle cx="450" cy="180" r="4" fill="#42a5f5" opacity="0.5"/>
+    <circle cx="420" cy="230" r="3" fill="#42a5f5" opacity="0.4"/>
+    <circle cx="160" cy="90" r="4" fill="#42a5f5" opacity="0.5"/>
+    <circle cx="140" cy="140" r="3" fill="#42a5f5" opacity="0.4"/>
+    <circle cx="150" cy="200" r="4" fill="#42a5f5" opacity="0.5"/>
+    <circle cx="180" cy="240" r="3" fill="#42a5f5" opacity="0.4"/>
+    <circle cx="350" cy="50" r="3" fill="#42a5f5" opacity="0.3"/>
+    <circle cx="250" cy="50" r="3" fill="#42a5f5" opacity="0.3"/>
+    <circle cx="380" cy="260" r="3" fill="#42a5f5" opacity="0.3"/>
+    <circle cx="220" cy="260" r="3" fill="#42a5f5" opacity="0.3"/>
+    <!-- Label -->
+    <text x="480" y="130" fill="#42a5f5" font-size="10" font-family="-apple-system,sans-serif" opacity="0.7">124 other contributors</text>
+    <text x="480" y="145" fill="#42a5f5" font-size="10" font-family="-apple-system,sans-serif" opacity="0.7">All at Gravity 30 or below</text>
+    <text x="480" y="160" fill="#42a5f5" font-size="10" font-family="-apple-system,sans-serif" opacity="0.7">Design: 0, Indisp.: 0</text>
+    <!-- 92.5% label -->
+    <text x="300" y="300" text-anchor="middle" fill="#8b949e" font-size="11" font-family="-apple-system,sans-serif">The gold region represents 92.5% of total project gravity</text>
+  </svg>
+</div>
+
+<h2>How Extreme Is This?</h2>
+<div class="comparison">
+  <div class="comparison-card"><div class="comparison-name">esbuild</div><div class="comparison-val" style="color:#f5c211">92.5%</div></div>
+  <div class="comparison-card"><div class="comparison-name">express</div><div class="comparison-val" style="color:#ffd700">23.9%</div></div>
+  <div class="comparison-card"><div class="comparison-name">swc</div><div class="comparison-val" style="color:#ab47bc">15.7%</div></div>
+  <div class="comparison-card"><div class="comparison-name">prettier</div><div class="comparison-val" style="color:#ffd700">13.4%</div></div>
+  <div class="comparison-card"><div class="comparison-name">react</div><div class="comparison-val" style="color:#ffd700">3.4%</div></div>
+  <div class="comparison-card"><div class="comparison-name">kubernetes</div><div class="comparison-val" style="color:#42a5f5">0.8%</div></div>
+  <div class="comparison-card"><div class="comparison-name">rails</div><div class="comparison-val" style="color:#cc0000">0.9%</div></div>
+  <div class="comparison-card"><div class="comparison-name">rust</div><div class="comparison-val" style="color:#ab47bc">0.6%</div></div>
+</div>
+<p style="color:#8b949e;font-size:.85em;text-align:center;margin-top:8px">Gravity Concentration: share of total gravity held by top contributors</p>
+
+<h2>Top 10 Gravity Ranking</h2>
+<table class="rank-table"><thead><tr><th>#</th><th>Engineer</th><th>Gravity</th><th>Design</th><th>Indisp.</th><th>Survival</th><th>Commits</th></tr></thead><tbody>
+<tr class="hl"><td class="rank-num">1</td><td class="member-name">Evan Wallace</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:100%;background:#f5c211"></div><span class="gravity-val">100.0</span></div></td><td>100.0</td><td>100.0</td><td>100.0</td><td>4,208</td></tr>
+<tr><td class="rank-num">2</td><td class="member-name">Ade Viankakrisna Fadlil</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:30%;background:#42a5f5"></div><span class="gravity-val">30.0</span></div></td><td>0.0</td><td>0.0</td><td>0.0</td><td>6</td></tr>
+<tr><td class="rank-num">3</td><td class="member-name">Pig Fang</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:30%;background:#42a5f5"></div><span class="gravity-val">30.0</span></div></td><td>0.0</td><td>0.0</td><td>0.0</td><td>6</td></tr>
+<tr><td class="rank-num">4</td><td class="member-name">Mike Cook</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:30%;background:#42a5f5"></div><span class="gravity-val">30.0</span></div></td><td>0.0</td><td>0.0</td><td>0.0</td><td>4</td></tr>
+<tr><td class="rank-num">5</td><td class="member-name">Justin Ridgewell</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:30%;background:#42a5f5"></div><span class="gravity-val">30.0</span></div></td><td>0.0</td><td>0.0</td><td>0.1</td><td>7</td></tr>
+<tr><td class="rank-num">6</td><td class="member-name">Ryan Tsao</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:30%;background:#42a5f5"></div><span class="gravity-val">30.0</span></div></td><td>0.0</td><td>0.0</td><td>0.0</td><td>16</td></tr>
+<tr><td class="rank-num">7</td><td class="member-name">magic-akari</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:30%;background:#42a5f5"></div><span class="gravity-val">30.0</span></div></td><td>0.0</td><td>0.0</td><td>0.2</td><td>9</td></tr>
+<tr><td class="rank-num">8</td><td class="member-name">Liu Bowen</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:30%;background:#42a5f5"></div><span class="gravity-val">30.0</span></div></td><td>0.0</td><td>0.0</td><td>0.0</td><td>3</td></tr>
+<tr><td class="rank-num">9</td><td class="member-name">Tommaso De Rossi</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:30%;background:#42a5f5"></div><span class="gravity-val">30.0</span></div></td><td>0.0</td><td>0.0</td><td>0.0</td><td>4</td></tr>
+<tr><td class="rank-num">10</td><td class="member-name">John Gozde</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:0.2%;background:#42a5f5"></div><span class="gravity-val">0.2</span></div></td><td>0.5</td><td>0.0</td><td>0.0</td><td>1</td></tr>
+</tbody></table>
+
+<p style="color:#8b949e;font-size:.85em;margin-top:12px">Note: Contributors #2-#9 all have Gravity 30.0 from Breadth (100) alone. Design = 0, Indispensability = 0, Survival = 0. They contributed code, but none of it became structural.</p>
+
+<h2>Insight</h2>
+<div class="insight">
+  <strong>esbuild proves that a single brilliant architect can build an entire universe alone.</strong><br><br>
+  Evan Wallace created esbuild as a demonstration that JavaScript bundling could be 10-100x faster. He wrote 4,208 commits with every EIS metric at 100 &mdash; Gravity, Design, Indispensability, Survival, Breadth, all maxed out. The #2 contributor has Gravity 30 (Breadth only) with zero structural influence.<br><br>
+  This is the <strong>extreme end of the architect-centric model</strong> &mdash; a gravitational singularity. The 92.5% concentration is 115x higher than Kubernetes (0.8%) and 103x higher than Rails (0.9%).<br><br>
+  For a small, focused tool, this works. esbuild is fast, correct, and well-designed precisely because one person controls every structural decision. But it also means the project's entire architecture is <strong>encoded in one mind</strong>. If Evan Wallace stops contributing, the structural knowledge goes with him.<br><br>
+  <strong>A singularity is powerful, but it cannot be succession-planned.</strong>
+</div>
+
+<div class="footer">
+  Generated by <a href="https://github.com/machuz/engineering-impact-score">EIS (Engineering Impact Score)</a> &mdash; OSS Gravity Map Project<br>
+  evanw/esbuild &middot; 125 engineers &middot; Gravity = Indispensability &times; 0.40 + Breadth &times; 0.30 + Design &times; 0.30
+</div>
+</div>
+</body>
+</html>
