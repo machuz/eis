@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="700" viewBox="0 0 500 700">
+  <defs>
+    <clipPath id="lens-cover">
+      <circle cx="250" cy="260" r="150"/>
+    </clipPath>
+    <radialGradient id="glow-cover" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fabd2f" stop-opacity="0.25"/>
+      <stop offset="40%" stop-color="#d79921" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#282828" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bg-cover" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#282828"/>
+      <stop offset="100%" stop-color="#1d2021"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="700" fill="url(#bg-cover)"/>
+
+  <!-- Star field background -->
+  <circle cx="30" cy="40" r="0.8" fill="#ebdbb2" opacity="0.15"/>
+  <circle cx="470" cy="60" r="1" fill="#ebdbb2" opacity="0.2"/>
+  <circle cx="80" cy="620" r="0.8" fill="#ebdbb2" opacity="0.12"/>
+  <circle cx="420" cy="650" r="1" fill="#ebdbb2" opacity="0.15"/>
+  <circle cx="250" cy="20" r="0.6" fill="#ebdbb2" opacity="0.1"/>
+  <circle cx="460" cy="400" r="0.8" fill="#ebdbb2" opacity="0.12"/>
+  <circle cx="40" cy="350" r="0.6" fill="#ebdbb2" opacity="0.1"/>
+
+  <!-- Double ring aperture -->
+  <circle cx="250" cy="260" r="168" fill="none" stroke="#504945" stroke-width="2.5" opacity="0.6"/>
+  <circle cx="250" cy="260" r="150" fill="none" stroke="#504945" stroke-width="4"/>
+  <circle cx="250" cy="260" r="146" fill="none" stroke="#3c3836" stroke-width="1.2"/>
+
+  <!-- 8 aperture blade marks -->
+  <line x1="250" y1="78" x2="250" y2="92" stroke="#665c54" stroke-width="1.5" opacity="0.4"/>
+  <line x1="250" y1="428" x2="250" y2="442" stroke="#665c54" stroke-width="1.5" opacity="0.4"/>
+  <line x1="82" y1="260" x2="96" y2="260" stroke="#665c54" stroke-width="1.5" opacity="0.4"/>
+  <line x1="404" y1="260" x2="418" y2="260" stroke="#665c54" stroke-width="1.5" opacity="0.4"/>
+  <line x1="140" y1="150" x2="149" y2="159" stroke="#665c54" stroke-width="1.5" opacity="0.4"/>
+  <line x1="351" y1="361" x2="360" y2="370" stroke="#665c54" stroke-width="1.5" opacity="0.4"/>
+  <line x1="351" y1="150" x2="360" y2="159" stroke="#665c54" stroke-width="1.5" opacity="0.4"/>
+  <line x1="140" y1="361" x2="149" y2="370" stroke="#665c54" stroke-width="1.5" opacity="0.4"/>
+
+  <g clip-path="url(#lens-cover)">
+    <circle cx="250" cy="260" r="150" fill="#282828"/>
+    <circle cx="250" cy="260" r="120" fill="url(#glow-cover)"/>
+
+    <!-- Expansion wavefronts -->
+    <circle cx="250" cy="260" r="105" fill="none" stroke="#d79921" stroke-width="0.5" opacity="0.1"/>
+    <circle cx="250" cy="260" r="78" fill="none" stroke="#d79921" stroke-width="0.6" opacity="0.15"/>
+    <circle cx="250" cy="260" r="52" fill="none" stroke="#fabd2f" stroke-width="0.7" opacity="0.2"/>
+    <circle cx="250" cy="260" r="28" fill="none" stroke="#fabd2f" stroke-width="0.8" opacity="0.35"/>
+
+    <!-- Central core -->
+    <circle cx="250" cy="260" r="15" fill="#fabd2f" opacity="0.06"/>
+    <circle cx="250" cy="260" r="9" fill="#fabd2f" opacity="0.1"/>
+    <circle cx="250" cy="260" r="4" fill="#ebdbb2" opacity="0.95"/>
+
+    <!-- Stars — Layer 1 close -->
+    <circle cx="230" cy="240" r="3" fill="#fabd2f" opacity="0.9"/>
+    <circle cx="273" cy="248" r="2.5" fill="#b8bb26" opacity="0.85"/>
+    <circle cx="265" cy="280" r="3" fill="#d3869b" opacity="0.9"/>
+    <circle cx="235" cy="275" r="2.5" fill="#83a598" opacity="0.85"/>
+
+    <!-- Stars — Layer 2 -->
+    <circle cx="200" cy="210" r="3.2" fill="#8ec07c" opacity="0.75"/>
+    <circle cx="305" cy="220" r="2.8" fill="#fabd2f" opacity="0.7"/>
+    <circle cx="310" cy="300" r="3.2" fill="#b8bb26" opacity="0.75"/>
+    <circle cx="190" cy="310" r="2.8" fill="#fb4934" opacity="0.55"/>
+    <circle cx="290" cy="325" r="2.8" fill="#83a598" opacity="0.6"/>
+    <circle cx="210" cy="328" r="2.5" fill="#d3869b" opacity="0.6"/>
+    <circle cx="300" cy="210" r="2.5" fill="#fabd2f" opacity="0.6"/>
+    <circle cx="202" cy="220" r="2" fill="#ebdbb2" opacity="0.5"/>
+
+    <!-- Stars — Layer 3 far -->
+    <circle cx="160" cy="170" r="2.5" fill="#83a598" opacity="0.45"/>
+    <circle cx="340" cy="175" r="2.8" fill="#d3869b" opacity="0.45"/>
+    <circle cx="350" cy="260" r="2.5" fill="#b8bb26" opacity="0.4"/>
+    <circle cx="150" cy="265" r="2.5" fill="#8ec07c" opacity="0.4"/>
+    <circle cx="340" cy="345" r="2.5" fill="#fb4934" opacity="0.35"/>
+    <circle cx="160" cy="350" r="2.8" fill="#fabd2f" opacity="0.4"/>
+
+    <!-- Expansion rays -->
+    <line x1="253" y1="257" x2="305" y2="220" stroke="#fabd2f" stroke-width="0.4" opacity="0.12"/>
+    <line x1="247" y1="257" x2="200" y2="210" stroke="#fabd2f" stroke-width="0.4" opacity="0.12"/>
+    <line x1="253" y1="263" x2="310" y2="300" stroke="#fabd2f" stroke-width="0.4" opacity="0.12"/>
+    <line x1="247" y1="263" x2="190" y2="310" stroke="#fabd2f" stroke-width="0.4" opacity="0.12"/>
+    <line x1="250" y1="255" x2="250" y2="175" stroke="#fabd2f" stroke-width="0.3" opacity="0.1"/>
+    <line x1="250" y1="265" x2="250" y2="345" stroke="#fabd2f" stroke-width="0.3" opacity="0.1"/>
+
+    <!-- Constellation connections -->
+    <line x1="230" y1="240" x2="273" y2="248" stroke="#665c54" stroke-width="0.6" opacity="0.25"/>
+    <line x1="273" y1="248" x2="265" y2="280" stroke="#665c54" stroke-width="0.6" opacity="0.25"/>
+    <line x1="265" y1="280" x2="235" y2="275" stroke="#665c54" stroke-width="0.6" opacity="0.25"/>
+    <line x1="235" y1="275" x2="230" y2="240" stroke="#665c54" stroke-width="0.6" opacity="0.25"/>
+    <line x1="200" y1="210" x2="230" y2="240" stroke="#665c54" stroke-width="0.4" opacity="0.18"/>
+    <line x1="305" y1="220" x2="273" y2="248" stroke="#665c54" stroke-width="0.4" opacity="0.18"/>
+  </g>
+
+  <!-- Title text -->
+  <text x="250" y="480" text-anchor="middle" fill="#ebdbb2" font-size="28" font-weight="800" font-family="-apple-system,sans-serif" letter-spacing="1">git考古学</text>
+  <text x="250" y="515" text-anchor="middle" fill="#a89984" font-size="14" font-family="-apple-system,sans-serif">Git Archaeology</text>
+
+  <!-- Subtitle -->
+  <text x="250" y="560" text-anchor="middle" fill="#665c54" font-size="11" font-family="-apple-system,sans-serif">履歴だけでエンジニアの</text>
+  <text x="250" y="578" text-anchor="middle" fill="#665c54" font-size="11" font-family="-apple-system,sans-serif">「戦闘力」を定量化する</text>
+
+  <!-- EIS badge -->
+  <text x="250" y="630" text-anchor="middle" fill="#fabd2f" font-size="18" font-weight="700" font-family="-apple-system,sans-serif" letter-spacing="4" opacity="0.6">EIS</text>
+  <text x="250" y="650" text-anchor="middle" fill="#504945" font-size="9" font-family="-apple-system,sans-serif">Engineering Impact Score</text>
+
+  <!-- Bottom accent line -->
+  <line x1="150" y1="670" x2="350" y2="670" stroke="#504945" stroke-width="0.5" opacity="0.4"/>
+</svg>
