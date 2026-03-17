@@ -107,7 +107,7 @@ fix率が高いということは、多くの場合、**自分が書いたコー
 | 365日 | 0.13 | かなり低い。1年前 |
 | 730日 | 0.02 | ほぼゼロ。2年前 |
 
-![時間減衰の重みカーブ：730日間の指数関数的減衰](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/survival-decay-curve.png)
+![時間減衰の重みカーブ：730日間の指数関数的減衰](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/survival-decay-curve.png?v=5)
 
 これにより、退職したメンバーのスコアが自然に下がり、**今のチームの実力**がより正確に反映される。創業期に大量のコードを書いたけど今はいない人が延々とランキング上位に居座る、という問題を解決できる。
 
@@ -219,7 +219,7 @@ score =
 
 **ここで大事な前提を1つ。** EISが測っているのは **「このコードベース上での貢献」** であって、エンジニアとしての絶対的な能力ではない。スコアが高いということは「このコードベースにおいて、その人のコードが残り、設計に影響を与え、負債を掃除している」ということ。逆に言えば、Survivalが高いのは設計が悪くてリファクタできないから消えずに残っているだけ、という可能性もある。スコアが直感と合わない場合、それは人の問題ではなくコードベースの設計品質の問題かもしれない。正しい設計のもとでどれだけスコアを保てるか——そこが本質的な実力になる。
 
-![スコアガイド](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png)
+![スコアガイド](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png?v=5)
 
 ### 指標の分布で見えるエンジニアの「型」——3軸トポロジーモデル（v0.9.0〜）
 

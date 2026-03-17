@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="curve-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fabd2f"/>
+      <stop offset="100%" stop-color="#fe8019"/>
+    </linearGradient>
+    <radialGradient id="bg-glow" cx="15%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#3c3836"/>
+      <stop offset="100%" stop-color="#1d2021"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bg-glow)"/>
+
+  <!-- Star field -->
+  <circle cx="45" cy="25" r="1" fill="#ebdbb2" opacity="0.15"/>
+  <circle cx="780" cy="40" r="1" fill="#ebdbb2" opacity="0.2"/>
+  <circle cx="900" cy="500" r="0.8" fill="#ebdbb2" opacity="0.15"/>
+  <circle cx="500" cy="15" r="0.8" fill="#ebdbb2" opacity="0.12"/>
+  <circle cx="200" cy="510" r="1" fill="#ebdbb2" opacity="0.1"/>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" fill="#ebdbb2" font-size="18" font-weight="800" font-family="-apple-system,sans-serif" letter-spacing="0.5">Time-decayed Survival Weight</text>
+  <text x="480" y="58" text-anchor="middle" fill="#a89984" font-size="11" font-family="-apple-system,sans-serif">w(t) = exp(-t / 180) — recent code counts far more than ancient code</text>
+
+  <!-- Chart area: x=100..880, y=80..460 -->
+  <!-- Axes -->
+  <line x1="100" y1="460" x2="880" y2="460" stroke="#504945" stroke-width="1.2"/>
+  <line x1="100" y1="460" x2="100" y2="80" stroke="#504945" stroke-width="1.2"/>
+
+  <!-- Axis labels -->
+  <text x="490" y="500" text-anchor="middle" fill="#a89984" font-size="13" font-weight="600" font-family="-apple-system,sans-serif">Code age (days)</text>
+  <text x="40" y="270" text-anchor="middle" fill="#a89984" font-size="13" font-weight="600" font-family="-apple-system,sans-serif" transform="rotate(-90,40,270)">Survival weight</text>
+
+  <!-- X-axis ticks -->
+  <text x="100" y="480" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">0</text>
+  <text x="207" y="480" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">100</text>
+  <text x="314" y="480" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">200</text>
+  <text x="421" y="480" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">300</text>
+  <text x="528" y="480" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">400</text>
+  <text x="634" y="480" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">500</text>
+  <text x="741" y="480" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">600</text>
+  <text x="848" y="480" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">730</text>
+
+  <!-- Y-axis ticks -->
+  <text x="90" y="464" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">0.0</text>
+  <text x="90" y="388" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">0.2</text>
+  <text x="90" y="312" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">0.4</text>
+  <text x="90" y="236" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">0.6</text>
+  <text x="90" y="160" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">0.8</text>
+  <text x="90" y="84" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">1.0</text>
+
+  <!-- Grid lines -->
+  <line x1="100" y1="384" x2="880" y2="384" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="100" y1="308" x2="880" y2="308" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="100" y1="232" x2="880" y2="232" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="100" y1="156" x2="880" y2="156" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="100" y1="80" x2="880" y2="80" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="207" y1="80" x2="207" y2="460" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="314" y1="80" x2="314" y2="460" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="421" y1="80" x2="421" y2="460" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="528" y1="80" x2="528" y2="460" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="634" y1="80" x2="634" y2="460" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <line x1="741" y1="80" x2="741" y2="460" stroke="#3c3836" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+  <!-- Glow area under curve (subtle fill) -->
+  <!-- exp(-t/180), chart: x=100 at t=0, x=880 at t=730, y=80 at w=1.0, y=460 at w=0.0 -->
+  <!-- Points: t=0 w=1.00, t=7 w=0.962, t=30 w=0.847, t=90 w=0.607, t=180 w=0.368, t=365 w=0.132, t=500 w=0.062, t=600 w=0.036, t=730 w=0.018 -->
+  <path d="M100,80 L107,83 L132,102 L196,163 L292,241 L421,330 L528,387 L634,419 L741,438 L848,449 L880,452 L880,460 L100,460 Z"
+        fill="#fabd2f" opacity="0.06"/>
+
+  <!-- Decay curve -->
+  <path d="M100,80 C120,88 140,98 160,110 C180,125 200,142 220,158 C240,175 260,192 280,208 C300,224 320,240 340,254 C360,268 380,282 400,294 C420,306 440,318 460,328 C480,338 500,348 520,356 C540,364 560,372 580,378 C600,384 620,390 640,396 C660,400 680,406 700,410 C720,414 740,418 760,422 C780,426 800,430 820,434 C840,436 860,440 880,442"
+        fill="none" stroke="url(#curve-glow)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Reference point annotations -->
+  <!-- 7 days: 0.96 -->
+  <circle cx="107" cy="83" r="4" fill="#fabd2f" opacity="0.9"/>
+  <text x="117" y="78" fill="#fabd2f" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">7d: 0.96</text>
+
+  <!-- 30 days: 0.85 -->
+  <circle cx="132" cy="102" r="4" fill="#fabd2f" opacity="0.8"/>
+  <text x="142" y="97" fill="#fabd2f" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">30d: 0.85</text>
+
+  <!-- 90 days: 0.61 -->
+  <circle cx="196" cy="163" r="4" fill="#d79921" opacity="0.8"/>
+  <text x="206" y="158" fill="#d79921" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">90d: 0.61</text>
+
+  <!-- 180 days: 0.37 -->
+  <circle cx="292" cy="241" r="4" fill="#fe8019" opacity="0.8"/>
+  <text x="302" y="236" fill="#fe8019" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">180d: 0.37</text>
+
+  <!-- 365 days: 0.13 -->
+  <circle cx="490" cy="362" r="4" fill="#fb4934" opacity="0.7"/>
+  <text x="500" y="357" fill="#fb4934" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">1y: 0.13</text>
+
+  <!-- 730 days: 0.02 -->
+  <circle cx="848" cy="449" r="4" fill="#665c54" opacity="0.7"/>
+  <text x="810" y="444" fill="#665c54" font-size="10" font-weight="600" font-family="-apple-system,sans-serif" text-anchor="end">2y: 0.02</text>
+
+  <!-- Footer -->
+  <text x="480" y="528" text-anchor="middle" fill="#665c54" font-size="9" font-family="-apple-system,sans-serif">Departed members' scores naturally decay — solving the problem of legacy code dominance on leaderboards.</text>
+</svg>

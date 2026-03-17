@@ -58,7 +58,7 @@ To fix this, the model applies **time-decayed survival**. Recent code counts far
 | 1 year | 0.13 |
 | 2 years | 0.02 |
 
-![Time-decayed Survival Weight curve showing exponential decay over 730 days](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/survival-decay-curve.png?v=4)
+![Time-decayed Survival Weight curve showing exponential decay over 730 days](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/survival-decay-curve.png?v=5)
 *Time-decayed survival gives much more weight to recently written code than legacy code that simply remains untouched.*
 
 This means departed team members' scores naturally decay over time — solving the problem of someone who wrote a ton of code during the founding era dominating the leaderboard forever.
@@ -240,7 +240,7 @@ Comp figures are rough estimates and vary significantly by market (SF vs. Midwes
 
 **One critical caveat.** EIS measures **impact on *this* codebase**, not absolute engineering ability. A high score means "on this codebase, this person's code is surviving, shaping architecture, and cleaning up debt." It does *not* mean they are a better engineer than someone with a lower score. High Survival might even mean the code can't be refactored away because the design is poor — not that the code itself is good. If scores don't match your gut feeling, that's a signal worth investigating: it may reveal codebase design issues rather than people issues. The real question is whether someone can maintain their score under *good* design — that's where true ability shows.
 
-![Score Guide](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png?v=4)
+![Score Guide](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png?v=5)
 
 ---
 
