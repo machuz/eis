@@ -59,49 +59,50 @@
   <text x="496" y="184" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">10%</text>
 
   <!-- Survival 25% (heaviest) -->
-  <rect x="270" y="206" width="240" height="36" rx="6" fill="#282828" stroke="#fabd2f" stroke-width="2"/>
-  <circle cx="290" cy="224" r="6" fill="#fabd2f" opacity="0.25"/>
-  <circle cx="290" cy="224" r="2.5" fill="#fabd2f" opacity="0.8"/>
-  <text x="306" y="228" fill="#fabd2f" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">Survival</text>
-  <text x="390" y="228" fill="#d79921" font-size="9" font-family="-apple-system,sans-serif">(time-decayed)</text>
-  <text x="496" y="228" text-anchor="end" fill="#d79921" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">25%</text>
+  <rect x="270" y="206" width="240" height="48" rx="6" fill="#282828" stroke="#fabd2f" stroke-width="2"/>
+  <circle cx="290" cy="222" r="6" fill="#fabd2f" opacity="0.25"/>
+  <circle cx="290" cy="222" r="2.5" fill="#fabd2f" opacity="0.8"/>
+  <text x="306" y="226" fill="#fabd2f" font-size="12" font-weight="700" font-family="-apple-system,sans-serif">Survival</text>
+  <text x="470" y="226" text-anchor="end" fill="#d79921" font-size="9" font-family="-apple-system,sans-serif">(time-decayed)</text>
+  <text x="496" y="226" text-anchor="end" fill="#d79921" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">25%</text>
+  <text x="306" y="244" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif">Robust / Dormant</text>
 
   <!-- Design 20% -->
-  <rect x="270" y="250" width="240" height="36" rx="6" fill="#282828" stroke="#fb4934" stroke-width="1.2"/>
-  <circle cx="290" cy="268" r="6" fill="#fb4934" opacity="0.2"/>
-  <circle cx="290" cy="268" r="2.5" fill="#fb4934" opacity="0.7"/>
-  <text x="306" y="272" fill="#fb4934" font-size="12" font-weight="600" font-family="-apple-system,sans-serif">Design</text>
-  <text x="496" y="272" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">20%</text>
+  <rect x="270" y="262" width="240" height="36" rx="6" fill="#282828" stroke="#fb4934" stroke-width="1.2"/>
+  <circle cx="290" cy="280" r="6" fill="#fb4934" opacity="0.2"/>
+  <circle cx="290" cy="280" r="2.5" fill="#fb4934" opacity="0.7"/>
+  <text x="306" y="284" fill="#fb4934" font-size="12" font-weight="600" font-family="-apple-system,sans-serif">Design</text>
+  <text x="496" y="284" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">20%</text>
 
   <!-- Breadth 10% -->
-  <rect x="270" y="294" width="240" height="36" rx="6" fill="#282828" stroke="#83a598" stroke-width="1.2"/>
-  <circle cx="290" cy="312" r="6" fill="#83a598" opacity="0.2"/>
-  <circle cx="290" cy="312" r="2.5" fill="#83a598" opacity="0.7"/>
-  <text x="306" y="316" fill="#83a598" font-size="12" font-weight="600" font-family="-apple-system,sans-serif">Breadth</text>
-  <text x="496" y="316" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">10%</text>
+  <rect x="270" y="306" width="240" height="36" rx="6" fill="#282828" stroke="#83a598" stroke-width="1.2"/>
+  <circle cx="290" cy="324" r="6" fill="#83a598" opacity="0.2"/>
+  <circle cx="290" cy="324" r="2.5" fill="#83a598" opacity="0.7"/>
+  <text x="306" y="328" fill="#83a598" font-size="12" font-weight="600" font-family="-apple-system,sans-serif">Breadth</text>
+  <text x="496" y="328" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">10%</text>
 
   <!-- Debt Cleanup 15% -->
-  <rect x="270" y="338" width="240" height="36" rx="6" fill="#282828" stroke="#d3869b" stroke-width="1.2"/>
-  <circle cx="290" cy="356" r="6" fill="#d3869b" opacity="0.2"/>
-  <circle cx="290" cy="356" r="2.5" fill="#d3869b" opacity="0.7"/>
-  <text x="306" y="360" fill="#d3869b" font-size="12" font-weight="600" font-family="-apple-system,sans-serif">Debt Cleanup</text>
-  <text x="496" y="360" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">15%</text>
+  <rect x="270" y="350" width="240" height="36" rx="6" fill="#282828" stroke="#d3869b" stroke-width="1.2"/>
+  <circle cx="290" cy="368" r="6" fill="#d3869b" opacity="0.2"/>
+  <circle cx="290" cy="368" r="2.5" fill="#d3869b" opacity="0.7"/>
+  <text x="306" y="372" fill="#d3869b" font-size="12" font-weight="600" font-family="-apple-system,sans-serif">Debt Cleanup</text>
+  <text x="496" y="372" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">15%</text>
 
   <!-- Indispensability 5% -->
-  <rect x="270" y="382" width="240" height="36" rx="6" fill="#282828" stroke="#fe8019" stroke-width="1.2"/>
-  <circle cx="290" cy="400" r="6" fill="#fe8019" opacity="0.2"/>
-  <circle cx="290" cy="400" r="2.5" fill="#fe8019" opacity="0.7"/>
-  <text x="306" y="404" fill="#fe8019" font-size="12" font-weight="600" font-family="-apple-system,sans-serif">Indispensability</text>
-  <text x="496" y="404" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">5%</text>
+  <rect x="270" y="394" width="240" height="36" rx="6" fill="#282828" stroke="#fe8019" stroke-width="1.2"/>
+  <circle cx="290" cy="412" r="6" fill="#fe8019" opacity="0.2"/>
+  <circle cx="290" cy="412" r="2.5" fill="#fe8019" opacity="0.7"/>
+  <text x="306" y="416" fill="#fe8019" font-size="12" font-weight="600" font-family="-apple-system,sans-serif">Indispensability</text>
+  <text x="496" y="416" text-anchor="end" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">5%</text>
 
   <!-- Arrows from Git History to axes -->
   <line x1="170" y1="310" x2="268" y2="136" stroke="#504945" stroke-width="1" opacity="0.4"/>
   <line x1="170" y1="315" x2="268" y2="180" stroke="#504945" stroke-width="1" opacity="0.4"/>
   <line x1="170" y1="320" x2="268" y2="224" stroke="#504945" stroke-width="1" opacity="0.5"/>
-  <line x1="170" y1="330" x2="268" y2="268" stroke="#504945" stroke-width="1" opacity="0.4"/>
-  <line x1="170" y1="340" x2="268" y2="312" stroke="#504945" stroke-width="1" opacity="0.4"/>
-  <line x1="170" y1="350" x2="268" y2="356" stroke="#504945" stroke-width="1" opacity="0.4"/>
-  <line x1="170" y1="355" x2="268" y2="400" stroke="#504945" stroke-width="1" opacity="0.4"/>
+  <line x1="170" y1="330" x2="268" y2="280" stroke="#504945" stroke-width="1" opacity="0.4"/>
+  <line x1="170" y1="340" x2="268" y2="324" stroke="#504945" stroke-width="1" opacity="0.4"/>
+  <line x1="170" y1="350" x2="268" y2="368" stroke="#504945" stroke-width="1" opacity="0.4"/>
+  <line x1="170" y1="355" x2="268" y2="412" stroke="#504945" stroke-width="1" opacity="0.4"/>
 
   <!-- ============================================ -->
   <!-- RIGHT TOP: Total Score -->
@@ -115,10 +116,10 @@
   <line x1="512" y1="136" x2="598" y2="222" stroke="#504945" stroke-width="1" opacity="0.3" marker-end="none"/>
   <line x1="512" y1="180" x2="598" y2="225" stroke="#504945" stroke-width="1" opacity="0.3"/>
   <line x1="512" y1="224" x2="598" y2="232" stroke="#d79921" stroke-width="1" opacity="0.5"/>
-  <line x1="512" y1="268" x2="598" y2="238" stroke="#504945" stroke-width="1" opacity="0.3"/>
-  <line x1="512" y1="312" x2="598" y2="244" stroke="#504945" stroke-width="1" opacity="0.3"/>
-  <line x1="512" y1="356" x2="598" y2="250" stroke="#504945" stroke-width="1" opacity="0.3"/>
-  <line x1="512" y1="400" x2="598" y2="256" stroke="#504945" stroke-width="1" opacity="0.3"/>
+  <line x1="512" y1="280" x2="598" y2="238" stroke="#504945" stroke-width="1" opacity="0.3"/>
+  <line x1="512" y1="324" x2="598" y2="244" stroke="#504945" stroke-width="1" opacity="0.3"/>
+  <line x1="512" y1="368" x2="598" y2="250" stroke="#504945" stroke-width="1" opacity="0.3"/>
+  <line x1="512" y1="412" x2="598" y2="256" stroke="#504945" stroke-width="1" opacity="0.3"/>
 
   <!-- ============================================ -->
   <!-- BOTTOM LEFT: 3-Axis Topology -->
@@ -148,10 +149,10 @@
   <text x="560" y="560" text-anchor="middle" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif">Silent / Fragile</text>
 
   <!-- Arrows from axes to topology -->
-  <path d="M390,420 L390,440 Q390,460 370,470 L300,490" stroke="#504945" stroke-width="1" fill="none" opacity="0.3"/>
-  <path d="M390,420 L390,490" stroke="#504945" stroke-width="1" fill="none" opacity="0.3"/>
-  <path d="M390,420 L390,440 Q390,460 420,470 L480,490" stroke="#504945" stroke-width="1" fill="none" opacity="0.3"/>
-  <text x="390" y="450" text-anchor="middle" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif">分布パターンから分類</text>
+  <path d="M390,432 L390,452 Q390,472 370,482 L300,492" stroke="#504945" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M390,432 L390,492" stroke="#504945" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M390,432 L390,452 Q390,472 420,482 L480,492" stroke="#504945" stroke-width="1" fill="none" opacity="0.3"/>
+  <text x="390" y="462" text-anchor="middle" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif">分布パターンから分類</text>
 
   <!-- ============================================ -->
   <!-- BOTTOM RIGHT: Gravity -->
@@ -173,11 +174,11 @@
 
   <!-- Arrows from specific axes to Gravity -->
   <!-- Indispensability -->
-  <path d="M512,400 Q560,420 560,460 Q560,510 688,530" stroke="#fe8019" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="4,3"/>
+  <path d="M512,412 Q560,432 560,472 Q560,510 688,530" stroke="#fe8019" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="4,3"/>
   <!-- Breadth -->
-  <path d="M512,312 Q580,340 620,420 Q640,460 688,520" stroke="#83a598" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="4,3"/>
+  <path d="M512,324 Q580,352 620,432 Q640,472 688,520" stroke="#83a598" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="4,3"/>
   <!-- Design -->
-  <path d="M512,268 Q600,300 640,400 Q660,450 688,510" stroke="#fb4934" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="4,3"/>
+  <path d="M512,280 Q600,312 640,412 Q660,462 688,510" stroke="#fb4934" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="4,3"/>
 
   <!-- Labels for Gravity inputs -->
   <text x="575" y="440" fill="#fe8019" font-size="8" font-family="-apple-system,sans-serif" opacity="0.7">×0.40</text>

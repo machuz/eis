@@ -1,6 +1,6 @@
-title: "git考古学 —— 履歴だけでエンジニアの「戦闘力」を定量化する"
+title: "git考古学 —— コードの地層から重力・文明・AIの未来を観測する"
 summary: "gitの履歴データだけでエンジニアの技術的影響力を7軸で定量化するスコアリングモデル EIS（Engineering Impact Score）の設計思想・実装・実測結果。コード生存率、負債清掃力、バスファクターまで——すべてgit logとgit blameから算出する。個人スコアからチーム構造分析、タイムライン、宇宙論的比喩まで全16章。"
-topics: ["git", "engineering", "productivity", "opensource"]
+topics: ["git", "engineering", "productivity", "ai", "culture"]
 published: true
 price: 0
 toc_depth: 2
