@@ -1,204 +1,249 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720">
-  <defs>
-    <style>
-      text { font-family: -apple-system, 'Segoe UI', sans-serif; }
-      .title { font-size: 18px; font-weight: 700; fill: #1a1a2e; }
-      .axis-label { font-size: 10px; fill: #555; font-weight: 600; }
-      .legend-text { font-size: 12px; fill: #333; }
-      .grid-label { font-size: 9px; fill: #999; }
-    </style>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="960" viewBox="0 0 960 960">
+  <rect width="960" height="960" fill="#1d2021"/>
+  <circle cx="50" cy="20" r="1" fill="#ebdbb2" opacity="0.2"/>
+  <circle cx="910" cy="30" r="0.8" fill="#ebdbb2" opacity="0.25"/>
+  <circle cx="480" cy="10" r="1" fill="#ebdbb2" opacity="0.15"/>
 
-  <!-- Background -->
-  <rect width="960" height="720" rx="8" fill="#fafbfc"/>
+  <text x="480" y="32" text-anchor="middle" fill="#ebdbb2" font-size="18" font-weight="800" font-family="-apple-system,sans-serif">Engineer Topology — 7-Axis Radar Profiles</text>
+  <text x="480" y="50" text-anchor="middle" fill="#a89984" font-size="10" font-family="-apple-system,sans-serif">Role(6) × Style(8) × State(6) = 288 possible combinations. 9 representative profiles shown.</text>
 
-  <!-- Title -->
-  <text x="480" y="32" text-anchor="middle" class="title">Engineer Topology — 7-Axis Radar Profiles</text>
+  <!-- Macro for radar grid+axes (reused via g transform) -->
+  <!-- 7 axes evenly spaced: 0°, 51.4°, 102.9°, 154.3°, 205.7°, 257.1°, 308.6° -->
+  <!-- At r=65: (0,-65) (42,-49) (62,-5) (46,44) (-8,64) (-56,32) (-48,-40) -->
+  <!-- At r=43: (0,-43) (28,-33) (41,-3) (30,29) (-5,43) (-37,21) (-32,-26) -->
+  <!-- At r=22: (0,-22) (14,-17) (21,-2) (15,15) (-3,22) (-19,11) (-16,-13) -->
 
-  <!-- ==================== Row 1 ==================== -->
+  <!-- Row 1 -->
 
-  <!-- === Chart 1: Architect / Builder === -->
-  <g transform="translate(170,200)">
-    <circle cx="0" cy="0" r="100" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="75" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="50" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="25" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="0" y2="-100" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-
-    <!-- Prod:100 Qual:64 Surv:100 Design:100 Breadth:91 Debt:79 Indisp:100 -->
-    <polygon points="0,-100 50,-48 97,22 59,81 -54,74 -77,17 -78,-62"
-             fill="rgba(199,120,221,0.2)" stroke="#c678dd" stroke-width="2.5"/>
-
-    <text x="0" y="-108" text-anchor="middle" class="axis-label">Prod</text>
-    <text x="90" y="-68" text-anchor="start" class="axis-label">Qual</text>
-    <text x="106" y="28" text-anchor="start" class="axis-label">Surv</text>
-    <text x="66" y="96" text-anchor="middle" class="axis-label">Design</text>
-    <text x="-66" y="96" text-anchor="middle" class="axis-label">Breadth</text>
-    <text x="-106" y="28" text-anchor="end" class="axis-label">Debt</text>
-    <text x="-90" y="-68" text-anchor="end" class="axis-label">Indisp</text>
-
-    <text x="0" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#c678dd">Architect / Builder</text>
-    <text x="0" y="141" text-anchor="middle" font-size="10" fill="#888">Total: 92 — the full package</text>
+  <!-- 1: Architect / Builder / Active -->
+  <g transform="translate(160,180)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod85 Qual57 Surv88 Design100 Breadth81 Debt72 Indisp43 -->
+    <polygon points="0,-55 24,-28 55,-4 46,44 -6,52 -40,23 -21,-17" fill="#fabd2f" fill-opacity="0.15" stroke="#fabd2f" stroke-width="1.5"/>
+    <text x="0" y="92" text-anchor="middle" fill="#fabd2f" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">Architect / Builder</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">92 — the full package</text>
   </g>
 
-  <!-- === Chart 2: Producer / Churn === -->
-  <g transform="translate(480,200)">
-    <circle cx="0" cy="0" r="100" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="75" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="50" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="25" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="0" y2="-100" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-
-    <!-- Prod:100 Qual:18 Surv:0 Design:17 Breadth:38 Debt:0 Indisp:0 -->
-    <polygon points="0,-100 14,-11 0,0 10,14 -22,31 0,0 0,0"
-             fill="rgba(224,108,117,0.2)" stroke="#e06c75" stroke-width="2.5"/>
-
-    <text x="0" y="-108" text-anchor="middle" class="axis-label">Prod</text>
-    <text x="90" y="-68" text-anchor="start" class="axis-label">Qual</text>
-    <text x="106" y="28" text-anchor="start" class="axis-label">Surv</text>
-    <text x="66" y="96" text-anchor="middle" class="axis-label">Design</text>
-    <text x="-66" y="96" text-anchor="middle" class="axis-label">Breadth</text>
-    <text x="-106" y="28" text-anchor="end" class="axis-label">Debt</text>
-    <text x="-90" y="-68" text-anchor="end" class="axis-label">Indisp</text>
-
-    <text x="0" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#e06c75">Producer / Churn</text>
-    <text x="0" y="141" text-anchor="middle" font-size="10" fill="#888">Total: 13 — infinite rework loop</text>
+  <!-- 2: Producer / Churn / Active -->
+  <g transform="translate(480,180)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod88 Qual18 Surv5 Design4 Breadth30 Debt0 Indisp10 -->
+    <polygon points="0,-57 8,-9 3,-1 2,2 -2,19 0,0 -5,-4" fill="#fb4934" fill-opacity="0.15" stroke="#fb4934" stroke-width="1.5"/>
+    <text x="0" y="92" text-anchor="middle" fill="#fb4934" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">Producer / Churn</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">13 — infinite rework loop</text>
   </g>
 
-  <!-- === Chart 3: Producer / Rescue === -->
-  <g transform="translate(790,200)">
-    <circle cx="0" cy="0" r="100" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="75" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="50" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="25" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="0" y2="-100" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-
-    <!-- Prod:100 Qual:85 Surv:10 Design:0 Breadth:50 Debt:100 Indisp:5 -->
-    <polygon points="0,-100 66,-53 10,2 0,0 -30,40 -97,22 -4,-3"
-             fill="rgba(230,162,60,0.2)" stroke="#e6a23c" stroke-width="2.5"/>
-
-    <text x="0" y="-108" text-anchor="middle" class="axis-label">Prod</text>
-    <text x="90" y="-68" text-anchor="start" class="axis-label">Qual</text>
-    <text x="106" y="28" text-anchor="start" class="axis-label">Surv</text>
-    <text x="66" y="96" text-anchor="middle" class="axis-label">Design</text>
-    <text x="-66" y="96" text-anchor="middle" class="axis-label">Breadth</text>
-    <text x="-106" y="28" text-anchor="end" class="axis-label">Debt</text>
-    <text x="-90" y="-68" text-anchor="end" class="axis-label">Indisp</text>
-
-    <text x="0" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#e6a23c">Producer / Rescue</text>
-    <text x="0" y="141" text-anchor="middle" font-size="10" fill="#888">Total: 35 — legacy cleanup hero</text>
+  <!-- 3: Producer / Rescue / Active -->
+  <g transform="translate(800,180)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod72 Qual65 Surv15 Design20 Breadth40 Debt88 Indisp15 -->
+    <polygon points="0,-47 27,-32 9,-1 9,9 -3,26 -49,28 -7,-6" fill="#fe8019" fill-opacity="0.15" stroke="#fe8019" stroke-width="1.5"/>
+    <text x="0" y="92" text-anchor="middle" fill="#fe8019" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">Producer / Rescue</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">35 — legacy cleanup hero</text>
   </g>
 
-  <!-- ==================== Row 2 ==================== -->
+  <!-- Row 2 -->
 
-  <!-- === Chart 4: — / Spread === -->
-  <g transform="translate(170,490)">
-    <circle cx="0" cy="0" r="100" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="75" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="50" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="25" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="0" y2="-100" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-
-    <!-- Prod:10 Qual:97 Surv:3 Design:9 Breadth:100 Debt:8 Indisp:31 -->
-    <polygon points="0,-10 76,-60 3,1 5,7 -59,81 -8,2 -24,-19"
-             fill="rgba(97,175,239,0.2)" stroke="#61afef" stroke-width="2.5"/>
-
-    <text x="0" y="-108" text-anchor="middle" class="axis-label">Prod</text>
-    <text x="90" y="-68" text-anchor="start" class="axis-label">Qual</text>
-    <text x="106" y="28" text-anchor="start" class="axis-label">Surv</text>
-    <text x="66" y="96" text-anchor="middle" class="axis-label">Design</text>
-    <text x="-66" y="96" text-anchor="middle" class="axis-label">Breadth</text>
-    <text x="-106" y="28" text-anchor="end" class="axis-label">Debt</text>
-    <text x="-90" y="-68" text-anchor="end" class="axis-label">Indisp</text>
-
-    <text x="0" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#61afef">— / Spread</text>
-    <text x="0" y="141" text-anchor="middle" font-size="10" fill="#888">Total: 25 — wide but shallow</text>
+  <!-- 4: — / Spread / Active -->
+  <g transform="translate(160,460)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod6 Qual70 Surv3 Design4 Breadth90 Debt0 Indisp5 -->
+    <polygon points="0,-4 29,-34 2,-1 2,2 -7,58 0,0 -2,-2" fill="#83a598" fill-opacity="0.15" stroke="#83a598" stroke-width="1.5"/>
+    <text x="0" y="92" text-anchor="middle" fill="#83a598" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">— / Spread</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">25 — wide but shallow</text>
   </g>
 
-  <!-- === Chart 5: Anchor / Balanced === -->
-  <g transform="translate(480,490)">
-    <circle cx="0" cy="0" r="100" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="75" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="50" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="25" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="0" y2="-100" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-
-    <!-- Prod:52 Qual:76 Surv:33 Design:12 Breadth:64 Debt:50 Indisp:9 -->
-    <polygon points="0,-52 59,-47 32,7 7,10 -38,52 -49,11 -7,-6"
-             fill="rgba(152,195,121,0.2)" stroke="#98c379" stroke-width="2.5"/>
-
-    <text x="0" y="-108" text-anchor="middle" class="axis-label">Prod</text>
-    <text x="90" y="-68" text-anchor="start" class="axis-label">Qual</text>
-    <text x="106" y="28" text-anchor="start" class="axis-label">Surv</text>
-    <text x="66" y="96" text-anchor="middle" class="axis-label">Design</text>
-    <text x="-66" y="96" text-anchor="middle" class="axis-label">Breadth</text>
-    <text x="-106" y="28" text-anchor="end" class="axis-label">Debt</text>
-    <text x="-90" y="-68" text-anchor="end" class="axis-label">Indisp</text>
-
-    <text x="0" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#98c379">Anchor / Balanced</text>
-    <text x="0" y="141" text-anchor="middle" font-size="10" fill="#888">Total: 40 — reliable, no peaks</text>
+  <!-- 5: Anchor / Balanced / Active -->
+  <g transform="translate(480,460)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod45 Qual85 Surv55 Design35 Breadth40 Debt50 Indisp20 -->
+    <polygon points="0,-29 36,-42 34,-3 16,15 -3,26 -28,16 -10,-8" fill="#8ec07c" fill-opacity="0.15" stroke="#8ec07c" stroke-width="1.5"/>
+    <text x="0" y="92" text-anchor="middle" fill="#8ec07c" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">Anchor / Balanced</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">40 — reliable, no peaks</text>
   </g>
 
-  <!-- === Chart 6: — / — / Fragile === -->
-  <g transform="translate(790,490)">
-    <circle cx="0" cy="0" r="100" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="75" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="50" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <circle cx="0" cy="0" r="25" fill="none" stroke="#e8e8e8" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="0" y2="-100" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-59" y2="81" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-97" y2="22" stroke="#ddd" stroke-width="0.5"/>
-    <line x1="0" y1="0" x2="-78" y2="-62" stroke="#ddd" stroke-width="0.5"/>
-
-    <!-- Prod:14 Qual:49 Surv:100(dormant) Design:100 Breadth:100 Debt:39 Indisp:100 -->
-    <polygon points="0,-14 38,-30 97,22 59,81 -59,81 -38,9 -78,-62"
-             fill="rgba(229,192,123,0.2)" stroke="#e5c07b" stroke-width="2.5"/>
-
-    <text x="0" y="-108" text-anchor="middle" class="axis-label">Prod</text>
-    <text x="90" y="-68" text-anchor="start" class="axis-label">Qual</text>
-    <text x="106" y="28" text-anchor="start" class="axis-label">Surv</text>
-    <text x="66" y="96" text-anchor="middle" class="axis-label">Design</text>
-    <text x="-66" y="96" text-anchor="middle" class="axis-label">Breadth</text>
-    <text x="-106" y="28" text-anchor="end" class="axis-label">Debt</text>
-    <text x="-90" y="-68" text-anchor="end" class="axis-label">Indisp</text>
-
-    <text x="0" y="126" text-anchor="middle" font-size="13" font-weight="700" fill="#e5c07b">— / — / Fragile</text>
-    <text x="0" y="141" text-anchor="middle" font-size="10" fill="#888">Total: 31 — dormant, not durable</text>
+  <!-- 6: — / — / Fragile -->
+  <g transform="translate(800,460)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod15 Qual62 Surv72 Design28 Breadth45 Debt5 Indisp60 -->
+    <polygon points="0,-10 26,-30 45,-4 13,12 -4,29 -3,2 -29,-24" fill="#d3869b" fill-opacity="0.15" stroke="#d3869b" stroke-width="1.5"/>
+    <text x="0" y="92" text-anchor="middle" fill="#d3869b" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">— / — / Fragile</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">31 — dormant, not durable</text>
   </g>
 
-  <!-- Subtitle -->
-  <text x="480" y="700" text-anchor="middle" font-size="11" fill="#999" font-family="-apple-system, sans-serif">Same 7 scores, radically different profiles. Churn and Rescue both have high Prod — but Debt separates them. Spread has high Breadth — but nothing else. Fragile looks healthy until you check Prod.</text>
+  <!-- Row 3 -->
+
+  <!-- 7: Producer / Mass / Active -->
+  <g transform="translate(160,740)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod82 Qual45 Surv18 Design10 Breadth50 Debt8 Indisp15 -->
+    <polygon points="0,-53 19,-22 11,-1 5,4 -4,32 -4,3 -7,-6" fill="#fb4934" fill-opacity="0.12" stroke="#fb4934" stroke-width="1.5" opacity="0.7"/>
+    <text x="0" y="92" text-anchor="middle" fill="#fb4934" font-size="10" font-weight="700" font-family="-apple-system,sans-serif" opacity="0.8">Producer / Mass</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">28 — debt factory</text>
+  </g>
+
+  <!-- 8: Specialist / Builder / Active -->
+  <g transform="translate(480,740)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod60 Qual78 Surv82 Design55 Breadth15 Debt30 Indisp100 -->
+    <polygon points="0,-39 33,-38 51,-4 25,24 -1,10 -17,10 -48,-40" fill="#b8bb26" fill-opacity="0.15" stroke="#b8bb26" stroke-width="1.5"/>
+    <text x="0" y="92" text-anchor="middle" fill="#b8bb26" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">Specialist / Builder</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">55 — deep domain, bus factor risk</text>
+  </g>
+
+  <!-- 9: — / — / Growing -->
+  <g transform="translate(800,740)">
+    <polygon points="0,-65 42,-49 62,-5 46,44 -8,64 -56,32 -48,-40" fill="none" stroke="#3c3836" stroke-width="0.5"/>
+    <polygon points="0,-43 28,-33 41,-3 30,29 -5,43 -37,21 -32,-26" fill="none" stroke="#3c3836" stroke-width="0.4"/>
+    <polygon points="0,-22 14,-17 21,-2 15,15 -3,22 -19,11 -16,-13" fill="none" stroke="#3c3836" stroke-width="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-65" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="42" y2="-49" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="62" y2="-5" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="46" y2="44" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-8" y2="64" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-56" y2="32" stroke="#504945" stroke-width="0.4"/>
+    <line x1="0" y1="0" x2="-48" y2="-40" stroke="#504945" stroke-width="0.4"/>
+    <text x="0" y="-72" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Prod</text>
+    <text x="50" y="-52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Qual</text>
+    <text x="70" y="-1" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Surv</text>
+    <text x="52" y="52" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Design</text>
+    <text x="-14" y="76" text-anchor="middle" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Breadth</text>
+    <text x="-64" y="36" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Debt</text>
+    <text x="-56" y="-43" text-anchor="end" fill="#665c54" font-size="7" font-family="-apple-system,sans-serif">Indisp</text>
+    <!-- Prod22 Qual92 Surv40 Design15 Breadth20 Debt25 Indisp5 -->
+    <polygon points="0,-14 39,-45 25,-2 7,7 -2,13 -14,8 -2,-2" fill="#ebdbb2" fill-opacity="0.12" stroke="#ebdbb2" stroke-width="1.5" opacity="0.7"/>
+    <text x="0" y="92" text-anchor="middle" fill="#ebdbb2" font-size="10" font-weight="700" font-family="-apple-system,sans-serif">— / — / Growing</text>
+    <text x="0" y="104" text-anchor="middle" fill="#a89984" font-size="8" font-family="-apple-system,sans-serif">22 — high potential</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="480" y="940" text-anchor="middle" fill="#665c54" font-size="9" font-family="-apple-system,sans-serif">9 of 288 theoretical combinations (Role×Style×State = 6×8×6). Many are contradictory — real-world patterns converge to ~20-30 archetypes.</text>
 </svg>

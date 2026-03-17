@@ -69,8 +69,8 @@ It approximates **who is currently writing durable code**, not who wrote the mos
 
 ## The 7 Axes of Engineering Impact
 
-![Framework overview: Git History flows through 7 signals into Engineering Impact Score](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png?v=4)
-*The Engineering Impact Score aggregates seven observable signals derived from git history.*
+![EIS Framework Overview: Git history flows into 7-axis scores, 3-axis topology (Role/Style/State), and Gravity](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png?v=5)
+*The Engineering Impact Score aggregates seven observable signals derived from git history into scores, topology, and structural gravity.*
 
 | Axis | Weight | What it captures |
 |---|---|---|
@@ -252,7 +252,7 @@ An engineer can be an Architect in *role*, a Builder in *style*, and Active in *
 
 Starting in v0.9.0, the model decomposes engineer topology into **three independent axes**:
 
-![Engineering Archetypes plotted in Production vs Survival space](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-archetypes-paper-figure.png?v=4)
+![Engineer Topology in Production–Survival Space: 11 archetypes plotted across four quadrants](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-archetypes-paper-figure.png?v=5)
 *Different engineer profiles emerge naturally when production and time-decayed survival are plotted together.*
 
 ### Axis 1: Role — *What* they contribute
@@ -300,7 +300,7 @@ State captures **where the engineer is in their trajectory** relative to the cod
 
 **Churn, Mass, Spread, and Silent patterns score low overall but can look impressive on individual metrics (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them. Rescue style is a notable exception — low survival looks alarming, but high debt cleanup reveals active legacy rescue rather than new debt generation. Resilient style is another positive exception — low total survival resembles Mass, but decent robust survival reveals iteration toward durable code. Fragile state is a subtle case — high survival looks reassuring, but combined with low production and mediocre quality, it signals dormant code that will break under change pressure.
 
-![Archetypes Radar](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/archetypes-radar.png?v=0.9.1)
+![Topology Radar Chart — 9 of 288 theoretical combinations (Role×Style×State = 6×8×6)](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/archetypes-radar.png?v=1.0.0)
 
 ---
 
