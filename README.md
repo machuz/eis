@@ -35,7 +35,7 @@ Point it at a codebase, and hidden patterns emerge:
 
 All from `git log` and `git blame`. Nothing else.
 
-![Terminal Output](docs/images/terminal-output.svg?v=0.11.0)
+![Terminal Output](docs/images/terminal-output.svg?v=0.12.0)
 
 ## Why this exists
 
@@ -149,7 +149,7 @@ Time-decayed survival is also naturally resistant to gaming — you can't inflat
 
 EIS is not meant to replace human judgment. It reveals patterns that humans often sense but cannot quantify.
 
-![Score Guide](docs/images/score-guide.svg?v=0.11.0)
+![Score Guide](docs/images/score-guide.svg?v=0.12.0)
 
 ## Engineer Topology (3-Axis Classification)
 
@@ -204,7 +204,7 @@ Each engineer gets a 3-label profile. Examples:
 
 **Churn, Mass, and Spread styles look productive on individual metrics** but score low overall. Only multi-axis evaluation exposes them.
 
-![Archetypes Radar](docs/images/archetypes-radar.svg?v=0.11.0)
+![Archetypes Radar](docs/images/archetypes-radar.svg?v=0.12.0)
 
 ## Key Formulas
 
@@ -304,7 +304,7 @@ Shared flags:
 
 Aggregates individual scores into team-level health metrics and **5-axis team classification** (Structure / Culture / Phase / Risk / Character). Classification is influence-weighted — high-scoring members shape the team's identity more.
 
-![Team Output](docs/images/team-output.svg?v=0.11.0)
+![Team Output](docs/images/team-output.svg?v=0.12.0)
 
 | Health Axis | What it measures |
 |---|---|
@@ -322,7 +322,7 @@ Structural metrics (AAR, Anchor Density, Architecture Coverage) and full classif
 
 Tracks how individual scores, roles, and team health evolve over time. Supports 3-month, 6-month, or yearly spans.
 
-![Timeline Output](docs/images/timeline-html-output.png?v=0.11.0)
+![Timeline Output](docs/images/timeline-html-output.png?v=0.12.0)
 
 ```bash
 eis timeline --recursive ~/workspace                     # Default: last 4 quarters
