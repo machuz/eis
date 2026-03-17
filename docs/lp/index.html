@@ -311,46 +311,79 @@ body.ja [data-lang-inline="ja"]{display:inline}
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   resize();
+  initSim();
   window.addEventListener('resize', resize);
 
-  // Gravity sources — slowly orbiting bodies
-  const bodies = [
-    { cx: 0.20, cy: 0.30, rx: 0.15, ry: 0.10, speed: 0.12, phase: 0,    mass: 1.2 },
-    { cx: 0.75, cy: 0.35, rx: 0.12, ry: 0.18, speed: 0.08, phase: 2.1,  mass: 1.0 },
-    { cx: 0.50, cy: 0.50, rx: 0.20, ry: 0.08, speed: 0.06, phase: 4.2,  mass: 1.5 },
-    { cx: 0.30, cy: 0.70, rx: 0.10, ry: 0.12, speed: 0.10, phase: 1.0,  mass: 0.8 },
-    { cx: 0.85, cy: 0.20, rx: 0.08, ry: 0.14, speed: 0.14, phase: 3.5,  mass: 0.7 },
-    { cx: 0.10, cy: 0.55, rx: 0.12, ry: 0.08, speed: 0.11, phase: 5.0,  mass: 0.9 },
-    { cx: 0.60, cy: 0.75, rx: 0.14, ry: 0.06, speed: 0.09, phase: 0.8,  mass: 0.6 },
-    { cx: 0.45, cy: 0.20, rx: 0.06, ry: 0.10, speed: 0.16, phase: 2.8,  mass: 0.5 },
-    { cx: 0.90, cy: 0.60, rx: 0.10, ry: 0.10, speed: 0.07, phase: 1.5,  mass: 1.1 },
-    { cx: 0.15, cy: 0.85, rx: 0.08, ry: 0.06, speed: 0.13, phase: 3.8,  mass: 0.8 },
-    { cx: 0.50, cy: 0.15, rx: 0.12, ry: 0.08, speed: 0.10, phase: 4.8,  mass: 1.3 },
+  // N-body simulation
+  const G = 800, SOFTENING = 60, DAMPING = 0.998, DT = 0.3;
+  const initBodies = [
+    { cx: 0.20, cy: 0.30, mass: 1.2, angle: 0.5,  speed: 0.8 },
+    { cx: 0.75, cy: 0.35, mass: 1.0, angle: 2.3,  speed: 0.6 },
+    { cx: 0.50, cy: 0.50, mass: 1.5, angle: 4.0,  speed: 0.4 },
+    { cx: 0.30, cy: 0.70, mass: 0.8, angle: 1.2,  speed: 0.7 },
+    { cx: 0.85, cy: 0.20, mass: 0.7, angle: 3.5,  speed: 0.9 },
+    { cx: 0.10, cy: 0.55, mass: 0.9, angle: 5.2,  speed: 0.5 },
+    { cx: 0.60, cy: 0.75, mass: 0.6, angle: 0.8,  speed: 0.8 },
+    { cx: 0.45, cy: 0.20, mass: 0.5, angle: 2.8,  speed: 1.0 },
+    { cx: 0.90, cy: 0.60, mass: 1.1, angle: 1.5,  speed: 0.6 },
+    { cx: 0.15, cy: 0.85, mass: 0.8, angle: 3.8,  speed: 0.7 },
+    { cx: 0.50, cy: 0.15, mass: 1.3, angle: 4.8,  speed: 0.5 },
   ];
+  let simBodies = [];
 
-  const contourLevels = [0.3, 0.5, 0.7, 1.0, 1.3, 1.7, 2.2, 2.8, 3.5, 4.5, 5.5, 7.0, 9.0, 12.0, 16.0];
-  const contourColors = [
-    'rgba(184,187,38,0.04)', 'rgba(184,187,38,0.06)', 'rgba(184,187,38,0.08)',
-    'rgba(184,187,38,0.10)', 'rgba(184,187,38,0.12)', 'rgba(184,187,38,0.14)',
-    'rgba(250,189,47,0.12)', 'rgba(250,189,47,0.14)', 'rgba(250,189,47,0.16)',
-    'rgba(250,189,47,0.18)', 'rgba(250,189,47,0.20)', 'rgba(250,189,47,0.24)',
-    'rgba(251,73,52,0.14)', 'rgba(251,73,52,0.18)', 'rgba(251,73,52,0.24)',
-  ];
-
-  function getBodyPos(b, t) {
-    return {
-      x: (b.cx + Math.sin(t * b.speed + b.phase) * b.rx) * W,
-      y: (b.cy + Math.cos(t * b.speed * 0.7 + b.phase) * b.ry) * H,
+  function initSim() {
+    simBodies = initBodies.map(b => ({
+      x: b.cx * W, y: b.cy * H,
+      vx: Math.cos(b.angle) * b.speed, vy: Math.sin(b.angle) * b.speed,
       mass: b.mass
-    };
+    }));
   }
+
+  function stepSim() {
+    if (!simBodies.length) return;
+    for (let i = 0; i < simBodies.length; i++) {
+      let fx = 0, fy = 0;
+      for (let j = 0; j < simBodies.length; j++) {
+        if (i === j) continue;
+        let dx = simBodies[j].x - simBodies[i].x;
+        let dy = simBodies[j].y - simBodies[i].y;
+        if (dx > W/2) dx -= W; else if (dx < -W/2) dx += W;
+        if (dy > H/2) dy -= H; else if (dy < -H/2) dy += H;
+        const d2 = dx*dx + dy*dy + SOFTENING*SOFTENING;
+        const d = Math.sqrt(d2);
+        const f = G * simBodies[i].mass * simBodies[j].mass / d2;
+        fx += f * dx / d; fy += f * dy / d;
+      }
+      simBodies[i].vx = (simBodies[i].vx + fx * DT / simBodies[i].mass) * DAMPING;
+      simBodies[i].vy = (simBodies[i].vy + fy * DT / simBodies[i].mass) * DAMPING;
+    }
+    for (const b of simBodies) {
+      b.x += b.vx * DT; b.y += b.vy * DT;
+      if (b.x < 0) b.x += W; if (b.x > W) b.x -= W;
+      if (b.y < 0) b.y += H; if (b.y > H) b.y -= H;
+    }
+  }
+
+  const contourLevels = [
+    0.08, 0.12, 0.18, 0.25, 0.35, 0.45, 0.6, 0.8, 1.0, 1.3, 1.6, 2.0,
+    2.5, 3.0, 3.8, 4.5, 5.5, 7.0, 9.0, 12.0, 16.0, 22.0, 30.0,
+  ];
+  const contourColors = [
+    'rgba(184,187,38,0.02)', 'rgba(184,187,38,0.03)', 'rgba(184,187,38,0.04)',
+    'rgba(184,187,38,0.05)', 'rgba(184,187,38,0.06)', 'rgba(184,187,38,0.07)',
+    'rgba(184,187,38,0.08)', 'rgba(184,187,38,0.10)', 'rgba(184,187,38,0.12)',
+    'rgba(184,187,38,0.14)', 'rgba(250,189,47,0.10)', 'rgba(250,189,47,0.12)',
+    'rgba(250,189,47,0.14)', 'rgba(250,189,47,0.16)', 'rgba(250,189,47,0.18)',
+    'rgba(250,189,47,0.20)', 'rgba(250,189,47,0.22)', 'rgba(250,189,47,0.24)',
+    'rgba(251,73,52,0.12)', 'rgba(251,73,52,0.16)', 'rgba(251,73,52,0.20)',
+    'rgba(251,73,52,0.24)', 'rgba(251,73,52,0.30)',
+  ];
 
   function potential(x, y, positions) {
     let v = 0;
     for (const p of positions) {
       const dx = x - p.x, dy = y - p.y;
-      const d2 = dx * dx + dy * dy;
-      v += p.mass * 80000 / (d2 + 80);
+      v += p.mass * 80000 / (dx*dx + dy*dy + 80);
     }
     return v;
   }
@@ -408,12 +441,11 @@ body.ja [data-lang-inline="ja"]{display:inline}
     return segments;
   }
 
-  let t = 0;
   function draw() {
-    t += 0.016;
+    stepSim();
     ctx.clearRect(0, 0, W, H);
 
-    const positions = bodies.map(b => getBodyPos(b, t));
+    const positions = simBodies;
 
     // Build potential field grid
     const cols = Math.ceil(W / CELL) + 1;
@@ -429,7 +461,7 @@ body.ja [data-lang-inline="ja"]{display:inline}
     for (let li = 0; li < contourLevels.length; li++) {
       const segments = marchIsolines(grid, cols, rows, contourLevels[li]);
       ctx.strokeStyle = contourColors[li];
-      ctx.lineWidth = li < 3 ? 0.8 : li < 6 ? 1.0 : 1.2;
+      ctx.lineWidth = li < 5 ? 0.6 : li < 10 ? 0.8 : 1.0;
       ctx.beginPath();
       for (const [a, b] of segments) {
         ctx.moveTo(a.x, a.y);
@@ -440,12 +472,12 @@ body.ja [data-lang-inline="ja"]{display:inline}
 
     // Draw body centers as tiny glows
     for (const p of positions) {
-      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 20 * p.mass);
-      grad.addColorStop(0, 'rgba(250,189,47,0.4)');
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 30 * p.mass);
+      grad.addColorStop(0, 'rgba(250,189,47,0.3)');
       grad.addColorStop(1, 'rgba(250,189,47,0)');
       ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 20 * p.mass, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, 30 * p.mass, 0, Math.PI * 2);
       ctx.fill();
     }
 
