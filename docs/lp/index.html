@@ -89,9 +89,11 @@ body.ja [data-lang-inline="ja"]{display:inline}
   <button class="lang-btn" onclick="setLang('ja')" id="btn-ja">JA</button>
 </div>
 
+<!-- Full-page gravity field background -->
+<canvas id="gravity-field" style="position:fixed;inset:0;width:100%;height:100%;opacity:.3;pointer-events:none;z-index:0"></canvas>
+
 <!-- Hero -->
-<section style="position:relative;overflow:hidden">
-<canvas id="gravity-field" style="position:absolute;inset:0;width:100%;height:100%;opacity:.35"></canvas>
+<section>
 <div class="container hero" style="position:relative;z-index:1">
   <img src="logo-icon.svg" alt="" class="logo">
   <h1>ace-orbit</h1>
@@ -303,13 +305,16 @@ body.ja [data-lang-inline="ja"]{display:inline}
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const CELL = 6; // grid cell size (smaller = more detail, slower)
 
+  let scrollY = 0, smoothScrollY = 0;
+
   function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    W = rect.width; H = rect.height;
+    W = window.innerWidth; H = window.innerHeight;
     canvas.width = W * dpr; canvas.height = H * dpr;
     canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
+
+  window.addEventListener('scroll', function() { scrollY = window.scrollY; }, { passive: true });
   // N-body simulation
   const G = 400, SOFTENING = 50, DAMPING = 0.9995, DT = 0.3;
   const REPULSION_DIST = 40, REPULSION_FORCE = 2000, MAX_SPEED = 3;
@@ -483,7 +488,13 @@ body.ja [data-lang-inline="ja"]{display:inline}
 
   function draw() {
     stepSim();
+    // Smooth scroll with moving average (exponential smoothing)
+    smoothScrollY += (scrollY - smoothScrollY) * 0.08;
+    const parallaxOffset = smoothScrollY * 0.25;
+
     ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    ctx.translate(0, -parallaxOffset % H);
 
     const positions = simBodies;
 
@@ -529,6 +540,7 @@ body.ja [data-lang-inline="ja"]{display:inline}
       ctx.fill();
     }
 
+    ctx.restore();
     requestAnimationFrame(draw);
   }
 
