@@ -335,46 +335,50 @@ body.ja [data-lang-inline="ja"]{display:inline}
   let supernovaTime = 0;
 
   function initSim() {
-    simBodies = initBodies.map(b => ({
+    simBodies = initBodies.map(function(b, i) { return {
       x: b.cx * W, y: b.cy * H,
       vx: Math.cos(b.angle) * b.speed, vy: Math.sin(b.angle) * b.speed,
-      mass: b.mass
-    }));
+      mass: b.mass, z: 0.3 + (i / initBodies.length) * 0.7
+    }});
   }
 
   function checkCollapse() {
-    for (let i = 0; i < simBodies.length; i++) {
-      let nearby = 0;
-      for (let j = 0; j < simBodies.length; j++) {
+    for (var i = 0; i < simBodies.length; i++) {
+      var nearby = 0;
+      for (var j = 0; j < simBodies.length; j++) {
         if (i === j) continue;
-        let dx = simBodies[j].x - simBodies[i].x;
-        let dy = simBodies[j].y - simBodies[i].y;
+        var dx = simBodies[j].x - simBodies[i].x;
+        var dy = simBodies[j].y - simBodies[i].y;
         if (dx > W/2) dx -= W; else if (dx < -W/2) dx += W;
         if (dy > H/2) dy -= H; else if (dy < -H/2) dy += H;
         if (Math.sqrt(dx*dx + dy*dy) < 120) nearby++;
       }
-      if (nearby >= 2) return true;
+      if (nearby >= 6) return true;
     }
     return false;
   }
 
   function triggerSupernova() {
     supernovaTime = 1;
-    let cx = 0, cy = 0;
-    for (const b of simBodies) { cx += b.x; cy += b.y; }
+    var cx = 0, cy = 0;
+    for (var k = 0; k < simBodies.length; k++) { cx += simBodies[k].x; cy += simBodies[k].y; }
     cx /= simBodies.length; cy /= simBodies.length;
-    for (const b of simBodies) {
-      const a = Math.atan2(b.y - cy, b.x - cx) + (Math.random()-0.5)*1.2;
-      const s = 10 + Math.random() * 12;
+    for (var k = 0; k < simBodies.length; k++) {
+      var b = simBodies[k];
+      var ddx = b.x - cx, ddy = b.y - cy;
+      if (Math.abs(ddx) < 1 && Math.abs(ddy) < 1) { var ra = Math.random()*Math.PI*2; ddx = Math.cos(ra); ddy = Math.sin(ra); }
+      var a = Math.atan2(ddy, ddx) + (Math.random()-0.5)*0.6;
+      var s = 15 + Math.random() * 15;
       b.vx = Math.cos(a)*s; b.vy = Math.sin(a)*s;
+      b.x += Math.cos(a)*20; b.y += Math.sin(a)*20;
     }
   }
 
   function stepSim() {
     if (!simBodies.length) return;
     if (supernovaTime > 0) {
-      supernovaTime -= 0.01;
-      for (const b of simBodies) {
+      supernovaTime -= 0.003;
+      for (var k = 0; k < simBodies.length; k++) { var b = simBodies[k];
         b.x += b.vx*DT*2; b.y += b.vy*DT*2;
         b.vx *= 0.997; b.vy *= 0.997;
         if (b.x < 0) b.x += W; if (b.x > W) b.x -= W;
@@ -500,15 +504,15 @@ body.ja [data-lang-inline="ja"]{display:inline}
     stepSim();
     // Smooth scroll parallax — shift body positions, not canvas
     smoothScrollY += (scrollY - smoothScrollY) * 0.08;
-    const pOff = smoothScrollY * 0.15;
+    const pOff = smoothScrollY * 0.3;
 
     ctx.clearRect(0, 0, W, H);
 
-    // Create shifted positions for potential field (parallax illusion)
+    // Per-body Z-depth parallax
     const positions = simBodies.map(b => ({
       x: b.x,
-      y: ((b.y - pOff) % H + H) % H, // shift and wrap
-      mass: b.mass, vx: b.vx, vy: b.vy
+      y: ((b.y - pOff * (b.z || 0.5)) % H + H) % H,
+      mass: b.mass, vx: b.vx, vy: b.vy, z: b.z || 0.5
     }));
 
     // Build potential field grid
