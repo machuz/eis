@@ -315,21 +315,21 @@ body.ja [data-lang-inline="ja"]{display:inline}
   }
 
   window.addEventListener('scroll', function() { scrollY = window.scrollY; }, { passive: true });
-  // N-body simulation
-  const G = 250, SOFTENING = 30, DAMPING = 0.9998, DT = 0.2;
-  const REPULSION_DIST = 65, REPULSION_FORCE = 50000, MAX_SPEED = 3.5;
+  // N-body simulation — gentle gravity, hard minimum distance
+  const G = 30, SOFTENING = 100, DAMPING = 0.99995, DT = 0.3;
+  const MIN_DIST = 60, MAX_SPEED = 2.5;
   const initBodies = [
-    { cx: 0.12, cy: 0.22, mass: 1.2, angle: 1.2,  speed: 3.0 },
-    { cx: 0.82, cy: 0.28, mass: 1.0, angle: 3.8,  speed: 2.8 },
-    { cx: 0.48, cy: 0.52, mass: 1.5, angle: 5.5,  speed: 2.2 },
-    { cx: 0.22, cy: 0.78, mass: 0.8, angle: 0.3,  speed: 3.2 },
-    { cx: 0.92, cy: 0.12, mass: 0.7, angle: 2.7,  speed: 3.5 },
-    { cx: 0.08, cy: 0.48, mass: 0.9, angle: 4.4,  speed: 2.6 },
-    { cx: 0.68, cy: 0.82, mass: 0.6, angle: 1.8,  speed: 3.1 },
-    { cx: 0.38, cy: 0.12, mass: 0.5, angle: 5.0,  speed: 3.4 },
-    { cx: 0.88, cy: 0.62, mass: 1.1, angle: 0.8,  speed: 2.5 },
-    { cx: 0.18, cy: 0.92, mass: 0.8, angle: 3.2,  speed: 2.9 },
-    { cx: 0.58, cy: 0.08, mass: 1.3, angle: 4.1,  speed: 2.3 },
+    { cx: 0.10, cy: 0.20, mass: 1.0, angle: 0.8,  speed: 1.5 },
+    { cx: 0.85, cy: 0.25, mass: 0.8, angle: 3.2,  speed: 1.3 },
+    { cx: 0.45, cy: 0.50, mass: 1.2, angle: 5.8,  speed: 1.0 },
+    { cx: 0.20, cy: 0.80, mass: 0.7, angle: 1.5,  speed: 1.6 },
+    { cx: 0.90, cy: 0.10, mass: 0.6, angle: 4.0,  speed: 1.8 },
+    { cx: 0.05, cy: 0.45, mass: 0.9, angle: 2.5,  speed: 1.2 },
+    { cx: 0.70, cy: 0.85, mass: 0.5, angle: 0.2,  speed: 1.7 },
+    { cx: 0.35, cy: 0.10, mass: 0.6, angle: 3.8,  speed: 1.4 },
+    { cx: 0.80, cy: 0.65, mass: 1.1, angle: 5.2,  speed: 1.1 },
+    { cx: 0.15, cy: 0.90, mass: 0.7, angle: 1.0,  speed: 1.5 },
+    { cx: 0.55, cy: 0.05, mass: 1.3, angle: 4.5,  speed: 0.9 },
   ];
   let simBodies = [];
   let supernovaTime = 0;
@@ -388,33 +388,43 @@ body.ja [data-lang-inline="ja"]{display:inline}
     }
     if (checkCollapse()) { triggerSupernova(); return; }
 
-    for (let i = 0; i < simBodies.length; i++) {
-      let fx = 0, fy = 0;
-      for (let j = 0; j < simBodies.length; j++) {
+    // Gravity only — softening prevents singularity
+    for (var i = 0; i < simBodies.length; i++) {
+      var fx = 0, fy = 0;
+      for (var j = 0; j < simBodies.length; j++) {
         if (i === j) continue;
-        let dx = simBodies[j].x - simBodies[i].x;
-        let dy = simBodies[j].y - simBodies[i].y;
+        var dx = simBodies[j].x - simBodies[i].x;
+        var dy = simBodies[j].y - simBodies[i].y;
         if (dx > W/2) dx -= W; else if (dx < -W/2) dx += W;
         if (dy > H/2) dy -= H; else if (dy < -H/2) dy += H;
-        const d2 = dx*dx + dy*dy;
-        const d = Math.sqrt(d2 + 0.01);
-        const fG = G * simBodies[i].mass * simBodies[j].mass / (d2 + SOFTENING*SOFTENING);
+        var d2 = dx*dx + dy*dy;
+        var d = Math.sqrt(d2 + 0.01);
+        var effectiveD2 = Math.max(d2, MIN_DIST * MIN_DIST);
+        var fG = G * simBodies[i].mass * simBodies[j].mass / (effectiveD2 + SOFTENING*SOFTENING);
         fx += fG * dx / d; fy += fG * dy / d;
-        if (d < REPULSION_DIST) {
-          const ratio = (REPULSION_DIST - d) / REPULSION_DIST;
-          const fR = REPULSION_FORCE * ratio * ratio;
-          fx -= fR * dx / d; fy -= fR * dy / d;
-          var tx = -dy/d, ty = dx/d;
-          fx += fR * 0.8 * tx; fy += fR * 0.8 * ty;
-        }
       }
       simBodies[i].vx = (simBodies[i].vx + fx * DT / simBodies[i].mass) * DAMPING;
       simBodies[i].vy = (simBodies[i].vy + fy * DT / simBodies[i].mass) * DAMPING;
-      const spdLim = supernovaTime > 0 ? MAX_SPEED*5 : MAX_SPEED;
-      const spd = Math.sqrt(simBodies[i].vx**2 + simBodies[i].vy**2);
-      if (spd > spdLim) { simBodies[i].vx *= spdLim/spd; simBodies[i].vy *= spdLim/spd; }
+      var spd = Math.sqrt(simBodies[i].vx**2 + simBodies[i].vy**2);
+      if (spd > MAX_SPEED) { simBodies[i].vx *= MAX_SPEED/spd; simBodies[i].vy *= MAX_SPEED/spd; }
     }
-    for (const b of simBodies) {
+    // Position correction — push apart if too close
+    for (var i = 0; i < simBodies.length; i++) {
+      for (var j = i + 1; j < simBodies.length; j++) {
+        var dx = simBodies[j].x - simBodies[i].x;
+        var dy = simBodies[j].y - simBodies[i].y;
+        if (dx > W/2) dx -= W; else if (dx < -W/2) dx += W;
+        if (dy > H/2) dy -= H; else if (dy < -H/2) dy += H;
+        var d = Math.sqrt(dx*dx + dy*dy);
+        if (d < MIN_DIST && d > 0.1) {
+          var push = (MIN_DIST - d) * 0.5;
+          var nx = dx/d, ny = dy/d;
+          simBodies[i].x -= nx*push; simBodies[i].y -= ny*push;
+          simBodies[j].x += nx*push; simBodies[j].y += ny*push;
+        }
+      }
+    }
+    for (var k = 0; k < simBodies.length; k++) { var b = simBodies[k];
       b.x += b.vx*DT; b.y += b.vy*DT;
       if (b.x < 0) b.x += W; if (b.x > W) b.x -= W;
       if (b.y < 0) b.y += H; if (b.y > H) b.y -= H;
