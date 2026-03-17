@@ -317,7 +317,7 @@ body.ja [data-lang-inline="ja"]{display:inline}
   window.addEventListener('scroll', function() { scrollY = window.scrollY; }, { passive: true });
   // N-body simulation
   const G = 250, SOFTENING = 30, DAMPING = 0.9998, DT = 0.2;
-  const REPULSION_DIST = 45, REPULSION_FORCE = 50000, MAX_SPEED = 3.5;
+  const REPULSION_DIST = 65, REPULSION_FORCE = 50000, MAX_SPEED = 3.5;
   const initBodies = [
     { cx: 0.12, cy: 0.22, mass: 1.2, angle: 1.2,  speed: 3.0 },
     { cx: 0.82, cy: 0.28, mass: 1.0, angle: 3.8,  speed: 2.8 },
@@ -353,7 +353,7 @@ body.ja [data-lang-inline="ja"]{display:inline}
         if (dy > H/2) dy -= H; else if (dy < -H/2) dy += H;
         if (Math.sqrt(dx*dx + dy*dy) < 120) nearby++;
       }
-      if (nearby >= 6) return true;
+      if (nearby >= 2) return true;
     }
     return false;
   }
@@ -364,8 +364,8 @@ body.ja [data-lang-inline="ja"]{display:inline}
     for (const b of simBodies) { cx += b.x; cy += b.y; }
     cx /= simBodies.length; cy /= simBodies.length;
     for (const b of simBodies) {
-      const a = Math.atan2(b.y - cy, b.x - cx) + (Math.random()-0.5)*0.5;
-      const s = 3 + Math.random() * 4;
+      const a = Math.atan2(b.y - cy, b.x - cx) + (Math.random()-0.5)*0.8;
+      const s = 6 + Math.random() * 8;
       b.vx = Math.cos(a)*s; b.vy = Math.sin(a)*s;
     }
   }
@@ -400,12 +400,15 @@ body.ja [data-lang-inline="ja"]{display:inline}
           const ratio = (REPULSION_DIST - d) / REPULSION_DIST;
           const fR = REPULSION_FORCE * ratio * ratio;
           fx -= fR * dx / d; fy -= fR * dy / d;
+          var tx = -dy/d, ty = dx/d;
+          fx += fR * 0.8 * tx; fy += fR * 0.8 * ty;
         }
       }
       simBodies[i].vx = (simBodies[i].vx + fx * DT / simBodies[i].mass) * DAMPING;
       simBodies[i].vy = (simBodies[i].vy + fy * DT / simBodies[i].mass) * DAMPING;
+      const spdLim = supernovaTime > 0 ? MAX_SPEED*5 : MAX_SPEED;
       const spd = Math.sqrt(simBodies[i].vx**2 + simBodies[i].vy**2);
-      if (spd > MAX_SPEED) { simBodies[i].vx *= MAX_SPEED/spd; simBodies[i].vy *= MAX_SPEED/spd; }
+      if (spd > spdLim) { simBodies[i].vx *= spdLim/spd; simBodies[i].vy *= spdLim/spd; }
     }
     for (const b of simBodies) {
       b.x += b.vx*DT; b.y += b.vy*DT;
