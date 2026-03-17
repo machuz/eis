@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ace-orbit — the Git Telescope</title>
+<meta name="description" content="See your engineering orbit. Git history reveals the structure of the code universe.">
+<meta property="og:title" content="ace-orbit — the Git Telescope">
+<meta property="og:description" content="It doesn't measure activity. It measures gravity.">
+<meta property="og:type" content="website">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.7}
+::selection{background:#b8bb2644;color:#fff}
+a{color:#b8bb26;text-decoration:none}
+a:hover{text-decoration:underline}
+
+.lang-toggle{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:2px;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:2px}
+.lang-btn{padding:4px 12px;border-radius:6px;border:none;background:transparent;color:#8b949e;cursor:pointer;font-size:12px;font-weight:600}
+.lang-btn.active{background:#21262d;color:#f0f6fc}
+
+section{border-top:1px solid #21262d}
+section:first-of-type{border-top:none}
+.container{max-width:800px;margin:0 auto;padding:80px 24px}
+.container.hero{padding:120px 24px 80px;text-align:center}
+
+h1{font-size:clamp(2.2rem,5vw,3.2rem);font-weight:800;color:#f0f6fc;letter-spacing:-.03em}
+h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#f0f6fc;text-align:center;margin-bottom:8px}
+.sub{color:#8b949e;text-align:center;max-width:600px;margin:0 auto}
+
+.logo{width:120px;height:120px;margin:0 auto 32px;opacity:.9}
+.tagline{font-size:clamp(1rem,2vw,1.2rem);color:#8b949e;margin-top:16px}
+.motto{font-size:.85rem;font-style:italic;color:#484f58;margin-top:16px}
+.hero-text{font-size:1.1rem;max-width:560px;margin:24px auto 0;color:#c9d1d9}
+
+.btn{display:inline-block;padding:12px 32px;border-radius:10px;font-size:.9rem;font-weight:700;transition:all .15s}
+.btn-primary{background:#b8bb26;color:#1d2021}
+.btn-primary:hover{filter:brightness(1.1);text-decoration:none}
+.btn-secondary{border:1px solid #30363d;color:#c9d1d9}
+.btn-secondary:hover{border-color:#8b949e;text-decoration:none}
+.btn-group{display:flex;gap:12px;justify-content:center;margin-top:40px;flex-wrap:wrap}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
+.card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:28px}
+.card-icon{font-size:1.6rem;margin-bottom:12px}
+.card h3{font-size:1rem;font-weight:700;color:#f0f6fc;margin-bottom:8px}
+.card p{font-size:.85rem;color:#8b949e}
+
+.axis-list{margin-top:32px;display:flex;flex-direction:column;gap:10px}
+.axis{display:flex;align-items:center;gap:12px;background:#161b22;border:1px solid #21262d;border-radius:10px;padding:12px 16px}
+.axis-bar{width:3px;align-self:stretch;border-radius:2px}
+.axis-name{font-size:.9rem;font-weight:700;color:#f0f6fc}
+.axis-weight{font-size:.75rem;color:#484f58;margin-left:6px}
+.axis-desc{font-size:.8rem;color:#8b949e;margin-top:2px}
+
+.topo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+@media(max-width:640px){.topo-grid{grid-template-columns:1fr}}
+.topo-card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:20px}
+.topo-card h3{font-size:.85rem;font-weight:700;margin-bottom:12px}
+.topo-item{background:#0d1117;border-radius:6px;padding:6px 12px;font-size:.8rem;margin-bottom:4px}
+
+.big-num{font-size:clamp(4rem,10vw,6rem);font-weight:900;color:#b8bb26;line-height:1}
+.big-label{font-size:1.3rem;font-weight:700;color:#f0f6fc;margin-top:8px}
+
+.focus-list{max-width:480px;margin:32px auto 0;display:flex;flex-direction:column;gap:8px}
+.focus-item{display:flex;align-items:center;gap:16px;background:#161b22;border:1px solid #21262d;border-radius:10px;padding:14px 20px}
+.focus-label{font-size:.9rem;font-weight:700;color:#fabd2f;white-space:nowrap}
+.focus-desc{font-size:.8rem;color:#8b949e}
+
+.not-list{max-width:480px;margin:32px auto 0;font-size:.95rem;color:#8b949e}
+.not-list p{margin-bottom:8px}
+.not-list .is{color:#c9d1d9;margin-top:24px}
+
+.footer{text-align:center;padding:48px 24px;font-size:.75rem;color:#484f58}
+
+[data-lang="ja"]{display:none}
+body.ja [data-lang="en"]{display:none}
+body.ja [data-lang="ja"]{display:block}
+body.ja [data-lang-inline="en"]{display:none}
+body.ja [data-lang-inline="ja"]{display:inline}
+[data-lang-inline="ja"]{display:none}
+</style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+  <button class="lang-btn" onclick="setLang('ja')" id="btn-ja">JA</button>
+</div>
+
+<!-- Hero -->
+<section>
+<div class="container hero">
+  <img src="https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-icon.svg" alt="" class="logo">
+  <h1>ace-orbit</h1>
+  <p class="tagline">the Git Telescope</p>
+  <p class="hero-text" data-lang="en">
+    Git records commits.<br>We reveal the structure of the code universe.
+  </p>
+  <p class="hero-text" data-lang="ja">
+    Gitはコミットを記録する。<br>私たちはコードの宇宙の構造を明らかにする。
+  </p>
+  <p class="motto" data-lang="en">It doesn't measure activity. It measures gravity.</p>
+  <p class="motto" data-lang="ja">活動量は測らない。重力を測る。</p>
+  <div class="btn-group">
+    <a href="https://github.com/machuz/engineering-impact-score" class="btn btn-primary">
+      <span data-lang-inline="en">Start Observing</span>
+      <span data-lang-inline="ja">観測を始める</span>
+    </a>
+    <a href="https://github.com/machuz/engineering-impact-score" class="btn btn-secondary">GitHub</a>
+  </div>
+</div>
+</section>
+
+<!-- Philosophy -->
+<section>
+<div class="container">
+  <h2 data-lang="en">Software Cosmology</h2>
+  <h2 data-lang="ja">ソフトウェア宇宙論</h2>
+  <p class="sub" data-lang="en">
+    Every codebase is a universe. Engineers create gravity within it.
+    Some write code that vanishes in weeks. Others write foundations that endure for years.
+    The difference is invisible to commit counts — but not to a telescope.
+  </p>
+  <p class="sub" data-lang="ja">
+    すべてのコードベースは宇宙。エンジニアはその中に重力を生む。
+    数週間で消えるコードを書く人もいれば、何年も残る基盤を作る人もいる。
+    その違いはコミット数では見えない — でも望遠鏡なら見える。
+  </p>
+
+  <div class="grid-2">
+    <div class="card" data-lang="en">
+      <div class="card-icon">🔭</div>
+      <h3>Observation, not generation</h3>
+      <p>We read git log and git blame — the archaeological record of what actually survived. The telescope reveals what's already there.</p>
+    </div>
+    <div class="card" data-lang="en">
+      <div class="card-icon">🌌</div>
+      <h3>Gravity, not activity</h3>
+      <p>10,000 lines rewritten next month left no gravity. 500 lines that became the foundation shaped the universe.</p>
+    </div>
+    <div class="card" data-lang="en">
+      <div class="card-icon">⚡</div>
+      <h3>Game-resistant by design</h3>
+      <p>Commit splitting? Measured by insertions. Busy work? Only surviving code counts. Durability cannot be faked at scale.</p>
+    </div>
+    <div class="card" data-lang="en">
+      <div class="card-icon">🌑</div>
+      <h3>Dark matter acknowledged</h3>
+      <p>Mentoring, culture, psychological safety — git can't capture these. We know. This telescope observes gravity in code.</p>
+    </div>
+
+    <div class="card" data-lang="ja">
+      <div class="card-icon">🔭</div>
+      <h3>生成ではなく観測</h3>
+      <p>git logとgit blameを読む — 実際に生き残ったものの考古学的記録。望遠鏡はすでにそこにあるものを明らかにする。</p>
+    </div>
+    <div class="card" data-lang="ja">
+      <div class="card-icon">🌌</div>
+      <h3>活動量ではなく重力</h3>
+      <p>来月書き直される1万行に重力はない。基盤となった500行が宇宙を形作った。</p>
+    </div>
+    <div class="card" data-lang="ja">
+      <div class="card-icon">⚡</div>
+      <h3>設計レベルのゲーム耐性</h3>
+      <p>コミット分割？insertionsで計測。忙しさの演出？生き残るコードだけがカウント。耐久性は偽装できない。</p>
+    </div>
+    <div class="card" data-lang="ja">
+      <div class="card-icon">🌑</div>
+      <h3>ダークマターの自覚</h3>
+      <p>メンタリング、文化、心理的安全性 — gitでは捉えられない。それを知った上で、コード内の重力を観測する。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 7 Axes -->
+<section>
+<div class="container">
+  <h2 data-lang="en">7 Axes of Impact</h2>
+  <h2 data-lang="ja">7軸のインパクト</h2>
+  <p class="sub" data-lang="en">Not one number. Seven orthogonal signals that reveal different dimensions of engineering gravity.</p>
+  <p class="sub" data-lang="ja">1つの数字ではない。エンジニアリングの重力の異なる次元を明らかにする、7つの直交する信号。</p>
+  <div class="axis-list">
+    <div class="axis"><div class="axis-bar" style="background:#fabd2f"></div><div><div><span class="axis-name">Survival</span><span class="axis-weight">25%</span></div><div class="axis-desc" data-lang="en">Does your code endure under change pressure? Time-decayed blame reveals what truly survives.</div><div class="axis-desc" data-lang="ja">変更圧力の下でコードは耐えるか？時間減衰blameが真に生き残るものを明らかにする。</div></div></div>
+    <div class="axis"><div class="axis-bar" style="background:#d3869b"></div><div><div><span class="axis-name">Design</span><span class="axis-weight">20%</span></div><div class="axis-desc" data-lang="en">Do you shape architectural boundaries? Commits to design-defining files.</div><div class="axis-desc" data-lang="ja">アーキテクチャの境界を形作っているか？設計を定義するファイルへのコミット。</div></div></div>
+    <div class="axis"><div class="axis-bar" style="background:#b8bb26"></div><div><div><span class="axis-name">Production</span><span class="axis-weight">15%</span></div><div class="axis-desc" data-lang="en">Sustained output velocity. Measured by daily change rate, not commit count.</div><div class="axis-desc" data-lang="ja">持続的な出力速度。コミット数ではなく、日次変更量で計測。</div></div></div>
+    <div class="axis"><div class="axis-bar" style="background:#8ec07c"></div><div><div><span class="axis-name">Debt Cleanup</span><span class="axis-weight">15%</span></div><div class="axis-desc" data-lang="en">Do you stabilize or destabilize? Fixing others' bugs vs generating new ones.</div><div class="axis-desc" data-lang="ja">安定化か不安定化か？他者のバグ修正 vs 新たなバグの生成。</div></div></div>
+    <div class="axis"><div class="axis-bar" style="background:#83a598"></div><div><div><span class="axis-name">Quality</span><span class="axis-weight">10%</span></div><div class="axis-desc" data-lang="en">First-pass correctness. Low fix/revert ratio.</div><div class="axis-desc" data-lang="ja">初回品質。低いfix/revert率。</div></div></div>
+    <div class="axis"><div class="axis-bar" style="background:#fe8019"></div><div><div><span class="axis-name">Breadth</span><span class="axis-weight">10%</span></div><div class="axis-desc" data-lang="en">Cross-repository structural presence.</div><div class="axis-desc" data-lang="ja">リポジトリ横断の構造的プレゼンス。</div></div></div>
+    <div class="axis"><div class="axis-bar" style="background:#fb4934"></div><div><div><span class="axis-name">Indispensability</span><span class="axis-weight">5%</span></div><div class="axis-desc" data-lang="en">Module ownership concentration — bus factor risk.</div><div class="axis-desc" data-lang="ja">モジュール所有集中度 — バスファクターリスク。</div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- Topology -->
+<section>
+<div class="container">
+  <h2 data-lang="en">3-Axis Engineer Topology</h2>
+  <h2 data-lang="ja">3軸エンジニアトポロジー</h2>
+  <p class="sub" data-lang="en">Not a single label. Three independent dimensions.</p>
+  <p class="sub" data-lang="ja">単一ラベルではない。3つの独立した次元。</p>
+  <div class="topo-grid">
+    <div class="topo-card">
+      <h3 style="color:#79c0ff" data-lang="en">Role — What you contribute</h3>
+      <h3 style="color:#79c0ff" data-lang="ja">Role — 何を貢献するか</h3>
+      <div class="topo-item">Architect</div><div class="topo-item">Anchor</div><div class="topo-item">Cleaner</div><div class="topo-item">Producer</div><div class="topo-item">Specialist</div>
+    </div>
+    <div class="topo-card">
+      <h3 style="color:#d2a8ff" data-lang="en">Style — How you work</h3>
+      <h3 style="color:#d2a8ff" data-lang="ja">Style — どう貢献するか</h3>
+      <div class="topo-item">Builder</div><div class="topo-item">Resilient</div><div class="topo-item">Rescue</div><div class="topo-item">Churn</div><div class="topo-item">Mass</div><div class="topo-item">Balanced</div><div class="topo-item">Spread</div>
+    </div>
+    <div class="topo-card">
+      <h3 style="color:#8ec07c" data-lang="en">State — Lifecycle phase</h3>
+      <h3 style="color:#8ec07c" data-lang="ja">State — ライフサイクル</h3>
+      <div class="topo-item">Active</div><div class="topo-item">Growing</div><div class="topo-item">Former</div><div class="topo-item">Silent</div><div class="topo-item">Fragile</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 40 -->
+<section>
+<div class="container" style="text-align:center">
+  <div class="big-num">40</div>
+  <div class="big-label" data-lang="en">is genuinely senior.</div>
+  <div class="big-label" data-lang="ja">が、本物のシニア。</div>
+  <p class="sub" style="margin-top:16px" data-lang="en">
+    Achieving 40+ across seven orthogonal axes simultaneously is intentionally hard.
+    If you score 40, you compete anywhere.
+  </p>
+  <p class="sub" style="margin-top:16px" data-lang="ja">
+    7つの直交する軸で同時に40以上を出すのは、意図的に厳しい基準。
+    40を出せるなら、どこでも戦える。
+  </p>
+</div>
+</section>
+
+<!-- Time -->
+<section>
+<div class="container" style="text-align:center">
+  <h2 data-lang="en">The telescope sees through time</h2>
+  <h2 data-lang="ja">望遠鏡は時を超える</h2>
+  <p class="sub" data-lang="en">Who built the foundation. Who inherited it. Who let it decay.</p>
+  <p class="sub" data-lang="ja">誰が基盤を作ったか。誰が受け継いだか。誰が崩壊させたか。</p>
+  <div class="focus-list">
+    <div class="focus-item"><span class="focus-label">Individual</span><span class="focus-desc" data-lang-inline="en">Score evolution, topology transitions</span><span class="focus-desc" data-lang-inline="ja">スコア推移、トポロジー変遷</span></div>
+    <div class="focus-item"><span class="focus-label">Team</span><span class="focus-desc" data-lang-inline="en">Role composition, generational transfers</span><span class="focus-desc" data-lang-inline="ja">Role構成変化、世代交代</span></div>
+    <div class="focus-item"><span class="focus-label">Organization</span><span class="focus-desc" data-lang-inline="en">Health metrics, structural risk</span><span class="focus-desc" data-lang-inline="ja">健全性指標、構造リスク</span></div>
+  </div>
+</div>
+</section>
+
+<!-- Not -->
+<section>
+<div class="container" style="text-align:center">
+  <h2 data-lang="en">What this is not</h2>
+  <h2 data-lang="ja">これは何ではないか</h2>
+  <div class="not-list" data-lang="en">
+    <p>Not a measure of human worth.</p>
+    <p>Not a substitute for qualitative assessment.</p>
+    <p>Not a sole hiring or firing criterion.</p>
+    <p class="is">It is a quantitative validation tool for intuition —<br>revealing patterns human observation misses.</p>
+  </div>
+  <div class="not-list" data-lang="ja">
+    <p>人間の価値を測るものではない。</p>
+    <p>定性評価の代替ではない。</p>
+    <p>採用・解雇の唯一の基準ではない。</p>
+    <p class="is">直感の定量的検証ツール —<br>人間の観察が見逃すパターンを明らかにする。</p>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<section>
+<div class="container" style="text-align:center">
+  <h2 data-lang="en">See your engineering orbit.</h2>
+  <h2 data-lang="ja">あなたのエンジニアリング軌道を見よう。</h2>
+  <p class="sub" data-lang="en">Every codebase is a universe. ace-orbit is the space station.</p>
+  <p class="sub" data-lang="ja">すべてのコードベースは宇宙。ace-orbitは宇宙ステーション。</p>
+  <div class="btn-group">
+    <a href="https://github.com/machuz/engineering-impact-score" class="btn btn-primary">
+      <span data-lang-inline="en">Start Observing</span>
+      <span data-lang-inline="ja">観測を始める</span>
+    </a>
+  </div>
+  <p style="margin-top:48px;font-size:.75rem;color:#484f58">
+    Powered by EIS (pronounced "ace") — the open-source Git telescope.
+  </p>
+</div>
+</section>
+
+<script>
+function setLang(lang) {
+  document.body.className = lang === 'ja' ? 'ja' : '';
+  document.getElementById('btn-en').className = 'lang-btn' + (lang === 'en' ? ' active' : '');
+  document.getElementById('btn-ja').className = 'lang-btn' + (lang === 'ja' ? ' active' : '');
+  localStorage.setItem('ace-lp-lang', lang);
+}
+// Auto-detect
+const saved = localStorage.getItem('ace-lp-lang');
+if (saved) setLang(saved);
+else if (navigator.language.startsWith('ja')) setLang('ja');
+</script>
+
+</body>
+</html>
