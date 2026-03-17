@@ -93,7 +93,7 @@ body.ja [data-lang-inline="ja"]{display:inline}
 <section style="position:relative;overflow:hidden">
 <canvas id="gravity-field" style="position:absolute;inset:0;width:100%;height:100%;opacity:.35"></canvas>
 <div class="container hero" style="position:relative;z-index:1">
-  <img src="https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-icon.svg" alt="" class="logo">
+  <img src="logo-icon.svg" alt="" class="logo">
   <h1>ace-orbit</h1>
   <p class="tagline">the Git Telescope</p>
   <p class="hero-text" data-lang="en">
@@ -315,12 +315,17 @@ body.ja [data-lang-inline="ja"]{display:inline}
 
   // Gravity sources — slowly orbiting bodies
   const bodies = [
-    { cx: 0.25, cy: 0.35, rx: 0.12, ry: 0.08, speed: 0.15, phase: 0,    mass: 1.0 },
-    { cx: 0.70, cy: 0.40, rx: 0.10, ry: 0.15, speed: 0.10, phase: 2.1,  mass: 0.8 },
-    { cx: 0.50, cy: 0.55, rx: 0.18, ry: 0.06, speed: 0.08, phase: 4.2,  mass: 1.2 },
-    { cx: 0.35, cy: 0.65, rx: 0.08, ry: 0.10, speed: 0.12, phase: 1.0,  mass: 0.6 },
-    { cx: 0.80, cy: 0.25, rx: 0.06, ry: 0.12, speed: 0.18, phase: 3.5,  mass: 0.5 },
-    { cx: 0.15, cy: 0.70, rx: 0.10, ry: 0.05, speed: 0.14, phase: 5.0,  mass: 0.7 },
+    { cx: 0.20, cy: 0.30, rx: 0.15, ry: 0.10, speed: 0.12, phase: 0,    mass: 1.2 },
+    { cx: 0.75, cy: 0.35, rx: 0.12, ry: 0.18, speed: 0.08, phase: 2.1,  mass: 1.0 },
+    { cx: 0.50, cy: 0.50, rx: 0.20, ry: 0.08, speed: 0.06, phase: 4.2,  mass: 1.5 },
+    { cx: 0.30, cy: 0.70, rx: 0.10, ry: 0.12, speed: 0.10, phase: 1.0,  mass: 0.8 },
+    { cx: 0.85, cy: 0.20, rx: 0.08, ry: 0.14, speed: 0.14, phase: 3.5,  mass: 0.7 },
+    { cx: 0.10, cy: 0.55, rx: 0.12, ry: 0.08, speed: 0.11, phase: 5.0,  mass: 0.9 },
+    { cx: 0.60, cy: 0.75, rx: 0.14, ry: 0.06, speed: 0.09, phase: 0.8,  mass: 0.6 },
+    { cx: 0.45, cy: 0.20, rx: 0.06, ry: 0.10, speed: 0.16, phase: 2.8,  mass: 0.5 },
+    { cx: 0.90, cy: 0.60, rx: 0.10, ry: 0.10, speed: 0.07, phase: 1.5,  mass: 1.1 },
+    { cx: 0.15, cy: 0.85, rx: 0.08, ry: 0.06, speed: 0.13, phase: 3.8,  mass: 0.8 },
+    { cx: 0.50, cy: 0.15, rx: 0.12, ry: 0.08, speed: 0.10, phase: 4.8,  mass: 1.3 },
   ];
 
   const contourLevels = [0.3, 0.5, 0.7, 1.0, 1.3, 1.7, 2.2, 2.8, 3.5, 4.5, 5.5, 7.0, 9.0, 12.0, 16.0];
@@ -345,7 +350,7 @@ body.ja [data-lang-inline="ja"]{display:inline}
     for (const p of positions) {
       const dx = x - p.x, dy = y - p.y;
       const d2 = dx * dx + dy * dy;
-      v += p.mass * 20000 / (d2 + 200);
+      v += p.mass * 80000 / (d2 + 80);
     }
     return v;
   }
