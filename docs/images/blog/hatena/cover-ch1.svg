@@ -7,10 +7,10 @@
   </defs>
 
   <!-- Terminal background -->
-  <rect width="800" height="800" rx="10" fill="#282828"/>
+  <rect width="800" height="800" fill="#282828"/>
 
   <!-- Title bar -->
-  <rect width="800" height="36" rx="10" fill="#1d2021"/>
+  <rect width="800" height="36" fill="#1d2021"/>
   <rect y="26" width="800" height="10" fill="#1d2021"/>
   <circle cx="22" cy="18" r="7" fill="#cc241d"/>
   <circle cx="44" cy="18" r="7" fill="#d79921"/>
