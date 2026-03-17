@@ -80,8 +80,8 @@
 
   <!-- 30+ marker -->
   <line x1="320" y1="95" x2="320" y2="185" stroke="#a89984" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
-  <text x="322" y="196" fill="#a89984" font-size="9" font-weight="600" font-family="-apple-system,sans-serif">30+ = competent colleague</text>
+  <text x="322" y="196" fill="#a89984" font-size="9" font-weight="600" font-family="-apple-system,sans-serif">30+ = competent full-time colleague</text>
 
   <!-- Footnote -->
-  <text x="480" y="220" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">Deliberately harsh. 30+ feels like a competent colleague to work with. 40+ requires serious, well-rounded ability.</text>
+  <text x="480" y="220" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">Deliberately harsh. 30+ feels like a competent full-time colleague to work with. 40+ requires serious, well-rounded ability.</text>
 </svg>
