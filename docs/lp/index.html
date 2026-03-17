@@ -450,11 +450,15 @@ body.ja [data-lang-inline="ja"]{display:inline}
 
   function potential(x, y, positions) {
     let v = 0;
+    // Scale gravity influence with screen size so lines fill the screen on any device
+    const scale = Math.max(W, H) / 1200;
+    const influence = 80000 * scale * scale;
+    const softness = 80 * scale;
     for (const p of positions) {
       let dx = x - p.x, dy = y - p.y;
       if (dx > W/2) dx -= W; else if (dx < -W/2) dx += W;
       if (dy > H/2) dy -= H; else if (dy < -H/2) dy += H;
-      v += p.mass * 80000 / (dx*dx + dy*dy + 80);
+      v += p.mass * influence / (dx*dx + dy*dy + softness);
     }
     return v;
   }
