@@ -2,18 +2,9 @@
 title: "チームは進化する——タイムラインが暴く組織の法則"
 ---
 
-
 ![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch6.png)
 
 *個人が変われば、チームも変わる。チームタイムラインは、その変化に法則があることを教えてくれる。*
-
-### 前章までのあらすじ
-
-第5章では `eis timeline` で個人のタイムラインを追い、Y.Y.の退場とmachuzのアーキテクチャ浸透、R.M.の「遠慮」と復帰を読み取った。
-
-しかしあれは個人の話だった。**チームは個人の集合体だ。** 個人が変われば、チームの性質も変わる。
-
-`eis timeline` はチームレベルの集計も自動出力する。今回はそのチームタイムラインを読み解き、さらにそこから見える**エンジニアの進化法則**を抽出する。
 
 ---
 
@@ -367,3 +358,15 @@ Architectがいるのにチームが機能していない場合、Producer Vacuu
 **冷たい数字から法則を導き、法則から未来を読む。** それがタイムラインの本当の力だ。
 
 ---
+
+---
+
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=3)
+
+**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
+
+この記事が参考になったら：
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
+
+PayPay: `w_machu7`

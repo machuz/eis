@@ -2,18 +2,9 @@
 title: "Origin：コード宇宙のビッグバン"
 ---
 
-
 ![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch9.png)
 
 *すべての宇宙には起源がある。コード宇宙では、それは最初のcommitだ。*
-
-### 前章までのあらすじ
-
-第8章ではEngineering Relativity——同じエンジニアでも宇宙が変わればスコアが変わる——について書いた。
-
-ここから先は、git考古学の思想をさらに深く掘り下げる。
-
-まず、すべての始まりから。
 
 ---
 
@@ -140,3 +131,15 @@ EISはこの初期条件の影響も映し出す。
 **すべてはここから始まった。**
 
 ---
+
+---
+
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=3)
+
+**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
+
+この記事が参考になったら：
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
+
+PayPay: `w_machu7`

@@ -2,16 +2,7 @@
 title: "Architectには流派がある：Git履歴が暴く進化の分岐モデル"
 ---
 
-
 ![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch3.png)
-
-### 前章までのあらすじ
-
-第1章では、gitの履歴データだけでエンジニア個人の「戦闘力」を7軸で定量化する手法を紹介した。第2章では、個人スコアをチームレベルに集約し、チームの健全性と5軸分類を導入した。
-
-しかし、スコアを眺めていてもう一つ、面白いことに気づいた。
-
-**Architectには進化の流派がある。**
 
 ### スコアの肌感
 
@@ -402,3 +393,15 @@ Architect不在。Anchor不在。Cleaner不在。
 そしてそれは、チーム設計論にもなる。
 
 ---
+
+---
+
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=3)
+
+**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
+
+この記事が参考になったら：
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
+
+PayPay: `w_machu7`

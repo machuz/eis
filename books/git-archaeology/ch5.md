@@ -2,20 +2,9 @@
 title: "タイムライン：スコアは嘘をつかないし、遠慮も映る"
 ---
 
-
 ![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch5.png)
 
 *3ヶ月ごとのスナップショットを並べたとき、数字はストーリーを語り始める。*
-
-### 前章までのあらすじ
-
-第4章では、BackendチームのArchitect集中構造と、退職したArchitectの「成仏」について語った。
-
-しかしあの分析には限界がある。**ある一時点のスナップショットでしかない**。
-
-エンジニアは変化する。成長もするし、遠慮もする。チームとの関係が変われば、コードへの関わり方も変わる。
-
-**その変化を見るには、時系列が必要だ。**
 
 ---
 
@@ -366,3 +355,15 @@ Y.Y.が作った構造の上で、machuzのアーキテクチャが浸透しArch
 冷たい数字が、最もエモいストーリーを語る。それがタイムラインの本質だ。
 
 ---
+
+---
+
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=3)
+
+**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
+
+この記事が参考になったら：
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
+
+PayPay: `w_machu7`
