@@ -88,8 +88,8 @@
 
   <!-- Producer / Resilient — prod:68, surv:35 -->
   <circle cx="651" cy="444" r="8" fill="#b8bb26" opacity="0.6"/>
-  <text x="630" y="430" text-anchor="end" fill="#b8bb26" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">Producer / Resilient</text>
-  <text x="630" y="462" text-anchor="end" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif" font-style="italic">high Robust Survival</text>
+  <text x="643" y="430" text-anchor="end" fill="#b8bb26" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">Producer / Resilient</text>
+  <text x="643" y="462" text-anchor="end" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif" font-style="italic">high Robust Survival</text>
 
   <!-- Producer / Churn — prod:88, surv:12 -->
   <circle cx="808" cy="573" r="10" fill="#fb4934" opacity="0.7"/>
@@ -97,22 +97,22 @@
 
   <!-- Producer / Mass — prod:82, surv:22 -->
   <circle cx="760" cy="517" r="9" fill="#fb4934" opacity="0.5"/>
-  <text x="745" y="505" text-anchor="end" fill="#fb4934" font-size="10" font-weight="600" font-family="-apple-system,sans-serif" opacity="0.8">Producer / Mass</text>
+  <text x="752" y="505" text-anchor="end" fill="#fb4934" font-size="10" font-weight="600" font-family="-apple-system,sans-serif" opacity="0.8">Producer / Mass</text>
 
   <!-- — / Spread — prod:30, surv:26 -->
   <circle cx="354" cy="495" r="8" fill="#d3869b" opacity="0.5"/>
-  <text x="335" y="483" text-anchor="end" fill="#d3869b" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">— / Spread</text>
-  <text x="335" y="510" text-anchor="end" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif" font-style="italic">wide but shallow</text>
+  <text x="346" y="483" text-anchor="end" fill="#d3869b" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">— / Spread</text>
+  <text x="346" y="510" text-anchor="end" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif" font-style="italic">wide but shallow</text>
 
   <!-- — / — / Growing — prod:25, surv:58 -->
   <circle cx="315" cy="316" r="8" fill="#b8bb26" opacity="0.5"/>
-  <text x="298" y="303" text-anchor="end" fill="#b8bb26" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">Growing</text>
-  <text x="298" y="330" text-anchor="end" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif" font-style="italic">low volume, high quality</text>
+  <text x="307" y="303" text-anchor="end" fill="#b8bb26" font-size="10" font-weight="600" font-family="-apple-system,sans-serif">Growing</text>
+  <text x="307" y="330" text-anchor="end" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif" font-style="italic">low volume, high quality</text>
 
   <!-- — / — / Fragile — prod:20, surv:72 -->
   <circle cx="276" cy="237" r="8" fill="#fe8019" opacity="0.4"/>
-  <text x="258" y="225" text-anchor="end" fill="#fe8019" font-size="10" font-weight="600" font-family="-apple-system,sans-serif" opacity="0.8">Fragile</text>
-  <text x="258" y="252" text-anchor="end" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif" font-style="italic">dormant, not durable</text>
+  <text x="268" y="225" text-anchor="end" fill="#fe8019" font-size="10" font-weight="600" font-family="-apple-system,sans-serif" opacity="0.8">Fragile</text>
+  <text x="268" y="252" text-anchor="end" fill="#665c54" font-size="8" font-family="-apple-system,sans-serif" font-style="italic">dormant, not durable</text>
 
   <!-- — / — / Silent — prod:15, surv:10 -->
   <circle cx="237" cy="584" r="7" fill="#665c54" opacity="0.5"/>
