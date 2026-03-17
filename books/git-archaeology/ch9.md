@@ -1,0 +1,175 @@
+---
+title: "Origin：コード宇宙のビッグバン"
+---
+
+
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch9.png)
+
+*すべての宇宙には起源がある。コード宇宙では、それは最初のcommitだ。*
+
+### 前章までのあらすじ
+
+[第8章](https://ma2k8.hateblo.jp/entry/2026/03/14/233602)ではEngineering Relativity——同じエンジニアでも宇宙が変わればスコアが変わる——について書いた。
+
+ここから先は、git考古学の思想をさらに深く掘り下げる。
+
+まず、すべての始まりから。
+
+---
+
+## ビッグバン
+
+すべての宇宙には起源がある。
+
+私たちの宇宙ではそれはビッグバンと呼ばれる。時間と空間がそこから始まった。
+
+コード宇宙にも同じ瞬間がある。
+
+**それは最初のcommitだ。**
+
+---
+
+## 原始宇宙
+
+最初のcommitには設計はほとんど存在しない。
+
+構造もない。ただ「何かを動かしたい」という衝動だけがある。
+
+それは原始宇宙に似ている。
+
+まだ銀河は存在しない。星も存在しない。ただエネルギーと粒子が混ざり合っている。
+
+初期のコードベースも同じだ。
+
+ifが並び、関数が並び、小さなutilが並ぶ。
+
+そこにはまだarchitectureは存在しない。
+
+しかしその小さなcommitから、宇宙は始まる。
+
+**その後のすべての構造は、その最初のcommitの上に積み上がる。**
+
+---
+
+## 初期条件
+
+宇宙物理学では、ビッグバンの初期条件がその後の宇宙構造を決定づけるとされる。
+
+初期の密度のゆらぎが、やがて銀河団になる。
+
+コード宇宙でも同じことが起きる。
+
+最初のディレクトリ構造。最初のモジュール分割。最初の命名規則。
+
+**これらの初期条件が、その後のすべての設計判断に影響する。**
+
+最初に`src/`と`lib/`を分けたプロジェクトは、その分割を何年も引き継ぐ。最初にモノリスで始めたプロジェクトは、モノリスの重力に何年も引きずられる。
+
+初期条件の重力は強い。
+
+---
+
+## 星座の誕生
+
+宇宙を見上げると、星はただ散らばっているように見える。
+
+しかし人間はそこに意味を見出す。
+
+オリオン座。カシオペア座。北斗七星。
+
+それらは物理的な構造ではない。**人間が見出したパターン**である。
+
+コードベースでも同じことが起きる。
+
+最初はただのファイルの集合だったものが、やがて人間によって意味付けされる。
+
+モジュール。サービス。パッケージ。レイヤー。
+
+**それらは星座だ。**
+
+星そのものではない。人間が宇宙を理解するために作った地図である。
+
+優れたArchitectは、星を作るのではなく、**星座を作る**。
+
+つまり——構造を発見し、構造を整理し、構造を共有する。
+
+それがarchitectureである。
+
+---
+
+## git考古学はビッグバンを観測する
+
+`git log --reverse` を実行してみてほしい。
+
+最初のcommitが見える。
+
+そこには日付がある。著者がいる。メッセージがある。
+
+それはこの宇宙のビッグバンの記録だ。
+
+git考古学とは、このビッグバンから始まる宇宙の歴史を観測する学問でもある。
+
+**いま目の前にあるコードベースは、その最初のcommitから続く連続した宇宙の、現在の姿だ。**
+
+---
+
+## 初期条件とEIS
+
+EISはこの初期条件の影響も映し出す。
+
+成熟したコードベースでは、初期に作られた構造がSurvival 100として残り続ける。最初のArchitectのcommitが、何年経ってもblameに刻まれている。
+
+第4章で語った「成仏」の対象は、しばしばこの初期のArchitectだ。ビッグバンを作った人間の重力は、宇宙で最も長く残る。
+
+逆に、初期条件が弱いコードベース——構造なしに始まったプロジェクト——では、EISのDesign軸が全員低い。重力の中心が最初から存在しないからだ。
+
+**宇宙の現在は、そのビッグバンに規定されている。**
+
+---
+
+## すべてはここから始まった
+
+最初のcommitは小さい。
+
+たった数行かもしれない。
+
+しかしそこから宇宙が始まる。
+
+重力が生まれ、構造ができ、星座が描かれ、Architectが現れ、チームが進化する。
+
+**すべてはここから始まった。**
+
+---
+
+### シリーズ
+
+- [第1章：履歴だけでエンジニアの「戦闘力」を定量化する](https://ma2k8.hateblo.jp/entry/2026/03/11/153212)
+- [第2章：エンジニアの「戦闘力」から、チームの「構造力」へ](https://ma2k8.hateblo.jp/entry/2026/03/13/060851)
+- [第3章：Architectには流派がある：Git履歴が暴く進化の分岐モデル](https://ma2k8.hateblo.jp/entry/2026/03/14/135648)
+- [第4章：Backend Architectは収束する：成仏という聖なる仕事](https://ma2k8.hateblo.jp/entry/2026/03/14/155124)
+- [第5章：タイムライン：スコアは嘘をつかないし、遠慮も映る](https://ma2k8.hateblo.jp/entry/2026/03/14/180329)
+- [第6章：チームは進化する——タイムラインが暴く組織の法則](https://ma2k8.hateblo.jp/entry/2026/03/14/184223)
+- [第7章：コードの宇宙を観測する](https://ma2k8.hateblo.jp/entry/2026/03/14/213413)
+- [第8章：Engineering Relativity：なぜ同じエンジニアでもスコアが変わるのか](https://ma2k8.hateblo.jp/entry/2026/03/14/233602)
+- **第9章：Origin：コード宇宙のビッグバン**（本記事）
+- [第10章：Dark Matter：見えない重力](https://ma2k8.hateblo.jp/entry/2026/03/15/062608)
+- [第11章：Entropy：宇宙は常に無秩序に向かう](https://ma2k8.hateblo.jp/entry/2026/03/15/062609)
+- [第12章：Collapse：良いArchitectとBlack Hole Engineer](https://ma2k8.hateblo.jp/entry/2026/03/15/062610)
+- [第13章：Cosmology of Code：コード宇宙論](https://ma2k8.hateblo.jp/entry/2026/03/15/062611)
+- [第14章：Civilization：なぜ一部のコードベースだけが文明になるのか](https://ma2k8.hateblo.jp/entry/2026/03/15/215211)
+- [第15章：AI Creates Stars, Not Gravity](https://ma2k8.hateblo.jp/entry/2026/03/15/221250)
+- [最終章：The Engineers Who Shape Gravity：重力を作るエンジニアたち](https://ma2k8.hateblo.jp/entry/2026/03/15/231040)
+
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+
+**GitHub**: [engineering-impact-score](https://github.com/machuz/engineering-impact-score) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
+
+この記事が参考になったら：
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github&style=for-the-badge)](https://github.com/sponsors/machuz)
+
+PayPay: `w_machu7`
+
+---
+
+← [第8章：Engineering Relativity](https://ma2k8.hateblo.jp/entry/2026/03/14/233602) | [第10章：Dark Matter →](https://ma2k8.hateblo.jp/entry/2026/03/15/062608)
