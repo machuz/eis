@@ -142,17 +142,40 @@ func runTimeline(args []string) error {
 
 	// Build callbacks for progress UI
 	cb := &pkgtimeline.Callbacks{}
+	var stopLastProgress func()
 	if !quiet {
 		repoCount := 0
 		totalRepos := len(repoPaths)
+		var currentBlameProg *liveProgress
+		stopLastProgress = func() {
+			if currentBlameProg != nil {
+				currentBlameProg.Stop()
+				currentBlameProg = nil
+			}
+		}
 		cb.OnRepoStart = func(repoName string, d string) {
+			// Stop previous blame progress if still running
+			if currentBlameProg != nil {
+				currentBlameProg.Stop()
+				currentBlameProg = nil
+			}
 			repoCount++
 			bold := color.New(color.Bold)
 			domainLabel := color.New(color.FgCyan).Sprintf("[%s]", d)
 			counter := color.New(color.FgHiBlack).Sprintf("(%d/%d)", repoCount, totalRepos)
 			bold.Fprintf(os.Stderr, "Analyzing: %s %s %s\n", repoName, domainLabel, counter)
+			currentBlameProg = newLiveProgress("  Blame")
+		}
+		cb.OnBlameProgress = func(repoName string, done, total int) {
+			if currentBlameProg != nil {
+				currentBlameProg.Update(done, total)
+			}
 		}
 		cb.OnPeriodStart = func(label string, index, total int) {
+			if currentBlameProg != nil {
+				currentBlameProg.Stop()
+				currentBlameProg = nil
+			}
 			repoCount = 0
 			fmt.Fprintf(os.Stderr, "\n")
 			color.New(color.FgHiCyan, color.Bold).Fprintf(os.Stderr, "═══ Period %d/%d: %s ═══\n", index+1, total, label)
@@ -178,6 +201,9 @@ func runTimeline(args []string) error {
 	}
 
 	domainTimelines, err := pkgtimeline.Run(opts, repoPaths, cfg, cb)
+	if stopLastProgress != nil {
+		stopLastProgress()
+	}
 	if err != nil {
 		return err
 	}
