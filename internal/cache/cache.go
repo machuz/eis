@@ -40,6 +40,15 @@ func New(enabled bool) *Store {
 	}
 }
 
+// NewWithDir creates a cache store with a custom base directory.
+// If baseDir is empty, the default ~/.eis/cache is used.
+func NewWithDir(enabled bool, baseDir string) *Store {
+	if baseDir == "" {
+		return New(enabled)
+	}
+	return &Store{enabled: enabled, baseDir: baseDir}
+}
+
 // Enabled returns whether the cache is active.
 func (s *Store) Enabled() bool {
 	return s != nil && s.enabled

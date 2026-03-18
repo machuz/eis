@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/machuz/engineering-impact-score/internal/cache"
 	"github.com/machuz/engineering-impact-score/internal/config"
 	"github.com/machuz/engineering-impact-score/internal/domain"
 	"github.com/machuz/engineering-impact-score/internal/git"
@@ -27,6 +28,8 @@ type Options struct {
 	ActiveDays   int
 	DomainFilter string
 	PerRepo      bool
+	CacheEnabled bool
+	CacheDir     string // custom cache dir (empty = default ~/.eis/cache)
 }
 
 // DomainResults holds scored results for a single domain.
@@ -86,6 +89,9 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 	if workers == 0 {
 		workers = 4
 	}
+
+	// Initialize cache store
+	cacheStore := cache.NewWithDir(opts.CacheEnabled, opts.CacheDir)
 
 	type accumulator struct {
 		raw               *metric.RawScores
@@ -169,13 +175,38 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		}
 		acc.repoCount++
 
-		commits, err := git.ParseLog(ctx, repoPath)
-		if err != nil {
-			return nil, fmt.Errorf("parse log %s: %w", repoName, err)
+		// Get HEAD hash for cache keys
+		headHash, _ := git.HeadHash(ctx, repoPath)
+
+		// Parse git log (cached)
+		var commits []git.Commit
+		logCacheKey := cache.LogKey(repoPath, headHash)
+		if headHash != "" && cacheStore.Get(logCacheKey, &commits) {
+			// cache hit
+		} else {
+			var err error
+			commits, err = git.ParseLog(ctx, repoPath)
+			if err != nil {
+				return nil, fmt.Errorf("parse log %s: %w", repoName, err)
+			}
+			if headHash != "" {
+				cacheStore.Set(logCacheKey, commits)
+			}
 		}
 		commits = filterCommits(commits, cfg)
 		commits = filterFileStats(commits, cfg.ExcludeFilePatterns)
-		mergeCommits, _ := git.ParseMergeCommits(ctx, repoPath)
+
+		// Parse merge commits (cached)
+		var mergeCommits []git.Commit
+		mergeCacheKey := cache.MergeLogKey(repoPath, headHash)
+		if headHash != "" && cacheStore.Get(mergeCacheKey, &mergeCommits) {
+			// cache hit
+		} else {
+			mergeCommits, _ = git.ParseMergeCommits(ctx, repoPath)
+			if headHash != "" {
+				cacheStore.Set(mergeCacheKey, mergeCommits)
+			}
+		}
 		mergeCommits = filterCommits(mergeCommits, cfg)
 
 		prod := metric.CalcProduction(commits, cfg.ExcludeFilePatterns)
@@ -226,7 +257,18 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		if cb.OnVerbose != nil {
 			blameVerbose = cb.OnVerbose
 		}
-		blameLines, _ := git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers, cb.OnBlameProgress, blameVerbose)
+
+		// Blame analysis (cached)
+		var blameLines []git.BlameLine
+		blameCacheKey := cache.BlameKey(repoPath, headHash, files, cfg.SampleSize)
+		if headHash != "" && cacheStore.Get(blameCacheKey, &blameLines) {
+			// cache hit
+		} else {
+			blameLines, _ = git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers, cb.OnBlameProgress, blameVerbose)
+			if headHash != "" && len(blameLines) > 0 {
+				cacheStore.Set(blameCacheKey, blameLines)
+			}
+		}
 		for i := range blameLines {
 			blameLines[i].Author = cfg.ResolveAuthor(blameLines[i].Author)
 		}
