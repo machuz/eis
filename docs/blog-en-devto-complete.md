@@ -3,20 +3,26 @@ title: "Git Archaeology — A Complete Theory of Software Universes"
 published: true
 description: "16 chapters condensed: how git log and git blame reveal engineer gravity, team health, software cosmology, and why AI creates stars but not gravity."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch16.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch0.png?v=1
 ---
 
 *What if your git history could tell you who really shaped your codebase?*
 
-Over 16 chapters, I built a theory of software — starting from a simple question and ending with a cosmology. This is the complete arc, condensed into one read.
+Over 17 chapters (0–16), I built a theory of software — starting from a simple question and ending with a cosmology. This is the complete arc, condensed into one read.
 
 ---
 
-## I. The Telescope
+## 0. The Telescope
 
 It started with a frustration: **"This team is strong. But I had no words to explain it."**
 
-So I built a telescope. Using nothing but `git log` and `git blame`, I quantified engineering impact across 7 axes:
+Over the years, I've recruited several strong engineers by reaching out personally. Why did they come? I believe it's because they felt: **"This person actually sees my work."** Not commit counts — but whether code survives, whether you contribute to architecture, whether you clean up debt.
+
+I had that observer's eye. EIS is that **eye turned into an open-source telescope.**
+
+Math has complexity theory. Programming languages have type theory. But software architecture still lacks a unified scientific foundation — 30 years of academic attempts (ADLs, ATAM) remain fragmented and haven't made it into practice. In the age of AI, what matters most is structure. If EIS can become a tool for **making architecture a science**, I'd be glad.
+
+So I built this telescope. Using nothing but `git log` and `git blame`, I quantified engineering impact across 7 axes:
 
 | Axis | What it measures |
 |---|---|
@@ -34,7 +40,7 @@ The numbers were eerily accurate. Silent heroes surfaced. Hidden risks became vi
 
 > Quantify what you can. Qualitatively supplement what you can't. That order matters.
 
-*Deep dive: [Chapter 1](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c), [Chapter 2](https://dev.to/machuz/beyond-individual-scores-measuring-team-health-from-git-history-3n9f)*
+*Deep dive: [Chapter 0 — Introduction](ch0-link-tbd), [Chapter 1](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c), [Chapter 2](https://dev.to/machuz/beyond-individual-scores-measuring-team-health-from-git-history-3n9f)*
 
 ---
 
@@ -190,6 +196,7 @@ Point the telescope and see.
 
 ### Full Series
 
+- **[Chapter 0: What If Git History Could Tell You Who Your Strongest Engineers Are?](ch0-link-tbd)** — Introduction
 - [Chapter 1: Measuring Engineering Impact from Git History Alone](https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c)
 - [Chapter 2: Beyond Individual Scores: Measuring Team Health from Git History](https://dev.to/machuz/beyond-individual-scores-measuring-team-health-from-git-history-3n9f)
 - [Chapter 3: Two Paths to Architect: How Engineers Evolve Differently](https://dev.to/machuz/two-paths-to-architect-how-engineers-evolve-differently-1ga)

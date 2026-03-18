@@ -3,7 +3,7 @@ title: "Git Archaeology #0 — What If Git History Could Tell You Who Your Stron
 published: true
 description: "A 3-minute intro to Engineering Impact Score — an OSS CLI that quantifies engineering impact from git log and git blame alone. No API keys, no AI tokens."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch1.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch0.png?v=1
 ---
 
 *git log + git blame. That's all it takes.*

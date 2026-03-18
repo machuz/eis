@@ -1,6 +1,6 @@
 # git考古学 #0 —— 3分でわかるEngineering Impact Score
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch1.png)
+![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch0.png?v=1)
 
 *git log と git blame だけで、エンジニアの「戦闘力」が見える。*
 
