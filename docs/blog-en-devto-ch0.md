@@ -160,6 +160,8 @@ This series uses the word "combat power" (戦闘力) to describe scores. It's a 
 
 **They can't. And EIS doesn't try to.**
 
+So what *does* it measure? Simple: **in this codebase, how much did you build, how much influence did you leave, and how much of what you wrote is still standing?** That's it. Not "how good an engineer are you" — but "what trace did you leave in this particular universe of code."
+
 A few things to keep in mind:
 
 **EIS measures codebase impact, not engineering ability.** A score of 40 means "on this codebase, this person's code is surviving, shaping architecture, and cleaning up debt." It does *not* mean they are objectively a better engineer than someone scoring 30. Move them to a different codebase, and the scores might invert. (We call this [Engineering Relativity](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl).)
