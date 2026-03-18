@@ -145,19 +145,17 @@ func runTimeline(args []string) error {
 	if !quiet {
 		repoCount := 0
 		totalRepos := len(repoPaths)
-		loadFrames := []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"}
 		cb.OnRepoStart = func(repoName string, d string) {
 			repoCount++
-			frame := color.New(color.FgCyan).Sprint(loadFrames[repoCount%len(loadFrames)])
+			bold := color.New(color.Bold)
 			domainLabel := color.New(color.FgCyan).Sprintf("[%s]", d)
 			counter := color.New(color.FgHiBlack).Sprintf("(%d/%d)", repoCount, totalRepos)
-			fmt.Fprintf(os.Stderr, "  %s %s %s %s\n", frame, repoName, domainLabel, counter)
+			bold.Fprintf(os.Stderr, "Analyzing: %s %s %s\n", repoName, domainLabel, counter)
 		}
 		cb.OnPeriodStart = func(label string, index, total int) {
-			repoCount = 0 // reset for each period
-			cyan := color.New(color.FgCyan, color.Bold)
-			green := color.New(color.FgGreen)
-			fmt.Fprintf(os.Stderr, "\n%s [Period %d/%d] %s\n", green.Sprint("●"), index+1, total, cyan.Sprint(label))
+			repoCount = 0
+			fmt.Fprintf(os.Stderr, "\n")
+			color.New(color.FgHiCyan, color.Bold).Fprintf(os.Stderr, "═══ Period %d/%d: %s ═══\n", index+1, total, label)
 		}
 	}
 	if *verbose {
