@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>True Orbit — Team Gravitational Record</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg-void: #0a0e17;
+    --bg-deep: #0f1523;
+    --bg-card: #141b2d;
+    --bg-card-hover: #1a2340;
+    --border: #1e2a45;
+    --border-glow: #2a3f6f;
+    --text: #e8e0d0;
+    --text-muted: #7a8599;
+    --text-dim: #4a5568;
+    --accent: #83a598;
+    --accent-glow: rgba(131,165,152,0.3);
+    --gravity-green: #8ec07c;
+    --gravity-yellow: #fabd2f;
+    --gravity-red: #fb4934;
+    --survival: #b8bb26;
+    --design: #83a598;
+    --production: #d3869b;
+    --quality: #fabd2f;
+    --breadth: #fe8019;
+    --debt: #8ec07c;
+    --star-white: #fef9ef;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-void);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .starfield {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  }
+  .starfield::before, .starfield::after {
+    content: ''; position: absolute; width: 100%; height: 100%;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1.5px 1.5px at 15% 55%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 45% 85%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 60% 60%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1.5px 1.5px at 25% 35%, rgba(255,255,255,0.5), transparent);
+  }
+  .starfield::after {
+    background-image:
+      radial-gradient(1px 1px at 5% 45%, rgba(131,165,152,0.4), transparent),
+      radial-gradient(1px 1px at 35% 25%, rgba(254,128,25,0.3), transparent),
+      radial-gradient(1px 1px at 65% 75%, rgba(184,187,38,0.3), transparent),
+      radial-gradient(1px 1px at 85% 55%, rgba(211,134,155,0.3), transparent),
+      radial-gradient(1px 1px at 55% 35%, rgba(250,189,47,0.3), transparent),
+      radial-gradient(1.5px 1.5px at 20% 90%, rgba(131,165,152,0.5), transparent),
+      radial-gradient(1px 1px at 75% 5%, rgba(142,192,124,0.4), transparent);
+    animation: drift 120s linear infinite;
+  }
+  @keyframes drift { from { transform: translate(0,0); } to { transform: translate(-20px,-30px); } }
+  .container { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero { text-align: center; padding: 80px 0 60px; position: relative; }
+  .hero::before {
+    content: ''; position: absolute; top: 40%; left: 50%;
+    transform: translate(-50%, -50%); width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(131,165,152,0.06) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border: 1px solid var(--border); border-radius: 20px;
+    font-size: 11px; font-weight: 500; color: var(--accent);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px;
+    background: rgba(131,165,152,0.05);
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; background: var(--accent);
+    border-radius: 50%; box-shadow: 0 0 8px var(--accent-glow);
+  }
+  .hero-name {
+    font-size: 48px; font-weight: 800; letter-spacing: -1px; line-height: 1.1;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-classification {
+    font-family: 'JetBrains Mono', monospace; font-size: 16px;
+    color: var(--accent); margin-bottom: 8px; font-weight: 500;
+  }
+  .hero-tagline {
+    font-size: 14px; color: var(--text-muted); max-width: 600px;
+    margin: 0 auto; line-height: 1.7;
+  }
+  .hero-meta {
+    display: flex; justify-content: center; gap: 32px;
+    margin-top: 32px; flex-wrap: wrap;
+  }
+  .hero-meta-item { text-align: center; }
+  .hero-meta-value {
+    font-family: 'JetBrains Mono', monospace; font-size: 28px;
+    font-weight: 700; color: var(--star-white);
+  }
+  .hero-meta-label {
+    font-size: 11px; color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 1px; margin-top: 2px;
+  }
+
+  /* Sections */
+  .section { margin-bottom: 56px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    background: rgba(131,165,152,0.1); border: 1px solid var(--border);
+    border-radius: 8px; font-size: 16px;
+  }
+  .section-title {
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--accent);
+  }
+  .section-subtitle {
+    font-size: 11px; color: var(--text-dim); margin-left: auto; font-style: italic;
+  }
+
+  /* Four Forces */
+  .forces-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .force-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; transition: border-color 0.2s;
+  }
+  .force-card:hover { border-color: var(--border-glow); }
+  .force-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 6px; font-weight: 600;
+  }
+  .force-name { font-size: 18px; font-weight: 700; color: var(--star-white); margin-bottom: 4px; }
+  .force-role {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    margin-bottom: 10px;
+  }
+  .force-desc { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+
+  /* Star Map (Member Cards) */
+  .star-map { display: flex; flex-direction: column; gap: 12px; }
+  .star-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px;
+    display: grid; grid-template-columns: 140px 1fr auto; gap: 16px; align-items: center;
+    transition: border-color 0.2s;
+  }
+  .star-card:hover { border-color: var(--border-glow); }
+  .star-name { font-size: 15px; font-weight: 600; color: var(--star-white); }
+  .star-domain { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .star-topology {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent); margin-top: 4px;
+  }
+  .star-scores {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .star-score-item { text-align: center; }
+  .star-score-value {
+    font-family: 'JetBrains Mono', monospace; font-size: 16px;
+    font-weight: 700; color: var(--star-white);
+  }
+  .star-score-label { font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+  .star-total {
+    font-family: 'JetBrains Mono', monospace; font-size: 28px;
+    font-weight: 700; color: var(--star-white); min-width: 60px; text-align: right;
+  }
+  .star-gravity-dot {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+    margin-right: 4px; vertical-align: middle;
+  }
+
+  /* Team Timeline Chart */
+  .chart-wrap {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px;
+  }
+  .chart-container { position: relative; height: 300px; }
+
+  /* Classification Evolution */
+  .class-evolution {
+    display: flex; gap: 0; overflow-x: auto; padding-bottom: 8px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 8px;
+  }
+  .class-period {
+    flex: 1; min-width: 140px; position: relative;
+    padding: 16px 12px; text-align: center;
+  }
+  .class-period::after {
+    content: ''; position: absolute; right: 0; top: 20%;
+    height: 60%; width: 1px; background: var(--border);
+  }
+  .class-period:last-child::after { display: none; }
+  .class-period-label {
+    font-size: 10px; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 10px;
+  }
+  .class-tag {
+    display: inline-block; padding: 3px 8px; border-radius: 5px;
+    font-size: 10px; font-weight: 600; margin-bottom: 3px;
+  }
+  .class-tag.elite { background: rgba(131,165,152,0.2); color: var(--accent); border: 1px solid rgba(131,165,152,0.3); }
+  .class-tag.balanced { background: rgba(250,189,47,0.15); color: var(--quality); border: 1px solid rgba(250,189,47,0.25); }
+  .class-tag.guardian { background: rgba(211,134,155,0.15); color: var(--production); border: 1px solid rgba(211,134,155,0.25); }
+  .class-tag.healthy { background: rgba(142,192,124,0.15); color: var(--gravity-green); border: 1px solid rgba(142,192,124,0.25); }
+  .class-sub { font-size: 9px; color: var(--text-dim); display: block; margin-top: 2px; }
+
+  /* Health Metrics */
+  .health-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .health-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px; text-align: center;
+  }
+  .health-label {
+    font-size: 10px; color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .health-value {
+    font-family: 'JetBrains Mono', monospace; font-size: 28px;
+    font-weight: 700; color: var(--star-white);
+  }
+  .health-bar {
+    width: 100%; height: 4px; background: rgba(255,255,255,0.06);
+    border-radius: 2px; margin-top: 8px; overflow: hidden;
+  }
+  .health-bar-fill { height: 100%; border-radius: 2px; }
+  .health-desc { font-size: 10px; color: var(--text-dim); margin-top: 6px; }
+
+  /* Risks */
+  .risk-row {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .risk-badge {
+    padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .risk-badge.healthy {
+    background: rgba(142,192,124,0.15); color: var(--gravity-green);
+    border: 1px solid rgba(142,192,124,0.25);
+  }
+  .risk-badge.warn {
+    background: rgba(250,189,47,0.15); color: var(--gravity-yellow);
+    border: 1px solid rgba(250,189,47,0.25);
+  }
+
+  /* Dark Matter */
+  .dark-matter-card {
+    background: linear-gradient(135deg, rgba(20,27,45,0.9), rgba(15,21,35,0.95));
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 32px; position: relative; overflow: hidden;
+  }
+  .dark-matter-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.5;
+  }
+  .dark-matter-quote {
+    font-size: 15px; font-style: italic; color: var(--text);
+    line-height: 1.8; margin-bottom: 16px;
+  }
+  .dark-matter-text { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
+  .dm-name { color: var(--quality); font-weight: 600; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 60px 0 40px; position: relative; }
+  .footer::before { content: ''; display: block; width: 60px; height: 1px; background: var(--border); margin: 0 auto 32px; }
+  .footer-telescope {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--text-dim); white-space: pre; line-height: 1.3; margin-bottom: 24px;
+  }
+  .footer-tagline { font-size: 14px; color: var(--text-muted); font-style: italic; margin-bottom: 8px; }
+  .footer-brand { font-size: 11px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
+  .footer-brand a { color: var(--accent); text-decoration: none; }
+  .footer-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 16px; }
+
+  @media (max-width: 768px) {
+    .hero-name { font-size: 32px; }
+    .forces-grid { grid-template-columns: 1fr; }
+    .health-grid { grid-template-columns: repeat(2, 1fr); }
+    .star-card { grid-template-columns: 1fr; gap: 8px; }
+    .star-total { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="starfield"></div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Team Gravitational Record</div>
+    <h1 class="hero-name">Team Observation</h1>
+    <div class="hero-classification">Elite / Architectural Engine / Mature / Healthy</div>
+    <p class="hero-tagline">
+      Architect/Builder 2名 + Anchor 2名の四つの力が揃った構造。<br>
+      設計者が自ら手を動かし、品質の守護者がその構造を支える。<br>
+      3.5ヶ月の修羅場を乗り越え、美しいプロダクトを生み出した宇宙。
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-value">7</div>
+        <div class="hero-meta-label">Active Stars</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-value" style="color: var(--accent);">2</div>
+        <div class="hero-meta-label">Architects</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-value" style="color: var(--quality);">2</div>
+        <div class="hero-meta-label">Anchors</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-value" style="color: var(--gravity-green);">Healthy</div>
+        <div class="hero-meta-label">Risk Status</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUR FORCES -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">&#x2726;</div>
+      <div class="section-title">Four Forces</div>
+      <div class="section-subtitle">The forces that sustain this universe</div>
+    </div>
+    <div class="forces-grid">
+      <div class="force-card">
+        <div class="force-label" style="color: var(--accent);">&#x2727; 守る力 &mdash; Structure</div>
+        <div class="force-name">machuz</div>
+        <div class="force-role" style="color: var(--accent);">Architect / Builder / Active</div>
+        <div class="force-desc">
+          BE全体の構造設計者。クリーンアーキテクチャ + DDD でレイヤーを敷き、
+          DelegateProcess層・PartProcess層を自ら設計・実装。
+          前任Architectとの世代交代を経て、Design 100 / Survival 100 を維持。
+          FEにもRescueで飛び込む領域横断力。Peak Total 93.2。
+        </div>
+      </div>
+      <div class="force-card">
+        <div class="force-label" style="color: var(--production);">&#x2604; 壊す力 &mdash; Creation</div>
+        <div class="force-name">R.M.</div>
+        <div class="force-role" style="color: var(--accent);">Architect / Emergent / Active</div>
+        <div class="force-desc">
+          FE側の創発型Architect。新プロダクトのFEを一人で設計・実装・UIデザインまで貫通。
+          半年で2,685 commits、+257k/-202k行。既存の延長線では到達できない
+          構造を2週間で提示。新しい宇宙のビッグバンを起こした恒星。Peak Total 87.5。
+        </div>
+      </div>
+      <div class="force-card">
+        <div class="force-label" style="color: var(--quality);">&#x2693; 安定させる力 &mdash; Stability</div>
+        <div class="force-name">R.S. &amp; P.</div>
+        <div class="force-role" style="color: var(--quality);">Anchor / Balanced / Active</div>
+        <div class="force-desc">
+          Anchor 2人体制 &mdash; 非常に珍しい布陣。
+          R.S.は品質の守護者（Quality 85、Debt Cleanup 88）。
+          P.はMassスタイルながらQuality 98を記録する異常値。
+          Architect/Builderの高重力場の中で安定核として機能。この布陣が修羅場を支えた。
+        </div>
+      </div>
+      <div class="force-card">
+        <div class="force-label" style="color: var(--breadth);">&#x2B50; 作る力 &mdash; Production</div>
+        <div class="force-name">O. &amp; K.M. &amp; H.</div>
+        <div class="force-role" style="color: var(--production);">Producer &amp; Growing</div>
+        <div class="force-desc">
+          O.は構造を作り切った後Producerに移行（Survival 100 &mdash; 既存構造は正しく動いた）。
+          K.M.はユーザー体験の守護者（Survival 79&rarr;90）。
+          H.は創発型Architectとして新基盤の継承に挑む成長株。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAR MAP -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">&#x2733;</div>
+      <div class="section-title">Star Map</div>
+      <div class="section-subtitle">Individual gravitational signatures</div>
+    </div>
+    <div class="star-map">
+      <div class="star-card">
+        <div>
+          <div class="star-name"><span class="star-gravity-dot" style="background: var(--gravity-green); box-shadow: 0 0 6px var(--gravity-green);"></span>machuz</div>
+          <div class="star-domain">Backend Lead</div>
+          <div class="star-topology">Architect / Builder</div>
+        </div>
+        <div class="star-scores">
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--design)">100</div><div class="star-score-label">Design</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--survival)">100</div><div class="star-score-label">Survival</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--quality)">41</div><div class="star-score-label">Quality</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--breadth)">100</div><div class="star-score-label">Breadth</div></div>
+        </div>
+        <div class="star-total">92.4</div>
+      </div>
+      <div class="star-card">
+        <div>
+          <div class="star-name"><span class="star-gravity-dot" style="background: var(--gravity-green); box-shadow: 0 0 6px var(--gravity-green);"></span>R.M.</div>
+          <div class="star-domain">Frontend Lead</div>
+          <div class="star-topology">Architect / Emergent</div>
+        </div>
+        <div class="star-scores">
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--design)">100</div><div class="star-score-label">Design</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--survival)">100</div><div class="star-score-label">Survival</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--quality)">84</div><div class="star-score-label">Quality</div></div>
+          <div class="star-score-item"><div class="star-score-value">1417</div><div class="star-score-label">Commits</div></div>
+        </div>
+        <div class="star-total">83.4</div>
+      </div>
+      <div class="star-card">
+        <div>
+          <div class="star-name"><span class="star-gravity-dot" style="background: var(--quality); box-shadow: 0 0 6px var(--quality);"></span>P.</div>
+          <div class="star-domain">Backend</div>
+          <div class="star-topology">Anchor / Mass</div>
+        </div>
+        <div class="star-scores">
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--production)">100</div><div class="star-score-label">Prod</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--quality)">98</div><div class="star-score-label">Quality</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--debt)">55</div><div class="star-score-label">Debt</div></div>
+          <div class="star-score-item"><div class="star-score-value">502</div><div class="star-score-label">Commits</div></div>
+        </div>
+        <div class="star-total">48.3</div>
+      </div>
+      <div class="star-card">
+        <div>
+          <div class="star-name"><span class="star-gravity-dot" style="background: var(--quality); box-shadow: 0 0 6px var(--quality);"></span>R.S.</div>
+          <div class="star-domain">Backend</div>
+          <div class="star-topology">Anchor / Balanced</div>
+        </div>
+        <div class="star-scores">
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--quality)">85</div><div class="star-score-label">Quality</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--debt)">58</div><div class="star-score-label">Debt</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--survival)">50</div><div class="star-score-label">RW Surv</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--design)">38</div><div class="star-score-label">Design</div></div>
+        </div>
+        <div class="star-total">40.5</div>
+      </div>
+      <div class="star-card">
+        <div>
+          <div class="star-name"><span class="star-gravity-dot" style="background: var(--text-dim);"></span>O.</div>
+          <div class="star-domain">Frontend</div>
+          <div class="star-topology">Producer / Balanced</div>
+        </div>
+        <div class="star-scores">
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--survival)">100</div><div class="star-score-label">Survival</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--quality)">60</div><div class="star-score-label">Quality</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--production)">45</div><div class="star-score-label">Prod</div></div>
+        </div>
+        <div class="star-total">52.8</div>
+      </div>
+      <div class="star-card">
+        <div>
+          <div class="star-name"><span class="star-gravity-dot" style="background: var(--text-dim);"></span>K.M.</div>
+          <div class="star-domain">Frontend</div>
+          <div class="star-topology">Producer / Balanced</div>
+        </div>
+        <div class="star-scores">
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--survival)">90</div><div class="star-score-label">Survival</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--quality)">58</div><div class="star-score-label">Quality</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--production)">31</div><div class="star-score-label">Prod</div></div>
+        </div>
+        <div class="star-total">35.9</div>
+      </div>
+      <div class="star-card">
+        <div>
+          <div class="star-name"><span class="star-gravity-dot" style="background: var(--gravity-yellow); box-shadow: 0 0 6px var(--gravity-yellow);"></span>H.</div>
+          <div class="star-domain">Frontend</div>
+          <div class="star-topology">Anchor / Balanced</div>
+        </div>
+        <div class="star-scores">
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--quality)">94</div><div class="star-score-label">Quality</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--survival)">16</div><div class="star-score-label">Survival</div></div>
+          <div class="star-score-item"><div class="star-score-value" style="color:var(--design)">10</div><div class="star-score-label">Design</div></div>
+        </div>
+        <div class="star-total">30.4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM HEALTH METRICS -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">&#x2764;</div>
+      <div class="section-title">Team Health</div>
+      <div class="section-subtitle">Structural health indicators</div>
+    </div>
+    <div class="health-grid">
+      <div class="health-card">
+        <div class="health-label">Complementarity</div>
+        <div class="health-value" style="color: var(--gravity-green);">0.85</div>
+        <div class="health-bar"><div class="health-bar-fill" style="width:85%; background: var(--gravity-green);"></div></div>
+        <div class="health-desc">スキルの相互補完性</div>
+      </div>
+      <div class="health-card">
+        <div class="health-label">Sustainability</div>
+        <div class="health-value" style="color: var(--gravity-green);">0.82</div>
+        <div class="health-bar"><div class="health-bar-fill" style="width:82%; background: var(--gravity-green);"></div></div>
+        <div class="health-desc">構造の持続可能性</div>
+      </div>
+      <div class="health-card">
+        <div class="health-label">Growth Potential</div>
+        <div class="health-value" style="color: var(--quality);">0.71</div>
+        <div class="health-bar"><div class="health-bar-fill" style="width:71%; background: var(--quality);"></div></div>
+        <div class="health-desc">成長余地</div>
+      </div>
+      <div class="health-card">
+        <div class="health-label">Debt Balance</div>
+        <div class="health-value" style="color: var(--gravity-green);">0.78</div>
+        <div class="health-bar"><div class="health-bar-fill" style="width:78%; background: var(--gravity-green);"></div></div>
+        <div class="health-desc">負債バランス</div>
+      </div>
+    </div>
+    <div style="margin-top: 16px;">
+      <div class="risk-row">
+        <span class="risk-badge healthy">Bus Factor: Healthy</span>
+        <span class="risk-badge healthy">Design Vacuum: None</span>
+        <span class="risk-badge healthy">Quality Drift: None</span>
+        <span class="risk-badge warn">Stagnation: Monitor (FE structure transition)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLASSIFICATION EVOLUTION -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">&#x21C4;</div>
+      <div class="section-title">Classification Evolution</div>
+      <div class="section-subtitle">How this universe evolved</div>
+    </div>
+    <div class="class-evolution">
+      <div class="class-period">
+        <div class="class-period-label">2024 H2</div>
+        <span class="class-tag guardian">Guardian</span>
+        <span class="class-sub">Declining</span>
+        <span class="class-sub">Design Vacuum</span>
+      </div>
+      <div class="class-period">
+        <div class="class-period-label">2025 Q1</div>
+        <span class="class-tag balanced">Balanced</span>
+        <span class="class-sub">Stabilizing</span>
+        <span class="class-sub">Architect Emerging</span>
+      </div>
+      <div class="class-period">
+        <div class="class-period-label">2025 Q2-Q3</div>
+        <span class="class-tag elite">Architectural</span>
+        <span class="class-sub">Mature</span>
+        <span class="class-sub">Healthy</span>
+      </div>
+      <div class="class-period">
+        <div class="class-period-label">2025 Q4-</div>
+        <span class="class-tag elite">Elite</span>
+        <span class="class-sub">Arch. Engine</span>
+        <span class="class-tag healthy">Healthy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM TIMELINE -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">&#x2604;</div>
+      <div class="section-title">Orbital Timeline</div>
+      <div class="section-subtitle">Key members' score trajectories</div>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-container">
+        <canvas id="teamTimeline"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK MATTER -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">&#x25CF;</div>
+      <div class="section-title">Dark Matter</div>
+      <div class="section-subtitle">What the telescope cannot observe</div>
+    </div>
+    <div class="dark-matter-card">
+      <p class="dark-matter-quote">
+        "望遠鏡はcommitの光しか観測できない。しかしこのチームには、<br>commitに一切現れない巨大な重力源がいた。"
+      </p>
+      <p class="dark-matter-text">
+        <span class="dm-name">PO D.H.</span> &mdash;
+        営業出身ながらモノづくりへの深いリスペクトを持ち、複数組織の視点を束ねて気の遠くなるような大量のプランニングをこなした。自分で画面イメージを切り貼りで作り、全力で脳みそを同期しにきてくれた。
+        <br><br>
+        <span class="dm-name">PdM S.T.</span> &mdash;
+        この開発組織の魂。事業に対する熱をチームに注ぎ続け、ギリギリの中でスコープ調整とバックアッププランを用意し、最後の最後に「このままいきましょう！！」と共にアクセルを踏んでくれた。
+        <br><br>
+        <span class="dm-name">QA T.Y.</span> &mdash;
+        リリース直前の1週間で数百のバグを潰すフェーズを淡々と、しかし着実にこなした。QAの検証を通過して初めて、commitは「動くコード」になる。望遠鏡に映らない、しかしプロダクトの品質を決定づけるダークマター。
+        <br><br>
+        良質で巨大な文化を構築するダークマターが、この宇宙の全てを支えている。
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <pre class="footer-telescope">      &#x2726;       *        &#x2726;
+
+       &#x256D;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x256E;
+      &#x2502;    &#x2726;     &#x2502;
+       &#x2570;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x256F;
+   .        &#x2502;
+            &#x2502;
+         ___&#x2502;___
+        /_______\
+
+   &#x2726;     the Git Telescope     &#x2726;</pre>
+    <p class="footer-tagline">チームの歩みを「本当の履歴書」として。</p>
+    <p class="footer-brand">
+      Observed by <a href="#">True Orbit</a> &mdash; powered by EIS (ace)
+    </p>
+    <p class="footer-date">Observation Date: 2026-03-18 &bull; Data Source: Git History (commit light)</p>
+  </footer>
+
+</div>
+
+<script>
+const ctx = document.getElementById('teamTimeline').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['2024 Q3','2024 Q4','2025 Q1','2025 Q2','2025 Q3','2025 Q4','2026 Q1'],
+    datasets: [
+      {
+        label: 'machuz (BE)',
+        data: [59.9, 68.3, 76.4, 83.1, 93.2, 87.7, 92.4],
+        borderColor: '#83a598',
+        borderWidth: 2.5,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: '#83a598',
+        fill: false,
+      },
+      {
+        label: 'R.M. (FE)',
+        data: [75.7, 87.5, 73.2, 71.5, 73.6, 83.4, 76.4],
+        borderColor: '#d3869b',
+        borderWidth: 2.5,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: '#d3869b',
+        fill: false,
+      },
+      {
+        label: 'P. (BE)',
+        data: [null, null, null, null, 35.5, 48.3, 37.6],
+        borderColor: '#fabd2f',
+        borderWidth: 1.5,
+        borderDash: [4,4],
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: '#fabd2f',
+        fill: false,
+      },
+      {
+        label: 'R.S. (BE)',
+        data: [null, null, null, 42.5, 37.9, 40.5, null],
+        borderColor: '#8ec07c',
+        borderWidth: 1.5,
+        borderDash: [4,4],
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: '#8ec07c',
+        fill: false,
+      },
+      {
+        label: 'O. (FE)',
+        data: [null, null, 60.1, 48.5, 36.5, 52.8, null],
+        borderColor: '#fe8019',
+        borderWidth: 1.5,
+        borderDash: [4,4],
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: '#fe8019',
+        fill: false,
+      },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: {
+        display: true, position: 'top',
+        labels: {
+          font: { family: "'JetBrains Mono', monospace", size: 10 },
+          color: '#7a8599', boxWidth: 12, boxHeight: 2, padding: 16,
+        }
+      },
+      tooltip: {
+        backgroundColor: '#1a2340', borderColor: '#2a3f6f', borderWidth: 1,
+        titleFont: { family: "'JetBrains Mono', monospace", size: 11 },
+        bodyFont: { family: "'Inter', sans-serif", size: 12 },
+        titleColor: '#83a598', bodyColor: '#e8e0d0', padding: 12, cornerRadius: 8,
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { font: { family: "'JetBrains Mono', monospace", size: 10 }, color: '#4a5568' }
+      },
+      y: {
+        min: 0, max: 100,
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { font: { family: "'JetBrains Mono', monospace", size: 10 }, color: '#4a5568', stepSize: 25 }
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
