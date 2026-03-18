@@ -1,2 +1,22 @@
 aliases:
   "machu": "machuz"
+
+architecture_patterns:
+  # Scoring design (the core thesis)
+  - "internal/scorer/*.go"
+  # Metric definitions
+  - "internal/metric/metric.go"
+  # Pipeline orchestration
+  - "internal/cli/analyze.go"
+  - "internal/cli/timeline.go"
+  - "internal/cli/root.go"
+  # Team classification
+  - "internal/team/classify.go"
+  - "internal/team/health.go"
+  # Domain design
+  - "internal/domain/detect.go"
+  # Config schema
+  - "internal/config/config.go"
+  # Public API (SaaS boundary)
+  - "pkg/analyzer/analyzer.go"
+  - "pkg/timeline/run.go"
