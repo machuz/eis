@@ -154,6 +154,8 @@ Cold git history tells **team stories** you didn't know you had. And module topo
 
 ## What This Is NOT
 
+> *We don't measure engineers. We reveal how software actually works.*
+
 This series uses the word "combat power" (戦闘力) to describe scores. It's a catchy metaphor borrowed from Dragon Ball — but it carries a dangerous implication: that engineers can be ranked on a single axis of strength.
 
 **They can't. And EIS doesn't try to.**

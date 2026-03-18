@@ -45,9 +45,12 @@ type DomainResults struct {
 
 // RepoResult holds scored results for a single repository.
 type RepoResult struct {
-	RepoName string
-	Domain   domain.Domain
-	Results  []scorer.Result
+	RepoName       string
+	Domain         domain.Domain
+	Results        []scorer.Result
+	Cochange       metric.CochangeResult
+	Ownership      []metric.ModuleOwnership
+	ModuleSurvival map[string]float64
 }
 
 // ProgressFunc is called with (done, total) during long-running operations.
@@ -115,6 +118,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		domain          domain.Domain
 		authorFirstDate map[string]time.Time
 		authorLastDate  map[string]time.Time
+		commits         []git.Commit
+		blameLines      []git.BlameLine
 	}
 
 	accumulators := make(map[domain.Domain]*accumulator)
@@ -309,6 +314,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			repoAccumulators = append(repoAccumulators, repoAccState{
 				acc: &accumulator{raw: rr}, repoName: repoName, domain: repoDomain,
 				authorFirstDate: rf, authorLastDate: rl,
+				commits: commits, blameLines: blameLines,
 			})
 		}
 	}
@@ -387,7 +393,14 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					}
 				}
 				if len(rf) > 0 {
-					dr.PerRepo = append(dr.PerRepo, RepoResult{RepoName: ra.repoName, Domain: ra.domain, Results: rf})
+					// Per-repo module topology
+					repoCochange := metric.CalcCochange(ra.commits)
+					repoOwnership := metric.CalcOwnershipFragmentation(ra.blameLines)
+					repoModuleSurvival := metric.CalcModuleSurvival(ra.blameLines, cfg.Tau, start)
+					dr.PerRepo = append(dr.PerRepo, RepoResult{
+						RepoName: ra.repoName, Domain: ra.domain, Results: rf,
+						Cochange: repoCochange, Ownership: repoOwnership, ModuleSurvival: repoModuleSurvival,
+					})
 				}
 			}
 		}
