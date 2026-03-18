@@ -24,7 +24,7 @@ eis
 
 That's it. Here's what you get:
 
-![Terminal Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/terminal-output.svg)
+![Terminal Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/terminal-output.png?v=0.11.0)
 
 ---
 
