@@ -113,10 +113,16 @@ Beyond scores, EIS classifies engineers along three independent axes:
 **Style** — How you contribute
 - Builder: builds and designs simultaneously
 - Resilient: rebuilds after destruction
+- Rescue: pays down others' debt
 - Churn: high volume, low survival
+- Mass: mass production with low survival
+- Balanced: even across all axes
+- Spread: touches everything but lacks depth
 
 **State** — Lifecycle phase
 - Former: left the team, but their code remains
+- Silent: low activity, low survival (detected only for experienced engineers)
+- Fragile: code survives only because nobody touches it
 - Growing: low volume, but high quality
 - Active: currently contributing
 

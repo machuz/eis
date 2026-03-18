@@ -109,10 +109,16 @@ EISは7つの軸でスコアリングする。
 **Style** — どう貢献するか
 - Builder：作りながら設計する
 - Resilient：壊されても再建する
+- Rescue：他者の負債を救済する
 - Churn：量は多いが残らない
+- Mass：大量生産だがSurvivalが低い
+- Balanced：全軸バランス型
+- Spread：広く浅く触るが深さがない
 
 **State** — ライフサイクル
 - Former：退職したが資産が残っている
+- Silent：活動もSurvivalも低い（経験者のみ検出）
+- Fragile：変更圧がないから残っているだけ
 - Growing：まだ量は少ないが品質が高い
 - Active：現在活動中
 
