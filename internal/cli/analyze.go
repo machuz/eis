@@ -47,6 +47,13 @@ type DomainResults struct {
 	Risks     []metric.ModuleRisk
 	RepoCount int
 	PerRepo   []RepoResult // per-repo breakdown (only when --per-repo is set)
+
+	// Module Science Phase 1: direct structural measurement
+	Cochange  []metric.CochangeResult    // per-repo co-change coupling (DSM)
+	Ownership []metric.ModuleOwnership   // accumulated ownership fragmentation
+
+	// Module Science Phase 2: 3-axis module topology
+	ModuleScores []scorer.ModuleScore
 }
 
 // RepoResult holds scored results for a single repository.
@@ -67,6 +74,15 @@ type domainAccumulator struct {
 	repoCount         int
 	risks             []metric.ModuleRisk   // accumulated bus factor risks
 	changePressure    metric.ChangePressure // accumulated change pressure across repos
+
+	// Module Science Phase 1
+	cochangeResults []metric.CochangeResult    // per-repo co-change coupling
+	ownership       []metric.ModuleOwnership   // accumulated ownership fragmentation
+
+	// Module Science Phase 2
+	moduleSurvival      map[string]float64    // per-module survival rate (0-1)
+	modulePressure      metric.ChangePressure // per-module change pressure (without repo prefix)
+	modulePressureCounts map[string]int       // count for averaging across repos
 }
 
 func newDomainAccumulator() *domainAccumulator {
@@ -77,7 +93,10 @@ func newDomainAccumulator() *domainAccumulator {
 		authorRepoCommits: make(map[string]map[string]int),
 		authorFirstDate:   make(map[string]time.Time),
 		authorLastDate:    make(map[string]time.Time),
-		changePressure:    make(metric.ChangePressure),
+		changePressure:       make(metric.ChangePressure),
+		moduleSurvival:       make(map[string]float64),
+		modulePressure:       make(metric.ChangePressure),
+		modulePressureCounts: make(map[string]int),
 	}
 }
 
@@ -144,6 +163,8 @@ func outputAnalyzeResults(domainResults []DomainResults, cfg *config.Config, for
 		switch format {
 		case "json":
 			jsonWriter.AddDomain(string(dr.Domain), dr.RepoCount, dr.Results, dr.Risks)
+			jsonWriter.AddModuleScience(string(dr.Domain), dr.Cochange, dr.Ownership)
+			jsonWriter.AddModuleScores(string(dr.Domain), dr.ModuleScores)
 			for _, rr := range dr.PerRepo {
 				jsonWriter.AddPerRepo(string(dr.Domain), rr.RepoName, rr.Results)
 			}
@@ -158,6 +179,10 @@ func outputAnalyzeResults(domainResults []DomainResults, cfg *config.Config, for
 			color.New(color.FgHiCyan, color.Bold).Printf("═══ %s ═══\n", dr.Domain)
 			output.PrintSummary(dr.Results, dr.RepoCount)
 			output.PrintRankings(dr.Results)
+
+			if len(dr.ModuleScores) > 0 {
+				output.PrintModuleArchetypes(dr.ModuleScores)
+			}
 
 			if len(dr.PerRepo) > 0 {
 				perRepoData := make([]output.PerRepoData, len(dr.PerRepo))
@@ -414,6 +439,10 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		}
 
+		// Module Science: Co-change Coupling (uses commit data, no extra git calls)
+		cochange := metric.CalcCochange(commits)
+		acc.cochangeResults = append(acc.cochangeResults, cochange)
+
 		// Step 2: Blame analysis (feeds Survival, Indispensability)
 		spin = spinner("[2/4] Blame analysis...")
 		files, err := git.ListFiles(ctx, repoPath, cfg.BlameExtensions)
@@ -468,6 +497,14 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			for mod, p := range repoPressure {
 				key := repoName + "/" + mod
 				acc.changePressure[key] = p
+				// Module Science Phase 2: accumulate pressure without repo prefix
+				n := acc.modulePressureCounts[mod]
+				if n > 0 {
+					acc.modulePressure[mod] = (acc.modulePressure[mod]*float64(n) + p) / float64(n+1)
+				} else {
+					acc.modulePressure[mod] = p
+				}
+				acc.modulePressureCounts[mod] = n + 1
 			}
 
 			// Need at least 2 authors with ≥10% AND ≥1000 blame lines for
@@ -544,10 +581,30 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 		mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
 
+		// Module Science: Ownership Fragmentation (uses blame data)
+		ownership := metric.CalcOwnershipFragmentation(blameLines)
+		acc.ownership = append(acc.ownership, ownership...)
+
+		// Module Science Phase 2: Per-module survival rate
+		repoModSurv := metric.CalcModuleSurvival(blameLines, cfg.Tau, start)
+		for mod, surv := range repoModSurv {
+			if existing, ok := acc.moduleSurvival[mod]; ok {
+				acc.moduleSurvival[mod] = (existing + surv) / 2
+			} else {
+				acc.moduleSurvival[mod] = surv
+			}
+		}
+
 		// Step 4: Accumulate bus factor risks per domain; print immediately for table format
 		acc.risks = append(acc.risks, risks...)
 		if opts.Format == "table" && len(risks) > 0 {
 			output.PrintBusFactorRisks(risks)
+		}
+
+		// Print module science results inline for table format
+		if opts.Format == "table" {
+			output.PrintCochangeCoupling(repoName, cochange)
+			output.PrintOwnershipFragmentation(repoName, ownership)
 		}
 
 		// Per-repo: build independent raw scores for this repo
@@ -640,23 +697,40 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Score and rank
 		scored := scorer.Score(acc.raw, cfg, acc.authorLastDate)
 
-		// Filter out excluded authors from results
+		// Filter out excluded authors and ghost entries (0 commits, 0 total)
 		var filtered []scorer.Result
 		for _, r := range scored {
-			if !cfg.IsExcludedAuthor(r.Author) {
-				filtered = append(filtered, r)
+			if cfg.IsExcludedAuthor(r.Author) {
+				continue
 			}
+			if r.TotalCommits == 0 && r.Total == 0 {
+				continue
+			}
+			filtered = append(filtered, r)
 		}
 
 		if len(filtered) == 0 {
 			continue
 		}
 
+		// Module Science Phase 2: Score and classify modules
+		moduleScores := scorer.ScoreModules(
+			acc.modulePressure,
+			acc.cochangeResults,
+			acc.ownership,
+			acc.moduleSurvival,
+			acc.authorLastDate,
+			cfg.ActiveDays,
+		)
+
 		dr := DomainResults{
-			Domain:    d,
-			Results:   filtered,
-			Risks:     acc.risks,
-			RepoCount: acc.repoCount,
+			Domain:       d,
+			Results:      filtered,
+			Risks:        acc.risks,
+			RepoCount:    acc.repoCount,
+			Cochange:     acc.cochangeResults,
+			Ownership:    acc.ownership,
+			ModuleScores: moduleScores,
 		}
 
 		// Score per-repo results for this domain

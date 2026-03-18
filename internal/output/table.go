@@ -305,6 +305,226 @@ func derivePattern(roles []string) string {
 	return "Variable"
 }
 
+// PrintCochangeCoupling prints the strongest co-change coupling pairs.
+// These are module pairs that frequently change together in the same commit,
+// indicating implicit structural coupling — a leaky boundary or shared concern.
+func PrintCochangeCoupling(repoName string, result metric.CochangeResult) {
+	// Only show pairs with meaningful coupling (≥5 co-changes AND ≥10% Jaccard)
+	var significant []metric.ModulePair
+	for _, p := range result.Pairs {
+		if p.CochangeCount >= 5 && p.Coupling >= 0.10 {
+			significant = append(significant, p)
+		}
+	}
+
+	if len(significant) == 0 {
+		return
+	}
+
+	// Show top 10
+	limit := 10
+	if len(significant) < limit {
+		limit = len(significant)
+	}
+
+	yellow := color.New(color.FgHiYellow, color.Bold)
+	dim := color.New(color.FgHiBlack)
+	yellow.Printf("\n  ⚡ Co-change Coupling (%s) — top %d implicit dependencies\n", repoName, limit)
+
+	headerFmt := color.New(color.FgCyan, color.Bold).SprintfFunc()
+	columnFmt := color.New(color.FgWhite).SprintfFunc()
+
+	tbl := table.New("Module A", "Module B", "Co-changes", "Coupling")
+	tbl.WithHeaderFormatter(headerFmt)
+	tbl.WithFirstColumnFormatter(columnFmt)
+	tbl.WithWriter(os.Stdout)
+
+	for i := 0; i < limit; i++ {
+		p := significant[i]
+		coupling := fmt.Sprintf("%.0f%%", p.Coupling*100)
+		switch {
+		case p.Coupling >= 0.50:
+			coupling = color.New(color.FgHiRed, color.Bold).Sprintf("%.0f%%", p.Coupling*100)
+		case p.Coupling >= 0.30:
+			coupling = color.New(color.FgHiYellow).Sprintf("%.0f%%", p.Coupling*100)
+		}
+		tbl.AddRow(p.ModuleA, p.ModuleB, p.CochangeCount, coupling)
+	}
+
+	tbl.Print()
+
+	totalModules := len(result.ModuleCommits)
+	totalPairs := len(result.Pairs)
+	dim.Printf("  %d modules, %d pairs total, %d with significant coupling\n\n", totalModules, totalPairs, len(significant))
+}
+
+// PrintOwnershipFragmentation prints module ownership analysis.
+// Highlights modules at risk: sole owners (bus factor 1) and
+// concentrated ownership (effectively sole owner with minor contributors).
+func PrintOwnershipFragmentation(repoName string, ownership []metric.ModuleOwnership) {
+	// Count by level
+	counts := map[string]int{}
+	for _, o := range ownership {
+		counts[o.Level]++
+	}
+
+	soleOrConcentrated := counts["SOLE_OWNER"] + counts["CONCENTRATED"]
+	if soleOrConcentrated == 0 && counts["FRAGMENTED"] == 0 {
+		return // all healthy — nothing to report
+	}
+
+	yellow := color.New(color.FgHiYellow, color.Bold)
+	dim := color.New(color.FgHiBlack)
+	yellow.Printf("\n  🏗  Ownership Fragmentation (%s)\n", repoName)
+
+	headerFmt := color.New(color.FgCyan, color.Bold).SprintfFunc()
+	columnFmt := color.New(color.FgWhite).SprintfFunc()
+
+	tbl := table.New("Level", "Module", "Top Owner", "Share", "Authors", "Entropy")
+	tbl.WithHeaderFormatter(headerFmt)
+	tbl.WithFirstColumnFormatter(columnFmt)
+	tbl.WithWriter(os.Stdout)
+
+	shown := 0
+	for _, o := range ownership {
+		if o.Level == "HEALTHY" {
+			continue // only show risks
+		}
+		if shown >= 15 {
+			break
+		}
+
+		levelStr := o.Level
+		switch o.Level {
+		case "SOLE_OWNER":
+			levelStr = color.New(color.FgHiRed, color.Bold).Sprint("SOLE_OWNER")
+		case "CONCENTRATED":
+			levelStr = color.New(color.FgHiRed).Sprint("CONCENTRATED")
+		case "FRAGMENTED":
+			levelStr = color.New(color.FgHiYellow).Sprint("FRAGMENTED")
+		}
+
+		tbl.AddRow(
+			levelStr,
+			o.Module,
+			o.TopAuthor,
+			fmt.Sprintf("%.0f%%", o.TopShare*100),
+			o.AuthorCount,
+			fmt.Sprintf("%.2f", o.Entropy),
+		)
+		shown++
+	}
+
+	tbl.Print()
+
+	dim.Printf("  %d modules total: %d sole-owner, %d concentrated, %d healthy, %d fragmented\n\n",
+		len(ownership), counts["SOLE_OWNER"], counts["CONCENTRATED"], counts["HEALTHY"], counts["FRAGMENTED"])
+}
+
+// PrintModuleArchetypes prints the 3-axis module topology table.
+// Shows only anomalous modules (Hub, Turbulent, Critical, Dead, Orphaned) to focus on risks.
+func PrintModuleArchetypes(modules []scorer.ModuleScore) {
+	if len(modules) == 0 {
+		return
+	}
+
+	// Filter to anomalous modules only
+	var anomalies []scorer.ModuleScore
+	for _, ms := range modules {
+		if ms.IsAnomaly() {
+			anomalies = append(anomalies, ms)
+		}
+	}
+
+	// Summary counts (over all modules)
+	couplingCounts := map[string]int{}
+	vitalityCounts := map[string]int{}
+	ownershipCounts := map[string]int{}
+	for _, ms := range modules {
+		couplingCounts[ms.Coupling]++
+		vitalityCounts[ms.Vitality]++
+		ownershipCounts[ms.Ownership]++
+	}
+
+	fmt.Println()
+	color.New(color.FgHiCyan, color.Bold).Println("─── Module Topology (3-axis) ───")
+
+	// Always print summary line
+	dim := color.New(color.FgHiBlack)
+	dim.Printf("  %d modules — Coupling: %d Hub, %d Linked, %d Independent, %d Isolated | Vitality: %d Stable, %d Warming, %d Turbulent, %d Critical, %d Dead | Ownership: %d Distributed, %d Concentrated, %d Orphaned\n",
+		len(modules),
+		couplingCounts["Hub"], couplingCounts["Linked"], couplingCounts["Independent"], couplingCounts["Isolated"],
+		vitalityCounts["Stable"], vitalityCounts["Warming"], vitalityCounts["Turbulent"], vitalityCounts["Critical"], vitalityCounts["Dead"],
+		ownershipCounts["Distributed"], ownershipCounts["Concentrated"], ownershipCounts["Orphaned"])
+
+	if len(anomalies) == 0 {
+		color.New(color.FgHiGreen).Println("  No structural anomalies detected.")
+		fmt.Println()
+		return
+	}
+
+	headerFmt := color.New(color.FgCyan, color.Bold).SprintfFunc()
+	columnFmt := color.New(color.FgWhite).SprintfFunc()
+	confFmt := color.New(color.FgHiBlack).SprintfFunc()
+
+	tbl := table.New("Module", "Boundary", "Absorption", "Knowledge", "Stability", "Coupling", "Vitality", "Ownership")
+	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt).WithWidthFunc(stripAnsiWidth).WithWriter(os.Stdout)
+
+	shown := 0
+	for _, ms := range anomalies {
+		if shown >= 30 {
+			break
+		}
+
+		couplingStr := formatModuleAxis(ms.Coupling, ms.CouplingConf, confFmt)
+		vitalityStr := formatModuleAxis(ms.Vitality, ms.VitalityConf, confFmt)
+		ownershipStr := formatModuleAxis(ms.Ownership, ms.OwnershipConf, confFmt)
+
+		tbl.AddRow(
+			ms.Module,
+			fmt.Sprintf("%.0f", ms.BoundaryIntegrity),
+			fmt.Sprintf("%.0f", ms.ChangeAbsorption),
+			fmt.Sprintf("%.0f", ms.KnowledgeDistribution),
+			fmt.Sprintf("%.0f", ms.Stability),
+			couplingStr,
+			vitalityStr,
+			ownershipStr,
+		)
+		shown++
+	}
+
+	tbl.Print()
+
+	if len(anomalies) > 30 {
+		dim.Printf("  ... and %d more anomalous modules\n", len(anomalies)-30)
+	}
+	fmt.Println()
+}
+
+func formatModuleAxis(name string, conf float64, confFmt func(string, ...interface{}) string) string {
+	if name == "" || name == "—" {
+		return "—"
+	}
+
+	var c *color.Color
+	switch name {
+	case "Hub", "Critical", "Dead", "Orphaned":
+		c = color.New(color.FgHiRed, color.Bold)
+	case "Turbulent", "Concentrated", "Linked":
+		c = color.New(color.FgHiYellow)
+	case "Warming":
+		c = color.New(color.FgYellow)
+	case "Independent", "Stable", "Distributed":
+		c = color.New(color.FgHiGreen)
+	case "Isolated":
+		c = color.New(color.FgHiBlack)
+	default:
+		c = color.New(color.FgWhite)
+	}
+
+	return fmt.Sprintf("%s %s", c.Sprint(name), confFmt("(%.2f)", conf))
+}
+
 func PrintSummary(results []scorer.Result, repoCount int) {
 	fmt.Printf("Analyzed %d repo(s), %d engineers\n", repoCount, len(results))
 	fmt.Println()

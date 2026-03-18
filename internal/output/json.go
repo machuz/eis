@@ -20,6 +20,13 @@ type jsonDomain struct {
 	Members   []jsonMember     `json:"members"`
 	BusFactor []jsonBusFactor  `json:"bus_factor,omitempty"`
 	PerRepo   []jsonRepoResult `json:"per_repo,omitempty"`
+
+	// Module Science Phase 1
+	Cochange  []jsonCochangeRepo   `json:"cochange,omitempty"`
+	Ownership []jsonModuleOwnership `json:"ownership,omitempty"`
+
+	// Module Science Phase 2
+	ModuleScores []jsonModuleScore `json:"module_scores,omitempty"`
 }
 
 type jsonRepoResult struct {
@@ -59,6 +66,51 @@ type jsonBusFactor struct {
 	Module string  `json:"module"`
 	Owner  string  `json:"owner"`
 	Share  float64 `json:"share"`
+}
+
+type jsonCochangeRepo struct {
+	Pairs []jsonCochangePair `json:"pairs"`
+}
+
+type jsonCochangePair struct {
+	ModuleA       string  `json:"module_a"`
+	ModuleB       string  `json:"module_b"`
+	CochangeCount int     `json:"cochange_count"`
+	Coupling      float64 `json:"coupling"`
+}
+
+type jsonModuleScore struct {
+	Module                string  `json:"module"`
+	BoundaryIntegrity     float64 `json:"boundary_integrity"`
+	ChangeAbsorption      float64 `json:"change_absorption"`
+	KnowledgeDistribution float64 `json:"knowledge_distribution"`
+	Stability             float64 `json:"stability"`
+	ChangePressure        float64 `json:"change_pressure"`
+	AvgCoupling           float64 `json:"avg_coupling"`
+	MaxCoupling           float64 `json:"max_coupling"`
+	CouplingPairCount     int     `json:"coupling_pair_count"`
+	AuthorCount           int     `json:"author_count"`
+	BlameLines            int     `json:"blame_lines"`
+	ModuleCommits         int     `json:"module_commits"`
+	OwnershipLevel        string  `json:"ownership_level"`
+	TopAuthorShare        float64 `json:"top_author_share"`
+	OwnerActive           bool    `json:"owner_active"`
+	Coupling              string  `json:"coupling"`
+	CouplingConf          float64 `json:"coupling_confidence"`
+	Vitality              string  `json:"vitality"`
+	VitalityConf          float64 `json:"vitality_confidence"`
+	Ownership             string  `json:"ownership"`
+	OwnershipConf         float64 `json:"ownership_confidence"`
+}
+
+type jsonModuleOwnership struct {
+	Module      string  `json:"module"`
+	TotalLines  int     `json:"total_lines"`
+	AuthorCount int     `json:"author_count"`
+	TopAuthor   string  `json:"top_author"`
+	TopShare    float64 `json:"top_share"`
+	Entropy     float64 `json:"entropy"`
+	Level       string  `json:"level"`
 }
 
 // JSONWriter accumulates domain data for a single JSON output at the end.
@@ -115,6 +167,79 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 	}
 
 	w.output.Domains = append(w.output.Domains, d)
+}
+
+// AddModuleScience appends co-change and ownership data to the last added domain.
+func (w *JSONWriter) AddModuleScience(domainName string, cochangeResults []metric.CochangeResult, ownership []metric.ModuleOwnership) {
+	for i := len(w.output.Domains) - 1; i >= 0; i-- {
+		if w.output.Domains[i].Name == domainName {
+			// Co-change: per-repo results, only significant pairs
+			for _, cr := range cochangeResults {
+				repo := jsonCochangeRepo{}
+				for _, p := range cr.Pairs {
+					if p.CochangeCount >= 5 && p.Coupling >= 0.10 {
+						repo.Pairs = append(repo.Pairs, jsonCochangePair{
+							ModuleA:       p.ModuleA,
+							ModuleB:       p.ModuleB,
+							CochangeCount: p.CochangeCount,
+							Coupling:      round2(p.Coupling),
+						})
+					}
+				}
+				if len(repo.Pairs) > 0 {
+					w.output.Domains[i].Cochange = append(w.output.Domains[i].Cochange, repo)
+				}
+			}
+
+			// Ownership: all modules
+			for _, o := range ownership {
+				w.output.Domains[i].Ownership = append(w.output.Domains[i].Ownership, jsonModuleOwnership{
+					Module:      o.Module,
+					TotalLines:  o.TotalLines,
+					AuthorCount: o.AuthorCount,
+					TopAuthor:   o.TopAuthor,
+					TopShare:    round2(o.TopShare),
+					Entropy:     round2(o.Entropy),
+					Level:       o.Level,
+				})
+			}
+			return
+		}
+	}
+}
+
+// AddModuleScores appends module topology scores to the matching domain.
+func (w *JSONWriter) AddModuleScores(domainName string, modules []scorer.ModuleScore) {
+	for i := len(w.output.Domains) - 1; i >= 0; i-- {
+		if w.output.Domains[i].Name == domainName {
+			for _, ms := range modules {
+				w.output.Domains[i].ModuleScores = append(w.output.Domains[i].ModuleScores, jsonModuleScore{
+					Module:                ms.Module,
+					BoundaryIntegrity:     round1(ms.BoundaryIntegrity),
+					ChangeAbsorption:      round1(ms.ChangeAbsorption),
+					KnowledgeDistribution: round1(ms.KnowledgeDistribution),
+					Stability:             round1(ms.Stability),
+					ChangePressure:        round2(ms.ChangePressure),
+					AvgCoupling:           round2(ms.AvgCoupling),
+					MaxCoupling:           round2(ms.MaxCoupling),
+					CouplingPairCount:     ms.CouplingPairCount,
+					AuthorCount:           ms.AuthorCount,
+					BlameLines:            ms.BlameLines,
+					ModuleCommits:         ms.ModuleCommits,
+					OwnershipLevel:        ms.OwnershipLevel,
+					TopAuthorShare:        round2(ms.TopAuthorShare),
+					OwnerActive:           ms.OwnerActive,
+					Coupling:              ms.Coupling,
+					CouplingConf:          round2(ms.CouplingConf),
+					Vitality:              ms.Vitality,
+					VitalityConf:          round2(ms.VitalityConf),
+					Ownership:             ms.Ownership,
+					OwnershipConf:         round2(ms.OwnershipConf),
+				})
+			}
+			return
+		}
+	}
 }
 
 // AddPerRepo appends per-repo results to the last added domain (or matching domain).
