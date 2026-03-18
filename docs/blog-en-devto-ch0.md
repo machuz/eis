@@ -77,6 +77,13 @@ And now AI writes enormous amounts of code.
 
 If EIS can become a **tool for making architecture a science**, I'd be glad.
 
+And now it observes more than just people. EIS classifies **every module** in the codebase along 3 axes — Coupling (boundary quality), Vitality (change pressure × survival), and Ownership (knowledge distribution). This turns invisible structural risks into observable data:
+
+- `Hub × Critical × Orphaned` — a module at the center of implicit dependencies, under extreme change pressure, with no active owner. Maximum risk.
+- `Independent × Stable × Distributed` — a well-bounded module with healthy ownership. The ideal state.
+
+The telescope now observes **both the stars (engineers) and the space they inhabit (modules).**
+
 ---
 
 ## 7 Axes of Impact
@@ -138,8 +145,10 @@ Here's what EIS has surfaced in real teams:
 - **Code that survives only because nobody touches it** — not because it's good (Fragile detection)
 - **No Producers on the team** — the layer that generates volume on top of structure is empty (Producer Vacuum)
 - **Architect Bus Factor = 1** — all design knowledge concentrated in one person
+- **136 Orphaned modules** — owners have left, nobody holds the knowledge (Module Topology)
+- **12 Critical modules** — high change pressure + code doesn't survive. Structural time bombs (Module Topology)
 
-Cold git history tells **team stories** you didn't know you had.
+Cold git history tells **team stories** you didn't know you had. And module topology tells **where the system is breaking**, not just who is strong.
 
 ---
 
