@@ -145,11 +145,13 @@ func runTimeline(args []string) error {
 	if !quiet {
 		repoCount := 0
 		totalRepos := len(repoPaths)
+		loadFrames := []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"}
 		cb.OnRepoStart = func(repoName string, d string) {
 			repoCount++
+			frame := color.New(color.FgCyan).Sprint(loadFrames[repoCount%len(loadFrames)])
 			domainLabel := color.New(color.FgCyan).Sprintf("[%s]", d)
 			counter := color.New(color.FgHiBlack).Sprintf("(%d/%d)", repoCount, totalRepos)
-			color.New(color.Bold).Fprintf(os.Stderr, "  Loading: %s %s %s\n", repoName, domainLabel, counter)
+			fmt.Fprintf(os.Stderr, "  %s %s %s %s\n", frame, repoName, domainLabel, counter)
 		}
 		cb.OnPeriodStart = func(label string, index, total int) {
 			repoCount = 0 // reset for each period
