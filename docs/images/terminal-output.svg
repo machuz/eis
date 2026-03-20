@@ -256,7 +256,7 @@
   <text x="20" y="472" class="summary">Completed in 2m37s (12 repos total)</text>
 
   <!-- Signal legend -->
-  <text x="20" y="498" class="summary">  80-100  Irreplaceable core member: 1    40-59  Senior-level: 1    20-29  Junior-Mid: 3    0-19  Junior: 3</text>
+  <text x="20" y="498" class="summary">  80-100  Supernova: 1    40-59  Senior-level: 1    20-29  Junior-Mid: 3    0-19  Junior: 3</text>
 
   <!-- Version -->
   <text x="20" y="520" class="summary">eis v0.11.0 — github.com/machuz/engineering-impact-score</text>

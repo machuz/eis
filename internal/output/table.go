@@ -534,7 +534,7 @@ func PrintSummary(results []scorer.Result, repoCount int) {
 		max   float64
 		label string
 	}{
-		{80, 100, "Irreplaceable core member"},
+		{80, 100, "Supernova"},
 		{60, 79, "Near-core. Strong"},
 		{40, 59, "Senior-level (40+ is genuinely strong)"},
 		{30, 39, "Mid-level"},

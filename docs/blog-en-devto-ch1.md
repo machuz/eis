@@ -227,7 +227,7 @@ The scale is intentionally strict.
 
 | Impact | Assessment | Approx. Total Comp (USD) |
 |---|---|---|
-| 80+ | Irreplaceable core member. 1–2 per team at most | $250K–400K+ |
+| 80+ | Supernova. 1–2 per team at most | $250K–400K+ |
 | 60–79 | Near-core. Strong | $180K–300K |
 | **40–59** | **Senior-level. 40+ is genuinely strong** | **$140K–220K** |
 | 30–39 | Mid-level | $100K–160K |
