@@ -65,9 +65,9 @@ Anyone can use it. Point it at any team. Through the lens of git history — a l
 
 Engineers in Japan are paid less than their peers in other countries.
 
-It's not because they lack skill. I believe it comes from a cultural tendency to let the work speak for itself — rather than asserting their own value. They write code in silence, fix architecture in silence, clean up debt in silence — and don't get properly recognized for it.
+It's not because they lack skill. I believe it comes from a cultural tendency to let the work speak for itself — rather than asserting their own value. They write code in silence, fix architecture in silence, clean up debt in silence — and that work stays **invisible**. Invisible means unheard.
 
-I want people who are excellent at building things, who face their craft with sincerity, to be evaluated for what they actually create.
+I want to build a world where the work of people who sincerely face their craft **becomes visible**.
 
 As I built EIS, I started to see the shape of what I really wanted to do: **create a structure where people who sincerely face their craft are the ones who win.** The moment I gained that self-awareness, the energy exploded, and I was able to bring this tool this far in a short period of time.
 
