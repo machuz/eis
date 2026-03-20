@@ -246,7 +246,7 @@ func TestClassify_Risk_TalentDrain(t *testing.T) {
 	}
 }
 
-func TestClassify_Character_Fortress(t *testing.T) {
+func TestClassify_Character_Elliptical(t *testing.T) {
 	tr := TeamResult{
 		MemberCount:      5,
 		TotalMemberCount: 5,
@@ -269,12 +269,12 @@ func TestClassify_Character_Fortress(t *testing.T) {
 
 	c := Classify(tr)
 
-	if c.Character.Name != "Fortress" {
-		t.Errorf("Character = %s, want Fortress", c.Character.Name)
+	if c.Character.Name != "Elliptical" {
+		t.Errorf("Character = %s, want Elliptical", c.Character.Name)
 	}
 }
 
-func TestClassify_Character_Pioneer(t *testing.T) {
+func TestClassify_Character_Starburst(t *testing.T) {
 	tr := TeamResult{
 		MemberCount:      5,
 		TotalMemberCount: 5,
@@ -297,8 +297,8 @@ func TestClassify_Character_Pioneer(t *testing.T) {
 
 	c := Classify(tr)
 
-	if c.Character.Name != "Pioneer" {
-		t.Errorf("Character = %s, want Pioneer", c.Character.Name)
+	if c.Character.Name != "Starburst" {
+		t.Errorf("Character = %s, want Starburst", c.Character.Name)
 	}
 }
 

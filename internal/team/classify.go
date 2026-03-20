@@ -416,9 +416,9 @@ func classifyCharacter(tr TeamResult, structure, culture, phase TeamLabel) TeamL
 	allArchitectsAreBuilders := totalArchitects > 0 && archBuilders == totalArchitects
 
 	rules := []labelRule{
-		// Elite: SC>0.4, AAR 0.3-0.8, PD>35 — balanced architecture + protection + output
+		// Spiral: SC>0.4, AAR 0.3-0.8, PD>35 — strong core + active star formation
 		// AAR constraint relaxed if all Architects are also Builders (they design AND implement)
-		{"Elite", func() float64 {
+		{"Spiral", func() float64 {
 			if sc <= 0.4 || pd <= 35 {
 				return 0
 			}
@@ -428,24 +428,24 @@ func classifyCharacter(tr TeamResult, structure, culture, phase TeamLabel) TeamL
 			return clamp(sc+pd/100, 0, 1)
 		}()},
 
-		// Fortress: Architectural structure + Stability culture
-		{"Fortress", func() float64 {
+		// Elliptical: Architectural structure + Stability culture — mature, change-resistant
+		{"Elliptical", func() float64 {
 			if (s == "Architectural Engine" || s == "Architectural Team") && cu == "Stability" {
 				return minf(structure.Confidence, culture.Confidence)
 			}
 			return 0
 		}()},
 
-		// Pioneer: Architectural + Builder culture
-		{"Pioneer", func() float64 {
+		// Starburst: Architectural + Builder culture — explosive star formation
+		{"Starburst", func() float64 {
 			if (s == "Architectural Engine" || s == "Architectural Team" || s == "Emerging Architecture") && cu == "Builder" {
 				return minf(structure.Confidence, culture.Confidence)
 			}
 			return 0
 		}()},
 
-		// Academy: Builder culture + growing phase
-		{"Academy", func() float64 {
+		// Nebula: Builder culture + growing phase — stellar nursery
+		{"Nebula", func() float64 {
 			if cu != "Builder" {
 				return 0
 			}
@@ -455,16 +455,16 @@ func classifyCharacter(tr TeamResult, structure, culture, phase TeamLabel) TeamL
 			return culture.Confidence * 0.5
 		}()},
 
-		// Feature Factory: High PD but weak structure — ships fast, erodes architecture
-		{"Feature Factory", func() float64 {
+		// Irregular: High PD but weak structure — no gravitational center
+		{"Irregular", func() float64 {
 			if pd <= 40 || sc >= 0.2 {
 				return 0
 			}
 			return clamp(pd/100+0.3, 0, 0.85)
 		}()},
 
-		// Factory: Delivery + Mass Production
-		{"Factory", func() float64 {
+		// Cluster: Delivery + Mass Production — dense star cluster, productive but weakly bound
+		{"Cluster", func() float64 {
 			if s == "Delivery Team" && cu == "Mass Production" {
 				return minf(structure.Confidence, culture.Confidence)
 			}
@@ -474,16 +474,16 @@ func classifyCharacter(tr TeamResult, structure, culture, phase TeamLabel) TeamL
 			return 0
 		}()},
 
-		// Firefighting: Firefighting culture dominant
-		{"Firefighting", func() float64 {
+		// Collision: Firefighting culture dominant — structural disruption
+		{"Collision", func() float64 {
 			if cu != "Firefighting" {
 				return 0
 			}
 			return culture.Confidence
 		}()},
 
-		// Guardian: Maintenance + Stability, or high SC + low PD (Legacy Maintenance)
-		{"Guardian", func() float64 {
+		// Dwarf: Maintenance + Stability, or high SC + low PD — small but long-lived
+		{"Dwarf", func() float64 {
 			if s == "Maintenance Team" && (cu == "Stability" || cu == "Mixed") {
 				return minf(structure.Confidence, 0.70)
 			}
@@ -494,16 +494,16 @@ func classifyCharacter(tr TeamResult, structure, culture, phase TeamLabel) TeamL
 			return 0
 		}()},
 
-		// Explorer: Exploration culture
-		{"Explorer", func() float64 {
+		// Filament: Exploration culture — wide, thin, probing structure
+		{"Filament", func() float64 {
 			if cu != "Exploration" {
 				return 0
 			}
 			return culture.Confidence * 0.8
 		}()},
 
-		// Balanced: default
-		{"Balanced", 0.25},
+		// Lenticular: default — between Spiral and Elliptical
+		{"Lenticular", 0.25},
 	}
 
 	return pickBestLabel(rules)

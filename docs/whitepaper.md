@@ -441,15 +441,15 @@ Balances high average quality with low variance. A team where everyone has 80% q
 
 | Character | Key Criteria | Interpretation |
 |-----------|-------------|----------------|
-| **Elite** | Arch. coverage >0.4, productivity >35, balanced AAR | Design + delivery excellence |
-| **Fortress** | Arch. structure + Stability culture | Strong but potentially rigid |
-| **Pioneer** | Arch. structure + Builder culture | Innovating while maintaining structure |
-| **Academy** | Builder culture + Scaling/Emerging phase | Developing next-generation engineers |
-| **Feature Factory** | High productivity, low architecture coverage | Ships fast, erodes architecture |
-| **Factory** | Delivery team + Mass production culture | Pure output, no design |
-| **Firefighting** | Firefighting culture | Reactive, constantly fixing |
-| **Guardian** | Maintenance structure + Stability culture | Preserving existing systems |
-| **Explorer** | Exploration culture | Wide but shallow |
+| **Spiral** | Arch. coverage >0.4, productivity >35, balanced AAR | Design + delivery excellence |
+| **Elliptical** | Arch. structure + Stability culture | Strong but potentially rigid |
+| **Starburst** | Arch. structure + Builder culture | Innovating while maintaining structure |
+| **Nebula** | Builder culture + Scaling/Emerging phase | Developing next-generation engineers |
+| **Irregular** | High productivity, low architecture coverage | Ships fast, erodes architecture |
+| **Cluster** | Delivery team + Mass production culture | Pure output, no design |
+| **Collision** | Firefighting culture | Reactive, constantly fixing |
+| **Dwarf** | Maintenance structure + Stability culture | Preserving existing systems |
+| **Filament** | Exploration culture | Wide but shallow |
 
 #### Structure (Role Composition)
 

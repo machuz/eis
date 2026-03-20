@@ -221,13 +221,13 @@ Structure × Culture × Phase × Risk + 構造指標（AAR、Anchor Density、Pr
 
 | キャラクター | 条件の概要 | 意味 |
 |---|---|---|
-| **Elite** | SC高い、AAR適正、PD高い | 設計力と生産性を兼ね備えた精鋭チーム |
-| **Fortress** | Structure良好、Culture安定 | 堅牢で安定した守りのチーム |
-| **Pioneer** | Phase成長期、Culture Builder | 新領域を切り拓く開拓チーム |
-| **Academy** | Growing多い、Builder在籍 | 人材育成が活発なチーム |
-| **Feature Factory** | Producer主体、Architect不在 | 機能を量産するが設計が弱い |
-| **Guardian** | Anchor/Cleaner主体 | 保守と品質を守るチーム |
-| **Firefighting** | Churn/Rescue文化 | 常に火消しに追われるチーム |
+| **Spiral** | SC高い、AAR適正、PD高い | 設計力と生産性を兼ね備えた精鋭チーム |
+| **Elliptical** | Structure良好、Culture安定 | 堅牢で安定した守りのチーム |
+| **Starburst** | Phase成長期、Culture Builder | 新領域を切り拓く開拓チーム |
+| **Nebula** | Growing多い、Builder在籍 | 人材育成が活発なチーム |
+| **Irregular** | Producer主体、Architect不在 | 機能を量産するが設計が弱い |
+| **Dwarf** | Anchor/Cleaner主体 | 保守と品質を守るチーム |
+| **Collision** | Churn/Rescue文化 | 常に火消しに追われるチーム |
 
 **SC（Structure-Culture complementarity）** はStructureとCultureがどれだけ噛み合っているかの指標。Architectural EngineのStructure + Builder Cultureは最高の組み合わせ。Delivery Team + Firefighting Cultureは最悪。
 
@@ -346,14 +346,14 @@ ArchitectがImpact 90超えで、Silent/Formerが何人かいるBackendチーム
 
 実際のプロダクト（Backend 12リポ + Frontend 9リポ）に対して `eis team` を実行した結果：
 
-**Backend — Elite / Legacy-Heavy**:
+**Backend — Spiral / Legacy-Heavy**:
 
 - Core 4人で12リポを運用、Risk 3人（Silent 2 + Former 1）
 - Architect + Anchor 2人 = AAR 0.50（健全レンジ）
 - ProdDensity 60 ——4人としてはまずまずだが、トップ貢献者が生産の46%を占める
 - Phase: `Legacy-Heavy` ——衰退ではないが、歴史の重みが載っている
 
-**Frontend — Pioneer / Mature**:
+**Frontend — Starburst / Mature**:
 
 - Core 6人、Risk 0人 —— 全員がアクティブ
 - Architect + Anchor在籍、構造カバレッジ33%
@@ -362,8 +362,8 @@ ArchitectがImpact 90超えで、Silent/Formerが何人かいるBackendチーム
 
 AIに診断させた結果をまとめると：
 
-- **Backend**: 強いが履歴の重いElite。Characterは最上位だが脆い——1人の離脱がすべてを変える。
-- **Frontend**: Mature（成熟）フェーズのPioneer。Architectが機能しており、Risk 0%。Gravity警告が1件残るが、チームとしては健全。
+- **Backend**: 強いが履歴の重いSpiral。Characterは最上位だが脆い——1人の離脱がすべてを変える。
+- **Frontend**: Mature（成熟）フェーズのStarburst。Architectが機能しており、Risk 0%。Gravity警告が1件残るが、チームとしては健全。
 
 **数字が物語を持ち始めた。** 「誰が強いか」だけでなく「チームがどんな状態で、次に何が起きるか」が見えるようになった。
 

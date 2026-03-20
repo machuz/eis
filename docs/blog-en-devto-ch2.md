@@ -205,13 +205,13 @@ Synthesized from Structure × Culture × Phase × Risk plus structural metrics (
 
 | Character | Key Conditions | Meaning |
 |---|---|---|
-| **Elite** | High SC, healthy AAR, high PD | Design strength meets production velocity |
-| **Fortress** | Good Structure, stable Culture | Robust defensive team |
-| **Pioneer** | Growth Phase, Builder Culture | Trailblazing into new territory |
-| **Academy** | Growing members + Builder present | Active talent development |
-| **Feature Factory** | Producer-dominant, no Architect | Ships features but design is adrift |
-| **Guardian** | Anchor/Cleaner-dominant | Quality and maintenance guardians |
-| **Firefighting** | Churn/Rescue culture | Perpetually fighting fires |
+| **Spiral** | High SC, healthy AAR, high PD | Design strength meets production velocity |
+| **Elliptical** | Good Structure, stable Culture | Robust defensive team |
+| **Starburst** | Growth Phase, Builder Culture | Trailblazing into new territory |
+| **Nebula** | Growing members + Builder present | Active talent development |
+| **Irregular** | Producer-dominant, no Architect | Ships features but design is adrift |
+| **Dwarf** | Anchor/Cleaner-dominant | Quality and maintenance guardians |
+| **Collision** | Churn/Rescue culture | Perpetually fighting fires |
 
 **SC (Structure-Culture complementarity)** measures how well Structure and Culture mesh. Architectural Engine + Builder Culture is the best combination. Delivery Team + Firefighting Culture is the worst.
 
@@ -326,14 +326,14 @@ A Backend team with an Architect at 90+ impact and two Silent former members isn
 
 Running `eis team` on our actual product (12 Backend repos + 9 Frontend repos):
 
-**Backend — Elite / Legacy-Heavy**:
+**Backend — Spiral / Legacy-Heavy**:
 
 - 4 core members carrying 12 repos, 3 risk members (2 Silent + 1 Former)
 - Architect + 2 Anchors = AAR 0.50 (healthy range)
 - ProdDensity 60 — decent for 4 people, but top contributor accounts for 46% of production
 - `Legacy-Heavy` phase: not declining, but the historical weight is real
 
-**Frontend — Pioneer / Mature**:
+**Frontend — Starburst / Mature**:
 
 - 6 core members, 0 risk — everyone is active
 - Architect + Anchor present, structural coverage 33%
@@ -342,8 +342,8 @@ Running `eis team` on our actual product (12 Backend repos + 9 Frontend repos):
 
 The numbers tell a story:
 
-- **Backend**: Strong but carrying historical weight. An Elite team by character, but fragile — one departure changes everything.
-- **Frontend**: A Mature Pioneer. The Architect is functioning, Risk is 0%. One Gravity warning remains, but the team is structurally healthy.
+- **Backend**: Strong but carrying historical weight. A Spiral team by character, but fragile — one departure changes everything.
+- **Frontend**: A Mature Starburst. The Architect is functioning, Risk is 0%. One Gravity warning remains, but the team is structurally healthy.
 
 **The numbers started to tell a story.** Not just "who is strong" but "what state is the team in, and what happens next."
 

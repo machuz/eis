@@ -24,7 +24,7 @@ But those were individual stories. **A team is a collection of individuals.** Wh
 
 The team timeline classifies the entire team for each period:
 
-- **Character** — Team personality (Elite, Guardian, Factory, Balanced, Explorer, Firefighting)
+- **Character** — Team personality (Spiral, Dwarf, Cluster, Lenticular, Filament, Collision)
 - **Structure** — Organization (Architectural Engine, Delivery Team, Maintenance Team, Unstructured)
 - **Culture** — Culture (Builder, Stability, Exploration, Firefighting)
 - **Phase** — Phase (Mature, Emerging, Declining)
@@ -42,7 +42,7 @@ Plus Health metrics (Complementarity, Growth Potential, Sustainability, etc.) an
 
 (2024-H2 through 2025-H2 lack classification due to insufficient member count. Comparing 2024-H2 and 2026-H1.)
 
-**Balanced → Elite. Unstructured → Architectural Engine. Declining → Mature. Design Vacuum → Healthy.**
+**Lenticular → Spiral. Unstructured → Architectural Engine. Declining → Mature. Design Vacuum → Healthy.**
 
 Every axis improved.
 
@@ -51,7 +51,7 @@ Why? As Chapter 5 showed:
 - **2024**: Y.Y. sustained the structure as Architect Builder
 - **2025-H1**: Y.Y. declined from Anchor → Fragile. No structure owner
 - **2025-H2**: machuz reached Architect Builder
-- **2026-H1**: Team reached Elite / Architectural Engine / Mature / Healthy
+- **2026-H1**: Team reached Spiral / Architectural Engine / Mature / Healthy
 
 **A generational transition at the individual level manifested as a team-level transformation.**
 
@@ -63,7 +63,7 @@ Looking at Signal Averages:
 
 Design at 36.4 is still low. Because Architect responsibility is concentrated in machuz alone. Other members' Design signals are mostly 0–30.
 
-**The Elite team's next challenge: distributing design capability.**
+**The Spiral team's next challenge: distributing design capability.**
 
 ---
 
@@ -88,11 +88,11 @@ One more interesting pattern in Frontend:
 
 ![Frontend Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-frontend-team-timeline.png?v=4)
 
-**In 2025-H1, the team briefly became Factory / Delivery Team, then reverted.**
+**In 2025-H1, the team briefly became Cluster / Delivery Team, then reverted.**
 
-What happened? 2025-H1 was when R.M. reached 83.8 as Architect — not only designing but also shipping at high volume, single-handedly driving both design and implementation. O. was simultaneously Anchor (54.3), delivering steadily. **The designer was producing at high throughput while the Anchor sustained delivery.** The team temporarily exhibited Factory (high-throughput) / Delivery Team characteristics.
+What happened? 2025-H1 was when R.M. reached 83.8 as Architect — not only designing but also shipping at high volume, single-handedly driving both design and implementation. O. was simultaneously Anchor (54.3), delivering steadily. **The designer was producing at high throughput while the Anchor sustained delivery.** The team temporarily exhibited Cluster (high-throughput) / Delivery Team characteristics.
 
-But that "maximum output" was temporary. The next half, it reverted to Guardian / Maintenance.
+But that "maximum output" was temporary. The next half, it reverted to Dwarf / Maintenance.
 
 **Team character fluctuates with individual output on a quarterly basis.** The smaller the team, the more pronounced this effect.
 
@@ -100,25 +100,25 @@ But that "maximum output" was temporary. The next half, it reverted to Guardian 
 
 ## Cross-Domain: Infra and Firmware
 
-### Infra: Explorer / Emerging
+### Infra: Filament / Emerging
 
 ![Infra & Firmware](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-infra-firmware.png?v=4)
 
-Explorer / Exploration / Emerging. **A team still taking shape.**
+Filament / Exploration / Emerging. **A team still taking shape.**
 
 Every member profiles as Growing or Spread. Zero Architects. Design Vacuum is inevitable.
 
 But Phase: Emerging means **growth is happening**. Not Declining.
 
-### Firmware: Firefighting
+### Firmware: Collision
 
-Firmware has only two members. Character: Firefighting. Culture: Firefighting.
+Firmware has only two members. Character: Collision. Culture: Firefighting.
 
 Production 100, Quality 84.6. **Productive, but no design.**
 
 This is a team "responding to problems as they arise." No bandwidth to build structure. No Architect, Design at 0.
 
-**The smaller the team, the more a single person's entry or exit fundamentally changes the team's nature.** If one Architect joined Firmware, it would shift from Firefighting to Builder.
+**The smaller the team, the more a single person's entry or exit fundamentally changes the team's nature.** If one Architect joined Firmware, it would shift from Collision to Builder.
 
 ---
 
@@ -289,7 +289,7 @@ Compare with Backend 2026-H1:
 
 ![Effective Members](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch6-data-effective-members.png?v=4)
 
-machuz (Architect Builder) plus multiple Anchors/Producers. People producing on top of the structure. That's why it reached Elite / Architectural Engine.
+machuz (Architect Builder) plus multiple Anchors/Producers. People producing on top of the structure. That's why it reached Spiral / Architectural Engine.
 
 **Architects alone can't make a team function.** You need Producers who use the structure the Architect built. Only then does the team work.
 

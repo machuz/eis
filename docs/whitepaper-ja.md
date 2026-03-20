@@ -441,15 +441,15 @@ $$\text{QualityConsistency} = 0.6 \times \text{AvgQuality} + 0.4 \times \text{cl
 
 | Character | 主要基準 | 解釈 |
 |-----------|----------|------|
-| **Elite** | アーキテクチャカバレッジ>0.4、生産性>35、均衡したAAR | 設計＋デリバリーの卓越性 |
-| **Fortress** | アーキテクチャ構造 ＋ Stability文化 | 強固だが潜在的に硬直 |
-| **Pioneer** | アーキテクチャ構造 ＋ Builder文化 | 構造を維持しながらイノベーション |
-| **Academy** | Builder文化 ＋ Scaling/Emergingフェーズ | 次世代エンジニアを育成 |
-| **Feature Factory** | 高い生産性、低いアーキテクチャカバレッジ | 速く出荷するがアーキテクチャを侵食 |
-| **Factory** | Deliveryチーム ＋ Mass Production文化 | 純粋な出力、設計なし |
-| **Firefighting** | Firefighting文化 | 受動的、常に修正 |
-| **Guardian** | Maintenance構造 ＋ Stability文化 | 既存システムを保全 |
-| **Explorer** | Exploration文化 | 広いが浅い |
+| **Spiral** | アーキテクチャカバレッジ>0.4、生産性>35、均衡したAAR | 設計＋デリバリーの卓越性 |
+| **Elliptical** | アーキテクチャ構造 ＋ Stability文化 | 強固だが潜在的に硬直 |
+| **Starburst** | アーキテクチャ構造 ＋ Builder文化 | 構造を維持しながらイノベーション |
+| **Nebula** | Builder文化 ＋ Scaling/Emergingフェーズ | 次世代エンジニアを育成 |
+| **Irregular** | 高い生産性、低いアーキテクチャカバレッジ | 速く出荷するがアーキテクチャを侵食 |
+| **Cluster** | Deliveryチーム ＋ Mass Production文化 | 純粋な出力、設計なし |
+| **Collision** | Firefighting文化 | 受動的、常に修正 |
+| **Dwarf** | Maintenance構造 ＋ Stability文化 | 既存システムを保全 |
+| **Filament** | Exploration文化 | 広いが浅い |
 
 #### Structure（構造・ロール構成）
 

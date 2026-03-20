@@ -127,7 +127,7 @@ In teams with multiple gravities, four forces operate simultaneously:
 | **The force to stabilize** | Anchor | High Quality + High Survival. Fixes bugs, writes tests, raises the quality floor |
 | **The force to build** | Producer | High Production. Moves features forward, creates user value |
 
-When all four are present, the team's Classification becomes **Elite / Architectural Engine / Builder / Mature / Healthy**.
+When all four are present, the team's Classification becomes **Spiral / Architectural Engine / Builder / Mature / Healthy**.
 
 Conversely, when any one is missing, it surfaces as Risk:
 
@@ -166,7 +166,7 @@ In engineering hiring, it's easy to say "our team has strong technical culture."
 
 With EIS team timelines, you can:
 
-- **Classification: Elite / Architectural Engine / Mature** — "Our team has distributed design capability. We don't depend on any single individual."
+- **Classification: Spiral / Architectural Engine / Mature** — "Our team has distributed design capability. We don't depend on any single individual."
 - **Health: Complementarity 0.85** — "Our members' skills are complementary with low overlap bias."
 - **Risk: Healthy** — "No Bus Factor, Design Vacuum, or Quality Drift risks."
 - **Phase: Sustained Mature** — "Stable without stagnating."

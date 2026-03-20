@@ -346,7 +346,7 @@ What matters is that it works even in atypical cases. For standard departure sig
 
 ![Team Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch5-team-timeline.png?v=4)
 
-Guardian → Balanced → Elite. Declining → Mature. Design Vacuum → Healthy.
+Dwarf → Lenticular → Spiral. Declining → Mature. Design Vacuum → Healthy.
 
 **You can see the team becoming healthier over time.**
 
