@@ -61,6 +61,24 @@ Anyone can use it. Point it at any team. Through the lens of git history — a l
 
 ---
 
+## Building a Structure Where Sincere Makers Win
+
+Engineers in Japan are paid less than their peers in other countries.
+
+It's not because they lack skill. I believe it comes from a cultural gentleness — a tendency not to assert their own value. They write code in silence, fix architecture in silence, clean up debt in silence — and don't get properly recognized for it.
+
+I want people who are excellent at building things, who face their craft with sincerity, to be evaluated for what they actually create.
+
+As I built EIS, I started to see the shape of what I really wanted to do: **create a structure where people who sincerely face their craft are the ones who win.** The moment I gained that self-awareness, the energy exploded, and I was able to bring this tool this far in a short period of time.
+
+And now I'm thinking about what comes after the telescope.
+
+A telescope **observes** the universe. But observation alone doesn't change an engineer's life. You need to **interpret** the observation data, **propose** a universe that fits them — the right codebase, the right team, the right organization — and **show** them a stable orbit within that universe. Only then does "a structure where sincere makers win" become real.
+
+That's the next step for EIS. Turning the telescope into an observatory.
+
+---
+
 ## Making Architecture a Science
 
 Being strong at math. Being strong at algorithms. Being strong at language specifications.
