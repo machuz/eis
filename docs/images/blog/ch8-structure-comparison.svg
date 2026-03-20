@@ -18,7 +18,7 @@
   <text x="400" y="20" text-anchor="middle" fill="#928374" font-size="12">Gravitational Field Strength</text>
 
   <text y="50" font-size="12"><tspan x="20" fill="#ebdbb2">Structure: </tspan><tspan x="99.2" fill="#d3869b" font-weight="700">Architectural Engine</tspan><tspan x="243.2" fill="#928374">  →  Strong gravitational field</tspan></text>
-  <text x="20" y="68" fill="#928374" font-size="12">                                  (scores are hard-earned)</text>
+  <text x="20" y="68" fill="#928374" font-size="12">                                  (signals are hard-earned)</text>
   <text y="104" font-size="12"><tspan x="20" fill="#ebdbb2">Structure: </tspan><tspan x="99.2" fill="#fb4934" font-weight="700">Unstructured</tspan><tspan x="185.60000000000002" fill="#928374">          →  Weak gravitational field</tspan></text>
-  <text x="20" y="122" fill="#928374" font-size="12">                                  (scores come easily)</text>
+  <text x="20" y="122" fill="#928374" font-size="12">                                  (signals come easily)</text>
 </svg>

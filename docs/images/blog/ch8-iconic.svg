@@ -63,5 +63,5 @@
   <rect x="565" y="216" width="55" height="5" rx="2" fill="#83a598" opacity="0.5"/>
 
   <!-- Formula -->
-  <text x="400" y="270" text-anchor="middle" fill="#d3869b" font-size="14" font-weight="700">Score = f(engineer, context)</text>
+  <text x="400" y="270" text-anchor="middle" fill="#d3869b" font-size="14" font-weight="700">Impact = f(engineer, context)</text>
 </svg>

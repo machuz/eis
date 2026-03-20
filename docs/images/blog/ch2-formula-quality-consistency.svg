@@ -15,5 +15,5 @@
   <!-- Category label -->
   <text x="592" y="18" text-anchor="end" fill="#504945" font-size="10">Formula</text>
 
-  <text y="28" font-size="14"><tspan x="24" fill="#83a598">score</tspan><tspan x="66.0" fill="#928374"> = </tspan><tspan x="91.2" fill="#ebdbb2">avgQuality</tspan><tspan x="175.2" fill="#928374"> × </tspan><tspan x="200.39999999999998" fill="#d3869b">0.6</tspan><tspan x="225.59999999999997" fill="#928374"> + </tspan><tspan x="250.79999999999995" fill="#ebdbb2">(100 - stdev × 2)</tspan><tspan x="393.59999999999997" fill="#928374"> × </tspan><tspan x="418.79999999999995" fill="#d3869b">0.4</tspan></text>
+  <text y="28" font-size="14"><tspan x="24" fill="#83a598">signal</tspan><tspan x="66.0" fill="#928374"> = </tspan><tspan x="91.2" fill="#ebdbb2">avgQuality</tspan><tspan x="175.2" fill="#928374"> × </tspan><tspan x="200.39999999999998" fill="#d3869b">0.6</tspan><tspan x="225.59999999999997" fill="#928374"> + </tspan><tspan x="250.79999999999995" fill="#ebdbb2">(100 - stdev × 2)</tspan><tspan x="393.59999999999997" fill="#928374"> × </tspan><tspan x="418.79999999999995" fill="#d3869b">0.4</tspan></text>
 </svg>

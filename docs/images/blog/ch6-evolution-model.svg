@@ -29,7 +29,7 @@
   <text x="20" y="212" fill="#928374" font-size="12">│                                                          │</text>
   <text y="230" font-size="12"><tspan x="20" fill="#928374">│  * Permeation: </tspan><tspan x="142.4" fill="#83a598">[Anchor]</tspan><tspan x="200.0" fill="#928374"> → </tspan><tspan x="221.6" fill="#fabd2f">[Producer]</tspan><tspan x="293.6" fill="#928374"> → </tspan><tspan x="315.20000000000005" fill="#d3869b">[Architect]</tspan><tspan x="394.40000000000003" fill="#928374">        │</tspan></text>
   <text y="248" font-size="12"><tspan x="20" fill="#928374">│  * Immediate:  </tspan><tspan x="142.4" fill="#83a598">[Anchor]</tspan><tspan x="200.0" fill="#928374"> → </tspan><tspan x="221.6" fill="#d3869b">[Architect]</tspan><tspan x="300.8" fill="#928374"> direct               │</tspan></text>
-  <text y="266" font-size="12"><tspan x="20" fill="#928374">│  * Founding:   </tspan><tspan x="142.4" fill="#d3869b">[Architect]</tspan><tspan x="221.60000000000002" fill="#928374"> → score decline (= success)   │</tspan></text>
+  <text y="266" font-size="12"><tspan x="20" fill="#928374">│  * Founding:   </tspan><tspan x="142.4" fill="#d3869b">[Architect]</tspan><tspan x="221.60000000000002" fill="#928374"> → signal decline (= success)   │</tspan></text>
   <text x="20" y="284" fill="#928374" font-size="12">│                                                          │</text>
   <text x="20" y="302" fill="#928374" font-size="12">├──────────────────────────────────────────────────────────┤</text>
   <text y="320" font-size="12"><tspan x="20" fill="#ebdbb2">│  BE: Architect seats tend to </tspan><tspan x="243.20000000000002" fill="#fb4934">concentrate</tspan><tspan x="322.40000000000003" fill="#ebdbb2"> (observed: 1)    │</tspan></text>

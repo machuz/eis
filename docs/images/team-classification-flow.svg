@@ -41,7 +41,7 @@
 
   <!-- ========== Layer 2: Individual 7-axis ========== -->
   <rect x="200" y="168" width="220" height="56" rx="6" fill="#2c313a" stroke="#61afef" stroke-width="1.5"/>
-  <text x="310" y="192" text-anchor="middle" class="box-label" fill="#61afef">7-Axis Individual Score</text>
+  <text x="310" y="192" text-anchor="middle" class="box-label" fill="#61afef">7-Axis Individual Signal</text>
   <text x="310" y="208" text-anchor="middle" class="box-desc" fill="#5c6370">Prod · Qual · Surv · Design · Breadth · Debt · Indisp</text>
 
   <!-- Arrow to 3-axis -->

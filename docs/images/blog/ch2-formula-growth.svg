@@ -15,5 +15,5 @@
   <!-- Category label -->
   <text x="552" y="18" text-anchor="end" fill="#504945" font-size="10">Formula</text>
 
-  <text y="28" font-size="14"><tspan x="24" fill="#83a598">score</tspan><tspan x="66.0" fill="#928374"> = </tspan><tspan x="91.2" fill="#ebdbb2">growingRatio</tspan><tspan x="192.0" fill="#928374"> × </tspan><tspan x="217.2" fill="#d3869b">60</tspan><tspan x="234.0" fill="#928374"> + </tspan><tspan x="259.2" fill="#b8bb26">Builder</tspan><tspan x="318.0" fill="#928374">(+20)</tspan><tspan x="360.0" fill="#928374"> + </tspan><tspan x="385.2" fill="#8ec07c">Cleaner</tspan><tspan x="444.0" fill="#928374">(+20)</tspan></text>
+  <text y="28" font-size="14"><tspan x="24" fill="#83a598">signal</tspan><tspan x="66.0" fill="#928374"> = </tspan><tspan x="91.2" fill="#ebdbb2">growingRatio</tspan><tspan x="192.0" fill="#928374"> × </tspan><tspan x="217.2" fill="#d3869b">60</tspan><tspan x="234.0" fill="#928374"> + </tspan><tspan x="259.2" fill="#b8bb26">Builder</tspan><tspan x="318.0" fill="#928374">(+20)</tspan><tspan x="360.0" fill="#928374"> + </tspan><tspan x="385.2" fill="#8ec07c">Cleaner</tspan><tspan x="444.0" fill="#928374">(+20)</tspan></text>
 </svg>

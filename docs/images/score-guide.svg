@@ -22,7 +22,7 @@
   <circle cx="500" cy="12" r="0.8" fill="#ebdbb2" opacity="0.12"/>
 
   <!-- Title -->
-  <text x="480" y="32" text-anchor="middle" fill="#ebdbb2" font-size="16" font-weight="800" font-family="-apple-system,sans-serif" letter-spacing="0.5">Engineering Impact Score Guide</text>
+  <text x="480" y="32" text-anchor="middle" fill="#ebdbb2" font-size="16" font-weight="800" font-family="-apple-system,sans-serif" letter-spacing="0.5">Engineering Impact Signal Guide</text>
 
   <!-- Main bar: x=80..880, width=800 -->
   <rect x="80" y="55" width="800" height="40" rx="6" fill="url(#scoreBar)" opacity="0.85"/>

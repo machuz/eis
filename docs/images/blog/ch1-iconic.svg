@@ -13,8 +13,8 @@
   <circle cx="36" cy="14" r="5" fill="#d79921"/>
   <circle cx="54" cy="14" r="5" fill="#98971a"/>
 
-  <!-- 7-Axis Score Bars -->
-  <text x="80" y="70" fill="#8ec07c" font-size="13" font-weight="700">7-Axis Score</text>
+  <!-- 7-Axis Signal Bars -->
+  <text x="80" y="70" fill="#8ec07c" font-size="13" font-weight="700">7-Axis Signal</text>
 
   <!-- Axis labels -->
   <text x="68" y="102" fill="#928374" font-size="11" text-anchor="end">P</text>
@@ -65,5 +65,5 @@
   <text x="720" y="170" text-anchor="middle" fill="#fabd2f" font-size="36" font-weight="700">71</text>
   <text x="720" y="190" text-anchor="middle" fill="#665c54" font-size="11">Total</text>
 
-  <text x="30" y="282" fill="#8ec07c" font-size="11">$ eis score --author engineer-a</text>
+  <text x="30" y="282" fill="#8ec07c" font-size="11">$ eis analyze --author engineer-a</text>
 </svg>

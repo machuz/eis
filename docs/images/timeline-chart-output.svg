@@ -46,7 +46,7 @@
   <text x="72" y="374" text-anchor="end" class="axis-label">0</text>
 
   <!-- Y axis name -->
-  <text x="20" y="210" text-anchor="middle" class="axis-name" transform="rotate(-90 20 210)">Score</text>
+  <text x="20" y="210" text-anchor="middle" class="axis-name" transform="rotate(-90 20 210)">Impact</text>
 
   <!-- X axis name -->
   <text x="420" y="410" text-anchor="middle" class="axis-name">Period</text>

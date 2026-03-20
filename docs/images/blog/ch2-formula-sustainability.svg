@@ -16,5 +16,5 @@
   <text x="592" y="18" text-anchor="end" fill="#504945" font-size="10">Formula</text>
 
   <text y="28" font-size="14"><tspan x="24" fill="#83a598">riskRatio</tspan><tspan x="99.60000000000001" fill="#928374"> = </tspan><tspan x="124.80000000000001" fill="#ebdbb2">(Former + Silent + Fragile)</tspan><tspan x="351.6" fill="#928374"> / </tspan><tspan x="376.8" fill="#ebdbb2">memberCount</tspan></text>
-  <text y="50" font-size="14"><tspan x="24" fill="#83a598">score</tspan><tspan x="66.0" fill="#928374"> = </tspan><tspan x="91.2" fill="#ebdbb2">(1 - riskRatio)</tspan><tspan x="217.2" fill="#928374"> × </tspan><tspan x="242.39999999999998" fill="#d3869b">80</tspan><tspan x="259.2" fill="#928374"> + </tspan><tspan x="284.4" fill="#d3869b">Architect</tspan><tspan x="360.0" fill="#928374">(+20)</tspan></text>
+  <text y="50" font-size="14"><tspan x="24" fill="#83a598">signal</tspan><tspan x="66.0" fill="#928374"> = </tspan><tspan x="91.2" fill="#ebdbb2">(1 - riskRatio)</tspan><tspan x="217.2" fill="#928374"> × </tspan><tspan x="242.39999999999998" fill="#d3869b">80</tspan><tspan x="259.2" fill="#928374"> + </tspan><tspan x="284.4" fill="#d3869b">Architect</tspan><tspan x="360.0" fill="#928374">(+20)</tspan></text>
 </svg>

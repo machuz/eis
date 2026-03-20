@@ -25,7 +25,7 @@
 
   <!-- Title -->
   <text x="480" y="38" text-anchor="middle" fill="#ebdbb2" font-size="20" font-weight="800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" letter-spacing="1.5">EIS Framework Overview</text>
-  <text x="480" y="58" text-anchor="middle" fill="#a89984" font-size="11" font-family="-apple-system,sans-serif">git log + git blame → 7-axis Score + 3-axis Topology + Gravity</text>
+  <text x="480" y="58" text-anchor="middle" fill="#a89984" font-size="11" font-family="-apple-system,sans-serif">git log + git blame → 7-axis Signal + 3-axis Topology + Gravity</text>
 
   <!-- ============================================ -->
   <!-- LEFT: Data Source -->
@@ -41,7 +41,7 @@
   <!-- ============================================ -->
 
   <!-- Section label -->
-  <text x="390" y="95" text-anchor="middle" fill="#a89984" font-size="10" font-weight="600" font-family="-apple-system,sans-serif" letter-spacing="2">7-AXIS SCORE</text>
+  <text x="390" y="95" text-anchor="middle" fill="#a89984" font-size="10" font-weight="600" font-family="-apple-system,sans-serif" letter-spacing="2">7-AXIS SIGNAL</text>
   <line x1="290" y1="102" x2="490" y2="102" stroke="#504945" stroke-width="0.5"/>
 
   <!-- Production 15% -->
@@ -105,14 +105,14 @@
   <line x1="170" y1="355" x2="268" y2="412" stroke="#504945" stroke-width="1" opacity="0.4"/>
 
   <!-- ============================================ -->
-  <!-- RIGHT TOP: Total Score -->
+  <!-- RIGHT TOP: Impact -->
   <!-- ============================================ -->
   <circle cx="660" y="250" r="60" fill="url(#glow-gold)"/>
   <rect x="600" y="200" width="120" height="70" rx="14" fill="#282828" stroke="#d79921" stroke-width="2" filter="url(#shadow)"/>
-  <text x="660" y="230" text-anchor="middle" fill="#ebdbb2" font-size="13" font-weight="800" font-family="-apple-system,sans-serif">Total Score</text>
+  <text x="660" y="230" text-anchor="middle" fill="#ebdbb2" font-size="13" font-weight="800" font-family="-apple-system,sans-serif">Impact</text>
   <text x="660" y="254" text-anchor="middle" fill="#d79921" font-size="11" font-family="-apple-system,sans-serif">0 — 100</text>
 
-  <!-- Arrows from axes to Total Score -->
+  <!-- Arrows from axes to Impact -->
   <line x1="512" y1="136" x2="598" y2="222" stroke="#504945" stroke-width="1" opacity="0.3" marker-end="none"/>
   <line x1="512" y1="180" x2="598" y2="225" stroke="#504945" stroke-width="1" opacity="0.3"/>
   <line x1="512" y1="224" x2="598" y2="232" stroke="#d79921" stroke-width="1" opacity="0.5"/>
@@ -192,7 +192,7 @@
 
   <!-- Output: Score -->
   <rect x="100" y="648" width="200" height="44" rx="8" fill="#282828" stroke="#d79921" stroke-width="1"/>
-  <text x="200" y="674" text-anchor="middle" fill="#d79921" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">Score: 42.3 / 100</text>
+  <text x="200" y="674" text-anchor="middle" fill="#d79921" font-size="11" font-weight="700" font-family="-apple-system,sans-serif">Impact: 42.3 / 100</text>
 
   <!-- Output: Topology -->
   <rect x="330" y="648" width="280" height="44" rx="8" fill="#282828" stroke="#83a598" stroke-width="1"/>

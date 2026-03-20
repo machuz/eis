@@ -28,7 +28,7 @@
   <text x="400" y="430" text-anchor="middle" fill="#928374" font-size="16">Measuring Engineering Impact</text>
 
   <!-- Decorative: 7-axis bar chart -->
-  <text x="120" y="510" fill="#8ec07c" font-size="12" font-weight="700">7-Axis Score</text>
+  <text x="120" y="510" fill="#8ec07c" font-size="12" font-weight="700">7-Axis Signal</text>
   <rect x="120" y="530" width="200" height="10" rx="2" fill="#b8bb26" opacity="0.8"/>
   <rect x="120" y="548" width="170" height="10" rx="2" fill="#b8bb26" opacity="0.8"/>
   <rect x="120" y="566" width="260" height="10" rx="2" fill="#d3869b" opacity="0.8"/>
@@ -46,6 +46,6 @@
   <text x="100" y="648" fill="#665c54" font-size="10" text-anchor="end">I</text>
 
   <!-- Bottom prompt -->
-  <text x="30" y="760" fill="#8ec07c" font-size="13">$ eis score --author engineer-a</text>
+  <text x="30" y="760" fill="#8ec07c" font-size="13">$ eis analyze --author engineer-a</text>
   <rect x="388" y="747" width="8" height="16" fill="#ebdbb2" opacity="0.7"/>
 </svg>

@@ -41,8 +41,8 @@
   <text x="400" y="600" text-anchor="middle" fill="#ebdbb2" font-size="14">Same engineer, different contexts</text>
 
   <!-- E = mc^2 style formula -->
-  <text x="400" y="670" text-anchor="middle" fill="#d3869b" font-size="18" font-weight="700">Score = f(engineer, context)</text>
+  <text x="400" y="670" text-anchor="middle" fill="#d3869b" font-size="18" font-weight="700">Impact = f(engineer, context)</text>
 
-  <text x="30" y="760" fill="#8ec07c" font-size="13">$ eis score --per-repo --author machuz</text>
+  <text x="30" y="760" fill="#8ec07c" font-size="13">$ eis analyze --per-repo --author machuz</text>
   <rect x="428" y="747" width="8" height="16" fill="#ebdbb2" opacity="0.7"/>
 </svg>

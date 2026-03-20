@@ -107,7 +107,7 @@
 
   <!-- EIS badge -->
   <text x="250" y="630" text-anchor="middle" fill="#fabd2f" font-size="18" font-weight="700" font-family="-apple-system,sans-serif" letter-spacing="4" opacity="0.6">EIS</text>
-  <text x="250" y="650" text-anchor="middle" fill="#504945" font-size="9" font-family="-apple-system,sans-serif">Engineering Impact Score</text>
+  <text x="250" y="650" text-anchor="middle" fill="#504945" font-size="9" font-family="-apple-system,sans-serif">Engineering Impact Signal</text>
 
   <!-- Bottom accent line -->
   <line x1="150" y1="670" x2="350" y2="670" stroke="#504945" stroke-width="0.5" opacity="0.4"/>
