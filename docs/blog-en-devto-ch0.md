@@ -65,7 +65,7 @@ Anyone can use it. Point it at any team. Through the lens of git history — a l
 
 Engineers in Japan are paid less than their peers in other countries.
 
-It's not because they lack skill. I believe it comes from a cultural gentleness — a tendency not to assert their own value. They write code in silence, fix architecture in silence, clean up debt in silence — and don't get properly recognized for it.
+It's not because they lack skill. I believe it comes from a cultural tendency to let the work speak for itself — rather than asserting their own value. They write code in silence, fix architecture in silence, clean up debt in silence — and don't get properly recognized for it.
 
 I want people who are excellent at building things, who face their craft with sincerity, to be evaluated for what they actually create.
 
