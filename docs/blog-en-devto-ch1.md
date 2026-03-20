@@ -351,9 +351,9 @@ Yes, I rank highest. I'm the tech lead and I designed the metric — if the pers
 
 † Insufficient sample (fewer than 10 fix-commit involvements). Neutral value 50 used in Impact calculation.
 
-**Z.** was a high-rate contractor. Impact: 24.9. Breadth was the only high number — Production 6, Design 4, Survival nearly zero. **Spread style in its purest form.** If this model had existed earlier, we could have detected it before the contract even started.
+**Z.** — Impact 24.9. Breadth was the only elevated signal — Production 6, Design 4, Survival nearly zero. The topology reads `— / Spread / —`. This is a profile where presence is wide but depth is absent. An early observation of this pattern could have informed better role alignment — perhaps pairing with an Architect to focus contributions into a narrower, higher-impact area.
 
-**Y.Y.** built the original architecture during the early days — Design 67, Breadth 81. But Indispensability 100 is the highest on the team, meaning **the most modules are still owned by someone who already left**. Time decay dropped their Survival to 12, but the codebase is still shaped by their decisions. The 3-axis topology — `Architect / — / Former` — clearly shows they were an Architect in role, now in Former state.
+**Y.Y.** — Design 67, Breadth 81. The original architect of the codebase's early structure. Indispensability 100 — the highest on the team — indicates that more modules are still attributed to this person than to any active member. Time decay brought Survival to 12, but the codebase's structural foundation still reflects their design decisions. The topology reads `Architect / — / Former` — the Role persists in the code even after the engineer's departure. This is the signal that Chapter 4 calls "a soul that needs to be laid to rest" — not a criticism, but a handoff priority.
 
 **R.S.** — Production 17 doesn't turn heads. But Survival 50 (2nd on the team) means their recent code stays. Debt Cleanup 88 means they're quietly fixing everyone else's bugs. **This is exactly the kind of person that Debt Cleanup was designed to surface.** The Anchor role captures this perfectly.
 
