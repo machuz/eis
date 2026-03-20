@@ -26,9 +26,9 @@ There are two distinct evolution paths. And understanding them changes how you r
 
 Before diving in, let me share the gut-feel calibration I've developed after running EIS across many engineers:
 
-- **10–20**: Contractors who didn't work out, or hires we regretted
-- **Low 20s**: Engineers I felt "meh" about
-- **30+**: People I actively wanted to work with
+- **10–20**: Short-term contributors with low sustained signal
+- **Low 20s**: Contributors whose impact hadn't yet materialized
+- **30+**: Engineers with observable, sustained structural contribution
 - **40+**: Senior-level
 
 The observations consistently matched my intuition.

@@ -353,7 +353,7 @@ When change-pressure data is available, Architect uses Robust Survival instead o
 | State | Confidence Formula | Interpretation |
 |-------|-------------------|----------------|
 | **Former** | $\min(\text{high(RawSurv)},\; \text{low(Surv)},\; \max(\text{high(Design)},\; \text{high(Indisp)}))$ | Code persists but engineer is inactive; was important |
-| **Silent** | $\min(\text{low(Prod)},\; \text{low(Surv)},\; \text{low(Debt)})$ | Neither builds nor cleans — net drain |
+| **Silent** | $\min(\text{low(Prod)},\; \text{low(Surv)},\; \text{low(Debt)})$ | All observed signals are low — no production, no survival, no debt cleanup. May indicate role mismatch or an environment that hasn't activated this person's strengths |
 | **Fragile** | $0.85 + \frac{\text{dormantRatio} - 80}{200}$ | Code survives only where no one touches it |
 | **Growing** | $\min(\text{low(Prod)},\; \text{high(Quality)})$ | Low volume, high quality — on growth trajectory |
 | **Active** | $0.80$ if recently active | Currently contributing |

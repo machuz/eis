@@ -292,13 +292,13 @@ State captures **where the engineer is in their trajectory** relative to the cod
 | **Active** | Recent commits, Surv↑ | Currently writing durable code. Healthy and engaged |
 | **Growing** | Qual↑ Prod↓ Design↓ | Low output but high quality. Writing carefully, learning the ropes. If production and design increase over time, this person is leveling up |
 | **Former** | Raw Surv↑ Surv↓ | Code still exists (high raw survival) but the author is no longer active (low decayed survival). A **handoff priority alert** — modules they built need knowledge transfer |
-| **Silent** | Prod↓ Surv↓ Debt↓ | Neither builds nor cleans. Their presence is a net drain on team capacity. Easy to overlook because they don't cause obvious problems — they just don't produce value |
+| **Silent** | Prod↓ Surv↓ Debt↓ | All observed signals are low — no production, no survival, no debt cleanup. This pattern is easy to miss because it produces no visible problems. May indicate a role mismatch, a need for different project assignment, or an environment that hasn't activated this person's strengths |
 | **Fragile** | Surv↑ Prod↓ Qual<70 | Code survives not because it's well-written, but because nobody is changing it. A hidden risk that will collapse under change pressure |
 | **—** | No lifecycle signal | No clear state detected |
 
 ### Why This Matters
 
-**Churn, Mass, Spread, and Silent patterns show low impact overall but can look impressive on individual signals (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will reward exactly the wrong people. Only multi-axis evaluation exposes them. Rescue style is a notable exception — low survival looks alarming, but high debt cleanup reveals active legacy rescue rather than new debt generation. Resilient style is another positive exception — low total survival resembles Mass, but decent robust survival reveals iteration toward durable code. Fragile state is a subtle case — high survival looks reassuring, but combined with low production and mediocre quality, it signals dormant code that will break under change pressure.
+**Churn, Mass, Spread, and Silent patterns show low impact overall but can look impressive on individual signals (or fly under the radar entirely).** Organizations that evaluate on production alone or breadth alone will miss these multi-axis patterns — and may not align recognition with the types of contribution that sustain the system. Only multi-axis observation reveals the full picture. Rescue style is a notable exception — low survival looks alarming, but high debt cleanup reveals active legacy rescue rather than new debt generation. Resilient style is another positive exception — low total survival resembles Mass, but decent robust survival reveals iteration toward durable code. Fragile state is a subtle case — high survival looks reassuring, but combined with low production and mediocre quality, it signals dormant code that will break under change pressure.
 
 ![Topology Radar Chart — 9 of 288 theoretical combinations (Role×Style×State = 6×8×6)](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/archetypes-radar.png?v=1.0.0)
 
@@ -449,9 +449,9 @@ If you're reading this and thinking "I should try this on my team," here's a que
 
 If you want to build a genuinely strong engineering organization, the person making architectural decisions **must** be among the highest impact members on the team. Why? Because the quality of design decisions shows up in code. The architect should be someone who writes code personally, and whose code survives. That's the only reliable way to ensure design quality.
 
-When a low-impact person sits in the decision-making seat, what happens? **High-impact engineers on the ground have their design decisions overruled by someone whose code doesn't even survive in the codebase.** That's structurally toxic.
+When there's a gap between decision-making authority and observed structural impact, a misalignment emerges: **engineers with strong Design and Survival signals may find their contributions overridden by decisions that don't reflect the codebase's structural reality.** This is a structural signal worth investigating — not to assign blame, but to ask whether decision-making authority and structural contribution are aligned.
 
-If you run this model and discover your engineering lead lands in the bottom half — that's not a metric problem. That's an organizational problem.
+If you observe this pattern, the telescope is showing you something about your organization's structure — worth a conversation, not a verdict.
 
 ---
 

@@ -353,7 +353,7 @@ $$\text{notLow}(v) = \begin{cases} 1.0 & v \geq 50 \\ 0.5 + \frac{v-30}{40} & 30
 | State | 信頼度の計算式 | 解釈 |
 |-------|---------------|------|
 | **Former** | $\min(\text{high(RawSurv)},\; \text{low(Surv)},\; \max(\text{high(Design)},\; \text{high(Indisp)}))$ | コードは残存しているが本人は非活動。重要人物だった |
-| **Silent** | $\min(\text{low(Prod)},\; \text{low(Surv)},\; \text{low(Debt)})$ | 構築も清算もしない——純粋なドレイン |
+| **Silent** | $\min(\text{low(Prod)},\; \text{low(Surv)},\; \text{low(Debt)})$ | 観測シグナルがすべて低い——生産・生存・負債清掃のいずれも検出されない。ロールのミスマッチや環境要因の可能性がある |
 | **Fragile** | $0.85 + \frac{\text{dormantRatio} - 80}{200}$ | コードは誰も触らない場所でだけ生存 |
 | **Growing** | $\min(\text{low(Prod)},\; \text{high(Quality)})$ | 低量だが高品質——成長軌道上 |
 | **Active** | 最近活動している場合 $0.80$ | 現在貢献中 |
