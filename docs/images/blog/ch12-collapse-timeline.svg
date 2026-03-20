@@ -16,8 +16,8 @@
   <text x="592" y="18" text-anchor="end" fill="#504945" font-size="10">Collapse</text>
 
   <text y="28" font-size="12" font-weight="700"><tspan x="24" fill="#fb4934">  After Black Hole Departs:</tspan></text>
-  <text y="50" font-size="12"><tspan x="24" fill="#928374">  Q1  </tspan><tspan x="68" fill="#d3869b">Architect Builder</tspan><tspan x="202" fill="#ebdbb2">  Total: 95  </tspan><tspan x="310" fill="#b8bb26">Bus Factor: 1  ⚠</tspan></text>
-  <text y="68" font-size="12"><tspan x="24" fill="#928374">  Q2  </tspan><tspan x="68" fill="#928374">— departed —</tspan><tspan x="202" fill="#928374">  Total: --  </tspan><tspan x="310" fill="#fb4934">Design Vacuum</tspan></text>
+  <text y="50" font-size="12"><tspan x="24" fill="#928374">  Q1  </tspan><tspan x="68" fill="#d3869b">Architect Builder</tspan><tspan x="202" fill="#ebdbb2">  Impact: 95  </tspan><tspan x="310" fill="#b8bb26">Bus Factor: 1  ⚠</tspan></text>
+  <text y="68" font-size="12"><tspan x="24" fill="#928374">  Q2  </tspan><tspan x="68" fill="#928374">— departed —</tspan><tspan x="202" fill="#928374">  Impact: --  </tspan><tspan x="310" fill="#fb4934">Design Vacuum</tspan></text>
   <text y="86" font-size="12"><tspan x="24" fill="#928374">  Q3  </tspan><tspan x="68" fill="#928374">Team:</tspan><tspan x="112" fill="#fb4934"> Unstructured</tspan><tspan x="234" fill="#928374">  Health:</tspan><tspan x="296" fill="#fb4934"> Declining</tspan></text>
   <text y="108" font-size="12"><tspan x="24" fill="#928374">  Q4  </tspan><tspan x="68" fill="#928374">Nobody touches the code.</tspan><tspan x="296" fill="#fb4934"> Collapsed</tspan></text>
   <text y="126" font-size="12"><tspan x="24" fill="#504945">  ─────────────────────────────────────────────────</tspan></text>

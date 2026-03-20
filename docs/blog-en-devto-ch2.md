@@ -143,7 +143,7 @@ Character is a meta-classification synthesized from the other four — the team'
 Classification uses **member Impact as influence weight**:
 
 ```
-weight = member.Total / 100  (minimum 0.1)
+weight = member.Impact / 100  (minimum 0.1)
 ```
 
 An Architect at 90 impact and an Architect at 15 impact on the same team don't contribute equally to the team's character. The higher-impact member shapes the team far more. Ethnographically, **strong performers with high output propagate more culture to the team**. The formula encodes this directly.
@@ -290,7 +290,7 @@ Not every git author is a "team member." A drive-by contributor who touched one 
 
 | Tier | Condition | Used for |
 |---|---|---|
-| **Core** | `RecentlyActive && Total >= 20` | Averages, ProductivityDensity, QualityConsistency |
+| **Core** | `RecentlyActive && Impact >= 20` | Averages, ProductivityDensity, QualityConsistency |
 | **Risk** | State in {Former, Silent, Fragile} | Distributions, RiskRatio, Classification |
 | **Peripheral** | Everyone else | TotalMemberCount only |
 

@@ -24,8 +24,8 @@
 
   <!-- Left side: Relativity examples -->
   <text x="30" y="195" fill="#8ec07c" font-size="11" font-weight="700">Same engineer, different universes:</text>
-  <text y="224" font-size="11"><tspan x="30" fill="#928374">Repo A </tspan><tspan fill="#d3869b">Architectural Engine </tspan><tspan fill="#928374">Total: </tspan><tspan fill="#fabd2f" font-weight="700">35</tspan></text>
-  <text y="248" font-size="11"><tspan x="30" fill="#928374">Repo B </tspan><tspan fill="#fb4934">Unstructured        </tspan><tspan fill="#928374">Total: </tspan><tspan fill="#b8bb26" font-weight="700">60</tspan></text>
+  <text y="224" font-size="11"><tspan x="30" fill="#928374">Repo A </tspan><tspan fill="#d3869b">Architectural Engine </tspan><tspan fill="#928374">Impact: </tspan><tspan fill="#fabd2f" font-weight="700">35</tspan></text>
+  <text y="248" font-size="11"><tspan x="30" fill="#928374">Repo B </tspan><tspan fill="#fb4934">Unstructured        </tspan><tspan fill="#928374">Impact: </tspan><tspan fill="#b8bb26" font-weight="700">60</tspan></text>
 
   <!-- Formula -->
   <text x="30" y="300" fill="#d3869b" font-size="14" font-weight="700">Impact = f(engineer, context)</text>

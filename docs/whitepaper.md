@@ -263,7 +263,7 @@ Fixed reference points that allow cross-team comparison. Production uses a daily
 
 The impact is a weighted sum:
 
-$$\text{Total} = \sum_{i} w_i \times \text{Score}_i$$
+$$\text{Impact} = \sum_{i} w_i \times \text{Score}_i$$
 
 Default weights:
 
@@ -385,7 +385,7 @@ Team members are categorized into three tiers:
 
 **Weighted ratios** are used for role/style distributions:
 
-$$w_a = \max\left(\frac{\text{Total}_a}{100},\; 0.1\right)$$
+$$w_a = \max\left(\frac{\text{Impact}_a}{100},\; 0.1\right)$$
 
 $$\text{weightedRatio}(\text{predicate}) = \frac{\sum_{a : \text{pred}(a)} w_a}{\sum_a w_a}$$
 

@@ -63,7 +63,7 @@
 
   <!-- Impact -->
   <text x="720" y="170" text-anchor="middle" fill="#fabd2f" font-size="36" font-weight="700">71</text>
-  <text x="720" y="190" text-anchor="middle" fill="#665c54" font-size="11">Total</text>
+  <text x="720" y="190" text-anchor="middle" fill="#665c54" font-size="11">Impact</text>
 
   <text x="30" y="282" fill="#8ec07c" font-size="11">$ eis analyze --author engineer-a</text>
 </svg>

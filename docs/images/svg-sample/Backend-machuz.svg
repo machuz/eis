@@ -64,7 +64,7 @@ L 718 46" style="stroke-width:2;stroke:rgba(26,188,156,1.0);fill:rgba(255,255,25
 L 108 5
 L 108 155
 L 5 155
-L 5 5" style="stroke-width:1;stroke:rgba(51,51,51,1.0);fill:rgba(255,255,255,1.0)"/><text x="10" y="22" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Total</text><path  d="M 45 16
+L 5 5" style="stroke-width:1;stroke:rgba(51,51,51,1.0);fill:rgba(255,255,255,1.0)"/><text x="10" y="22" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Impact</text><path  d="M 45 16
 L 98 16" style="stroke-width:2;stroke:rgba(74,144,217,1.0);fill:rgba(255,255,255,0.0)"/><text x="10" y="54" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Production</text><path  d="M 78 48
 L 98 48" style="stroke-width:2;stroke:rgba(80,200,120,1.0);fill:rgba(255,255,255,0.0)"/><text x="10" y="86" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Quality</text><path  d="M 55 80
 L 98 80" style="stroke-width:2;stroke:rgba(255,179,71,1.0);fill:rgba(255,255,255,0.0)"/><text x="10" y="118" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Survival</text><path  d="M 61 112

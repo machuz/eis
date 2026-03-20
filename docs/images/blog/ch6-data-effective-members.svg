@@ -16,5 +16,5 @@
   <text x="332" y="18" text-anchor="end" fill="#504945" font-size="10">Classification</text>
 
   <text y="28" font-size="12"><tspan x="24" fill="#928374">Effective Members: </tspan><tspan x="160.79999999999998" fill="#b8bb26">5</tspan></text>
-  <text y="46" font-size="12"><tspan x="24" fill="#928374">Total:             </tspan><tspan x="160.79999999999998" fill="#fabd2f">48.3</tspan><tspan x="189.59999999999997" fill="#928374"> (average)</tspan></text>
+  <text y="46" font-size="12"><tspan x="24" fill="#928374">Impact:             </tspan><tspan x="160.79999999999998" fill="#fabd2f">48.3</tspan><tspan x="189.59999999999997" fill="#928374"> (average)</tspan></text>
 </svg>

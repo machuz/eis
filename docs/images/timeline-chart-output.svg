@@ -74,19 +74,19 @@
   <text x="760" y="390" text-anchor="middle" class="axis-label">2026-Q1</text>
 
   <!-- Data from timeline-output.svg:
-    Q2'24: Total=31.5, Prod=25, Qual=92, Surv=0,   Design=46
-    Q3'24: Total=73.8, Prod=72, Qual=83, Surv=98,  Design=100
-    Q4'24: Total=64.1, Prod=53, Qual=72, Surv=40,  Design=100
-    Q1'25: Total=61.7, Prod=53, Qual=72, Surv=40,  Design=100
-    Q2'25: Total=49.2, Prod=49, Qual=71, Surv=28,  Design=50
-    Q3'25: Total=93.2, Prod=100,Qual=68, Surv=100, Design=100
-    Q4'25: Total=87.7, Prod=100,Qual=68, Surv=100, Design=100
-    Q1'26: Total=92.4, Prod=100,Qual=41, Surv=100, Design=100
+    Q2'24: Impact=31.5, Prod=25, Qual=92, Surv=0,   Design=46
+    Q3'24: Impact=73.8, Prod=72, Qual=83, Surv=98,  Design=100
+    Q4'24: Impact=64.1, Prod=53, Qual=72, Surv=40,  Design=100
+    Q1'25: Impact=61.7, Prod=53, Qual=72, Surv=40,  Design=100
+    Q2'25: Impact=49.2, Prod=49, Qual=71, Surv=28,  Design=50
+    Q3'25: Impact=93.2, Prod=100,Qual=68, Surv=100, Design=100
+    Q4'25: Impact=87.7, Prod=100,Qual=68, Surv=100, Design=100
+    Q1'26: Impact=92.4, Prod=100,Qual=41, Surv=100, Design=100
 
     Y mapping: signal S -> y = 370 - S * 3.2
   -->
 
-  <!-- Total line (blue) -->
+  <!-- Impact line (blue) -->
   <polyline class="line-total" points="
     80,269.2  177,133.8  274,164.9  371,172.6  468,212.6  565,71.8  662,89.4  760,74.3
   "/>
@@ -153,7 +153,7 @@
 
   <!-- Legend -->
   <rect x="90" y="420" width="12" height="12" rx="2" fill="#83a598"/>
-  <text x="106" y="431" class="legend-text">Total</text>
+  <text x="106" y="431" class="legend-text">Impact</text>
   <rect x="170" y="420" width="12" height="12" rx="2" fill="#b8bb26"/>
   <text x="186" y="431" class="legend-text">Production</text>
   <rect x="280" y="420" width="12" height="12" rx="2" fill="#fabd2f"/>

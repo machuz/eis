@@ -59,7 +59,7 @@
   <text x="550" y="136" class="header">Debt</text>
   <text x="594" y="136" class="header">Indisp</text>
   <text x="648" y="136" class="header">Grav</text>
-  <text x="698" y="136" class="header">Total</text>
+  <text x="698" y="136" class="header">Impact</text>
   <text x="758" y="136" class="header">Role</text>
   <text x="896" y="136" class="header">Style</text>
   <text x="1040" y="136" class="header">State</text>

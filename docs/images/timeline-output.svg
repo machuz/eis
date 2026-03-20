@@ -48,7 +48,7 @@
 
   <!-- Column headers -->
   <text x="20" y="138" class="header">Period</text>
-  <text x="200" y="138" class="header">Total</text>
+  <text x="200" y="138" class="header">Impact</text>
   <text x="270" y="138" class="header">Prod</text>
   <text x="340" y="138" class="header">Qual</text>
   <text x="410" y="138" class="header">Surv</text>

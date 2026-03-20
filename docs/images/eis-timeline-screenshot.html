@@ -218,7 +218,7 @@ function createScoreChart(canvasId, labels, periods, transitions) {
   const ctx = document.getElementById(canvasId).getContext('2d');
 
   const datasets = [
-    { label: 'Total',      data: periods.map(p => p.total),      borderColor: COLORS.total,      backgroundColor: COLORS.total + '20' },
+    { label: 'Impact',      data: periods.map(p => p.total),      borderColor: COLORS.total,      backgroundColor: COLORS.total + '20' },
     { label: 'Production', data: periods.map(p => p.production), borderColor: COLORS.production, backgroundColor: COLORS.production + '20' },
     { label: 'Quality',    data: periods.map(p => p.quality),    borderColor: COLORS.quality,    backgroundColor: COLORS.quality + '20' },
     { label: 'Survival',   data: periods.map(p => p.survival),   borderColor: COLORS.survival,   backgroundColor: COLORS.survival + '20' },
@@ -386,7 +386,7 @@ function createMembershipChart(canvasId, labels, periods) {
       datasets: [
         { label: 'Core',      data: periods.map(p => p.coreMembers),      backgroundColor: MEMBER_COLORS.core },
         { label: 'Effective', data: periods.map(p => p.effectiveMembers), backgroundColor: MEMBER_COLORS.effective },
-        { label: 'Total',     data: periods.map(p => p.totalMembers),     backgroundColor: MEMBER_COLORS.total },
+        { label: 'Impact',     data: periods.map(p => p.totalMembers),     backgroundColor: MEMBER_COLORS.total },
       ]
     },
     options: {
