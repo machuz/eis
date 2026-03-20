@@ -121,7 +121,7 @@
   <text x="430" y="496" text-anchor="middle" class="box-label" fill="#c678dd" font-size="15">★ Character</text>
 
   <!-- Character examples -->
-  <text x="600" y="486" class="box-desc" fill="#5c6370">Elite · Fortress · Pioneer · Academy</text>
-  <text x="600" y="500" class="box-desc" fill="#5c6370">Feature Factory · Guardian · Firefighting</text>
+  <text x="600" y="486" class="box-desc" fill="#5c6370">Spiral · Elliptical · Starburst · Nebula</text>
+  <text x="600" y="500" class="box-desc" fill="#5c6370">Irregular · Dwarf · Collision</text>
 
 </svg>

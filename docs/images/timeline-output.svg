@@ -179,9 +179,9 @@
   <text x="650" y="498" class="label">2026-Q1</text>
 
   <text x="30" y="518" class="label">Character</text>
-  <text x="250" y="518" class="role">Guardian</text>
+  <text x="250" y="518" class="role">Dwarf</text>
   <text x="450" y="518" class="role">Balanced</text>
-  <text x="650" y="518" class="signal-high">Elite</text>
+  <text x="650" y="518" class="signal-high">Spiral</text>
 
   <text x="30" y="538" class="label">Structure</text>
   <text x="250" y="538" class="dim">Maintenance</text>
@@ -200,7 +200,7 @@
 
   <!-- Team transitions -->
   <text x="20" y="608" class="header">Transitions:</text>
-  <text x="30" y="628" class="transition">[2026-Q1] Character: Balanced → Elite</text>
+  <text x="30" y="628" class="transition">[2026-Q1] Character: Balanced → Spiral</text>
   <text x="30" y="644" class="transition">[2026-Q1] Structure: Unstructured → Architectural Engine</text>
   <text x="30" y="660" class="transition">[2026-Q1] Phase: Declining → Mature</text>
 </svg>

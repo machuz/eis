@@ -20,7 +20,7 @@
   <text x="20" y="50" fill="#fb4934" font-size="12" font-weight="700">=== Backend / Backend -- Team Timeline ===</text>
   <text x="20" y="86" fill="#8ec07c" font-size="12" font-weight="700">Classification:</text>
   <text y="104" font-size="12"><tspan x="20" fill="#928374">Period</tspan><tspan x="160" fill="#928374">2024-Q4</tspan><tspan x="320" fill="#928374">2025-Q4</tspan><tspan x="480" fill="#928374">2026-Q1</tspan></text>
-  <text y="122" font-size="12"><tspan x="20" fill="#ebdbb2">Character</tspan><tspan x="160" fill="#83a598">Guardian</tspan><tspan x="320" fill="#b8bb26">Balanced</tspan><tspan x="480" fill="#fabd2f" font-weight="700">Elite</tspan></text>
+  <text y="122" font-size="12"><tspan x="20" fill="#ebdbb2">Character</tspan><tspan x="160" fill="#83a598">Dwarf</tspan><tspan x="320" fill="#b8bb26">Balanced</tspan><tspan x="480" fill="#fabd2f" font-weight="700">Spiral</tspan></text>
   <text y="140" font-size="12"><tspan x="20" fill="#ebdbb2">Structure</tspan><tspan x="160" fill="#928374">Maintenance</tspan><tspan x="320" fill="#fb4934">Unstructured</tspan><tspan x="480" fill="#d3869b" font-weight="700">Architectural Engine</tspan></text>
   <text y="158" font-size="12"><tspan x="20" fill="#ebdbb2">Phase</tspan><tspan x="160" fill="#fb4934">Declining</tspan><tspan x="320" fill="#fb4934">Declining</tspan><tspan x="480" fill="#b8bb26">Mature</tspan></text>
   <text y="176" font-size="12"><tspan x="20" fill="#ebdbb2">Risk</tspan><tspan x="160" fill="#fe8019">Quality Drift</tspan><tspan x="320" fill="#fb4934">Design Vacuum</tspan><tspan x="480" fill="#b8bb26">Healthy</tspan></text>

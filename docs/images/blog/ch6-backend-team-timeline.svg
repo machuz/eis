@@ -20,7 +20,7 @@
   <text x="20" y="50" fill="#fb4934" font-size="12" font-weight="700">═══ Backend — Team Timeline ═══</text>
   <text x="20" y="86" fill="#8ec07c" font-size="12" font-weight="700">Classification:</text>
   <text y="104" font-size="12"><tspan x="20" fill="#928374">Period</tspan><tspan x="160" fill="#928374">2024-H2</tspan><tspan x="340" fill="#928374">2026-H1</tspan></text>
-  <text y="122" font-size="12"><tspan x="20" fill="#ebdbb2">Character</tspan><tspan x="160" fill="#b8bb26">Balanced</tspan><tspan x="340" fill="#fabd2f" font-weight="700">Elite</tspan></text>
+  <text y="122" font-size="12"><tspan x="20" fill="#ebdbb2">Character</tspan><tspan x="160" fill="#b8bb26">Balanced</tspan><tspan x="340" fill="#fabd2f" font-weight="700">Spiral</tspan></text>
   <text y="140" font-size="12"><tspan x="20" fill="#ebdbb2">Structure</tspan><tspan x="160" fill="#fb4934">Unstructured</tspan><tspan x="340" fill="#d3869b" font-weight="700">Architectural Engine</tspan></text>
   <text y="158" font-size="12"><tspan x="20" fill="#ebdbb2">Culture</tspan><tspan x="160" fill="#83a598">Stability</tspan><tspan x="340" fill="#b8bb26">Builder</tspan></text>
   <text y="176" font-size="12"><tspan x="20" fill="#ebdbb2">Phase</tspan><tspan x="160" fill="#fb4934">Declining</tspan><tspan x="340" fill="#b8bb26">Mature</tspan></text>

@@ -379,15 +379,15 @@ That accumulation is what these numbers represent.
 
 I worked with P. before, at another company. We merged our design knowledge back then. So we share common understanding of each other's design approach. Whatever their current impact shows, I know they have horsepower. **I know they have the ability to hit 80+ on our team.**
 
-R.S. is doing really good work. When I invited them to join this team, they said "I lack confidence because I don't have much experience." But from my experience, I was absolutely certain they could do good work. So I invited them. **And now, they've become an Anchor.** An Anchor on an Elite team. That's something to brag about anywhere. Deeply moving.
+R.S. is doing really good work. When I invited them to join this team, they said "I lack confidence because I don't have much experience." But from my experience, I was absolutely certain they could do good work. So I invited them. **And now, they've become an Anchor.** An Anchor on a Spiral team. That's something to brag about anywhere. Deeply moving.
 
 ---
 
 And even more honestly, **what I really want to brag about is the team**.
 
-![Elite team classification](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-elite.png?v=4)
+![Spiral team classification](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-elite.png?v=4)
 
-That this team gets an Elite classification. That it functions despite carrying Legacy-Heavy weight. That it's moving forward while laying departed Architects' assets to rest.
+That this team gets a Spiral classification. That it functions despite carrying Legacy-Heavy weight. That it's moving forward while laying departed Architects' assets to rest.
 
 **One of my motivations for building EIS? I wanted to brag about this team.**
 
