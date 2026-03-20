@@ -152,6 +152,39 @@ Cold git history tells **team stories** you didn't know you had. And module topo
 
 ---
 
+## Validated on the OSS Universe
+
+The best way to verify a telescope works is to **point it at stars whose positions are already known.**
+
+We ran EIS against **29 open-source repositories spanning 55,343 engineers.** React, Kubernetes, Rails, Laravel, esbuild, Rust — projects whose structures are common knowledge.
+
+The results matched community intuition:
+
+- **esbuild**: Evan Wallace scores 100 on every axis. Gravity concentration: 92.5% — exactly the "Evan built it alone" consensus
+- **Rails**: 6 engineers with Design above 35. A civilization that distributed design authority over 20 years — DHH, Jeremy Kemper, Rafael Franca, and others
+- **Laravel**: Taylor Otwell at 100, every other top-10 contributor below Design 4 — the "Taylor's creation" consensus, quantified
+- **React**: 5 generations of architect transitions over 10 years — Paul O'Shannessy → Dan Abramov → Brian Vaughn → Sebastian Markbåge → Jorge Cabiedes
+- **Kubernetes**: Gravity concentration 0.8%. Structure distributed across 5,000+ contributors
+
+An even more interesting finding: **gravity concentration varies 4.8× across language families.**
+
+| Language category | Gravity concentration | Structural physics |
+|---|---|---|
+| Go (anti-framework culture) | 16.4% | Concentrated in few architects |
+| Rust / Scala (expressive) | 6.7% | Type systems distribute structure |
+| Rails / Laravel (framework-driven) | 5.1% | Frameworks absorb structure |
+| C / C++ (systems) | 3.4% | Most distributed |
+
+Here's the critical point: **this is not about which structure is "correct."**
+
+esbuild's 92.5% concentration isn't "bad design" — at a scale where one person can hold the entire system in their head, it may be optimal. Kubernetes' 0.8% distribution isn't "better because it's distributed" — at 5,000+ contributors, distribution is inevitable, and that itself is a design outcome.
+
+What EIS observes is **the physics of structure**, not a judgment of quality. A telescope describes the shape of galaxies. It doesn't claim spiral galaxies are "better" than elliptical ones.
+
+> Full analysis: [OSS Gravity Map](https://machuz.github.io/engineering-impact-score/research/oss-gravity-map/analysis/oss-gravity-map-en.html)
+
+---
+
 ## What This Is NOT
 
 > *We don't measure engineers. We reveal how software actually works.*

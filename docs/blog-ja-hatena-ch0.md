@@ -146,6 +146,39 @@ EISは7つの軸でスコアリングする。
 
 ---
 
+## OSSの宇宙でも検証した
+
+望遠鏡が正しく機能するかを確かめる最良の方法は、**すでに構造が知られている宇宙を観測する**ことだ。
+
+EISを**29のOSSリポジトリ、55,343人のエンジニア**に対して実行した。React、Kubernetes、Rails、Laravel、esbuild、Rust——誰もが構造を知っているプロジェクトだ。
+
+結果は、コミュニティの直感と一致した。
+
+- **esbuild**：Evan Wallaceが全軸100。重力集中度92.5%——「あれはEvanが一人で作った」という共通認識そのまま
+- **Rails**：Design 35超のアーキテクトが6人。20年かけて設計権限を分散させた文明——DHH、Jeremy Kemper、Rafael Francaら
+- **Laravel**：Taylor Otwellが100、他のTop10は全員Design 4未満——「Taylorの作品」という認識そのまま
+- **React**：10年で5世代のアーキテクト交代——Paul O'Shannessy → Dan Abramov → Brian Vaughn → Sebastian Markbåge → Jorge Cabiedes
+- **Kubernetes**：重力集中度0.8%。5,000人超のコミュニティに構造が分散
+
+さらに興味深い発見があった。**言語ファミリーによって重力の集中度が4.8倍違う。**
+
+| 言語カテゴリ | 重力集中度 | 構造の物理 |
+|---|---|---|
+| Go（反フレームワーク文化） | 16.4% | 少数のアーキテクトに集中 |
+| Rust / Scala（表現力型） | 6.7% | 型システムが構造を分散 |
+| Rails / Laravel（FW依存） | 5.1% | フレームワークが構造を吸収 |
+| C / C++（システム） | 3.4% | 最も分散 |
+
+ここで大事なことを一つ。**どの構造が「正しい」かという話ではない。**
+
+esbuildの92.5%集中は「悪い設計」ではない——一人の天才が全体を把握できるスケールでは、それが最適解かもしれない。Kubernetesの0.8%分散も「分散しているから優れている」わけではない——5,000人規模では分散が必然であり、それ自体が設計判断の結果だ。
+
+EISが観測しているのは**構造の物理法則**であって、良し悪しの判定ではない。望遠鏡は銀河の形を記述する。渦巻銀河が楕円銀河より「優れている」とは言わない。
+
+> 詳細な分析結果：[OSS Gravity Map](https://machuz.github.io/engineering-impact-score/research/oss-gravity-map/analysis/oss-gravity-map-ja.html)
+
+---
+
 ## これは何で「ない」か
 
 > *We don't measure engineers. We reveal how software actually works.*
