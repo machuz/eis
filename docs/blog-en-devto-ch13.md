@@ -184,7 +184,7 @@ Architect Reproducibility from Chapter 8 — engineers who create gravity regard
 
 Finally, let me clarify EIS's position.
 
-**EIS is not an evaluation tool. It's an observation instrument — the Git Telescope.**
+**EIS is not a judgment tool. It's an observation instrument — the Git Telescope.**
 
 Astronomy doesn't grade stars. A telescope doesn't judge a star as "good" or "bad." It simply observes.
 

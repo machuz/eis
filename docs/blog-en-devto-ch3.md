@@ -59,7 +59,7 @@ Most of their code gets rewritten by R.M..
 
 But **they keep producing until 11% survives**.
 
-Anchor means they're trying to guard quality. Mass means their precision is still rough. **The struggle and the effort — both show up in the numbers.**
+Anchor means they're trying to guard quality. Mass means their precision is still rough. **Signals of struggle and signals of effort — both are observable.**
 
 This isn't just "immature." They're in the early stage of an Anchor-to-Architect path. They're building the instincts for **Inheritance Architect**.
 
@@ -87,7 +87,7 @@ But Dormant is high — **much of their code hasn't been touched by others yet**
 
 And Robust is low.
 
-**This is the number that shows O.'s struggle most clearly.** Their gravitational field is getting overwritten. The code they shaped is being reshaped.
+**This is where O.'s signal of struggle is strongest.** Their gravitational field is getting overwritten. The code they shaped is being reshaped.
 
 But it's not all gone. Some of it remains. You can't feel that intuitively — but the metrics pick it up.
 
@@ -220,7 +220,7 @@ This team's metrics include a warning:
 
 ![Data Warning](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch3-data-warning.png?v=4)
 
-**O.'s struggle surfaces as a Warning.** High gravity, but low robust survival.
+**O.'s signal of struggle surfaces as a Warning.** High gravity, but low robust survival.
 
 Yet this team is strong:
 

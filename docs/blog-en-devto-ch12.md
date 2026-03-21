@@ -60,7 +60,7 @@ The universe has black holes. Black holes have extremely strong gravity. But the
 
 The same type of engineer exists in code universes.
 
-**Black Hole Engineer.**
+**Black Hole Engineer.** This label describes a *structural pattern observed in the codebase*, not a character judgment of the person.
 
 Their characteristics:
 
