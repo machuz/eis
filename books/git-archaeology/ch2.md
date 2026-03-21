@@ -1,422 +1,180 @@
 ---
-title: "エンジニアの「戦闘力」から、チームの「構造力」へ"
+title: "個人シグナルの先へ：チームの健全性をGit履歴から観測する"
 ---
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch2.png)
+*個人のシグナルは「誰が強いか」を教えてくれる。チームの健全性は「来四半期もこのチームが強いかどうか」を教えてくれる。*
 
-### 個人指標の限界
+![チーム構造とヘルスレーダー](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-iconic.png?v=4)
 
-個人のImpactが全員80点超えのチームが必ずしも「強い」とは限らない。全員がProducerタイプで、Architect不在。誰もアーキテクチャを触らない。誰も負債を片付けない。生産量は凄まじいが、コードは3ヶ月で腐る。
+## なぜ個人シグナルだけでは不十分か
 
-逆に、平均Impactが50点台でもArchitectが1人いて、Cleanerがいて、Growing状態の若手が育っているチームは強い。半年後にはもっと強くなる。
+全員がImpact 80超えのチームが必ずしも強いとは限らない。全員がProducerなら、アーキテクチャを触る人がいない。負債を片付ける人もいない。出荷速度は凄まじいが、コードは3ヶ月で腐る。
 
-**「強いチーム」は個人の総和では測れない。構成と補完性が重要だ。**
+逆に、平均50台でもArchitectが1人、Cleanerがいて、Growingの若手が育っているチームは強い。半年後にはもっと強くなる。
 
-### `eis team` — チーム分析コマンド
+**強いチームは個人シグナルの総和ではない。構成と補完性が重要だ。**
 
-個人分析の `eis analyze` に加え、チームレベルの分析を行う `eis team` コマンドを追加した。
+---
+
+## なぜ売上では技術組織の強さが見えないか
+
+「売上が伸びているから技術組織は大丈夫」——危険な思い込みだ。売上が測っているのは**プロダクト・マーケット・フィット**であって、**エンジニアリングの健全性**ではない。
+
+売上は車の速度。エンジニアリングの健全性はエンジンの状態。エンジンが壊れかけていても、下り坂なら速度は出る。
+
+Git履歴には、売上が捉えられないシグナルがある：
+
+- **コードの耐久性** —— 同じ機能を毎四半期書き直していないか？
+- **技術的負債** —— 機能1つ追加するたびにバグ修正が2つ発生していないか？
+- **バス係数** —— 1人辞めたらどのモジュールが死ぬか？
+
+**売上が伸びていても、Survival低下 + Debt増加 + Bus Factor集中が同時進行していれば、スケールした瞬間に組織は崩壊する。**
+
+---
+
+## チームヘルス7軸
+
+`eis team` は個人シグナルをチームレベルの健全性に集約する：
 
 ```bash
-# Simplest: domain = team
 ❯ eis team --recursive ~/workspace
-
-# With explicit team definitions
-❯ eis team --config eis.yaml --recursive ~/workspace
-
-# JSON output
-❯ eis team --format json --recursive ~/workspace
 ```
 
-teams設定が無い場合はドメイン（Backend / Frontend / Infra）ごとに全メンバーを1チームとして扱う。設定なしでもすぐ使える。
-
-```yaml
-# eis.yaml (optional)
-teams:
-  backend-core:
-    domain: Backend
-    members: [alice, bob, charlie]
-  frontend-app:
-    domain: Frontend
-    members: [dave, eve]
-```
-
-### チーム健全性 — 7つの指標
-
-チームの「健全性」を以下の7軸で評価する。個人の7軸と対になる設計だ。
-
-#### 1. Complementarity（補完性）
-
-Roleの多様性をカバレッジとして測る。既知のRole 5種（Architect, Anchor, Cleaner, Producer, Specialist）のうち何種類がチームにいるか。
-
-```
-coverage = uniqueRoles / 5
-bonus    = Architect(+10) + Anchor(+5) + Cleaner(+5)
-score    = coverage × 80 + bonus  (clamped 0-100)
-```
-
-**Architectが不在のチームは、補完性シグナルで真っ先にわかる。** ArchitectはRoleの中で最もシグナルを押し上げるボーナスを持つ。これは意図的な設計で、「設計を担える人」がチームにいるかどうかは補完性の核心だからだ。
-
-#### 2. Growth Potential（成長力）
-
-チーム内のGrowing状態メンバーの割合 + メンタリング環境の有無。
-
-```
-score = growingRatio × 60 + Builder(+20) + Cleaner(+20)
-```
-
-BuilderやCleanerは「手本になる人」がいる指標。**Growingの若手がいても、手本が不在なら育たない。** 両方揃って初めてシグナルが上がる。
-
-#### 3. Sustainability（持続性）
-
-リスク状態（Former, Silent, Fragile）の逆数 + Architectの安定性。
-
-```
-riskRatio = (Former + Silent + Fragile) / memberCount
-score     = (1 - riskRatio) × 80 + Architect(+20)
-```
-
-Former（元メンバーのコードが残っている）、Silent（コード書かないが居る）、Fragile（変更圧力のない場所でしか生き残っていない）——これらが多いチームは、見た目のメンバー数に反して実質的な戦力が少ない。
-
-#### 4. Debt Balance（負債バランス）
-
-メンバーのDebt Cleanupシグナルの平均。50が中立で、50以上ならチーム全体がクリーン傾向。
-
-```
-score = avg(members.DebtCleanup)  // 0-100
-```
-
-50を大きく下回るチームは負債を生み出し続けている。50を超えるチームは自浄作用がある。
-
-#### 5. Productivity Density（生産密度）
-
-**この量のコードを、この人数で書いている**——という密度感。少人数で高いアウトプットを出しているチームにボーナスが付く。
-
-```
-base = avg(members.Production)
-bonus:
-  ≤3 members && base ≥ 50 → ×1.2
-  ≤5 members && base ≥ 50 → ×1.1
-```
-
-3人で大規模APIサーバーを回しているようなチームは、この指標で異常値として可視化される。「すごいけど危険」——それが数字で見える。
-
-#### 6. Quality Consistency（品質一貫性）
-
-チーム全体の品質レベルと、そのバラつき。平均品質が高く、かつ標準偏差が小さいほどシグナルが強い。
-
-```
-score = avgQuality × 0.6 + (100 - stdev × 2) × 0.4
-```
-
-**全員が80点台のチームと、95点と40点が混在するチームは、平均が同じでも全く違う。** 後者はレビュー負荷が偏り、品質ゲートが形骸化している可能性がある。
-
-#### 7. Risk Ratio（リスク人材割合）
-
-Former + Silent + Fragile状態のメンバーが全体の何%を占めるか。直球の指標。
-
-```
-riskRatio = (Former + Silent + Fragile) / memberCount × 100  (%)
-```
-
-25%を超えたら要注意。50%超えは危機的。
-
-### チーム5軸分類——コード→エンジニア→構造を逆算する（v0.10.0〜）
-
-第1章でエンジニア個人の3軸トポロジー（Role / Style / State）を導入した。v0.10.0では、この個人トポロジーを**チームレベルに集約**して、チームの「型」を5つの軸で分類する。
-
-![チーム5軸分類フロー：Code → Engineer → Team のボトムアップ構造推定](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/team-classification-flow.png)
-
-**コードからエンジニアの特性を読み取り、エンジニアの分布からチームの構造を逆算している。** git logとgit blameという生データから出発して、個人→チーム→組織構造と、ボトムアップに全体像を組み上げていく。
-
-#### 5つの軸
-
-| 軸 | 何から導出するか | 問い |
+| 軸 | 何を測るか | 要点 |
 |---|---|---|
-| **Structure**（構造） | メンバーのRole分布 | チームにどんな構造的役割があるか |
-| **Culture**（文化） | メンバーのStyle分布 | チームがどういうやり方で仕事をしているか |
-| **Phase**（フェーズ） | メンバーのState分布 | チームが今どんなライフサイクルにあるか |
-| **Risk**（リスク） | 健全性指標 | どんなリスクを抱えているか |
-| **Character**（キャラクター） | 上4軸の複合 | 一言で言うとどんなチームか |
+| **Complementarity** | Roleの多様性（Architect, Anchor, Cleaner, Producer, Specialist） | Producer一色のチームは16。全種揃うと100 |
+| **Growth Potential** | Growingメンバー + Builder/Cleanerのロールモデル | ロールモデルなしでは若手は育たない |
+| **Sustainability** | リスク状態（Former, Silent, Fragile）の逆数 | チーム速度の隠れた足かせ |
+| **Debt Balance** | Debt Cleanup平均。50超 = チーム全体が負債を減らしている | 自浄傾向 |
+| **Productivity Density** | 人あたり生産量 + 少人数ボーナス | 「この人数でこのアウトプット」 |
+| **Quality Consistency** | 平均品質 + 低分散 | 平均80でもレンジ95-40なら健全ではない |
+| **Risk Ratio** | Former/Silent/Fragile の割合 | 25%超で要注意。50%超で危機的 |
 
-Characterは他の4軸から合成されるメタ分類。チームの「顔」を一言で表す。
+> 各軸の計算式：[Whitepaper](https://github.com/machuz/eis)
 
-#### 重み付き分類——強い人間ほどチームの色を塗る
+---
 
-分類で面白いのは、**メンバーのImpactを分類の重みに使う**点だ。
+## チーム分類 —— 銀河形態学
 
-```
-weight = member.Impact / 100  (minimum 0.1)
-```
+EISは個人トポロジーからボトムアップで、チームを**5軸**で分類する：
 
-Impact 90点のArchitectと、15点のArchitectが同じチームにいても、前者の方が圧倒的にチームの「色」を決めている。民俗学的に言えば、**強いやつ、アウトプットが多いやつは、チームにより多くの文化を伝播させる**。それをそのまま数式にした。
+![チーム分類フロー](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/team-classification-flow.png?v=4)
 
-最低重みを0.1にしているのは、「存在していること自体に意味がある」から。Impactが低くても、Growingメンバーが3人いればチームのPhaseに影響する。
-
-#### Structure（構造）の分類
-
-メンバーのRole分布から導出される、チームの構造的特徴。
-
-| ラベル | 条件 | 意味 |
+| 軸 | 導出元 | 問い |
 |---|---|---|
-| **Architectural Engine** | Architect+Anchor大、AAR 0.3-0.8、カバレッジ高 | 設計と品質の両輪が回るチーム |
-| **Architectural Team** | Architect多い | 設計力が厚い |
-| **Architecture-Heavy** | Architectに偏重（ただしArchitect/Builderは除外） | 設計はあるが実装が追いつかない |
-| **Emerging Architecture** | Architect少数、Anchor/Producerが主 | 設計文化が芽生えつつある |
-| **Delivery Team** | Producer主体 | 出荷重視 |
-| **Maintenance Team** | Cleaner/Anchor主体 | 保守運用重視 |
-| **Unstructured** | 「—」が大半 | 明確な構造がない |
-| **Balanced** | 上記いずれにも該当しない | バランス型 |
+| **Structure** | Role分布 | どんな構造的役割があるか |
+| **Culture** | Style分布 | どういうやり方で仕事をしているか |
+| **Phase** | State分布 | ライフサイクルのどこにいるか |
+| **Risk** | 健全性指標 | どんなリスクを抱えているか |
+| **Character** | 上4軸の複合 | 一言で言うとどんなチームか |
 
-**AAR（Architect-to-Anchor Ratio）** がStructure分類の鍵になる。Architectが多すぎても設計だけで実装が進まない。Anchorが多すぎても安定するだけで設計革新が起きない。AAR 0.3〜0.8が健全レンジ。
+Characterは**銀河形態学**のメタファを使う。望遠鏡は銀河の形を記述するが、良し悪しは判断しない：
 
-ただし例外がある。**Architect/Builder**（設計も実装もこなすタイプ）は、AARが高くても「設計過多で実装が追いつかない」問題を起こさない。全員がArchitect/Builderのチームであれば、Architecture-Heavyとは判定されない。むしろ、全員がArchitect/Builderのチームは最強の構成かもしれない。
-
-#### Culture（文化）の分類
-
-メンバーのStyle分布から導出。
-
-| ラベル | 主なStyle | 意味 |
+| Character | 銀河 | 意味 |
 |---|---|---|
-| **Builder** | Builder多い | 作って残す文化 |
-| **Stability** | Balanced/Resilient多い | 安定志向 |
-| **Mass Production** | Mass多い | 量重視 |
-| **Firefighting** | Churn/Rescue多い | 火消し文化 |
-| **Exploration** | Spread多い | 探索型 |
-| **Mixed** | 偏りなし | 混合 |
+| **Spiral** | 渦巻銀河 | 強い中心核 + 活発な星形成。設計と生産が両立 |
+| **Elliptical** | 楕円銀河 | 成熟、安定、変化耐性。低エントロピー |
+| **Starburst** | スターバースト銀河 | 爆発的成長。エネルギー高、構造は形成途中 |
+| **Nebula** | 星雲 | 次世代エンジニアが育つ場所 |
+| **Irregular** | 不規則銀河 | 重力中心なし。高出力だが方向性がない |
+| **Dwarf** | 矮小銀河 | 小さいが長寿。安定した品質 |
+| **Collision** | 衝突銀河 | 構造的混乱。常に火消し |
 
-#### Phase（フェーズ）の分類
+> 天文学的な解説付きの完全ガイド：[Galaxy Morphology Guide](https://orbit-d8x.pages.dev/galaxy-guide.html)
 
-メンバーのState分布から導出。
+分類は**Impactで重み付け**される。Impact 90のArchitectはImpact 15のArchitectより圧倒的にチームの色を決める。強いメンバーほど多くの文化を伝播させる。
 
-| ラベル | 主なState | 意味 |
-|---|---|---|
-| **Emerging** | Growing多い | 成長期 |
-| **Scaling** | Active多い + Growing存在 | 拡大期 |
-| **Mature** | Active主体 | 成熟期 |
-| **Stable** | Active + Balanced多い | 安定期 |
-| **Declining** | Former/Silent多い | 衰退期 |
-| **Rebuilding** | Active + Former混在 | 再構築期 |
+---
 
-#### Risk（リスク）の分類
+## 成長モデル
 
-健全性指標から導出。
+EISのRole分類は3つの層にマッピングされる：
 
-| ラベル | 条件 | 意味 |
-|---|---|---|
-| **Design Vacuum** | Complementarity低い | 設計リーダー不在 |
-| **Talent Drain** | Risk Ratio高い | 人材流出中 |
-| **Debt Spiral** | Debt Balance低い | 負債が蓄積中 |
-| **Quality Erosion** | Quality Consistency低い | 品質が崩壊中 |
-| **Healthy** | 上記いずれもなし | 健全 |
+![成長モデル](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-diagram-growth-model.png?v=4)
 
-#### Character（キャラクター）——チームの「顔」
-
-Structure × Culture × Phase × Risk + 構造指標（AAR、Anchor Density、Productivity Density）から合成される、チームの総合的なキャラクター。
-
-| キャラクター | 銀河アナロジー | 条件の概要 | 意味 |
-|---|---|---|---|
-| **Spiral** | 渦巻銀河 — 強い中心核と活発な星形成 | SC高い、AAR適正、PD高い | 設計の重力核が生産を駆動している。構造と星形成が両立 |
-| **Elliptical** | 楕円銀河 — 成熟、安定、新しい星は少ない | Structure良好、Culture安定 | 成熟し、変化に強い。構造は堅固、エントロピーは低い |
-| **Starburst** | スターバースト銀河 — 爆発的な星形成 | Phase成長期、Culture Builder | 急速に新領域へ拡張中。エネルギーが高く、構造はまだ形成途中 |
-| **Nebula** | 星雲 — 次世代の星が生まれる場所 | Growing多い、Builder在籍 | 次世代のエンジニアが育っている。星形成の条件が整っている |
-| **Irregular** | 不規則銀河 — 重力中心がない | Producer主体、Architect不在 | 星がばらばらに形成されている。高出力だが、構造的方向性がない |
-| **Dwarf** | 矮小銀河 — 小さいが長寿 | Anchor/Cleaner主体 | コンパクトで安定。最小限のリソースで品質と秩序を維持 |
-| **Collision** | 衝突銀河 — 構造的混乱 | Churn/Rescue文化 | 2つの力が衝突している。構造が乱れ、エネルギーが散逸 |
-
-**SC（Structure-Culture complementarity）** はStructureとCultureがどれだけ噛み合っているかの指標。Architectural EngineのStructure + Builder Cultureは最高の組み合わせ。Delivery Team + Firefighting Cultureは最悪。
-
-#### 構造指標
-
-5軸分類に加え、チームの構造的な健全性を測る指標を3つ追加した。
-
-**AAR（Architect-to-Anchor Ratio）**: Architectの数 ÷ Anchorの数。0.3〜0.8が健全レンジ。高すぎると設計過多（実装が追いつかない）、低すぎると安定過多（設計革新が起きない）。Architectがいるのにanchorが0だとAAR=∞でArchitect孤立を示す。ただし、ArchitectがBuilder Styleを兼ねている場合、設計と実装を1人でこなせるためAAR過多の警告は緩和される。
-
-**Anchor Density**: アクティブメンバー中のAnchorの割合。品質と安定性の基盤がどれだけ厚いか。
-
-**Architecture Coverage**: （Architect + Anchor）÷ チーム全員。設計と品質に関与するメンバーがチーム全体の何%を占めるか。
-
-これらの構造指標は、チームの「骨格」を数値化する。Roleの分布だけではわからない、**構造の質**を見る窓になる。
-
-### 強いチームの条件
-
-チーム健全性の7軸と5軸分類を運用してみて見えてきたパターン：
-
-**強いチームに共通する特徴：**
-
-- Architect + Builder が在籍（設計する人と、設計を実装に落とせる人）
-- Role多様性が3種以上（最低限 Architect / Anchor / Producer）
-- Growing率が20%以上（若手が育っている）
-- Risk Ratio が0%（リスク人材がいない、または少ない）
-- Quality Consistencyが70以上（品質のバラつきが小さい）
-
-**危険なチーム構成：**
-
-- Mass/Churn偏重：大量に書くが生き残らないコードが溢れる
-- Architect不在：誰も設計レイヤーを触らない → 暗黙知の蓄積
-- Silent蓄積：形式上はメンバーだが実質的に貢献していない人が増える
-- Producer一色：全員が書くだけで、片付ける人がいない
-
-### 成長モデル — 3つの層を登る
-
-EISのRole分類は、エンジニアの成長段階を3つの層として捉えることができる。
-
-![成長モデル](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch2-diagram-growth-model.svg)
-
-**実装層**: コードを書いて出す。Growingはここからスタートする。生産量は出るがSurvivalはまだ低い。
-
-**安定化層**: 品質が上がり、コードが生き残り始める。他人のコードも直せるようになる。AnchorやCleanerはここにいる。
-
-**設計層**: アーキテクチャファイルに手を入れ、構造を決める側に回る。Architectはここ。
-
-成長とは、この層を登ること。EISのImpact推移で観測できる：
+**実装層** → **安定化層** → **設計層**
 
 - Survival上昇 → 実装層から安定化層へ
 - Design上昇 → 安定化層から設計層へ
 - DebtCleanup上昇 → チーム貢献の幅が広がっている
 
-チームの文脈で言えば、**Growth Potential（成長力）が高いチームはこの階段を登りやすい環境がある**。安定化層にAnchorがいて、設計層にArchitectがいる。手本が存在するから、Growingメンバーが次の層に進める。手本がなければ、実装層で回り続ける。
+Growth Potentialが高いチームには、この階段を登れる環境がある。各層にロールモデルがいるからだ。ロールモデルがなければ、Growingメンバーは実装層で回り続ける。
 
-そしてもう一つ。この階段には**落ちる方向**もある。
+![衰退モデル](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-diagram-decline.png?v=4)
 
-![衰退モデル](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch2-diagram-decline.svg)
+**BuilderかCleanerが1人いるチームは人が育つ。** ロールモデルがいるとき、GrowingメンバーがActiveに遷移する速度はおよそ倍になる。**Architect不在のチームは時間とともに劣化する。**
 
-メンバーが層を登るのを支援し、Risk状態に落ちるのを早期に検知すること。**それがEISで見えるマネジメントの仕事だ。** Impactの推移を四半期ごとに追えば、誰が登っているか、誰が止まっているか、誰が落ちかけているかが数字でわかる。
+---
 
-### 社会学的インサイト
+## メンバーティア
 
-この分析を複数チームで回して気づいたことがある。
+git上に名前が出る全員が「チームメンバー」とは限らない。EISはメンバーを3層に分ける：
 
-**「こういう人がいるチームは人が育つ」** ——BuilderかCleanerが1人でもいると、Growing状態のメンバーが翌四半期にActiveに遷移する確率が体感で倍になる。コードレビューで「こう書くべき」を示す手本が存在するからだろう。
-
-**「Architect不在のチームは品質が劣化する」** ——Complementarityが低いチームは、半年スパンで見るとQuality Consistencyも下がっていく。設計の道標がないと、各自が好き勝手にコードを書き始める。
-
-**「少人数チームの異常値は、すごさとリスクの両面」** ——Productivity Densityが高いチームは確かに生産性が異常だが、1人抜けたときの崩壊リスクも高い。バス係数の個人版がIndispensabilityだとすれば、チーム版がProductivity Densityの裏側にある。
-
-### メンバー3層分類 & 自動Warnings（v0.10.3）
-
-v0.10.3で、`eis team` に **3層メンバー分類** と **自動警告** を追加した。
-
-#### Core / Risk / Peripheral
-
-git上に名前が出る全員が「チームメンバー」とは限らない。ちょっと手伝っただけの人を含めると健全性指標が歪む。v0.10.3ではメンバーを3層に分ける：
-
-| Tier | 条件 | 使われる場所 |
+| Tier | 条件 | 用途 |
 |---|---|---|
-| **Core** | `最近アクティブ && Impact >= 20` | 平均Impact、ProdDensity、QualityConsistency |
-| **Risk** | Stateが Former/Silent/Fragile | 分布、RiskRatio、分類 |
-| **Peripheral** | それ以外 | TotalMemberCountのみ |
+| **Core** | `RecentlyActive && Impact >= 20` | 平均、Density、Consistency |
+| **Risk** | Former / Silent / Fragile | RiskRatio、分類 |
+| **Peripheral** | それ以外 | カウントのみ |
 
-ヘッダーは `4 core + 3 risk / 16 total` と表示される。ちょっと手伝った人はPeripheralとして除外され、Silent/Formerなメンバーはリスクとして検知される。
+ヘッダーは `4 core + 3 risk / 16 total` と表示される。一時的な貢献者は指標を歪めず、Silentなメンバーは検知される。
 
-「みんな忙しいのに指標上はそうでもない → 中を覗いたらSilentがいた」というインサイトが自然に浮き上がる設計。
+EISは**自動警告**も出力する。バス係数リスク、Silent蓄積、Gravity脆弱性、トップ貢献者集中。
 
-#### 自動 Warnings
+![Team Warnings](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-warnings.png?v=4)
 
-危険な指標の組み合わせをプレーンテキストの警告として出力する：
+---
 
-![Team Warnings](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/ch2-warnings.svg)
+## 実測結果
 
-警告の種類：
+実際のプロダクト（Backend 12リポ + Frontend 9リポ）で `eis team` を実行した結果：
 
-- **Bus factor risk**: 少人数のcoreが多くのリポを支えている
-- **Risk ratio**: 無効化・リスク状態のメンバー比率
-- **Top contributor concentration**: トップ貢献者が抜けた場合のProdDensity低下シミュレーション
-- **Silent accumulation**: ヘッドカウントと実質貢献者数の乖離
-- **Gravity warnings**: 脆い影響力集中、Architect在籍なのに構造カバレッジが低い
-
-#### Phase 分類の精緻化
-
-Phase軸に **Legacy-Heavy** と **Mature with Attrition** を追加。履歴が長いチームが一律「Declining（衰退）」と判定される問題を修正した：
-
-| Label | 条件 | 意味 |
-|---|---|---|
-| **Legacy-Heavy** | Risk高いがAvgTotal≥40 + Architect在籍 | 強いが履歴が重いチーム |
-| **Mature with Attrition** | 中程度のRisk（20-40%）、Active core健在 | 成熟チームからの自然減 |
-| **Declining** | Risk高 + コアが弱い | 本当の衰退 |
-
-ArchitectがImpact 90超えで、Silent/Formerが何人かいるBackendチームは「衰退」ではない。**Legacy-Heavy**——強いが履歴が重い。この区別が次のアクションを変える。
-
-### 実測結果 — うちのチーム
-
-実際のプロダクト（Backend 12リポ + Frontend 9リポ）に対して `eis team` を実行した結果：
-
-**Backend — Spiral / Legacy-Heavy**:
+**Backend — Spiral / Legacy-Heavy**：
 
 - Core 4人で12リポを運用、Risk 3人（Silent 2 + Former 1）
 - Architect + Anchor 2人 = AAR 0.50（健全レンジ）
-- ProdDensity 60 ——4人としてはまずまずだが、トップ貢献者が生産の46%を占める
-- Phase: `Legacy-Heavy` ——衰退ではないが、歴史の重みが載っている
+- `Legacy-Heavy`：衰退ではないが、歴史の重みが載っている
 
-**Frontend — Starburst / Mature**:
+**Frontend — Starburst / Mature**：
 
 - Core 6人、Risk 0人 —— 全員がアクティブ
-- Architect + Anchor在籍、構造カバレッジ33%
-- Sustain 100/100、RiskRatio 0% —— 健全そのもの
-- Gravity警告：1人が高い構造影響力を持つが、robust survivalが低い
-
-AIに診断させた結果をまとめると：
-
-- **Backend**: 強いが履歴の重いSpiral。Characterは最上位だが脆い——1人の離脱がすべてを変える。
-- **Frontend**: Mature（成熟）フェーズのStarburst。Architectが機能しており、Risk 0%。Gravity警告が1件残るが、チームとしては健全。
+- Architect + Anchor在籍、Risk 0%
+- Gravity警告が1件残るが、構造的には健全
 
 **数字が物語を持ち始めた。** 「誰が強いか」だけでなく「チームがどんな状態で、次に何が起きるか」が見えるようになった。
 
-### 良い設計はコモンセンスを生む
+---
 
-BEチームがLegacy-Heavyと分類される理由は明確で、前任の馬力のあるアーキテクトが退任したが、作ってくれた量が膨大なため、彼しか触っていなかったモジュールがいくつか残っているからだ。git blameの大部分がFormerメンバーのものになる。
+## 良い設計は常識を生む
 
-しかし実際には、チームは崩壊していない。
+BEチームがLegacy-Heavyなのは、前任のアーキテクトが退任し、彼しか触っていなかったモジュールが残っているからだ。
 
-なぜか。それらのモジュールが十分に整理された設計のもとで作られていたからだ。口頭での引き継ぎは受けたが、完全なドキュメントや知識移転が行われたわけではない。それでも、構造としてコードに埋め込まれた設計が、後から読むエンジニアに一定の理解を与えている。
+しかしチームは崩壊していない。
 
-**強い設計は、人ではなく構造に知識を残す。** そして、その構造がチームの共通理解を作る。
+なぜか。それらのモジュールが整理された設計のもとで作られていたからだ。完全なドキュメントも知識移転もない。だが**コードの構造に埋め込まれた設計が、残ったエンジニアに十分な理解を与えている。**
 
-これは「良い設計がコモンセンスを生む」という現象だと思う。優れた設計は、ドキュメントや知識の完全な移転を必ずしも必要としない。コードの構造自体が、そのモジュールの意図と使い方を伝える。
+強い設計は人ではなく構造に知識を残す。強いチームはFormerメンバーのコードを徐々に自分たちのコードに置き換え、Legacy-Heavyは時間とともに解消される。EISはその収束をSurvivalの推移として捉える。
 
-EISは現時点では履歴やコード生存率といった定量的な指標を扱っている。こうした「設計によるコモンセンス」——つまり、Formerメンバーのコードがなぜ今でも健全に動いているのか——は、まだ直接的には観測できていない。
+---
 
-しかし、もしそれが可能になれば、現在のような単純なLegacy-Heavy警告ではなく、**「履歴として重いだけの健全な構造」と「本当に危険な依存構造」**を区別できるようになるはずだ。
-
-ただ、実際にはそこまで測りに行く必要はないかもしれない。強いチームであれば、Formerメンバーのコードを徐々に自分たちのコードに置き換えていき、Legacy-Heavyは時間とともに解消される。あるべき姿に収束していく。EISはその収束の過程を、Survivalの推移やRisk Ratioの変化として自然に捉えることができる。
-
-### 使い方
+## 使ってみる
 
 ```bash
-# Install
 ❯ brew tap machuz/tap && brew install eis
-
-# Team analysis
 ❯ eis team --recursive ~/workspace
 
-# JSON → paste into AI
+# JSON → AIに貼って深掘り
 ❯ eis team --format json --recursive ~/workspace | pbcopy
 ```
 
-深い洞察（Insights）の自動生成は意図的にスコープ外にしている。定量データの算出はツールの仕事、そこから何を読み取るかは人間（またはAI）の仕事。この住み分けが重要だと思っている。
+第1章は「この人はどんなエンジニアか」に答える。
+第2章は「このチームはどんな状態か」に答える。
 
-### まとめ — 個人 × チームの両輪で組織を見る
+組み合わせれば：採用（どのRoleが足りないか）、チーム編成（補完性の最大化）、1on1（Impactの推移）、リスク管理（劣化の早期検知）。
 
-第1章で作った個人のImpactは「この人はどんなエンジニアか」を答える。
-第2章で追加したチーム分析は「このチームはどんな状態か」を答える。
-
-両方を組み合わせることで：
-
-- **採用**: どのRoleが足りないかが可視化される → ポジション定義に使える
-- **チーム編成**: 補完性を最大化する組み合わせが検討できる
-- **1on1**: 個人のImpact推移をベースに成長の方向性を議論できる
-- **リスク管理**: Risk Ratioの悪化を早期に検知できる
-
-全部gitの履歴から出てくる。追加のツール導入も、エンジニアへのアンケートも不要。
-
-**測れるものは改善できる。測れないものは祈るしかない。**
-
-チームの強さを、祈りから指標に変えよう。
-
----
+すべてGit履歴から。サーベイ不要。追加ツール不要。
 
 ---
 
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full-zenn.png)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
-
