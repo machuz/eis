@@ -123,13 +123,13 @@ Here's what struck me looking at this data.
 
 **These metrics visualize the stories that accumulate day by day.**
 
-H.: "Producing like mad, but only 11% survives. And yet — still producing." That's pain. But it's also grit. Both show up in the numbers.
+H.: "Producing like mad, but only 11% survives. And yet — still producing." This can be read as a signal of struggle. But it's also a signal of persistence. The telescope captures both.
 
-O.: "Has gravity. But keeps getting overwritten. But not completely erased." That's pain too. But something remains. Something you can't feel intuitively — but the metrics catch it.
+O.: "Has gravity. But keeps getting overwritten. But not completely erased." Another signal of struggle. But something remains. Something you can't feel intuitively — but the telescope catches it.
 
 **Cold numbers turn out to be the most emotional.**
 
-Daily effort etched into the codebase. Struggle. Persistence. Things that slowly remain. These metrics make that visible.
+Daily effort etched into the codebase. Signals of struggle. Signals of persistence. Things that slowly remain. The telescope makes that observable.
 
 ---
 
