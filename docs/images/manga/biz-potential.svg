@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
   <rect width="800" height="600" fill="#1d2021"/>
-  <text x="400" y="35" text-anchor="middle" fill="#fabd2f" font-size="18" font-weight="700">orbitlens 2コマ — 「エンジニアの信用スコア」</text>
+  <text x="400" y="35" text-anchor="middle" fill="#fabd2f" font-size="18" font-weight="700">orbitlens 2コマ — 「エンジニアの重力観測」</text>
 
   <!-- Panel 1 -->
   <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
@@ -22,19 +22,19 @@
   <rect x="70" y="360" width="290" height="80" rx="8" fill="#1d2021" stroke="#fb4934"/>
   <text x="90" y="385" fill="#fb4934" font-size="13">$80B の意思決定が</text>
   <text x="90" y="408" fill="#fb4934" font-size="13">「検証不可能な言葉」で行われている。</text>
-  <text x="90" y="430" fill="#928374" font-size="11">金融には FICO がある。エンジニアには？</text>
+  <text x="90" y="430" fill="#928374" font-size="11">金融には観測インフラがある。エンジニアには？</text>
 
   <text x="210" y="480" text-anchor="middle" fill="#fabd2f" font-size="13">ない。だから作る。</text>
 
   <!-- Panel 2 -->
   <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
-  <text x="430" y="82" fill="#928374" font-size="13">② orbitlens = エンジニアの FICO</text>
+  <text x="430" y="82" fill="#928374" font-size="13">② orbitlens = エンジニアの観測インフラ</text>
 
   <rect x="440" y="100" width="310" height="130" rx="8" fill="#1d2021" stroke="#fabd2f"/>
-  <text x="455" y="122" fill="#fabd2f" font-size="12" font-weight="600">FICO が金融を変えたように</text>
-  <text x="455" y="148" fill="#ebdbb2" font-size="11">FICO 以前: 銀行員の勘で融資判断</text>
-  <text x="455" y="168" fill="#ebdbb2" font-size="11">FICO 以後: 信用スコアで自動判断</text>
-  <text x="455" y="195" fill="#fabd2f" font-size="12">orbitlens = git blame ベースの信用スコア</text>
+  <text x="455" y="122" fill="#fabd2f" font-size="12" font-weight="600">観測インフラが市場を変える</text>
+  <text x="455" y="148" fill="#ebdbb2" font-size="11">以前: 履歴書と面接の「言葉」で判断</text>
+  <text x="455" y="168" fill="#ebdbb2" font-size="11">以後: git blame の構造的シグナルで観測</text>
+  <text x="455" y="195" fill="#fabd2f" font-size="12">スコアではなくシグナル。評価ではなく観測。</text>
   <text x="455" y="215" fill="#928374" font-size="10">偽装不可能。言語・国境を超える。全エンジニア共通。</text>
 
   <rect x="440" y="245" width="310" height="110" rx="8" fill="#3c3836"/>
