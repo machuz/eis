@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#d3869b" font-size="18" font-weight="700">ideal 2コマ — 「Spiral への道」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① うちのチームは Irregular</text>
+
+  <rect x="70" y="100" width="290" height="100" rx="8" fill="#1d2021" stroke="#fb4934"/>
+  <text x="90" y="122" fill="#fb4934" font-size="12" font-family="monospace">$ eis team</text>
+  <text x="90" y="148" fill="#fb4934" font-size="14" font-family="monospace">Character: Irregular</text>
+  <text x="90" y="170" fill="#928374" font-size="11">重力の中心がない。方向もない。</text>
+  <text x="90" y="188" fill="#928374" font-size="11">出力はあるが、構造がない。</text>
+
+  <!-- EM frustrated -->
+  <circle cx="200" cy="260" r="25" fill="#458588"/>
+  <text x="200" y="267" text-anchor="middle" fill="#1d2021" font-size="10">EM</text>
+
+  <rect x="80" y="300" width="270" height="50" rx="10" fill="#504945"/>
+  <text x="95" y="322" fill="#a89984" font-size="12">（Spiral のチームになりたい…</text>
+  <text x="95" y="340" fill="#a89984" font-size="12">　でも何をすれば？）</text>
+
+  <!-- Current team -->
+  <rect x="70" y="370" width="290" height="80" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="395" fill="#928374" font-size="11">現在の構成:</text>
+  <circle cx="130" cy="430" r="18" fill="#d79921"/>
+  <text x="130" y="437" text-anchor="middle" fill="#1d2021" font-size="9">Prod</text>
+  <circle cx="180" cy="430" r="18" fill="#d79921"/>
+  <text x="180" y="437" text-anchor="middle" fill="#1d2021" font-size="9">Prod</text>
+  <circle cx="230" cy="430" r="18" fill="#d79921"/>
+  <text x="230" y="437" text-anchor="middle" fill="#1d2021" font-size="9">Prod</text>
+  <circle cx="280" cy="430" r="18" fill="#689d6a"/>
+  <text x="280" y="437" text-anchor="middle" fill="#1d2021" font-size="9">Grow</text>
+
+  <text x="210" y="475" text-anchor="middle" fill="#fb4934" font-size="11">Complementarity: 16</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② ideal が Spiral への地図を描く</text>
+
+  <rect x="440" y="100" width="310" height="130" rx="8" fill="#1d2021" stroke="#d3869b"/>
+  <text x="455" y="122" fill="#d3869b" font-size="12" font-weight="600">OrbitPlan — Irregular → Spiral</text>
+
+  <text x="455" y="148" fill="#928374" font-size="11">Spiral の条件:</text>
+  <text x="455" y="168" fill="#ebdbb2" font-size="11">  Architect 1+ (重力の中心)</text>
+  <text x="455" y="188" fill="#ebdbb2" font-size="11">  Anchor 1+ (品質の守り手)</text>
+  <text x="455" y="208" fill="#ebdbb2" font-size="11">  Growing or Producer 2+ (星形成活動)</text>
+  <text x="455" y="225" fill="#8ec07c" font-size="10">現在: Architect 0, Anchor 0 → 2つ欠けている</text>
+
+  <!-- Step by step -->
+  <rect x="440" y="245" width="310" height="140" rx="8" fill="#3c3836"/>
+  <text x="455" y="268" fill="#d3869b" font-size="12">3段階ロードマップ:</text>
+
+  <text x="455" y="293" fill="#fabd2f" font-size="11">Q1: Growing メンバーを Anchor に育成</text>
+  <text x="475" y="310" fill="#928374" font-size="10">→ Debt Cleanup 強化、R.S.のペア学習</text>
+
+  <text x="455" y="333" fill="#fabd2f" font-size="11">Q2: Producer 1名を Architect 候補に</text>
+  <text x="475" y="350" fill="#928374" font-size="10">→ Design ファイルへの関与を増やす</text>
+
+  <text x="455" y="373" fill="#fabd2f" font-size="11">Q3: Spiral 到達</text>
+  <text x="475" y="388" fill="#928374" font-size="10">→ Complementarity: 16 → 78 (予測)</text>
+
+  <!-- Progress visualization -->
+  <rect x="440" y="400" width="310" height="70" rx="8" fill="#1d2021" stroke="#d3869b"/>
+  <text x="455" y="420" fill="#d3869b" font-size="11">Character 遷移予測:</text>
+  <text x="455" y="442" fill="#fb4934" font-size="13">Irregular</text>
+  <text x="545" y="442" fill="#928374" font-size="13"> → </text>
+  <text x="575" y="442" fill="#d3869b" font-size="13">Starburst</text>
+  <text x="665" y="442" fill="#928374" font-size="13"> → </text>
+  <text x="695" y="442" fill="#8ec07c" font-size="13">Spiral</text>
+  <text x="455" y="462" fill="#928374" font-size="10">now          Q2            Q3</text>
+
+  <!-- EM motivated -->
+  <circle cx="500" cy="520" r="20" fill="#458588"/>
+  <text x="500" y="527" text-anchor="middle" fill="#1d2021" font-size="10">EM</text>
+  <text x="530" y="518" fill="#d3869b" font-size="12">「道が見えた。」</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#d3869b" font-size="14" font-weight="600">Irregular は終わりじゃない。Spiral への出発点。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens ideal — Navigate by gravity, not by noise.</text>
+</svg>

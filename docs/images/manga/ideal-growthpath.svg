@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#d3869b" font-size="18" font-weight="700">ideal 2コマ — 「成長の地図」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① 1on1 あるある</text>
+
+  <circle cx="130" cy="160" r="25" fill="#458588"/>
+  <text x="130" y="167" text-anchor="middle" fill="#1d2021" font-size="10">EM</text>
+  <circle cx="280" cy="160" r="25" fill="#689d6a"/>
+  <text x="280" y="167" text-anchor="middle" fill="#1d2021" font-size="14">N</text>
+
+  <rect x="70" y="200" width="290" height="40" rx="10" fill="#3c3836"/>
+  <text x="85" y="225" fill="#ebdbb2" font-size="12">「Nさん、次は何を伸ばしたい？」</text>
+
+  <rect x="100" y="260" width="240" height="40" rx="10" fill="#504945"/>
+  <text x="115" y="285" fill="#a89984" font-size="12">「うーん…もっと頑張ります…？」</text>
+
+  <rect x="70" y="320" width="290" height="100" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="345" fill="#928374" font-size="12">1on1 の課題:</text>
+  <text x="90" y="370" fill="#ebdbb2" font-size="11">・「何を伸ばすべきか」が感覚的</text>
+  <text x="90" y="390" fill="#ebdbb2" font-size="11">・EM も本人もゴールが曖昧</text>
+  <text x="90" y="410" fill="#ebdbb2" font-size="11">・「頑張る」は方向がない</text>
+
+  <text x="210" y="470" text-anchor="middle" fill="#928374" font-size="12">地図がないから、歩く方向がわからない。</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② GrowthPath が地図を描く</text>
+
+  <rect x="440" y="100" width="310" height="180" rx="8" fill="#1d2021" stroke="#d3869b"/>
+  <text x="455" y="122" fill="#d3869b" font-size="12" font-weight="600">GrowthPath — N</text>
+
+  <text x="455" y="150" fill="#ebdbb2" font-size="11">現在: Producer / Balanced / Growing</text>
+  <text x="455" y="172" fill="#d3869b" font-size="12">隣接上位: Anchor</text>
+
+  <text x="455" y="200" fill="#928374" font-size="11">Gap Analysis:</text>
+  <text x="475" y="220" fill="#8ec07c" font-size="11">Quality:     62 → 75 needed  (+13)</text>
+  <text x="475" y="240" fill="#fb4934" font-size="11">Debt Cleanup: 28 → 55 needed  (+27)</text>
+  <text x="475" y="260" fill="#8ec07c" font-size="11">Survival:    45 → 50 needed  (+5)</text>
+
+  <text x="455" y="280" fill="#fabd2f" font-size="11">最大のギャップ: Debt Cleanup (+27)</text>
+
+  <!-- Concrete action -->
+  <rect x="440" y="295" width="310" height="100" rx="8" fill="#3c3836"/>
+  <text x="455" y="318" fill="#d3869b" font-size="12">推奨アクション:</text>
+  <text x="455" y="340" fill="#ebdbb2" font-size="11">1. 他メンバーの fix コミットを週2件担当</text>
+  <text x="455" y="358" fill="#ebdbb2" font-size="11">2. レガシーモジュールのリファクタを1つ引き取る</text>
+  <text x="455" y="376" fill="#ebdbb2" font-size="11">3. コーチ: チーム内 Anchor の R.S. にペア依頼</text>
+  <text x="455" y="393" fill="#8ec07c" font-size="10">予測: 3ヶ月後に Anchor 到達（confidence 72%）</text>
+
+  <!-- EM and N satisfied -->
+  <circle cx="500" cy="460" r="20" fill="#458588"/>
+  <text x="500" y="467" text-anchor="middle" fill="#1d2021" font-size="10">EM</text>
+  <circle cx="560" cy="460" r="20" fill="#689d6a"/>
+  <text x="560" y="467" text-anchor="middle" fill="#1d2021" font-size="12">N</text>
+
+  <rect x="590" y="440" width="150" height="40" rx="8" fill="#3c3836"/>
+  <text x="600" y="458" fill="#ebdbb2" font-size="11">「やることが</text>
+  <text x="600" y="475" fill="#d3869b" font-size="11">　明確になった！」</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#d3869b" font-size="14" font-weight="600">「頑張る」に方向を与える。それが GrowthPath。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens ideal — Navigate by gravity, not by noise.</text>
+</svg>

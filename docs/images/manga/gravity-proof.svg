@@ -1,64 +1,74 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
   <rect width="800" height="600" fill="#1d2021"/>
-  <text x="400" y="35" text-anchor="middle" fill="#fabd2f" font-size="18" font-weight="700">ace 2コマ — 「盛れない履歴書」</text>
+  <text x="400" y="35" text-anchor="middle" fill="#fabd2f" font-size="18" font-weight="700">ace 2コマ — 「望遠鏡が見つけた適所」</text>
 
   <!-- Panel 1 -->
   <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
   <text x="50" y="82" fill="#928374" font-size="13">① 面接にて</text>
 
   <!-- Interviewer -->
-  <circle cx="120" cy="170" r="28" fill="#458588"/>
-  <text x="120" y="177" text-anchor="middle" fill="#1d2021" font-size="11">面接官</text>
+  <circle cx="100" cy="150" r="25" fill="#458588"/>
+  <text x="100" y="157" text-anchor="middle" fill="#1d2021" font-size="10">面接官</text>
 
-  <!-- Candidate -->
-  <circle cx="300" cy="170" r="28" fill="#d79921"/>
-  <text x="300" y="177" text-anchor="middle" fill="#1d2021" font-size="14">J</text>
+  <!-- Candidate J -->
+  <circle cx="300" cy="150" r="25" fill="#d79921"/>
+  <text x="300" y="157" text-anchor="middle" fill="#1d2021" font-size="14">J</text>
 
   <!-- Resume -->
-  <rect x="70" y="220" width="280" height="160" rx="8" fill="#1d2021" stroke="#504945"/>
-  <text x="90" y="245" fill="#ebdbb2" font-size="13" font-weight="600">J さんの履歴書</text>
-  <text x="90" y="272" fill="#ebdbb2" font-size="12">「大規模リアーキテクチャを主導」</text>
-  <text x="90" y="295" fill="#ebdbb2" font-size="12">「マイクロサービス化を推進」</text>
-  <text x="90" y="318" fill="#ebdbb2" font-size="12">「チーム15名のテックリード」</text>
-  <text x="90" y="341" fill="#ebdbb2" font-size="12">「年間200+ PR」</text>
-  <text x="90" y="365" fill="#928374" font-size="11">↑ 全部本当かもしれないし、盛ってるかも</text>
+  <rect x="70" y="195" width="280" height="110" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="218" fill="#ebdbb2" font-size="13" font-weight="600">J さんの履歴書</text>
+  <text x="90" y="242" fill="#ebdbb2" font-size="12">「大規模リアーキテクチャを主導」</text>
+  <text x="90" y="262" fill="#ebdbb2" font-size="12">「チーム15名のテックリード」</text>
+  <text x="90" y="282" fill="#ebdbb2" font-size="12">「年間200+ PR」</text>
+  <text x="90" y="300" fill="#928374" font-size="10">書いてあることは本当。でも文脈が見えない。</text>
 
-  <!-- Interviewer thinking -->
-  <circle cx="130" cy="440" r="5" fill="#504945"/>
-  <circle cx="120" cy="425" r="8" fill="#504945"/>
-  <rect x="70" y="395" width="200" height="25" rx="8" fill="#504945"/>
-  <text x="85" y="413" fill="#a89984" font-size="11">（検証しようがないな…）</text>
+  <!-- Gravity Certificate -->
+  <rect x="70" y="320" width="280" height="120" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="90" y="342" fill="#83a598" font-size="12" font-weight="600">Gravity Certificate — J</text>
+  <text x="90" y="365" fill="#83a598" font-size="11" font-family="monospace">前職 (EC): Producer / Mass</text>
+  <text x="90" y="385" fill="#83a598" font-size="11" font-family="monospace">Survival: 14  Design: 3</text>
+  <text x="90" y="408" fill="#928374" font-size="11">200 PR 出したが、ほとんど残っていない。</text>
+  <text x="90" y="425" fill="#928374" font-size="11">でもこれは J の能力ではなく…</text>
+
+  <text x="210" y="480" text-anchor="middle" fill="#fabd2f" font-size="12">Engineering Relativity の出番。</text>
 
   <!-- Panel 2 -->
   <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
-  <text x="430" y="82" fill="#928374" font-size="13">② Gravity Certificate があると</text>
+  <text x="430" y="82" fill="#928374" font-size="13">② 宇宙が違えば重力も違う</text>
 
-  <rect x="440" y="100" width="310" height="250" rx="8" fill="#1d2021" stroke="#83a598"/>
-  <text x="455" y="125" fill="#83a598" font-size="13" font-weight="600">Gravity Certificate — J</text>
-  <text x="455" y="145" fill="#928374" font-size="10">verified by orbitlens true — git blame cannot lie</text>
+  <rect x="440" y="100" width="310" height="150" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="122" fill="#83a598" font-size="12" font-weight="600">Gravity Certificate — J (2社比較)</text>
 
-  <text x="455" y="175" fill="#928374" font-size="11" font-family="monospace">Role:     Producer / —</text>
-  <text x="455" y="197" fill="#928374" font-size="11" font-family="monospace">Style:    Mass</text>
-  <text x="455" y="219" fill="#928374" font-size="11" font-family="monospace">Survival: 14</text>
-  <text x="455" y="241" fill="#928374" font-size="11" font-family="monospace">Design:    3</text>
-  <text x="455" y="263" fill="#928374" font-size="11" font-family="monospace">Impact:   22.4</text>
-  <text x="455" y="285" fill="#928374" font-size="11" font-family="monospace">Gravity:  12</text>
+  <text x="455" y="150" fill="#928374" font-size="11">前職 (EC / 大規模モノリス):</text>
+  <text x="475" y="168" fill="#fb4934" font-size="11" font-family="monospace">Producer/Mass  Surv:14  Design:3</text>
+  <text x="475" y="185" fill="#928374" font-size="10">→ 大量のレガシーに押し潰されていた</text>
 
-  <text x="455" y="320" fill="#fb4934" font-size="11">Architect ではなかった。</text>
-  <text x="455" y="338" fill="#fb4934" font-size="11">200 PR 出して、Survival 14。ほぼ残っていない。</text>
+  <text x="455" y="210" fill="#928374" font-size="11">副業 (OSS / Rust CLI ツール):</text>
+  <text x="475" y="228" fill="#8ec07c" font-size="11" font-family="monospace">Architect/Builder  Surv:72  Design:68</text>
+  <text x="475" y="245" fill="#8ec07c" font-size="10">→ 小規模で裁量があると Architect が発現</text>
 
-  <!-- Truth -->
-  <rect x="440" y="370" width="310" height="80" rx="8" fill="#3c3836"/>
-  <text x="455" y="395" fill="#fabd2f" font-size="14">履歴書は盛れる。</text>
-  <text x="455" y="415" fill="#fabd2f" font-size="14">git blame は盛れない。</text>
-  <text x="455" y="440" fill="#928374" font-size="11">望遠鏡が見た事実だけが、証明書になる。</text>
+  <!-- Insight -->
+  <rect x="440" y="265" width="310" height="90" rx="8" fill="#3c3836"/>
+  <text x="455" y="288" fill="#fabd2f" font-size="13">J は弱いのではない。</text>
+  <text x="455" y="310" fill="#ebdbb2" font-size="12">前職の宇宙が合わなかっただけ。</text>
+  <text x="455" y="330" fill="#ebdbb2" font-size="12">小規模 + 裁量のある環境なら輝く。</text>
+  <text x="455" y="348" fill="#928374" font-size="10">望遠鏡は「弱い」を示すのではなく「適所」を示す。</text>
 
-  <!-- Interviewer satisfied -->
-  <circle cx="590" cy="500" r="22" fill="#458588"/>
-  <text x="590" y="507" text-anchor="middle" fill="#1d2021" font-size="10">面接官</text>
-  <text x="630" y="500" fill="#8ec07c" font-size="12">「これなら判断できる」</text>
+  <!-- Interviewer's decision -->
+  <rect x="440" y="370" width="310" height="80" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <circle cx="480" cy="410" r="20" fill="#458588"/>
+  <text x="480" y="417" text-anchor="middle" fill="#1d2021" font-size="10">面接官</text>
+
+  <text x="515" y="400" fill="#ebdbb2" font-size="12">「うちは小規模チーム。</text>
+  <text x="515" y="418" fill="#8ec07c" font-size="12">　J さん、合いそうだ。」</text>
+  <text x="515" y="440" fill="#928374" font-size="10">落とすのではなく、適所を見つけるツール。</text>
+
+  <!-- J happy -->
+  <circle cx="590" cy="500" r="20" fill="#d79921"/>
+  <text x="590" y="507" text-anchor="middle" fill="#1d2021" font-size="14">J</text>
+  <text x="625" y="500" fill="#fabd2f" font-size="11">「やっと正しい宇宙に出会えた」</text>
 
   <!-- Footer -->
-  <text x="400" y="565" text-anchor="middle" fill="#fabd2f" font-size="14" font-weight="600">偽装不可能な証明。それが Gravity Certificate。</text>
-  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens true — Your gravity, proven.</text>
+  <text x="400" y="565" text-anchor="middle" fill="#fabd2f" font-size="14" font-weight="600">望遠鏡は「弱い」を示さない。「適所」を示す。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">ace — the Git Telescope / Engineering Relativity</text>
 </svg>

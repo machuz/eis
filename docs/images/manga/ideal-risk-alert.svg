@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#d3869b" font-size="18" font-weight="700">ideal 2コマ — 「崩壊を予測する」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① チームは順調に見える</text>
+
+  <circle cx="200" cy="150" r="28" fill="#458588"/>
+  <text x="200" y="157" text-anchor="middle" fill="#1d2021" font-size="11">VPoE</text>
+
+  <rect x="80" y="195" width="260" height="30" rx="8" fill="#3c3836"/>
+  <text x="95" y="215" fill="#ebdbb2" font-size="12">「今期もリリース順調。問題なし。」</text>
+
+  <!-- Seemingly fine metrics -->
+  <rect x="70" y="245" width="290" height="110" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="268" fill="#8ec07c" font-size="12">表面メトリクス:</text>
+  <text x="90" y="293" fill="#ebdbb2" font-size="12">  デプロイ頻度: 正常</text>
+  <text x="90" y="313" fill="#ebdbb2" font-size="12">  PR マージ速度: 正常</text>
+  <text x="90" y="333" fill="#ebdbb2" font-size="12">  障害件数: 横ばい</text>
+  <text x="90" y="348" fill="#928374" font-size="10">↑ DORA メトリクスだけ見ると問題なし</text>
+
+  <!-- But underneath... -->
+  <rect x="70" y="375" width="290" height="70" rx="8" fill="#504945"/>
+  <text x="85" y="398" fill="#a89984" font-size="12">（でも最近、主要メンバーが疲れてる…）</text>
+  <text x="85" y="418" fill="#a89984" font-size="12">（退職の噂もちらほら…）</text>
+  <text x="85" y="438" fill="#a89984" font-size="11">（勘ではわかるけど、データがない）</text>
+
+  <text x="210" y="485" text-anchor="middle" fill="#928374" font-size="12">DORA では「構造の劣化」は見えない。</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② ideal のリスク予測アラート</text>
+
+  <rect x="440" y="100" width="310" height="200" rx="8" fill="#1d2021" stroke="#fb4934"/>
+  <text x="455" y="122" fill="#fb4934" font-size="12" font-weight="600">Risk Prediction Alert</text>
+  <text x="455" y="142" fill="#928374" font-size="10">orbitlens ideal — 3-month forecast</text>
+
+  <text x="455" y="170" fill="#fb4934" font-size="11">CRITICAL: Architect W の Survival が 3Q 連続低下</text>
+  <text x="455" y="190" fill="#fb4934" font-size="11">WARNING: Gravity 集中度 82% → W 退職で崩壊リスク</text>
+  <text x="455" y="210" fill="#fb4934" font-size="11">WARNING: Anchor X が Silent 状態に遷移中</text>
+  <text x="455" y="230" fill="#d3869b" font-size="11">INFO: Growing メンバー Y の Anchor 化まであと 2Q</text>
+
+  <text x="455" y="260" fill="#fabd2f" font-size="12">予測: W 退職時のチーム崩壊確率 78%</text>
+  <text x="455" y="280" fill="#928374" font-size="11">DORA は正常。でも構造は崩壊寸前。</text>
+  <text x="455" y="295" fill="#928374" font-size="10">表面メトリクスが正常なのは慣性。エンジンは止まりかけている。</text>
+
+  <!-- Recommended actions -->
+  <rect x="440" y="310" width="310" height="100" rx="8" fill="#3c3836"/>
+  <text x="455" y="333" fill="#d3869b" font-size="12">推奨アクション:</text>
+  <text x="455" y="355" fill="#ebdbb2" font-size="11">1. W の負荷分散 — 3モジュールの所有権移譲</text>
+  <text x="455" y="375" fill="#ebdbb2" font-size="11">2. X の 1on1 — Silent 原因の特定</text>
+  <text x="455" y="395" fill="#ebdbb2" font-size="11">3. Y の Anchor 育成を加速 — W の保険として</text>
+
+  <!-- VPoE realization -->
+  <circle cx="500" cy="470" r="22" fill="#458588"/>
+  <text x="500" y="477" text-anchor="middle" fill="#1d2021" font-size="10">VPoE</text>
+  <rect x="535" y="448" width="210" height="45" rx="8" fill="#3c3836"/>
+  <text x="550" y="467" fill="#ebdbb2" font-size="11">「崩壊する前に</text>
+  <text x="550" y="484" fill="#d3869b" font-size="11">　手を打てる。これは大きい」</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#d3869b" font-size="14" font-weight="600">崩壊してから気づくのでは遅い。予測せよ。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens ideal — Navigate by gravity, not by noise.</text>
+</svg>

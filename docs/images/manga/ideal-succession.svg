@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#d3869b" font-size="18" font-weight="700">ideal 2コマ — 「あの人が辞める前に」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① ある日の Slack</text>
+
+  <rect x="70" y="110" width="290" height="60" rx="8" fill="#1d2021" stroke="#fb4934"/>
+  <text x="90" y="135" fill="#ebdbb2" font-size="13">W: 「ちょっとお話があります」</text>
+  <text x="90" y="158" fill="#fb4934" font-size="12">← この瞬間にはもう遅い</text>
+
+  <!-- VPoE panic -->
+  <circle cx="200" cy="230" r="25" fill="#458588"/>
+  <text x="200" y="237" text-anchor="middle" fill="#1d2021" font-size="10">VPoE</text>
+
+  <rect x="80" y="270" width="260" height="100" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="100" y="295" fill="#fb4934" font-size="12">Wが辞めると:</text>
+  <text x="100" y="318" fill="#ebdbb2" font-size="11">・12モジュールの所有者が消える</text>
+  <text x="100" y="338" fill="#ebdbb2" font-size="11">・Design 知識の 65% が失われる</text>
+  <text x="100" y="358" fill="#ebdbb2" font-size="11">・チーム Character: Spiral → Collision</text>
+
+  <rect x="80" y="390" width="260" height="50" rx="8" fill="#3c3836"/>
+  <text x="100" y="412" fill="#fb4934" font-size="13">Bus Factor = 1</text>
+  <text x="100" y="432" fill="#928374" font-size="11">全ての卵が1つのカゴに入っている</text>
+
+  <text x="210" y="485" text-anchor="middle" fill="#928374" font-size="12">辞めてから慌てるのでは、半年遅い。</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② ideal の Succession Plan</text>
+
+  <rect x="440" y="100" width="310" height="160" rx="8" fill="#1d2021" stroke="#d3869b"/>
+  <text x="455" y="122" fill="#d3869b" font-size="12" font-weight="600">Succession Risk Alert — W</text>
+  <text x="455" y="142" fill="#928374" font-size="10">detected 6 months before resignation</text>
+
+  <text x="455" y="170" fill="#fb4934" font-size="11">W の Survival: 3Q 連続低下 (71→58→42)</text>
+  <text x="455" y="190" fill="#fb4934" font-size="11">W の Production: 急減 (最後の2ヶ月ほぼゼロ)</text>
+  <text x="455" y="210" fill="#d3869b" font-size="11">予測: 退職確率 High（Former 遷移兆候）</text>
+  <text x="455" y="235" fill="#fabd2f" font-size="12">シグナルは6ヶ月前から出ていた。</text>
+  <text x="455" y="255" fill="#928374" font-size="10">退職の意思表明前に、構造的兆候を検知。</text>
+
+  <!-- Succession plan -->
+  <rect x="440" y="275" width="310" height="120" rx="8" fill="#3c3836"/>
+  <text x="455" y="298" fill="#d3869b" font-size="12">Succession Plan（6ヶ月前に実行可能だった）:</text>
+  <text x="455" y="322" fill="#ebdbb2" font-size="11">1. W の 12 モジュールを 3人に段階移譲</text>
+  <text x="455" y="342" fill="#ebdbb2" font-size="11">2. Design 知識の文書化 + ペアプロ強化</text>
+  <text x="455" y="362" fill="#ebdbb2" font-size="11">3. Architect 候補の育成を前倒し</text>
+  <text x="455" y="382" fill="#8ec07c" font-size="10">予測: 移譲完了後の崩壊確率 12%（元 78%）</text>
+
+  <!-- Key insight -->
+  <rect x="440" y="410" width="310" height="60" rx="8" fill="#1d2021" stroke="#d3869b"/>
+  <text x="455" y="435" fill="#d3869b" font-size="13">退職は突然じゃない。</text>
+  <text x="455" y="458" fill="#fabd2f" font-size="13">シグナルは必ず先に出ている。</text>
+
+  <circle cx="590" cy="510" r="20" fill="#458588"/>
+  <text x="590" y="517" text-anchor="middle" fill="#1d2021" font-size="10">VPoE</text>
+  <text x="625" y="510" fill="#d3869b" font-size="11">「もう手遅れにはしない」</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#d3869b" font-size="14" font-weight="600">辞める前に備える。それが Succession Plan。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens ideal — Navigate by gravity, not by noise.</text>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#d3869b" font-size="18" font-weight="700">ideal 2コマ — 「誰が誰を教えるべきか」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① メンター配置の悩み</text>
+
+  <circle cx="200" cy="150" r="25" fill="#458588"/>
+  <text x="200" y="157" text-anchor="middle" fill="#1d2021" font-size="10">EM</text>
+
+  <rect x="70" y="190" width="290" height="70" rx="10" fill="#504945"/>
+  <text x="85" y="212" fill="#a89984" font-size="12">（ジュニアのメンターを誰にしよう…</text>
+  <text x="85" y="232" fill="#a89984" font-size="12">　Impact 高い人？年次が上の人？</text>
+  <text x="85" y="250" fill="#a89984" font-size="11">　相性？雰囲気？勘？）</text>
+
+  <!-- Wrong pairing -->
+  <rect x="70" y="280" width="290" height="130" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="305" fill="#928374" font-size="12">よくある失敗パターン:</text>
+
+  <circle cx="130" cy="355" r="18" fill="#83a598"/>
+  <text x="130" y="362" text-anchor="middle" fill="#1d2021" font-size="9">Archi</text>
+  <text x="160" y="355" fill="#928374" font-size="16">→</text>
+  <circle cx="200" cy="355" r="18" fill="#689d6a"/>
+  <text x="200" y="362" text-anchor="middle" fill="#1d2021" font-size="9">Grow</text>
+  <text x="230" y="360" fill="#fb4934" font-size="10">レベル差がありすぎて</text>
+  <text x="230" y="375" fill="#fb4934" font-size="10">Growing が萎縮する</text>
+
+  <text x="90" y="400" fill="#928374" font-size="11">Architect が教えても、Growing には遠すぎる。</text>
+  <text x="90" y="415" fill="#928374" font-size="11">「隣の一歩」を教えられる人が最適。</text>
+
+  <text x="210" y="470" text-anchor="middle" fill="#928374" font-size="12">メンタリングは「最強」ではなく「最近」。</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② ideal のコーチング推薦</text>
+
+  <rect x="440" y="100" width="310" height="200" rx="8" fill="#1d2021" stroke="#d3869b"/>
+  <text x="455" y="122" fill="#d3869b" font-size="12" font-weight="600">Coaching Recommendation</text>
+
+  <text x="455" y="150" fill="#ebdbb2" font-size="12">メンティ: Z (Growing / Producer)</text>
+  <text x="455" y="172" fill="#d3869b" font-size="12">目標 Role: Anchor</text>
+
+  <text x="455" y="200" fill="#928374" font-size="11">推薦コーチ（各軸トップ）:</text>
+  <text x="455" y="222" fill="#8ec07c" font-size="11">Quality:      R.S. (89) — Anchor</text>
+  <text x="455" y="242" fill="#8ec07c" font-size="11">Debt Cleanup: R.S. (88) — Anchor</text>
+  <text x="455" y="262" fill="#8ec07c" font-size="11">Survival:     K.M. (72) — Builder</text>
+
+  <text x="455" y="290" fill="#fabd2f" font-size="12">最適コーチ: R.S.</text>
+  <text x="455" y="308" fill="#928374" font-size="10">理由: Z の目標 Role と同じ Anchor。最近通った道を知っている。</text>
+
+  <!-- Why this works -->
+  <rect x="440" y="320" width="310" height="100" rx="8" fill="#3c3836"/>
+  <text x="455" y="343" fill="#d3869b" font-size="12">なぜ R.S. が最適か:</text>
+  <text x="455" y="368" fill="#ebdbb2" font-size="11">・Z と同じ Anchor パス を歩いた経験者</text>
+  <text x="455" y="388" fill="#ebdbb2" font-size="11">・Debt Cleanup の実践知を持っている</text>
+  <text x="455" y="408" fill="#ebdbb2" font-size="11">・Architect ではなく「隣の先輩」ポジション</text>
+
+  <!-- Result -->
+  <rect x="440" y="435" width="310" height="55" rx="8" fill="#1d2021" stroke="#d3869b"/>
+  <text x="455" y="458" fill="#d3869b" font-size="12">最強の人が教えるのではない。</text>
+  <text x="455" y="478" fill="#fabd2f" font-size="12">最近同じ道を歩いた人が教える。</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#d3869b" font-size="14" font-weight="600">メンタリングは勘ではなく、軌道の近さで決める。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens ideal — Navigate by gravity, not by noise.</text>
+</svg>
