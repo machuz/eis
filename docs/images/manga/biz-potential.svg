@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#fabd2f" font-size="18" font-weight="700">orbitlens 2コマ — 「エンジニアの信用スコア」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① $80B の市場が「言葉」で回っている</text>
+
+  <rect x="70" y="100" width="290" height="120" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="125" fill="#fabd2f" font-size="13" font-weight="600">TAM（獲得可能市場）</text>
+  <text x="90" y="152" fill="#ebdbb2" font-size="12">開発者ツール:       $30B+</text>
+  <text x="90" y="172" fill="#ebdbb2" font-size="12">IT人材紹介:         $35B+</text>
+  <text x="90" y="192" fill="#ebdbb2" font-size="12">HR Tech / Analytics: $15B+</text>
+  <text x="90" y="215" fill="#fabd2f" font-size="14" font-weight="600">合計: $80B+</text>
+
+  <rect x="70" y="240" width="290" height="100" rx="8" fill="#3c3836"/>
+  <text x="90" y="265" fill="#928374" font-size="12">現状の判断根拠:</text>
+  <text x="90" y="290" fill="#ebdbb2" font-size="12">  履歴書 → 盛れる</text>
+  <text x="90" y="310" fill="#ebdbb2" font-size="12">  面接 → 1時間の演技</text>
+  <text x="90" y="330" fill="#ebdbb2" font-size="12">  推薦 → 営業トーク</text>
+
+  <rect x="70" y="360" width="290" height="80" rx="8" fill="#1d2021" stroke="#fb4934"/>
+  <text x="90" y="385" fill="#fb4934" font-size="13">$80B の意思決定が</text>
+  <text x="90" y="408" fill="#fb4934" font-size="13">「検証不可能な言葉」で行われている。</text>
+  <text x="90" y="430" fill="#928374" font-size="11">金融には FICO がある。エンジニアには？</text>
+
+  <text x="210" y="480" text-anchor="middle" fill="#fabd2f" font-size="13">ない。だから作る。</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② orbitlens = エンジニアの FICO</text>
+
+  <rect x="440" y="100" width="310" height="130" rx="8" fill="#1d2021" stroke="#fabd2f"/>
+  <text x="455" y="122" fill="#fabd2f" font-size="12" font-weight="600">FICO が金融を変えたように</text>
+  <text x="455" y="148" fill="#ebdbb2" font-size="11">FICO 以前: 銀行員の勘で融資判断</text>
+  <text x="455" y="168" fill="#ebdbb2" font-size="11">FICO 以後: 信用スコアで自動判断</text>
+  <text x="455" y="195" fill="#fabd2f" font-size="12">orbitlens = git blame ベースの信用スコア</text>
+  <text x="455" y="215" fill="#928374" font-size="10">偽装不可能。言語・国境を超える。全エンジニア共通。</text>
+
+  <rect x="440" y="245" width="310" height="110" rx="8" fill="#3c3836"/>
+  <text x="455" y="268" fill="#fabd2f" font-size="12">デファクト化のシナリオ:</text>
+  <text x="455" y="293" fill="#ebdbb2" font-size="11">TAM 0.1% → $80M ARR（現実的成功）</text>
+  <text x="455" y="313" fill="#ebdbb2" font-size="11">TAM 1%   → $800M ARR（大成功）</text>
+  <text x="455" y="333" fill="#fabd2f" font-size="12">TAM 3-5% → $2.4-4B ARR（デファクト）</text>
+  <text x="455" y="350" fill="#928374" font-size="10">バリュエーション: $24B-$80B</text>
+
+  <rect x="440" y="370" width="310" height="80" rx="8" fill="#1d2021" stroke="#fabd2f"/>
+  <text x="455" y="393" fill="#928374" font-size="11">比較:</text>
+  <text x="455" y="413" fill="#ebdbb2" font-size="12">LinkedIn:   $26.2B（買収額）</text>
+  <text x="455" y="433" fill="#ebdbb2" font-size="12">GitHub:     $7.5B（買収額）</text>
+  <text x="455" y="448" fill="#fabd2f" font-size="10">orbitlens = GitHub × LinkedIn + 偽装不可能データ</text>
+
+  <rect x="440" y="465" width="310" height="40" rx="8" fill="#3c3836"/>
+  <text x="455" y="490" fill="#fabd2f" font-size="13">一度デファクトになれば、追いつけない。</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#fabd2f" font-size="14" font-weight="600">$80B の市場に、偽装不可能な望遠鏡を。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens — Where sincere work finds its orbit.</text>
+</svg>
