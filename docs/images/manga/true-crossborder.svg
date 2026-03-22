@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#83a598" font-size="18" font-weight="700">true 2コマ — 「国境を超える重力」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① 東京のエンジニア V</text>
+
+  <circle cx="200" cy="150" r="30" fill="#83a598"/>
+  <text x="200" y="157" text-anchor="middle" fill="#1d2021" font-size="14">V</text>
+
+  <!-- Registration -->
+  <rect x="70" y="195" width="290" height="150" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="90" y="218" fill="#83a598" font-size="12" font-weight="600">orbitlens true — Sign up</text>
+
+  <text x="90" y="248" fill="#928374" font-size="11">Your country:</text>
+  <rect x="90" y="255" width="180" height="25" rx="4" fill="#3c3836"/>
+  <text x="100" y="273" fill="#ebdbb2" font-size="12">Japan</text>
+
+  <text x="90" y="300" fill="#928374" font-size="11">Explore universes in:</text>
+  <rect x="90" y="307" width="100" height="22" rx="4" fill="#458588" opacity="0.3"/>
+  <text x="100" y="323" fill="#83a598" font-size="11">USA</text>
+  <rect x="200" y="307" width="80" height="22" rx="4" fill="#458588" opacity="0.3"/>
+  <text x="210" y="323" fill="#83a598" font-size="11">Europe</text>
+
+  <!-- V's situation -->
+  <rect x="70" y="370" width="290" height="80" rx="8" fill="#504945"/>
+  <text x="85" y="392" fill="#a89984" font-size="12">（日本だと年収800万が天井…</text>
+  <text x="85" y="412" fill="#a89984" font-size="12">　同じ実力なら US で $180K もらえるのに）</text>
+  <text x="85" y="435" fill="#a89984" font-size="11">（でも英語の面接は自信がない…）</text>
+
+  <text x="210" y="485" text-anchor="middle" fill="#928374" font-size="12">言葉の壁。でもコードに壁はない。</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② 重力は国境を超える</text>
+
+  <rect x="440" y="100" width="310" height="170" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="122" fill="#83a598" font-size="12" font-weight="600">Gravity Certificate — V (Tokyo)</text>
+  <text x="455" y="142" fill="#928374" font-size="10">verified across 3 universes</text>
+
+  <text x="455" y="170" fill="#83a598" font-size="11" font-family="monospace">Impact:      52  Role: Architect</text>
+  <text x="455" y="190" fill="#83a598" font-size="11" font-family="monospace">Reproduced:  Architect x 3</text>
+  <text x="455" y="210" fill="#83a598" font-size="11" font-family="monospace">Languages:   Go, TS, Rust</text>
+  <text x="455" y="230" fill="#83a598" font-size="11" font-family="monospace">Robust Surv: 61</text>
+  <text x="455" y="255" fill="#fabd2f" font-size="11">git blame は英語も日本語も関係ない。</text>
+
+  <!-- US company finds V -->
+  <rect x="440" y="285" width="310" height="100" rx="8" fill="#3c3836"/>
+  <text x="455" y="308" fill="#83a598" font-size="12">SF のスタートアップからオファー:</text>
+  <text x="455" y="332" fill="#ebdbb2" font-size="11">「Architect Reproducibility 認証済み。</text>
+  <text x="455" y="352" fill="#ebdbb2" font-size="11">　Go + Rust、うちのスタックにぴったり。」</text>
+  <text x="455" y="375" fill="#8ec07c" font-size="11">$180K + equity — 重力に見合った報酬</text>
+
+  <!-- V's realization -->
+  <rect x="440" y="400" width="310" height="80" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <circle cx="480" cy="440" r="22" fill="#83a598"/>
+  <text x="480" y="447" text-anchor="middle" fill="#1d2021" font-size="14">V</text>
+  <text x="515" y="428" fill="#ebdbb2" font-size="12">「英語面接は苦手でも、</text>
+  <text x="515" y="448" fill="#83a598" font-size="12">　重力は翻訳不要だった。」</text>
+  <text x="515" y="468" fill="#928374" font-size="11">コードに国境はない。</text>
+
+  <!-- Globe -->
+  <text x="590" y="520" text-anchor="middle" fill="#fabd2f" font-size="12">Tokyo → San Francisco</text>
+  <text x="590" y="535" text-anchor="middle" fill="#928374" font-size="10">重力が国境を超えた。</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#83a598" font-size="14" font-weight="600">コードに国境はない。重力は翻訳不要。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens true — Where sincere work finds its orbit.</text>
+</svg>
