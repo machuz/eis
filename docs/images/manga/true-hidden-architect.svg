@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#83a598" font-size="18" font-weight="700">true 2コマ — 「世界が知らない Architect」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① 採用市場で目立つ人たち</text>
+
+  <!-- Famous engineers -->
+  <rect x="70" y="100" width="280" height="180" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="125" fill="#d79921" font-size="13">採用市場で「強い」とされる人:</text>
+  <text x="90" y="155" fill="#ebdbb2" font-size="12">Twitter フォロワー 10K+</text>
+  <text x="90" y="178" fill="#ebdbb2" font-size="12">カンファレンス登壇多数</text>
+  <text x="90" y="201" fill="#ebdbb2" font-size="12">OSS スター 500+</text>
+  <text x="90" y="224" fill="#ebdbb2" font-size="12">技術ブログ月間10万PV</text>
+  <text x="90" y="255" fill="#928374" font-size="11">↑ 全部「発信力」であって「構造力」ではない</text>
+
+  <!-- Invisible engineers -->
+  <rect x="70" y="300" width="280" height="100" rx="8" fill="#504945"/>
+  <text x="90" y="325" fill="#a89984" font-size="12">一方、こんな人もいる:</text>
+  <text x="90" y="350" fill="#a89984" font-size="12">Twitter アカウントすらない</text>
+  <text x="90" y="373" fill="#a89984" font-size="12">登壇ゼロ、ブログなし</text>
+  <text x="90" y="393" fill="#a89984" font-size="11">でも書いたコードが5年間残り続けている</text>
+
+  <text x="210" y="440" text-anchor="middle" fill="#928374" font-size="12">採用市場では「見えない」</text>
+  <text x="210" y="460" text-anchor="middle" fill="#928374" font-size="12">でもコードベースでは「最も重い星」</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② OSS Gravity Map の発見</text>
+
+  <rect x="440" y="100" width="310" height="120" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="122" fill="#83a598" font-size="12" font-weight="600">OSS Gravity Map — 55,343 engineers</text>
+  <text x="455" y="148" fill="#ebdbb2" font-size="12">29リポジトリを横断観測した結果:</text>
+  <text x="455" y="175" fill="#fabd2f" font-size="14" font-weight="600">440人の Hidden Architect を発見</text>
+  <text x="455" y="200" fill="#928374" font-size="11">カンファレンスに出ない。Twitterもない。</text>
+  <text x="455" y="215" fill="#928374" font-size="11">でもコードベースの重力場を形成していた。</text>
+
+  <!-- Examples -->
+  <rect x="440" y="235" width="310" height="120" rx="8" fill="#3c3836"/>
+  <text x="455" y="258" fill="#83a598" font-size="12">発見された Hidden Architect たち:</text>
+  <text x="455" y="283" fill="#ebdbb2" font-size="11">・Rails: 表に出ないが Design 85 の Architect</text>
+  <text x="455" y="303" fill="#ebdbb2" font-size="11">・K8s: 5,000人の中で静かに構造を支えていた</text>
+  <text x="455" y="323" fill="#ebdbb2" font-size="11">・React: 世代交代の中で重力を渡した人たち</text>
+  <text x="455" y="343" fill="#8ec07c" font-size="11">望遠鏡がなければ、永遠に見つからなかった</text>
+
+  <!-- true's mission -->
+  <rect x="440" y="370" width="310" height="100" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="395" fill="#83a598" font-size="13" font-weight="600">orbitlens true の使命:</text>
+  <text x="455" y="420" fill="#ebdbb2" font-size="12">声の大きさではなく、重力の大きさで</text>
+  <text x="455" y="440" fill="#ebdbb2" font-size="12">エンジニアを見つける。</text>
+  <text x="455" y="460" fill="#fabd2f" font-size="12">誠実に書いた人が、正しく見つかる世界。</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#83a598" font-size="14" font-weight="600">声ではなく重力で見つかる。それが true の世界。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens true — Where sincere work finds its orbit.</text>
+</svg>

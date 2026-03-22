@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#83a598" font-size="18" font-weight="700">true 2コマ — 「最強の人より最適な人」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① Impact 80 の Architect を採用した</text>
+
+  <!-- New hire -->
+  <circle cx="200" cy="150" r="30" fill="#fabd2f"/>
+  <text x="200" y="157" text-anchor="middle" fill="#1d2021" font-size="14">S</text>
+  <text x="200" y="195" text-anchor="middle" fill="#fabd2f" font-size="12">Impact 80 / Architect / Builder</text>
+
+  <rect x="80" y="210" width="270" height="30" rx="8" fill="#3c3836"/>
+  <text x="95" y="230" fill="#ebdbb2" font-size="12">「最強のArchitectを採れた！」</text>
+
+  <!-- But the team already has an architect -->
+  <rect x="70" y="260" width="290" height="120" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="285" fill="#928374" font-size="12">しかし既存チーム:</text>
+  <circle cx="120" cy="330" r="18" fill="#83a598"/>
+  <text x="120" y="337" text-anchor="middle" fill="#1d2021" font-size="9">Archi</text>
+  <circle cx="170" cy="330" r="18" fill="#83a598"/>
+  <text x="170" y="337" text-anchor="middle" fill="#1d2021" font-size="9">Archi</text>
+  <circle cx="220" cy="330" r="18" fill="#fabd2f"/>
+  <text x="220" y="337" text-anchor="middle" fill="#1d2021" font-size="9">S 新</text>
+  <circle cx="270" cy="330" r="18" fill="#d79921"/>
+  <text x="270" y="337" text-anchor="middle" fill="#1d2021" font-size="9">Prod</text>
+  <text x="210" y="375" text-anchor="middle" fill="#fb4934" font-size="12">Architect が3人。Anchor が0人。</text>
+
+  <!-- Result -->
+  <rect x="80" y="400" width="270" height="70" rx="8" fill="#3c3836"/>
+  <text x="100" y="420" fill="#fb4934" font-size="12">3ヶ月後:</text>
+  <text x="100" y="440" fill="#ebdbb2" font-size="11">設計方針の衝突で開発が停滞</text>
+  <text x="100" y="458" fill="#ebdbb2" font-size="11">品質を守る人がいなくて fix 率が倍増</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② true のチーム補完性マッチング</text>
+
+  <rect x="440" y="100" width="310" height="140" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="122" fill="#83a598" font-size="12" font-weight="600">Team Complementarity Analysis</text>
+
+  <text x="455" y="150" fill="#928374" font-size="11">現在のチーム構成:</text>
+  <text x="455" y="170" fill="#ebdbb2" font-size="11">  Architect: 2  Producer: 1  Anchor: 0</text>
+  <text x="455" y="193" fill="#fb4934" font-size="12">不足 Role: Anchor</text>
+  <text x="455" y="215" fill="#8ec07c" font-size="11">推奨: Impact 80 の Architect より</text>
+  <text x="455" y="232" fill="#8ec07c" font-size="11">      Impact 45 の Anchor が最適</text>
+
+  <!-- Recommended candidate -->
+  <rect x="440" y="255" width="310" height="120" rx="8" fill="#3c3836"/>
+  <text x="455" y="278" fill="#83a598" font-size="12">推薦候補: T</text>
+  <text x="455" y="300" fill="#ebdbb2" font-size="11" font-family="monospace">Impact: 45  Role: Anchor  Qual: 88</text>
+  <text x="455" y="320" fill="#ebdbb2" font-size="11" font-family="monospace">Debt: 82  Survival: 65</text>
+  <text x="455" y="345" fill="#fabd2f" font-size="12">チームの穴を埋める人。静かに品質を守る人。</text>
+  <text x="455" y="365" fill="#928374" font-size="11">Complementarity: 33 → 78 に改善</text>
+
+  <!-- Insight -->
+  <rect x="440" y="390" width="310" height="80" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="415" fill="#83a598" font-size="13" font-weight="600">採用 ≠ 最強を集めること</text>
+  <text x="455" y="438" fill="#ebdbb2" font-size="12">チームに必要な Role を見極める。</text>
+  <text x="455" y="458" fill="#ebdbb2" font-size="12">最強の個人より、最適な補完。</text>
+
+  <text x="590" y="510" text-anchor="middle" fill="#8ec07c" font-size="12">Character: Irregular → Spiral</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#83a598" font-size="14" font-weight="600">最強の人より、最適な人。チームは補完で強くなる。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens true — Team complementarity matching</text>
+</svg>

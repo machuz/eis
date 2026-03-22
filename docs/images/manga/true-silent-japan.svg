@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#83a598" font-size="18" font-weight="700">true 2コマ — 「仕事で語る文化」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① 日本のエンジニア</text>
+
+  <!-- Engineer U -->
+  <circle cx="200" cy="150" r="30" fill="#83a598"/>
+  <text x="200" y="157" text-anchor="middle" fill="#1d2021" font-size="14">U</text>
+
+  <rect x="80" y="200" width="260" height="100" rx="8" fill="#504945"/>
+  <text x="95" y="222" fill="#a89984" font-size="12">（自分の強みって何だろう…）</text>
+  <text x="95" y="245" fill="#a89984" font-size="12">（アピールするのは苦手で…）</text>
+  <text x="95" y="268" fill="#a89984" font-size="12">（でも毎日ちゃんとコード書いてるし…）</text>
+  <text x="95" y="290" fill="#a89984" font-size="11">（まあいいか、仕事で見せるしかないか）</text>
+
+  <!-- The problem -->
+  <rect x="70" y="320" width="290" height="120" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="345" fill="#928374" font-size="12">日本のエンジニアが直面する構造的不利:</text>
+  <text x="90" y="372" fill="#ebdbb2" font-size="11">・自己アピール文化がない → 実力が伝わらない</text>
+  <text x="90" y="392" fill="#ebdbb2" font-size="11">・英語が壁 → グローバル市場で見えない</text>
+  <text x="90" y="412" fill="#ebdbb2" font-size="11">・年功序列の慣性 → 実力と報酬が乖離</text>
+  <text x="90" y="432" fill="#fb4934" font-size="11">結果: 世界水準の実力に、半分の報酬</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② 仕事が語ってくれる世界</text>
+
+  <rect x="440" y="100" width="310" height="180" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="122" fill="#83a598" font-size="12" font-weight="600">Gravitational Record — U</text>
+  <text x="455" y="142" fill="#928374" font-size="10">Language: Go, TypeScript / 4 years analyzed</text>
+
+  <text x="455" y="172" fill="#83a598" font-size="11" font-family="monospace">Impact:     51.2</text>
+  <text x="455" y="192" fill="#83a598" font-size="11" font-family="monospace">Role:       Architect / Builder</text>
+  <text x="455" y="212" fill="#83a598" font-size="11" font-family="monospace">Survival:   74 (Robust: 61)</text>
+  <text x="455" y="232" fill="#83a598" font-size="11" font-family="monospace">Design:     69</text>
+  <text x="455" y="252" fill="#83a598" font-size="11" font-family="monospace">Reproduced: Architect x 3 repos</text>
+  <text x="455" y="272" fill="#fabd2f" font-size="11">Senior Architect。3つの宇宙で再現済み。</text>
+
+  <!-- The world sees -->
+  <rect x="440" y="295" width="310" height="80" rx="8" fill="#3c3836"/>
+  <text x="455" y="318" fill="#83a598" font-size="12">グローバル企業からのオファー:</text>
+  <text x="455" y="340" fill="#ebdbb2" font-size="12">「Architect Reproducibility 認証済み。</text>
+  <text x="455" y="358" fill="#ebdbb2" font-size="12">　ぜひお話しさせてください。」</text>
+  <text x="455" y="375" fill="#8ec07c" font-size="10">← Uさんは何もアピールしていない。データが動いた。</text>
+
+  <!-- U's feeling -->
+  <rect x="440" y="390" width="310" height="80" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <circle cx="480" cy="430" r="22" fill="#83a598"/>
+  <text x="480" y="437" text-anchor="middle" fill="#1d2021" font-size="14">U</text>
+  <text x="515" y="420" fill="#ebdbb2" font-size="12">「何も言わなくても、</text>
+  <text x="515" y="440" fill="#83a598" font-size="12">　コードが語ってくれた。」</text>
+  <text x="515" y="460" fill="#928374" font-size="11">仕事で語る文化が、ついに報われた。</text>
+
+  <!-- Mission -->
+  <text x="590" y="510" text-anchor="middle" fill="#fabd2f" font-size="12">誠実な仕事が、正しい軌道に乗る世界を。</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#83a598" font-size="14" font-weight="600">アピール不要。仕事が履歴書になる。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens true — Where sincere work finds its orbit.</text>
+</svg>

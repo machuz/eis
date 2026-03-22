@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#83a598" font-size="18" font-weight="700">true 2コマ — 「再現性の証明」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① 「前職ではArchitectでした」</text>
+
+  <circle cx="200" cy="160" r="28" fill="#d79921"/>
+  <text x="200" y="167" text-anchor="middle" fill="#1d2021" font-size="14">P</text>
+
+  <rect x="90" y="200" width="240" height="40" rx="10" fill="#3c3836"/>
+  <text x="105" y="225" fill="#ebdbb2" font-size="12">「前のチームではArchitectでした」</text>
+
+  <!-- Interviewer thinking -->
+  <circle cx="200" cy="320" r="25" fill="#458588"/>
+  <text x="200" y="327" text-anchor="middle" fill="#1d2021" font-size="10">面接官</text>
+
+  <rect x="80" y="260" width="260" height="40" rx="10" fill="#504945"/>
+  <text x="95" y="285" fill="#a89984" font-size="12">（1社だけで Architect …たまたまかも？）</text>
+
+  <rect x="70" y="370" width="280" height="100" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="395" fill="#928374" font-size="12">面接官の本音:</text>
+  <text x="90" y="418" fill="#ebdbb2" font-size="11">・チームが弱かっただけでは？</text>
+  <text x="90" y="438" fill="#ebdbb2" font-size="11">・たまたまそのコードベースに合っただけでは？</text>
+  <text x="90" y="458" fill="#ebdbb2" font-size="11">・うちの宇宙でも再現できる？</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② Architect Reproducibility</text>
+
+  <rect x="440" y="100" width="310" height="260" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="122" fill="#83a598" font-size="12" font-weight="600">Gravity Certificate — P</text>
+  <text x="455" y="142" fill="#928374" font-size="10">Architect Reproducibility: Verified</text>
+
+  <text x="455" y="172" fill="#83a598" font-size="12">Universe 1: EC サイト (Rails)</text>
+  <text x="475" y="192" fill="#8ec07c" font-size="11" font-family="monospace">Role: Architect  Design: 72  Surv: 65</text>
+
+  <text x="455" y="220" fill="#83a598" font-size="12">Universe 2: 決済基盤 (Go)</text>
+  <text x="475" y="240" fill="#8ec07c" font-size="11" font-family="monospace">Role: Architect  Design: 68  Surv: 71</text>
+
+  <text x="455" y="268" fill="#83a598" font-size="12">Universe 3: 社内ツール (TypeScript)</text>
+  <text x="475" y="288" fill="#8ec07c" font-size="11" font-family="monospace">Role: Architect  Design: 58  Surv: 63</text>
+
+  <text x="455" y="320" fill="#fabd2f" font-size="12">3つの宇宙、3つの言語で Architect。</text>
+  <text x="455" y="340" fill="#fabd2f" font-size="12">これは偶然ではない。再現可能な重力。</text>
+
+  <!-- Interviewer convinced -->
+  <rect x="440" y="380" width="310" height="80" rx="8" fill="#3c3836"/>
+  <text x="455" y="405" fill="#ebdbb2" font-size="12">1社なら運かもしれない。</text>
+  <text x="455" y="425" fill="#ebdbb2" font-size="12">3社で再現したら、それは実力。</text>
+  <text x="455" y="448" fill="#83a598" font-size="13" font-weight="600">「どの宇宙でも重力を作れる人」</text>
+
+  <circle cx="590" cy="510" r="20" fill="#458588"/>
+  <text x="590" y="517" text-anchor="middle" fill="#1d2021" font-size="10">面接官</text>
+  <text x="625" y="510" fill="#8ec07c" font-size="11">「採用。」</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#83a598" font-size="14" font-weight="600">1社は偶然。3社は実力。それが再現性。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens true — Architect Reproducibility</text>
+</svg>

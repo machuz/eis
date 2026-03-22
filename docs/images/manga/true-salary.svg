@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="'Hiragino Kaku Gothic ProN', sans-serif">
+  <rect width="800" height="600" fill="#1d2021"/>
+  <text x="400" y="35" text-anchor="middle" fill="#83a598" font-size="18" font-weight="700">true 2コマ — 「適正年収」</text>
+
+  <!-- Panel 1 -->
+  <rect x="30" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="50" y="82" fill="#928374" font-size="13">① 年収交渉あるある</text>
+
+  <!-- HR -->
+  <circle cx="130" cy="160" r="25" fill="#d79921"/>
+  <text x="130" y="167" text-anchor="middle" fill="#1d2021" font-size="10">HR</text>
+
+  <rect x="170" y="125" width="200" height="40" rx="10" fill="#3c3836"/>
+  <polygon points="170,148 150,160 180,153" fill="#3c3836"/>
+  <text x="185" y="150" fill="#ebdbb2" font-size="12">「ご希望の年収は？」</text>
+
+  <!-- Engineer -->
+  <circle cx="280" cy="230" r="25" fill="#83a598"/>
+  <text x="280" y="237" text-anchor="middle" fill="#1d2021" font-size="14">R</text>
+
+  <rect x="80" y="200" width="180" height="25" rx="8" fill="#504945"/>
+  <text x="95" y="218" fill="#a89984" font-size="11">（いくらが適正かわからない…）</text>
+
+  <!-- Common scenario -->
+  <rect x="70" y="280" width="290" height="150" rx="8" fill="#1d2021" stroke="#504945"/>
+  <text x="90" y="305" fill="#928374" font-size="12">年収を決める従来の「根拠」:</text>
+  <text x="90" y="330" fill="#ebdbb2" font-size="12">  前職の年収 → 低かったら低いまま</text>
+  <text x="90" y="353" fill="#ebdbb2" font-size="12">  経験年数 → 年数と実力は比例しない</text>
+  <text x="90" y="376" fill="#ebdbb2" font-size="12">  面接の印象 → 話し上手が有利</text>
+  <text x="90" y="400" fill="#fb4934" font-size="12">  市場感 → 誰の感？</text>
+  <text x="90" y="422" fill="#928374" font-size="11">↑ 全部「構造的貢献」とは無関係</text>
+
+  <text x="210" y="475" text-anchor="middle" fill="#928374" font-size="12">誠実に作る人ほど交渉が苦手で、損をする。</text>
+
+  <!-- Panel 2 -->
+  <rect x="410" y="55" width="360" height="480" rx="12" fill="#282828" stroke="#504945" stroke-width="2"/>
+  <text x="430" y="82" fill="#928374" font-size="13">② 重力で年収を語る</text>
+
+  <rect x="440" y="100" width="310" height="200" rx="8" fill="#1d2021" stroke="#83a598"/>
+  <text x="455" y="122" fill="#83a598" font-size="12" font-weight="600">Gravity Certificate — R</text>
+
+  <text x="455" y="152" fill="#83a598" font-size="11" font-family="monospace">Impact:     48.2 (Senior)</text>
+  <text x="455" y="174" fill="#83a598" font-size="11" font-family="monospace">Role:       Anchor</text>
+  <text x="455" y="196" fill="#83a598" font-size="11" font-family="monospace">Survival:   72</text>
+  <text x="455" y="218" fill="#83a598" font-size="11" font-family="monospace">Debt:       81</text>
+  <text x="455" y="240" fill="#83a598" font-size="11" font-family="monospace">Gravity:    55 (green)</text>
+  <text x="455" y="262" fill="#83a598" font-size="11" font-family="monospace">Reproduced: Anchor x 2 repos</text>
+
+  <text x="455" y="290" fill="#fabd2f" font-size="12">書いたコードの72%が生き残っている。</text>
+  <text x="455" y="308" fill="#fabd2f" font-size="12">チームの負債を81%の頻度で清掃している。</text>
+
+  <!-- Salary insight -->
+  <rect x="440" y="330" width="310" height="110" rx="8" fill="#3c3836"/>
+  <text x="455" y="355" fill="#83a598" font-size="13">データが語る適正年収:</text>
+  <text x="455" y="380" fill="#ebdbb2" font-size="12">Impact 48 × Anchor × 再現性あり</text>
+  <text x="455" y="400" fill="#ebdbb2" font-size="12">→ このシグナルに対する市場価値がわかる</text>
+  <text x="455" y="425" fill="#fabd2f" font-size="12">交渉力ではなく、重力で年収が決まる世界。</text>
+
+  <!-- R confident -->
+  <circle cx="500" cy="500" r="22" fill="#83a598"/>
+  <text x="500" y="507" text-anchor="middle" fill="#1d2021" font-size="14">R</text>
+  <rect x="535" y="478" width="220" height="45" rx="8" fill="#3c3836"/>
+  <text x="550" y="498" fill="#ebdbb2" font-size="11">「根拠があるから、</text>
+  <text x="550" y="515" fill="#83a598" font-size="11">　堂々と言える」</text>
+
+  <!-- Footer -->
+  <text x="400" y="565" text-anchor="middle" fill="#83a598" font-size="14" font-weight="600">交渉力ではなく重力で決まる。それが公正。</text>
+  <text x="400" y="585" text-anchor="middle" fill="#504945" font-size="11">orbitlens true — Your gravity, proven.</text>
+</svg>
