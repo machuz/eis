@@ -633,7 +633,7 @@ The power of 3-axis classification lies in combinations:
 
 ### 7.7 Relationship to Individual Profiling
 
-Module topology complements, not replaces, individual profiling. Phase 3 of the module science roadmap will cross-reference the two: "This Critical × Orphaned module needs an Architect-type engineer assigned to it."
+Module topology complements, not replaces, individual profiling. Future work will cross-reference module topology with individual profiling: "This Critical × Orphaned module needs an Architect-type engineer assigned to it."
 
 ---
 
