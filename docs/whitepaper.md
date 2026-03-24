@@ -110,7 +110,7 @@ $$\text{Production}_a = \sum_{c \in \text{commits}(a)} \sum_{f \in \text{files}(
 
 $$\text{Score}_a = \min\left(\frac{\text{Production}_a / \text{activeDays}_a}{\text{ProductionDailyRef}} \times 100,\; 100\right)$$
 
-Where `ProductionDailyRef` (default: 1000 lines/day) provides a fixed baseline for cross-team comparability. Files matching exclusion patterns (lock files, generated code, swagger docs) are excluded.
+Where `activeDays_a` is the number of distinct days on which author $a$ has at least one commit, and `ProductionDailyRef` (default: 1000 lines/day) provides a fixed baseline for cross-team comparability. Files matching exclusion patterns (lock files, generated code, swagger docs) are excluded.
 
 **Rationale:** Production is deliberately kept as an absolute metric. A team of two engineers and a team of twenty should be comparable on per-person output.
 
@@ -146,7 +146,7 @@ $$\text{RawSurvival}_a = |\{l \in \text{blame} : \text{author}(l) = a\}|$$
 
 $$\text{Survival}_a = \sum_{l \in \text{blame}(a)} e^{-d_l / \tau}$$
 
-Where $d_l$ is the age of line $l$ in days and $\tau$ is the decay constant (default: 180 days). This weighting ensures that recently-written surviving code is valued more highly than ancient code that may persist only due to inertia.
+Where `blame(a)` denotes the set of lines in the current `git blame` output attributed to author $a$, excluding files matching configured exclusion patterns. $d_l$ is the age of line $l$ in days and $\tau$ is the decay constant (default: 180 days). This weighting ensures that recently-written surviving code is valued more highly than ancient code that may persist only due to inertia.
 
 #### 3.4.1 Change-Pressure Decomposition
 
@@ -173,6 +173,8 @@ Design measures contributions to architecturally significant files.
 
 $$\text{Design}_a = \sum_{c \in \text{commits}(a)} \sum_{f \in \text{archFiles}(c)} (\text{insertions}_f + \text{deletions}_f)$$
 
+Where `archFiles(c)` is the subset of files in commit $c$ matching the architecture detection patterns defined below.
+
 **Architecture Detection:** Files are classified as architectural if they match configurable glob patterns:
 
 ```
@@ -196,6 +198,10 @@ di/*.go                     # Dependency injection
 Breadth measures the diversity of modules an engineer touches.
 
 $$\text{Breadth}_a = |\{\text{unique modules touched by } a\}|$$
+
+**Normalization:**
+
+$$\text{Score}_a = \min\left(\frac{\text{Breadth}_a}{\min(\max_b(\text{Breadth}_b),\; \text{BreadthMax})} \times 100,\; 100\right)$$
 
 Normalized relative to the team maximum, capped by `BreadthMax` (default: 5).
 
@@ -237,9 +243,13 @@ Indispensability measures bus factor risk at the individual level.
 3. Calculate ownership share: $\text{share} = \text{topCount} / \text{totalLines}$
 4. Signal:
    - Critical ownership ($\text{share} \geq 0.80$): +1.0 per module
-   - High ownership ($\text{share} \geq 0.60$): +0.5 per module
+   - High ownership ($0.60 \leq \text{share} < 0.80$): +0.5 per module
 
-$$\text{Indispensability}_a = \text{criticalCount} \times 1.0 + \text{highCount} \times 0.5$$
+$$\text{criticalCount}_a = |\{m : \text{topAuthor}(m) = a \wedge \text{share}(m) \geq 0.80\}|$$
+
+$$\text{highCount}_a = |\{m : \text{topAuthor}(m) = a \wedge 0.60 \leq \text{share}(m) < 0.80\}|$$
+
+$$\text{Indispensability}_a = \text{criticalCount}_a \times 1.0 + \text{highCount}_a \times 0.5$$
 
 Normalized relative to team maximum.
 
@@ -339,16 +349,18 @@ When change-pressure data is available, Architect uses Robust Survival instead o
 
 | Style | Confidence Formula | Interpretation |
 |-------|-------------------|----------------|
-| **Builder** | $\min(\text{high(Prod)},\; \text{high(Design)},\; \text{notLow(Debt)})$ | Designs, builds, and cleans up |
-| **Resilient** | $\min(\text{high(Prod)},\; \text{low(Surv)},\; \text{notLow(RobustSurv)})$ | Iterates heavily; what survives pressure is durable |
-| **Rescue** | $\min(\text{high(Prod)},\; \text{low(Surv)},\; \text{high(Debt)})$ | High output cleaning up legacy |
-| **Churn** | $\min(\text{notLow(Prod)},\; \text{low(Quality)},\; \text{low(Surv)})$ | High output, constant rework |
-| **Mass** | $\min(\text{high(Prod)},\; \text{low(Surv)})$ | High output but code doesn't last |
-| **Emergent** | $\min(\text{high(Gravity)},\; \text{notLow(Prod)},\; \text{low(RobustSurv)})$ | Creating new structures not yet battle-tested |
+| **Builder** | $\min(\text{highness(Production)},\; \text{highness(Design)},\; \text{notLow(DebtCleanup)})$ | Designs, builds, and cleans up |
+| **Resilient** | $\min(\text{highness(Production)},\; \text{lowness(Survival)},\; \text{notLow(RobustSurvival)})$ | Iterates heavily; what survives pressure is durable |
+| **Rescue** | $\min(\text{highness(Production)},\; \text{lowness(Survival)},\; \text{highness(DebtCleanup)})$ | High output cleaning up legacy |
+| **Churn** | $\min(\text{notLow(Production)},\; \text{lowness(Quality)},\; \text{lowness(Survival)})$ | High output, constant rework |
+| **Mass** | $\min(\text{highness(Production)},\; \text{lowness(Survival)})$ | High output but code doesn't last |
+| **Emergent** | $\min(\text{highness(Gravity)},\; \text{notLow(Production)},\; \text{lowness(RobustSurvival)})$ | Creating new structures not yet battle-tested |
 | **Balanced** | $0.30$ (flat) | Steady contributor, no dominant pattern |
-| **Spread** | $\min(\text{high(Breadth)},\; \text{low(Prod)},\; \text{low(Surv)},\; \text{low(Design)})$ | Wide presence, low depth |
+| **Spread** | $\min(\text{highness(Breadth)},\; \text{lowness(Production)},\; \text{lowness(Survival)},\; \text{lowness(Design)})$ | Wide presence, low depth |
 
 ### 4.4 State Axis — "Where are they in their lifecycle?"
+
+For brevity in the tables below: RawSurv = RawSurvival (blame line count before time-decay), Surv = Survival, Prod = Production, Indisp = Indispensability, Debt = DebtCleanup.
 
 | State | Confidence Formula | Interpretation |
 |-------|-------------------|----------------|
@@ -357,6 +369,8 @@ When change-pressure data is available, Architect uses Robust Survival instead o
 | **Fragile** | $0.85 + \frac{\text{dormantRatio} - 80}{200}$ | Code survives only where no one touches it |
 | **Growing** | $\min(\text{low(Prod)},\; \text{high(Quality)})$ | Low volume, high quality — on growth trajectory |
 | **Active** | $0.80$ if recently active | Currently contributing |
+
+Where `dormantRatio` is the percentage of an engineer's surviving blame lines that reside in modules below the median change pressure: $\text{dormantRatio}_a = \frac{\text{DormantSurvival}_a}{\text{RawSurvival}_a} \times 100$.
 
 Fragile requires: dormant ratio ≥80%, Indispensability ≥60, Production <40. This identifies engineers whose high survival is illusory — their code persists in dead zones.
 
@@ -379,9 +393,11 @@ Team members are categorized into three tiers:
 
 | Tier | Criteria | Used for |
 |------|----------|----------|
-| **Core** | `RecentlyActive` AND `Impact ≥ 20` | Computing averages and distributions |
+| **Core** | `RecentlyActive` AND `Impact >= 20` | Computing averages and distributions |
 | **Risk** | State ∈ {Former, Silent, Fragile} | Risk detection (always included) |
 | **Peripheral** | All others | Excluded from metrics |
+
+An engineer is `RecentlyActive` if they have at least one commit within the last `active_days` (default: 30 days) from the reference time.
 
 **Weighted ratios** are used for role/style distributions:
 
@@ -415,7 +431,7 @@ Teams with members actively developing new skills and with mentoring capacity (B
 
 $$\text{Sustainability} = (1 - \text{RiskRatio}) \times 80 + 20 \cdot \mathbb{1}[\text{Architect}]$$
 
-Where RiskRatio = proportion of Former/Silent/Fragile members. Teams with low attrition and architectural leadership are sustainable.
+Where $\text{RiskRatio} = \frac{|\{a : \text{State}(a) \in \{\text{Former, Silent, Fragile}\}\}|}{|\text{core members}|}$. Teams with low attrition and architectural leadership are sustainable.
 
 #### Debt Balance
 
@@ -439,6 +455,8 @@ Balances high average quality with low variance. A team where everyone has 80% q
 
 #### Character (Composite Identity)
 
+**AAR (Architect-to-Anchor Ratio)** measures the balance between design capacity and quality stabilization: $\text{AAR} = \frac{\text{weightedRatio(Architect)}}{\text{weightedRatio(Anchor)}}$. A balanced AAR (0.5--2.0) indicates healthy tension between design and stabilization.
+
 | Character | Galaxy Analogy | Key Criteria | Interpretation |
 |-----------|---------------|-------------|----------------|
 | **Spiral** | Spiral galaxy — strong core, active star formation | Arch. coverage >0.4, productivity >35, balanced AAR | Architecture drives production. Gravitational core and star formation coexist |
@@ -452,6 +470,8 @@ Balances high average quality with low variance. A team where everyone has 80% q
 | **Filament** | Cosmic filament — wide, thin structure | Exploration culture | Broad reach, thin depth. Probing the large-scale structure |
 
 #### Structure (Role Composition)
+
+Where `unstructured ratio` is the proportion of core members whose Role is unclassified ('--'): $\text{unstructuredRatio} = \frac{|\{a : \text{Role}(a) = \text{'--'}\}|}{|\text{core}|}$.
 
 | Structure | Key Criteria |
 |-----------|-------------|
@@ -578,6 +598,8 @@ Hub modules are implicit dependency centers — they change whenever other modul
 | **Warming** | Moderate pressure + declining survival | 30 ≤ pressure < 70 AND absorption < 50 |
 | **Stable** | Low pressure (healthy equilibrium) | highness(stability) |
 
+Where `pressureLevel` is the percentile rank of module $m$'s change pressure among all modules: $\text{pressureLevel}_m = \text{percentileRank}(\text{Pressure}_m) \times 100$.
+
 Vitality classification **requires blame data**. Modules without blame lines (docs, configs, CI) can only be Dead or Stable — they cannot be Turbulent or Critical, because "no blame data" means "unknown survival", not "low survival".
 
 #### Ownership — Knowledge Distribution
@@ -617,23 +639,23 @@ Module topology complements, not replaces, individual profiling. Phase 3 of the 
 
 ## 8. Limitations
 
-### 7.1 Normalization Sensitivity
+### 8.1 Normalization Sensitivity
 
 Relative normalization means that adding or removing a team member can change everyone's signals. The highest contributor always signals 100 on relative axes, making cross-team comparison impossible for those dimensions.
 
-### 7.2 Commit Hygiene Dependency
+### 8.2 Commit Hygiene Dependency
 
 Quality detection relies on commit message conventions (`fix:`, `revert:`, etc.). Teams with poor commit hygiene will have unreliable Quality signals. Squash-merge workflows may obscure individual contribution patterns.
 
-### 7.3 Architecture Pattern Configuration
+### 8.3 Architecture Pattern Configuration
 
 The default architecture patterns (`*/repository/*interface*`, `*/router.go`, etc.) reflect Clean Architecture conventions. Teams using different patterns must customize configuration for meaningful Design signals.
 
-### 7.4 Monorepo Assumptions
+### 8.4 Monorepo Assumptions
 
 Blame-based analysis assumes a single repository or uses `--recursive` mode to aggregate across repositories. The normalization strategy may not behave well for extremely heterogeneous monorepos.
 
-### 7.5 Not a Performance Evaluation Tool
+### 8.5 Not a Performance Evaluation Tool
 
 EIS is designed as an *observability* tool, not an evaluation tool. Using it for performance reviews without understanding its limitations would be harmful. Signals reflect what happened in the codebase, not the value of an engineer's contributions to the organization.
 
@@ -641,28 +663,28 @@ EIS is designed as an *observability* tool, not an evaluation tool. Using it for
 
 ## 9. Use Cases
 
-### 8.1 Team Health Diagnostics
+### 9.1 Team Health Diagnostics
 
 A team lead can run `eis analyze --team` to understand:
 - Whether design capability is concentrated (Bus Factor risk) or distributed (Architectural Engine)
 - Whether the team is in maintenance mode or actively evolving
 - Which health metrics are declining
 
-### 8.2 Longitudinal Observation
+### 9.2 Longitudinal Observation
 
 `eis timeline` reveals patterns invisible in point-in-time snapshots:
 - An engineer transitioning from Producer to Architect over 6 months
 - A team's structure degrading after a key member's departure
 - The "hesitation" pattern — an engineer whose signals dip when joining a new team, then recover
 
-### 8.3 Hiring and Team Composition
+### 9.3 Hiring and Team Composition
 
 Team-level metrics provide evidence-based answers to hiring questions:
 - "Do we need another Architect or another Anchor?"
 - "Is our Complementarity signal improving or declining?"
 - "What would happen to our Structure classification if Engineer X left?"
 
-### 8.4 AI-Assisted Analysis
+### 9.4 AI-Assisted Analysis
 
 The JSON and HTML output formats are designed for AI consumption. Feeding `eis timeline --format json` output to an LLM enables natural-language queries: "What happened to the backend team in 2024-H2?" The AI can correlate signal changes, role transitions, and health metric movements to formulate hypotheses.
 
