@@ -657,7 +657,9 @@ Blame-based analysis assumes a single repository or uses `--recursive` mode to a
 
 ### 8.5 Not a Performance Evaluation Tool
 
-EIS is designed as an *observability* tool, not an evaluation tool. Using it for performance reviews without understanding its limitations would be harmful. Signals reflect what happened in the codebase, not the value of an engineer's contributions to the organization.
+EIS is designed as an *observability* tool, not an evaluation tool. Signals reflect the strength of structural impact in the codebase, not an engineer's ability or contribution per se. Signal strength is influenced by many environmental factors: team composition, domain maturity, and organizational barriers. Using it for performance reviews without understanding these limitations would be harmful.
+
+The role of management is not to control and evaluate, but to remove what distorts signals so that substance can emerge naturally. When EIS shows a weak signal, the question to ask is not "why isn't this engineer delivering?" but "what is suppressing this engineer's signal?"
 
 ---
 
