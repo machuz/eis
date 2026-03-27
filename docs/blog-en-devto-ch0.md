@@ -212,7 +212,7 @@ What EIS observes is **the physics of structure**, not a judgment of quality. A 
 
 ### Top 50: The Brightest Stars in the OSS Universe
 
-We also ranked the **top 50 engineers by Gravity** — structural influence — across all 29 projects.
+We also mapped the **Gravity distribution of the top 50 engineers** — structural influence — across all 29 projects.
 
 > [OSS Gravity Map — Top 50 Engineers](https://machuz.github.io/eis/research/oss-gravity-map/analysis/top50.html)
 
