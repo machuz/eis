@@ -143,6 +143,8 @@ Carrying the felt sense that the work matters — that act itself amplifies fire
 >
 > Bill Campbell, who coached the leaders of Apple, Google, and Intuit for decades, **wrote no code and set no strategy. He was an Intermediate-layer figure specialized purely in amplifying the fire of the people around him.** He shaped what leaders said, resolved conflicts between them, built bridges of trust — from that single function, the resulting value was reasonably called "a trillion dollars."
 >
+> The book *Trillion Dollar Coach* portrayed him as "a coach who loved people," but **why that love compounded into a trillion dollars** is not given a structural explanation there. Read through this book's frame, Bill's real strength is this — he was not someone who **occupied** the Intermediate layer; he was someone who **created an Intermediate layer around him.** In the teams he entered, Principle-layer intent began getting translated at the Intermediate layer, Implementation-layer voices began reaching the Principle layer, and the three layers started running vertically connected. **A catalyst who locally reshaped the teams he touched into a structure where all three layers connect** — that's the precise description of what Bill was doing.
+>
 > His title was "external coach." **An Intermediate-layer figure who never appeared on the org chart**, producing outsized value through a single function — fire amplification — exactly the kind of person this book's frame can name and value as the strongest exemplar of the Intermediate layer.
 
 #### The real cost of layer mismatch
