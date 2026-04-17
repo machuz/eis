@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="640" viewBox="0 0 720 640">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="660" viewBox="0 0 720 660">
   <defs>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
@@ -8,10 +8,10 @@
   </defs>
 
   <!-- Background -->
-  <rect width="720" height="640" rx="12" fill="#1d2021"/>
+  <rect width="720" height="660" rx="12" fill="#1d2021"/>
 
   <!-- Accent bar -->
-  <rect x="0" y="0" width="4" height="640" rx="2" fill="#8ec07c"/>
+  <rect x="0" y="0" width="4" height="660" rx="2" fill="#8ec07c"/>
 
   <!-- Category label -->
   <text x="696" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Model · ch4</text>
@@ -29,54 +29,69 @@
   <text x="210" y="149" class="jp" fill="#928374" font-size="12">なぜ作るか／何を作らないか／誰のために／どこに賭けるか</text>
 
   <!-- ================== Transformation 1 (Principle ↔ Structure) ================== -->
-  <!-- Double arrow -->
-  <g transform="translate(360, 188)">
-    <line x1="0" y1="0" x2="0" y2="62" stroke="#8ec07c" stroke-width="2"/>
-    <polygon points="-6,6 6,6 0,-2" fill="#8ec07c"/>
-    <polygon points="-6,56 6,56 0,64" fill="#8ec07c"/>
+  <!-- Down arrow (translation direction) -->
+  <g>
+    <line x1="332" y1="188" x2="332" y2="244" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="326,240 338,240 332,252" fill="#8ec07c"/>
   </g>
-  <!-- Down label (left of arrow) -->
-  <text x="346" y="208" text-anchor="end" class="jp" fill="#928374" font-size="11">↓ 思想を構造の形に翻訳</text>
-  <text x="346" y="224" text-anchor="end" class="jp" fill="#7c6f64" font-size="10">（アーキテクチャ・組織設計・IA として）</text>
-  <!-- Up label (right of arrow) -->
-  <text x="374" y="208" class="jp" fill="#928374" font-size="11">↑ 構造の現実を原理の再評価に戻す</text>
-  <text x="374" y="224" class="jp" fill="#7c6f64" font-size="10">（歪みを発見・原則を書き換え）</text>
-  <!-- Transformation label (centered on top of arrow) -->
-  <rect x="278" y="238" width="164" height="22" rx="11" fill="#1d2021" stroke="#8ec07c" stroke-width="1"/>
-  <text x="360" y="254" text-anchor="middle" class="jp" fill="#8ec07c" font-size="12" font-weight="700">変換 · 原理 ↔ 構造</text>
+  <text x="318" y="204" text-anchor="end" class="jp" fill="#8ec07c" font-size="11" font-weight="700">↓ 翻訳</text>
+  <text x="318" y="220" text-anchor="end" class="jp" fill="#928374" font-size="11">思想を構造の形に</text>
+  <text x="318" y="236" text-anchor="end" class="jp" fill="#7c6f64" font-size="10">アーキテクチャ・組織設計・IA として</text>
+
+  <!-- Up arrow (re-evaluation direction) -->
+  <g>
+    <line x1="388" y1="188" x2="388" y2="244" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="382,196 394,196 388,184" fill="#8ec07c"/>
+  </g>
+  <text x="402" y="204" class="jp" fill="#8ec07c" font-size="11" font-weight="700">↑ 再評価</text>
+  <text x="402" y="220" class="jp" fill="#928374" font-size="11">構造の現実を原理に戻す</text>
+  <text x="402" y="236" class="jp" fill="#7c6f64" font-size="10">歪みの発見・原則の書き換え</text>
+
+  <!-- Transformation label (bottom) -->
+  <rect x="278" y="256" width="164" height="22" rx="11" fill="#1d2021" stroke="#8ec07c" stroke-width="1"/>
+  <text x="360" y="272" text-anchor="middle" class="jp" fill="#8ec07c" font-size="12" font-weight="700">変換 · 原理 ↔ 構造</text>
 
   <!-- ================== Structure Layer ================== -->
-  <rect x="48" y="278" width="624" height="84" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
-  <rect x="48" y="278" width="6" height="84" rx="3" fill="#d3869b"/>
-  <text x="74" y="311" class="jp" fill="#d3869b" font-size="22" font-weight="800">構造層</text>
-  <text x="74" y="332" class="mono" fill="#7c6f64" font-size="11">Structure</text>
-  <text x="210" y="308" class="jp" fill="#ebdbb2" font-size="14" font-weight="700">アーキテクチャ、組織設計、情報設計</text>
-  <text x="210" y="329" class="jp" fill="#928374" font-size="12">思想が形を持った状態／RFC・組織図・IA として参照される</text>
-  <text x="210" y="349" class="jp" fill="#7c6f64" font-size="10">変換の着地点。ここが薄いと、原理と実装が繋がらない</text>
+  <rect x="48" y="294" width="624" height="84" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="48" y="294" width="6" height="84" rx="3" fill="#d3869b"/>
+  <text x="74" y="327" class="jp" fill="#d3869b" font-size="22" font-weight="800">構造層</text>
+  <text x="74" y="348" class="mono" fill="#7c6f64" font-size="11">Structure</text>
+  <text x="210" y="324" class="jp" fill="#ebdbb2" font-size="14" font-weight="700">アーキテクチャ、組織設計、情報設計</text>
+  <text x="210" y="345" class="jp" fill="#928374" font-size="12">思想が形を持った状態／RFC・組織図・IA として参照される</text>
+  <text x="210" y="365" class="jp" fill="#7c6f64" font-size="10">変換の着地点。ここが薄いと、原理と実装が繋がらない</text>
 
   <!-- ================== Transformation 2 (Structure ↔ Implementation) ================== -->
-  <g transform="translate(360, 380)">
-    <line x1="0" y1="0" x2="0" y2="62" stroke="#8ec07c" stroke-width="2"/>
-    <polygon points="-6,6 6,6 0,-2" fill="#8ec07c"/>
-    <polygon points="-6,56 6,56 0,64" fill="#8ec07c"/>
+  <!-- Down arrow -->
+  <g>
+    <line x1="332" y1="396" x2="332" y2="452" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="326,448 338,448 332,460" fill="#8ec07c"/>
   </g>
-  <text x="346" y="400" text-anchor="end" class="jp" fill="#928374" font-size="11">↓ 構造をコード・画面に翻訳</text>
-  <text x="346" y="416" text-anchor="end" class="jp" fill="#7c6f64" font-size="10">（手を動かせる粒度に分解）</text>
-  <text x="374" y="400" class="jp" fill="#928374" font-size="11">↑ 実装の手触りを構造の修正に戻す</text>
-  <text x="374" y="416" class="jp" fill="#7c6f64" font-size="10">（制約・課題・エッジケース）</text>
-  <rect x="278" y="430" width="164" height="22" rx="11" fill="#1d2021" stroke="#8ec07c" stroke-width="1"/>
-  <text x="360" y="446" text-anchor="middle" class="jp" fill="#8ec07c" font-size="12" font-weight="700">変換 · 構造 ↔ 実装</text>
+  <text x="318" y="412" text-anchor="end" class="jp" fill="#8ec07c" font-size="11" font-weight="700">↓ 翻訳</text>
+  <text x="318" y="428" text-anchor="end" class="jp" fill="#928374" font-size="11">構造をコード・画面に</text>
+  <text x="318" y="444" text-anchor="end" class="jp" fill="#7c6f64" font-size="10">手を動かせる粒度に分解</text>
+
+  <!-- Up arrow -->
+  <g>
+    <line x1="388" y1="396" x2="388" y2="452" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="382,404 394,404 388,392" fill="#8ec07c"/>
+  </g>
+  <text x="402" y="412" class="jp" fill="#8ec07c" font-size="11" font-weight="700">↑ 再評価</text>
+  <text x="402" y="428" class="jp" fill="#928374" font-size="11">実装の手触りを構造に戻す</text>
+  <text x="402" y="444" class="jp" fill="#7c6f64" font-size="10">制約・課題・エッジケース</text>
+
+  <rect x="278" y="464" width="164" height="22" rx="11" fill="#1d2021" stroke="#8ec07c" stroke-width="1"/>
+  <text x="360" y="480" text-anchor="middle" class="jp" fill="#8ec07c" font-size="12" font-weight="700">変換 · 構造 ↔ 実装</text>
 
   <!-- ================== Implementation Layer ================== -->
-  <rect x="48" y="470" width="624" height="72" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
-  <rect x="48" y="470" width="6" height="72" rx="3" fill="#83a598"/>
-  <text x="74" y="503" class="jp" fill="#83a598" font-size="22" font-weight="800">実装層</text>
-  <text x="74" y="524" class="mono" fill="#7c6f64" font-size="11">Implementation</text>
-  <text x="210" y="500" class="jp" fill="#ebdbb2" font-size="14" font-weight="700">コード、機能、運用、画面、API</text>
-  <text x="210" y="521" class="jp" fill="#928374" font-size="12">動くか動かないか／使えるか使えないかが評価軸</text>
+  <rect x="48" y="502" width="624" height="72" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="48" y="502" width="6" height="72" rx="3" fill="#83a598"/>
+  <text x="74" y="535" class="jp" fill="#83a598" font-size="22" font-weight="800">実装層</text>
+  <text x="74" y="556" class="mono" fill="#7c6f64" font-size="11">Implementation</text>
+  <text x="210" y="532" class="jp" fill="#ebdbb2" font-size="14" font-weight="700">コード、機能、運用、画面、API</text>
+  <text x="210" y="553" class="jp" fill="#928374" font-size="12">動くか動かないか／使えるか使えないかが評価軸</text>
 
   <!-- ================== Footer note ================== -->
-  <text x="360" y="578" text-anchor="middle" class="jp" fill="#a89984" font-size="12">構造は、変換の結果として立ち現れる状態。</text>
-  <text x="360" y="598" text-anchor="middle" class="jp" fill="#928374" font-size="11">変換が止まれば、原理は構造から切れ、構造は実装から切れる。</text>
-  <text x="360" y="618" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">本書のタイトル「構造駆動」= この変換が走り続ける組織を設計すること</text>
+  <text x="360" y="598" text-anchor="middle" class="jp" fill="#a89984" font-size="12">構造は、変換の結果として立ち現れる状態。</text>
+  <text x="360" y="618" text-anchor="middle" class="jp" fill="#928374" font-size="11">変換が止まれば、原理は構造から切れ、構造は実装から切れる。</text>
+  <text x="360" y="638" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">本書のタイトル「構造駆動」= この変換が走り続ける組織を設計すること</text>
 </svg>
