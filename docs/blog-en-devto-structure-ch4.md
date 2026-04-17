@@ -125,6 +125,12 @@ Good translation doesn't only **prevent** fire from going out — it can **ampli
 
 Carrying the felt sense that the work matters — that act itself amplifies fire.
 
+> **The strongest Intermediate-layer figure — Bill Campbell (*Trillion Dollar Coach*)**
+>
+> Bill Campbell, who coached the leaders of Apple, Google, and Intuit for decades, **wrote no code and set no strategy. He was an Intermediate-layer figure specialized purely in amplifying the fire of the people around him.** He shaped what leaders said, resolved conflicts between them, built bridges of trust — from that single function, the resulting value was reasonably called "a trillion dollars."
+>
+> His title was "external coach." **An Intermediate-layer figure who never appeared on the org chart**, producing outsized value through a single function — fire amplification — exactly the kind of person this book's frame can name and value as the strongest exemplar of the Intermediate layer.
+
 #### The real cost of layer mismatch
 
 In organizations with a hollow Intermediate layer, each layer is making locally-correct decisions, yet **the fire of the organization as a whole gradually goes down.** "Everyone is working in good faith, yet somehow we don't move forward" — what most organizations call this state is, almost certainly, this.
@@ -212,7 +218,18 @@ The titles drawn on org charts — CEO, CTO, VPoE, Engineering Director, Enginee
 | **Eng Director** | Intermediate | Intermediate ⇄ Implementation, cross-organizational intermediate design |
 | **EM** | Implementation ⇄ Intermediate | Implementation → Intermediate, "state of people" → org-decision input |
 | **Tech Lead** | Implementation + Intermediate | Implementation ⇄ Intermediate, sometimes up into Principle |
-| **Staff Engineer** | Intermediate (within a domain) | Intermediate ⇄ Implementation, deep translation in a specific area |
+| **Staff Engineer** | **Type-dependent** (see below) | **Type-dependent** (see below) |
+
+#### Staff Engineer Isn't a Single Type
+
+As Will Larson's *Staff Engineer* lays out, Staff Engineer splits into several archetypes, each with a different layer profile:
+
+- **Tech Lead variant** — Intermediate + Implementation. Leads cross-team technical projects.
+- **Architect variant** — Intermediate + Principle (within a domain). Owns long-term technical direction.
+- **Solver variant** — Implementation + Intermediate. Drops into the organization's hardest technical problem, solves it, and moves on.
+- **Right Hand variant** — Intermediate + Principle. Embedded partner / thinking sounding board for an executive (CTO / VPoE).
+
+The Right Hand and Architect variants **dig deep into Principle.** The Tech Lead and Solver variants live mostly in Intermediate / Implementation. **When evaluating or placing a Staff Engineer, the first move is to name which variant they are** — so that two people doing different work under the same title aren't measured by the same yardstick.
 
 What does "a strong CTO" actually mean? The tree-org-chart answer would be "can make business decisions" / "can drive technical investment." On the layer axis: **someone who moves freely between Principle and Intermediate.** They don't lock themselves into Principle, they don't sink into Implementation, and they guarantee translation between the two.
 
