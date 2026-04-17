@@ -82,17 +82,22 @@ Raw Survival is the simplest. `git blame` gives current attribution; aggregate b
 
 #### Robust Survival
 
-**Time-decayed survival volume.**
+**Survival volume with time-decay weighting.**
 
-Code survival isn't linear. 100% right after writing, 95% a month later, 60% a year later — it doesn't decay that smoothly. Sometimes there are short bursts of heavy rewriting, sometimes long plateaus of stability.
+Raw Survival naively counts "lines still there." By itself, a line written five years ago and a line written last week each count as one line. That means **time-in-tenure inflates the number** — you can game it by sticking around long enough.
 
-Robust Survival is defined as **survival volume multiplied by a time-decay function**. In EIS, the form is `exp(-days / τ)`, decaying with days elapsed since the write. Code that survives longer weighs more.
+Robust Survival fixes this by weighting every surviving line by **how long ago it was written**. In EIS, the weight takes the form `exp(-days / τ)` (`days` = elapsed days, `τ` = decay constant). **Older lines weigh less.**
 
-This isn't "old code worship." It's not about being old — **the fact of having survived time** is itself information.
+Two design intentions:
+
+1. **Game-resistance**: tenure alone can't pile up the score. Contribution from old lines fades over time.
+2. **Weight on the present**: codebases evolve. Weighting **recently-written lines that are still alive** higher lets contribution to the *current* structure show through.
 
 #### Why Split Raw and Robust
 
-Just saying "Survival is high" can't **tell "endured" from "untouched"**. You need both Raw and Robust side by side to begin the distinction. What actually decides that distinction is the next axis: change pressure.
+Raw Survival alone can't distinguish "**code that's been there a long time**" from "**code written recently that's still in use**." Putting Robust next to Raw reveals the **temporal breakdown** of survival for the first time.
+
+But "been there a long time" doesn't automatically mean "contributed to structure." It may simply be **surviving because no one touches it**. Raw and Robust side by side can't fully answer that. What settles it is the next axis — change pressure.
 
 ### Change Pressure
 
