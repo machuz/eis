@@ -120,7 +120,7 @@ Postures split into two:
 
 - Signal: Quality ↑, Prod ○
 - Field picture:
-  - "Who wrote this schema?" "X." "**Makes sense** — that's why it holds."
+  - "Who wrote this schema?" "X." "**Figures. That's X for you.**" — and the reason it holds clicks into place
   - In code review, gives feedback that passes the design backbone through
   - Not flashy, but anywhere they touch becomes organizational bone
   - When an Anchor leaves, that region loses gravity for years
