@@ -150,18 +150,25 @@ func classifyState(r Result) AxisMatch {
 				if hasPressure && hasCoverage && dormantRatio >= 80 && untestedRatio >= 50 {
 					// Both signals align: fossil + unguarded. Boost above the
 					// dormant-only ceiling to distinguish in downstream display.
-					return 0.90 + minf((dormantRatio-80)/200, (untestedRatio-50)/500) // 0.90–0.97
+					// Cap at 0.97 so the boosted band stays distinct from
+					// certainty-claiming 1.00 values elsewhere in the codebase.
+					boost := minf((dormantRatio-80)/200, (untestedRatio-50)/500)
+					if boost > 0.07 {
+						boost = 0.07
+					}
+					return 0.90 + boost // 0.90–0.97
 				}
 				if hasPressure && dormantRatio >= 80 {
 					return 0.85 + (dormantRatio-80)/200 // 0.85–0.95
 				}
-				if hasCoverage && untestedRatio >= 70 && r.Survival >= 50 {
-					// No pressure data but code is long-surviving AND untested:
-					// still a fossil, slightly softer score than dormant-confirmed.
+				// Untested-only fallback: only when pressure data is truly
+				// unavailable. Active-but-untested code in a busy module is
+				// NOT Fragile — the reviewer flagged this false-positive path.
+				if !hasPressure && hasCoverage && untestedRatio >= 70 && r.Survival >= 50 {
 					return 0.80 + (untestedRatio-70)/300 // 0.80–0.90
 				}
 			}
-			// Fallback: no pressure, no coverage, no solo-owner gate passes.
+			// Final fallback: no pressure, no coverage, or gating conditions failed.
 			if r.Quality >= 70 {
 				return 0
 			}

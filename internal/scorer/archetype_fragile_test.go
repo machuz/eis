@@ -119,6 +119,50 @@ func TestFragile_SharedOwnershipGated(t *testing.T) {
 	}
 }
 
+// Boosted band must be capped at 0.97 even when both ratios are 100%.
+// (PR #19 review — reviewer noticed the formula could reach 1.0.)
+func TestFragile_BoostedConfidenceCappedAt097(t *testing.T) {
+	r := baseFossil()
+	r.RawDormantSurv = 100 // 100% dormant
+	r.RawRobustSurv = 0
+	r.RawUntestedSurv = 100 // 100% untested
+	r.RawTestedSurv = 0
+	m := classifyFragile(r)
+	if m.Name != "Fragile" {
+		t.Fatalf("expected Fragile, got %q", m.Name)
+	}
+	if m.Confidence > 0.97 {
+		t.Errorf("boosted confidence exceeded cap: %v > 0.97", m.Confidence)
+	}
+	if m.Confidence < 0.90 {
+		t.Errorf("boosted band must be ≥ 0.90, got %v", m.Confidence)
+	}
+}
+
+// Untested-only fallback must ONLY fire when pressure data is absent.
+// Previously this path fired even with pressure present + non-dormant —
+// producing false positives for active untested modules.
+// (PR #19 review — high-priority issue.)
+//
+// We quality-gate (Quality ≥ 70) so the final fallback returns 0, isolating
+// the behaviour of the three Fragile bands. With the fix in place, none of
+// the three bands should fire because the untested-only path is now
+// !hasPressure-gated.
+func TestFragile_ActiveUntestedNotFragile(t *testing.T) {
+	r := baseFossil()
+	r.Quality = 70 // neutralise the permissive final fallback
+	// Active module: mostly robust (change pressure present, code is not dormant).
+	r.RawRobustSurv = 80
+	r.RawDormantSurv = 20 // dormant ratio = 20%, well below 80%
+	r.RawUntestedSurv = 90
+	r.RawTestedSurv = 10
+	r.Survival = 80
+	m := classifyFragile(r)
+	if m.Name == "Fragile" {
+		t.Errorf("active-but-untested module wrongly flagged Fragile with conf %v", m.Confidence)
+	}
+}
+
 func TestComputeUntestedRatio(t *testing.T) {
 	cases := []struct {
 		tested, untested float64
