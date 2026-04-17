@@ -25,13 +25,14 @@ The title — *Structure-Driven Engineering Organization Theory* — is a direct
 
 ### What "structure" refers to in this book
 
-This book uses the word "structure" frequently. To avoid conflation, three distinct objects are named upfront:
+This book uses the word "structure" frequently. To avoid conflation, four distinct objects are named upfront:
 
 1. **The structure of code** — chapter 2. Read along three axes: Design / Survival / Change Pressure.
 2. **The structural model of people** — chapter 3. The Role × Style × State three-axis topology.
 3. **The layer structure of organizations** — chapter 4. Implementation / Intermediate / Principle.
+4. **The structure of products** — chapter 5. Carries the same three layers as the organization, **isomorphically** (screens / information architecture / worldview).
 
-The three are different objects, but the book's central claim is that **all three can be handled with the same "observation → language → design" practice.** When "structure" appears in the text, infer from context which of these three it points to.
+The four are different objects, but the book's central claim is that **all four can be handled with the same "observation → language → design" practice.** Items 3 and 4 in particular (organization and product) are **isomorphic structures** — they break and heal symmetrically; chapter 5 develops this. When "structure" appears in the text, infer from context which of the four it points to.
 
 ## Where Existing Org Theory Breaks
 
@@ -189,7 +190,7 @@ The path forward:
 | 2 | Output as Structure | Treating code as structure, not artifact |
 | 3 | A Structural Model of People | Anchor / Producer / Mass and related archetypes |
 | 4 | Organizational Layers | Implementation / Intermediate / Principle layers, and translators |
-| 5 | Product-Organization Isomorphism | Discover / Detail / AIA, List is Hero |
+| 5 | Product-Organization Isomorphism | Product's three layers, symptoms of the isomorphism, symmetric intervention design |
 | 6 | Designing Interventions (1-on-1 / pair programming) | Speaking across the three layers |
 | 7 | Making Culture | Language makes culture. Evaluating translation itself. |
 | 8 | Conditions for a Structure-Driven Engineering Organization | Reproducibility, observability, self-correction |
@@ -223,7 +224,7 @@ So new vocabulary is introduced deliberately:
 - **Anchor / Producer / Mass** — structural archetypes of people
 - **Implementation / Intermediate / Principle** — organizational layer names
 - **Translators** — the role that bridges layers
-- **List is Hero, Discover / Detail / AIA** — structural names from the product side
+- **Isomorphism** — the design principle that the layer structure of an organization and the layer structure of its product break and heal symmetrically
 
 **All of these will be defined in subsequent chapters. It's fine not to understand them yet.**
 
