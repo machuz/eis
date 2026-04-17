@@ -103,6 +103,14 @@ When layers differ, people speak **different languages**. The Principle layer's 
 
 It's not bad faith. **Transformation is just missing.**
 
+> **From the field**
+>
+> I've seen this pattern many times — a VPoE who holds 1-on-1s with two or three engineers every day. They have a complete map of what's hard on the ground: the friction, the contradictions, the exhaustion, all visible to them. But **no circuit in their job translates that information back into the Principle layer.** "I only listen — there's no return path," they would acknowledge.
+>
+> Six months later, their department was dissolved for "not aligning with strategy." The truth: **exactly one transformer was missing.** The floor's cry had been audible every single day, yet it never once reshaped the strategy — and that structural gap carried itself, almost automatically, to the department's loss.
+>
+> **"Listening" and "transforming" are not the same thing.** A transformer who only listens is technically thoughtful but structurally hollow. The cost of a non-functioning transformation shows up later — as departments, or entire products, disappearing.
+
 ### What a Transformer Is
 
 A transformer is someone who **moves between both vocabularies and converts grammar while preserving the decision**.
@@ -121,6 +129,14 @@ Typical transformers in organizations:
 - Strong **Architects** (inhabit the Structure layer and carry transformation in both directions at once)
 
 > Without transformers, large organizations don't function. In organizations without transformers, Principle's intent doesn't reach the floor and the floor's voice doesn't reach the executives. **Absence of transformation isn't a communication shortage — it's a structural gap.**
+
+> **Make it your own — a question**
+>
+> How many transformations did *you* run last week?
+>
+> - Did you **pin a fragment of strategy from a leadership meeting into Structure** (an RFC, an org-chart tweak, an explicit priority rule)?
+> - Did you **translate an engineer's "this doesn't work" or "this is painful" into material the Principle layer can judge with**?
+> - If neither, you aren't sitting as a transformer this week. Whatever your title says.
 
 ### Transformation Keeps the Fire Alive
 
