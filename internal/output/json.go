@@ -21,6 +21,11 @@ type jsonDomain struct {
 	BusFactor []jsonBusFactor  `json:"bus_factor,omitempty"`
 	PerRepo   []jsonRepoResult `json:"per_repo,omitempty"`
 
+	// Test coverage footprint aggregated across repos in this domain.
+	TotalFiles     int     `json:"total_files,omitempty"`
+	TotalTestFiles int     `json:"total_test_files,omitempty"`
+	TestFileRatio  float64 `json:"test_file_ratio,omitempty"`
+
 	// Module Science Phase 1
 	Cochange  []jsonCochangeRepo   `json:"cochange,omitempty"`
 	Ownership []jsonModuleOwnership `json:"ownership,omitempty"`
@@ -171,6 +176,19 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 	}
 
 	w.output.Domains = append(w.output.Domains, d)
+}
+
+// AddTestCoverage annotates the most recently added domain with test-file
+// footprint so SaaS can reason about test culture at a glance.
+func (w *JSONWriter) AddTestCoverage(domainName string, totalFiles, totalTestFiles int, ratio float64) {
+	for i := len(w.output.Domains) - 1; i >= 0; i-- {
+		if w.output.Domains[i].Name == domainName {
+			w.output.Domains[i].TotalFiles = totalFiles
+			w.output.Domains[i].TotalTestFiles = totalTestFiles
+			w.output.Domains[i].TestFileRatio = round2(ratio)
+			return
+		}
+	}
 }
 
 // AddModuleScience appends co-change and ownership data to the last added domain.

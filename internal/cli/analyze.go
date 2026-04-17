@@ -48,6 +48,11 @@ type DomainResults struct {
 	RepoCount int
 	PerRepo   []RepoResult // per-repo breakdown (only when --per-repo is set)
 
+	// Test coverage summary across all repos in this domain.
+	TotalFiles     int     // total code files
+	TotalTestFiles int     // how many of those look like tests
+	TestFileRatio  float64 // convenience: TotalTestFiles / TotalFiles
+
 	// Module Science Phase 1: direct structural measurement
 	Cochange  []metric.CochangeResult    // per-repo co-change coupling (DSM)
 	Ownership []metric.ModuleOwnership   // accumulated ownership fragmentation
@@ -83,6 +88,10 @@ type domainAccumulator struct {
 	moduleSurvival      map[string]float64    // per-module survival rate (0-1)
 	modulePressure      metric.ChangePressure // per-module change pressure (without repo prefix)
 	modulePressureCounts map[string]int       // count for averaging across repos
+
+	// Test coverage observability (populated from each repo's TestedSet)
+	totalFiles     int // sum of code files across all repos in this domain
+	totalTestFiles int // sum of test files across all repos in this domain
 }
 
 func newDomainAccumulator() *domainAccumulator {
@@ -163,6 +172,7 @@ func outputAnalyzeResults(domainResults []DomainResults, cfg *config.Config, for
 		switch format {
 		case "json":
 			jsonWriter.AddDomain(string(dr.Domain), dr.RepoCount, dr.Results, dr.Risks)
+			jsonWriter.AddTestCoverage(string(dr.Domain), dr.TotalFiles, dr.TotalTestFiles, dr.TestFileRatio)
 			jsonWriter.AddModuleScience(string(dr.Domain), dr.Cochange, dr.Ownership)
 			jsonWriter.AddModuleScores(string(dr.Domain), dr.ModuleScores)
 			for _, rr := range dr.PerRepo {
@@ -512,6 +522,8 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// file list (already in-scope) as the manifest — test files and prod
 		// files share extensions so the lookup is accurate for code files.
 		testedSet := metric.BuildTestedSet(files)
+		acc.totalFiles += testedSet.TotalFiles
+		acc.totalTestFiles += testedSet.TotalTestFiles
 
 		// Survival: split by change pressure or use classic mode
 		// Keep per-repo survival maps for --per-repo reuse
@@ -764,13 +776,18 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		)
 
 		dr := DomainResults{
-			Domain:       d,
-			Results:      filtered,
-			Risks:        acc.risks,
-			RepoCount:    acc.repoCount,
-			Cochange:     acc.cochangeResults,
-			Ownership:    acc.ownership,
-			ModuleScores: moduleScores,
+			Domain:         d,
+			Results:        filtered,
+			Risks:          acc.risks,
+			RepoCount:      acc.repoCount,
+			Cochange:       acc.cochangeResults,
+			Ownership:      acc.ownership,
+			ModuleScores:   moduleScores,
+			TotalFiles:     acc.totalFiles,
+			TotalTestFiles: acc.totalTestFiles,
+		}
+		if acc.totalFiles > 0 {
+			dr.TestFileRatio = float64(acc.totalTestFiles) / float64(acc.totalFiles)
 		}
 
 		// Score per-repo results for this domain

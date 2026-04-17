@@ -133,21 +133,42 @@ func classifyState(r Result) AxisMatch {
 			}
 			return minf(lowness(r.Production), lowness(r.Survival), lowness(r.DebtCleanup))
 		}},
-		// Fragile: code survives only because no one touches it — untested by collaboration.
-		// Key signals: high dormant ratio + high indispensability (solo ownership).
-		// Uses raw dormant/robust ratio to avoid Normalize distortion in small domains.
+		// Fragile: code survives only because no one touches it.
+		// Stacks two independent "untouched" signals:
+		//  - dormant by change pressure (nothing edits the module)
+		//  - untested by test coverage (nothing guards it)
+		// Both high → highest confidence. Either alone → weaker Fragile.
+		// Solo ownership (Indispensability ≥ 60) and low Production remain
+		// gating conditions so active-but-dormant builders aren't flagged.
 		{"Fragile", func() float64 {
-			if r.RawDormantSurv > 0 || r.RawRobustSurv > 0 {
-				total := r.RawDormantSurv + r.RawRobustSurv
-				if total > 0 {
-					dormantRatio := r.RawDormantSurv / total * 100
-					// Fragile = mostly dormant + solo ownership + not a high producer
-					if dormantRatio >= 80 && r.Indispensability >= 60 && r.Production < 40 {
-						return 0.85 + (dormantRatio-80)/200 // 0.85-0.95
+			if r.Indispensability < 60 || r.Production >= 40 {
+				// Not a solo fossil: fall through to the fallback block.
+			} else {
+				dormantRatio, hasPressure := computeDormantRatio(r)
+				untestedRatio, hasCoverage := computeUntestedRatio(r)
+
+				if hasPressure && hasCoverage && dormantRatio >= 80 && untestedRatio >= 50 {
+					// Both signals align: fossil + unguarded. Boost above the
+					// dormant-only ceiling to distinguish in downstream display.
+					// Cap at 0.97 so the boosted band stays distinct from
+					// certainty-claiming 1.00 values elsewhere in the codebase.
+					boost := minf((dormantRatio-80)/200, (untestedRatio-50)/500)
+					if boost > 0.07 {
+						boost = 0.07
 					}
+					return 0.90 + boost // 0.90–0.97
+				}
+				if hasPressure && dormantRatio >= 80 {
+					return 0.85 + (dormantRatio-80)/200 // 0.85–0.95
+				}
+				// Untested-only fallback: only when pressure data is truly
+				// unavailable. Active-but-untested code in a busy module is
+				// NOT Fragile — the reviewer flagged this false-positive path.
+				if !hasPressure && hasCoverage && untestedRatio >= 70 && r.Survival >= 50 {
+					return 0.80 + (untestedRatio-70)/300 // 0.80–0.90
 				}
 			}
-			// Fallback: no pressure data
+			// Final fallback: no pressure, no coverage, or gating conditions failed.
 			if r.Quality >= 70 {
 				return 0
 			}
@@ -285,4 +306,26 @@ func maxf(a, b float64) float64 {
 
 func roundConf(v float64) float64 {
 	return float64(int(v*100+0.5)) / 100
+}
+
+// computeDormantRatio returns the percentage of raw survival that falls in
+// low-pressure modules. Returns (ratio, true) when pressure data exists,
+// otherwise (0, false).
+func computeDormantRatio(r Result) (float64, bool) {
+	total := r.RawDormantSurv + r.RawRobustSurv
+	if total <= 0 {
+		return 0, false
+	}
+	return r.RawDormantSurv / total * 100, true
+}
+
+// computeUntestedRatio returns the percentage of raw survival that comes
+// from files without test coverage. Returns (ratio, true) when we have
+// any survival data to compute from, otherwise (0, false).
+func computeUntestedRatio(r Result) (float64, bool) {
+	total := r.RawTestedSurv + r.RawUntestedSurv
+	if total <= 0 {
+		return 0, false
+	}
+	return r.RawUntestedSurv / total * 100, true
 }
