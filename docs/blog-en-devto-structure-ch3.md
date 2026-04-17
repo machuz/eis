@@ -152,7 +152,7 @@ This is neither Mass nor Churn. The structure of the act is different:
 - What they write functions as **a strike surface for the team's real discussion**
 - Value only completes when subsequent engineers (Anchors, Cleaners) layer the real skeleton on top
 
-On observational signals, this looks like Spread (Production ↑, Survival ↓, Design ↓). The tell is: **is the person handing off to the people behind them**, and **is Survival / Design rising in those same modules afterward?** If the team's Robust Survival is climbing in the regions they touched, what you're looking at is **intended Spread** — team-accelerating scaffolding.
+On observational signals, this looks like Spread (Production ↑, Breadth ↑, Survival ↓, Design ↓). The tell is: **is the person handing off to the people behind them**, and **are Survival / Design rising in those same modules afterward?** If the team's Robust Survival is climbing in the regions they touched, what you're looking at is **intended Spread** — team-accelerating scaffolding.
 
 This kind of contributor is hard to identify on observation alone. Combine observation with direct conversation and with how Survival evolves around them. Mistakenly intervening as "Spread → reassign" risks **destroying the organization's drive engine**.
 
