@@ -96,6 +96,16 @@ Architect isn't one type. **There are two evolutionary lineages.**
 
 Same title "Architect," but backends want Inheritance, frontends want Emergent. Neither is superior. **Different lineages are needed for different domains.**
 
+#### But the Two Schools Aren't Black-and-White
+
+The mapping above is **a tendency per domain**, not a binary.
+
+Even in backend, a style that **thoughtlessly reuses "designs that currently work"** ossifies structure over time. Especially for **unprecedented features** — a new domain, a new consistency requirement, a new operational model — Inheritance alone **keeps pulling the design back to the existing one**. What's needed here is the Emergent posture of **always probing alternative directions**. Not dragged by the existing structure, yet still composing with it: the thinking that asks *which structure will actually endure*.
+
+Conversely, in frontend, an Emergent who ignores accumulated constraints and chases novelty alone produces proposals that never land in the team. Without the **Inheritance-side constraint sense**, Emergent just scatters structure.
+
+**Emergent's driving force and Inheritance's constraint sense can live in the same person.** An Architect skewed entirely to either side warps the organization's structure over the long run. "Backend → Inheritance, frontend → Emergent" is useful as a first approximation for placement, but **as an Architect matures, the expectation should be that they carry both**.
+
 ### Anchor
 
 **Places long-lived, high-quality code; constructs a skeleton others don't casually rewrite.**
