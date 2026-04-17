@@ -92,27 +92,30 @@
   </g>
 
   <!-- ═══════════════ TRANSFORMATION 2 ═══════════════ -->
+  <!-- Labels positioned directly below Structure to show transformation weight -->
+  <!-- Org side -->
+  <text x="208" y="414" text-anchor="middle" class="sans" fill="#8ec07c" font-size="11" font-weight="700">transformation · Structure ↔ Implementation</text>
+  <text x="208" y="428" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">org design → code conventions / texture → structure</text>
   <g>
-    <line x1="192" y1="408" x2="192" y2="448" stroke="#8ec07c" stroke-width="2"/>
-    <polygon points="186,444 198,444 192,454" fill="#8ec07c"/>
+    <line x1="192" y1="442" x2="192" y2="480" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="186,476 198,476 192,486" fill="#8ec07c"/>
   </g>
   <g>
-    <line x1="224" y1="408" x2="224" y2="448" stroke="#8ec07c" stroke-width="2"/>
-    <polygon points="218,412 230,412 224,402" fill="#8ec07c"/>
+    <line x1="224" y1="442" x2="224" y2="480" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="218,446 230,446 224,436" fill="#8ec07c"/>
   </g>
-  <text x="208" y="470" text-anchor="middle" class="sans" fill="#8ec07c" font-size="11" font-weight="700">transformation · Structure ↔ Implementation</text>
-  <text x="208" y="484" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">org design → code conventions / texture → structure</text>
 
+  <!-- Product side -->
+  <text x="752" y="414" text-anchor="middle" class="sans" fill="#8ec07c" font-size="11" font-weight="700">transformation · Structure ↔ Implementation</text>
+  <text x="752" y="428" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">IA → screens / APIs / screen behavior → IA</text>
   <g>
-    <line x1="736" y1="408" x2="736" y2="448" stroke="#8ec07c" stroke-width="2"/>
-    <polygon points="730,444 742,444 736,454" fill="#8ec07c"/>
+    <line x1="736" y1="442" x2="736" y2="480" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="730,476 742,476 736,486" fill="#8ec07c"/>
   </g>
   <g>
-    <line x1="768" y1="408" x2="768" y2="448" stroke="#8ec07c" stroke-width="2"/>
-    <polygon points="762,412 774,412 768,402" fill="#8ec07c"/>
+    <line x1="768" y1="442" x2="768" y2="480" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="762,446 774,446 768,436" fill="#8ec07c"/>
   </g>
-  <text x="752" y="470" text-anchor="middle" class="sans" fill="#8ec07c" font-size="11" font-weight="700">transformation · Structure ↔ Implementation</text>
-  <text x="752" y="484" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">IA → screens / APIs / screen behavior → IA</text>
 
   <!-- ═══════════════ IMPLEMENTATION ROW ═══════════════ -->
   <rect x="40" y="500" width="336" height="72" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
