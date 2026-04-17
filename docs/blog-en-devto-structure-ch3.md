@@ -15,7 +15,7 @@ tags: management, leadership, engineering, career
 
 "C is incredibly capable, but lately it feels like they're spinning in place," a tech lead says in a 1-on-1. "Can design, ships fast, gives careful reviews. Yet nothing seems to land. They look exhausted."
 
-You talk to C directly. "I'm pulled into all sorts of meetings, advising several teams, touching multiple repos. By the end of the day, I can't tell you what I actually did." It's not a capability problem. And it's not even cleanly a placement problem — the organization simply lacks **the vocabulary to observe** what "capable but spinning" actually is.
+You talk to C directly. "I'm pulled into all sorts of meetings, advising several teams, touching multiple repos. By the end of the day, I can't tell you what I actually did." It's not a capability problem. And it's not even easily dismissed as a placement problem — the organization simply lacks **the vocabulary to observe** what "capable but spinning" actually is.
 
 This chapter builds that vocabulary — describing people not by "ability" but by a three-axis topology.
 

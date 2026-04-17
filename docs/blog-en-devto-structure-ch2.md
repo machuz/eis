@@ -17,7 +17,7 @@ X's first PR was textbook clean. Naming conventions perfect, tests in place, eve
 
 Six months later. The clean code X wrote in that PR has been almost entirely refactored away. Y's code, including the parts that drew refactor comments, is almost entirely still there. "Clean X" and "rough-but-shipped Y" — by the measure of contribution-to-structure, the ranking has flipped.
 
-This chapter assembles the vocabulary that separates **how clean it looked at the moment of writing** from **how it survives after the writing.**
+This chapter assembles the vocabulary that separates **how clean it looked at the moment of writing** from **how it survives after it was written.**
 
 ---
 
