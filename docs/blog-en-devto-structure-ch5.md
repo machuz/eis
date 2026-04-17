@@ -107,6 +107,29 @@ Working axis: **can someone explain what this decision is for, and is the though
 >
 > A practical rule of thumb: **cap each principle set at no more than ten items.** Past that is a **signal to split** — usually multiple granularities or target domains have been mixed in. For example, consumer-facing (toC) and business-facing (toB) products carry different user assumptions and decision speeds, so they **usually function better as separate principle sets.** Forcing them into one tends to produce abstractions that cut for neither.
 
+### Thought strength — adaptation vs wavering
+
+There's one more failure mode — subtle, but it corrodes organizations. **The Principle layer gets pulled around by external voices because customer feedback is accepted too uncritically.**
+
+Teams collect user requests — "I want this feature," "this is hard to use" — and layer them into the product one by one. Each individual voice is legitimate. But voices are sporadic, each pointing in a different direction. Absorb them all, and the original core value blurs; the product becomes "**does everything, but what is it for?**" Features accumulate while the axis disappears — **this produces the same symptom as an empty Principle layer.**
+
+Let's state this up front: **a thought doesn't emerge from customer voices or problem research.** The order is the reverse:
+
+1. First there is a **problem**.
+2. Against that problem, **aesthetics and philosophy** (how we want to be, what we find beautiful, what we prioritize) form the **prototype of the thought**.
+3. That prototype is then **honed through customer voices and problem research**.
+
+This is the only order in which a thought stands up. The reverse — a thought emerging from averaging voices or the greatest common denominator of problems — doesn't happen. A Principle layer is **a prototype someone stood up with ("this is how it should be"), and then had sharpened through contact with reality.**
+
+The distinction that matters: **a thought that won't bend and a thought that just wavers are different problems.**
+
+- **Unbendable thought (rigidity)**: rejects counter-evidence, keeps believing in its own rightness. Principle layer hardens, loses the capacity to adapt.
+- **Wavering thought (no spine)**: gets pulled by external voices. What you say changes every week. Principle layer is absent — no axis runs through anything.
+
+Both break the organization. The difference is **strength**. A thought held with conviction is **verified through obsession** — it answers many doubts, absorbs contradictions, and only what survives that is worth holding. If it bends *after* that obsession, that's **adaptation**. If it bends at every discussion, every customer voice, that's **lack of spine**. The strength of verification separates the two.
+
+**A Principle layer's health reads as "the history of how it changed."** If the record says "six months ago this principle met counter-evidence X and was reshaped into form Y," that's adaptation. If it says "somehow we were saying something different, without noticing," that's wavering. The same applies to an organization's Principle layer — if strategy dissolves outward into customer and investor expectations, the organization's Principle layer is hollow too. A strategy without the trace of obsession isn't a strategy; it's **a reflection of external voices.**
+
 ### Consistency lives on two axes
 
 Product consistency needs to be read on **two axes — horizontal and vertical.**
