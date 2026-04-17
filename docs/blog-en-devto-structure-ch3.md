@@ -77,7 +77,7 @@ Each one, briefly.
 
 #### Two Schools of Architect: Inheritance and Emergent
 
-Architect isn't one type. **There are two evolutionary lineages.**
+Architect isn't one type. **There are two evolutionary origins.**
 
 **Inheritance Architect** — evolves from Anchor.
 
@@ -85,26 +85,34 @@ Architect isn't one type. **There are two evolutionary lineages.**
 - Knows the real-world constraints
 - Better at refinement than destruction
 - **Strengthens the system without breaking it**
-- Especially strong in **backend**: clear responsibility boundaries, nearly-correct canonical designs
 
 **Emergent Architect** — evolves from a High-Gravity Producer.
 
 - Doesn't inherit existing structure — **creates new structure**
 - High early friction: collides with others, gets overwritten
 - But eventually **builds a new center of gravity**
-- Especially strong in **frontend**: no "single correct answer" — genuine progress requires competing structural proposals clashing and resolving
 
-Same title "Architect," but backends want Inheritance, frontends want Emergent. Neither is superior. **Different lineages are needed for different domains.**
+These two schools describe **how a person became an Architect** — their origin. It's a Role-axis claim.
 
-#### But the Two Schools Aren't Black-and-White
+Which origin is more in demand depends on the domain: backend, with **clear responsibility boundaries and near-canonical designs**, leans Inheritance. Frontend, with **no "single correct answer" and progress driven by competing structural proposals**, leans Emergent. This pairing is a rough first approximation.
 
-The mapping above is **a tendency per domain**, not a binary.
+#### Origin Is Fixed; Posture Mixes
 
-Even in backend, a style that **thoughtlessly reuses "designs that currently work"** ossifies structure over time. Especially for **unprecedented features** — a new domain, a new consistency requirement, a new operational model — Inheritance alone **keeps pulling the design back to the existing one**. What's needed here is the Emergent posture of **always probing alternative directions**. Not dragged by the existing structure, yet still composing with it: the thinking that asks *which structure will actually endure*.
+One thing to make explicit: **origin and posture live on different layers.**
 
-Conversely, in frontend, an Emergent who ignores accumulated constraints and chases novelty alone produces proposals that never land in the team. Without the **Inheritance-side constraint sense**, Emergent just scatters structure.
+Lineage (origin) is a Role-axis statement — how a person became an Architect. The **postures an Architect takes in day-to-day work**, on the other hand, sit on the Style axis and are observed independently of Role. This is why the book keeps the three-axis topology (Role × Style × State) independent.
 
-**Emergent's driving force and Inheritance's constraint sense can live in the same person.** An Architect skewed entirely to either side warps the organization's structure over the long run. "Backend → Inheritance, frontend → Emergent" is useful as a first approximation for placement, but **as an Architect matures, the expectation should be that they carry both**.
+Postures split into two:
+
+- **Inheritance posture** — constraint sense toward existing complexity. Strengthens through refinement. Assumes coexistence with what's already there.
+- **Emergent posture** — always probes alternative directions. Doesn't get pulled back by the existing structure, and keeps asking *which structure will actually endure*.
+
+**An Architect's origin is fixed, but postures mix inside the same person.** The more senior an Architect is, the more fluidly they switch postures by situation:
+
+- Even an Inheritance Architect in backend, when working on **unprecedented features** — a new domain, a new consistency requirement, a new operational model — finds Inheritance posture alone drags them back to the existing design. They need to bring up Emergent posture inside themselves.
+- Even an Emergent Architect in frontend, if they ignore accumulated constraints and chase pure novelty, ships proposals that never land. They need Inheritance posture's constraint sense.
+
+"Backend → Inheritance, frontend → Emergent" works as a rough origin-to-domain matching, but **in execution the default expectation is that both postures mix**.
 
 ### Anchor
 
