@@ -109,7 +109,7 @@ Working axis: **can someone explain what this decision is for, and is the though
 
 ### Thought strength — adaptation vs wavering
 
-There's one more failure mode — subtle, but it corrodes organizations. **The Principle layer gets pulled around by external voices because customer feedback is accepted too uncritically.**
+So far we've covered two poles — Principle layer **absence** and Principle layer **bloat**. There's a third distortion that lives between those poles, subtle but deeply corrosive: **the Principle layer gets pulled around by external voices because customer feedback is accepted too uncritically.**
 
 Teams collect user requests — "I want this feature," "this is hard to use" — and layer them into the product one by one. Each individual voice is legitimate. But voices are sporadic, each pointing in a different direction. Absorb them all, and the original core value blurs; the product becomes "**does everything, but what is it for?**" Features accumulate while the axis disappears — **this produces the same symptom as an empty Principle layer.**
 
