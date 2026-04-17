@@ -104,13 +104,15 @@ Lineage (origin) is a Role-axis statement — how a person became an Architect. 
 
 Postures split into two:
 
-- **Inheritance posture** — constraint sense toward existing complexity. Strengthens through refinement. Assumes coexistence with what's already there.
-- **Emergent posture** — always probes alternative directions. Doesn't get pulled back by the existing structure, and keeps asking *which structure will actually endure*.
+- **Refinement posture** — constraint sense toward existing complexity. Strengthens structure through refinement. Assumes coexistence with what's already there.
+- **Exploration posture** — always probes alternative directions. Doesn't get pulled back by the existing structure, and keeps asking *which structure will actually endure*.
+
+> **Origin and posture are different things, but they're conceptually linked**: an Inheritance Architect (origin) tends to take the refinement posture, an Emergent Architect (origin) tends to take the exploration posture — these are tendencies. But **anyone can take either posture, and they mix.** Origin is fixed at one's lineage; **the posture taken in this very moment is chosen.**
 
 **An Architect's origin is fixed, but postures mix inside the same person.** The more senior an Architect is, the more fluidly they switch postures by situation:
 
-- Even an Inheritance Architect in backend, when working on **unprecedented features** — a new domain, a new consistency requirement, a new operational model — finds Inheritance posture alone drags them back to the existing design. They need to bring up Emergent posture inside themselves.
-- Even an Emergent Architect in frontend, if they ignore accumulated constraints and chase pure novelty, ships proposals that never land. They need Inheritance posture's constraint sense.
+- Even an Inheritance Architect in backend, when working on **unprecedented features** — a new domain, a new consistency requirement, a new operational model — finds the refinement posture alone drags them back to the existing design. They need to bring up the exploration posture inside themselves.
+- Even an Emergent Architect in frontend, if they ignore accumulated constraints and chase pure novelty, ships proposals that never land. They need the refinement posture's constraint sense.
 
 "Backend → Inheritance, frontend → Emergent" works as a rough origin-to-domain matching, but **in execution the default expectation is that both postures mix**.
 
@@ -252,7 +254,7 @@ Organizations often have **people whose talent is obvious, but who are somehow s
 Read on the three axes, this reveals itself as specific combinations:
 
 - **Strong Role × weak Style** — someone whose makeup is Anchor / Inheritance Architect, but emergency handling and coordination meetings drain their days until Style collapses to Spread. "This person should be sitting deep, not sprinting thin every day." A placement failure or task-slicing failure.
-- **Posture locked into one mode** — a backend Inheritance Architect who led the company's core platform gets assigned to lead the first-ever toC native app. On the backend, their origin and their domain fit cleanly, and years of success followed. But they carry the same Inheritance posture into the new domain, trying to port existing abstractions wholesale. Frontend / mobile feedback doesn't land; rewrites pile up. **The failure isn't the origin — it's the posture locked into a single mode.** The rule from the previous section — "postures mix in execution" — can't get through, because past success keeps them from doubting it.
+- **Posture locked into one mode** — a backend Inheritance Architect who led the company's core platform gets assigned to lead the first-ever toC native app. On the backend, their origin and their domain fit cleanly, and years of success followed. But they carry the same refinement posture into the new domain, trying to port existing abstractions wholesale. Frontend / mobile feedback doesn't land; rewrites pile up. **The failure isn't the origin — it's the posture locked into a single mode.** The rule from the previous section — "postures mix in execution" — can't get through, because past success keeps them from doubting it.
 - **State misread** — an Architect candidate whose commit count dropped this quarter while Quality steadily rose. They're in Growing; the surrounding environment reads it as "low output → stalling / Fragile-ish" and lowers their evaluation.
 
 None of these are solved by **"try harder" interventions**. Change placement. Change the domain. Train the Style. Structural interventions work.
