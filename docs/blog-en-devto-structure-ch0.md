@@ -31,7 +31,7 @@ This book uses the word "structure" frequently. To avoid conflation, three disti
 2. **The structural model of people** — chapter 3. The Role × Style × State three-axis topology.
 3. **The layer structure of organizations** — chapter 4. Implementation / Intermediate / Principle.
 
-The three are different objects, but the book's central claim is that **all three can be handled with the same "observe → name → design" practice.** When "structure" appears in the text, infer from context which of these three it points to.
+The three are different objects, but the book's central claim is that **all three can be handled with the same "observation → language → design" practice.** When "structure" appears in the text, infer from context which of these three it points to.
 
 ## Where Existing Org Theory Breaks
 
