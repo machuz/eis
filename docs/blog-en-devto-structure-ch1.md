@@ -147,7 +147,7 @@ Pressing further: **the same observational data becomes "surveillance" or "state
 
 A design feature of EIS matters here. EIS has **high game-resistance**. Time-decayed Survival doesn't rise from working frantically — only surviving code counts. The other axes are similarly resistant to short-term behavior or loud voices. To game the metric, **you have to write good structure**. That's the only path.
 
-This game-resistance is what lets the surveillance/state-sharing split be governed by **governance** rather than by the metric.
+This game-resistance is what lets the surveillance/state-sharing split be determined by **governance** rather than by the metric.
 
 - **Strongly hierarchical organizations** — A layer with position and evaluative authority uses observational data from below as "management material." However carefully observation is designed, data here tends to act as **an instrument of evaluation and power**. The three principles above exist for this context.
 - **Flat, autonomous organizations** — Where positions don't exist (or are light), each person autonomously chooses where to contribute from their strengths, and they push each other to think hard about structure and build it together. Here, observational data functions as **state-sharing for everyone**. "I'm weak on this axis, strong on this one right now" — this becomes material for the individual's own decisions *and* material for the team's conversation.
