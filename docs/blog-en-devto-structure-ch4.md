@@ -152,6 +152,12 @@ Good transformation doesn't only **prevent** fire from going out — it can **am
 
 Carrying the felt sense that the work matters — that act itself amplifies fire.
 
+#### The real cost of layer mismatch
+
+In organizations with a thin Structure layer and transformation not running, each layer is making locally-correct decisions, yet **the fire of the organization as a whole gradually goes down.** "Everyone is working in good faith, yet somehow we don't move forward" — what most organizations call this state is, almost certainly, this.
+
+> Layers have no hierarchy. But when transformation stops, **a decision in one layer can either extinguish the fire of another or amplify it.** The transformer sits on that propagation path.
+
 ### Growing Transformers — Transformation Coaches
 
 There's one more layer in the distribution of transformers. **The person who executes transformation** and **the person who grows others' transformation capability** are different roles. This book calls the latter a **transformation coach**.
@@ -171,12 +177,6 @@ A transformation coach stands in front of **people who already have the lower tr
 > His title was "external coach." **A transformation coach who never appeared anywhere on the org chart**, producing outsized value — exactly the kind of person this book's frame can name and value properly, as the strongest exemplar of the transformation coach role.
 
 The distinction between transformers and transformation coaches matters both for observing an organization and for placement design. The former keeps daily transformations running. The latter grows the organization's *total* transformation capability over time. **EIS's seven axes can only capture part of the former** — the transformation coach's work sits in a region the observation system doesn't see, and has to be judged by human eyes.
-
-#### The real cost of layer mismatch
-
-In organizations with a thin Structure layer and transformation not running, each layer is making locally-correct decisions, yet **the fire of the organization as a whole gradually goes down.** "Everyone is working in good faith, yet somehow we don't move forward" — what most organizations call this state is, almost certainly, this.
-
-> Layers have no hierarchy. But when transformation stops, **a decision in one layer can either extinguish the fire of another or amplify it.** The transformer sits on that propagation path.
 
 ### Transformers Are Hard to Evaluate
 
