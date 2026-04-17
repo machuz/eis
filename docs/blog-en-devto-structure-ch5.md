@@ -92,6 +92,10 @@ Observation targets:
 
 Working axis: **can someone explain what this decision is for, and is the thought internally consistent.** Because AI can't make Principle-layer calls, the human decision history needs to be visible — same as the organization's Principle layer.
 
+> **If not a single theme, UI principle, or UX principle has been written down — that state is more urgent than the next feature meeting.** This is not "an observation target that's pending"; it is **the absence of any reference point for decisions.** A product stacked without a Principle layer becomes motion without direction. **It's fair to say outright: you are probably drifting.**
+>
+> And Principle-layer artifacts are not write-once. **Document them, hold them up as a team, and the moment a contradiction surfaces in discussion, replace or reorganize on the spot** — this cycle is the Principle layer itself. A document written once and never cited produces the same symptom as its absence. Only living principles function as Principle-layer artifacts.
+
 ### Consistency lives on two axes
 
 Product consistency needs to be read on **two axes — horizontal and vertical.**
