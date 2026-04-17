@@ -128,6 +128,8 @@ The role of transformation isn't only converting grammar. There's a second criti
 
 By "fire" we mean the floor's morale, momentum, trust in their own work, conviction in what they're building — the **internal energy that drives doing the work.** An organization's productivity ultimately rests on the total amount of this fire.
 
+![Fire Propagation — with or without a transformer](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-fire-propagation-en.svg)
+
 #### A single-layer decision tends to extinguish fire in other layers
 
 When Principle decides in isolation — strategic pivot, roadmap reshuffle, priority change — every decision is rational *within Principle*. But when those decisions reach Implementation without being transformed, they land as: "**six months of my work is being thrown away**" / "**my judgment wasn't needed by the organization**." The fire goes out.
