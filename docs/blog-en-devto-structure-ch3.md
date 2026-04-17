@@ -110,18 +110,18 @@ Specialists are Anchors of a specific area. Not broad-shallow, but narrow-deep. 
 
 Caution: **Specialists are easily undervalued on low Breadth**. Don't short-circuit "low cross-repo span = low contribution." Narrow is fine, if deep.
 
-### Architect (Inheritance-type, Preliminary)
+### Architect (Inheritance-type)
 
-**Someone whose design gets inherited and extended by others' code.**
+**Someone whose design gets inherited and extended by others' code. The phase beyond Anchor.**
 
 - Signal: Design ↑, Robust Survival ↑, Breadth present
-- What "preliminary" means here:
-  - Anchor = "the code they wrote remains"
-  - Architect = "**their design direction propagates into code others write**"
+- Difference from Anchor:
+  - Anchor = "**the code they wrote remains**"
+  - Architect (Inheritance-type) = "**their design direction propagates into code they didn't write**"
 
-An Anchor's own lines remain. An Architect's design permeates lines they never wrote. This is the state where **design has become a shared language**.
+An Anchor's own lines still carry their blame. An Architect's design permeates lines they never wrote. This is the state where **design has become a shared language across the organization**. When an Anchor matures, what lies ahead is the Architect.
 
-Architect is deeply tied to chapter 4's layer structure and chapter 7's culture discussion. Treating it as a standalone archetype has less precision than placing it inside the layer + culture context. Here it's positioned as "the phase beyond Anchor."
+Architect is deeply tied to chapter 4's layer structure and chapter 7's culture discussion. Treating it as a standalone archetype has less precision than placing it inside the layer + culture context. In this chapter, it's positioned as "the phase beyond Anchor" only — the full treatment is deferred to the later chapters.
 
 ## The Structure of "Talented But Spinning"
 
