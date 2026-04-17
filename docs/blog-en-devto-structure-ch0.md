@@ -1,5 +1,5 @@
 ---
-title: "Structure-Driven Organization Theory #0 — Why Existing Org Theory Doesn't Work"
+title: "Structure-Driven Engineering Organization Theory #0 — Why Existing Org Theory Doesn't Work"
 published: true
 description: "Stop evaluating people. Start observing structure. A new engineering org theory built on Git Archaeology, layered organizations, and the isomorphism between product and team."
 tags: management, leadership, engineering, culture
@@ -19,7 +19,7 @@ This book steps off that subject, once.
 
 What we handle is not "people" but **the structures people produce**, **the layers those structures run on**, and **the connections between layers**. People stand on top of these — but the object of observation and design is structure, not the person.
 
-The title — *Structure-Driven Organization Theory* — is a direct statement of that.
+The title — *Structure-Driven Engineering Organization Theory* — is a direct statement of that.
 
 ## Where Existing Org Theory Breaks
 
@@ -95,7 +95,7 @@ This is the critical point:
 
 **"Effort" can't be observed. But "contribution to structure" can.**
 
-Conventional org theory has been trying to handle unobservable effort. Structure-Driven Organization Theory starts from observable structural contribution. They look like similar problems, but the inputs are different. Different inputs yield different decisions.
+Conventional org theory has been trying to handle unobservable effort. Structure-Driven Engineering Organization Theory starts from observable structural contribution. They look like similar problems, but the inputs are different. Different inputs yield different decisions.
 
 ## What Happens in an Organization That Fails to Observe
 
@@ -147,7 +147,7 @@ When observing an organization, distinguish three layers.
 
 Most organizations stop at Behavior and Output. They **don't observe the Structure layer**, so "effort" and "contribution to structure" can't be told apart.
 
-The core thesis of Structure-Driven Organization Theory:
+The core thesis of Structure-Driven Engineering Organization Theory:
 
 > **Every organizational intervention should be decomposed across the three layers — Behavior, Output, Structure — before it's made.**
 
@@ -180,7 +180,7 @@ The path forward:
 | 5 | Product-Organization Isomorphism | Discover / Detail / AIA, List is Hero |
 | 6 | Designing Interventions (1-on-1 / pair programming) | Speaking across the three layers |
 | 7 | Making Culture | Language makes culture. Evaluating translation itself. |
-| 8 | Conditions for a Structure-Driven Organization | Reproducibility, observability, self-correction |
+| 8 | Conditions for a Structure-Driven Engineering Organization | Reproducibility, observability, self-correction |
 | 9 | Connecting to OrbitLens | The moment observation becomes SaaS |
 | 10 | Conclusion — Building an OS, Not an Organization | Design over management |
 

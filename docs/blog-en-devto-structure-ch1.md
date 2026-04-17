@@ -1,5 +1,5 @@
 ---
-title: "Structure-Driven Organization Theory #1 — The Concept of Observation"
+title: "Structure-Driven Engineering Organization Theory #1 — The Concept of Observation"
 published: true
 description: "Evaluation assigns values. Observation reads structure. Get the entry point wrong and every destination collapses back into evaluation."
 tags: management, leadership, engineering, observability
@@ -140,6 +140,21 @@ Observational data can't be left in an "anyone can see it" state. Specify who ha
 - Interpretation shared in 1-on-1s, never flashed on a dashboard for a broad audience
 
 Hold these three and observation won't become surveillance. Drop them and even the best observational metric will tip over. **The ethics sit more in how observation is operated than in what's observed**.
+
+### Surveillance or State-Sharing — Governance Is the Watershed
+
+Pressing further: **the same observational data becomes "surveillance" or "state-sharing" depending on the organization's governance**.
+
+A design feature of EIS matters here. EIS has **high game-resistance**. Time-decayed Survival doesn't rise from working frantically — only surviving code counts. The other axes are similarly resistant to short-term behavior or loud voices. To game the metric, **you have to write good structure**. That's the only path.
+
+This game-resistance is what lets the surveillance/state-sharing split be determined by **governance** rather than by the metric.
+
+- **Strongly hierarchical organizations** — A layer with position and evaluative authority uses observational data from below as "management material." However carefully observation is designed, data here tends to act as **an instrument of evaluation and power**. The three principles above exist for this context.
+- **Flat, autonomous organizations** — Where positions don't exist (or are light), each person autonomously chooses where to contribute from their strengths, and they push each other to think hard about structure and build it together. Here, observational data functions as **state-sharing for everyone**. "I'm weak on this axis, strong on this one right now" — this becomes material for the individual's own decisions *and* material for the team's conversation.
+
+Observation running in the latter kind of organization doesn't become surveillance. Rather than anyone managing anyone, it becomes **a device for driving the whole team's conversation about structure**. EIS's game-resistance is the prerequisite that sustains this state. Put a low-game-resistance metric into a flat organization and you end up with a "people who game the metric" / "people who don't" asymmetry that eats the flatness.
+
+This isn't an argument about which organizational form is right. The claim is: **whether observation becomes surveillance or state-sharing is decided not by the metric itself but by the governance of the organization it runs in**. The person introducing the observational tool has to make that judgment call about their own organization. The three principles above are safety devices for running observation inside a hierarchy; in a flat organization, the lightness of the operation itself does the ethical work.
 
 ## What Organizations Can Stop Carrying Once Observation Is In Place
 
