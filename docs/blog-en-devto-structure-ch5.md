@@ -27,9 +27,9 @@ In the introduction, "structure" was named as referring to three objects: code, 
 
 | | Organizational layer | Product layer |
 |---|---|---|
-| **Implementation** | Code, features, operations | Screens, operations, micro-interactions |
+| **Implementation** | Code, features, operations | Screens, operations, micro-interactions, APIs |
 | **Intermediate** | Architecture, design, translation | Information architecture, transitions, state models, feature organization |
-| **Principle** | Strategy, worldview, what we won't build | Themes, design principles, UX principles, what we won't build |
+| **Principle** | Strategy, worldview, thinking | Themes, design principles, UX principles, what we won't build |
 
 The chapter's central claim: **the fourth (product structure) is isomorphic to the third (organizational layer structure).**
 
