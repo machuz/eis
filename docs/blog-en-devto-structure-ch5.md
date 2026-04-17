@@ -135,7 +135,7 @@ Both break the organization. The difference is **strength**. A thought held with
 > Can you, right now, write your product's Principle layer on **a single page**?
 >
 > - If you can't — or your teammates write something different from yours — the Principle layer may no longer be standing.
-> - If you can, is it the **same content** as six months ago? If not, is there a record of "*counter-evidence X, reshaped to Y*"? If there's no trace, what changed isn't adaptation — it's **wavering**.
+> - If you can, is it the **same content** as six months ago? If not, is there a record of "**counter-evidence X, reshaped to Y**"? If there's no trace, what changed isn't adaptation — it's **wavering**.
 > - And one more thing: are you treating customer voices and problem research as **material that sharpens the prototype of your thought**, or as **the thought itself**? If the latter, your Principle layer has already been replaced by external voices.
 
 ### Consistency lives on two axes
