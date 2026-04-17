@@ -18,6 +18,10 @@ type Result struct {
 	DormantSurvival  float64 // survival in low change-pressure modules
 	RawRobustSurv    float64 // raw (pre-normalize) robust survival, for archetype detection
 	RawDormantSurv   float64 // raw (pre-normalize) dormant survival, for archetype detection
+	TestedSurvival   float64 // survival from test-guarded files (normalized, pre-α)
+	UntestedSurvival float64 // survival from untested files (normalized, pre-α)
+	RawTestedSurv    float64 // raw (pre-normalize) tested survival, for JSON/downstream observability
+	RawUntestedSurv  float64 // raw (pre-normalize) untested survival
 	Design           float64
 	Breadth          float64
 	DebtCleanup      float64
@@ -60,6 +64,8 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 	normSurv := Normalize(raw.Survival)
 	normRobustSurv := Normalize(raw.RobustSurvival)
 	normDormantSurv := Normalize(raw.DormantSurvival)
+	normTestedSurv := Normalize(raw.TestedSurvival)
+	normUntestedSurv := Normalize(raw.UntestedSurvival)
 	normDesign := Normalize(raw.Design)
 	normIndisp := Normalize(raw.Indispensability)
 	normRawSurv := Normalize(raw.RawSurvival)
@@ -103,6 +109,10 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 			DormantSurvival:  normDormantSurv[author],
 			RawRobustSurv:    raw.RobustSurvival[author],
 			RawDormantSurv:   raw.DormantSurvival[author],
+			TestedSurvival:   normTestedSurv[author],
+			UntestedSurvival: normUntestedSurv[author],
+			RawTestedSurv:    raw.TestedSurvival[author],
+			RawUntestedSurv:  raw.UntestedSurvival[author],
 			Design:           normDesign[author],
 			Breadth:          normBreadth[author],
 			DebtCleanup:      normDebt[author],

@@ -27,6 +27,10 @@ type Config struct {
 	ExcludeRepos         []string             `yaml:"exclude_repos"`
 	ActiveDays           int                  `yaml:"active_days"`
 	BlameTimeout         int                  `yaml:"blame_timeout"`
+	// UntestedSurvivalWeight multiplies the survival contribution of blame lines
+	// whose source file is not guarded by a test. 1.0 disables the weighting and
+	// matches pre-v2 behaviour; 0.5 (default) treats untested code as half-value.
+	UntestedSurvivalWeight float64 `yaml:"untested_survival_weight"`
 }
 
 // TeamEntry defines a named team with its members and optional domain scope.
@@ -83,13 +87,14 @@ type BusFactor struct {
 
 func Default() *Config {
 	return &Config{
-		Tau:                180,
-		SampleSize:         500,
-		DebtThreshold:      10,
-		BreadthMax:         5,
-		ActiveDays:         30,
-		BlameTimeout:       120,
-		ProductionDailyRef: 1000,
+		Tau:                    180,
+		SampleSize:             500,
+		DebtThreshold:          10,
+		BreadthMax:             5,
+		ActiveDays:             30,
+		BlameTimeout:           120,
+		ProductionDailyRef:     1000,
+		UntestedSurvivalWeight: 0.5,
 		ExcludeFilePatterns: []string{
 			"package-lock.json",
 			"yarn.lock",
@@ -169,6 +174,9 @@ func (c *Config) Validate() error {
 	}
 	if c.DebtThreshold < 0 {
 		return fmt.Errorf("debt_threshold must be non-negative, got %d", c.DebtThreshold)
+	}
+	if c.UntestedSurvivalWeight < 0 || c.UntestedSurvivalWeight > 1.0 {
+		return fmt.Errorf("untested_survival_weight must be within [0.0, 1.0], got %f", c.UntestedSurvivalWeight)
 	}
 
 	w := c.Weights

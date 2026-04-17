@@ -323,6 +323,7 @@ Module topology requires `--pressure-mode include` (the default).
 - **Hybrid observation** — Production, Quality, and Debt use absolute scales (cross-org comparable); Survival, Design, Breadth, and Indispensability use relative normalization within domain
 - **Debt threshold** — members with fewer than 10 debt events get a neutral signal (50) to avoid extreme ratios
 - **Comments don't count** — comment-only and blank lines in code files (Go/TS/Py/Ruby/SQL/etc.) are excluded from Production, Survival, Design, and Debt. You can't inflate your scores by spamming `//` comments. Prose files (`.md`, `.txt`, `.rst`) are counted verbatim so that documentation and research writing are fully preserved.
+- **Untested code is worth half** — blame lines whose source file has no test coverage contribute to Survival at α=0.5 weight. Test coverage is inferred from sibling-pair naming (`foo.go` ↔ `foo_test.go`, `foo.test.ts`, `test_foo.py`, etc.) with a same-directory fallback. The `tested_survival` / `untested_survival` fields are exposed in JSON for downstream analysis; override the weight via `untested_survival_weight` in `eis.yaml`.
 - **Accuracy scales with codebase design quality** — well-structured codebases (Clean Architecture, DDD) yield more meaningful signals. If the signal doesn't match gut feeling, it may indicate poor codebase structure rather than a metric problem
 
 ## CLI Options

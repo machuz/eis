@@ -46,6 +46,8 @@ type jsonMember struct {
 	Survival         float64 `json:"survival"`
 	RobustSurvival   float64 `json:"robust_survival"`
 	DormantSurvival  float64 `json:"dormant_survival"`
+	TestedSurvival   float64 `json:"tested_survival"`
+	UntestedSurvival float64 `json:"untested_survival"`
 	Design           float64 `json:"design"`
 	Breadth          float64 `json:"breadth"`
 	DebtCleanup      float64 `json:"debt_cleanup"`
@@ -141,6 +143,8 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 			Survival:         round1(r.Survival),
 			RobustSurvival:   round1(r.RobustSurvival),
 			DormantSurvival:  round1(r.DormantSurvival),
+			TestedSurvival:   round1(r.TestedSurvival),
+			UntestedSurvival: round1(r.UntestedSurvival),
 			Design:           round1(r.Design),
 			Breadth:          round1(r.Breadth),
 			DebtCleanup:      round1(r.DebtCleanup),
@@ -261,6 +265,8 @@ func (w *JSONWriter) AddPerRepo(domainName, repoName string, results []scorer.Re
 					Survival:         round1(r.Survival),
 					RobustSurvival:   round1(r.RobustSurvival),
 					DormantSurvival:  round1(r.DormantSurvival),
+					TestedSurvival:   round1(r.TestedSurvival),
+					UntestedSurvival: round1(r.UntestedSurvival),
 					Design:           round1(r.Design),
 					Breadth:          round1(r.Breadth),
 					DebtCleanup:      round1(r.DebtCleanup),

@@ -168,6 +168,7 @@ go test ./...
 
 - **ゲーム耐性**: 時間減衰survivalは忙しさでは膨らまない。残ったコードだけがカウントされる
 - **コメント非計上**: コードファイル（Go/TS/Py/SQL等）のコメント行・空行は Production/Survival/Design/Debt から除外。コメント量産でスコアを水増しできない。`.md`/`.txt` 等の散文ファイルは論文・研究用途を想定して全行カウント（`internal/git/comment.go`）
+- **テスト加重 Survival** (v2.0.0): テストに守られていないコード行の生存スコアは α=0.5 に減衰。`_test.go` 等の兄弟ペア or モジュール単位で判定（`internal/metric/test_detection.go`）。テスト文化不在リポもそのまま半減 — 望遠鏡は曲げない。SaaS 側で `tested_survival` / `untested_survival` を個別に読み取り可能。config `untested_survival_weight` で上書き可
 - **ドメイン分離**: BE/FE/Infra/FW（+ カスタムドメイン）は別々に観測。混ぜると汚染される
 - **ハイブリッド観測**: 絶対値（組織横断比較可能）+ 相対値（ドメイン内順位）
 - **40点 = シニア**: 7軸で40+を出すのは意図的に厳しい基準
@@ -182,6 +183,7 @@ CLI に推薦ロジックや予測機能は入れない。CLI は望遠鏡、Saa
 ## 今後の方向性
 
 impact metric → **engineering risk detector** への進化:
-- `change_pressure = commits_touching_module / module_LOC` で変更圧を定量化
-- `tested_survival` vs `untested_survival` でrobust code vs dormant codeを分離
-- Fragile Fortressの精密版として活用
+- ~~`change_pressure = commits_touching_module / module_LOC` で変更圧を定量化~~ 実装済（v1.2.0〜）
+- ~~`tested_survival` vs `untested_survival` でrobust code vs dormant codeを分離~~ 実装済（v2.0.0）
+- **次**: Fragile Fortress アーキタイプ判定に `untested_survival` を組み込む（別PR）
+- Module Topology の `Vitality=Fragile` 精密化も同時に

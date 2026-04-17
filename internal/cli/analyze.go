@@ -508,9 +508,15 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 		blameLines = filterBlameLines(blameLines, cfg)
 
+		// Build the test-coverage lookup for this repo. Uses the filtered blame
+		// file list (already in-scope) as the manifest — test files and prod
+		// files share extensions so the lookup is accurate for code files.
+		testedSet := metric.BuildTestedSet(files)
+
 		// Survival: split by change pressure or use classic mode
 		// Keep per-repo survival maps for --per-repo reuse
 		var repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant map[string]float64
+		var repoSurvTested, repoSurvUntested map[string]float64
 		if opts.PressureMode == "include" {
 			repoPressure := metric.CalcChangePressure(commits, blameLines)
 			for mod, p := range repoPressure {
@@ -544,22 +550,31 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			if substantialAuthors < 2 {
 				pressureThreshold = math.Inf(1) // everything becomes dormant
 			}
-			survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, start, repoPressure, pressureThreshold)
+			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, repoPressure, pressureThreshold, testedSet, cfg.UntestedSurvivalWeight)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvRobust = survResult.Robust
 			repoSurvDormant = survResult.Dormant
+			repoSurvTested = survResult.Tested
+			repoSurvUntested = survResult.Untested
 			mergeMap(acc.raw.Survival, repoSurvDecayed)
 			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
 			mergeMap(acc.raw.RobustSurvival, repoSurvRobust)
 			mergeMap(acc.raw.DormantSurvival, repoSurvDormant)
+			mergeMap(acc.raw.TestedSurvival, repoSurvTested)
+			mergeMap(acc.raw.UntestedSurvival, repoSurvUntested)
 		} else {
-			// Classic mode: single survival score, no pressure split
-			survResult := metric.CalcSurvival(blameLines, cfg.Tau, start)
+			// Classic mode: no pressure split, but still apply the tested-weighting
+			// so comment-era repos still benefit from gaming resistance.
+			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, nil, 0, testedSet, cfg.UntestedSurvivalWeight)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
+			repoSurvTested = survResult.Tested
+			repoSurvUntested = survResult.Untested
 			mergeMap(acc.raw.Survival, repoSurvDecayed)
 			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
+			mergeMap(acc.raw.TestedSurvival, repoSurvTested)
+			mergeMap(acc.raw.UntestedSurvival, repoSurvUntested)
 		}
 
 		// Indispensability
@@ -642,6 +657,12 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 			if repoSurvDormant != nil {
 				mergeMap(repoRaw.DormantSurvival, repoSurvDormant)
+			}
+			if repoSurvTested != nil {
+				mergeMap(repoRaw.TestedSurvival, repoSurvTested)
+			}
+			if repoSurvUntested != nil {
+				mergeMap(repoRaw.UntestedSurvival, repoSurvUntested)
 			}
 			// Track commit counts and dates per author for this repo
 			repoFirstDate := make(map[string]time.Time)
