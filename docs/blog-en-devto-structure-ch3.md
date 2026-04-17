@@ -251,9 +251,9 @@ Organizations often have **people whose talent is obvious, but who are somehow s
 
 Read on the three axes, this reveals itself as specific combinations:
 
-- **Strong Role × Weak Style** — e.g., an Architect candidate in Spread. A placement or role-design failure.
-- **Role × Domain mismatch** — e.g., Inheritance Architect placed on frontend; Emergent Architect crammed into backend.
-- **State misread** — e.g., someone actually Growing being mistaken for Fragile by those around them.
+- **Strong Role × weak Style** — someone whose makeup is Anchor / Inheritance Architect, but emergency handling and coordination meetings drain their days until Style collapses to Spread. "This person should be sitting deep, not sprinting thin every day." A placement failure or task-slicing failure.
+- **Posture locked into one mode** — a backend Inheritance Architect who led the company's core platform gets assigned to lead the first-ever toC native app. They try to carry existing abstractions over wholesale; frontend / mobile feedback doesn't land, rewrites pile up. The origin-to-domain mapping worked on the backend side, but **pushing through with Inheritance posture alone** spins them out in the new territory. The rule from the previous section — "postures mix in execution" — isn't being applied.
+- **State misread** — an Architect candidate whose commit count dropped this quarter while Quality steadily rose. They're in Growing; the surrounding environment reads it as "low output → stalling / Fragile-ish" and lowers their evaluation.
 
 None of these are solved by **"try harder" interventions**. Change placement. Change the domain. Train the Style. Structural interventions work.
 
