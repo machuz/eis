@@ -1,6 +1,7 @@
 package git
 
 import (
+	"bufio"
 	"context"
 	"strconv"
 	"strings"
@@ -16,33 +17,76 @@ type Commit struct {
 	FileStats []FileStat
 }
 
+// FileStat holds contribution-eligible line counts for a file in a commit.
+// Code files exclude comment-only and blank lines (gaming protection);
+// prose files (.md/.txt/etc.) and unknown types count every line.
 type FileStat struct {
 	Insertions int
 	Deletions  int
 	Filename   string
 }
 
-// ParseLog returns non-merge commits with numstat file stats.
+// ParseLog returns non-merge commits with per-file line stats. Uses
+// `-p --numstat` to get both a filename manifest and diff hunks; comment/blank
+// lines in code files are filtered out via FileFilter so that comment spam
+// cannot inflate Production, Design, or Debt metrics.
 func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
-	lines, err := RunLines(ctx, repoPath,
-		"log", "--all", "--no-merges",
+	stdout, cmd, err := RunStream(ctx, repoPath,
+		"log", "--all", "--no-merges", "--no-color",
 		"--format=COMMIT:%H|%an|%ai|%s",
-		"--numstat",
+		"--numstat", "-p",
 	)
 	if err != nil {
 		return nil, err
 	}
+	defer stdout.Close()
+
+	scanner := bufio.NewScanner(stdout)
+	scanner.Buffer(make([]byte, 1024*1024), 16*1024*1024)
 
 	var commits []Commit
 	var current *Commit
 
-	for _, line := range lines {
+	var inDiff, sawHunk bool
+	var curFileName string
+	var filter *FileFilter
+	var fIns, fDel int
+
+	flushFile := func() {
+		defer func() {
+			inDiff, sawHunk = false, false
+			curFileName = ""
+			filter = nil
+			fIns, fDel = 0, 0
+		}()
+		if current == nil || !inDiff {
+			return
+		}
+		// Prose/unknown files (filter == nil) keep numstat counts untouched.
+		// Code files with at least one hunk get their counts replaced by filtered counts.
+		if filter == nil || !sawHunk {
+			return
+		}
+		for i := range current.FileStats {
+			if current.FileStats[i].Filename == curFileName {
+				current.FileStats[i].Insertions = fIns
+				current.FileStats[i].Deletions = fDel
+				break
+			}
+		}
+	}
+
+	for scanner.Scan() {
+		line := scanner.Text()
+
 		if strings.HasPrefix(line, "COMMIT:") {
+			flushFile()
 			if current != nil {
 				commits = append(commits, *current)
 			}
 			parts := strings.SplitN(line[7:], "|", 4)
 			if len(parts) < 4 {
+				current = nil
 				continue
 			}
 			date, _ := time.Parse("2006-01-02 15:04:05 -0700", parts[2])
@@ -55,16 +99,66 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 			continue
 		}
 
-		if current == nil || strings.TrimSpace(line) == "" {
+		if current == nil {
 			continue
 		}
 
-		// numstat line: insertions\tdeletions\tfilename
+		if strings.HasPrefix(line, "diff --git ") {
+			flushFile()
+			if idx := strings.Index(line, " b/"); idx > 0 {
+				curFileName = line[idx+3:]
+				filter = NewFileFilter(curFileName)
+				inDiff = true
+			}
+			continue
+		}
+
+		if inDiff {
+			if !sawHunk {
+				if strings.HasPrefix(line, "+++ b/") {
+					newName := strings.TrimPrefix(line, "+++ b/")
+					if newName != "" && newName != "/dev/null" {
+						curFileName = newName
+						filter = NewFileFilter(curFileName)
+					}
+					continue
+				}
+				if strings.HasPrefix(line, "@@") {
+					sawHunk = true
+					// Block-comment state doesn't carry across hunks.
+					filter = NewFileFilter(curFileName)
+					continue
+				}
+				continue
+			}
+			if strings.HasPrefix(line, "@@") {
+				filter = NewFileFilter(curFileName)
+				continue
+			}
+			if line == "" {
+				continue
+			}
+			switch line[0] {
+			case '+':
+				if !filter.IsSkip(line[1:]) {
+					fIns++
+				}
+			case '-':
+				if !filter.IsSkip(line[1:]) {
+					fDel++
+				}
+			}
+			continue
+		}
+
+		// Numstat region: insertions\tdeletions\tfilename
+		if line == "" {
+			continue
+		}
 		parts := strings.Split(line, "\t")
 		if len(parts) != 3 {
 			continue
 		}
-
 		ins, _ := strconv.Atoi(parts[0])
 		del, _ := strconv.Atoi(parts[1])
 		current.FileStats = append(current.FileStats, FileStat{
@@ -74,10 +168,16 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 		})
 	}
 
+	flushFile()
 	if current != nil {
 		commits = append(commits, *current)
 	}
 
+	scanErr := scanner.Err()
+	_ = cmd.Wait()
+	if scanErr != nil {
+		return commits, scanErr
+	}
 	return commits, nil
 }
 
