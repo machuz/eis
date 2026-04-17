@@ -179,7 +179,7 @@ func (f *FileFilter) checkSingle(trimmed string) bool {
 			rest := trimmed[len("--[["):]
 			if idx := strings.Index(rest, "]]"); idx >= 0 {
 				after := strings.TrimSpace(rest[idx+2:])
-				return after == ""
+				return after == "" || f.checkSingle(after)
 			}
 			f.inBlock = true
 			f.blockEnd = "]]"
@@ -202,7 +202,8 @@ func (f *FileFilter) checkBlockStart(trimmed, start, end string) bool {
 	rest := trimmed[len(start):]
 	if idx := strings.Index(rest, end); idx >= 0 {
 		after := strings.TrimSpace(rest[idx+len(end):])
-		return after == ""
+		// "/* c */ // d" is still pure comment — recurse on whatever follows the close.
+		return after == "" || f.checkSingle(after)
 	}
 	f.inBlock = true
 	f.blockEnd = end

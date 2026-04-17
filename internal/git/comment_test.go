@@ -168,6 +168,25 @@ func TestProseFileUnfiltered(t *testing.T) {
 	}
 }
 
+func TestTrailingCommentAfterBlockClose(t *testing.T) {
+	// Verify that `/* a */ // b` (block + trailing line comment) and similar
+	// composite forms are treated as pure comment.
+	runLineCases(t, "x.go", []lineCase{
+		{"/* a */ // b", true},
+		{"/* a */ /* c */", true},
+	})
+
+	// Lua --[[ ]] with trailing single-line.
+	runLineCases(t, "x.lua", []lineCase{
+		{"--[[ block ]] -- trailing", true},
+	})
+
+	// SQL /* */ followed by -- line comment.
+	runLineCases(t, "q.sql", []lineCase{
+		{"/* hdr */ -- trailing", true},
+	})
+}
+
 func TestBlockReopens(t *testing.T) {
 	// Verify that after one block closes, a subsequent block can open correctly.
 	f := NewFileFilter("a.go")

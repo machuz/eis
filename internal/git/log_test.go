@@ -179,6 +179,78 @@ func Foo() {}
 	}
 }
 
+// Renaming a Go file and adding only comments must still produce zero
+// filtered line counts. Prior to rename-syntax resolution the numstat filename
+// was `dir/{old.go => new.go}` which never matched the diff's `dir/new.go`,
+// leaving raw counts (gaming hole).
+func TestParseLog_RenameWithCommentOnlyChange(t *testing.T) {
+	dir := newTempRepo(t)
+	_ = os.MkdirAll(filepath.Join(dir, "pkg"), 0o755)
+	writeFile(t, dir, "pkg/old.go", `package pkg
+
+func A() {}
+func B() {}
+func C() {}
+func D() {}
+func E() {}
+func F() {}
+func G() {}
+func H() {}
+`)
+	commit(t, dir, "init")
+
+	// git mv preserves enough similarity that git detects a rename.
+	runIn(t, dir, "git", "mv", "pkg/old.go", "pkg/new.go")
+	writeFile(t, dir, "pkg/new.go", `package pkg
+
+// New comment added during rename.
+func A() {}
+func B() {}
+func C() {}
+func D() {}
+func E() {}
+func F() {}
+func G() {}
+func H() {}
+`)
+	commit(t, dir, "rename + comment")
+
+	commits, err := ParseLog(context.Background(), dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	latest := commits[0]
+	// Filename should be resolved to the new path.
+	fs, ok := findFileStat(latest, "pkg/new.go")
+	if !ok {
+		names := []string{}
+		for _, f := range latest.FileStats {
+			names = append(names, f.Filename)
+		}
+		t.Fatalf("expected FileStat for pkg/new.go, got %v", names)
+	}
+	// Only a comment was added during the rename — filtered counts must be zero.
+	if fs.Insertions != 0 || fs.Deletions != 0 {
+		t.Errorf("rename+comment commit: expected 0/0 filtered counts, got +%d/-%d", fs.Insertions, fs.Deletions)
+	}
+}
+
+func TestResolveRenamePath(t *testing.T) {
+	cases := []struct{ in, want string }{
+		{"regular/file.go", "regular/file.go"},
+		{"dir/{old.go => new.go}", "dir/new.go"},
+		{"{old_dir => new_dir}/file.go", "new_dir/file.go"},
+		{"old/path.go => new/path.go", "new/path.go"},
+		{"src/{subdir => }/file.go", "src/file.go"},
+		{"src/{ => subdir}/file.go", "src/subdir/file.go"},
+	}
+	for _, c := range cases {
+		if got := resolveRenamePath(c.in); got != c.want {
+			t.Errorf("resolveRenamePath(%q) = %q, want %q", c.in, got, c.want)
+		}
+	}
+}
+
 // Python docstring handling.
 func TestParseLog_PythonDocstring(t *testing.T) {
 	dir := newTempRepo(t)

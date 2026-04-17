@@ -105,7 +105,9 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 
 		if strings.HasPrefix(line, "diff --git ") {
 			flushFile()
-			if idx := strings.Index(line, " b/"); idx > 0 {
+			// `diff --git a/<path> b/<path>` — a filename may itself contain " b/",
+			// so anchor on the LAST occurrence to find the new-side separator.
+			if idx := strings.LastIndex(line, " b/"); idx > 0 {
 				curFileName = line[idx+3:]
 				filter = NewFileFilter(curFileName)
 				inDiff = true
@@ -164,7 +166,7 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 		current.FileStats = append(current.FileStats, FileStat{
 			Insertions: ins,
 			Deletions:  del,
-			Filename:   parts[2],
+			Filename:   resolveRenamePath(parts[2]),
 		})
 	}
 
@@ -174,11 +176,48 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 	}
 
 	scanErr := scanner.Err()
-	_ = cmd.Wait()
+	waitErr := cmd.Wait()
 	if scanErr != nil {
 		return commits, scanErr
 	}
+	if waitErr != nil {
+		return commits, waitErr
+	}
 	return commits, nil
+}
+
+// resolveRenamePath converts a git-numstat path that may embed rename syntax
+// into the new-side path used by the diff's `+++ b/<path>` header.
+//
+//	"dir/{old.go => new.go}"       → "dir/new.go"
+//	"{old_dir => new_dir}/file.go" → "new_dir/file.go"
+//	"old/path.go => new/path.go"   → "new/path.go"
+//	"regular/file.go"              → "regular/file.go"
+//
+// Keeping FileStat.Filename normalized to the new path lets downstream
+// matching (comment filter, exclude patterns, arch-file detection) work
+// without each caller re-parsing the rename syntax.
+func resolveRenamePath(p string) string {
+	if !strings.Contains(p, " => ") {
+		return p
+	}
+	if i := strings.IndexByte(p, '{'); i >= 0 {
+		if j := strings.IndexByte(p[i:], '}'); j > 0 {
+			inner := p[i+1 : i+j]
+			if sep := strings.Index(inner, " => "); sep >= 0 {
+				joined := p[:i] + inner[sep+4:] + p[i+j+1:]
+				// `src/{foo => }/bar` → `src//bar`; collapse doubled slashes.
+				for strings.Contains(joined, "//") {
+					joined = strings.ReplaceAll(joined, "//", "/")
+				}
+				return strings.TrimSuffix(joined, "/")
+			}
+		}
+	}
+	if sep := strings.Index(p, " => "); sep >= 0 {
+		return p[sep+4:]
+	}
+	return p
 }
 
 // ParseMergeCommits returns merge-only commits (no file stats).
