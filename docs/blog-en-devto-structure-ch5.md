@@ -30,7 +30,7 @@ The **3 layers + 2 transformations** model introduced in chapter 4 (Principle �
 | | Organization | Product |
 |---|---|---|
 | **Principle** | Strategy, worldview, thinking | Themes, design principles, UX principles, what we won't build |
-| ↕ **Principle ↔ Structure transformation** | Translate thought into org design / architecture; walk org reality back for re-evaluating thought | Translate thought into IA; walk screen-level reality back for re-evaluating principles |
+| ↕ **Principle ↔ Structure transformation** | Translate thought into org design / architecture; walk structural reality back for re-evaluating thought | Translate thought into IA; walk IA-level reality back for re-evaluating principles |
 | **Structure** | Architecture, org design, operational design | Information architecture, screen transitions, state models, feature organization |
 | ↕ **Structure ↔ Implementation transformation** | Translate org design into daily operations and code conventions; walk implementation texture back into structural correction | Translate IA into concrete screens / APIs; walk screen behavior back into IA correction |
 | **Implementation** | Code, features, operations | Screens, operations, micro-interactions, APIs |
@@ -42,7 +42,7 @@ Not metaphorically. As a **design principle**.
 - An organization with a thin Structure layer and stalled transformation also has broken information architecture in its product.
 - An organization where product Principle (themes / principles) isn't settled also has an unsettled organizational Principle.
 - An organization with a scattered product Implementation also has engineers with mixed Styles in *their* implementation layer.
-- An organization where the Principle ↔ Structure transformation has stalled is also a place where themes don't descend into screen-level design on the product side.
+- An organization where the Principle ↔ Structure transformation has stalled is also a place where themes don't descend into information architecture on the product side.
 
 **The two break symmetrically and heal symmetrically.**
 
