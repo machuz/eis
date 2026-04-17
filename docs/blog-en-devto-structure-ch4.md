@@ -262,13 +262,13 @@ These are typically **not personal capability problems**. The day-to-day workloa
 A prediction worth writing down: AI will reshape the layers, but unevenly.
 
 - **Implementation** — most replaceable by AI. Code generation, test generation, first-pass review, doc generation. The Implementation layer 10 years out is **human + agent hybrid** as the default
-- **Intermediate** — AI is bad at this. **Holding context, translating organization-specific constraints and intent** isn't something general-purpose AI handles well. Translator value here **goes up, not down**
+- **Intermediate** — The **technical side of translation** (long-context holding, paraphrasing across abstraction levels, summarizing, integrating multiple viewpoints) is something general-purpose AI is increasingly good at; this part will be offloaded to AI. What remains is the side that depends on **a human being seated in the room**: accumulated trust, political judgment (who to tell what, when), and bearing responsibility for decisions over time. The Intermediate layer's role doesn't disappear, but its content **shifts from "doing the translation" to "being the human accountable for the translation."**
 - **Principle** — not replaced by AI. **What not to build, who to build for** is the organization's will itself. AI surfaces material; it doesn't make the call
 
 Working backwards from this prediction, organizations should prepare:
 
 1. **Design Implementation to be AI-amplified**: structure the codebase, test infrastructure, doc standards so human Implementation members can leverage AI
-2. **Thicken Intermediate**: deliberately grow translators. The Producer → Emergent Architect evolution path connects here
+2. **Thicken Intermediate**: the mechanical translation load gets lighter with AI, but the need to deliberately grow **translators as accountable subjects** doesn't change — if anything, the differential between organizations now shows up in *the quality of the people bearing responsibility*, since the mechanical part is offloaded. The Producer → Emergent Architect evolution path connects here.
 3. **Document Principle**: write down "what we won't build." Precisely because AI can't make these calls, human judgment history needs to be visible
 
 ## What Changes in the Field
