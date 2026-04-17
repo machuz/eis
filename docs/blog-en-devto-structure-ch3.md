@@ -140,6 +140,22 @@ This state **isn't a lack of ability**. More often, it's a **layer mismatch**. S
 
 The intervention isn't **making them try harder**. It's changing placement.
 
+#### Some People Play Spread Strategically
+
+One more distinction worth drawing. Some engineers who *look* like Spread on the signals are **doing it strategically**.
+
+Complex requirements, or a product vision that resists verbalization, sometimes **can't be communicated to a team through conversation alone**. The hands stop moving before the design intent lands. Certain seniors, in these situations, write **a rough, working skeleton across the relevant area themselves**. They don't chase quality in the details — they **hand quality off to the engineers who come next**.
+
+This is neither Mass nor Churn. The structure of the act is different:
+
+- The person isn't aiming for "my code survives"
+- What they write functions as **a strike surface for the team's real discussion**
+- Value only completes when subsequent engineers (Anchors, Cleaners) layer the real skeleton on top
+
+On observational signals, this looks like Spread (Production ↑, Survival ↓, Design ↓). The tell is: **is the person handing off to the people behind them**, and **is Survival / Design rising in those same modules afterward?** If the team's Robust Survival is climbing in the regions they touched, what you're looking at is **intended Spread** — team-accelerating scaffolding.
+
+This kind of contributor is hard to identify on observation alone. Combine observation with direct conversation and with how Survival evolves around them. Mistakenly intervening as "Spread → reassign" risks **destroying the organization's drive engine**.
+
 ### Fragile — Only Survival Is High, Without Change Pressure
 
 - Signal: Survival ↑, Production ↓, Quality < 70
