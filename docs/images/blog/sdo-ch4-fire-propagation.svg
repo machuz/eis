@@ -96,14 +96,14 @@
   <text x="572" y="192" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">「次の四半期、戦略を転換する」</text>
   <text x="572" y="208" class="jp" fill="#928374" font-size="10">原理層としては合理的な決定</text>
 
-  <!-- Transformation 1 (active) -->
+  <!-- Transformation 1 (active) — arrows flank the text -->
   <g>
-    <line x1="704" y1="228" x2="704" y2="268" stroke="#8ec07c" stroke-width="2.5"/>
-    <polygon points="698,264 710,264 704,276" fill="#8ec07c"/>
+    <line x1="604" y1="228" x2="604" y2="268" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="598,264 610,264 604,276" fill="#8ec07c"/>
   </g>
   <g>
-    <line x1="728" y1="228" x2="728" y2="268" stroke="#8ec07c" stroke-width="2"/>
-    <polygon points="722,232 734,232 728,222" fill="#8ec07c"/>
+    <line x1="828" y1="228" x2="828" y2="268" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="822,232 834,232 828,222" fill="#8ec07c"/>
   </g>
   <text x="716" y="248" text-anchor="middle" class="jp" fill="#8ec07c" font-size="11" font-weight="700">✓ 変換者が翻訳</text>
   <text x="716" y="262" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">思想を構造の形に</text>
@@ -116,14 +116,14 @@
   <text x="570" y="324" class="jp" fill="#ebdbb2" font-size="12" font-weight="700">「新しい方向性 Y、X は Y の前提」</text>
   <text x="570" y="342" class="jp" fill="#928374" font-size="11">変換者 ← ここに座って両方向を繋ぐ</text>
 
-  <!-- Transformation 2 (active) -->
+  <!-- Transformation 2 (active) — arrows flank the text -->
   <g>
-    <line x1="704" y1="370" x2="704" y2="402" stroke="#8ec07c" stroke-width="2.5"/>
-    <polygon points="698,398 710,398 704,408" fill="#8ec07c"/>
+    <line x1="604" y1="370" x2="604" y2="402" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="598,398 610,398 604,408" fill="#8ec07c"/>
   </g>
   <g>
-    <line x1="728" y1="370" x2="728" y2="402" stroke="#8ec07c" stroke-width="2"/>
-    <polygon points="722,374 734,374 728,364" fill="#8ec07c"/>
+    <line x1="828" y1="370" x2="828" y2="402" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="822,374 834,374 828,364" fill="#8ec07c"/>
   </g>
   <text x="716" y="388" text-anchor="middle" class="jp" fill="#8ec07c" font-size="11" font-weight="700">✓ 変換者が翻訳</text>
   <text x="716" y="402" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">構造を手が動く粒度に</text>
