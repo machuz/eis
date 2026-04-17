@@ -206,10 +206,28 @@ func BlameFileAtParent(ctx context.Context, repoPath, commitHash, filepath strin
 		return nil, err
 	}
 
+	filter := NewFileFilter(filepath)
+	filename := filepath
+	filterFor := filepath
+
 	var authors []string
+	var pendingAuthor string
 	for _, line := range lines {
-		if strings.HasPrefix(line, "author ") {
-			authors = append(authors, strings.TrimPrefix(line, "author "))
+		switch {
+		case strings.HasPrefix(line, "author "):
+			pendingAuthor = strings.TrimPrefix(line, "author ")
+		case strings.HasPrefix(line, "filename "):
+			filename = strings.TrimPrefix(line, "filename ")
+			if filename != filterFor {
+				filter = NewFileFilter(filename)
+				filterFor = filename
+			}
+		case strings.HasPrefix(line, "\t"):
+			content := line[1:]
+			if pendingAuthor != "" && !filter.IsSkip(content) {
+				authors = append(authors, pendingAuthor)
+			}
+			pendingAuthor = ""
 		}
 	}
 	return authors, nil
@@ -268,6 +286,9 @@ func parsePorcelainBlame(lines []string, defaultFilename string) []BlameLine {
 	var committerTime time.Time
 	filename := defaultFilename
 
+	filter := NewFileFilter(defaultFilename)
+	filterFor := defaultFilename
+
 	for _, line := range lines {
 		switch {
 		case strings.HasPrefix(line, "author "):
@@ -279,9 +300,14 @@ func parsePorcelainBlame(lines []string, defaultFilename string) []BlameLine {
 			}
 		case strings.HasPrefix(line, "filename "):
 			filename = strings.TrimPrefix(line, "filename ")
+			if filename != filterFor {
+				filter = NewFileFilter(filename)
+				filterFor = filename
+			}
 		case strings.HasPrefix(line, "\t"):
 			// content line = end of block
-			if author != "" {
+			content := line[1:]
+			if author != "" && !filter.IsSkip(content) {
 				result = append(result, BlameLine{
 					Author:        author,
 					CommitterTime: committerTime,
@@ -309,6 +335,8 @@ func BlameFileStream(ctx context.Context, repoPath, filepath string) ([]BlameLin
 	var author string
 	var committerTime time.Time
 	filename := filepath
+	filter := NewFileFilter(filepath)
+	filterFor := filepath
 
 	scanner := bufio.NewScanner(stdout)
 	scanner.Buffer(make([]byte, 1024*1024), 1024*1024)
@@ -325,8 +353,13 @@ func BlameFileStream(ctx context.Context, repoPath, filepath string) ([]BlameLin
 			}
 		case strings.HasPrefix(line, "filename "):
 			filename = strings.TrimPrefix(line, "filename ")
+			if filename != filterFor {
+				filter = NewFileFilter(filename)
+				filterFor = filename
+			}
 		case strings.HasPrefix(line, "\t"):
-			if author != "" {
+			content := line[1:]
+			if author != "" && !filter.IsSkip(content) {
 				result = append(result, BlameLine{
 					Author:        author,
 					CommitterTime: committerTime,
@@ -416,6 +449,8 @@ func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath strin
 	var author string
 	var committerTime time.Time
 	filename := filepath
+	filter := NewFileFilter(filepath)
+	filterFor := filepath
 
 	scanner := bufio.NewScanner(stdout)
 	scanner.Buffer(make([]byte, 1024*1024), 1024*1024)
@@ -432,8 +467,13 @@ func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath strin
 			}
 		case strings.HasPrefix(line, "filename "):
 			filename = strings.TrimPrefix(line, "filename ")
+			if filename != filterFor {
+				filter = NewFileFilter(filename)
+				filterFor = filename
+			}
 		case strings.HasPrefix(line, "\t"):
-			if author != "" {
+			content := line[1:]
+			if author != "" && !filter.IsSkip(content) {
 				result = append(result, BlameLine{
 					Author:        author,
 					CommitterTime: committerTime,

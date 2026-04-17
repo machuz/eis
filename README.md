@@ -322,6 +322,7 @@ Module topology requires `--pressure-mode include` (the default).
 - **Domains are observed separately** (Backend/Frontend/Infra/Firmware by default, plus custom domains) — mixing them contaminates rankings; auto-detected from file extensions or configured explicitly
 - **Hybrid observation** — Production, Quality, and Debt use absolute scales (cross-org comparable); Survival, Design, Breadth, and Indispensability use relative normalization within domain
 - **Debt threshold** — members with fewer than 10 debt events get a neutral signal (50) to avoid extreme ratios
+- **Comments don't count** — comment-only and blank lines in code files (Go/TS/Py/Ruby/SQL/etc.) are excluded from Production, Survival, Design, and Debt. You can't inflate your scores by spamming `//` comments. Prose files (`.md`, `.txt`, `.rst`) are counted verbatim so that documentation and research writing are fully preserved.
 - **Accuracy scales with codebase design quality** — well-structured codebases (Clean Architecture, DDD) yield more meaningful signals. If the signal doesn't match gut feeling, it may indicate poor codebase structure rather than a metric problem
 
 ## CLI Options
