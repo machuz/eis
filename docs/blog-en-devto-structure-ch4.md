@@ -230,7 +230,7 @@ As Will Larson's *Staff Engineer* lays out, Staff Engineer splits into several a
 - **Architect variant** — Intermediate + Principle (within a domain). Owns long-term technical direction.
 - **Solver variant** — Implementation + Intermediate. Drops into the organization's hardest technical problem, solves it, and moves on.
 - **Right Hand variant** — Intermediate + Principle. Embedded partner / thinking sounding board for an executive (CTO / VPoE).
-- **Full-spectrum variant** — Crosses Implementation, Intermediate, and Principle. **The same person who drew the design also drops into the code, and then carries the reality of implementation back up to Principle.** Most powerful in early-stage startups, or when seeding new culture into an existing organization.
+- **Full-spectrum variant** (not in Larson's taxonomy; added by this book) — Crosses Implementation, Intermediate, and Principle. **The same person who drew the design also drops into the code, and then carries the reality of implementation back up to Principle.** Most powerful in early-stage startups, or when seeding new culture into an existing organization.
 
 The Right Hand and Architect variants **dig deep into Principle.** The Tech Lead and Solver variants live mostly in Intermediate / Implementation.
 
