@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="660" viewBox="0 0 960 660">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+    <!-- Fire icon (flame) -->
+    <symbol id="flame-on" viewBox="0 0 24 24">
+      <path d="M12 2c-1.5 3.5-4 5.5-4 9 0 3 2 5 4 5s4-2 4-5c0-1.5-0.5-3-1.5-4.5-0.5 1-1 1.5-1.5 1.5 0-2-0.5-3.5-1-6z" fill="#fe8019"/>
+      <path d="M12 8c-0.5 1-1.5 2-1.5 3.5 0 1.5 0.7 2.5 1.5 2.5s1.5-1 1.5-2.5c0-0.7-0.3-1.3-0.7-2-0.3 0.5-0.6 0.7-0.8 0.7 0-1-0-1.5 0-1.7z" fill="#fabd2f"/>
+    </symbol>
+    <symbol id="flame-off" viewBox="0 0 24 24">
+      <path d="M12 2c-1.5 3.5-4 5.5-4 9 0 3 2 5 4 5s4-2 4-5c0-1.5-0.5-3-1.5-4.5-0.5 1-1 1.5-1.5 1.5 0-2-0.5-3.5-1-6z" fill="#504945" opacity="0.6"/>
+      <line x1="6" y1="18" x2="18" y2="6" stroke="#cc241d" stroke-width="2"/>
+    </symbol>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="660" rx="12" fill="#1d2021"/>
+
+  <!-- Accent bar -->
+  <rect x="0" y="0" width="4" height="660" rx="2" fill="#8ec07c"/>
+
+  <!-- Category label -->
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Fire Propagation · ch4</text>
+
+  <!-- Title -->
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">火の伝播 — 変換者がいるか、いないか</text>
+  <text x="480" y="68" text-anchor="middle" class="mono" fill="#928374" font-size="12">原理層の決定「戦略の転換」が、火を消さずに実装層まで届くか</text>
+
+  <!-- Column headers -->
+  <text x="244" y="102" text-anchor="middle" class="jp" fill="#cc241d" font-size="18" font-weight="800">✕　変換者なし</text>
+  <text x="244" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">without transformer</text>
+  <text x="716" y="102" text-anchor="middle" class="jp" fill="#b8bb26" font-size="18" font-weight="800">✓　変換者あり</text>
+  <text x="716" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">with transformer</text>
+
+  <!-- Divider -->
+  <line x1="480" y1="140" x2="480" y2="600" stroke="#3c3836" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ============ PANEL A: No Transformer ============ -->
+
+  <!-- Principle Layer (left) -->
+  <rect x="40" y="140" width="408" height="76" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="40" y="140" width="6" height="76" rx="3" fill="#fabd2f"/>
+  <use href="#flame-on" x="60" y="162" width="28" height="28"/>
+  <text x="100" y="172" class="jp" fill="#fabd2f" font-size="14" font-weight="800">原理層</text>
+  <text x="100" y="192" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">「次の四半期、戦略を転換する」</text>
+  <text x="100" y="208" class="jp" fill="#928374" font-size="10">原理層としては合理的な決定</text>
+
+  <!-- Transformation gap (stalled) -->
+  <g>
+    <line x1="244" y1="228" x2="244" y2="268" stroke="#504945" stroke-width="2" stroke-dasharray="4 3"/>
+    <polygon points="238,264 250,264 244,274" fill="#504945"/>
+  </g>
+  <text x="244" y="248" text-anchor="middle" class="jp" fill="#cc241d" font-size="11" font-weight="700">✕ 変換されず</text>
+  <text x="244" y="262" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">原理の言葉のまま下りる</text>
+
+  <!-- Structure Layer (left) - thin/empty -->
+  <rect x="40" y="282" width="408" height="58" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1" stroke-dasharray="3 3" opacity="0.55"/>
+  <rect x="40" y="282" width="6" height="58" rx="3" fill="#d3869b" opacity="0.55"/>
+  <use href="#flame-off" x="60" y="295" width="24" height="24"/>
+  <text x="100" y="310" class="jp" fill="#d3869b" font-size="14" font-weight="800" opacity="0.6">構造層</text>
+  <text x="100" y="330" class="jp" fill="#7c6f64" font-size="11">（空洞）構造の形に変換されない</text>
+
+  <!-- Transformation gap 2 (stalled) -->
+  <g>
+    <line x1="244" y1="354" x2="244" y2="394" stroke="#504945" stroke-width="2" stroke-dasharray="4 3"/>
+    <polygon points="238,390 250,390 244,400" fill="#504945"/>
+  </g>
+  <text x="244" y="374" text-anchor="middle" class="jp" fill="#cc241d" font-size="11" font-weight="700">✕ 変換されず</text>
+  <text x="244" y="388" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">抽象のまま現場に落ちる</text>
+
+  <!-- Implementation Layer (left) -->
+  <rect x="40" y="408" width="408" height="120" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="408" width="6" height="120" rx="3" fill="#83a598"/>
+  <use href="#flame-off" x="60" y="428" width="28" height="28"/>
+  <text x="100" y="438" class="jp" fill="#83a598" font-size="14" font-weight="800">実装層</text>
+  <text x="100" y="456" class="jp" fill="#cc241d" font-size="12" font-weight="700">「半年かけて作ってきたものが捨てられる」</text>
+  <text x="100" y="474" class="jp" fill="#cc241d" font-size="12" font-weight="700">「自分の判断は組織に必要とされていなかった」</text>
+  <text x="100" y="497" class="jp" fill="#7c6f64" font-size="11">として届く → 火が消える</text>
+  <text x="100" y="515" class="jp" fill="#7c6f64" font-size="11">次に声を上げる人もいなくなる</text>
+
+  <!-- Outcome annotation -->
+  <rect x="60" y="548" width="368" height="40" rx="8" fill="#1d2021" stroke="#cc241d" stroke-width="1"/>
+  <text x="244" y="566" text-anchor="middle" class="jp" fill="#fb4934" font-size="12" font-weight="700">組織全体としては火が落ちていく</text>
+  <text x="244" y="582" text-anchor="middle" class="jp" fill="#928374" font-size="10">みんな悪意なく頑張っているのに、前に進まない</text>
+
+  <!-- ============ PANEL B: With Transformer ============ -->
+
+  <!-- Principle Layer (right) -->
+  <rect x="512" y="140" width="408" height="76" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="512" y="140" width="6" height="76" rx="3" fill="#fabd2f"/>
+  <use href="#flame-on" x="532" y="162" width="28" height="28"/>
+  <text x="572" y="172" class="jp" fill="#fabd2f" font-size="14" font-weight="800">原理層</text>
+  <text x="572" y="192" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">「次の四半期、戦略を転換する」</text>
+  <text x="572" y="208" class="jp" fill="#928374" font-size="10">原理層としては合理的な決定</text>
+
+  <!-- Transformation 1 (active) — arrows flank the text -->
+  <g>
+    <line x1="604" y1="228" x2="604" y2="268" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="598,264 610,264 604,276" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="828" y1="228" x2="828" y2="268" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="822,232 834,232 828,222" fill="#8ec07c"/>
+  </g>
+  <text x="716" y="248" text-anchor="middle" class="jp" fill="#8ec07c" font-size="11" font-weight="700">✓ 変換者が翻訳</text>
+  <text x="716" y="262" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">思想を構造の形に</text>
+
+  <!-- Structure Layer (right) - thick/active -->
+  <rect x="512" y="282" width="408" height="76" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="512" y="282" width="6" height="76" rx="3" fill="#d3869b"/>
+  <use href="#flame-on" x="532" y="294" width="26" height="26"/>
+  <text x="570" y="305" class="jp" fill="#d3869b" font-size="14" font-weight="800">構造層</text>
+  <text x="570" y="324" class="jp" fill="#ebdbb2" font-size="12" font-weight="700">「新しい方向性 Y、X は Y の前提」</text>
+  <text x="570" y="342" class="jp" fill="#928374" font-size="11">変換者 ← ここに座って両方向を繋ぐ</text>
+
+  <!-- Transformation 2 (active) — arrows flank the text -->
+  <g>
+    <line x1="604" y1="370" x2="604" y2="402" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="598,398 610,398 604,408" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="828" y1="370" x2="828" y2="402" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="822,374 834,374 828,364" fill="#8ec07c"/>
+  </g>
+  <text x="716" y="388" text-anchor="middle" class="jp" fill="#8ec07c" font-size="11" font-weight="700">✓ 変換者が翻訳</text>
+  <text x="716" y="402" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">構造を手が動く粒度に</text>
+
+  <!-- Implementation Layer (right) -->
+  <rect x="512" y="420" width="408" height="108" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="512" y="420" width="6" height="108" rx="3" fill="#83a598"/>
+  <use href="#flame-on" x="532" y="440" width="28" height="28"/>
+  <text x="572" y="450" class="jp" fill="#83a598" font-size="14" font-weight="800">実装層</text>
+  <text x="572" y="468" class="jp" fill="#b8bb26" font-size="12" font-weight="700">「これまで作った X は、新しい Y の前提として残る」</text>
+  <text x="572" y="486" class="jp" fill="#b8bb26" font-size="12" font-weight="700">「Y は X の上に立つ」</text>
+  <text x="572" y="507" class="jp" fill="#7c6f64" font-size="11">として届く → 火が消えない、むしろ増幅する</text>
+
+  <!-- Outcome annotation -->
+  <rect x="532" y="548" width="368" height="40" rx="8" fill="#1d2021" stroke="#b8bb26" stroke-width="1"/>
+  <text x="716" y="566" text-anchor="middle" class="jp" fill="#b8bb26" font-size="12" font-weight="700">組織全体で火が増幅していく</text>
+  <text x="716" y="582" text-anchor="middle" class="jp" fill="#928374" font-size="10">決定は受け入れられ、次の判断の材料として積まれる</text>
+
+  <!-- Footer note -->
+  <text x="480" y="628" text-anchor="middle" class="jp" fill="#a89984" font-size="12">単独レイヤーの決定は、それ単体では正しい。間違っているのは「他層へ届く経路に変換がないこと」</text>
+  <text x="480" y="648" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">変換者は火の伝播路上に座っている。火を消すこともできるし、大きくすることもできる。</text>
+</svg>

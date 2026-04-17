@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="680" viewBox="0 0 720 680">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="680" rx="12" fill="#1d2021"/>
+
+  <!-- Accent bar -->
+  <rect x="0" y="0" width="4" height="680" rx="2" fill="#8ec07c"/>
+
+  <!-- Category label -->
+  <text x="696" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Vertical Consistency · ch5</text>
+
+  <!-- Title -->
+  <text x="360" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Vertical Consistency — Thought Translated at Each Layer</text>
+  <text x="360" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">Example: "Simplicity" in Principle, retranslated into Structure and Implementation vocabulary</text>
+
+  <!-- ================== Principle Layer ================== -->
+  <rect x="48" y="96" width="624" height="88" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="48" y="96" width="6" height="88" rx="3" fill="#fabd2f"/>
+  <text x="74" y="130" class="sans" fill="#fabd2f" font-size="22" font-weight="800">Principle</text>
+  <text x="74" y="148" class="mono" fill="#7c6f64" font-size="11">seed thought</text>
+  <text x="380" y="135" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="28" font-weight="800" letter-spacing="2">"Simplicity"</text>
+  <text x="380" y="164" text-anchor="middle" class="sans" fill="#928374" font-size="11">A principle named at the top. On its own, it doesn't guide implementation yet.</text>
+
+  <!-- ================== Transformation 1 (Principle ↔ Structure) ================== -->
+  <!-- Down arrow -->
+  <g>
+    <line x1="332" y1="202" x2="332" y2="254" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="326,250 338,250 332,262" fill="#8ec07c"/>
+  </g>
+  <text x="318" y="218" text-anchor="end" class="sans" fill="#8ec07c" font-size="11" font-weight="700">↓ translate</text>
+  <text x="318" y="234" text-anchor="end" class="sans" fill="#928374" font-size="11">into Structure vocab</text>
+  <text x="318" y="248" text-anchor="end" class="sans" fill="#7c6f64" font-size="10">reconstruct as IA shape</text>
+
+  <!-- Up arrow -->
+  <g>
+    <line x1="388" y1="202" x2="388" y2="254" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="382,210 394,210 388,198" fill="#8ec07c"/>
+  </g>
+  <text x="402" y="218" class="sans" fill="#8ec07c" font-size="11" font-weight="700">↑ re-evaluate</text>
+  <text x="402" y="234" class="sans" fill="#928374" font-size="11">IA distortion back to thought</text>
+  <text x="402" y="248" class="sans" fill="#7c6f64" font-size="10">"is this actually simple?"</text>
+
+  <!-- T1 label directly above Structure -->
+  <rect x="240" y="266" width="240" height="22" rx="11" fill="#1d2021" stroke="#8ec07c" stroke-width="1"/>
+  <text x="360" y="282" text-anchor="middle" class="sans" fill="#8ec07c" font-size="12" font-weight="700">transformation · Principle ↔ Structure</text>
+
+  <!-- ================== Structure Layer ================== -->
+  <rect x="48" y="304" width="624" height="96" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="48" y="304" width="6" height="96" rx="3" fill="#d3869b"/>
+  <text x="74" y="338" class="sans" fill="#d3869b" font-size="22" font-weight="800">Structure</text>
+  <text x="74" y="356" class="mono" fill="#7c6f64" font-size="11">translate #1</text>
+  <text x="220" y="336" class="sans" fill="#ebdbb2" font-size="14" font-weight="700">→ "IA you don't have to search through"</text>
+  <text x="220" y="360" class="sans" fill="#ebdbb2" font-size="14" font-weight="700">→ "Minimum screen transitions in the IA"</text>
+  <text x="220" y="386" class="sans" fill="#928374" font-size="11">Structure received the thought as an "information-structural form"</text>
+
+  <!-- T2 label directly below Structure -->
+  <rect x="224" y="412" width="272" height="22" rx="11" fill="#1d2021" stroke="#8ec07c" stroke-width="1"/>
+  <text x="360" y="428" text-anchor="middle" class="sans" fill="#8ec07c" font-size="12" font-weight="700">transformation · Structure ↔ Implementation</text>
+
+  <!-- ================== Transformation 2 (Structure ↔ Implementation) ================== -->
+  <!-- Down arrow -->
+  <g>
+    <line x1="332" y1="446" x2="332" y2="498" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="326,494 338,494 332,506" fill="#8ec07c"/>
+  </g>
+  <text x="318" y="462" text-anchor="end" class="sans" fill="#8ec07c" font-size="11" font-weight="700">↓ translate</text>
+  <text x="318" y="478" text-anchor="end" class="sans" fill="#928374" font-size="11">into Implementation vocab</text>
+  <text x="318" y="492" text-anchor="end" class="sans" fill="#7c6f64" font-size="10">decompose into hands-on grain</text>
+
+  <!-- Up arrow -->
+  <g>
+    <line x1="388" y1="446" x2="388" y2="498" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="382,454 394,454 388,442" fill="#8ec07c"/>
+  </g>
+  <text x="402" y="462" class="sans" fill="#8ec07c" font-size="11" font-weight="700">↑ re-evaluate</text>
+  <text x="402" y="478" class="sans" fill="#928374" font-size="11">screen behavior back to IA</text>
+  <text x="402" y="492" class="sans" fill="#7c6f64" font-size="10">is the IA faithfully expressed?</text>
+
+  <!-- ================== Implementation Layer ================== -->
+  <rect x="48" y="528" width="624" height="112" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="48" y="528" width="6" height="112" rx="3" fill="#83a598"/>
+  <text x="74" y="562" class="sans" fill="#83a598" font-size="22" font-weight="800">Implementation</text>
+  <text x="74" y="580" class="mono" fill="#7c6f64" font-size="11">translate #2</text>
+  <text x="220" y="560" class="sans" fill="#ebdbb2" font-size="14" font-weight="700">→ "Fewer buttons"</text>
+  <text x="220" y="584" class="sans" fill="#ebdbb2" font-size="14" font-weight="700">→ "Minimal operations to complete"</text>
+  <text x="220" y="608" class="sans" fill="#ebdbb2" font-size="14" font-weight="700">→ "No extra API arguments"</text>
+  <text x="220" y="628" class="sans" fill="#928374" font-size="11">Implementation received the structure as a "tangible form under the hands"</text>
+
+  <!-- Footer note -->
+  <text x="360" y="664" text-anchor="middle" class="sans" fill="#a89984" font-size="12">Without translation at each layer, thought evaporates the moment it crosses a layer boundary. A sticky note labeled "simplicity" doesn't tell an implementer what to do.</text>
+</svg>

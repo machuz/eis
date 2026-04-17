@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="640" rx="12" fill="#1d2021"/>
+
+  <!-- Accent bar -->
+  <rect x="0" y="0" width="4" height="640" rx="2" fill="#8ec07c"/>
+
+  <!-- Category label -->
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Isomorphism · ch5</text>
+
+  <!-- Title -->
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Product ⇄ Organization Isomorphism</text>
+  <text x="480" y="68" text-anchor="middle" class="mono" fill="#928374" font-size="12">3 layers + 2 transformations stand as mirror images on both sides</text>
+
+  <!-- Column headers -->
+  <text x="208" y="108" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="18" font-weight="800">Organization</text>
+  <text x="208" y="128" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">how the team is shaped</text>
+  <text x="752" y="108" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="18" font-weight="800">Product</text>
+  <text x="752" y="128" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">what the team builds</text>
+
+  <!-- ═══════════════ PRINCIPLE ROW ═══════════════ -->
+  <rect x="40" y="148" width="336" height="72" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="40" y="148" width="6" height="72" rx="3" fill="#fabd2f"/>
+  <text x="60" y="180" class="sans" fill="#fabd2f" font-size="18" font-weight="800">Principle</text>
+  <text x="60" y="198" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">Strategy, worldview, thinking</text>
+  <text x="60" y="214" class="sans" fill="#7c6f64" font-size="10">why we build / where we bet</text>
+
+  <rect x="584" y="148" width="336" height="72" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="584" y="148" width="6" height="72" rx="3" fill="#fabd2f"/>
+  <text x="604" y="180" class="sans" fill="#fabd2f" font-size="18" font-weight="800">Principle</text>
+  <text x="604" y="198" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">Themes, UX principles</text>
+  <text x="604" y="214" class="sans" fill="#7c6f64" font-size="10">what we won't build / for whom</text>
+
+  <g>
+    <line x1="380" y1="184" x2="580" y2="184" stroke="#fabd2f" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>
+    <polygon points="384,180 376,184 384,188" fill="#fabd2f" opacity="0.8"/>
+    <polygon points="576,180 584,184 576,188" fill="#fabd2f" opacity="0.8"/>
+    <rect x="437" y="173" width="86" height="22" rx="11" fill="#1d2021" stroke="#fabd2f" stroke-width="1" opacity="0.9"/>
+    <text x="480" y="189" text-anchor="middle" class="sans" fill="#fabd2f" font-size="11" font-weight="700">≅ isomorphic</text>
+  </g>
+
+  <!-- ═══════════════ TRANSFORMATION 1 ═══════════════ -->
+  <g>
+    <line x1="192" y1="232" x2="192" y2="272" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="186,268 198,268 192,278" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="224" y1="232" x2="224" y2="272" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="218,236 230,236 224,226" fill="#8ec07c"/>
+  </g>
+  <text x="208" y="294" text-anchor="middle" class="sans" fill="#8ec07c" font-size="11" font-weight="700">transformation · Principle ↔ Structure</text>
+  <text x="208" y="308" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">thought → org design / structural reality → thought</text>
+
+  <g>
+    <line x1="736" y1="232" x2="736" y2="272" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="730,268 742,268 736,278" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="768" y1="232" x2="768" y2="272" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="762,236 774,236 768,226" fill="#8ec07c"/>
+  </g>
+  <text x="752" y="294" text-anchor="middle" class="sans" fill="#8ec07c" font-size="11" font-weight="700">transformation · Principle ↔ Structure</text>
+  <text x="752" y="308" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">thought → IA / IA-level reality → thought</text>
+
+  <!-- ═══════════════ STRUCTURE ROW ═══════════════ -->
+  <rect x="40" y="324" width="336" height="72" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="40" y="324" width="6" height="72" rx="3" fill="#d3869b"/>
+  <text x="60" y="356" class="sans" fill="#d3869b" font-size="18" font-weight="800">Structure</text>
+  <text x="60" y="374" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">Architecture, org design</text>
+  <text x="60" y="390" class="sans" fill="#7c6f64" font-size="10">RFCs · org charts · design docs</text>
+
+  <rect x="584" y="324" width="336" height="72" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="584" y="324" width="6" height="72" rx="3" fill="#d3869b"/>
+  <text x="604" y="356" class="sans" fill="#d3869b" font-size="18" font-weight="800">Structure</text>
+  <text x="604" y="374" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">IA, transitions, state models</text>
+  <text x="604" y="390" class="sans" fill="#7c6f64" font-size="10">feature organization</text>
+
+  <g>
+    <line x1="380" y1="360" x2="580" y2="360" stroke="#d3869b" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>
+    <polygon points="384,356 376,360 384,364" fill="#d3869b" opacity="0.8"/>
+    <polygon points="576,356 584,360 576,364" fill="#d3869b" opacity="0.8"/>
+    <rect x="437" y="349" width="86" height="22" rx="11" fill="#1d2021" stroke="#d3869b" stroke-width="1" opacity="0.9"/>
+    <text x="480" y="365" text-anchor="middle" class="sans" fill="#d3869b" font-size="11" font-weight="700">≅ isomorphic</text>
+  </g>
+
+  <!-- ═══════════════ TRANSFORMATION 2 ═══════════════ -->
+  <!-- Labels positioned directly below Structure to show transformation weight -->
+  <!-- Org side -->
+  <text x="208" y="414" text-anchor="middle" class="sans" fill="#8ec07c" font-size="11" font-weight="700">transformation · Structure ↔ Implementation</text>
+  <text x="208" y="428" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">org design → code conventions / texture → structure</text>
+  <g>
+    <line x1="192" y1="442" x2="192" y2="480" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="186,476 198,476 192,486" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="224" y1="442" x2="224" y2="480" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="218,446 230,446 224,436" fill="#8ec07c"/>
+  </g>
+
+  <!-- Product side -->
+  <text x="752" y="414" text-anchor="middle" class="sans" fill="#8ec07c" font-size="11" font-weight="700">transformation · Structure ↔ Implementation</text>
+  <text x="752" y="428" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">IA → screens / APIs / screen behavior → IA</text>
+  <g>
+    <line x1="736" y1="442" x2="736" y2="480" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="730,476 742,476 736,486" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="768" y1="442" x2="768" y2="480" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="762,446 774,446 768,436" fill="#8ec07c"/>
+  </g>
+
+  <!-- ═══════════════ IMPLEMENTATION ROW ═══════════════ -->
+  <rect x="40" y="500" width="336" height="72" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="500" width="6" height="72" rx="3" fill="#83a598"/>
+  <text x="60" y="532" class="sans" fill="#83a598" font-size="18" font-weight="800">Implementation</text>
+  <text x="60" y="550" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">Code, features, operations</text>
+  <text x="60" y="566" class="sans" fill="#7c6f64" font-size="10">day-to-day operation</text>
+
+  <rect x="584" y="500" width="336" height="72" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="584" y="500" width="6" height="72" rx="3" fill="#83a598"/>
+  <text x="604" y="532" class="sans" fill="#83a598" font-size="18" font-weight="800">Implementation</text>
+  <text x="604" y="550" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">Screens, operations, APIs</text>
+  <text x="604" y="566" class="sans" fill="#7c6f64" font-size="10">micro-interactions</text>
+
+  <g>
+    <line x1="380" y1="536" x2="580" y2="536" stroke="#83a598" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>
+    <polygon points="384,532 376,536 384,540" fill="#83a598" opacity="0.8"/>
+    <polygon points="576,532 584,536 576,540" fill="#83a598" opacity="0.8"/>
+    <rect x="437" y="525" width="86" height="22" rx="11" fill="#1d2021" stroke="#83a598" stroke-width="1" opacity="0.9"/>
+    <text x="480" y="541" text-anchor="middle" class="sans" fill="#83a598" font-size="11" font-weight="700">≅ isomorphic</text>
+  </g>
+
+  <!-- Footer note -->
+  <text x="480" y="608" text-anchor="middle" class="sans" fill="#a89984" font-size="12">The two break symmetrically and heal symmetrically. A one-sided repair regenerates the same break in six months.</text>
+  <text x="480" y="628" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">Conway's Law sharpened to the level of 3 layers + 2 transformations</text>
+</svg>

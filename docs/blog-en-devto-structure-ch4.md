@@ -39,6 +39,8 @@ The tree org chart can't display this kind of misalignment. Because it can't dis
 
 ## Principle ── transformation ── Structure ── transformation ── Implementation
 
+![3 Layers + 2 Transformations](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-three-layers-two-transformations-en.svg)
+
 An organization runs on three layers of differing abstraction. And **the layers don't connect by themselves**.
 
 **Principle ── transformation ── Structure ── transformation ── Implementation**
@@ -126,6 +128,8 @@ The role of transformation isn't only converting grammar. There's a second criti
 
 By "fire" we mean the floor's morale, momentum, trust in their own work, conviction in what they're building — the **internal energy that drives doing the work.** An organization's productivity ultimately rests on the total amount of this fire.
 
+![Fire Propagation — with or without a transformer](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-fire-propagation-en.svg)
+
 #### A single-layer decision tends to extinguish fire in other layers
 
 When Principle decides in isolation — strategic pivot, roadmap reshuffle, priority change — every decision is rational *within Principle*. But when those decisions reach Implementation without being transformed, they land as: "**six months of my work is being thrown away**" / "**my judgment wasn't needed by the organization**." The fire goes out.
@@ -165,6 +169,8 @@ There's one more layer in the distribution of transformers. **The person who exe
 Many technical leaders eventually become fluent at the **Structure ↔ Implementation** transformation — it's the transformation that tech leads and architects arrive at naturally. The **Principle ↔ Structure** transformation, on the other hand — turning thought into an organizational form, and sharpening thought through how the organization actually moves — is much harder to acquire. It's demanded of CEOs, founders, and strategic leaders, and most of them get stuck here.
 
 A transformation coach stands in front of **people who already have the lower transformation** and hands them the upper one they need to cross next. The coach doesn't execute transformation themselves. They produce people who can. **Installing the capability to carry transformation into other human beings** — that's the transformation coach's job.
+
+![Bill Campbell — the strongest transformation coach](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-bill-campbell-coach-en.svg)
 
 > **The strongest transformation coach — Bill Campbell (*Trillion Dollar Coach*)**
 >
@@ -225,6 +231,8 @@ A lot of "we're somehow not making progress" symptoms in organizations can be re
 ## Placement Design: Role × Layer
 
 The three-axis topology from chapter 3 (Role × Style × State) only functions when **combined with a layer placement**. Same Role, different layer → completely different result:
+
+![Role × Layer placement fit](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-role-layer-heatmap-en.svg)
 
 | Role | Implementation | Structure | Principle |
 |---|---|---|---|

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="680" viewBox="0 0 960 680">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="680" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="680" rx="2" fill="#fe8019"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Transformation Coach · ch4</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Bill Campbell — The Strongest Transformation Coach</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">Not someone who performs transformation — someone who expands others' transformation capability</text>
+
+  <text x="244" y="102" text-anchor="middle" class="sans" fill="#cc241d" font-size="18" font-weight="800">✕  CEO alone (tech background)</text>
+  <text x="244" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">without the coach</text>
+  <text x="716" y="102" text-anchor="middle" class="sans" fill="#fe8019" font-size="18" font-weight="800">✓  Bill Campbell coaching</text>
+  <text x="716" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">transformation coach present</text>
+
+  <line x1="480" y1="140" x2="480" y2="600" stroke="#3c3836" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ============ PANEL A ============ -->
+  <rect x="40" y="140" width="408" height="68" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="40" y="140" width="6" height="68" rx="3" fill="#fabd2f"/>
+  <text x="62" y="172" class="sans" fill="#fabd2f" font-size="16" font-weight="800">Principle</text>
+  <text x="62" y="192" class="sans" fill="#928374" font-size="10">strategy · worldview · thinking</text>
+
+  <!-- T1: STUCK -->
+  <g>
+    <line x1="244" y1="220" x2="244" y2="264" stroke="#cc241d" stroke-width="2" stroke-dasharray="5 3"/>
+    <polygon points="238,260 250,260 244,270" fill="#cc241d"/>
+  </g>
+  <text x="180" y="236" text-anchor="end" class="sans" fill="#cc241d" font-size="12" font-weight="700">✕ stuck</text>
+  <text x="180" y="252" text-anchor="end" class="sans" fill="#7c6f64" font-size="10">Principle ↔ Structure</text>
+  <text x="308" y="236" class="sans" fill="#cc241d" font-size="11" font-weight="700">hard to acquire</text>
+  <text x="308" y="252" class="sans" fill="#7c6f64" font-size="10">can't fold thought into org form</text>
+
+  <rect x="40" y="282" width="408" height="68" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="40" y="282" width="6" height="68" rx="3" fill="#d3869b"/>
+  <text x="62" y="314" class="sans" fill="#d3869b" font-size="16" font-weight="800">Structure</text>
+  <text x="62" y="334" class="sans" fill="#928374" font-size="10">architecture · org design</text>
+
+  <!-- T2: ACTIVE -->
+  <g>
+    <line x1="132" y1="362" x2="132" y2="406" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="126,402 138,402 132,414" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="356" y1="362" x2="356" y2="406" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="350,366 362,366 356,356" fill="#8ec07c"/>
+  </g>
+  <text x="244" y="382" text-anchor="middle" class="sans" fill="#8ec07c" font-size="12" font-weight="700">✓ capable</text>
+  <text x="244" y="398" text-anchor="middle" class="sans" fill="#928374" font-size="10">Structure ↔ Implementation (tech background gets here naturally)</text>
+
+  <rect x="40" y="424" width="408" height="68" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="424" width="6" height="68" rx="3" fill="#83a598"/>
+  <text x="62" y="456" class="sans" fill="#83a598" font-size="16" font-weight="800">Implementation</text>
+  <text x="62" y="476" class="sans" fill="#928374" font-size="10">code · features · operations</text>
+
+  <rect x="60" y="518" width="368" height="62" rx="8" fill="#1d2021" stroke="#cc241d" stroke-width="1"/>
+  <text x="244" y="540" text-anchor="middle" class="sans" fill="#fb4934" font-size="12" font-weight="700">CEO holds only the lower transformation</text>
+  <text x="244" y="558" text-anchor="middle" class="sans" fill="#928374" font-size="10">many tech-background leaders take CEO seats in this state</text>
+  <text x="244" y="572" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">they speak at Principle, but it doesn't fold into organizational form</text>
+
+  <!-- ============ PANEL B ============ -->
+  <rect x="512" y="140" width="408" height="68" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="512" y="140" width="6" height="68" rx="3" fill="#fabd2f"/>
+  <text x="534" y="172" class="sans" fill="#fabd2f" font-size="16" font-weight="800">Principle</text>
+  <text x="534" y="192" class="sans" fill="#928374" font-size="10">strategy · worldview · thinking</text>
+
+  <!-- T1: NOW ACTIVE -->
+  <g>
+    <line x1="548" y1="220" x2="548" y2="264" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="542,260 554,260 548,272" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="678" y1="220" x2="678" y2="264" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="672,224 684,224 678,214" fill="#8ec07c"/>
+  </g>
+  <text x="613" y="238" text-anchor="middle" class="sans" fill="#8ec07c" font-size="12" font-weight="700">✓ unlocked</text>
+  <text x="613" y="254" text-anchor="middle" class="sans" fill="#928374" font-size="10">Principle ↔ Structure</text>
+
+  <!-- Bill card -->
+  <rect x="716" y="216" width="196" height="52" rx="10" fill="#282828" stroke="#fe8019" stroke-width="2"/>
+  <rect x="716" y="216" width="6" height="52" rx="3" fill="#fe8019"/>
+  <text x="736" y="238" class="sans" fill="#fe8019" font-size="13" font-weight="800">Bill Campbell</text>
+  <text x="736" y="254" class="sans" fill="#a89984" font-size="10">transformation coach (doesn't transform)</text>
+
+  <!-- Arrow from Bill to T1 -->
+  <g>
+    <line x1="716" y1="242" x2="690" y2="242" stroke="#fe8019" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="694,238 694,246 686,242" fill="#fe8019"/>
+  </g>
+
+  <rect x="512" y="282" width="408" height="68" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="512" y="282" width="6" height="68" rx="3" fill="#d3869b"/>
+  <text x="534" y="314" class="sans" fill="#d3869b" font-size="16" font-weight="800">Structure</text>
+  <text x="534" y="334" class="sans" fill="#928374" font-size="10">architecture · org design</text>
+
+  <!-- T2: ACTIVE -->
+  <g>
+    <line x1="604" y1="362" x2="604" y2="406" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="598,402 610,402 604,414" fill="#8ec07c"/>
+  </g>
+  <g>
+    <line x1="828" y1="362" x2="828" y2="406" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="822,366 834,366 828,356" fill="#8ec07c"/>
+  </g>
+  <text x="716" y="382" text-anchor="middle" class="sans" fill="#8ec07c" font-size="12" font-weight="700">✓ capable</text>
+  <text x="716" y="398" text-anchor="middle" class="sans" fill="#928374" font-size="10">Structure ↔ Implementation (already had this)</text>
+
+  <rect x="512" y="424" width="408" height="68" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="512" y="424" width="6" height="68" rx="3" fill="#83a598"/>
+  <text x="534" y="456" class="sans" fill="#83a598" font-size="16" font-weight="800">Implementation</text>
+  <text x="534" y="476" class="sans" fill="#928374" font-size="10">code · features · operations</text>
+
+  <rect x="532" y="518" width="368" height="62" rx="8" fill="#1d2021" stroke="#fe8019" stroke-width="1"/>
+  <text x="716" y="540" text-anchor="middle" class="sans" fill="#fe8019" font-size="12" font-weight="700">Bill doesn't perform the transformation — he installs the capability</text>
+  <text x="716" y="558" text-anchor="middle" class="sans" fill="#928374" font-size="10">removes the blockage so the CEO can run the upper transformation themselves</text>
+  <text x="716" y="572" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">the CEO's three layers connect vertically — outsized value starts to emerge</text>
+
+  <!-- Footer -->
+  <text x="480" y="628" text-anchor="middle" class="sans" fill="#a89984" font-size="12">A transformer (who performs transformation) and a transformation coach (who grows others' capability) are different roles.</text>
+  <text x="480" y="648" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">Bill Campbell is the paradigmatic latter — the strongest transformation coach, finally namable under this book's frame.</text>
+</svg>

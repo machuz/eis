@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="660" viewBox="0 0 960 660">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="660" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="660" rx="2" fill="#d3869b"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Role × Layer · ch4</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Role × Layer — Placement Fit</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">The same Role produces completely different results depending on which layer you place it in</text>
+
+  <!-- Legend -->
+  <text x="30" y="96" class="sans" fill="#7c6f64" font-size="10">Legend:</text>
+  <text x="84" y="96" class="sans" fill="#b8bb26" font-size="11" font-weight="700">★ prime</text>
+  <text x="148" y="96" class="sans" fill="#fabd2f" font-size="11" font-weight="700">▲ strong</text>
+  <text x="218" y="96" class="sans" fill="#83a598" font-size="11" font-weight="700">● viable</text>
+  <text x="288" y="96" class="sans" fill="#d3869b" font-size="11" font-weight="700">▽ caution</text>
+  <text x="362" y="96" class="sans" fill="#cc241d" font-size="11" font-weight="700">✕ misfit</text>
+
+  <rect x="244" y="110" width="224" height="32" rx="6" fill="#282828" stroke="#83a598" stroke-width="1"/>
+  <text x="356" y="130" text-anchor="middle" class="sans" fill="#83a598" font-size="14" font-weight="800">Implementation</text>
+  <rect x="476" y="110" width="224" height="32" rx="6" fill="#282828" stroke="#d3869b" stroke-width="1"/>
+  <text x="588" y="130" text-anchor="middle" class="sans" fill="#d3869b" font-size="14" font-weight="800">Structure</text>
+  <rect x="708" y="110" width="224" height="32" rx="6" fill="#282828" stroke="#fabd2f" stroke-width="1"/>
+  <text x="820" y="130" text-anchor="middle" class="sans" fill="#fabd2f" font-size="14" font-weight="800">Principle</text>
+
+  <!-- Row 1: Architect Inheritance -->
+  <rect x="20" y="156" width="216" height="60" rx="8" fill="#282828" stroke="#3c3836" stroke-width="1"/>
+  <text x="36" y="178" class="sans" fill="#ebdbb2" font-size="14" font-weight="800">Architect</text>
+  <text x="36" y="196" class="sans" fill="#928374" font-size="11">Inheritance lineage</text>
+  <text x="36" y="210" class="sans" fill="#7c6f64" font-size="10">inherited by others</text>
+
+  <g>
+    <rect x="244" y="156" width="224" height="60" rx="8" fill="#282828" stroke="#83a598" stroke-width="1"/>
+    <text x="258" y="176" class="sans" fill="#83a598" font-size="12" font-weight="700">●  viable</text>
+    <text x="258" y="196" class="sans" fill="#ebdbb2" font-size="11">design embedded in code</text>
+    <text x="258" y="210" class="sans" fill="#928374" font-size="10">directly</text>
+  </g>
+  <g>
+    <rect x="476" y="156" width="224" height="60" rx="8" fill="#282828" stroke="#b8bb26" stroke-width="2"/>
+    <text x="490" y="176" class="sans" fill="#b8bb26" font-size="12" font-weight="800">★  prime</text>
+    <text x="490" y="196" class="sans" fill="#ebdbb2" font-size="11">best fit</text>
+    <text x="490" y="210" class="sans" fill="#928374" font-size="10">design inherited by others' code</text>
+  </g>
+  <g>
+    <rect x="708" y="156" width="224" height="60" rx="8" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+    <text x="722" y="176" class="sans" fill="#fabd2f" font-size="12" font-weight="700">▲  strong</text>
+    <text x="722" y="196" class="sans" fill="#ebdbb2" font-size="11">connects to strategy</text>
+    <text x="722" y="210" class="sans" fill="#928374" font-size="10">small number, high impact</text>
+  </g>
+
+  <!-- Row 2: Architect Emergent -->
+  <rect x="20" y="224" width="216" height="60" rx="8" fill="#282828" stroke="#3c3836" stroke-width="1"/>
+  <text x="36" y="246" class="sans" fill="#ebdbb2" font-size="14" font-weight="800">Architect</text>
+  <text x="36" y="264" class="sans" fill="#928374" font-size="11">Emergent lineage</text>
+  <text x="36" y="278" class="sans" fill="#7c6f64" font-size="10">explores new directions</text>
+
+  <g>
+    <rect x="244" y="224" width="224" height="60" rx="8" fill="#282828" stroke="#83a598" stroke-width="1"/>
+    <text x="258" y="244" class="sans" fill="#83a598" font-size="12" font-weight="700">●  viable</text>
+    <text x="258" y="264" class="sans" fill="#ebdbb2" font-size="11">runs breaking experiments</text>
+    <text x="258" y="278" class="sans" fill="#928374" font-size="10">exploratory implementation</text>
+  </g>
+  <g>
+    <rect x="476" y="224" width="224" height="60" rx="8" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+    <text x="490" y="244" class="sans" fill="#fabd2f" font-size="12" font-weight="700">▲  strong</text>
+    <text x="490" y="264" class="sans" fill="#ebdbb2" font-size="11">lands new structural</text>
+    <text x="490" y="278" class="sans" fill="#928374" font-size="10">proposals</text>
+  </g>
+  <g>
+    <rect x="708" y="224" width="224" height="60" rx="8" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+    <text x="722" y="244" class="sans" fill="#fabd2f" font-size="12" font-weight="700">▲  strong</text>
+    <text x="722" y="264" class="sans" fill="#ebdbb2" font-size="11">proposes worldviews</text>
+    <text x="722" y="278" class="sans" fill="#928374" font-size="10">for R&amp;D / new ventures</text>
+  </g>
+
+  <!-- Row 3: Anchor -->
+  <rect x="20" y="292" width="216" height="60" rx="8" fill="#282828" stroke="#3c3836" stroke-width="1"/>
+  <text x="36" y="314" class="sans" fill="#ebdbb2" font-size="14" font-weight="800">Anchor</text>
+  <text x="36" y="332" class="sans" fill="#928374" font-size="11">quality / skeleton guard</text>
+  <text x="36" y="346" class="sans" fill="#7c6f64" font-size="10">spans Structure ↔ Impl</text>
+
+  <g>
+    <rect x="244" y="292" width="224" height="60" rx="8" fill="#282828" stroke="#b8bb26" stroke-width="2"/>
+    <text x="258" y="312" class="sans" fill="#b8bb26" font-size="12" font-weight="800">★  prime</text>
+    <text x="258" y="332" class="sans" fill="#ebdbb2" font-size="11">guards the code skeleton</text>
+    <text x="258" y="346" class="sans" fill="#928374" font-size="10">stays hands-on</text>
+  </g>
+  <g>
+    <rect x="476" y="292" width="224" height="60" rx="8" fill="#282828" stroke="#83a598" stroke-width="1"/>
+    <text x="490" y="312" class="sans" fill="#83a598" font-size="12" font-weight="700">●  viable</text>
+    <text x="490" y="332" class="sans" fill="#ebdbb2" font-size="11">design review · quality guard</text>
+    <text x="490" y="346" class="sans" fill="#928374" font-size="10">* severing from code breaks them</text>
+  </g>
+  <g>
+    <rect x="708" y="292" width="224" height="60" rx="8" fill="#282828" stroke="#d3869b" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="722" y="312" class="sans" fill="#d3869b" font-size="12" font-weight="700">▽  caution</text>
+    <text x="722" y="332" class="sans" fill="#ebdbb2" font-size="11">over-adaptation risk</text>
+    <text x="722" y="346" class="sans" fill="#928374" font-size="10">may calcify the system</text>
+  </g>
+
+  <!-- Row 4: Cleaner -->
+  <rect x="20" y="360" width="216" height="60" rx="8" fill="#282828" stroke="#3c3836" stroke-width="1"/>
+  <text x="36" y="382" class="sans" fill="#ebdbb2" font-size="14" font-weight="800">Cleaner</text>
+  <text x="36" y="400" class="sans" fill="#928374" font-size="11">clears debt</text>
+  <text x="36" y="414" class="sans" fill="#7c6f64" font-size="10">regrows others' debt</text>
+
+  <g>
+    <rect x="244" y="360" width="224" height="60" rx="8" fill="#282828" stroke="#b8bb26" stroke-width="2"/>
+    <text x="258" y="380" class="sans" fill="#b8bb26" font-size="12" font-weight="800">★  prime</text>
+    <text x="258" y="400" class="sans" fill="#ebdbb2" font-size="11">clears technical debt</text>
+    <text x="258" y="414" class="sans" fill="#928374" font-size="10">restores structure by rewrite</text>
+  </g>
+  <g>
+    <rect x="476" y="360" width="224" height="60" rx="8" fill="#282828" stroke="#83a598" stroke-width="1"/>
+    <text x="490" y="380" class="sans" fill="#83a598" font-size="12" font-weight="700">●  viable</text>
+    <text x="490" y="400" class="sans" fill="#ebdbb2" font-size="11">designs cleanup mechanisms</text>
+    <text x="490" y="414" class="sans" fill="#928374" font-size="10">review criteria · conventions</text>
+  </g>
+  <g>
+    <rect x="708" y="360" width="224" height="60" rx="8" fill="#282828" stroke="#cc241d" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="722" y="380" class="sans" fill="#cc241d" font-size="12" font-weight="700">✕  misfit</text>
+    <text x="722" y="400" class="sans" fill="#ebdbb2" font-size="11">no concrete object</text>
+    <text x="722" y="414" class="sans" fill="#928374" font-size="10">nothing to clean at this level</text>
+  </g>
+
+  <!-- Row 5: Producer -->
+  <rect x="20" y="428" width="216" height="60" rx="8" fill="#282828" stroke="#3c3836" stroke-width="1"/>
+  <text x="36" y="450" class="sans" fill="#ebdbb2" font-size="14" font-weight="800">Producer</text>
+  <text x="36" y="468" class="sans" fill="#928374" font-size="11">ships fast</text>
+  <text x="36" y="482" class="sans" fill="#7c6f64" font-size="10">volume-first</text>
+
+  <g>
+    <rect x="244" y="428" width="224" height="60" rx="8" fill="#282828" stroke="#b8bb26" stroke-width="2"/>
+    <text x="258" y="448" class="sans" fill="#b8bb26" font-size="12" font-weight="800">★  prime</text>
+    <text x="258" y="468" class="sans" fill="#ebdbb2" font-size="11">leads by speed</text>
+    <text x="258" y="482" class="sans" fill="#928374" font-size="10">ships features</text>
+  </g>
+  <g>
+    <rect x="476" y="428" width="224" height="60" rx="8" fill="#282828" stroke="#d3869b" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="490" y="448" class="sans" fill="#d3869b" font-size="12" font-weight="700">▽  caution</text>
+    <text x="490" y="468" class="sans" fill="#ebdbb2" font-size="11">lone Producer spins out</text>
+    <text x="490" y="482" class="sans" fill="#928374" font-size="10">burns out in design debate</text>
+  </g>
+  <g>
+    <rect x="708" y="428" width="224" height="60" rx="8" fill="#282828" stroke="#cc241d" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="722" y="448" class="sans" fill="#cc241d" font-size="12" font-weight="700">✕  misfit</text>
+    <text x="722" y="468" class="sans" fill="#ebdbb2" font-size="11">spins out</text>
+    <text x="722" y="482" class="sans" fill="#928374" font-size="10">decision grain doesn't match</text>
+  </g>
+
+  <!-- Row 6: Specialist -->
+  <rect x="20" y="496" width="216" height="60" rx="8" fill="#282828" stroke="#3c3836" stroke-width="1"/>
+  <text x="36" y="518" class="sans" fill="#ebdbb2" font-size="14" font-weight="800">Specialist</text>
+  <text x="36" y="536" class="sans" fill="#928374" font-size="11">deep in a domain</text>
+  <text x="36" y="550" class="sans" fill="#7c6f64" font-size="10">domain-bounded</text>
+
+  <g>
+    <rect x="244" y="496" width="224" height="60" rx="8" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+    <text x="258" y="516" class="sans" fill="#fabd2f" font-size="12" font-weight="700">▲  strong</text>
+    <text x="258" y="536" class="sans" fill="#ebdbb2" font-size="11">deep implementation in domain</text>
+    <text x="258" y="550" class="sans" fill="#928374" font-size="10">deep technical contribution</text>
+  </g>
+  <g>
+    <rect x="476" y="496" width="224" height="60" rx="8" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+    <text x="490" y="516" class="sans" fill="#fabd2f" font-size="12" font-weight="700">▲  strong</text>
+    <text x="490" y="536" class="sans" fill="#ebdbb2" font-size="11">deep design in domain</text>
+    <text x="490" y="550" class="sans" fill="#928374" font-size="10">spec · API design</text>
+  </g>
+  <g>
+    <rect x="708" y="496" width="224" height="60" rx="8" fill="#282828" stroke="#83a598" stroke-width="1"/>
+    <text x="722" y="516" class="sans" fill="#83a598" font-size="12" font-weight="700">●  conditional</text>
+    <text x="722" y="536" class="sans" fill="#ebdbb2" font-size="11">only if domain wires to Principle</text>
+    <text x="722" y="550" class="sans" fill="#928374" font-size="10">when the domain IS strategic</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="480" y="600" text-anchor="middle" class="sans" fill="#a89984" font-size="12">A Role alone doesn't determine placement fit. Only Role × Layer — as a pair — names "fits" vs "misfits".</text>
+  <text x="480" y="620" text-anchor="middle" class="sans" fill="#928374" font-size="11">Layer on which transformation someone can carry, and placement design is complete.</text>
+  <text x="480" y="640" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">Don't change the person — change the placement. That's why layer design works for organization theory.</text>
+</svg>

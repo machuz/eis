@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="680" viewBox="0 0 720 680">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="680" rx="12" fill="#1d2021"/>
+
+  <!-- Accent bar -->
+  <rect x="0" y="0" width="4" height="680" rx="2" fill="#8ec07c"/>
+
+  <!-- Category label -->
+  <text x="696" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Vertical Consistency · ch5</text>
+
+  <!-- Title -->
+  <text x="360" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">垂直の一貫性 — 思想は各層の語彙に翻訳される</text>
+  <text x="360" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">例: 原理層「シンプルさ」を、構造層と実装層でそれぞれの語彙に下ろす</text>
+
+  <!-- ================== Principle Layer ================== -->
+  <rect x="48" y="96" width="624" height="88" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="48" y="96" width="6" height="88" rx="3" fill="#fabd2f"/>
+  <text x="74" y="130" class="jp" fill="#fabd2f" font-size="22" font-weight="800">原理層</text>
+  <text x="74" y="148" class="mono" fill="#7c6f64" font-size="11">Principle</text>
+  <text x="74" y="172" class="mono" fill="#504945" font-size="10">seed</text>
+  <text x="380" y="135" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="28" font-weight="800" letter-spacing="2">「シンプルさ」</text>
+  <text x="380" y="164" text-anchor="middle" class="jp" fill="#928374" font-size="11">原理層に掲げられた思想。このままでは実装の指針にならない</text>
+
+  <!-- ================== Transformation 1 (Principle ↔ Structure) ================== -->
+  <!-- Down arrow -->
+  <g>
+    <line x1="332" y1="202" x2="332" y2="254" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="326,250 338,250 332,262" fill="#8ec07c"/>
+  </g>
+  <text x="318" y="218" text-anchor="end" class="jp" fill="#8ec07c" font-size="11" font-weight="700">↓ 翻訳</text>
+  <text x="318" y="234" text-anchor="end" class="jp" fill="#928374" font-size="11">構造の語彙へ</text>
+  <text x="318" y="248" text-anchor="end" class="jp" fill="#7c6f64" font-size="10">「IA の形」として再構築</text>
+
+  <!-- Up arrow -->
+  <g>
+    <line x1="388" y1="202" x2="388" y2="254" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="382,210 394,210 388,198" fill="#8ec07c"/>
+  </g>
+  <text x="402" y="218" class="jp" fill="#8ec07c" font-size="11" font-weight="700">↑ 再評価</text>
+  <text x="402" y="234" class="jp" fill="#928374" font-size="11">IA の歪みを戻す</text>
+  <text x="402" y="248" class="jp" fill="#7c6f64" font-size="10">「本当にシンプル？」の検証</text>
+
+  <!-- T1 label directly above Structure -->
+  <rect x="278" y="266" width="164" height="22" rx="11" fill="#1d2021" stroke="#8ec07c" stroke-width="1"/>
+  <text x="360" y="282" text-anchor="middle" class="jp" fill="#8ec07c" font-size="12" font-weight="700">変換 · 原理 ↔ 構造</text>
+
+  <!-- ================== Structure Layer ================== -->
+  <rect x="48" y="304" width="624" height="96" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="48" y="304" width="6" height="96" rx="3" fill="#d3869b"/>
+  <text x="74" y="338" class="jp" fill="#d3869b" font-size="22" font-weight="800">構造層</text>
+  <text x="74" y="356" class="mono" fill="#7c6f64" font-size="11">Structure</text>
+  <text x="74" y="380" class="mono" fill="#504945" font-size="10">translate #1</text>
+  <text x="220" y="334" class="jp" fill="#ebdbb2" font-size="15" font-weight="700">→ 「探さなくて済む情報設計」</text>
+  <text x="220" y="358" class="jp" fill="#ebdbb2" font-size="15" font-weight="700">→ 「画面遷移を最小化する IA」</text>
+  <text x="220" y="384" class="jp" fill="#928374" font-size="11">構造層が、思想を「情報構造の形」として受け取った結果</text>
+
+  <!-- T2 label directly below Structure -->
+  <rect x="278" y="412" width="164" height="22" rx="11" fill="#1d2021" stroke="#8ec07c" stroke-width="1"/>
+  <text x="360" y="428" text-anchor="middle" class="jp" fill="#8ec07c" font-size="12" font-weight="700">変換 · 構造 ↔ 実装</text>
+
+  <!-- ================== Transformation 2 (Structure ↔ Implementation) ================== -->
+  <!-- Down arrow -->
+  <g>
+    <line x1="332" y1="446" x2="332" y2="498" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="326,494 338,494 332,506" fill="#8ec07c"/>
+  </g>
+  <text x="318" y="462" text-anchor="end" class="jp" fill="#8ec07c" font-size="11" font-weight="700">↓ 翻訳</text>
+  <text x="318" y="478" text-anchor="end" class="jp" fill="#928374" font-size="11">実装の語彙へ</text>
+  <text x="318" y="492" text-anchor="end" class="jp" fill="#7c6f64" font-size="10">「手が動く粒度」に分解</text>
+
+  <!-- Up arrow -->
+  <g>
+    <line x1="388" y1="446" x2="388" y2="498" stroke="#8ec07c" stroke-width="2.5"/>
+    <polygon points="382,454 394,454 388,442" fill="#8ec07c"/>
+  </g>
+  <text x="402" y="462" class="jp" fill="#8ec07c" font-size="11" font-weight="700">↑ 再評価</text>
+  <text x="402" y="478" class="jp" fill="#928374" font-size="11">挙動を構造に戻す</text>
+  <text x="402" y="492" class="jp" fill="#7c6f64" font-size="10">画面の実挙動が IA を表現できているか</text>
+
+  <!-- ================== Implementation Layer ================== -->
+  <rect x="48" y="528" width="624" height="112" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="48" y="528" width="6" height="112" rx="3" fill="#83a598"/>
+  <text x="74" y="562" class="jp" fill="#83a598" font-size="22" font-weight="800">実装層</text>
+  <text x="74" y="580" class="mono" fill="#7c6f64" font-size="11">Implementation</text>
+  <text x="74" y="604" class="mono" fill="#504945" font-size="10">translate #2</text>
+  <text x="220" y="558" class="jp" fill="#ebdbb2" font-size="15" font-weight="700">→ 「ボタンが少ない」</text>
+  <text x="220" y="582" class="jp" fill="#ebdbb2" font-size="15" font-weight="700">→ 「最小操作で完了する」</text>
+  <text x="220" y="606" class="jp" fill="#ebdbb2" font-size="15" font-weight="700">→ 「API 引数を増やさない」</text>
+  <text x="220" y="628" class="jp" fill="#928374" font-size="11">実装層が、構造を「手触りのある形」として受け取った結果</text>
+
+  <!-- Footer note -->
+  <text x="360" y="664" text-anchor="middle" class="jp" fill="#a89984" font-size="12">翻訳が各層で起きないと、思想は層をまたいだ瞬間に消える。付箋だけが下りても、実装者は何をすればいいか分からない</text>
+</svg>

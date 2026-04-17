@@ -23,6 +23,8 @@ Where the UX is broken, the organization is hollow in the same place. **The thin
 
 ## The Isomorphism Claim
 
+![Product ⇄ Organization Isomorphism](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch5-isomorphism-en.svg)
+
 In the introduction, "structure" was named as referring to three objects: code, people, and the layer structure of organizations. This chapter adds **a fourth: the structure of products**.
 
 The **3 layers + 2 transformations** model introduced in chapter 4 (Principle ── transformation ── Structure ── transformation ── Implementation) maps directly onto the product side:
@@ -118,6 +120,8 @@ Product consistency needs to be read on **two axes — horizontal and vertical.*
 **Vertical consistency (transformation through the layers)**
 
 What matters most: does the Principle-layer thought get **properly transformed into the language of each layer below — and stay consistent across them.**
+
+![Vertical consistency — thought translated at each layer](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch5-vertical-consistency-en.svg)
 
 If the Principle layer carries "simplicity":
 
