@@ -1,6 +1,6 @@
 ---
 title: "Structure-Driven Organization Theory #0 — Why Existing Org Theory Doesn't Work"
-published: false
+published: true
 description: "Stop evaluating people. Start observing structure. A new engineering org theory built on Git Archaeology, layered organizations, and the isomorphism between product and team."
 tags: management, leadership, engineering, culture
 ---
