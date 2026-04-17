@@ -130,6 +130,14 @@ Both break the organization. The difference is **strength**. A thought held with
 
 **A Principle layer's health reads as "the history of how it changed."** If the record says "six months ago this principle met counter-evidence X and was reshaped into form Y," that's adaptation. If you find that "somehow we were saying something different, without noticing," that's wavering. The same applies to an organization's Principle layer — if strategy dissolves outward into customer and investor expectations, the organization's Principle layer is hollow too. A strategy without the trace of obsession isn't a strategy; it's **a reflection of external voices.**
 
+> **Make it your own — a question**
+>
+> Can you, right now, write your product's Principle layer on **a single page**?
+>
+> - If you can't — or your teammates write something different from yours — the Principle layer may no longer be standing.
+> - If you can, is it the **same content** as six months ago? If not, is there a record of "**counter-evidence X, reshaped to Y**"? If there's no trace, what changed isn't adaptation — it's **wavering**.
+> - And one more thing: are you treating customer voices and problem research as **material that sharpens the prototype of your thought**, or as **the thought itself**? If the latter, your Principle layer has already been replaced by external voices.
+
 ### Consistency lives on two axes
 
 Product consistency needs to be read on **two axes — horizontal and vertical.**
