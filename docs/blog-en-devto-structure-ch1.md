@@ -11,6 +11,16 @@ tags: management, leadership, engineering, observability
 
 > **Scope of this chapter**: thinking layer (defining what "observation" means) + design layer (showing why EIS qualifies as observation).
 
+### How this starts on the floor
+
+A quarterly review meeting. A manager says: "A has grown a lot in the past six months — commit count up, PR count up, more vocal in reviews. Mark them 'exceeds expectations.'" Another manager exhales quietly: "Actually, B has been quietly cleaning up around A. A's PRs go through because B handles the work before and after." A third cuts in: "Numbers are numbers. A gets the rating. We can talk about B somewhere else."
+
+Everyone in the room is saying something true. No one is lying. And yet, what comes out of the meeting is missing something obvious — B's contribution falls through the cracks of the evaluation entirely.
+
+That dropped piece is where this chapter starts. The reason is simple: **what isn't observed can't be discussed.**
+
+---
+
 ## Why Start With Observation
 
 As the intro laid out, everything in this book begins with observation. Observation first, language next, structure last, culture as the consequence.

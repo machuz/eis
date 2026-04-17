@@ -11,6 +11,18 @@ tags: management, leadership, engineering, architecture
 
 > **Scope of this chapter**: design layer (describing organizations in three layers) + field layer (how to read symptoms that show up on the floor).
 
+### How this starts on the floor
+
+A quarterly strategy meeting. The CEO says: "Next quarter, we bet on user experience. That's where we differentiate." The room nods. No one objects.
+
+An hour after the meeting, conversation starts in the engineering Slack: "User experience — concretely, what are we building?" "What about the core refactor?" "Priorities keep shifting, can't keep up." The CEO communicated a clear strategy. The floor experiences "no instructions came down."
+
+The CEO didn't lie or slack. The engineers aren't lazy. **They were talking at different abstraction levels, and there was no one between them to translate.**
+
+This chapter redescribes the organization as **three layers of differing abstraction**.
+
+---
+
 ## An Organization Isn't a Single Plane
 
 Draw an org chart. Almost always, it ends up as a **tree**. CEO over directors, directors over managers, managers over members. Hierarchy.

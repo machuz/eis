@@ -11,6 +11,16 @@ tags: engineering, leadership, git, career
 
 > **Scope of this chapter**: design layer (defining the observational axes for reading code as structure rather than artifact).
 
+### How this starts on the floor
+
+X's first PR was textbook clean. Naming conventions perfect, tests in place, every reviewer LGTM'd it on sight. The same week, Y, joining the company in the same cohort, shipped a PR with shakier naming and abbreviated variable names; reviewers added "let's refactor this later." Y agreed and moved on.
+
+Six months later. The clean code X wrote in that PR has been almost entirely refactored away. Y's code, including the parts that drew refactor comments, is almost entirely still there. "Clean X" and "rough-but-shipped Y" — by the measure of contribution-to-structure, the ranking has flipped.
+
+This chapter assembles the vocabulary that separates **how clean it looked at the moment of writing** from **how it survives after the writing.**
+
+---
+
 ## Is Code an Artifact, or a Structure?
 
 Ask most organizations "what's this engineer's output?" and you get:
