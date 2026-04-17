@@ -4,7 +4,7 @@ title: "第9章 —— OrbitLens への接続"
 
 > **この章のスコープ（骨子）**
 >
-> 観測を人力で回す限界、そこで SaaS（ace-orbit）が立ち上がる。観測が SaaS になる瞬間を論理化する。OrbitLens（外部表記。法人は Orbitlens, Inc.）の位置付け。
+> 観測を人力で回す限界、そこで SaaS（**OrbitLens Ace**）が立ち上がる。観測が SaaS になる瞬間を論理化する。OrbitLens（外部表記。法人は Orbitlens, Inc.）の位置付け。CLI は **EIS**、SaaS は **OrbitLens Ace**、という呼称を本章で固定する。
 
 ---
 
@@ -17,8 +17,10 @@ title: "第9章 —— OrbitLens への接続"
 ## 2. CLI（望遠鏡）と SaaS（天文台）の分業
 
 - **EIS（CLI）** = 観測データの生成器。Git から 7 軸 / 3 軸アーキタイプ / 3 軸モジュールトポロジーを算出して JSON 出力
-- **ace-orbit（SaaS）** = 観測データの**解釈・推薦・予測**を担う
+- **OrbitLens Ace（SaaS）** = 観測データの**解釈・推薦・予測**を担う
 - CLI に推薦・予測を入れない。CLI は**望遠鏡**、SaaS は**天文台**
+
+> 呼称の整理：CLI の名前は **EIS**。SaaS の名前は **OrbitLens Ace**。どちらも単独で「ace」と呼ばない（EIS の発音が「ace」なのと、SaaS のプロダクト名末尾が「Ace」なのが被るため、単独使用は曖昧になる）。
 
 ## 3. SaaS 側の機能領域
 
@@ -32,7 +34,12 @@ title: "第9章 —— OrbitLens への接続"
 - 外部表記：**OrbitLens**（本書・LP・外部ドキュメント）
 - 内部表記：**orbitlens**（リポジトリ・コード・社内ドキュメント）
 - 法人登記：**Orbitlens, Inc.**
-- ace（EIS）／true（登録導線）／ideal（将来） の三層構成
+
+三層プロダクト構成：
+
+- **OrbitLens Ace** —— 観測 SaaS 本体。EIS（CLI）が出力したシグナルを解釈・推薦・予測する
+- **OrbitLens True** —— 登録導線。クロスボーダーでのエンジニア / 組織マッチング
+- **OrbitLens Ideal** —— 将来枠。構造駆動組織論の運用層として育てる領域
 
 ## 5. 組織論が SaaS になる瞬間
 
