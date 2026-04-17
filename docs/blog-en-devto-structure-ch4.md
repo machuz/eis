@@ -309,4 +309,12 @@ Bringing layer structure into the org's vocabulary changes:
 
 We now have a **double frame** for describing organizations: 3-axis topology × 3-layer structure. But this structure isn't only an organizational property. **Products run on the same three layers** — different abstraction levels, different languages between them, translation required at the borders.
 
+Concretely, the product side has three corresponding layers (covered in detail in the next chapter):
+
+- **Product Implementation** — the screens, operations, and micro-interactions users touch directly. Evaluated by "does it work" / "is it usable."
+- **Product Intermediate** — information architecture, screen transitions, state models, feature organization. The layer where **product-wide coherence** is at stake.
+- **Product Principle** — the product's worldview, themes, design principles, UX principles, "what we won't build." The set of artifacts surfaced in this chapter's AI section ("Document Principle") lives here.
+
+On the organization side: Implementation / Intermediate / Principle. On the product side: screens / information architecture / worldview. **The same structure of abstraction exists isomorphically in both.** When the organization's Intermediate layer goes hollow, the product's information architecture breaks. When the product's Principle layer is unsettled, the organization's Principle layer is unsettled too. **The two break symmetrically and heal symmetrically.**
+
 Next chapter: **product-organization isomorphism**. Once you can argue both with the same vocabulary, UX improvement and organizational improvement can be advanced as **a single design task**, not separate projects.
