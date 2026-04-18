@@ -5,6 +5,8 @@ description: "Stop evaluating people. Start observing structure. A new engineeri
 tags: management, leadership, engineering, culture
 ---
 
+*Change hiring. Change the evaluation system. Run more 1-on-1s. The organization keeps breaking in the same place — because what you're observing is still "people."*
+
 *Observation, not evaluation. Structure, not people. Design, not emotion.*
 
 ---
@@ -187,8 +189,8 @@ The path forward:
 | Ch | Title | Covered |
 |---|---|---|
 | 1 | The Concept of Observation | Splitting evaluation from observation; introducing EIS |
-| 2 | Output as Structure | Treating code as structure, not artifact |
-| 3 | A Structural Model of People | Anchor / Producer / Mass and related archetypes |
+| 2 | What Remains Is Structure | Treating code as structure, not artifact |
+| 3 | People, Read as Types | Anchor / Producer / Mass and related archetypes |
 | 4 | Organizational Layers | Implementation / Structure / Principle — 3 layers + 2 transformations, transformers and transformation coaches |
 | 5 | Product-Organization Isomorphism | Product's three layers, symptoms of the isomorphism, symmetric intervention design |
 | 6 | Designing Interventions (1-on-1 / pair programming) | Speaking across the three layers |

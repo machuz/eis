@@ -1,5 +1,5 @@
 ---
-title: "Structure-Driven Engineering Organization Theory #3 — A Structural Model of People"
+title: "Structure-Driven Engineering Organization Theory #3 — People, Read as Types"
 published: true
 description: "Ability lives inside, so it can't be seen. Contribution to structure remains outside, so it can be seen. Reframe people not as abilities but as a three-axis topology: Role × Style × State."
 tags: management, leadership, engineering, career
