@@ -204,7 +204,7 @@ Culture gets discussed in black-and-white terms: "it's there" or "it isn't." But
 
 **Code / PR signals** (captured via EIS plus review-comment analysis):
 
-- Rate at which words like Design / Survival / Cleanup / Robust show up in code-review comments
+- Rate at which words like Design / Survival / Cleanup / Quality show up in code-review comments
 - Update frequency of RFCs and design-principle documents
 - Number of commit messages that contain structural vocabulary
 
@@ -221,7 +221,7 @@ Culture gets discussed in black-and-white terms: "it's there" or "it isn't." But
 > A 12-month observation log of a 50-person engineering organization that **installed a culture**:
 >
 > - **Month 0 (Before)**: Code review is "LGTM" and nits. 1-on-1s open with "how are you?". Values are on the wall — cited in meetings exactly 0 times. Median EIS Design axis 28; no transformers identifiable.
-> - **Month 3**: Structure-first 1-on-1s introduced. Review vocabulary (Design / Robust / Cleanup) written down and shared. "Which layer is that?" appears 0–2 times a week — still only 1–2 people using it.
+> - **Month 3**: Structure-first 1-on-1s introduced. Review vocabulary (Design / Survival / Cleanup / Quality) written down and shared. "Which layer is that?" appears 0–2 times a week — still only 1–2 people using it.
 > - **Month 6**: Vocabulary has spread through the team. 30% of reviews use structural vocabulary. Principle ↔ Structure transformers do "linguistic realignment" 5+ times a week in meetings. Median Design axis rises to 34.
 > - **Month 12 (After)**: New hires participate in conversations using structural vocabulary within one week. "Which layer is that?" 15+ times a week, used by everyone. Values are gone from the wall — replaced by the EIS per-layer dashboard on a shared screen. Median Design axis 45. The transformation coach's "changes in the people they worked with" log has been folded into evaluation.
 >
