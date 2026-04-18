@@ -27,13 +27,18 @@ Same organization, but OrbitLens Ace is installed. First thing in the morning, t
 
 ## 1. The limit of running observation by hand
 
-EIS is strong on a one-shot basis. Pure Git, seven-axis signals, archetype classification, module topology — all as JSON. As a local analysis tool via CLI, nothing is missing.
+The CLI's feature set is actually complete. `eis analyze --recursive` runs across multiple repos, `eis team` aggregates to team level, `eis timeline --span 3m --periods 0` gives full time-series history, `eis analyze --author` filters to a specific person — almost every building block needed for organizational observation can be pulled out via CLI. The CLI isn't "missing capabilities."
 
-But **the moment you move to continuous observation**, operational cost climbs exponentially. The dimensions of observation stretch to **people × module × time** — three axes, no longer manageable from a terminal.
+The limit lives somewhere else. It's **the cost of building and maintaining the operational plumbing that sits on top of the CLI, by hand.** Concretely:
 
-- Past 100 people, running individual reports weekly by hand becomes impossible
-- Past 200 modules, Fragile trends can't be eyeballed
-- Without a time axis, observation can describe "the organization's current health" but can't describe "how it shifted from last month to now"
+- **Scheduled execution and history persistence** — plumbing that runs daily/weekly and retains results as organizational data. Cron + S3, GitHub Actions + DB — somewhere, someone writes it
+- **Dashboards** — a UI that layers multiple repos, multiple axes, and time series into one view. A layer that reads the CLI's JSON/CSV output and visualizes it, which you build yourself
+- **Notification and Slack integration** — hooks that actively push out Fragile-trending modules, sudden Survival drops, shifts in archetype distribution
+- **Access control and visibility modes** — who can see what, whether to anonymize, whether to surface individual totals — the control layer that separates evaluation from observation
+- **A shared surface for executives and the floor** — one observation readable in the same shape at the board and on the feature team
+- **Operating know-how held by the organization** — avoiding the shape where observation stops the moment the plumbing's author leaves
+
+None of these are things the CLI "refuses to do." They're things **you have to assemble around the CLI.** At 20 people, you can handwrite it. Up to ~50, you can get by with scripts. Past 100 people and a few dozen repos, **the plumbing maintenance itself becomes a full-time job.** And the moment its author leaves, observation halts.
 
 At this point you need a device that **sits outside the organization and keeps observing** — an **observation SaaS**.
 
@@ -68,6 +73,13 @@ Ace's scope is narrowed to **observation interpretation.** No organization-OS pl
 The essence of Ace isn't "making things visible." It's **accelerating interpretation, breaking information down to the right granularity, raising referenceability, and making insight easier to extract.** Only when these are in place does observation data start functioning as material for decisions. If all you need is a raw JSON dump, the CLI is enough. Ace's role is to **rearrange observation into a shape human cognition can land on easily, and put it within arm's reach.**
 
 **"The value is that it's pleasant to use casually."** That's Ace's design stance. Heavy operational workflows, thick onboarding processes, branching admin permissions — all kept minimal. A single EM or a small team can open it on day one. The lightness of Linear, the responsiveness of Raycast, brought to organization observation.
+
+The other piece of Ace's differentiation is **connectivity to True and Ideal.** The moment observation lands in Ace, the same structural vocabulary reaches:
+
+- **Into True** — observed structural gaps (e.g., not enough Architect-level Design carriers, Indispensability lopsided on a specific module) flow directly into **hiring and matching vocabulary.** "Find a candidate in the Architect range" or "who can relieve this Indispensability concentration" falls straight out of Ace's signals into True's search conditions.
+- **Into Ideal** — the observation read in Ace threads into Ideal's **intervention templates and records.** "Did the Fragile-trending module we discussed in last week's 1-on-1 move this week?" closes inside one screen.
+
+Standalone observation SaaS products exist. Ace's positioning is that **observation → people → intervention is carried by a single vocabulary.** Against competing stacks that sum up separate tools for observation, recruiting, and operations, structure-driven's **unified vocabulary** drops the integration cost to near zero — this is the position the OrbitLens lineup as a whole is set up to take.
 
 ## 4. Ideal's role — the operational layer as organization OS
 
