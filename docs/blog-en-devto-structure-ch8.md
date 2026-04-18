@@ -72,23 +72,45 @@ Historically, organizational observation existed only on the **code side**. `git
 
 Most organizational activity doesn't remain as an artifact. Discussion in meetings, verbal decisions, alignment in 1-on-1s, hallway understanding, a transformer's linguistic realignment, a coach's intervention — these are all **organizational dark matter**. Like dark matter in astronomy — occupying most of the universe's mass and yet not directly observable — **the organization's dark matter has been there all along, and long invisible.**
 
-A recent shift changes this. Wearable AI transcription devices — **Plaud Note Pin** and similar tools — have become accessible at the individual level. Meetings get auto-transcribed, utterances tagged and structured; **part of the dark matter enters the directly observable region.**
+A recent shift changes this. Wearable AI transcription devices — **Plaud Note Pin** and similar tools — have become accessible at the individual level, auto-transcribing and structuring meetings. And **text-based daily logs** like Slack and GitHub Discussions can now be analyzed with the same structural vocabulary. **Part of the dark matter enters the directly observable region.**
+
+Signals from meeting logs:
 
 - Who asks "which layer?" and how many times
 - How many times a transformer performs a linguistic realignment
 - Who coaches whom, and in what context
 - How often Principle-layer thoughts get cited in actual utterances
 
-Signals that used to live in "sort of" territory start standing up as observables.
+Signals from Slack / chat logs:
+
+- Which channels carry the structural vocabulary (density of cross-layer conversation)
+- The lead time from when a decision thread starts to when it lands in the **output layer**
+- Whether Principle-layer debate stays inside specific channels or gets referenced across the organization
+
+Signals that used to live in "sort of" territory start standing up as observables — from both meetings and chat.
 
 **Observability in ten years runs two tracks in parallel:**
 
 - **Code observation (EIS-type)** — the structural contribution of what remained as artifact
-- **Decision observation (Plaud-type)** — the traces of decisions and transformations that never became artifact
+- **Decision observation (meeting transcripts + Slack analysis — Plaud-type)** — the traces of decisions and transformations that never became artifact
 
-Neither can be missing. Code alone can't see the dark matter of decisions. Meetings alone can't see the structure of code. A structure-driven organization OS only covers **most of organizational activity** when both observation tracks are running.
+Neither can be missing. Code alone can't see the dark matter of decisions. Meetings and Slack alone can't see the structure of code. A structure-driven organization OS only covers **most of organizational activity** when both observation tracks are running.
 
-Even with both, some dark matter remains — the human heart, accumulated trust, non-verbal understanding. But **continuing to lower the threshold of what's observable** is itself part of the observability condition.
+### The ethics of observation — tech first, literacy second, is the recipe for an accident
+
+Neither meeting transcription nor chat-log analysis can start **without consent.** And at the same time — dropping observation tools onto a team that doesn't share the structure-driven vocabulary will be **received as surveillance on day one.** The vocabulary and the observation literacy have to enter the organization **before** the tools do.
+
+The people being observed need to understand "what, for what purpose, visible to whom, at what granularity" — and **the rules of observation themselves need to be structured**:
+
+- **Explicit consent** — document the observation target, purpose, retention period, and access rights up front
+- **No direct link to performance review or discipline** — observation is for the organization's self-correction, not material for evaluating individuals. The moment you mix the two, the floor stops speaking naturally and the culture dies
+- **Observe the observer** — who saw what, with an auditable access log
+- **Room to opt out** — 1-on-1s, mental-health topics, and sensitive agendas can be explicitly excluded
+- **Limit to signal granularity** — design to pick up structural signals only (utterance frequency, distribution, transitions), not raw speech. If EIS someday ships `eis dm` (dark-matter observation), it will only be built in a way that preserves this rule — never as a feature that exposes raw utterances or individual statements to admins or evaluators
+
+Observation technology can also be used for surveillance. **Designing the ethics and the literacy of observation is a condition on par with the technical possibility of observation.** Observation without it, however precise, destroys the culture.
+
+Even with both tracks running, some dark matter remains — the human heart, accumulated trust, non-verbal understanding. But **continually lowering the threshold of what's observable,** alongside **continually designing the ethics of that observation** — only when both are in motion does observability hold as a condition.
 
 ---
 
