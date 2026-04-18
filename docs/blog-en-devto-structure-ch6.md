@@ -27,11 +27,7 @@ What's missing in that exchange? **The intervention is confined to the behavior 
 
 ![Three layers of intervention — accumulation shapes behavior and output](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch6-three-intervention-layers-en.svg)
 
-Interventions aimed at an organization split into three layers, based on what they target:
-
-- **Behavior layer** — what someone is doing
-- **Output layer** — what got produced
-- **Accumulation layer** — what remains, and how it connects into the conditions of the next behavior
+Interventions aimed at an organization split into three layers, based on what they target — **behavior** (what someone is doing), **output** (what got produced), and **accumulation** (what remains, and how it connects into the conditions of the next behavior).
 
 This is the core of structure-driven thinking — **these three layers are not equal**. **Accumulation shapes the conditions under which behavior and output form.** What has remained, and how it's connected, regulates what people on the ground actually do, and determines the quality of what comes out. So if you only intervene at the behavior layer, and accumulation doesn't shift, behavior reverts on its own.
 
@@ -90,32 +86,32 @@ Redesign: run the order **structure → output → behavior + emotion.**
 
 ```
 Opening 15 minutes — accumulation layer share
-  ・Last 3 months of EIS signals
-    — Production / Survival / Design / Cleanup / Breadth / Quality / Indispensability
-  ・Which layer they sit on (Implementation / Structure / Principle)
+  - Last 3 months of EIS signals
+    - Production / Survival / Design / Cleanup / Breadth / Quality / Indispensability
+  - Which layer they sit on (Implementation / Structure / Principle)
     and which transformations they're carrying
-  ・Their role in the team (Anchor / Producer / Cleaner / Specialist …)
+  - Their role in the team (Anchor / Producer / Cleaner / Specialist …)
 
 Middle 15 minutes — output layer
-  ・Recent major outputs and the process that led to that structure
-  ・RFCs written, design calls made, mentoring done, review patterns
+  - Recent major outputs and the process that led to that structure
+  - RFCs written, design calls made, mentoring done, review patterns
 
 Closing 15 minutes — behavior layer + emotion
-  ・Next steps, blockers, fatigue, motivation
-  ・Spoken on top of the structure mapped out in the first 30 minutes
+  - Next steps, blockers, fatigue, motivation
+  - Spoken on top of the structure mapped out in the first 30 minutes
 ```
 
 ### Why this order
 
 Putting emotion **last** is not because emotion is unimportant. It's the opposite — **separating emotion from structure lets you handle emotion itself with more care.**
 
-If you open with emotion, the mood of the moment colors the entire 1-on-1. "They seem down today; we'll do the structural stuff next time." Which means **structural stuff lives permanently in next time.**
+If you open with emotion, the mood of the moment colors the entire 1-on-1. "They seem down today; we'll do the structural stuff next time." Which means **structural stuff is perpetually postponed.**
 
 When you open with structure, emotion lands *on top of* structure. "The code stands. The Role has shifted toward Anchor. And lately they've been tired and sleeping badly." The **same** statement of fatigue reads completely differently in this frame. Emotion is no longer "a separate problem" — it's "a phenomenon inside the structure," and can be handled that way.
 
 > **From the field**
 >
-> This pattern repeats — a pair is doing weekly 30-minute 1-on-1s. They've been doing it for a year. And yet, **neither the EM nor the engineer has moved on consensus around the engineer's career direction or their place in the organization.**
+> This pattern repeats — a pair is doing weekly 30-minute 1-on-1s. They've been doing it for a year. And yet, **neither the EM nor the engineer has reached consensus on the engineer's career direction or their place in the organization.**
 >
 > The reason is simple. Every 1-on-1, the topic drifts back to "this week's problem" or "how I'm feeling." **Not once in a year has structure come up.** A year of time is consumed.
 >
