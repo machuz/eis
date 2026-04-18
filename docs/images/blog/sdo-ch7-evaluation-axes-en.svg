@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="620" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="620" rx="2" fill="#fe8019"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Evaluation · ch7</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Making Transformation Evaluable — Two Axes</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">Transformers and transformation coaches need separate evaluation axes. Traditional evaluation saw neither.</text>
+
+  <text x="244" y="102" text-anchor="middle" class="sans" fill="#83a598" font-size="18" font-weight="800">Transformer</text>
+  <text x="244" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">runs daily transformations</text>
+  <text x="716" y="102" text-anchor="middle" class="sans" fill="#fe8019" font-size="18" font-weight="800">Transformation Coach</text>
+  <text x="716" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">extends others' transformation capacity</text>
+
+  <line x1="480" y1="140" x2="480" y2="540" stroke="#3c3836" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Left: Transformer -->
+  <rect x="40" y="140" width="408" height="360" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="140" width="6" height="360" rx="3" fill="#83a598"/>
+
+  <text x="60" y="166" class="sans" fill="#83a598" font-size="13" font-weight="800">Role</text>
+  <text x="60" y="186" class="sans" fill="#ebdbb2" font-size="12">Runs daily transformations</text>
+
+  <text x="60" y="214" class="sans" fill="#83a598" font-size="13" font-weight="800">Observable from</text>
+  <text x="60" y="234" class="sans" fill="#ebdbb2" font-size="12">EIS + documents + meeting records</text>
+
+  <text x="60" y="262" class="sans" fill="#83a598" font-size="13" font-weight="800">Main signals</text>
+  <text x="60" y="282" class="sans" fill="#ebdbb2" font-size="12">● Design / Survival rise after reviews</text>
+  <text x="60" y="302" class="sans" fill="#ebdbb2" font-size="12">● Inter-layer doc update frequency</text>
+  <text x="60" y="322" class="sans" fill="#ebdbb2" font-size="12">● Linguistic realignment in meetings</text>
+  <text x="60" y="342" class="sans" fill="#ebdbb2" font-size="12">● Slowdown during absence (ex post)</text>
+
+  <text x="60" y="380" class="sans" fill="#83a598" font-size="13" font-weight="800">Verdict</text>
+  <text x="60" y="400" class="sans" fill="#ebdbb2" font-size="12">Partially captured by structure</text>
+  <text x="60" y="418" class="sans" fill="#928374" font-size="11">From "ran a meeting" to "fixed a Principle decision into Structure form, N times"</text>
+
+  <rect x="60" y="448" width="172" height="30" rx="15" fill="#1d2021" stroke="#83a598" stroke-width="1.5"/>
+  <text x="146" y="468" text-anchor="middle" class="sans" fill="#83a598" font-size="12" font-weight="800">Measure via signals</text>
+
+  <!-- Right: Transformation Coach -->
+  <rect x="512" y="140" width="408" height="360" rx="10" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+  <rect x="512" y="140" width="6" height="360" rx="3" fill="#fe8019"/>
+
+  <text x="532" y="166" class="sans" fill="#fe8019" font-size="13" font-weight="800">Role</text>
+  <text x="532" y="186" class="sans" fill="#ebdbb2" font-size="12">Expands others' transformation capability</text>
+
+  <text x="532" y="214" class="sans" fill="#fe8019" font-size="13" font-weight="800">Observable from</text>
+  <text x="532" y="234" class="sans" fill="#ebdbb2" font-size="12">Only the changes in the people worked with</text>
+
+  <text x="532" y="262" class="sans" fill="#fe8019" font-size="13" font-weight="800">Main signals</text>
+  <text x="532" y="282" class="sans" fill="#ebdbb2" font-size="12">● Coachee's transformation capability grew</text>
+  <text x="532" y="302" class="sans" fill="#ebdbb2" font-size="12">● Coachee's career motion</text>
+  <text x="532" y="322" class="sans" fill="#ebdbb2" font-size="12">● Range of transformations they can run</text>
+  <text x="532" y="342" class="sans" fill="#ebdbb2" font-size="12">● Organization's self-correction increased</text>
+
+  <text x="532" y="380" class="sans" fill="#fe8019" font-size="13" font-weight="800">Verdict</text>
+  <text x="532" y="400" class="sans" fill="#ebdbb2" font-size="12">Invisible to EIS</text>
+  <text x="532" y="418" class="sans" fill="#928374" font-size="11">Human eyes judge "the person they worked with can now do this alone"</text>
+
+  <rect x="532" y="448" width="184" height="30" rx="15" fill="#1d2021" stroke="#fe8019" stroke-width="1.5"/>
+  <text x="624" y="468" text-anchor="middle" class="sans" fill="#fe8019" font-size="12" font-weight="800">Judged by human eyes</text>
+
+  <!-- Bottom message -->
+  <rect x="40" y="518" width="880" height="60" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="480" y="542" text-anchor="middle" class="sans" fill="#fb4934" font-size="13" font-weight="800">Traditional evaluation sees neither</text>
+  <text x="480" y="564" text-anchor="middle" class="sans" fill="#928374" font-size="11">→ Transformers burn out and leave; transformation coaches go entirely unrecognized. The only defense is making the axes explicit in culture.</text>
+</svg>

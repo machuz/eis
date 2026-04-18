@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="620" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="620" rx="2" fill="#fe8019"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Evaluation · ch7</text>
+
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">変換行為を評価する — 2 つの評価軸</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">変換者 と 変換コーチ は、別の評価軸で扱う。従来評価では両者とも見えなかった</text>
+
+  <!-- Column headers -->
+  <text x="244" y="102" text-anchor="middle" class="jp" fill="#83a598" font-size="18" font-weight="800">変換者</text>
+  <text x="244" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">Transformer</text>
+  <text x="716" y="102" text-anchor="middle" class="jp" fill="#fe8019" font-size="18" font-weight="800">変換コーチ</text>
+  <text x="716" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">Transformation Coach</text>
+
+  <line x1="480" y1="140" x2="480" y2="540" stroke="#3c3836" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Left: Transformer -->
+  <rect x="40" y="140" width="408" height="360" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="140" width="6" height="360" rx="3" fill="#83a598"/>
+
+  <text x="60" y="166" class="jp" fill="#83a598" font-size="13" font-weight="800">役割</text>
+  <text x="60" y="186" class="jp" fill="#ebdbb2" font-size="12">日々の変換を回す</text>
+
+  <text x="60" y="214" class="jp" fill="#83a598" font-size="13" font-weight="800">観測源</text>
+  <text x="60" y="234" class="jp" fill="#ebdbb2" font-size="12">EIS + ドキュメント + 会議ログ</text>
+
+  <text x="60" y="262" class="jp" fill="#83a598" font-size="13" font-weight="800">主なシグナル</text>
+  <text x="60" y="282" class="jp" fill="#ebdbb2" font-size="12">● レビュー後の Design / Survival 上昇</text>
+  <text x="60" y="302" class="jp" fill="#ebdbb2" font-size="12">● レイヤー間ドキュメント更新頻度</text>
+  <text x="60" y="322" class="jp" fill="#ebdbb2" font-size="12">● 会議での言語的整流の回数</text>
+  <text x="60" y="342" class="jp" fill="#ebdbb2" font-size="12">● 不在時の組織の減速幅（ex post）</text>
+
+  <text x="60" y="380" class="jp" fill="#83a598" font-size="13" font-weight="800">判定</text>
+  <text x="60" y="400" class="jp" fill="#ebdbb2" font-size="12">部分的に構造で捕捉可能</text>
+  <text x="60" y="418" class="jp" fill="#928374" font-size="11">「会議をした」から「原理層の決定を構造の形に固定した回数」へ解像度が上がる</text>
+
+  <rect x="60" y="448" width="136" height="30" rx="15" fill="#1d2021" stroke="#83a598" stroke-width="1.5"/>
+  <text x="128" y="468" text-anchor="middle" class="jp" fill="#83a598" font-size="12" font-weight="800">シグナルで測る</text>
+
+  <!-- Right: Transformation Coach -->
+  <rect x="512" y="140" width="408" height="360" rx="10" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+  <rect x="512" y="140" width="6" height="360" rx="3" fill="#fe8019"/>
+
+  <text x="532" y="166" class="jp" fill="#fe8019" font-size="13" font-weight="800">役割</text>
+  <text x="532" y="186" class="jp" fill="#ebdbb2" font-size="12">他者の変換能力を拡張する</text>
+
+  <text x="532" y="214" class="jp" fill="#fe8019" font-size="13" font-weight="800">観測源</text>
+  <text x="532" y="234" class="jp" fill="#ebdbb2" font-size="12">関わった人の変化のみ</text>
+
+  <text x="532" y="262" class="jp" fill="#fe8019" font-size="13" font-weight="800">主なシグナル</text>
+  <text x="532" y="282" class="jp" fill="#ebdbb2" font-size="12">● コーチング対象の変換能力の拡張</text>
+  <text x="532" y="302" class="jp" fill="#ebdbb2" font-size="12">● 対象者のキャリア移動</text>
+  <text x="532" y="322" class="jp" fill="#ebdbb2" font-size="12">● 対象者が扱える変換の幅</text>
+  <text x="532" y="342" class="jp" fill="#ebdbb2" font-size="12">● 組織の自己修正能力の増加</text>
+
+  <text x="532" y="380" class="jp" fill="#fe8019" font-size="13" font-weight="800">判定</text>
+  <text x="532" y="400" class="jp" fill="#ebdbb2" font-size="12">EIS では見えない</text>
+  <text x="532" y="418" class="jp" fill="#928374" font-size="11">人間の目で、「関わった人が自分でできるようになった」を判別する</text>
+
+  <rect x="532" y="448" width="164" height="30" rx="15" fill="#1d2021" stroke="#fe8019" stroke-width="1.5"/>
+  <text x="614" y="468" text-anchor="middle" class="jp" fill="#fe8019" font-size="12" font-weight="800">人間の目で判断する</text>
+
+  <!-- Bottom message -->
+  <rect x="40" y="518" width="880" height="60" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="480" y="542" text-anchor="middle" class="jp" fill="#fb4934" font-size="13" font-weight="800">従来評価では両方とも見えなかった</text>
+  <text x="480" y="564" text-anchor="middle" class="jp" fill="#928374" font-size="11">→ 変換者は消耗して離脱、変換コーチは組織の中で認識すらされない。文化として評価軸を明示するのが唯一の防御策</text>
+</svg>

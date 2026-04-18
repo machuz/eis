@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="620" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="620" rx="2" fill="#8ec07c"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Culture · ch7</text>
+
+  <!-- Title -->
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">文化なし vs 文化あり — 会議の収束性</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">同じ「コード品質が落ちている」という議題が、使える語彙で結末が変わる</text>
+
+  <!-- Column headers -->
+  <text x="244" y="102" text-anchor="middle" class="jp" fill="#cc241d" font-size="18" font-weight="800">✕ 文化なし</text>
+  <text x="244" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">"values" on the wall only</text>
+  <text x="716" y="102" text-anchor="middle" class="jp" fill="#b8bb26" font-size="18" font-weight="800">✓ 文化あり</text>
+  <text x="716" y="120" text-anchor="middle" class="mono" fill="#7c6f64" font-size="11">vocabulary in daily use</text>
+
+  <!-- Divider -->
+  <line x1="480" y1="140" x2="480" y2="540" stroke="#3c3836" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Agenda box (both panels) -->
+  <rect x="40" y="140" width="408" height="40" rx="8" fill="#282828" stroke="#7c6f64" stroke-width="1"/>
+  <text x="244" y="166" text-anchor="middle" class="jp" fill="#a89984" font-size="12">議題：「最近、コード品質が落ちている気がする」</text>
+
+  <rect x="512" y="140" width="408" height="40" rx="8" fill="#282828" stroke="#7c6f64" stroke-width="1"/>
+  <text x="716" y="166" text-anchor="middle" class="jp" fill="#a89984" font-size="12">議題：「最近、コード品質が落ちている気がする」</text>
+
+  <!-- ============ PANEL A: No culture ============ -->
+  <rect x="40" y="200" width="408" height="270" rx="10" fill="#282828" stroke="#cc241d" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <rect x="40" y="200" width="6" height="270" rx="3" fill="#cc241d"/>
+  <text x="60" y="224" class="jp" fill="#cc241d" font-size="13" font-weight="800">議論の展開</text>
+
+  <text x="60" y="252" class="jp" fill="#ebdbb2" font-size="12">A：「それは Ownership の問題では？」</text>
+  <text x="60" y="274" class="jp" fill="#ebdbb2" font-size="12">B：「うーん、むしろ Excellence？」</text>
+  <text x="60" y="296" class="jp" fill="#ebdbb2" font-size="12">C：「でも速度も大事だから Ship it 優先…」</text>
+  <text x="60" y="318" class="jp" fill="#ebdbb2" font-size="12">A：「Ownership を個人の問題にして…」</text>
+  <text x="60" y="340" class="jp" fill="#928374" font-size="11">（感情と好みで意見が並ぶ）</text>
+
+  <line x1="60" y1="368" x2="428" y2="368" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="60" y="388" class="jp" fill="#cc241d" font-size="12" font-weight="700">結末：散る</text>
+  <text x="60" y="408" class="jp" fill="#928374" font-size="11">バリューは議題の上でスローガンとして</text>
+  <text x="60" y="424" class="jp" fill="#928374" font-size="11">触れられるが、判断の材料にはならない</text>
+  <text x="60" y="446" class="jp" fill="#7c6f64" font-size="10">次の会議で同じ話題が、同じように散る</text>
+
+  <!-- ============ PANEL B: With culture ============ -->
+  <rect x="512" y="200" width="408" height="270" rx="10" fill="#282828" stroke="#b8bb26" stroke-width="1.5"/>
+  <rect x="512" y="200" width="6" height="270" rx="3" fill="#b8bb26"/>
+  <text x="532" y="224" class="jp" fill="#b8bb26" font-size="13" font-weight="800">議論の展開</text>
+
+  <text x="532" y="252" class="jp" fill="#ebdbb2" font-size="12">A：「どのレイヤーの話？ Design 層？」</text>
+  <text x="532" y="274" class="jp" fill="#ebdbb2" font-size="12">B：「Utility 寄り。Robust ではない」</text>
+  <text x="532" y="296" class="jp" fill="#ebdbb2" font-size="12">C：「Design 層を先にリファクタ、積むなら後」</text>
+  <text x="532" y="318" class="jp" fill="#ebdbb2" font-size="12">A：「Breadth 広すぎ。Anchor を決めよう」</text>
+  <text x="532" y="340" class="jp" fill="#928374" font-size="11">（構造軸で意見が絡み合う）</text>
+
+  <line x1="532" y1="368" x2="900" y2="368" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="532" y="388" class="jp" fill="#b8bb26" font-size="12" font-weight="700">結末：収束する</text>
+  <text x="532" y="408" class="jp" fill="#928374" font-size="11">構造軸で判断が成立し、</text>
+  <text x="532" y="424" class="jp" fill="#928374" font-size="11">次に「誰が Anchor を担うか」に進む</text>
+  <text x="532" y="446" class="jp" fill="#7c6f64" font-size="10">1 週間後の進捗で検証できる</text>
+
+  <!-- Bottom message -->
+  <rect x="40" y="500" width="880" height="50" rx="10" fill="#1d2021" stroke="#8ec07c" stroke-width="1.5"/>
+  <text x="480" y="524" text-anchor="middle" class="jp" fill="#8ec07c" font-size="14" font-weight="800">使える語彙 = 文化。壁のバリューは文化の影、結果でしかない</text>
+  <text x="480" y="542" text-anchor="middle" class="jp" fill="#928374" font-size="11">判断に降りる語彙がないかぎり、どれだけバリューを宣言しても文化は立ち上がらない</text>
+
+  <!-- Footer -->
+  <text x="480" y="582" text-anchor="middle" class="jp" fill="#a89984" font-size="11">1 週間後テスト：新入社員が構造語彙を自然に使えば、文化は立ち上がっている</text>
+  <text x="480" y="602" text-anchor="middle" class="jp" fill="#928374" font-size="10">使えなければ、その「バリュー」は壁に貼られた紙のままだ</text>
+</svg>

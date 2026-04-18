@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="700" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="700" rx="2" fill="#fe8019"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Culture · ch7</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Structure layer vs Middle layer — read people by backing, not by title</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">The Structure layer is backed by one of three types. Without any backing, it's the Middle layer</text>
+
+  <!-- Type 1 -->
+  <rect x="40" y="100" width="280" height="420" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="100" width="280" height="40" rx="10" fill="#83a598"/>
+  <rect x="40" y="130" width="280" height="10" fill="#83a598"/>
+  <text x="180" y="126" text-anchor="middle" class="sans" fill="#1d2021" font-size="13" font-weight="800">Type 1</text>
+  <text x="60" y="166" class="sans" fill="#ebdbb2" font-size="16" font-weight="800">Code-backed</text>
+  <text x="60" y="186" class="mono" fill="#7c6f64" font-size="10">middle move</text>
+
+  <line x1="60" y1="206" x2="300" y2="206" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="60" y="226" class="sans" fill="#83a598" font-size="11" font-weight="700">Observable via</text>
+  <text x="60" y="246" class="sans" fill="#ebdbb2" font-size="12">EIS signals</text>
+
+  <text x="60" y="276" class="sans" fill="#83a598" font-size="11" font-weight="700">Signature</text>
+  <text x="60" y="296" class="sans" fill="#ebdbb2" font-size="12">Design ↑ / Survival ↑</text>
+  <text x="60" y="314" class="sans" fill="#ebdbb2" font-size="12">Cleanup ↑</text>
+  <text x="60" y="332" class="sans" fill="#7c6f64" font-size="10">Guards structure while writing code</text>
+
+  <text x="60" y="366" class="sans" fill="#83a598" font-size="11" font-weight="700">Examples</text>
+  <text x="60" y="386" class="sans" fill="#ebdbb2" font-size="12">Anchor</text>
+  <text x="60" y="404" class="sans" fill="#ebdbb2" font-size="12">Cleaner</text>
+  <text x="60" y="422" class="sans" fill="#ebdbb2" font-size="12">Inheritance Architect</text>
+
+  <rect x="60" y="462" width="88" height="30" rx="15" fill="#1d2021" stroke="#b8bb26" stroke-width="1.5"/>
+  <text x="104" y="482" text-anchor="middle" class="sans" fill="#b8bb26" font-size="12" font-weight="800">✓ Structure</text>
+
+  <!-- Type 2 -->
+  <rect x="340" y="100" width="280" height="420" rx="10" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+  <rect x="340" y="100" width="280" height="40" rx="10" fill="#fe8019"/>
+  <rect x="340" y="130" width="280" height="10" fill="#fe8019"/>
+  <text x="480" y="126" text-anchor="middle" class="sans" fill="#1d2021" font-size="13" font-weight="800">Type 2</text>
+  <text x="360" y="166" class="sans" fill="#ebdbb2" font-size="16" font-weight="800">Character / trust</text>
+  <text x="360" y="186" class="mono" fill="#7c6f64" font-size="10">backed</text>
+
+  <line x1="360" y1="206" x2="600" y2="206" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="360" y="226" class="sans" fill="#fe8019" font-size="11" font-weight="700">Observable via</text>
+  <text x="360" y="246" class="sans" fill="#ebdbb2" font-size="12">Changes in the people they worked with</text>
+
+  <text x="360" y="276" class="sans" fill="#fe8019" font-size="11" font-weight="700">Signature</text>
+  <text x="360" y="296" class="sans" fill="#ebdbb2" font-size="12">Doesn't show in EIS</text>
+  <text x="360" y="314" class="sans" fill="#ebdbb2" font-size="12">"They made this possible"</text>
+  <text x="360" y="332" class="sans" fill="#7c6f64" font-size="10">Coachee gains their own capacity</text>
+
+  <text x="360" y="366" class="sans" fill="#fe8019" font-size="11" font-weight="700">Examples</text>
+  <text x="360" y="386" class="sans" fill="#ebdbb2" font-size="12">Bill Campbell type</text>
+  <text x="360" y="404" class="sans" fill="#ebdbb2" font-size="12">Transformation coach</text>
+  <text x="360" y="422" class="sans" fill="#ebdbb2" font-size="12">Senior mentor</text>
+
+  <rect x="360" y="462" width="88" height="30" rx="15" fill="#1d2021" stroke="#b8bb26" stroke-width="1.5"/>
+  <text x="404" y="482" text-anchor="middle" class="sans" fill="#b8bb26" font-size="12" font-weight="800">✓ Structure</text>
+
+  <!-- Type 3 -->
+  <rect x="640" y="100" width="280" height="420" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="640" y="100" width="280" height="40" rx="10" fill="#d3869b"/>
+  <rect x="640" y="130" width="280" height="10" fill="#d3869b"/>
+  <text x="780" y="126" text-anchor="middle" class="sans" fill="#1d2021" font-size="13" font-weight="800">Type 3</text>
+  <text x="660" y="166" class="sans" fill="#ebdbb2" font-size="16" font-weight="800">Non-code</text>
+  <text x="660" y="186" class="mono" fill="#7c6f64" font-size="10">contribution</text>
+
+  <line x1="660" y1="206" x2="900" y2="206" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="660" y="226" class="sans" fill="#d3869b" font-size="11" font-weight="700">Observable via</text>
+  <text x="660" y="246" class="sans" fill="#ebdbb2" font-size="12">Documents · meeting records</text>
+
+  <text x="660" y="276" class="sans" fill="#d3869b" font-size="11" font-weight="700">Signature</text>
+  <text x="660" y="296" class="sans" fill="#ebdbb2" font-size="12">RFC / principle updates</text>
+  <text x="660" y="314" class="sans" fill="#ebdbb2" font-size="12">Linguistic realignment</text>
+  <text x="660" y="332" class="sans" fill="#7c6f64" font-size="10">Leaves traces of translation / bridging</text>
+
+  <text x="660" y="366" class="sans" fill="#d3869b" font-size="11" font-weight="700">Examples</text>
+  <text x="660" y="386" class="sans" fill="#ebdbb2" font-size="12">Principle ↔ Structure transformer</text>
+  <text x="660" y="404" class="sans" fill="#ebdbb2" font-size="12">PM · Eng Director</text>
+  <text x="660" y="422" class="sans" fill="#ebdbb2" font-size="12">Articulator of Principle layer</text>
+
+  <rect x="660" y="462" width="88" height="30" rx="15" fill="#1d2021" stroke="#b8bb26" stroke-width="1.5"/>
+  <text x="704" y="482" text-anchor="middle" class="sans" fill="#b8bb26" font-size="12" font-weight="800">✓ Structure</text>
+
+  <!-- Red strip: Middle layer (pejorative) -->
+  <rect x="40" y="548" width="880" height="70" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="480" y="574" text-anchor="middle" class="sans" fill="#cc241d" font-size="14" font-weight="800">✕ None of Type 1 / 2 / 3 backs them = Middle layer (title only)</text>
+  <text x="480" y="598" text-anchor="middle" class="sans" fill="#fb4934" font-size="12" font-weight="700">A structure-driven culture surfaces the Middle layer naturally and excludes them</text>
+
+  <!-- Footer -->
+  <text x="480" y="648" text-anchor="middle" class="sans" fill="#a89984" font-size="11">How long someone can sit in the Middle layer on title alone = depth of the culture's shallowness</text>
+  <text x="480" y="672" text-anchor="middle" class="sans" fill="#928374" font-size="10">To avoid repeating the VPoE-trend tragedy, distinguish "Structure layer / Middle layer" as shared vocabulary</text>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="700" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="700" rx="2" fill="#fe8019"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Culture · ch7</text>
+
+  <!-- Title -->
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">構造層 vs 中間層 — 裏付けで人を読む</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">本物の構造層は 3 類型のどれかで裏付けられる。どれにも当たらない動きが中間層</text>
+
+  <!-- ============ TYPE 1: Code-backed ============ -->
+  <rect x="40" y="100" width="280" height="420" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="100" width="280" height="40" rx="10" fill="#83a598"/>
+  <rect x="40" y="130" width="280" height="10" fill="#83a598"/>
+  <text x="180" y="126" text-anchor="middle" class="jp" fill="#1d2021" font-size="13" font-weight="800">Type 1</text>
+  <text x="60" y="166" class="jp" fill="#ebdbb2" font-size="16" font-weight="800">コード貢献裏付け型</text>
+  <text x="60" y="186" class="mono" fill="#7c6f64" font-size="10">Code-backed middle move</text>
+
+  <line x1="60" y1="206" x2="300" y2="206" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="60" y="226" class="jp" fill="#83a598" font-size="11" font-weight="700">観測</text>
+  <text x="60" y="246" class="jp" fill="#ebdbb2" font-size="12">EIS で可視化される</text>
+
+  <text x="60" y="276" class="jp" fill="#83a598" font-size="11" font-weight="700">サイン</text>
+  <text x="60" y="296" class="jp" fill="#ebdbb2" font-size="12">Design ↑ / Survival ↑</text>
+  <text x="60" y="314" class="jp" fill="#ebdbb2" font-size="12">Cleanup ↑</text>
+  <text x="60" y="332" class="jp" fill="#7c6f64" font-size="10">コードを書きながら構造を守る</text>
+
+  <text x="60" y="366" class="jp" fill="#83a598" font-size="11" font-weight="700">例</text>
+  <text x="60" y="386" class="jp" fill="#ebdbb2" font-size="12">Anchor</text>
+  <text x="60" y="404" class="jp" fill="#ebdbb2" font-size="12">Cleaner</text>
+  <text x="60" y="422" class="jp" fill="#ebdbb2" font-size="12">Inheritance Architect</text>
+
+  <rect x="60" y="462" width="88" height="30" rx="15" fill="#1d2021" stroke="#b8bb26" stroke-width="1.5"/>
+  <text x="104" y="482" text-anchor="middle" class="jp" fill="#b8bb26" font-size="12" font-weight="800">✓ 構造層</text>
+
+  <!-- ============ TYPE 2: Character-backed ============ -->
+  <rect x="340" y="100" width="280" height="420" rx="10" fill="#282828" stroke="#fe8019" stroke-width="1.5"/>
+  <rect x="340" y="100" width="280" height="40" rx="10" fill="#fe8019"/>
+  <rect x="340" y="130" width="280" height="10" fill="#fe8019"/>
+  <text x="480" y="126" text-anchor="middle" class="jp" fill="#1d2021" font-size="13" font-weight="800">Type 2</text>
+  <text x="360" y="166" class="jp" fill="#ebdbb2" font-size="16" font-weight="800">人柄・信頼型</text>
+  <text x="360" y="186" class="mono" fill="#7c6f64" font-size="10">Character / trust-based</text>
+
+  <line x1="360" y1="206" x2="600" y2="206" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="360" y="226" class="jp" fill="#fe8019" font-size="11" font-weight="700">観測</text>
+  <text x="360" y="246" class="jp" fill="#ebdbb2" font-size="12">関わった人の変化で判別</text>
+
+  <text x="360" y="276" class="jp" fill="#fe8019" font-size="11" font-weight="700">サイン</text>
+  <text x="360" y="296" class="jp" fill="#ebdbb2" font-size="12">EIS には出ない</text>
+  <text x="360" y="314" class="jp" fill="#ebdbb2" font-size="12">「この人のおかげで今ある」</text>
+  <text x="360" y="332" class="jp" fill="#7c6f64" font-size="10">対象者が自分で変換できるようになる</text>
+
+  <text x="360" y="366" class="jp" fill="#fe8019" font-size="11" font-weight="700">例</text>
+  <text x="360" y="386" class="jp" fill="#ebdbb2" font-size="12">Bill Campbell 型</text>
+  <text x="360" y="404" class="jp" fill="#ebdbb2" font-size="12">変換コーチ</text>
+  <text x="360" y="422" class="jp" fill="#ebdbb2" font-size="12">シニアメンター</text>
+
+  <rect x="360" y="462" width="88" height="30" rx="15" fill="#1d2021" stroke="#b8bb26" stroke-width="1.5"/>
+  <text x="404" y="482" text-anchor="middle" class="jp" fill="#b8bb26" font-size="12" font-weight="800">✓ 構造層</text>
+
+  <!-- ============ TYPE 3: Non-code-backed ============ -->
+  <rect x="640" y="100" width="280" height="420" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="640" y="100" width="280" height="40" rx="10" fill="#d3869b"/>
+  <rect x="640" y="130" width="280" height="10" fill="#d3869b"/>
+  <text x="780" y="126" text-anchor="middle" class="jp" fill="#1d2021" font-size="13" font-weight="800">Type 3</text>
+  <text x="660" y="166" class="jp" fill="#ebdbb2" font-size="16" font-weight="800">コード外貢献型</text>
+  <text x="660" y="186" class="mono" fill="#7c6f64" font-size="10">Non-code contribution</text>
+
+  <line x1="660" y1="206" x2="900" y2="206" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="660" y="226" class="jp" fill="#d3869b" font-size="11" font-weight="700">観測</text>
+  <text x="660" y="246" class="jp" fill="#ebdbb2" font-size="12">ドキュメント・会議ログ</text>
+
+  <text x="660" y="276" class="jp" fill="#d3869b" font-size="11" font-weight="700">サイン</text>
+  <text x="660" y="296" class="jp" fill="#ebdbb2" font-size="12">RFC・設計原則の更新</text>
+  <text x="660" y="314" class="jp" fill="#ebdbb2" font-size="12">会議での言語的整流</text>
+  <text x="660" y="332" class="jp" fill="#7c6f64" font-size="10">翻訳・意思決定橋渡しの跡が残る</text>
+
+  <text x="660" y="366" class="jp" fill="#d3869b" font-size="11" font-weight="700">例</text>
+  <text x="660" y="386" class="jp" fill="#ebdbb2" font-size="12">原理 ↔ 構造の変換者</text>
+  <text x="660" y="404" class="jp" fill="#ebdbb2" font-size="12">PM・Eng Director</text>
+  <text x="660" y="422" class="jp" fill="#ebdbb2" font-size="12">原理層を言語化する人</text>
+
+  <rect x="660" y="462" width="88" height="30" rx="15" fill="#1d2021" stroke="#b8bb26" stroke-width="1.5"/>
+  <text x="704" y="482" text-anchor="middle" class="jp" fill="#b8bb26" font-size="12" font-weight="800">✓ 構造層</text>
+
+  <!-- ============ Red strip: Middle layer (pejorative) ============ -->
+  <rect x="40" y="548" width="880" height="70" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="480" y="574" text-anchor="middle" class="jp" fill="#cc241d" font-size="14" font-weight="800">✕ Type 1 / 2 / 3 のどれにも裏付けがない = 中間層（役職の名乗りだけ）</text>
+  <text x="480" y="598" text-anchor="middle" class="jp" fill="#fb4934" font-size="12" font-weight="700">構造駆動の文化は、中間層を自然に浮き彫りにして排除する</text>
+
+  <!-- Footer -->
+  <text x="480" y="648" text-anchor="middle" class="jp" fill="#a89984" font-size="11">中間層のまま座っていられる期間が、組織の文化の浅さだ</text>
+  <text x="480" y="672" text-anchor="middle" class="jp" fill="#928374" font-size="10">VPoE 流行の悲劇を繰り返さないために、「構造層 / 中間層」を文化で見分ける</text>
+</svg>
