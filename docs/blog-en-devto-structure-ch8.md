@@ -92,7 +92,9 @@ Signals that used to live in "sort of" territory start standing up as observable
 **Observability in ten years runs two tracks in parallel:**
 
 - **Code observation (EIS-type)** — the structural contribution of what remained as artifact
-- **Decision observation (meeting transcripts + Slack analysis — Plaud-type)** — the traces of decisions and transformations that never became artifact
+- **Decision observation (Plaud-type for meetings, dm-type for chat)** — the traces of decisions and transformations that never became artifact
+
+"Plaud-type" is the dark matter of meetings; "dm-type" is the dark matter of chat. For the latter, there's a working example — OrbitLens runs an internal CLI called `dm` (**Dark Matter Observatory**) that scans Slack, aggregates threads, and hands them to the AI's memory as structured logs. The framing it was built on: "Git = visible light (behavior log), Slack = dark matter (thought log)."
 
 Neither can be missing. Code alone can't see the dark matter of decisions. Meetings and Slack alone can't see the structure of code. A structure-driven organization OS only covers **most of organizational activity** when both observation tracks are running.
 
@@ -106,7 +108,7 @@ The people being observed need to understand "what, for what purpose, visible to
 - **No direct link to performance review or discipline** — observation is for the organization's self-correction, not material for evaluating individuals. The moment you mix the two, the floor stops speaking naturally and the culture dies
 - **Observe the observer** — who saw what, with an auditable access log
 - **Room to opt out** — 1-on-1s, mental-health topics, and sensitive agendas can be explicitly excluded
-- **Limit to signal granularity** — design to pick up structural signals only (utterance frequency, distribution, transitions), not raw speech. If EIS someday ships `eis dm` (dark-matter observation), it will only be built in a way that preserves this rule — never as a feature that exposes raw utterances or individual statements to admins or evaluators
+- **Limit both granularity and use** — what surfaces on dashboards or in evaluation contexts should be structural signals (utterance frequency, distribution, transitions), never a view that lets a manager trace "who said what." Handing raw text to an AI for context is acceptable, but the principle is that such raw content **must not directly feed into performance review or discipline.** OrbitLens's `dm` operates under exactly this constraint.
 
 Observation technology can also be used for surveillance. **Designing the ethics and the literacy of observation is a condition on par with the technical possibility of observation.** Observation without it, however precise, destroys the culture.
 
