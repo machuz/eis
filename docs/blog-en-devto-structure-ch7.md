@@ -49,7 +49,7 @@ The opposite: a year passes, the wall values never get cited in a meeting, new h
 
 Teams where the vocabulary has settled have one telltale sentence: **"Which layer is that?"**
 
-At the start of a meeting, when discussion starts to mix, someone inserts: "Is this a Principle-layer discussion? Structure? Implementation?" "Is that a behavior-layer problem, or an accumulation-layer problem?" A mixed discussion that had been rolling forward gets **linguistically stopped** — that's the signature of a working culture.
+At the start of a meeting, when discussion starts to mix, someone inserts: "Is this a Principle-layer discussion? Structure? Implementation?" "Is that a behavior-layer problem, an output-layer problem, or an accumulation-layer problem?" A mixed discussion that had been rolling forward gets **linguistically stopped** — that's the signature of a working culture.
 
 One person who can stop the discussion is enough. Everyone doesn't have to be able to. That one person will stop discussions this way for several months, and the rest of the team starts asking the same question naturally. **Language propagates.**
 
