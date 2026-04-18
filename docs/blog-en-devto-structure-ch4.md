@@ -264,16 +264,7 @@ The three-axis topology from chapter 3 (Role × Style × State) only functions w
 
 ![Role × Layer placement fit](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-role-layer-heatmap-en.svg)
 
-| Role | Implementation | Structure | Principle |
-|---|---|---|---|
-| **Architect** (Inheritance) | Leaves design directly in code | **Most powerful here** — design propagates into others' code | Bridges to strategy. Few but critical |
-| **Architect** (Emergent) | Runs experiments that break the existing | Lands new structural proposals into Structure | Presents worldview for new business / R&D |
-| **Anchor** | **Native habitat** — guards code skeleton | Main force in design review and quality gates | Tends to over-adapt if placed here |
-| **Cleaner** | **Native habitat** — sweeps debt | Designs systemic cleanup | Doesn't fit (no concrete object) |
-| **Producer** | **Native habitat** — speed forward | A standalone Producer spins out at Structure | Spins out completely |
-| **Specialist** | Deep contribution in their domain's implementation | Deep contribution in their domain's design | Only if their domain connects directly to Principle |
-
-The table isn't strict. It's a **placement-fit guide**. The point is that **Role alone doesn't determine fit** — Role × Layer as a pair determines fit.
+The diagram isn't strict. It's a **placement-fit guide**. The point is that **Role alone doesn't determine fit** — Role × Layer as a pair determines fit.
 
 ### The Anatomy of "Talented but Spinning"
 

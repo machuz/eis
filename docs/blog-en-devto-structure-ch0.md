@@ -158,13 +158,13 @@ When observing an organization, distinguish three layers.
 |---|---|---|---|
 | **Behavior** | Who did what | Logs, calendar, Slack | Commit frequency, meeting hours |
 | **Output** | What was produced | Artifacts, docs | Features shipped, bugs filed |
-| **Structure** | What remained, how it's connected | Git Archaeology, dependency graphs | Surviving code, owned modules |
+| **Accumulation** | What remained, how it's connected | Git Archaeology, dependency graphs | Surviving code, owned modules |
 
-Most organizations stop at Behavior and Output. They **don't observe the Structure layer**, so "effort" and "contribution to structure" can't be told apart.
+Most organizations stop at Behavior and Output. They **don't observe the Accumulation layer**, so "effort" and "contribution to the structure that remains" can't be told apart.
 
 The core thesis of Structure-Driven Engineering Organization Theory:
 
-> **Every organizational intervention should be decomposed across the three layers — Behavior, Output, Structure — before it's made.**
+> **Every organizational intervention should be decomposed across the three layers — Behavior, Output, Accumulation — before it's made.**
 
 In 1-on-1s, evaluations, hiring — don't blend the three. Blended, the conversation doesn't align. Split, the same topic surfaces as three distinct decisions.
 
@@ -193,7 +193,7 @@ The path forward:
 | 3 | People, Read as Types | Anchor / Producer / Mass and related archetypes |
 | 4 | Organizational Layers | Implementation / Structure / Principle — 3 layers + 2 transformations, transformers and transformation coaches |
 | 5 | Product-Organization Isomorphism | Product's three layers, symptoms of the isomorphism, symmetric intervention design |
-| 6 | Designing Interventions (1-on-1 / pair programming) | Speaking across the three layers |
+| 6 | Designing Interventions (1-on-1 / pair programming) | Decomposing across Behavior / Output / Accumulation |
 | 7 | Making Culture | Language makes culture. Evaluating transformation itself. |
 | 8 | Conditions for a Structure-Driven Engineering Organization | Reproducibility, observability, self-correction |
 | 9 | Connecting to OrbitLens | The moment observation becomes SaaS |

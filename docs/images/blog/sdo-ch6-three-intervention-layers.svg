@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="660" viewBox="0 0 720 660">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="660" rx="12" fill="#1d2021"/>
+
+  <!-- Accent bar -->
+  <rect x="0" y="0" width="4" height="660" rx="2" fill="#8ec07c"/>
+
+  <!-- Category label -->
+  <text x="696" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Intervention · ch6</text>
+
+  <!-- Title -->
+  <text x="360" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">介入の 3 層</text>
+  <text x="360" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">蓄積が、行動と出力の条件を決める</text>
+
+  <!-- ================== 蓄積層 (top — cause) ================== -->
+  <rect x="48" y="96" width="624" height="108" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="2.5"/>
+  <rect x="48" y="96" width="6" height="108" rx="3" fill="#fabd2f"/>
+  <text x="74" y="132" class="jp" fill="#fabd2f" font-size="22" font-weight="800">蓄積層</text>
+  <text x="74" y="152" class="mono" fill="#7c6f64" font-size="11">Accumulation</text>
+  <text x="74" y="176" class="mono" fill="#504945" font-size="10">cause</text>
+  <text x="220" y="126" class="jp" fill="#ebdbb2" font-size="14" font-weight="700">何が残り、どう繋がっているか</text>
+  <text x="220" y="148" class="jp" fill="#928374" font-size="12">EIS 指標、レイヤー配置、変換経路、共通規約、チーム構成、採用基準</text>
+  <text x="220" y="172" class="jp" fill="#fabd2f" font-size="12" font-weight="700">ここが変わると、行動と出力は自動的に変わる</text>
+  <text x="220" y="190" class="jp" fill="#7c6f64" font-size="10">介入の設計は「何を蓄積させるか」から逆算する</text>
+
+  <!-- 蓄積 → 出力 arrow: causality -->
+  <g>
+    <line x1="360" y1="214" x2="360" y2="260" stroke="#fabd2f" stroke-width="2.5"/>
+    <polygon points="354,256 366,256 360,270" fill="#fabd2f"/>
+  </g>
+  <rect x="252" y="226" width="216" height="22" rx="11" fill="#1d2021" stroke="#fabd2f" stroke-width="1"/>
+  <text x="360" y="242" text-anchor="middle" class="jp" fill="#fabd2f" font-size="11" font-weight="700">蓄積が出力の条件を決める</text>
+
+  <!-- ================== 出力層 (middle) ================== -->
+  <rect x="48" y="280" width="624" height="84" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="48" y="280" width="6" height="84" rx="3" fill="#d3869b"/>
+  <text x="74" y="316" class="jp" fill="#d3869b" font-size="22" font-weight="800">出力層</text>
+  <text x="74" y="336" class="mono" fill="#7c6f64" font-size="11">Output</text>
+  <text x="220" y="312" class="jp" fill="#ebdbb2" font-size="14" font-weight="700">何が生まれたか</text>
+  <text x="220" y="334" class="jp" fill="#928374" font-size="12">機能、ドキュメント、決定、RFC、設計提案、メンタリングの形跡</text>
+  <text x="220" y="354" class="jp" fill="#7c6f64" font-size="10">使われず・引用されず・参照されなければ、蓄積にならない</text>
+
+  <!-- 出力 → 行動 arrow -->
+  <g>
+    <line x1="360" y1="374" x2="360" y2="420" stroke="#d3869b" stroke-width="2"/>
+    <polygon points="354,416 366,416 360,430" fill="#d3869b"/>
+  </g>
+  <rect x="252" y="386" width="216" height="22" rx="11" fill="#1d2021" stroke="#d3869b" stroke-width="1"/>
+  <text x="360" y="402" text-anchor="middle" class="jp" fill="#d3869b" font-size="11" font-weight="700">出力が行動の形を決める</text>
+
+  <!-- ================== 行動層 (bottom — effect) ================== -->
+  <rect x="48" y="440" width="624" height="84" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="48" y="440" width="6" height="84" rx="3" fill="#83a598"/>
+  <text x="74" y="476" class="jp" fill="#83a598" font-size="22" font-weight="800">行動層</text>
+  <text x="74" y="496" class="mono" fill="#7c6f64" font-size="11">Behavior</text>
+  <text x="74" y="516" class="mono" fill="#504945" font-size="10">effect</text>
+  <text x="220" y="472" class="jp" fill="#ebdbb2" font-size="14" font-weight="700">何をしているか</text>
+  <text x="220" y="494" class="jp" fill="#928374" font-size="12">会議、コミット、レビュー時間、Slack、デプロイ頻度、オンコール</text>
+  <text x="220" y="514" class="jp" fill="#7c6f64" font-size="10">行動だけを変えても、蓄積が動かなければ放っておけば元に戻る</text>
+
+  <!-- ================== Reverse-flow warning ================== -->
+  <g>
+    <line x1="44" y1="560" x2="676" y2="560" stroke="#504945" stroke-width="1" stroke-dasharray="3 3"/>
+  </g>
+  <text x="360" y="582" text-anchor="middle" class="jp" fill="#cc241d" font-size="12" font-weight="700">従来の介入は因果を逆向きに走る——行動を変えて、そのうち蓄積も変わるだろう、と</text>
+  <text x="360" y="602" text-anchor="middle" class="jp" fill="#928374" font-size="11">順序が逆だ。蓄積に手を入れない介入は、行動の表面でしか効かない</text>
+  <text x="360" y="628" text-anchor="middle" class="jp" fill="#fabd2f" font-size="12" font-weight="700">構造駆動 = 「何を蓄積させるか」から逆算して介入を設計する</text>
+</svg>

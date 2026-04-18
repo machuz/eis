@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="660" viewBox="0 0 720 660">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="720" height="660" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="660" rx="2" fill="#8ec07c"/>
+  <text x="696" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Intervention · ch6</text>
+
+  <text x="360" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Three Layers of Intervention</text>
+  <text x="360" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">Accumulation shapes the conditions under which behavior and output form</text>
+
+  <!-- Accumulation (top — cause) -->
+  <rect x="48" y="96" width="624" height="108" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="2.5"/>
+  <rect x="48" y="96" width="6" height="108" rx="3" fill="#fabd2f"/>
+  <text x="74" y="132" class="sans" fill="#fabd2f" font-size="22" font-weight="800">Accumulation</text>
+  <text x="74" y="152" class="mono" fill="#7c6f64" font-size="11">cause</text>
+  <text x="240" y="126" class="sans" fill="#ebdbb2" font-size="14" font-weight="700">What remains, and how it's connected</text>
+  <text x="240" y="148" class="sans" fill="#928374" font-size="12">EIS signals, layer placement, transformation paths, conventions,</text>
+  <text x="240" y="164" class="sans" fill="#928374" font-size="12">team shape, hiring bar</text>
+  <text x="240" y="182" class="sans" fill="#fabd2f" font-size="12" font-weight="700">When this changes, behavior and output change automatically</text>
+  <text x="240" y="196" class="sans" fill="#7c6f64" font-size="10">Designing the intervention starts from "what should accumulate?"</text>
+
+  <!-- Accumulation → Output arrow -->
+  <g>
+    <line x1="360" y1="214" x2="360" y2="260" stroke="#fabd2f" stroke-width="2.5"/>
+    <polygon points="354,256 366,256 360,270" fill="#fabd2f"/>
+  </g>
+  <rect x="228" y="226" width="264" height="22" rx="11" fill="#1d2021" stroke="#fabd2f" stroke-width="1"/>
+  <text x="360" y="242" text-anchor="middle" class="sans" fill="#fabd2f" font-size="11" font-weight="700">Accumulation shapes the conditions of output</text>
+
+  <!-- Output (middle) -->
+  <rect x="48" y="280" width="624" height="84" rx="10" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <rect x="48" y="280" width="6" height="84" rx="3" fill="#d3869b"/>
+  <text x="74" y="316" class="sans" fill="#d3869b" font-size="22" font-weight="800">Output</text>
+  <text x="240" y="312" class="sans" fill="#ebdbb2" font-size="14" font-weight="700">What got produced</text>
+  <text x="240" y="334" class="sans" fill="#928374" font-size="12">Features, docs, decisions, RFCs, design proposals, mentoring trails</text>
+  <text x="240" y="354" class="sans" fill="#7c6f64" font-size="10">If not used, not cited, not referenced — it never becomes accumulation</text>
+
+  <!-- Output → Behavior arrow -->
+  <g>
+    <line x1="360" y1="374" x2="360" y2="420" stroke="#d3869b" stroke-width="2"/>
+    <polygon points="354,416 366,416 360,430" fill="#d3869b"/>
+  </g>
+  <rect x="228" y="386" width="264" height="22" rx="11" fill="#1d2021" stroke="#d3869b" stroke-width="1"/>
+  <text x="360" y="402" text-anchor="middle" class="sans" fill="#d3869b" font-size="11" font-weight="700">Output shapes the form of behavior</text>
+
+  <!-- Behavior (bottom — effect) -->
+  <rect x="48" y="440" width="624" height="84" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="48" y="440" width="6" height="84" rx="3" fill="#83a598"/>
+  <text x="74" y="476" class="sans" fill="#83a598" font-size="22" font-weight="800">Behavior</text>
+  <text x="74" y="496" class="mono" fill="#7c6f64" font-size="11">effect</text>
+  <text x="240" y="472" class="sans" fill="#ebdbb2" font-size="14" font-weight="700">What someone is doing</text>
+  <text x="240" y="494" class="sans" fill="#928374" font-size="12">Meetings, commits, review time, Slack, deploy frequency, on-call</text>
+  <text x="240" y="514" class="sans" fill="#7c6f64" font-size="10">Change behavior alone, and without accumulation change, it reverts</text>
+
+  <!-- Reverse-flow warning -->
+  <g>
+    <line x1="44" y1="560" x2="676" y2="560" stroke="#504945" stroke-width="1" stroke-dasharray="3 3"/>
+  </g>
+  <text x="360" y="582" text-anchor="middle" class="sans" fill="#cc241d" font-size="12" font-weight="700">Traditional interventions run the causality backward —</text>
+  <text x="360" y="602" text-anchor="middle" class="sans" fill="#928374" font-size="11">"change behavior, hope output improves, hope accumulation follows." The order is inverted.</text>
+  <text x="360" y="628" text-anchor="middle" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Structure-driven = design interventions backwards from "what should accumulate"</text>
+</svg>
