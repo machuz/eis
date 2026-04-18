@@ -61,6 +61,8 @@ title: "第8章 —— 構造駆動組織の条件"
 
 ### コード観測と意思決定観測 — ダークマターの可視化
 
+![観測の射程 — コード観測 + 意思決定観測 + ダークマター](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch8-observability-dark-matter.svg)
+
 ここで、本書が扱ってきた観測の **射程の境界**を明示しておきたい。
 
 従来、組織の観測は**コード側**でしか成立していなかった。git log、git blame、PR の履歴——これらはすべて、**成果物として残ったもの**の観測だ。EIS が可視化するのは、この「残ったものの構造的な寄与」だ。これは極めて強力だ。しかし**組織活動の全体から見ると、ごく一部しかカバーしていない**。
@@ -103,6 +105,8 @@ title: "第8章 —— 構造駆動組織の条件"
 
 ## 3 条件が揃わないとき
 
+![構造駆動組織の 3 条件](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch8-three-conditions.svg)
+
 どれか 1 つだけある組織は、それぞれ典型的な失敗モードに陥る。
 
 - **再現性のみ**：硬直した測定。指標がゲーム化され、人が数字に合わせて動く。指標が組織を歪める
@@ -114,6 +118,8 @@ title: "第8章 —— 構造駆動組織の条件"
 ---
 
 ## 構造駆動の成熟度モデル
+
+![構造駆動の成熟度モデル — Level 0 から Level 4](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch8-maturity-levels.svg)
 
 組織が OS 化する道のりは、5 段階に分解できる。
 

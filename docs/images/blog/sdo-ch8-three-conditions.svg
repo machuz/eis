@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="700" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="700" rx="2" fill="#8ec07c"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Conditions · ch8</text>
+
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">構造駆動組織の 3 条件</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">3 つ揃って初めて OS として動く。どれか 1 つでも欠ければ、人に依存した延命装置になる</text>
+
+  <!-- Column labels -->
+  <text x="328" y="102" text-anchor="middle" class="jp" fill="#a89984" font-size="12" font-weight="700">条件</text>
+  <text x="780" y="102" text-anchor="middle" class="jp" fill="#cc241d" font-size="12" font-weight="700">欠けたときの失敗モード</text>
+
+  <!-- ============ TOP: Self-correction (highest, built on the other two) ============ -->
+  <rect x="40" y="118" width="576" height="96" rx="10" fill="#282828" stroke="#d3869b" stroke-width="2"/>
+  <rect x="40" y="118" width="6" height="96" rx="3" fill="#d3869b"/>
+  <text x="60" y="144" class="jp" fill="#d3869b" font-size="18" font-weight="800">自己修正性</text>
+  <text x="60" y="163" class="mono" fill="#7c6f64" font-size="10">Self-correction · 最高次</text>
+  <text x="60" y="186" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">観測と現実のズレを、内部から直せる</text>
+  <text x="60" y="204" class="jp" fill="#928374" font-size="11">語彙・観測・介入の 3 層分解を現場が運用できる状態</text>
+
+  <rect x="640" y="118" width="280" height="96" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="660" y="144" class="jp" fill="#cc241d" font-size="13" font-weight="800">自己修正性だけ</text>
+  <text x="660" y="166" class="jp" fill="#ebdbb2" font-size="12">情熱駆動 / 属人的</text>
+  <text x="660" y="186" class="jp" fill="#928374" font-size="11">創業者・1 人のテックリード依存</text>
+  <text x="660" y="204" class="jp" fill="#928374" font-size="11">その人が辞めた瞬間に壊れる</text>
+
+  <!-- Arrow: Self-correction depends on Observability -->
+  <g>
+    <line x1="328" y1="232" x2="328" y2="264" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="322,240 334,240 328,228" fill="#8ec07c"/>
+  </g>
+  <text x="348" y="253" class="jp" fill="#8ec07c" font-size="11" font-weight="700">の上に立つ</text>
+
+  <!-- ============ MIDDLE: Observability ============ -->
+  <rect x="40" y="278" width="576" height="96" rx="10" fill="#282828" stroke="#83a598" stroke-width="2"/>
+  <rect x="40" y="278" width="6" height="96" rx="3" fill="#83a598"/>
+  <text x="60" y="304" class="jp" fill="#83a598" font-size="18" font-weight="800">可観測性</text>
+  <text x="60" y="323" class="mono" fill="#7c6f64" font-size="10">Observability · 中段</text>
+  <text x="60" y="346" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">組織が自分で自分の状態を読める</text>
+  <text x="60" y="364" class="jp" fill="#928374" font-size="11">コード観測（EIS）+ 意思決定観測（Plaud 型）の 2 系統並走</text>
+
+  <rect x="640" y="278" width="280" height="96" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="660" y="304" class="jp" fill="#cc241d" font-size="13" font-weight="800">可観測性だけ</text>
+  <text x="660" y="326" class="jp" fill="#ebdbb2" font-size="12">見えるが動けない</text>
+  <text x="660" y="346" class="jp" fill="#928374" font-size="11">ダッシュボードだけ増殖</text>
+  <text x="660" y="364" class="jp" fill="#928374" font-size="11">誰も読んで行動しない</text>
+
+  <!-- Arrow: Observability depends on Reproducibility -->
+  <g>
+    <line x1="328" y1="392" x2="328" y2="424" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="322,400 334,400 328,388" fill="#8ec07c"/>
+  </g>
+  <text x="348" y="413" class="jp" fill="#8ec07c" font-size="11" font-weight="700">の上に立つ</text>
+
+  <!-- ============ BOTTOM: Reproducibility (foundation) ============ -->
+  <rect x="40" y="438" width="576" height="96" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="2"/>
+  <rect x="40" y="438" width="6" height="96" rx="3" fill="#fabd2f"/>
+  <text x="60" y="464" class="jp" fill="#fabd2f" font-size="18" font-weight="800">再現性</text>
+  <text x="60" y="483" class="mono" fill="#7c6f64" font-size="10">Reproducibility · 基盤</text>
+  <text x="60" y="506" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">誰が観測しても同じ結論になる</text>
+  <text x="60" y="524" class="jp" fill="#928374" font-size="11">機械観測 + レイヤー・アーキタイプの明文化で担保</text>
+
+  <rect x="640" y="438" width="280" height="96" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="660" y="464" class="jp" fill="#cc241d" font-size="13" font-weight="800">再現性だけ</text>
+  <text x="660" y="486" class="jp" fill="#ebdbb2" font-size="12">硬直した測定</text>
+  <text x="660" y="506" class="jp" fill="#928374" font-size="11">指標がゲーム化される</text>
+  <text x="660" y="524" class="jp" fill="#928374" font-size="11">人が数字に合わせて動き、指標が組織を歪める</text>
+
+  <!-- ============ Bottom: All 3 together = OS ============ -->
+  <rect x="40" y="568" width="880" height="100" rx="10" fill="#1d2021" stroke="#b8bb26" stroke-width="2.5"/>
+  <text x="480" y="598" text-anchor="middle" class="jp" fill="#b8bb26" font-size="18" font-weight="800">3 条件が揃うと → OS として動く</text>
+  <text x="480" y="622" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="12">特定個人の英雄的努力なしに、構造の恒常性が保たれる</text>
+  <text x="480" y="644" text-anchor="middle" class="jp" fill="#928374" font-size="11">「A さんが辞めたら文化が消えた」が起きない。語彙と観測と自己修正のループが自走する</text>
+  <text x="480" y="662" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">これが本書が構造駆動を「組織 OS」と呼ぶ理由だ</text>
+</svg>

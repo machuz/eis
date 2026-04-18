@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="660" viewBox="0 0 960 660">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="660" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="660" rx="2" fill="#8ec07c"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Maturity Model · ch8</text>
+
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">構造駆動の成熟度モデル</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">Level 0 から Level 4 への 5 段階。本書の全内容は、この道のりの地図だ</text>
+
+  <!-- ============ Level 0 ============ -->
+  <rect x="40" y="100" width="880" height="80" rx="10" fill="#282828" stroke="#7c6f64" stroke-width="1.5"/>
+  <rect x="40" y="100" width="6" height="80" rx="3" fill="#7c6f64"/>
+  <rect x="60" y="115" width="84" height="28" rx="14" fill="#1d2021" stroke="#7c6f64" stroke-width="1.5"/>
+  <text x="102" y="134" text-anchor="middle" class="mono" fill="#a89984" font-size="13" font-weight="800">Level 0</text>
+  <text x="166" y="135" class="jp" fill="#ebdbb2" font-size="16" font-weight="800">プロセス依存</text>
+  <text x="60" y="165" class="jp" fill="#928374" font-size="12">スクラム・OKR・ベロシティで代替。観測は行動層のみ。構造は見えていない</text>
+
+  <!-- Arrow down -->
+  <g transform="translate(480, 184)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#928374" stroke-width="1.5"/>
+    <polygon points="-4,10 4,10 0,18" fill="#928374"/>
+  </g>
+
+  <!-- ============ Level 1 ============ -->
+  <rect x="40" y="204" width="880" height="80" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="204" width="6" height="80" rx="3" fill="#83a598"/>
+  <rect x="60" y="219" width="84" height="28" rx="14" fill="#1d2021" stroke="#83a598" stroke-width="1.5"/>
+  <text x="102" y="238" text-anchor="middle" class="mono" fill="#83a598" font-size="13" font-weight="800">Level 1</text>
+  <text x="166" y="239" class="jp" fill="#ebdbb2" font-size="16" font-weight="800">観測導入</text>
+  <text x="60" y="269" class="jp" fill="#928374" font-size="12">EIS を読み始める。Survival・Design・Breadth の語彙が入り始めるが、まだ一部の人のもの</text>
+
+  <g transform="translate(480, 288)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#928374" stroke-width="1.5"/>
+    <polygon points="-4,10 4,10 0,18" fill="#928374"/>
+  </g>
+
+  <!-- ============ Level 2 ============ -->
+  <rect x="40" y="308" width="880" height="80" rx="10" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+  <rect x="40" y="308" width="6" height="80" rx="3" fill="#8ec07c"/>
+  <rect x="60" y="323" width="84" height="28" rx="14" fill="#1d2021" stroke="#8ec07c" stroke-width="1.5"/>
+  <text x="102" y="342" text-anchor="middle" class="mono" fill="#8ec07c" font-size="13" font-weight="800">Level 2</text>
+  <text x="166" y="343" class="jp" fill="#ebdbb2" font-size="16" font-weight="800">言語化</text>
+  <text x="60" y="373" class="jp" fill="#928374" font-size="12">レイヤー・アーキタイプ・変換の語彙が日常に通じる。会議で「どのレイヤー？」が自然に出る</text>
+
+  <g transform="translate(480, 392)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#928374" stroke-width="1.5"/>
+    <polygon points="-4,10 4,10 0,18" fill="#928374"/>
+  </g>
+
+  <!-- ============ Level 3 ============ -->
+  <rect x="40" y="412" width="880" height="80" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="40" y="412" width="6" height="80" rx="3" fill="#fabd2f"/>
+  <rect x="60" y="427" width="84" height="28" rx="14" fill="#1d2021" stroke="#fabd2f" stroke-width="1.5"/>
+  <text x="102" y="446" text-anchor="middle" class="mono" fill="#fabd2f" font-size="13" font-weight="800">Level 3</text>
+  <text x="166" y="447" class="jp" fill="#ebdbb2" font-size="16" font-weight="800">介入の 3 層化</text>
+  <text x="60" y="477" class="jp" fill="#928374" font-size="12">1on1・ペアプロ・レビュー・組織変更が 行動 / 出力 / 蓄積 で分解される。効果が次の観測サイクルで検証される</text>
+
+  <g transform="translate(480, 496)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#928374" stroke-width="1.5"/>
+    <polygon points="-4,10 4,10 0,18" fill="#928374"/>
+  </g>
+
+  <!-- ============ Level 4 ============ -->
+  <rect x="40" y="516" width="880" height="92" rx="10" fill="#282828" stroke="#d3869b" stroke-width="2.5"/>
+  <rect x="40" y="516" width="6" height="92" rx="3" fill="#d3869b"/>
+  <rect x="60" y="531" width="84" height="28" rx="14" fill="#1d2021" stroke="#d3869b" stroke-width="2"/>
+  <text x="102" y="550" text-anchor="middle" class="mono" fill="#d3869b" font-size="13" font-weight="800">Level 4</text>
+  <text x="166" y="551" class="jp" fill="#ebdbb2" font-size="16" font-weight="800">自己修正性</text>
+  <rect x="290" y="534" width="96" height="24" rx="12" fill="#1d2021" stroke="#b8bb26" stroke-width="1.5"/>
+  <text x="338" y="551" text-anchor="middle" class="jp" fill="#b8bb26" font-size="11" font-weight="800">OS として動く</text>
+  <text x="60" y="581" class="jp" fill="#928374" font-size="12">現場が語彙と観測を運用。経営の号令ではなく、内部から「この原則、古くないか」が出る</text>
+  <text x="60" y="600" class="jp" fill="#d3869b" font-size="12" font-weight="700">誰が辞めても構造が続く</text>
+
+  <!-- Footer -->
+  <text x="480" y="636" text-anchor="middle" class="jp" fill="#a89984" font-size="11">各 Level は前の Level を土台にする。スキップはできない</text>
+</svg>

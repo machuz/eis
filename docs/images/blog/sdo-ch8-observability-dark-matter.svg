@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+    <!-- Starfield for dark matter background -->
+    <radialGradient id="dark-bg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#3c3836" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#1d2021" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="960" height="700" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="700" rx="2" fill="#8ec07c"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Observability · ch8</text>
+
+  <!-- Title -->
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">観測の射程 — コード観測 + 意思決定観測 + ダークマター</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">従来観測できたのは「成果物として残ったもの」だけ。大部分の組織活動はダークマターだった</text>
+
+  <!-- Subtle starfield for "universe" feel -->
+  <g opacity="0.4">
+    <circle cx="80" cy="110" r="1" fill="#a89984"/>
+    <circle cx="900" cy="160" r="1.2" fill="#ebdbb2" opacity="0.3"/>
+    <circle cx="60" cy="350" r="0.8" fill="#a89984"/>
+    <circle cx="920" cy="420" r="1" fill="#ebdbb2" opacity="0.25"/>
+    <circle cx="40" cy="550" r="1.2" fill="#a89984" opacity="0.4"/>
+    <circle cx="910" cy="590" r="0.8" fill="#ebdbb2" opacity="0.25"/>
+  </g>
+
+  <!-- ============ COLUMN 1: Code observation (EIS) ============ -->
+  <rect x="40" y="100" width="440" height="320" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="2"/>
+  <rect x="40" y="100" width="6" height="320" rx="3" fill="#fabd2f"/>
+
+  <text x="60" y="130" class="jp" fill="#fabd2f" font-size="18" font-weight="800">コード観測</text>
+  <text x="60" y="152" class="mono" fill="#7c6f64" font-size="11">EIS — visible mass</text>
+
+  <line x1="60" y1="170" x2="460" y2="170" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="60" y="192" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">観測できるもの</text>
+  <text x="60" y="212" class="jp" fill="#928374" font-size="12">● コードの 7 軸シグナル（Design / Survival …）</text>
+  <text x="60" y="230" class="jp" fill="#928374" font-size="12">● 生存した行・消えた行</text>
+  <text x="60" y="248" class="jp" fill="#928374" font-size="12">● モジュール所有率・変更圧</text>
+  <text x="60" y="266" class="jp" fill="#928374" font-size="12">● コミット・PR・レビューの履歴</text>
+
+  <line x1="60" y1="284" x2="460" y2="284" stroke="#3c3836" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="60" y="306" class="jp" fill="#fabd2f" font-size="12" font-weight="700">データ源</text>
+  <text x="60" y="324" class="jp" fill="#ebdbb2" font-size="12">git log / git blame / PR API</text>
+
+  <text x="60" y="354" class="jp" fill="#fabd2f" font-size="12" font-weight="700">対象</text>
+  <text x="60" y="372" class="jp" fill="#ebdbb2" font-size="12">成果物として残ったもの</text>
+  <text x="60" y="392" class="jp" fill="#7c6f64" font-size="11">= 組織活動の 可視質量 (visible mass)</text>
+
+  <!-- ============ COLUMN 2: Decision observation (Plaud) ============ -->
+  <rect x="500" y="100" width="420" height="320" rx="10" fill="#282828" stroke="#fe8019" stroke-width="2"/>
+  <rect x="500" y="100" width="6" height="320" rx="3" fill="#fe8019"/>
+
+  <text x="520" y="130" class="jp" fill="#fe8019" font-size="18" font-weight="800">意思決定観測</text>
+  <text x="520" y="152" class="mono" fill="#7c6f64" font-size="11">Plaud Note Pin 型 — illuminating dark matter</text>
+
+  <line x1="520" y1="170" x2="900" y2="170" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="520" y="192" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">観測できるようになったもの</text>
+  <text x="520" y="212" class="jp" fill="#928374" font-size="12">● 「どのレイヤー？」の発話回数</text>
+  <text x="520" y="230" class="jp" fill="#928374" font-size="12">● 変換者の言語的整流の回数</text>
+  <text x="520" y="248" class="jp" fill="#928374" font-size="12">● コーチが誰にどの文脈で介入したか</text>
+  <text x="520" y="266" class="jp" fill="#928374" font-size="12">● 原理層の思想の会議内参照回数</text>
+
+  <line x1="520" y1="284" x2="900" y2="284" stroke="#3c3836" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="520" y="306" class="jp" fill="#fe8019" font-size="12" font-weight="700">データ源</text>
+  <text x="520" y="324" class="jp" fill="#ebdbb2" font-size="12">ウェアラブル AI 書き起こし / 会議録</text>
+
+  <text x="520" y="354" class="jp" fill="#fe8019" font-size="12" font-weight="700">対象</text>
+  <text x="520" y="372" class="jp" fill="#ebdbb2" font-size="12">成果物として残らない意思決定・変換</text>
+  <text x="520" y="392" class="jp" fill="#7c6f64" font-size="11">= 組織活動の ダークマターの一部</text>
+
+  <!-- ============ Remaining dark matter band ============ -->
+  <rect x="40" y="442" width="880" height="140" rx="10" fill="url(#dark-bg)" stroke="#504945" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="480" y="470" text-anchor="middle" class="jp" fill="#928374" font-size="14" font-weight="700">それでも残るダークマター</text>
+  <text x="480" y="492" text-anchor="middle" class="jp" fill="#7c6f64" font-size="11">人間の心、信頼の蓄積、非言語の了解、沈黙の合意——これらは依然として直接観測できない</text>
+  <text x="480" y="516" text-anchor="middle" class="jp" fill="#7c6f64" font-size="11">（天文学のダークマターと同じく、間接的な影響でしか検知できない領域）</text>
+
+  <g opacity="0.5">
+    <circle cx="120" cy="510" r="1.2" fill="#a89984"/>
+    <circle cx="200" cy="470" r="1" fill="#ebdbb2" opacity="0.4"/>
+    <circle cx="280" cy="540" r="0.8" fill="#a89984"/>
+    <circle cx="680" cy="475" r="1" fill="#ebdbb2" opacity="0.4"/>
+    <circle cx="780" cy="540" r="1.2" fill="#a89984"/>
+    <circle cx="860" cy="490" r="0.8" fill="#ebdbb2" opacity="0.35"/>
+  </g>
+
+  <text x="480" y="550" text-anchor="middle" class="jp" fill="#928374" font-size="10">可観測性の条件 = 観測できる領域の閾値を下げ続けること</text>
+
+  <!-- Bottom conclusion -->
+  <rect x="40" y="608" width="880" height="70" rx="10" fill="#1d2021" stroke="#8ec07c" stroke-width="2"/>
+  <text x="480" y="634" text-anchor="middle" class="jp" fill="#8ec07c" font-size="14" font-weight="800">可観測性の 10 年後 = コード観測 + 意思決定観測 の 2 系統並走</text>
+  <text x="480" y="656" text-anchor="middle" class="jp" fill="#928374" font-size="11">コードだけでは意思決定のダークマターが見えない。会議だけではコードの構造が見えない</text>
+</svg>
