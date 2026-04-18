@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="660" viewBox="0 0 960 660">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="660" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="660" rx="2" fill="#8ec07c"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Maturity Model · ch8</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Maturity Model for Structure-Driven Organizations</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">Five stages from Level 0 to Level 4. This book's entire content is a map of this journey.</text>
+
+  <!-- Level 0 -->
+  <rect x="40" y="100" width="880" height="80" rx="10" fill="#282828" stroke="#7c6f64" stroke-width="1.5"/>
+  <rect x="40" y="100" width="6" height="80" rx="3" fill="#7c6f64"/>
+  <rect x="60" y="115" width="84" height="28" rx="14" fill="#1d2021" stroke="#7c6f64" stroke-width="1.5"/>
+  <text x="102" y="134" text-anchor="middle" class="mono" fill="#a89984" font-size="13" font-weight="800">Level 0</text>
+  <text x="166" y="135" class="sans" fill="#ebdbb2" font-size="16" font-weight="800">Process-dependent</text>
+  <text x="60" y="165" class="sans" fill="#928374" font-size="12">Running on Scrum, OKR, velocity. Observation only at "behavior." Output and accumulation are invisible as structure.</text>
+
+  <g transform="translate(480, 184)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#928374" stroke-width="1.5"/>
+    <polygon points="-4,10 4,10 0,18" fill="#928374"/>
+  </g>
+
+  <!-- Level 1 -->
+  <rect x="40" y="204" width="880" height="80" rx="10" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <rect x="40" y="204" width="6" height="80" rx="3" fill="#83a598"/>
+  <rect x="60" y="219" width="84" height="28" rx="14" fill="#1d2021" stroke="#83a598" stroke-width="1.5"/>
+  <text x="102" y="238" text-anchor="middle" class="mono" fill="#83a598" font-size="13" font-weight="800">Level 1</text>
+  <text x="166" y="239" class="sans" fill="#ebdbb2" font-size="16" font-weight="800">Observation introduced</text>
+  <text x="60" y="269" class="sans" fill="#928374" font-size="12">EIS starts being read. Survival / Design / Breadth vocabulary enters — still belongs to a few people.</text>
+
+  <g transform="translate(480, 288)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#928374" stroke-width="1.5"/>
+    <polygon points="-4,10 4,10 0,18" fill="#928374"/>
+  </g>
+
+  <!-- Level 2 -->
+  <rect x="40" y="308" width="880" height="80" rx="10" fill="#282828" stroke="#8ec07c" stroke-width="1.5"/>
+  <rect x="40" y="308" width="6" height="80" rx="3" fill="#8ec07c"/>
+  <rect x="60" y="323" width="84" height="28" rx="14" fill="#1d2021" stroke="#8ec07c" stroke-width="1.5"/>
+  <text x="102" y="342" text-anchor="middle" class="mono" fill="#8ec07c" font-size="13" font-weight="800">Level 2</text>
+  <text x="166" y="343" class="sans" fill="#ebdbb2" font-size="16" font-weight="800">Language adopted</text>
+  <text x="60" y="373" class="sans" fill="#928374" font-size="12">Layers, archetypes, and "transformation" are daily vocabulary. "Which layer?" surfaces naturally in meetings.</text>
+
+  <g transform="translate(480, 392)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#928374" stroke-width="1.5"/>
+    <polygon points="-4,10 4,10 0,18" fill="#928374"/>
+  </g>
+
+  <!-- Level 3 -->
+  <rect x="40" y="412" width="880" height="80" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <rect x="40" y="412" width="6" height="80" rx="3" fill="#fabd2f"/>
+  <rect x="60" y="427" width="84" height="28" rx="14" fill="#1d2021" stroke="#fabd2f" stroke-width="1.5"/>
+  <text x="102" y="446" text-anchor="middle" class="mono" fill="#fabd2f" font-size="13" font-weight="800">Level 3</text>
+  <text x="166" y="447" class="sans" fill="#ebdbb2" font-size="16" font-weight="800">Interventions decomposed</text>
+  <text x="60" y="477" class="sans" fill="#928374" font-size="12">1-on-1s, pairings, reviews, reorgs decompose into Behavior / Output / Accumulation. Effects verified in the next observation cycle.</text>
+
+  <g transform="translate(480, 496)">
+    <line x1="0" y1="0" x2="0" y2="14" stroke="#928374" stroke-width="1.5"/>
+    <polygon points="-4,10 4,10 0,18" fill="#928374"/>
+  </g>
+
+  <!-- Level 4 -->
+  <rect x="40" y="516" width="880" height="92" rx="10" fill="#282828" stroke="#d3869b" stroke-width="2.5"/>
+  <rect x="40" y="516" width="6" height="92" rx="3" fill="#d3869b"/>
+  <rect x="60" y="531" width="84" height="28" rx="14" fill="#1d2021" stroke="#d3869b" stroke-width="2"/>
+  <text x="102" y="550" text-anchor="middle" class="mono" fill="#d3869b" font-size="13" font-weight="800">Level 4</text>
+  <text x="166" y="551" class="sans" fill="#ebdbb2" font-size="16" font-weight="800">Self-correcting</text>
+  <rect x="340" y="534" width="140" height="24" rx="12" fill="#1d2021" stroke="#b8bb26" stroke-width="1.5"/>
+  <text x="410" y="551" text-anchor="middle" class="sans" fill="#b8bb26" font-size="11" font-weight="800">runs as an OS</text>
+  <text x="60" y="581" class="sans" fill="#928374" font-size="12">The floor operates vocabulary and observation. Not executive fiat — "isn't that principle out of date?" from inside.</text>
+  <text x="60" y="600" class="sans" fill="#d3869b" font-size="12" font-weight="700">Structure continues even when anyone leaves.</text>
+
+  <text x="480" y="636" text-anchor="middle" class="sans" fill="#a89984" font-size="11">Each level rests on the previous one — no skipping</text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+    <radialGradient id="dark-bg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#3c3836" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#1d2021" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="960" height="700" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="700" rx="2" fill="#8ec07c"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Observability · ch8</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">The Reach of Observation — Code · Decisions · Dark Matter</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">Historically, only "what remained as artifact" was observable. Most of organizational activity was dark matter.</text>
+
+  <g opacity="0.4">
+    <circle cx="80" cy="110" r="1" fill="#a89984"/>
+    <circle cx="900" cy="160" r="1.2" fill="#ebdbb2" opacity="0.3"/>
+    <circle cx="60" cy="350" r="0.8" fill="#a89984"/>
+    <circle cx="920" cy="420" r="1" fill="#ebdbb2" opacity="0.25"/>
+    <circle cx="40" cy="550" r="1.2" fill="#a89984" opacity="0.4"/>
+    <circle cx="910" cy="590" r="0.8" fill="#ebdbb2" opacity="0.25"/>
+  </g>
+
+  <!-- Column 1: Code observation -->
+  <rect x="40" y="100" width="440" height="320" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="2"/>
+  <rect x="40" y="100" width="6" height="320" rx="3" fill="#fabd2f"/>
+
+  <text x="60" y="130" class="sans" fill="#fabd2f" font-size="18" font-weight="800">Code observation</text>
+  <text x="60" y="152" class="mono" fill="#7c6f64" font-size="11">EIS — visible mass</text>
+
+  <line x1="60" y1="170" x2="460" y2="170" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="60" y="192" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">What becomes observable</text>
+  <text x="60" y="212" class="sans" fill="#928374" font-size="12">● Seven-axis code signals (Design / Survival …)</text>
+  <text x="60" y="230" class="sans" fill="#928374" font-size="12">● Surviving vs disappeared lines</text>
+  <text x="60" y="248" class="sans" fill="#928374" font-size="12">● Module ownership · change pressure</text>
+  <text x="60" y="266" class="sans" fill="#928374" font-size="12">● Commit / PR / review history</text>
+
+  <line x1="60" y1="284" x2="460" y2="284" stroke="#3c3836" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="60" y="306" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Data source</text>
+  <text x="60" y="324" class="sans" fill="#ebdbb2" font-size="12">git log / git blame / PR API</text>
+
+  <text x="60" y="354" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Target</text>
+  <text x="60" y="372" class="sans" fill="#ebdbb2" font-size="12">What remains as artifact</text>
+  <text x="60" y="392" class="sans" fill="#7c6f64" font-size="11">= the visible mass of organizational activity</text>
+
+  <!-- Column 2: Decision observation -->
+  <rect x="500" y="100" width="420" height="320" rx="10" fill="#282828" stroke="#fe8019" stroke-width="2"/>
+  <rect x="500" y="100" width="6" height="320" rx="3" fill="#fe8019"/>
+
+  <text x="520" y="130" class="sans" fill="#fe8019" font-size="18" font-weight="800">Decision observation</text>
+  <text x="520" y="152" class="mono" fill="#7c6f64" font-size="11">Plaud Note Pin-type — illuminating dark matter</text>
+
+  <line x1="520" y1="170" x2="900" y2="170" stroke="#3c3836" stroke-width="1"/>
+
+  <text x="520" y="192" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">Newly observable</text>
+  <text x="520" y="212" class="sans" fill="#928374" font-size="12">● "Which layer?" utterance count</text>
+  <text x="520" y="230" class="sans" fill="#928374" font-size="12">● Transformer's linguistic realignments</text>
+  <text x="520" y="248" class="sans" fill="#928374" font-size="12">● Who coaches whom, in what context</text>
+  <text x="520" y="266" class="sans" fill="#928374" font-size="12">● How often Principle layer cited in meetings</text>
+
+  <line x1="520" y1="284" x2="900" y2="284" stroke="#3c3836" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="520" y="306" class="sans" fill="#fe8019" font-size="12" font-weight="700">Data source</text>
+  <text x="520" y="324" class="sans" fill="#ebdbb2" font-size="12">Wearable AI transcription / meeting records</text>
+
+  <text x="520" y="354" class="sans" fill="#fe8019" font-size="12" font-weight="700">Target</text>
+  <text x="520" y="372" class="sans" fill="#ebdbb2" font-size="12">Decisions and transformations that never become artifact</text>
+  <text x="520" y="392" class="sans" fill="#7c6f64" font-size="11">= part of organizational dark matter</text>
+
+  <!-- Remaining dark matter band -->
+  <rect x="40" y="442" width="880" height="140" rx="10" fill="url(#dark-bg)" stroke="#504945" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="480" y="470" text-anchor="middle" class="sans" fill="#928374" font-size="14" font-weight="700">Dark matter that still remains</text>
+  <text x="480" y="492" text-anchor="middle" class="sans" fill="#7c6f64" font-size="11">Human hearts, accumulated trust, non-verbal understanding, tacit agreement — still directly unobservable</text>
+  <text x="480" y="516" text-anchor="middle" class="sans" fill="#7c6f64" font-size="11">(Just like astronomical dark matter — detectable only through its indirect effects)</text>
+
+  <g opacity="0.5">
+    <circle cx="120" cy="510" r="1.2" fill="#a89984"/>
+    <circle cx="200" cy="470" r="1" fill="#ebdbb2" opacity="0.4"/>
+    <circle cx="280" cy="540" r="0.8" fill="#a89984"/>
+    <circle cx="680" cy="475" r="1" fill="#ebdbb2" opacity="0.4"/>
+    <circle cx="780" cy="540" r="1.2" fill="#a89984"/>
+    <circle cx="860" cy="490" r="0.8" fill="#ebdbb2" opacity="0.35"/>
+  </g>
+
+  <text x="480" y="550" text-anchor="middle" class="sans" fill="#928374" font-size="10">Observability as a condition = continuing to lower the threshold of what's observable</text>
+
+  <!-- Bottom conclusion -->
+  <rect x="40" y="608" width="880" height="70" rx="10" fill="#1d2021" stroke="#8ec07c" stroke-width="2"/>
+  <text x="480" y="634" text-anchor="middle" class="sans" fill="#8ec07c" font-size="14" font-weight="800">Observability in ten years = code observation + decision observation, two parallel tracks</text>
+  <text x="480" y="656" text-anchor="middle" class="sans" fill="#928374" font-size="11">Code alone can't see the dark matter of decisions. Meetings alone can't see the structure of code.</text>
+</svg>

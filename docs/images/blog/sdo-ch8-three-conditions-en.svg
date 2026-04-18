@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="700" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="700" rx="2" fill="#8ec07c"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Conditions · ch8</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">Three Conditions for a Structure-Driven Organization</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">All three must be present for the organization to run as an OS — missing any one, it becomes a person-dependent life-support device</text>
+
+  <text x="328" y="102" text-anchor="middle" class="sans" fill="#a89984" font-size="12" font-weight="700">Condition</text>
+  <text x="780" y="102" text-anchor="middle" class="sans" fill="#cc241d" font-size="12" font-weight="700">Failure mode when alone</text>
+
+  <!-- TOP: Self-correction -->
+  <rect x="40" y="118" width="576" height="96" rx="10" fill="#282828" stroke="#d3869b" stroke-width="2"/>
+  <rect x="40" y="118" width="6" height="96" rx="3" fill="#d3869b"/>
+  <text x="60" y="144" class="sans" fill="#d3869b" font-size="18" font-weight="800">Self-correction</text>
+  <text x="60" y="163" class="mono" fill="#7c6f64" font-size="10">highest order</text>
+  <text x="60" y="186" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">Gaps between observation and reality get fixed from inside</text>
+  <text x="60" y="204" class="sans" fill="#928374" font-size="11">The floor operates the vocabulary, observation, and 3-layer intervention design</text>
+
+  <rect x="640" y="118" width="280" height="96" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="660" y="144" class="sans" fill="#cc241d" font-size="13" font-weight="800">Self-correction only</text>
+  <text x="660" y="166" class="sans" fill="#ebdbb2" font-size="12">Passion-driven / person-dependent</text>
+  <text x="660" y="186" class="sans" fill="#928374" font-size="11">Depends on founder / one tech lead</text>
+  <text x="660" y="204" class="sans" fill="#928374" font-size="11">Shatters the moment they leave</text>
+
+  <g>
+    <line x1="328" y1="232" x2="328" y2="264" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="322,240 334,240 328,228" fill="#8ec07c"/>
+  </g>
+  <text x="348" y="253" class="sans" fill="#8ec07c" font-size="11" font-weight="700">stands on</text>
+
+  <!-- MIDDLE: Observability -->
+  <rect x="40" y="278" width="576" height="96" rx="10" fill="#282828" stroke="#83a598" stroke-width="2"/>
+  <rect x="40" y="278" width="6" height="96" rx="3" fill="#83a598"/>
+  <text x="60" y="304" class="sans" fill="#83a598" font-size="18" font-weight="800">Observability</text>
+  <text x="60" y="323" class="mono" fill="#7c6f64" font-size="10">middle layer</text>
+  <text x="60" y="346" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">The organization can read its own state</text>
+  <text x="60" y="364" class="sans" fill="#928374" font-size="11">Code observation (EIS) + decision observation (Plaud-type) running in parallel</text>
+
+  <rect x="640" y="278" width="280" height="96" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="660" y="304" class="sans" fill="#cc241d" font-size="13" font-weight="800">Observability only</text>
+  <text x="660" y="326" class="sans" fill="#ebdbb2" font-size="12">Visible but immovable</text>
+  <text x="660" y="346" class="sans" fill="#928374" font-size="11">Dashboards proliferate</text>
+  <text x="660" y="364" class="sans" fill="#928374" font-size="11">No one reads them to act</text>
+
+  <g>
+    <line x1="328" y1="392" x2="328" y2="424" stroke="#8ec07c" stroke-width="2"/>
+    <polygon points="322,400 334,400 328,388" fill="#8ec07c"/>
+  </g>
+  <text x="348" y="413" class="sans" fill="#8ec07c" font-size="11" font-weight="700">stands on</text>
+
+  <!-- BOTTOM: Reproducibility -->
+  <rect x="40" y="438" width="576" height="96" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="2"/>
+  <rect x="40" y="438" width="6" height="96" rx="3" fill="#fabd2f"/>
+  <text x="60" y="464" class="sans" fill="#fabd2f" font-size="18" font-weight="800">Reproducibility</text>
+  <text x="60" y="483" class="mono" fill="#7c6f64" font-size="10">foundation</text>
+  <text x="60" y="506" class="sans" fill="#ebdbb2" font-size="13" font-weight="700">Anyone observing reaches the same conclusion</text>
+  <text x="60" y="524" class="sans" fill="#928374" font-size="11">Secured by machine observation + explicit layer / archetype definitions</text>
+
+  <rect x="640" y="438" width="280" height="96" rx="10" fill="#1d2021" stroke="#cc241d" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="660" y="464" class="sans" fill="#cc241d" font-size="13" font-weight="800">Reproducibility only</text>
+  <text x="660" y="486" class="sans" fill="#ebdbb2" font-size="12">Rigidified measurement</text>
+  <text x="660" y="506" class="sans" fill="#928374" font-size="11">Metrics get gamed</text>
+  <text x="660" y="524" class="sans" fill="#928374" font-size="11">People distort themselves to match the numbers</text>
+
+  <!-- Bottom: All 3 together = OS -->
+  <rect x="40" y="568" width="880" height="100" rx="10" fill="#1d2021" stroke="#b8bb26" stroke-width="2.5"/>
+  <text x="480" y="598" text-anchor="middle" class="sans" fill="#b8bb26" font-size="18" font-weight="800">All three together → the organization runs as an OS</text>
+  <text x="480" y="622" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="12">Structural equilibrium is preserved without needing anyone's heroics</text>
+  <text x="480" y="644" text-anchor="middle" class="sans" fill="#928374" font-size="11">"A left and the culture collapsed" doesn't happen. The vocabulary-observation-correction loop runs on its own.</text>
+  <text x="480" y="662" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">This is why this book calls structure-driven work "an organizational OS"</text>
+</svg>
