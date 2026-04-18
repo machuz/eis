@@ -96,10 +96,24 @@ CEO isn't necessarily on the Principle layer. CTO isn't necessarily on the Struc
 
 ## The Role of Transformers
 
-When layers differ, people speak **different languages**. The Principle layer's vocabulary (market, value, worldview) and the Implementation layer's vocabulary (modules, dependencies, latency) have different grammars and different referents. Pushing a message down or up without transformation doesn't carry anything:
+When layers differ, people speak **different languages**. The Principle layer's vocabulary (market, value, worldview) and the Implementation layer's vocabulary (modules, dependencies, latency) have different grammars and different referents. Pushing a message down or up without transformation doesn't carry anything. For example, the conversation plays out like this.
 
-- **Principle's "worldview" pushed directly to Implementation** → arrives as undecidability of specifications. "OK, but which column do I add?"
-- **Implementation's "operational concern" pushed directly to Principle** → gets dismissed as tunnel vision. "That's a small detail; look at the bigger picture."
+**① Principle's "worldview" pushed directly to Implementation, untransformed**
+
+> CEO: "Next quarter, we're going to win on user experience."
+> Tech lead: "...which feature are we actually changing?"
+> CEO: "No, the **entire** user experience. Look at the bigger picture."
+> Tech lead: "..."
+
+The principle can't survive a concrete question. **The conversation stops here.** What stays on the floor is the residue of "I don't know what to build."
+
+**② Implementation's "operational concern" pushed directly to Principle, untransformed**
+
+> Tech lead: "This design — the schema migration will break."
+> CEO: "...that's a small detail. Look at the bigger picture."
+> Tech lead: "..."
+
+The constraint doesn't become material for an abstract decision. **The voice gives up here.** No one raises the same concern next time.
 
 It's not bad faith. **Transformation is just missing.**
 
