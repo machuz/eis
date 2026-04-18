@@ -11,7 +11,7 @@ tags: management, leadership, culture, engineering
 
 ---
 
-> **Scope of this chapter**: thinking layer (redefining culture from "shared values" to "shared language") + design layer (making transformation itself an evaluation target, and using structure-driven vocabulary to surface "title-only middle layers").
+> **Scope of this chapter**: thinking layer (redefining culture from "shared values" to "shared language") + design layer (making transformation itself an evaluation target, and using culture to distinguish the Structure layer from the Middle layer).
 
 ### How this starts on the floor
 
@@ -24,6 +24,8 @@ At an all-hands, the CEO flips to a slide. "Our values: Ownership, Excellence, S
 A different team, reviewing a feature. One engineer: "Does this change contribute to the Design layer?" "No — utility territory. Not Robust either." "Then refactor the Design layer first, then pile this on — Survival will be higher that way." "Agreed. Breadth is already too wide. And we should decide, Anchor-style, who guards the design." The conversation isn't mushy. **The vocabulary has settled in.**
 
 ---
+
+![Without Culture vs With Culture — does the meeting converge?](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-culture-contrast-en.svg)
 
 The same topic — "code quality" — scatters into feelings in Scene A and converges along structural axes in Scene B. The difference? **The available vocabulary is different.**
 
@@ -67,6 +69,8 @@ Traditional evaluation looks only at **output and behavior**. Code volume, featu
 
 To make transformation a target of evaluation as part of culture, you need **vocabulary for observing the signals of transformation.**
 
+![Making transformation evaluable — two axes](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-evaluation-axes-en.svg)
+
 ### Transformer signals
 
 - **Whether reviews on others' commits/PRs produce structural improvements** (Design / Survival rising after the review lands)
@@ -87,29 +91,42 @@ A transformation coach's contribution can only be measured in **the changes in t
 
 That's exactly why culture has to **explicitly make a place to evaluate the work of transformation coaches.** Otherwise, "unobservable = unevaluated," and the role quietly disappears from the organization.
 
-## Reading people by "the kind of middle move," not by title
+## Reading people by backing, not by title
 
-Culture has one more function — it **distinguishes people who only hold the title from true transformers.**
+Culture has one more function — it **distinguishes people in the Structure layer from people in the Middle layer.**
 
 At some point in the industry, the title "VPoE" became trendy for engineering organizations. The title spread **before** the role's actual substance was understood. Organizations ended up with "VPoEs" who weren't doing what a VPoE is supposed to do. The tragedy repeated across many companies.
 
-**We must not repeat that with the words "middle layer" or "transformer."** The more the structure-driven vocabulary spreads, the more people will start claiming those titles. This is exactly why culture matters here.
+**We must not repeat that with the words "Structure layer" or "transformer."** The more the structure-driven vocabulary spreads, the more people will claim those titles. This is exactly why culture matters here.
 
-### Three types of middle move
+![Structure layer vs Middle layer — read by backing, not by title](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-three-middle-moves-en.svg)
 
-With the structure-driven vocabulary, middle-layer-like behavior splits into **three distinct kinds**:
+### Separating "Structure layer" from "Middle layer"
 
-1. **Middle move backed by code contribution** — visible in EIS. Comes with Design ↑, Survival ↑, Cleanup ↑. The "hands-on-code while guarding structure" pattern. Anchor, Cleaner, and Inheritance Architect sit here.
-2. **Middle move based on character and trust** — the Bill Campbell type, the **transformation coach**. Not visible in EIS, but discernible from **the changes in the people they worked with**. External coaches, senior mentors, product-side trust bridges.
-3. **Middle move based on non-code contribution** — translation, decision bridging, articulating the Principle layer. Observable through **document update history and meeting records**. The Principle ↔ Structure transformer lives here.
+This book uses the two terms with **deliberately different meanings**:
 
-When one of these three backs a middle move, it's **real**. In an organization with culture, which of the three applies surfaces naturally in conversation — "A is type 1," "B only functions as type 2," "C is carrying type 3."
+- **Structure layer** — people who carry substance. Their behavior is **backed** by one of the three types below.
+- **Middle layer** — people who hold only the title, with no substantive backing. The target that a structure-driven culture excludes.
 
-### Title-only middle layers — culture excludes them
+In chapter 4, we retired "Middle layer" as a frame for the middle band of an organization (renamed to "Structure layer"). Here we **bring it back with a different meaning** — the pejorative kind. Someone who sits at a middle title but doesn't move. The static connotation of "layer" fits this usage precisely.
 
-And **middle moves with none of the three backings** are just a title being claimed. In a structure-driven culture, this surfaces on its own — "claims to be a VPoE, but we can't find an observation that fits any of the three." This discrimination becomes possible in day-to-day conversation.
+### Three types of Structure-layer work
 
-**How long someone can sit in the middle layer on the strength of a title alone is a measure of how shallow the culture is.** Deep culture makes title-only occupancy unsustainable. That's the mechanism by which culture protects the organization's health.
+Being in the Structure layer — that is, having real backing — splits into **three kinds**:
+
+1. **Code-backed** — visible in EIS. Comes with Design ↑, Survival ↑, Cleanup ↑. The "hands-on-code while guarding structure" pattern. Anchor, Cleaner, and Inheritance Architect sit here.
+2. **Character / trust-based** — the Bill Campbell type, the **transformation coach**. Not visible in EIS, but discernible from **the changes in the people they worked with**. External coaches, senior mentors, product-side trust bridges.
+3. **Non-code contribution** — translation, decision bridging, articulating the Principle layer. Observable through **document update history and meeting records**. The Principle ↔ Structure transformer lives here.
+
+When one of these three backs someone's behavior, they're **in the Structure layer**. In an organization with culture, which of the three applies surfaces naturally in conversation — "A is type 1," "B only functions as type 2," "C is carrying type 3."
+
+### Middle layer — excluded by culture
+
+And **behavior with none of the three backings** is just a title being claimed. This book calls it the **Middle layer** — someone in a middle-ish title position, with none of the Structure-layer substance.
+
+In a structure-driven culture, this surfaces on its own — "claims to be a VPoE, but we can't find an observation that fits any of the three." The discrimination becomes possible in day-to-day conversation.
+
+**How long someone can sit in the Middle layer on the strength of a title alone is a measure of how shallow the culture is.** Deep culture makes title-only occupancy unsustainable. That's the mechanism by which culture protects the organization's health.
 
 ## The lifespan of language
 
@@ -148,9 +165,9 @@ Conversely, a culture that changes **only when executives or outside consultants
 
 Designing culture as "shared vocabulary" changes the following:
 
-1. **Onboarding shifts from "preach values" to "hand over vocabulary."** New hires get the EIS seven axes, the three layers, Role × Style × State, transformation, accumulation, transformation coach — in their first week. A week later, observe whether they can participate in conversations using that vocabulary.
+1. **Onboarding shifts from "preach values" to "hand over vocabulary."** New hires get the EIS seven axes, the three layers, Role × Style × State, transformation, behavior, output, accumulation, transformation coach — in their first week. A week later, observe whether they can participate in conversations using that vocabulary.
 2. **Culture work shifts from "events and slogans" to "adding and removing vocabulary."** Offsites, credos, value cards don't *make* culture — they visualize its result. Actual culture work is **maintaining the list of daily vocabulary** and **running the practice of deprecating unused words.**
-3. **Title-only middle layers get excluded automatically.** If the culture has the three-types-of-middle-move distinction, a middle person with none of the three backings surfaces in conversation without special HR process. The culture self-cleans.
+3. **"Structure layer" vs "Middle layer" becomes discernible in conversation.** With the three-types distinction (code-backed / character-backed / non-code-backed), someone in the **Middle layer** (title-only, no backing) surfaces naturally in daily conversation. No special HR process needed — the culture self-cleans.
 4. **Transformers and transformation coaches finally get an evaluation axis.** Evaluation beyond "they ran some meetings" becomes possible. Transformation signals get observed; the transformation coach's "changes in the people they worked with" gets judged by human eyes.
 5. **Culture becomes self-correcting.** Culture updates from the floor's "isn't that out of date?" instead of from executive fiat. That's the core of **self-correcting property** — taken up in the next chapter.
 
