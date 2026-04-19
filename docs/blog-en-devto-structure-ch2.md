@@ -1,5 +1,6 @@
 ---
 title: "Structure-Driven Engineering Organization Theory #2 — What Remains Is Structure"
+series: "Structure-Driven Engineering Organization Theory"
 published: true
 description: "Measure code not at the moment it's written, but by what happened after. What remains is structure."
 tags: engineering, leadership, git, career

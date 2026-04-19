@@ -1,5 +1,6 @@
 ---
 title: "Structure-Driven Engineering Organization Theory #4 — The Layer Structure of Organizations"
+series: "Structure-Driven Engineering Organization Theory"
 published: true
 description: "Org charts show reporting lines but hide abstraction levels. Three layers — Implementation / Structure / Principle — plus the two transformations that run between them, and the transformers and transformation coaches who keep them connected."
 tags: management, leadership, engineering, architecture

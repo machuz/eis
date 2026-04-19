@@ -1,5 +1,6 @@
 ---
 title: "Structure-Driven Engineering Organization Theory #6 — Designing Interventions (1-on-1 / Pair Programming)"
+series: "Structure-Driven Engineering Organization Theory"
 published: true
 description: "Slot weekly 1-on-1s into the calendar, ask 'how are things going?', and the same person keeps getting stuck in the same place. The intervention is trapped at the behavior layer. Real interventions hit structure, not emotion."
 tags: management, leadership, engineering, productivity

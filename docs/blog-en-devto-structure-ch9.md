@@ -1,5 +1,6 @@
 ---
 title: "Structure-Driven Engineering Organization Theory #9 — Connecting to OrbitLens"
+series: "Structure-Driven Engineering Organization Theory"
 published: true
 description: "For a hundred years, organization theory has closed inside books and consultancies. The option to build an OS opens only now, because observation itself has become possible. This chapter steps out of theory into the moment the framework becomes a product."
 tags: management, leadership, product, engineering

@@ -1,5 +1,6 @@
 ---
 title: "Structure-Driven Engineering Organization Theory #10 — Conclusion: Building an OS, Not an Organization"
+series: "Structure-Driven Engineering Organization Theory"
 published: true
 description: "What structure-driven engineering organization theory was building, across ten chapters, wasn't management, wasn't culture, wasn't process, wasn't product. It was an organization's OS. This final chapter closes the frame."
 tags: management, leadership, engineering, culture

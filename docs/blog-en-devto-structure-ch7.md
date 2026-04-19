@@ -1,5 +1,6 @@
 ---
 title: "Structure-Driven Engineering Organization Theory #7 — Making Culture"
+series: "Structure-Driven Engineering Organization Theory"
 published: true
 description: "The moment you declare 'our values are X, Y, Z' on a slide, the culture is already dead. Culture isn't what you define — it's the vocabulary that gets used in everyday conversation. Making transformation evaluable is how culture takes hold."
 tags: management, leadership, culture, engineering

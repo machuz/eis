@@ -1,5 +1,6 @@
 ---
 title: "Structure-Driven Engineering Organization Theory #8 — Conditions for a Structure-Driven Organization"
+series: "Structure-Driven Engineering Organization Theory"
 published: true
 description: "Three conditions decide whether a structure-driven organization runs as an OS or survives on one person's heroics: reproducibility, observability, self-correction. Missing any of them, the best strategy collapses the moment a key person leaves."
 tags: management, leadership, engineering, observability

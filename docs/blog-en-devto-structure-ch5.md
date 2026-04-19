@@ -1,5 +1,6 @@
 ---
 title: "Structure-Driven Engineering Organization Theory #5 — Product-Organization Isomorphism"
+series: "Structure-Driven Engineering Organization Theory"
 published: true
 description: "Wherever the product's UX is broken, the organization is hollow in the same place. Product and organization break symmetrically and heal symmetrically — they're isomorphic structures."
 tags: management, leadership, productdesign, architecture
