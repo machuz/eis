@@ -10,6 +10,8 @@ tags: management, leadership, engineering, culture
 
 *Observation, not evaluation. Structure, not people. Design, not emotion.*
 
+*This book treats organizations as **observable systems** — a shift from managing people to designing structure.*
+
 ---
 
 > **Scope of this chapter**: thinking layer (shifting how we look at organizations from evaluation to observation).
@@ -38,6 +40,8 @@ This book uses the word "structure" frequently. To avoid conflation, four distin
 The four are different objects, but the book's central claim is that **all four can be handled with the same "observation → language → design" practice.** Items 3 and 4 in particular (organization and product) are **isomorphic structures** — they break and heal symmetrically; chapter 5 develops this. When "structure" appears in the text, infer from context which of the four it points to.
 
 ## Where Existing Org Theory Breaks
+
+> You cannot fix a system you cannot see.
 
 Let's locate the exact point where conventional org theory stops functioning. The theory itself isn't wrong; **its inputs aren't trustworthy**.
 

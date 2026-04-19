@@ -6,6 +6,8 @@ description: "Evaluation assigns values. Observation reads structure. Get the en
 tags: management, leadership, engineering, observability
 ---
 
+> *Part 1 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *"She's working hard." "Not really." The same person, and evaluators disagree. As long as we keep calling that "a difference in subjective view," an organization can never be measured.*
 
 *Evaluation is price-setting. Observation is reading. Get the entry point wrong and wherever you arrive, you end up back at evaluation.*

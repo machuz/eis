@@ -6,6 +6,8 @@ description: "Measure code not at the moment it's written, but by what happened 
 tags: engineering, leadership, git, career
 ---
 
+> *Part 2 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *Measure code not at the moment it's written, but by what happened after. What remains is structure.*
 
 ---

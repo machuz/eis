@@ -6,6 +6,8 @@ description: "Wherever the product's UX is broken, the organization is hollow in
 tags: management, leadership, productdesign, architecture
 ---
 
+> *Part 5 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *Wherever the product's UX is broken, the organization is hollow in the same place. Product and organization break symmetrically and heal symmetrically.*
 
 ---

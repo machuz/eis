@@ -6,6 +6,8 @@ description: "Slot weekly 1-on-1s into the calendar, ask 'how are things going?'
 tags: management, leadership, engineering, productivity
 ---
 
+> *Part 6 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *Six months of weekly "how are things going?" 1-on-1s won't move the organization one millimeter — the intervention is trapped at the behavior layer. The moment the conversation opens that way, it doesn't touch accumulation by a single gram.*
 
 *Cut with structure, not with emotion. That's the only intervention that moves organizations.*

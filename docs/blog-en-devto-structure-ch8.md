@@ -6,6 +6,8 @@ description: "Three conditions decide whether a structure-driven organization ru
 tags: management, leadership, engineering, observability
 ---
 
+> *Part 8 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *The three conditions for structure-driven thinking to run as an OS — reproducibility, observability, self-correction. Miss any one of them and the best strategy, the deepest culture, collapses the moment a single person leaves.*
 
 *"Functioning as an organization" means: the structure holds without depending on any individual hero.*
@@ -44,6 +46,8 @@ Miss any one and structure-driven work is only a life-support device.
 
 ## 1. Reproducibility
 
+> You cannot scale people. You can only scale structure.
+
 **Given the same input (people, code, time window), does anyone observing reach the same conclusion?**
 
 - Manager A and Manager B, looking at the same person, both conclude "this person is Anchor-leaning" / "this person is a Spread type with Breadth ↑."
@@ -58,6 +62,8 @@ Without reproducibility, "we observe structure-driven-ly" is **individually lyri
 ---
 
 ## 2. Observability
+
+> Observation is not a dashboard. It's a decision system.
 
 **Can the organization read its own state, in real time?** Not just a dashboard — **observation that actually connects to decisions.** Organizations that only learn their state *after* a problem appears have no observability.
 

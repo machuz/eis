@@ -6,6 +6,8 @@ description: "Org charts show reporting lines but hide abstraction levels. Three
 tags: management, leadership, engineering, architecture
 ---
 
+> *Part 4 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *People in the same room, speaking the same words, talking past each other. Usually because they're on different layers, but treating it as one conversation.*
 
 ---
@@ -25,6 +27,8 @@ This chapter redescribes the organization as **three layers of differing abstrac
 ---
 
 ## An Organization Isn't a Single Plane
+
+> Organizations are not managed. They are designed.
 
 Draw an org chart. Almost always, it ends up as a **tree**. CEO over directors, directors over managers, managers over members. Hierarchy.
 
@@ -96,6 +100,9 @@ The three layers are **continuous**. The moment transformation stops, Principle 
 CEO isn't necessarily on the Principle layer. CTO isn't necessarily on the Structure layer. **Title and layer are different things.** Title is determined by tree position. Layer is determined by what abstraction level the person actually decides at, day to day. And **capability as a transformer** is a further axis again — observed not by title or layer, but by *how much of each layer boundary the person can actually punch through*.
 
 ## The Role of Transformers
+
+> A middle position without translation is not a middle. It's a gap.
+
 
 When layers differ, people speak **different languages**. The Principle layer's vocabulary (market, value, worldview) and the Implementation layer's vocabulary (modules, dependencies, latency) have different grammars and different referents. Pushing a message down or up without transformation doesn't carry anything. For example, the conversation plays out like this.
 

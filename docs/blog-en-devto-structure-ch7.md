@@ -6,6 +6,8 @@ description: "The moment you declare 'our values are X, Y, Z' on a slide, the cu
 tags: management, leadership, culture, engineering
 ---
 
+> *Part 7 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *The moment you declare "our values are X, Y, Z" on a slide, the culture is already dead. The words pinned to the wall are used exactly nowhere outside that meeting.*
 
 *Culture isn't something you define. It's the vocabulary that gets used in everyday conversation.*
@@ -33,6 +35,8 @@ The same topic — "code quality" — scatters into feelings in Scene A and conv
 Scene A only has the **wall vocabulary** (Ownership / Excellence / Ship it) — no vocabulary that **descends into day-to-day judgment.** Scene B has vocabulary that descends (Design / Survival / Robust / Breadth / Anchor). That's what this book calls "culture."
 
 ## Culture isn't a definition — it's how the vocabulary gets used
+
+> Culture is not taught. It is encoded in language.
 
 **The interventions covered through chapter 6 — 1-on-1s, pair programming, reviews, reorgs — were individual operations.** When those operations accumulate over time and shift from **an individual's conscious choice** to **everyone's reflex**, that's when culture stands up. In other words, **culture is the time-integral of interventions**. However correct individual interventions are, if they don't get integrated — if they reset every time — there's no culture.
 
@@ -134,6 +138,8 @@ In a structure-driven culture, this surfaces on its own — "claims to be a VPoE
 **How long someone can sit in the Middle layer on the strength of a title alone is a measure of how shallow the culture is.** Deep culture makes title-only occupancy unsustainable. That's the mechanism by which culture protects the organization's health.
 
 ## The lifespan of language
+
+> Values pinned to the wall are used exactly nowhere outside the meeting.
 
 The culture's vocabulary isn't fixed. **When reality changes, the vocabulary needs updating.**
 

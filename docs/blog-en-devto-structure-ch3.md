@@ -6,6 +6,8 @@ description: "Ability lives inside, so it can't be seen. Contribution to structu
 tags: management, leadership, engineering, career
 ---
 
+> *Part 3 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *Ability lives inside, so it can't be seen. Contribution to structure remains outside, so it can be seen. Reframe people not as abilities but as a three-axis topology.*
 
 ---

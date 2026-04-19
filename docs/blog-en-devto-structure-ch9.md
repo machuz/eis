@@ -6,6 +6,8 @@ description: "For a hundred years, organization theory has closed inside books a
 tags: management, leadership, product, engineering
 ---
 
+> *Part 9 of the **Structure-Driven Engineering Organization Theory** series. New here? → [Start from #0: Why Existing Org Theory Doesn't Work](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101)*
+
 *For a hundred years, organization theory has closed inside books and consultancies. The option to build an OS opens only now — because observation itself has become possible.*
 
 *What the previous eight chapters built up as theory, this chapter takes toward the plumbing that settles it into an organization.*
