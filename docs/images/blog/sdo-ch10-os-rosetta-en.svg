@@ -58,7 +58,7 @@
   <text x="76" y="392" class="sans" fill="#928374" font-size="10">persistent state &amp; time series</text>
 
   <rect x="520" y="348" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
-  <text x="536" y="372" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Ace (observation SaaS)</text>
+  <text x="536" y="372" class="sans" fill="#fabd2f" font-size="12" font-weight="700">OrbitLens Ace (observation SaaS)</text>
   <text x="536" y="392" class="sans" fill="#928374" font-size="10">holds the time-series structural state</text>
 
   <line x1="440" y1="376" x2="520" y2="376" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>
@@ -68,7 +68,7 @@
   <text x="76" y="456" class="sans" fill="#928374" font-size="10">plumbing for intervention</text>
 
   <rect x="520" y="412" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
-  <text x="536" y="436" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Ideal (organization-OS SaaS)</text>
+  <text x="536" y="436" class="sans" fill="#fabd2f" font-size="12" font-weight="700">OrbitLens Ideal (organization-OS SaaS)</text>
   <text x="536" y="456" class="sans" fill="#928374" font-size="10">placement · intervention · record · re-observation loop</text>
 
   <line x1="440" y1="440" x2="520" y2="440" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>
@@ -78,7 +78,7 @@
   <text x="76" y="520" class="sans" fill="#928374" font-size="10">bringing in external modules</text>
 
   <rect x="520" y="476" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
-  <text x="536" y="500" class="sans" fill="#fabd2f" font-size="12" font-weight="700">True</text>
+  <text x="536" y="500" class="sans" fill="#fabd2f" font-size="12" font-weight="700">OrbitLens True</text>
   <text x="536" y="520" class="sans" fill="#928374" font-size="10">fills missing structure via external talent</text>
 
   <line x1="440" y1="504" x2="520" y2="504" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>

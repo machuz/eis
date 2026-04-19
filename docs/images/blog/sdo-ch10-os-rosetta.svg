@@ -63,7 +63,7 @@
   <text x="76" y="392" class="jp" fill="#928374" font-size="10">ファイルシステム（状態の永続化と時系列）</text>
 
   <rect x="520" y="348" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
-  <text x="536" y="372" class="jp" fill="#fabd2f" font-size="12" font-weight="700">Ace（観測 SaaS）</text>
+  <text x="536" y="372" class="jp" fill="#fabd2f" font-size="12" font-weight="700">OrbitLens Ace（観測 SaaS）</text>
   <text x="536" y="392" class="jp" fill="#928374" font-size="10">時系列の構造状態を保持する</text>
 
   <line x1="440" y1="376" x2="520" y2="376" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>
@@ -74,7 +74,7 @@
   <text x="76" y="456" class="jp" fill="#928374" font-size="10">ユーザー空間（介入の配管）</text>
 
   <rect x="520" y="412" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
-  <text x="536" y="436" class="jp" fill="#fabd2f" font-size="12" font-weight="700">Ideal（組織 OS SaaS）</text>
+  <text x="536" y="436" class="jp" fill="#fabd2f" font-size="12" font-weight="700">OrbitLens Ideal（組織 OS SaaS）</text>
   <text x="536" y="456" class="jp" fill="#928374" font-size="10">配置・介入・記録・再観測ループ</text>
 
   <line x1="440" y1="440" x2="520" y2="440" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>
@@ -85,7 +85,7 @@
   <text x="76" y="520" class="jp" fill="#928374" font-size="10">パッケージマネージャ（外部モジュール取り込み）</text>
 
   <rect x="520" y="476" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
-  <text x="536" y="500" class="jp" fill="#fabd2f" font-size="12" font-weight="700">True</text>
+  <text x="536" y="500" class="jp" fill="#fabd2f" font-size="12" font-weight="700">OrbitLens True</text>
   <text x="536" y="520" class="jp" fill="#928374" font-size="10">外部人材で不足構造を埋める</text>
 
   <line x1="440" y1="504" x2="520" y2="504" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>

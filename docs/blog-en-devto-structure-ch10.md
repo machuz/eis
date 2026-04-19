@@ -5,7 +5,7 @@ description: "What structure-driven engineering organization theory was building
 tags: management, leadership, engineering, culture
 ---
 
-*In chapter 0 we wrote: "observation became possible, and so the organization became engineerable." Nine chapters of work have piled up behind that single sentence.*
+*In the [opening chapter](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101) we wrote: **"Observation, not evaluation. Structure, not people. Design, not emotion."** Ten chapters of work have piled up behind those three lines.*
 
 *What structure-driven engineering organization theory was ultimately building — it wasn't management, wasn't culture, wasn't process, wasn't product. It was **the organization's OS.***
 
@@ -28,11 +28,13 @@ In OS terms:
 - **Kernel** = the principle-layer philosophy (the top of the three-layer model from ch4)
 - **Drivers** = transformers (people who translate principle ↔ structure and structure ↔ implementation)
 - **Processes** = individual developers and feature teams (running in the implementation layer)
-- **File system** = the time-series structure the observation SaaS holds (Ace)
-- **User space** = the plumbing of intervention, placement, and re-observation (Ideal)
-- **Package manager** = True (importing external modules)
+- **File system** = the time-series structure the observation SaaS holds (OrbitLens Ace)
+- **User space** = the plumbing of intervention, placement, and re-observation (OrbitLens Ideal)
+- **Package manager** = OrbitLens True (importing external modules)
 
 ![OS and structure-driven organization — a Rosetta table](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch10-os-rosetta-en.svg)
+
+Among these mappings, the one this book guards most carefully against is **the absence of transformers (the drivers).** You can have the kernel (principle-layer philosophy) and the processes (developers), but **without transformers the layers run in isolation.** The translations between principle and structure, and between structure and implementation, are **the CPU of the organization OS.** The moment that role is vacant, each layer may look like it's running, but **nothing is actually being transmitted** — the organization hasn't stopped, it's simply stopped interacting.
 
 An OS doesn't manage its individual processes. It **provides the discipline and the wiring that lets processes run.** That's the abstraction level a structure-driven organization aims at.
 
@@ -64,6 +66,17 @@ Organizations have, until now, been **systems that depend on people.** To turn a
 - **Emotion and ethics** — they exist, but handled **separately** from structure. Structure in good shape calms emotion; but we don't operate emotion directly.
 
 Because the boundary is drawn, structure-driven **doesn't sprawl.** Clarifying what the theory addresses is what lets it **stand up as engineering.**
+
+### Patterns of misuse
+
+Four typical ways the structure-driven vocabulary and its observation can be **used in the wrong direction.** Readers introducing this into their own organization should stay distant from these.
+
+- **Wiring observation straight into evaluation** — piping EIS scores directly into performance-review line items. Observation is material for **self-correction**, not evidence for appraisal (chapters 8 and 9). The moment you connect the two, the floor stops speaking naturally and the culture dies.
+- **Cutting away the human** — reading "emotion is not addressed by structure" as "emotion is ignored." Structure-driven **separates** emotion from structure; it does not **remove** it. Emotion and ethics live on their own layer and must be handled carefully there.
+- **Over-faith in structure** — believing that once the structure is right, everything works. Structure is **the substrate;** it does not replace human judgment. Humans still run the interventions, and that human decision must not be automated away by the structure (the boundary set out in chapter 9).
+- **Tools without plumbing** — dropping Ace or Ideal into a team that has no observation culture and no structural vocabulary. Tools introduced before the language has reached daily speech get shelved within a year — skipping chapter 7's principle ("vocabulary = culture") collapses structure-driven into mere dashboard dependence.
+
+Treat these four as **counter-examples for implementing the book correctly.** Structure-driven is a powerful instrument, and precisely because of that, its band of possible misuse is wide.
 
 ## 3. The engineering manager's job changes
 
@@ -103,7 +116,7 @@ A structure-driven organization is designed to run **without requiring a specifi
 
 1. **Observation** — everyone gets the same result from EIS (CLI)
 2. **Vocabulary** — the structural vocabulary this book defines; anyone can learn and use it
-3. **Plumbing** — OrbitLens Ace + Ideal (SaaS) leaves the plumbing inside the organization
+3. **Plumbing** — OrbitLens Ace + OrbitLens Ideal (SaaS) leaves the plumbing inside the organization
 
 With these three in place, **the organization keeps running even when the founder or the strong EM leaves.** That's OS-level reproducibility.
 
@@ -131,7 +144,7 @@ That's also why this book is a **vocabulary dictionary.** Serving as a glossary 
 Structure-driven engineering organization theory is not finished. Expansion points:
 
 - **Observation deepens** — change_pressure, tested_survival, module_vitality, and further. EIS keeps evolving. Precision of observation begets precision of intervention.
-- **The SaaS matures** — Ace's interpretation, Ideal's plumbing, True's matching. The three coupling organically, **so the organization moves as one loop,** is the target state.
+- **The SaaS matures** — OrbitLens Ace's interpretation, OrbitLens Ideal's plumbing, OrbitLens True's matching. The three coupling organically, **so the organization moves as one loop,** is the target state.
 - **Language updates** — the structure-driven vocabulary also needs updating as reality shifts. Chapter 7's "lifespan of language" applies to this book itself.
 - **Adjacent domains** — this book took engineering organizations as its object, but the frame of **structure × observation × language** should extend to design organizations, research organizations, business organizations.
 
