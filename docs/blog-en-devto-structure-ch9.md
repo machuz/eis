@@ -151,7 +151,7 @@ Across both Ace and Ideal, the following principles — **what the SaaS doesn't 
 - **Direct links to performance review or discipline are structurally prohibited.** Both Ace's dashboards and Ideal's intervention records are **material for the organization's self-correction**, not evaluation evidence on individuals. The moment you mix the two, the floor stops speaking naturally and the culture dies.
 - **Alternative observation paths are deliberately left open.** Slack, meetings, 1-on-1s, code reviews — the paths a human eye can reach are never collapsed away.
 
-Of the four stages — observation / interpretation / intervention / re-observation — the stage **humans run the intervention** is deliberately left outside the SaaS. That's the boundary that keeps human judgment from being outsourced to the product.
+Of the five stages — observation / interpretation / intervention (as the ch6 triad of behavior / output / accumulation) / recording / re-observation — the SaaS handles four: **observation, interpretation, recording, re-observation** (Ace for observation and interpretation; Ideal for the recording and re-observation plumbing). The stage **humans run the intervention** is deliberately left outside. That's the boundary that keeps human judgment from being outsourced to the product.
 
 ### Designing so this doesn't turn into evaluation — enforced at the implementation level
 
