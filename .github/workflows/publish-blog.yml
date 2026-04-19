@@ -17,6 +17,7 @@ on:
           - init
           - publish-all
           - publish-file
+          - reorder-structure-series
         default: 'init'
       file:
         description: 'File path (only for publish-file, e.g. docs/blog-en-devto-ch8.md)'
@@ -78,6 +79,24 @@ jobs:
             # Space requests to stay under dev.to rate limits (HTTP 429).
             sleep 1
           done
+
+      - name: Reorder SDO series on dev.to
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'reorder-structure-series'
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: |
+          python scripts/reorder-devto-series.py \
+            docs/blog-en-devto-structure-ch0.md \
+            docs/blog-en-devto-structure-ch1.md \
+            docs/blog-en-devto-structure-ch2.md \
+            docs/blog-en-devto-structure-ch3.md \
+            docs/blog-en-devto-structure-ch4.md \
+            docs/blog-en-devto-structure-ch5.md \
+            docs/blog-en-devto-structure-ch6.md \
+            docs/blog-en-devto-structure-ch7.md \
+            docs/blog-en-devto-structure-ch8.md \
+            docs/blog-en-devto-structure-ch9.md \
+            docs/blog-en-devto-structure-ch10.md
 
       - name: Commit mapping updates
         run: |
