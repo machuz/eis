@@ -25,7 +25,7 @@ A different team, reviewing a feature. One engineer: "Does this change contribut
 
 ---
 
-![Without Culture vs With Culture — does the meeting converge?](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch7-culture-contrast-en.svg)
+![Without Culture vs With Culture — does the meeting converge?](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-culture-contrast-en.png)
 
 The same topic — "code quality" — scatters into feelings in Scene A and converges along structural axes in Scene B. The difference? **The available vocabulary is different.**
 
@@ -35,7 +35,7 @@ Scene A only has the **wall vocabulary** (Ownership / Excellence / Ship it) — 
 
 **The interventions covered through chapter 6 — 1-on-1s, pair programming, reviews, reorgs — were individual operations.** When those operations accumulate over time and shift from **an individual's conscious choice** to **everyone's reflex**, that's when culture stands up. In other words, **culture is the time-integral of interventions**. However correct individual interventions are, if they don't get integrated — if they reset every time — there's no culture.
 
-![Culture = the time-integral of interventions](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch7-culture-integral-en.svg)
+![Culture = the time-integral of interventions](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-culture-integral-en.png)
 
 Values, missions, slogans, credos — these are **the result of culture**, or its shadow, not culture itself. Pin them on the wall, broadcast them widely; if they never reach the floor's conversations, they don't exist.
 
@@ -73,7 +73,7 @@ Traditional evaluation looks only at **output and behavior**. Code volume, featu
 
 To make transformation a target of evaluation as part of culture, you need **vocabulary for observing the signals of transformation.**
 
-![Making transformation evaluable — two axes](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch7-evaluation-axes-en.svg)
+![Making transformation evaluable — two axes](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-evaluation-axes-en.png)
 
 ### Transformer signals
 
@@ -103,7 +103,7 @@ At some point in the industry, the title "VPoE" became trendy for engineering or
 
 **We must not repeat that with the words "Structure layer" or "transformer."** The more the structure-driven vocabulary spreads, the more people will claim those titles. This is exactly why culture matters here.
 
-![Structure layer vs Middle layer — read by backing, not by title](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch7-three-middle-moves-en.svg)
+![Structure layer vs Middle layer — read by backing, not by title](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-three-middle-moves-en.png)
 
 ### Separating "Structure layer" from "Middle layer"
 
@@ -194,7 +194,7 @@ Conversely, a culture that changes **only when executives or outside consultants
 
 Culture gets discussed in black-and-white terms: "it's there" or "it isn't." But with the structure-driven vocabulary, **the depth of cultural adoption can be measured in signals**. This is the "conversation / daily language" region of the observability scope covered in the next chapter.
 
-![Observing culture — three buckets of signals](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch7-culture-signals-en.svg)
+![Observing culture — three buckets of signals](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-culture-signals-en.png)
 
 **In-meeting signals** (captured via meeting transcripts / wearable AI):
 
@@ -214,7 +214,7 @@ Culture gets discussed in black-and-white terms: "it's there" or "it isn't." But
 - The post-review Design-contribution lift on reviews a transformer was involved in
 - Correlation between linguistic realignment in meetings ("which layer?") and subsequent Survival increase
 
-![Installing Culture — a 12-month observation log](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch7-culture-trajectory-en.svg)
+![Installing Culture — a 12-month observation log](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch7-culture-trajectory-en.png)
 
 > **From the field — Before / After**
 >

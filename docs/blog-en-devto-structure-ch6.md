@@ -25,7 +25,7 @@ What's missing in that exchange? **The intervention is confined to the behavior 
 
 ## The Three Layers of Intervention
 
-![Three layers of intervention — accumulation shapes behavior and output](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch6-three-intervention-layers-en.svg)
+![Three layers of intervention — accumulation shapes behavior and output](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch6-three-intervention-layers-en.png)
 
 Interventions aimed at an organization split into three layers, based on what they target — **behavior** (what someone is doing), **output** (what got produced), and **accumulation** (what remains, and how it connects into the conditions of the next behavior).
 
