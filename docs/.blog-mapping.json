@@ -178,5 +178,9 @@
   "blog-en-devto-structure-ch9.md": {
     "devto_id": 3521306,
     "devto_url": "https://dev.to/machuz/structure-driven-engineering-organization-theory-9-connecting-to-orbitlens-5fa5"
+  },
+  "blog-en-devto-structure-ch10.md": {
+    "devto_id": 3521383,
+    "devto_url": "https://dev.to/machuz/structure-driven-engineering-organization-theory-10-conclusion-building-an-os-not-an-379f"
   }
 }
