@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>心理OS —— 自分が自分のまま稼働し続けるための作動原理</title>
+  <meta name="description" content="アカギ『天』最終盤の哲学を原理として受け取り、個人と組織の内側の作動状態を「心理OS」として記述する。構造駆動エンジニアリング組織論が外側の物理を担うのに対し、本書は内側の原理を扱う姉妹編。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --text: #1a1a1a;
+      --muted: #666;
+      --bg: #fafaf7;
+      --accent: #f0ede3;
+      --border: #ddd;
+      --link: #0066cc;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', 'MS PMincho', serif;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2em 1.2em 4em;
+      line-height: 1.95;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { font-weight: 700; letter-spacing: 0.02em; }
+    h1 { font-size: 1.75em; margin: 1.5em 0 0.5em; line-height: 1.4; }
+    h2 { font-size: 1.35em; margin: 2.2em 0 0.8em; border-bottom: 1px solid var(--border); padding-bottom: 0.3em; }
+    h3 { font-size: 1.12em; margin: 1.8em 0 0.6em; }
+    h4 { font-size: 1em; margin: 1.4em 0 0.5em; color: var(--muted); }
+    p { margin: 1em 0; }
+    img { max-width: 100%; height: auto; display: block; margin: 1.8em auto; border-radius: 2px; }
+    blockquote {
+      border-left: 3px solid #888;
+      padding: 0.4em 0 0.4em 1.2em;
+      margin: 1.6em 0;
+      color: #333;
+      font-style: normal;
+      background: #f5f2e8;
+    }
+    blockquote p { margin: 0.3em 0; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+    strong { font-weight: 700; color: #000; }
+    a { color: var(--link); }
+    em { font-style: normal; color: var(--muted); }
+    code { background: #eee; padding: 0.1em 0.3em; border-radius: 2px; font-size: 0.9em; }
+
+    .header-bar {
+      padding-bottom: 1.2em;
+      border-bottom: 2px solid var(--text);
+      margin-bottom: 2em;
+    }
+    .book-title { font-size: 1.55em; font-weight: 700; line-height: 1.4; }
+    .book-subtitle { font-size: 0.95em; color: var(--muted); margin-top: 0.4em; }
+    .book-summary { color: #444; margin-top: 0.9em; font-size: 0.93em; line-height: 1.75; }
+
+    .toc {
+      background: var(--accent);
+      padding: 1.5em 1.8em;
+      border-radius: 4px;
+      margin: 2em 0;
+    }
+    .toc-title {
+      font-size: 1.05em;
+      font-weight: 700;
+      margin: 0 0 0.8em;
+    }
+    .toc ul { list-style: none; padding: 0; margin: 0; }
+    .toc li { margin: 0.2em 0; }
+    .toc a {
+      display: block;
+      padding: 0.5em 0.6em;
+      text-decoration: none;
+      color: var(--text);
+      border-radius: 2px;
+      transition: background 0.1s;
+    }
+    .toc a:hover { background: #e6e1cf; }
+
+    .chapter-nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1em;
+      margin-top: 3.5em;
+      padding-top: 1.5em;
+      border-top: 1px solid var(--border);
+      font-size: 0.9em;
+    }
+    .chapter-nav a { text-decoration: none; color: var(--link); display: inline-block; }
+    .chapter-nav .prev { text-align: left; }
+    .chapter-nav .home { text-align: center; }
+    .chapter-nav .next { text-align: right; }
+
+    .footer {
+      margin-top: 4em;
+      padding-top: 1.5em;
+      border-top: 1px solid var(--border);
+      font-size: 0.85em;
+      color: var(--muted);
+      text-align: center;
+    }
+    .footer a { color: var(--muted); }
+
+    .loading { color: var(--muted); text-align: center; padding: 3em 0; }
+
+    @media (max-width: 600px) {
+      body { padding: 1.2em 1em 3em; font-size: 16px; }
+      h1 { font-size: 1.5em; }
+      h2 { font-size: 1.2em; }
+      .book-title { font-size: 1.3em; }
+    }
+
+    @media print {
+      body { max-width: none; padding: 0; background: white; font-size: 11pt; }
+      .toc, .chapter-nav, .footer { display: none; }
+      img { break-inside: avoid; max-width: 400px; }
+      h2 { break-before: page; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-bar">
+    <div class="book-title">心理OS</div>
+    <div class="book-subtitle">—— 自分が自分のまま稼働し続けるための作動原理</div>
+    <div class="book-summary">アカギ『天』最終盤の哲学を原理として受け取り、個人と組織の内側の作動状態を「心理OS」として記述する。構造駆動エンジニアリング組織論が外側の物理を担うのに対し、本書は内側の原理を扱う姉妹編。</div>
+  </div>
+
+  <div id="toc-container" class="toc">
+    <div class="toc-title">目次</div>
+    <ul id="toc"></ul>
+  </div>
+
+  <main id="content"></main>
+  <nav id="chapter-nav" class="chapter-nav" style="display: none;"></nav>
+
+  <div class="footer">
+    <a href="https://github.com/machuz/eis/tree/main/books/psychological-os">GitHub で原文を見る</a>
+  </div>
+
+  <script>
+    const CHAPTERS = [
+      { slug: 'ch0', title: '第0章 — 熱い三流なら上等よ / 心理OSという作動原理' },
+      { slug: 'ch1', title: '第1章 — 観測器は届かない / 自分の心理OSをどう知るか' },
+      { slug: 'ch2', title: '第2章 — 強い心理OSとは何か / 熱の純度と持続' },
+      { slug: 'ch3', title: '第3章 — 組織に接続されるとき、何が壊れるか / 心理OSと集団の衝突' },
+      { slug: 'epilogue', title: '最終章 — なぜこの体系を作ったか' },
+    ];
+    const RAW_BASE = 'https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/';
+
+    // Rewrite relative image paths to absolute raw.githubusercontent.com URLs
+    const renderer = new marked.Renderer();
+    const originalImage = renderer.image.bind(renderer);
+    renderer.image = (href, title, text) => {
+      if (typeof href === 'object' && href.href) {
+        // marked v11+ passes token object
+        const token = href;
+        let h = token.href || '';
+        if (h.startsWith('./images/') || h.startsWith('images/')) {
+          h = RAW_BASE + h.replace(/^\.\//, '');
+        }
+        token.href = h;
+        return originalImage(token);
+      }
+      if (typeof href === 'string' && (href.startsWith('./images/') || href.startsWith('images/'))) {
+        href = RAW_BASE + href.replace(/^\.\//, '');
+      }
+      return originalImage(href, title, text);
+    };
+    marked.use({ renderer });
+
+    function buildTOC() {
+      const toc = document.getElementById('toc');
+      toc.innerHTML = CHAPTERS.map(c =>
+        `<li><a href="#${c.slug}">${escapeHTML(c.title)}</a></li>`
+      ).join('');
+    }
+
+    function escapeHTML(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    async function loadChapter(slug) {
+      const tocContainer = document.getElementById('toc-container');
+      const content = document.getElementById('content');
+      const nav = document.getElementById('chapter-nav');
+
+      if (!slug) {
+        content.innerHTML = '';
+        tocContainer.style.display = 'block';
+        nav.style.display = 'none';
+        document.title = '心理OS —— 自分が自分のまま稼働し続けるための作動原理';
+        return;
+      }
+
+      const idx = CHAPTERS.findIndex(c => c.slug === slug);
+      if (idx === -1) {
+        content.innerHTML = '<p class="loading">章が見つかりません</p>';
+        return;
+      }
+
+      content.innerHTML = '<p class="loading">読み込み中…</p>';
+      tocContainer.style.display = 'none';
+
+      try {
+        const res = await fetch(RAW_BASE + slug + '.md');
+        if (!res.ok) throw new Error('fetch failed');
+        const md = await res.text();
+        // Strip YAML frontmatter
+        const body = md.replace(/^---[\s\S]*?---\s*/, '');
+        content.innerHTML = marked.parse(body);
+
+        const prev = idx > 0 ? CHAPTERS[idx - 1] : null;
+        const next = idx < CHAPTERS.length - 1 ? CHAPTERS[idx + 1] : null;
+        nav.style.display = 'grid';
+        nav.innerHTML = `
+          <div class="prev">${prev ? `<a href="#${prev.slug}">← ${escapeHTML(prev.title)}</a>` : ''}</div>
+          <div class="home"><a href="#">目次へ</a></div>
+          <div class="next">${next ? `<a href="#${next.slug}">${escapeHTML(next.title)} →</a>` : ''}</div>
+        `;
+        document.title = CHAPTERS[idx].title + ' — 心理OS';
+        window.scrollTo(0, 0);
+      } catch (e) {
+        content.innerHTML = '<p class="loading">読み込みに失敗しました。しばらくしてから再度お試しください。</p>';
+      }
+    }
+
+    function handleHashChange() {
+      const slug = decodeURIComponent(window.location.hash.slice(1));
+      loadChapter(slug);
+    }
+
+    buildTOC();
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange();
+  </script>
+</body>
+</html>
