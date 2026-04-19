@@ -75,6 +75,8 @@ jobs:
         run: |
           for f in docs/blog-*.md; do
             python scripts/publish-blog.py "$f"
+            # Space requests to stay under dev.to rate limits (HTTP 429).
+            sleep 1
           done
 
       - name: Commit mapping updates

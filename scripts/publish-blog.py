@@ -24,6 +24,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 import urllib.request
 import urllib.error
 from base64 import b64encode
@@ -82,17 +83,28 @@ def devto_publish(filepath: Path, mapping: dict) -> dict:
         req = urllib.request.Request(url, data=data, headers=devto_headers(), method="POST")
         print(f"  Creating new dev.to article...")
 
-    try:
-        with urllib.request.urlopen(req) as resp:
-            result = json.loads(resp.read())
-            new_id = result["id"]
-            article_url = result["url"]
-            print(f"  OK: {article_url}")
-            return {"devto_id": new_id, "devto_url": article_url}
-    except urllib.error.HTTPError as e:
-        body = e.read().decode()
-        print(f"  ERROR ({e.code}): {body}", file=sys.stderr)
-        raise
+    # Retry with exponential backoff on 429 (rate-limit) and 5xx.
+    max_attempts = 6
+    for attempt in range(max_attempts):
+        try:
+            with urllib.request.urlopen(req) as resp:
+                result = json.loads(resp.read())
+                new_id = result["id"]
+                article_url = result["url"]
+                print(f"  OK: {article_url}")
+                return {"devto_id": new_id, "devto_url": article_url}
+        except urllib.error.HTTPError as e:
+            body = e.read().decode()
+            retriable = e.code == 429 or 500 <= e.code < 600
+            if retriable and attempt < max_attempts - 1:
+                retry_after = int(e.headers.get("Retry-After", 0) or 0)
+                wait = retry_after if retry_after > 0 else 2 ** (attempt + 1)
+                print(f"  {e.code} received; sleeping {wait}s then retrying (attempt {attempt + 2}/{max_attempts})")
+                time.sleep(wait)
+                req = urllib.request.Request(url, data=data, headers=devto_headers(), method=req.get_method())
+                continue
+            print(f"  ERROR ({e.code}): {body}", file=sys.stderr)
+            raise
 
 
 def devto_fetch_articles():
