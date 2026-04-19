@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440" viewBox="0 0 960 440">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+    <marker id="arr5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#665c54"/>
+    </marker>
+    <marker id="arr5-loop" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8ec07c"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="440" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="440" rx="2" fill="#d3869b"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Loop &amp; Boundary · ch9</text>
+
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">構造駆動ループの 5 段 — SaaS が 4 段、人間が 1 段</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">介入は人間の仕事。そのための材料と記録と再観測が、SaaS の責務</text>
+
+  <!-- Zone bg: SaaS zones -->
+  <rect x="40" y="110" width="360" height="170" rx="12" fill="#282828" stroke="#d3869b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="220" y="130" text-anchor="middle" class="jp" fill="#d3869b" font-size="11" font-weight="700">Ace（観測 SaaS）</text>
+
+  <!-- Zone bg: Human intervention -->
+  <rect x="420" y="110" width="180" height="170" rx="12" fill="#282828" stroke="#cc241d" stroke-width="1.5"/>
+  <text x="510" y="130" text-anchor="middle" class="jp" fill="#cc241d" font-size="11" font-weight="700">人間（現場）</text>
+
+  <!-- Zone bg: Ideal -->
+  <rect x="620" y="110" width="300" height="170" rx="12" fill="#282828" stroke="#83a598" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="770" y="130" text-anchor="middle" class="jp" fill="#83a598" font-size="11" font-weight="700">Ideal（組織 OS SaaS）</text>
+
+  <!-- Stage 1: 観測 -->
+  <circle cx="110" cy="195" r="38" fill="#1d2021" stroke="#d3869b" stroke-width="2"/>
+  <text x="110" y="190" text-anchor="middle" class="mono" fill="#504945" font-size="9">①</text>
+  <text x="110" y="207" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">観測</text>
+  <text x="110" y="260" text-anchor="middle" class="mono" fill="#7c6f64" font-size="9">observation</text>
+
+  <!-- Stage 2: 解釈 -->
+  <circle cx="320" cy="195" r="38" fill="#1d2021" stroke="#d3869b" stroke-width="2"/>
+  <text x="320" y="190" text-anchor="middle" class="mono" fill="#504945" font-size="9">②</text>
+  <text x="320" y="207" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">解釈</text>
+  <text x="320" y="260" text-anchor="middle" class="mono" fill="#7c6f64" font-size="9">interpretation</text>
+
+  <!-- Stage 3: 介入 (human) -->
+  <circle cx="510" cy="195" r="38" fill="#1d2021" stroke="#cc241d" stroke-width="2.5"/>
+  <text x="510" y="190" text-anchor="middle" class="mono" fill="#504945" font-size="9">③</text>
+  <text x="510" y="207" text-anchor="middle" class="jp" fill="#fb4934" font-size="13" font-weight="700">介入</text>
+  <text x="510" y="260" text-anchor="middle" class="mono" fill="#7c6f64" font-size="9">intervention</text>
+
+  <!-- Stage 4: 記録 -->
+  <circle cx="720" cy="195" r="38" fill="#1d2021" stroke="#83a598" stroke-width="2"/>
+  <text x="720" y="190" text-anchor="middle" class="mono" fill="#504945" font-size="9">④</text>
+  <text x="720" y="207" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">記録</text>
+  <text x="720" y="260" text-anchor="middle" class="mono" fill="#7c6f64" font-size="9">recording</text>
+
+  <!-- Stage 5: 再観測 -->
+  <circle cx="870" cy="195" r="38" fill="#1d2021" stroke="#83a598" stroke-width="2"/>
+  <text x="870" y="190" text-anchor="middle" class="mono" fill="#504945" font-size="9">⑤</text>
+  <text x="870" y="207" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="13" font-weight="700">再観測</text>
+  <text x="870" y="260" text-anchor="middle" class="mono" fill="#7c6f64" font-size="9">re-observation</text>
+
+  <!-- Arrows between stages -->
+  <line x1="150" y1="195" x2="280" y2="195" stroke="#665c54" stroke-width="1.5" marker-end="url(#arr5)"/>
+  <line x1="360" y1="195" x2="470" y2="195" stroke="#665c54" stroke-width="1.5" marker-end="url(#arr5)"/>
+  <line x1="550" y1="195" x2="680" y2="195" stroke="#665c54" stroke-width="1.5" marker-end="url(#arr5)"/>
+  <line x1="760" y1="195" x2="830" y2="195" stroke="#665c54" stroke-width="1.5" marker-end="url(#arr5)"/>
+
+  <!-- Loop back arrow: 再観測 → 観測 (next cycle) -->
+  <path d="M 870 157 Q 870 90, 480 78 Q 110 90, 110 157" stroke="#8ec07c" stroke-width="2" stroke-dasharray="5 3" fill="none" marker-end="url(#arr5-loop)"/>
+  <text x="480" y="75" text-anchor="middle" class="jp" fill="#8ec07c" font-size="11" font-weight="700">次サイクルへ（ループ）</text>
+
+  <!-- Intervention detail (行動/出力/蓄積) under stage 3 -->
+  <rect x="422" y="294" width="176" height="58" rx="6" fill="#1d2021" stroke="#cc241d" stroke-width="1"/>
+  <text x="510" y="310" text-anchor="middle" class="jp" fill="#fb4934" font-size="10" font-weight="700">第 6 章の 3 層</text>
+  <text x="510" y="326" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="11">行動 / 出力 / 蓄積</text>
+  <text x="510" y="344" text-anchor="middle" class="mono" fill="#7c6f64" font-size="9">behavior / output / accumulation</text>
+
+  <!-- Bottom summary -->
+  <rect x="40" y="376" width="880" height="48" rx="10" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="480" y="396" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="12" font-weight="700">観測・解釈・記録・再観測 の 4 段を SaaS が担い、介入の 1 段を人間が担う</text>
+  <text x="480" y="414" text-anchor="middle" class="jp" fill="#928374" font-size="11">「人間が人間に声をかける」瞬間は、構造上 SaaS の外に残される——人間の判断を預けないための境界線</text>
+</svg>

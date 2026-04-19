@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+    <linearGradient id="decay-area" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cc241d" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#cc241d" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="healthy-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b8bb26" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#b8bb26" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="500" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="500" rx="2" fill="#d3869b"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Self-Plumbing Decay · ch9</text>
+
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">自前配管の崩壊パターン — 1 年で観測が死ぬ</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">CLI 能力ではなく、配管の保守と継承のコストが観測を殺す</text>
+
+  <!-- Y axis -->
+  <line x1="80" y1="110" x2="80" y2="380" stroke="#3c3836" stroke-width="1"/>
+  <text x="72" y="114" text-anchor="end" class="mono" fill="#504945" font-size="9">100</text>
+  <text x="72" y="196" text-anchor="end" class="mono" fill="#504945" font-size="9">75</text>
+  <text x="72" y="278" text-anchor="end" class="mono" fill="#504945" font-size="9">50</text>
+  <text x="72" y="360" text-anchor="end" class="mono" fill="#504945" font-size="9">0</text>
+  <text x="40" y="250" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10" transform="rotate(-90 40 250)">観測の健全度</text>
+
+  <!-- Healthy zone -->
+  <rect x="80" y="110" width="840" height="60" fill="url(#healthy-bg)"/>
+  <line x1="80" y1="170" x2="920" y2="170" stroke="#b8bb26" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="912" y="166" text-anchor="end" class="mono" fill="#b8bb26" font-size="10" font-weight="700">healthy</text>
+
+  <!-- Grid lines -->
+  <line x1="80" y1="192" x2="920" y2="192" stroke="#3c3836" stroke-width="0.5" opacity="0.5"/>
+  <line x1="80" y1="275" x2="920" y2="275" stroke="#3c3836" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- X axis with months M0, M3, M6, M7, M9, M12 -->
+  <line x1="80" y1="380" x2="920" y2="380" stroke="#928374" stroke-width="1.5"/>
+  <g fill="#504945">
+    <text x="120" y="398" text-anchor="middle" class="mono" font-size="10">M0</text>
+    <text x="280" y="398" text-anchor="middle" class="mono" font-size="10">M3</text>
+    <text x="440" y="398" text-anchor="middle" class="mono" font-size="10">M6</text>
+    <text x="520" y="398" text-anchor="middle" class="mono" font-size="10">M7</text>
+    <text x="680" y="398" text-anchor="middle" class="mono" font-size="10">M9</text>
+    <text x="880" y="398" text-anchor="middle" class="mono" font-size="10">M12</text>
+  </g>
+
+  <!-- Shaded area under curve -->
+  <path d="M 120 140
+           L 280 140
+           L 440 140
+           L 520 160
+           L 680 270
+           L 880 350
+           L 880 380
+           L 120 380 Z"
+        fill="url(#decay-area)"/>
+
+  <!-- Health curve -->
+  <path d="M 120 140
+           L 280 140
+           L 440 140
+           L 520 160
+           L 680 270
+           L 880 350"
+        fill="none" stroke="#fb4934" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Data points -->
+  <circle cx="120" cy="140" r="5" fill="#fabd2f"/>
+  <circle cx="280" cy="140" r="5" fill="#b8bb26"/>
+  <circle cx="440" cy="140" r="5" fill="#b8bb26"/>
+  <circle cx="520" cy="160" r="6" fill="#fe8019" stroke="#1d2021" stroke-width="2"/>
+  <circle cx="680" cy="270" r="6" fill="#fb4934" stroke="#1d2021" stroke-width="2"/>
+  <circle cx="880" cy="350" r="6" fill="#cc241d" stroke="#1d2021" stroke-width="2"/>
+
+  <!-- Event annotations -->
+  <!-- M0 -->
+  <line x1="120" y1="140" x2="120" y2="95" stroke="#504945" stroke-width="1" stroke-dasharray="2 2"/>
+  <rect x="62" y="70" width="116" height="24" rx="4" fill="#1d2021" stroke="#fabd2f" stroke-width="1"/>
+  <text x="120" y="87" text-anchor="middle" class="jp" fill="#fabd2f" font-size="10" font-weight="700">EIS + 配管 構築</text>
+
+  <!-- M3 -->
+  <rect x="218" y="184" width="124" height="40" rx="4" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="280" y="201" text-anchor="middle" class="jp" fill="#b8bb26" font-size="10" font-weight="700">順調に運用</text>
+  <text x="280" y="217" text-anchor="middle" class="jp" fill="#928374" font-size="9">EM が毎週数字を読む</text>
+
+  <!-- M6 -->
+  <rect x="378" y="184" width="124" height="40" rx="4" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="440" y="201" text-anchor="middle" class="jp" fill="#b8bb26" font-size="10" font-weight="700">綺麗に回る</text>
+  <text x="440" y="217" text-anchor="middle" class="jp" fill="#928374" font-size="9">ダッシュボード安定</text>
+
+  <!-- M7 担当転職 -->
+  <line x1="520" y1="160" x2="520" y2="208" stroke="#fe8019" stroke-width="1" stroke-dasharray="3 2"/>
+  <rect x="443" y="210" width="154" height="40" rx="4" fill="#1d2021" stroke="#fe8019" stroke-width="1.5"/>
+  <text x="520" y="227" text-anchor="middle" class="jp" fill="#fe8019" font-size="10" font-weight="700">⚠ 配管主担当の転職</text>
+  <text x="520" y="243" text-anchor="middle" class="jp" fill="#928374" font-size="9">ノウハウが組織を離れる</text>
+
+  <!-- M9 scheduler stop -->
+  <line x1="680" y1="270" x2="680" y2="310" stroke="#fb4934" stroke-width="1" stroke-dasharray="3 2"/>
+  <rect x="600" y="312" width="160" height="40" rx="4" fill="#1d2021" stroke="#fb4934" stroke-width="1.5"/>
+  <text x="680" y="329" text-anchor="middle" class="jp" fill="#fb4934" font-size="10" font-weight="700">⚠ スケジューラ停止</text>
+  <text x="680" y="345" text-anchor="middle" class="jp" fill="#928374" font-size="9">誰も気付かない / 直さない</text>
+
+  <!-- M12 death -->
+  <line x1="880" y1="350" x2="800" y2="350" stroke="#cc241d" stroke-width="1" stroke-dasharray="3 2"/>
+  <rect x="702" y="338" width="96" height="24" rx="4" fill="#1d2021" stroke="#cc241d" stroke-width="1.5"/>
+  <text x="750" y="355" text-anchor="middle" class="jp" fill="#cc241d" font-size="10" font-weight="700">☠ ダッシュボード死</text>
+
+  <!-- Bottom explanation -->
+  <rect x="40" y="420" width="880" height="60" rx="10" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="480" y="441" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="12" font-weight="700">観測は「守るべきコード」ではなく「便利なら使う道具」として扱われる——優先度は常に下がる</text>
+  <text x="480" y="460" text-anchor="middle" class="jp" fill="#928374" font-size="11">配管の保守は日常業務の後回しになり、1 年で組織は元の「誰も観測していない」状態に戻る</text>
+  <text x="480" y="476" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">CLI capability is complete — but the plumbing cost is the irreversible gravity</text>
+</svg>

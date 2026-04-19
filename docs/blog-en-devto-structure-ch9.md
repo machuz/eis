@@ -48,6 +48,8 @@ This book argues the thinking and the design; it doesn't insist on who has to sh
 
 The typical decay pattern of self-built plumbing goes like this. A team assembles EIS + a scheduler + a BI tool into a custom dashboard; for half a year it runs cleanly. Then one of the one or two people who built it leaves. By the next quarter the scheduler has stopped somewhere and no one notices. The incentive to fix it is weak — observation is treated not as "code we have to defend" but as a **tool we use if it's convenient.** A year on, the dashboard has gone stale and the organization is back to "nobody is observing." **The priority of observation drops every day, inside the routine of daily work** — that's the irreversible gravity of hand-run plumbing.
 
+![Decay pattern of self-built plumbing — observation dies within a year](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch9-self-plumbing-decay-en.svg)
+
 **As long as observation is run by hand, it ends as a personal technique — not as a culture.** You need a device that **sits outside the organization and keeps observing** — an **observation SaaS**.
 
 ## 2. Telescope, observatory, organization OS
@@ -132,6 +134,8 @@ The three are independent products, but they **sit on the same structural vocabu
 
 **Ace surfaces the gap → True fills from outside / Ideal moves things inside → Ace re-observes.** The three products occupy three positions in the structure-driven loop; Ace is both start and end, and the loop closes through it. The **separation of suggestions** makes the division crisp: True's suggestion is **who fills the gap** (talent proposal, outward); Ideal's suggestion is **how to move the organization** (operations proposal, inward).
 
+![The structure-driven loop — Ace is the start and the end](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch9-three-product-loop-en.svg)
+
 ## 6. The moment organization theory becomes SaaS
 
 When this book started being written, the SaaS was framed as **a single observation-interpretation tool** — ingest the CLI's JSON, return visualizations and alerts, roughly that.
@@ -161,6 +165,8 @@ Across both Ace and Ideal, the following principles — **what the SaaS doesn't 
 - **Alternative observation paths are deliberately left open.** Slack, meetings, 1-on-1s, code reviews — the paths a human eye can reach are never collapsed away.
 
 Of the five stages — observation / interpretation / intervention (as the ch6 triad of behavior / output / accumulation) / recording / re-observation — the SaaS handles four: **observation, interpretation, recording, re-observation** (Ace for observation and interpretation; Ideal for the recording and re-observation plumbing). The stage **humans run the intervention** is deliberately left outside. That's the boundary that keeps human judgment from being outsourced to the product.
+
+![The five-stage loop — SaaS handles four, humans handle one](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch9-five-stage-boundary-en.svg)
 
 ### Designing so this doesn't turn into evaluation — enforced at the implementation level
 

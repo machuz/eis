@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d3869b"/>
+    </marker>
+    <marker id="arrow-gold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fabd2f"/>
+    </marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#83a598"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8ec07c"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="560" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="560" rx="2" fill="#d3869b"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Three-Product Loop · ch9</text>
+
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">構造駆動ループ — Ace が起点、Ace が終点</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">観測で穴が見え、True で外から埋め、Ideal で中で動かし、Ace で再観測する</text>
+
+  <!-- Ace (center-top, largest) -->
+  <rect x="380" y="110" width="200" height="130" rx="12" fill="#282828" stroke="#d3869b" stroke-width="2"/>
+  <rect x="380" y="110" width="200" height="34" rx="12" fill="#d3869b"/>
+  <rect x="380" y="134" width="200" height="10" fill="#d3869b"/>
+  <text x="480" y="132" text-anchor="middle" class="jp" fill="#1d2021" font-size="16" font-weight="800">Ace</text>
+  <text x="480" y="168" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="12" font-weight="700">組織の現在地と不足を読む</text>
+  <text x="480" y="188" text-anchor="middle" class="jp" fill="#928374" font-size="11">内部観測</text>
+  <text x="480" y="208" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">visualize · interpret · gap</text>
+  <text x="480" y="228" text-anchor="middle" class="jp" fill="#d3869b" font-size="10" font-weight="700">観測 SaaS</text>
+
+  <!-- True (bottom left, outward) -->
+  <rect x="100" y="340" width="240" height="130" rx="12" fill="#282828" stroke="#fabd2f" stroke-width="2"/>
+  <rect x="100" y="340" width="240" height="34" rx="12" fill="#fabd2f"/>
+  <rect x="100" y="364" width="240" height="10" fill="#fabd2f"/>
+  <text x="220" y="362" text-anchor="middle" class="jp" fill="#1d2021" font-size="16" font-weight="800">True</text>
+  <text x="220" y="398" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="12" font-weight="700">外から足りない構造を埋める</text>
+  <text x="220" y="418" text-anchor="middle" class="jp" fill="#928374" font-size="11">外向き · 人材提案</text>
+  <text x="220" y="438" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">translate to talent market</text>
+  <text x="220" y="458" text-anchor="middle" class="jp" fill="#fabd2f" font-size="10" font-weight="700">採用プロダクトではない</text>
+
+  <!-- Ideal (bottom right, inward) -->
+  <rect x="620" y="340" width="240" height="130" rx="12" fill="#282828" stroke="#83a598" stroke-width="2"/>
+  <rect x="620" y="340" width="240" height="34" rx="12" fill="#83a598"/>
+  <rect x="620" y="364" width="240" height="10" fill="#83a598"/>
+  <text x="740" y="362" text-anchor="middle" class="jp" fill="#1d2021" font-size="16" font-weight="800">Ideal</text>
+  <text x="740" y="398" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="12" font-weight="700">今いる人員で組織を回す</text>
+  <text x="740" y="418" text-anchor="middle" class="jp" fill="#928374" font-size="11">内向き · 運用提案</text>
+  <text x="740" y="438" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">placement · intervention · loop</text>
+  <text x="740" y="458" text-anchor="middle" class="jp" fill="#83a598" font-size="10" font-weight="700">運用支援ツールではない</text>
+
+  <!-- Arrow: Ace → True (gap detected, fill outside) -->
+  <path d="M 395 245 Q 300 295, 265 340" stroke="#fabd2f" stroke-width="2.5" fill="none" marker-end="url(#arrow-gold)"/>
+  <rect x="220" y="275" width="110" height="24" rx="4" fill="#1d2021" stroke="#fabd2f" stroke-width="1"/>
+  <text x="275" y="292" text-anchor="middle" class="jp" fill="#fabd2f" font-size="11" font-weight="700">外から埋める</text>
+
+  <!-- Arrow: Ace → Ideal (gap detected, move inside) -->
+  <path d="M 565 245 Q 660 295, 695 340" stroke="#83a598" stroke-width="2.5" fill="none" marker-end="url(#arrow-cyan)"/>
+  <rect x="630" y="275" width="110" height="24" rx="4" fill="#1d2021" stroke="#83a598" stroke-width="1"/>
+  <text x="685" y="292" text-anchor="middle" class="jp" fill="#83a598" font-size="11" font-weight="700">内で回す</text>
+
+  <!-- Return arrow: True → Ace (re-observe) -->
+  <path d="M 255 340 Q 280 230, 400 195" stroke="#8ec07c" stroke-width="2.5" stroke-dasharray="6 4" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="215" y="225" class="jp" fill="#8ec07c" font-size="11" font-weight="700">再観測</text>
+
+  <!-- Return arrow: Ideal → Ace (re-observe) -->
+  <path d="M 705 340 Q 680 230, 560 195" stroke="#8ec07c" stroke-width="2.5" stroke-dasharray="6 4" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="705" y="225" class="jp" fill="#8ec07c" font-size="11" font-weight="700">再観測</text>
+
+  <!-- Suggestion separation bar -->
+  <rect x="100" y="500" width="760" height="44" rx="10" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="130" y="518" class="jp" fill="#ebdbb2" font-size="11" font-weight="700">提案の分離</text>
+  <text x="220" y="518" class="jp" fill="#fabd2f" font-size="11">● True の提案：</text>
+  <text x="330" y="518" class="jp" fill="#928374" font-size="11">誰で埋めるか（人材提案）</text>
+  <text x="540" y="518" class="jp" fill="#83a598" font-size="11">● Ideal の提案：</text>
+  <text x="660" y="518" class="jp" fill="#928374" font-size="11">どう動かすか（運用提案）</text>
+  <text x="480" y="536" text-anchor="middle" class="jp" fill="#7c6f64" font-size="10">同じ構造語彙が 3 製品を貫通する</text>
+</svg>

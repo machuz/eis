@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+    <marker id="arrow-gold-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fabd2f"/>
+    </marker>
+    <marker id="arrow-cyan-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#83a598"/>
+    </marker>
+    <marker id="arrow-green-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8ec07c"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="560" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="560" rx="2" fill="#d3869b"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">Three-Product Loop · ch9</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">The structure-driven loop — Ace is the start and the end</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">Observe the gap; True fills from outside, Ideal moves things inside; Ace re-observes.</text>
+
+  <!-- Ace -->
+  <rect x="380" y="110" width="200" height="130" rx="12" fill="#282828" stroke="#d3869b" stroke-width="2"/>
+  <rect x="380" y="110" width="200" height="34" rx="12" fill="#d3869b"/>
+  <rect x="380" y="134" width="200" height="10" fill="#d3869b"/>
+  <text x="480" y="132" text-anchor="middle" class="sans" fill="#1d2021" font-size="16" font-weight="800">Ace</text>
+  <text x="480" y="168" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="12" font-weight="700">Reads the state and the gaps</text>
+  <text x="480" y="188" text-anchor="middle" class="sans" fill="#928374" font-size="11">internal observation</text>
+  <text x="480" y="208" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">visualize · interpret · gap</text>
+  <text x="480" y="228" text-anchor="middle" class="sans" fill="#d3869b" font-size="10" font-weight="700">observation SaaS</text>
+
+  <!-- True -->
+  <rect x="100" y="340" width="240" height="130" rx="12" fill="#282828" stroke="#fabd2f" stroke-width="2"/>
+  <rect x="100" y="340" width="240" height="34" rx="12" fill="#fabd2f"/>
+  <rect x="100" y="364" width="240" height="10" fill="#fabd2f"/>
+  <text x="220" y="362" text-anchor="middle" class="sans" fill="#1d2021" font-size="16" font-weight="800">True</text>
+  <text x="220" y="398" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="12" font-weight="700">Fills the missing structure from outside</text>
+  <text x="220" y="418" text-anchor="middle" class="sans" fill="#928374" font-size="11">outward · talent proposal</text>
+  <text x="220" y="438" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">translate to talent market</text>
+  <text x="220" y="458" text-anchor="middle" class="sans" fill="#fabd2f" font-size="10" font-weight="700">not a hiring product</text>
+
+  <!-- Ideal -->
+  <rect x="620" y="340" width="240" height="130" rx="12" fill="#282828" stroke="#83a598" stroke-width="2"/>
+  <rect x="620" y="340" width="240" height="34" rx="12" fill="#83a598"/>
+  <rect x="620" y="364" width="240" height="10" fill="#83a598"/>
+  <text x="740" y="362" text-anchor="middle" class="sans" fill="#1d2021" font-size="16" font-weight="800">Ideal</text>
+  <text x="740" y="398" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="12" font-weight="700">Runs the org with people already inside</text>
+  <text x="740" y="418" text-anchor="middle" class="sans" fill="#928374" font-size="11">inward · operations proposal</text>
+  <text x="740" y="438" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">placement · intervention · loop</text>
+  <text x="740" y="458" text-anchor="middle" class="sans" fill="#83a598" font-size="10" font-weight="700">not an ops-support tool</text>
+
+  <!-- Ace → True -->
+  <path d="M 395 245 Q 300 295, 265 340" stroke="#fabd2f" stroke-width="2.5" fill="none" marker-end="url(#arrow-gold-en)"/>
+  <rect x="210" y="275" width="130" height="24" rx="4" fill="#1d2021" stroke="#fabd2f" stroke-width="1"/>
+  <text x="275" y="292" text-anchor="middle" class="sans" fill="#fabd2f" font-size="11" font-weight="700">fill from outside</text>
+
+  <!-- Ace → Ideal -->
+  <path d="M 565 245 Q 660 295, 695 340" stroke="#83a598" stroke-width="2.5" fill="none" marker-end="url(#arrow-cyan-en)"/>
+  <rect x="620" y="275" width="130" height="24" rx="4" fill="#1d2021" stroke="#83a598" stroke-width="1"/>
+  <text x="685" y="292" text-anchor="middle" class="sans" fill="#83a598" font-size="11" font-weight="700">run from inside</text>
+
+  <!-- True → Ace -->
+  <path d="M 255 340 Q 280 230, 400 195" stroke="#8ec07c" stroke-width="2.5" stroke-dasharray="6 4" fill="none" marker-end="url(#arrow-green-en)"/>
+  <text x="210" y="225" class="sans" fill="#8ec07c" font-size="11" font-weight="700">re-observe</text>
+
+  <!-- Ideal → Ace -->
+  <path d="M 705 340 Q 680 230, 560 195" stroke="#8ec07c" stroke-width="2.5" stroke-dasharray="6 4" fill="none" marker-end="url(#arrow-green-en)"/>
+  <text x="705" y="225" class="sans" fill="#8ec07c" font-size="11" font-weight="700">re-observe</text>
+
+  <!-- Suggestion separation -->
+  <rect x="100" y="500" width="760" height="44" rx="10" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="120" y="518" class="sans" fill="#ebdbb2" font-size="11" font-weight="700">Suggestion split</text>
+  <text x="222" y="518" class="sans" fill="#fabd2f" font-size="11">● True suggests:</text>
+  <text x="330" y="518" class="sans" fill="#928374" font-size="11">who fills the gap (talent)</text>
+  <text x="520" y="518" class="sans" fill="#83a598" font-size="11">● Ideal suggests:</text>
+  <text x="640" y="518" class="sans" fill="#928374" font-size="11">how to move the org (ops)</text>
+  <text x="480" y="536" text-anchor="middle" class="sans" fill="#7c6f64" font-size="10">a single structural vocabulary runs through all three products</text>
+</svg>
