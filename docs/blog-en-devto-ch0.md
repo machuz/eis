@@ -1,6 +1,5 @@
 ---
 title: "Git Archaeology #0 — What If Git History Could Tell You Who Your Strongest Engineers Are?"
-series: "Git Archaeology"
 published: true
 description: "A 3-minute intro to Engineering Impact Signal — an OSS CLI that quantifies engineering impact from git log and git blame alone. No API keys, no AI tokens."
 tags: opensource, productivity, git, career
