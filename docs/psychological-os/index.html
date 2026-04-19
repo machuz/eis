@@ -137,7 +137,7 @@
 </head>
 <body>
   <div class="header-bar">
-    <img id="book-cover" class="book-cover" src="https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png" alt="心理OS 表紙">
+    <img id="book-cover" class="book-cover" alt="心理OS 表紙">
     <div class="book-title">心理OS</div>
     <div class="book-subtitle">—— 自分が自分のまま稼働し続けるための作動原理</div>
     <div class="book-summary">アカギ『天』最終盤の哲学を原理として受け取り、個人と組織の内側の作動状態を「心理OS」として記述する。構造駆動エンジニアリング組織論が外側の物理を担うのに対し、本書は内側の原理を扱う姉妹編。</div>
@@ -187,9 +187,18 @@
     };
     marked.use({ renderer });
 
+    // Cache DOM references once (script runs at end of body, so elements exist)
+    const tocContainer = document.getElementById('toc-container');
+    const tocList = document.getElementById('toc');
+    const content = document.getElementById('content');
+    const nav = document.getElementById('chapter-nav');
+    const cover = document.getElementById('book-cover');
+
+    // Set cover image src from RAW_BASE so the raw URL stays in one place
+    if (cover) cover.src = RAW_BASE + 'images/cover.png';
+
     function buildTOC() {
-      const toc = document.getElementById('toc');
-      toc.innerHTML = CHAPTERS.map(c =>
+      tocList.innerHTML = CHAPTERS.map(c =>
         `<li><a href="#${c.slug}">${escapeHTML(c.title)}</a></li>`
       ).join('');
     }
@@ -199,11 +208,6 @@
     }
 
     async function loadChapter(slug) {
-      const tocContainer = document.getElementById('toc-container');
-      const content = document.getElementById('content');
-      const nav = document.getElementById('chapter-nav');
-      const cover = document.getElementById('book-cover');
-
       if (!slug) {
         content.innerHTML = '';
         tocContainer.style.display = 'block';
