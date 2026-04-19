@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+    <marker id="arrRos-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#665c54"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="560" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="560" rx="2" fill="#ebdbb2"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">OS Rosetta · ch10</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">OS and structure-driven organization — a Rosetta table</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">Which OS component maps to which element of the structure-driven organization</text>
+
+  <rect x="60" y="100" width="380" height="36" rx="8" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <text x="250" y="124" text-anchor="middle" class="sans" fill="#83a598" font-size="14" font-weight="800">OS component</text>
+
+  <rect x="520" y="100" width="380" height="36" rx="8" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <text x="710" y="124" text-anchor="middle" class="sans" fill="#d3869b" font-size="14" font-weight="800">Structure-driven element</text>
+
+  <rect x="60" y="156" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="180" class="mono" fill="#83a598" font-size="12" font-weight="700">Kernel</text>
+  <text x="76" y="200" class="sans" fill="#928374" font-size="10">minimal discipline + wiring</text>
+
+  <rect x="520" y="156" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="180" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Principle-layer philosophy</text>
+  <text x="536" y="200" class="sans" fill="#928374" font-size="10">the top of ch4's three layers — what to build and not</text>
+
+  <line x1="440" y1="184" x2="520" y2="184" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>
+
+  <rect x="60" y="220" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="244" class="mono" fill="#83a598" font-size="12" font-weight="700">Drivers</text>
+  <text x="76" y="264" class="sans" fill="#928374" font-size="10">translate between hardware and kernel</text>
+
+  <rect x="520" y="220" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="244" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Transformers</text>
+  <text x="536" y="264" class="sans" fill="#928374" font-size="10">translate principle ↔ structure and structure ↔ implementation</text>
+
+  <line x1="440" y1="248" x2="520" y2="248" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>
+
+  <rect x="60" y="284" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="308" class="mono" fill="#83a598" font-size="12" font-weight="700">Processes</text>
+  <text x="76" y="328" class="sans" fill="#928374" font-size="10">individually executing units</text>
+
+  <rect x="520" y="284" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="308" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Developers / feature teams</text>
+  <text x="536" y="328" class="sans" fill="#928374" font-size="10">running in the implementation layer</text>
+
+  <line x1="440" y1="312" x2="520" y2="312" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>
+
+  <rect x="60" y="348" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="372" class="mono" fill="#83a598" font-size="12" font-weight="700">File System</text>
+  <text x="76" y="392" class="sans" fill="#928374" font-size="10">persistent state &amp; time series</text>
+
+  <rect x="520" y="348" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="372" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Ace (observation SaaS)</text>
+  <text x="536" y="392" class="sans" fill="#928374" font-size="10">holds the time-series structural state</text>
+
+  <line x1="440" y1="376" x2="520" y2="376" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>
+
+  <rect x="60" y="412" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="436" class="mono" fill="#83a598" font-size="12" font-weight="700">User Space</text>
+  <text x="76" y="456" class="sans" fill="#928374" font-size="10">plumbing for intervention</text>
+
+  <rect x="520" y="412" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="436" class="sans" fill="#fabd2f" font-size="12" font-weight="700">Ideal (organization-OS SaaS)</text>
+  <text x="536" y="456" class="sans" fill="#928374" font-size="10">placement · intervention · record · re-observation loop</text>
+
+  <line x1="440" y1="440" x2="520" y2="440" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>
+
+  <rect x="60" y="476" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="500" class="mono" fill="#83a598" font-size="12" font-weight="700">Package Manager</text>
+  <text x="76" y="520" class="sans" fill="#928374" font-size="10">bringing in external modules</text>
+
+  <rect x="520" y="476" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="500" class="sans" fill="#fabd2f" font-size="12" font-weight="700">True</text>
+  <text x="536" y="520" class="sans" fill="#928374" font-size="10">fills missing structure via external talent</text>
+
+  <line x1="440" y1="504" x2="520" y2="504" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos-en)"/>
+</svg>

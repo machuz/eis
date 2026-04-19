@@ -64,7 +64,7 @@ Observability stands on top of reproducibility. Once machine observation has sec
 
 ### Extension: code observation and decision observation — making dark matter visible
 
-![The reach of observation — code, decisions, dark matter](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch8-observability-dark-matter-en.svg)
+![The reach of observation — code, decisions, dark matter](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch8-observability-dark-matter-en.svg)
 
 Here let's make the **edge of observation's reach** explicit.
 
@@ -134,7 +134,7 @@ Self-correction is the highest-order of the three, standing on top of reproducib
 
 ## When the three conditions aren't all present
 
-![Three conditions for a structure-driven organization](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch8-three-conditions-en.svg)
+![Three conditions for a structure-driven organization](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch8-three-conditions-en.svg)
 
 Each singular present condition produces a characteristic failure mode.
 
@@ -148,7 +148,7 @@ All three together is what it takes for the organization to **run as an OS** —
 
 ## A Maturity Model for Structure-Driven Organizations
 
-![Maturity model for structure-driven organizations — Level 0 through Level 4](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch8-maturity-levels-en.svg)
+![Maturity model for structure-driven organizations — Level 0 through Level 4](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch8-maturity-levels-en.svg)
 
 The journey from a pre-structure-driven organization to a Level-4 OS can be broken into five stages.
 

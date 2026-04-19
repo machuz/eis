@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700;800&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .jp   { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', -apple-system, 'Segoe UI', sans-serif; }
+    </style>
+    <marker id="arrRos" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#665c54"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="560" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="560" rx="2" fill="#ebdbb2"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">OS Rosetta · ch10</text>
+
+  <text x="480" y="46" text-anchor="middle" class="jp" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.5">OS と構造駆動組織 — ロゼッタ対応表</text>
+  <text x="480" y="68" text-anchor="middle" class="jp" fill="#928374" font-size="12">OS の部品が、構造駆動組織のどの要素に当たるか</text>
+
+  <!-- Column headers -->
+  <rect x="60" y="100" width="380" height="36" rx="8" fill="#282828" stroke="#83a598" stroke-width="1.5"/>
+  <text x="250" y="124" text-anchor="middle" class="jp" fill="#83a598" font-size="14" font-weight="800">OS の部品</text>
+
+  <rect x="520" y="100" width="380" height="36" rx="8" fill="#282828" stroke="#d3869b" stroke-width="1.5"/>
+  <text x="710" y="124" text-anchor="middle" class="jp" fill="#d3869b" font-size="14" font-weight="800">構造駆動組織の要素</text>
+
+  <!-- Row 1: Kernel -->
+  <rect x="60" y="156" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="180" class="mono" fill="#83a598" font-size="12" font-weight="700">Kernel</text>
+  <text x="76" y="200" class="jp" fill="#928374" font-size="10">カーネル（最小の規律と配線）</text>
+
+  <rect x="520" y="156" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="180" class="jp" fill="#fabd2f" font-size="12" font-weight="700">原理層の思想</text>
+  <text x="536" y="200" class="jp" fill="#928374" font-size="10">第 4 章の 3 層の最上位 — 何を作り何を作らないか</text>
+
+  <line x1="440" y1="184" x2="520" y2="184" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>
+
+  <!-- Row 2: Drivers -->
+  <rect x="60" y="220" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="244" class="mono" fill="#83a598" font-size="12" font-weight="700">Drivers</text>
+  <text x="76" y="264" class="jp" fill="#928374" font-size="10">ドライバ（ハードとカーネルを翻訳）</text>
+
+  <rect x="520" y="220" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="244" class="jp" fill="#fabd2f" font-size="12" font-weight="700">変換者</text>
+  <text x="536" y="264" class="jp" fill="#928374" font-size="10">原理 ↔ 構造、構造 ↔ 実装 を翻訳する人々</text>
+
+  <line x1="440" y1="248" x2="520" y2="248" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>
+
+  <!-- Row 3: Processes -->
+  <rect x="60" y="284" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="308" class="mono" fill="#83a598" font-size="12" font-weight="700">Processes</text>
+  <text x="76" y="328" class="jp" fill="#928374" font-size="10">プロセス（個別に走る実行単位）</text>
+
+  <rect x="520" y="284" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="308" class="jp" fill="#fabd2f" font-size="12" font-weight="700">開発者 / 機能チーム</text>
+  <text x="536" y="328" class="jp" fill="#928374" font-size="10">実装層で動く</text>
+
+  <line x1="440" y1="312" x2="520" y2="312" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>
+
+  <!-- Row 4: File System -->
+  <rect x="60" y="348" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="372" class="mono" fill="#83a598" font-size="12" font-weight="700">File System</text>
+  <text x="76" y="392" class="jp" fill="#928374" font-size="10">ファイルシステム（状態の永続化と時系列）</text>
+
+  <rect x="520" y="348" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="372" class="jp" fill="#fabd2f" font-size="12" font-weight="700">Ace（観測 SaaS）</text>
+  <text x="536" y="392" class="jp" fill="#928374" font-size="10">時系列の構造状態を保持する</text>
+
+  <line x1="440" y1="376" x2="520" y2="376" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>
+
+  <!-- Row 5: User Space -->
+  <rect x="60" y="412" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="436" class="mono" fill="#83a598" font-size="12" font-weight="700">User Space</text>
+  <text x="76" y="456" class="jp" fill="#928374" font-size="10">ユーザー空間（介入の配管）</text>
+
+  <rect x="520" y="412" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="436" class="jp" fill="#fabd2f" font-size="12" font-weight="700">Ideal（組織 OS SaaS）</text>
+  <text x="536" y="456" class="jp" fill="#928374" font-size="10">配置・介入・記録・再観測ループ</text>
+
+  <line x1="440" y1="440" x2="520" y2="440" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>
+
+  <!-- Row 6: Package Manager -->
+  <rect x="60" y="476" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="76" y="500" class="mono" fill="#83a598" font-size="12" font-weight="700">Package Manager</text>
+  <text x="76" y="520" class="jp" fill="#928374" font-size="10">パッケージマネージャ（外部モジュール取り込み）</text>
+
+  <rect x="520" y="476" width="380" height="56" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="536" y="500" class="jp" fill="#fabd2f" font-size="12" font-weight="700">True</text>
+  <text x="536" y="520" class="jp" fill="#928374" font-size="10">外部人材で不足構造を埋める</text>
+
+  <line x1="440" y1="504" x2="520" y2="504" stroke="#665c54" stroke-width="1.5" marker-end="url(#arrRos)"/>
+</svg>

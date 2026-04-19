@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+    <marker id="arrShift-en" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ebdbb2"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="520" rx="12" fill="#1d2021"/>
+  <rect x="0" y="0" width="4" height="520" rx="2" fill="#ebdbb2"/>
+  <text x="936" y="24" text-anchor="end" class="mono" fill="#504945" font-size="10">EM Role Shift · ch10</text>
+
+  <text x="480" y="46" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="22" font-weight="800" letter-spacing="1.2">The EM's job changes — five transitions</text>
+  <text x="480" y="68" text-anchor="middle" class="sans" fill="#928374" font-size="12">From watching people to designing structure</text>
+
+  <rect x="60" y="100" width="380" height="32" rx="6" fill="#282828" stroke="#928374" stroke-width="1"/>
+  <text x="250" y="122" text-anchor="middle" class="sans" fill="#928374" font-size="13" font-weight="700">Traditional EM</text>
+
+  <rect x="520" y="100" width="380" height="32" rx="6" fill="#282828" stroke="#ebdbb2" stroke-width="1.5"/>
+  <text x="710" y="122" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="13" font-weight="800">Structure-driven EM</text>
+
+  <rect x="60" y="148" width="380" height="54" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="250" y="172" text-anchor="middle" class="sans" fill="#928374" font-size="14" font-weight="700">Watch people</text>
+  <text x="250" y="192" text-anchor="middle" class="mono" fill="#665c54" font-size="10">1-on-1s, feelings, morale</text>
+
+  <rect x="520" y="148" width="380" height="54" rx="6" fill="#1d2021" stroke="#d3869b" stroke-width="1.5"/>
+  <text x="710" y="172" text-anchor="middle" class="sans" fill="#d3869b" font-size="14" font-weight="800">Design structure</text>
+  <text x="710" y="192" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">layers, archetypes, placement</text>
+
+  <line x1="440" y1="175" x2="520" y2="175" stroke="#ebdbb2" stroke-width="2" marker-end="url(#arrShift-en)"/>
+
+  <rect x="60" y="214" width="380" height="54" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="250" y="238" text-anchor="middle" class="sans" fill="#928374" font-size="14" font-weight="700">Drive harder</text>
+  <text x="250" y="258" text-anchor="middle" class="mono" fill="#665c54" font-size="10">push the team</text>
+
+  <rect x="520" y="214" width="380" height="54" rx="6" fill="#1d2021" stroke="#d3869b" stroke-width="1.5"/>
+  <text x="710" y="238" text-anchor="middle" class="sans" fill="#d3869b" font-size="14" font-weight="800">Place in the right layer</text>
+  <text x="710" y="258" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">structural fit over effort</text>
+
+  <line x1="440" y1="241" x2="520" y2="241" stroke="#ebdbb2" stroke-width="2" marker-end="url(#arrShift-en)"/>
+
+  <rect x="60" y="280" width="380" height="54" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="250" y="304" text-anchor="middle" class="sans" fill="#928374" font-size="14" font-weight="700">Evaluate</text>
+  <text x="250" y="324" text-anchor="middle" class="mono" fill="#665c54" font-size="10">grade, rank, appraise</text>
+
+  <rect x="520" y="280" width="380" height="54" rx="6" fill="#1d2021" stroke="#d3869b" stroke-width="1.5"/>
+  <text x="710" y="304" text-anchor="middle" class="sans" fill="#d3869b" font-size="14" font-weight="800">Share observations</text>
+  <text x="710" y="324" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">the org reads itself together</text>
+
+  <line x1="440" y1="307" x2="520" y2="307" stroke="#ebdbb2" stroke-width="2" marker-end="url(#arrShift-en)"/>
+
+  <rect x="60" y="346" width="380" height="54" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="250" y="370" text-anchor="middle" class="sans" fill="#928374" font-size="14" font-weight="700">Cover gaps</text>
+  <text x="250" y="390" text-anchor="middle" class="mono" fill="#665c54" font-size="10">fill missing work yourself</text>
+
+  <rect x="520" y="346" width="380" height="54" rx="6" fill="#1d2021" stroke="#d3869b" stroke-width="1.5"/>
+  <text x="710" y="370" text-anchor="middle" class="sans" fill="#d3869b" font-size="14" font-weight="800">Develop transformers</text>
+  <text x="710" y="390" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">grow people who translate layers</text>
+
+  <line x1="440" y1="373" x2="520" y2="373" stroke="#ebdbb2" stroke-width="2" marker-end="url(#arrShift-en)"/>
+
+  <rect x="60" y="412" width="380" height="54" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="250" y="436" text-anchor="middle" class="sans" fill="#928374" font-size="14" font-weight="700">Lead</text>
+  <text x="250" y="456" text-anchor="middle" class="mono" fill="#665c54" font-size="10">command, rally, unify</text>
+
+  <rect x="520" y="412" width="380" height="54" rx="6" fill="#1d2021" stroke="#d3869b" stroke-width="1.5"/>
+  <text x="710" y="436" text-anchor="middle" class="sans" fill="#d3869b" font-size="14" font-weight="800">Curate the vocabulary</text>
+  <text x="710" y="456" text-anchor="middle" class="mono" fill="#7c6f64" font-size="10">maintain the shared language</text>
+
+  <line x1="440" y1="439" x2="520" y2="439" stroke="#ebdbb2" stroke-width="2" marker-end="url(#arrShift-en)"/>
+
+  <rect x="40" y="484" width="880" height="26" rx="6" fill="#1d2021" stroke="#504945" stroke-width="1"/>
+  <text x="480" y="502" text-anchor="middle" class="sans" fill="#ebdbb2" font-size="12" font-weight="700">The EM becomes the organization's OS engineer.</text>
+</svg>

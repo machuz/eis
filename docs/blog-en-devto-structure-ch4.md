@@ -39,7 +39,7 @@ The tree org chart can't display this kind of misalignment. Because it can't dis
 
 ## Principle ── transformation ── Structure ── transformation ── Implementation
 
-![3 Layers + 2 Transformations](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-three-layers-two-transformations-en.svg)
+![3 Layers + 2 Transformations](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch4-three-layers-two-transformations-en.svg)
 
 An organization runs on three layers of differing abstraction. And **the layers don't connect by themselves**.
 
@@ -158,7 +158,7 @@ The role of transformation isn't only converting grammar. There's a second criti
 
 By "fire" we mean the floor's morale, momentum, trust in their own work, conviction in what they're building — the **internal energy that drives doing the work.** An organization's productivity ultimately rests on the total amount of this fire.
 
-![Fire Propagation — with or without a transformer](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-fire-propagation-en.svg)
+![Fire Propagation — with or without a transformer](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch4-fire-propagation-en.svg)
 
 #### A single-layer decision tends to extinguish fire in other layers
 
@@ -200,7 +200,7 @@ Many technical leaders eventually become fluent at the **Structure ↔ Implement
 
 A transformation coach stands in front of **people who already have the lower transformation** and hands them the upper one they need to cross next. The coach doesn't execute transformation themselves. They produce people who can. **Installing the capability to carry transformation into other human beings** — that's the transformation coach's job.
 
-![Bill Campbell — the strongest transformation coach](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-bill-campbell-coach-en.svg)
+![Bill Campbell — the strongest transformation coach](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch4-bill-campbell-coach-en.svg)
 
 > **The strongest transformation coach — Bill Campbell (*Trillion Dollar Coach*)**
 >
@@ -262,7 +262,7 @@ A lot of "we're somehow not making progress" symptoms in organizations can be re
 
 The three-axis topology from chapter 3 (Role × Style × State) only functions when **combined with a layer placement**. Same Role, different layer → completely different result:
 
-![Role × Layer placement fit](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch4-role-layer-heatmap-en.svg)
+![Role × Layer placement fit](https://cdn.jsdelivr.net/gh/machuz/eis@main/docs/images/blog/sdo-ch4-role-layer-heatmap-en.svg)
 
 The diagram isn't strict. It's a **placement-fit guide**. The point is that **Role alone doesn't determine fit** — Role × Layer as a pair determines fit.
 
