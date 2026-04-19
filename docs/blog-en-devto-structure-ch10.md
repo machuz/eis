@@ -130,7 +130,7 @@ That's also why this book is a **vocabulary dictionary.** Serving as a glossary 
 
 Structure-driven engineering organization theory is not finished. Expansion points:
 
-- **Observation deepens** — change_pressure, tested_survival, module vitality, and further. EIS keeps evolving. Precision of observation begets precision of intervention.
+- **Observation deepens** — change_pressure, tested_survival, module_vitality, and further. EIS keeps evolving. Precision of observation begets precision of intervention.
 - **The SaaS matures** — Ace's interpretation, Ideal's plumbing, True's matching. The three coupling organically, **so the organization moves as one loop,** is the target state.
 - **Language updates** — the structure-driven vocabulary also needs updating as reality shifts. Chapter 7's "lifespan of language" applies to this book itself.
 - **Adjacent domains** — this book took engineering organizations as its object, but the frame of **structure × observation × language** should extend to design organizations, research organizations, business organizations.
