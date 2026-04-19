@@ -78,6 +78,16 @@ Four typical ways the structure-driven vocabulary and its observation can be **u
 
 Treat these four as **counter-examples for implementing the book correctly.** Structure-driven is a powerful instrument, and precisely because of that, its band of possible misuse is wide.
 
+### Structure-driven does not reject people
+
+After drawing the boundary and naming the misuse patterns, state the stance explicitly once — **structure-driven does not reject people.** It isn't a tool for pushing people out; it's the practice of **designing structure first in order to protect people.**
+
+- **Shielding people from the spear of evaluation** — once structure and observation have a shared language, individual appraisal shifts from "an impression in someone's head" to "contribution to structure." For an engineer on the floor, moving from an opaque evaluation regime to a **readable observation regime** is change in **the direction of being protected.**
+- **Leaving intervention to humans** — what chapter 9 insisted the SaaS must not replace — **the moment a human speaks to a human** — is kept outside the product precisely to protect that value.
+- **Honoring emotion and ethics on their own layer** — separation is not removal. The territory outside structure (motivation, ethics, human relationships) is **left intact as questions structure cannot answer.**
+
+This can look like cold structuralism. But the reason we design structure first is **to stop the organization from depending on individual energy.** Not a workplace where people burn out holding everything up; a workplace where **structure holds the people up** — that is the view of humans that runs through this book.
+
 ## 3. The engineering manager's job changes
 
 Historically, the EM's job was **to watch people.** 1-on-1s to hear feelings, review meetings to praise growth, sensing attrition risk, lifting team morale. This labor is valuable, but it is **person-dependent** and **doesn't scale.**
@@ -165,6 +175,12 @@ If we had to summarize in one line:
 > **Don't manage — design. Don't change the person — change the structure. Don't remove emotion — handle it separately from structure.**
 
 That is the whole of structure-driven engineering organization theory.
+
+**Three lines to carry with you:**
+
+- Organizations are not managed. They are designed.
+- Culture is not taught. It is encoded in language.
+- You can't scale people. You can only scale structure.
 
 ---
 
