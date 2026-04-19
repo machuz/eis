@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #8 — Engineering Relativity: Why the Same Engineer Gets Different Signals"
+series: "Git Archaeology"
 published: true
 description: "Chapter 8 of Engineering Impact Signal. The same engineer produces different EIS signals in different codebases — and that's not a bug, it's physics."
 tags: opensource, productivity, git, career

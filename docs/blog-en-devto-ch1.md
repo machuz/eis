@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #1 — Measuring Engineering Impact from Git History Alone"
+series: "Git Archaeology"
 published: true
 description: A 7-axis observation model that quantifies engineer impact using nothing but git log and git blame. Code survival, debt cleanup, bus factor — all from data you already have.
 tags: opensource, productivity, git, career

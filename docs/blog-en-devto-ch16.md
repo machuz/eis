@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #16 (Final) — The Engineers Who Shape Gravity"
+series: "Git Archaeology"
 published: true
 description: "Git remembers the past. AI imagines the future. Between them, engineers shape gravity."
 tags: opensource, productivity, git, career

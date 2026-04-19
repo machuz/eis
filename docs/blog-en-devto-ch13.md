@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #13 — Cosmology of Code"
+series: "Git Archaeology"
 published: true
 description: "Final chapter of Engineering Impact Signal. Git archaeology is the astronomy of code universes."
 tags: opensource, productivity, git, career

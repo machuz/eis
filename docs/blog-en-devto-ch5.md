@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #5 — Timeline: Signals Don't Lie, and They Capture Hesitation Too"
+series: "Git Archaeology"
 published: true
 description: "Chapter 5 of Engineering Impact Signal. When you line up quarterly snapshots, numbers start telling stories — including the ones people don't talk about."
 tags: opensource, productivity, git, career

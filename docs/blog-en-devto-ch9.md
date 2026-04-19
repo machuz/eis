@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #9 — Origin: The Big Bang of Code Universes"
+series: "Git Archaeology"
 published: true
 description: "Chapter 9 of Engineering Impact Signal. Every universe has an origin. In code universes, it's the first commit."
 tags: opensource, productivity, git, career

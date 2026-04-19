@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #2 — Beyond Individual Signals: Measuring Team Health from Git History"
+series: "Git Archaeology"
 published: true
 description: "Chapter 2 of Engineering Impact Signal. Team-level analysis — complementarity, risk ratio, productivity density — all from git data you already have."
 tags: opensource, productivity, git, teams

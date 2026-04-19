@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #6 — Teams Evolve: The Laws of Organization Revealed by Timelines"
+series: "Git Archaeology"
 published: true
 description: "Chapter 6 of Engineering Impact Signal. When individual changes ripple into team-level shifts, patterns emerge — and those patterns have laws."
 tags: opensource, productivity, git, career

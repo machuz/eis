@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #14 — Civilization: Why Only Some Codebases Become Civilizations"
+series: "Git Archaeology"
 published: true
 description: "Most code universes die. Only a few become civilizations — self-sustaining structures that outlast their creators."
 tags: opensource, productivity, git, career

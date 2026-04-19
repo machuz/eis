@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #10 — Dark Matter: The Invisible Gravity"
+series: "Git Archaeology"
 published: true
 description: "Chapter 10 of Engineering Impact Signal. Most of the universe's mass is invisible. The same is true in code universes."
 tags: opensource, productivity, git, career

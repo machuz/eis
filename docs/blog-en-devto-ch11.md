@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #11 — Entropy: The Universe Always Tends Toward Disorder"
+series: "Git Archaeology"
 published: true
 description: "Chapter 11 of Engineering Impact Signal. Entropy always increases. Engineers fight it."
 tags: opensource, productivity, git, career

@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #7 — Observing the Universe of Code"
+series: "Git Archaeology"
 published: true
 description: "Chapter 7 of Engineering Impact Signal. Codebases have gravitational structures. Great engineers don't just write code — they bend the gravity of codebases."
 tags: opensource, productivity, git, career

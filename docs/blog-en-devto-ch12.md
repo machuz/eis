@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #12 — Collapse: Good Architects and Black Hole Engineers"
+series: "Git Archaeology"
 published: true
 description: "Chapter 12 of Engineering Impact Signal. Not all strong gravity is good gravity. Some engineers create structure that survives their departure. Others create gravity that collapses without them."
 tags: opensource, productivity, git, career

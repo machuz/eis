@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #3 — Two Paths to Architect: How Engineers Evolve Differently"
+series: "Git Archaeology"
 published: true
 description: "Chapter 3 of Engineering Impact Signal. Architects don't come from one mold — inheritance vs. emergence, and why cold numbers tell the most human stories."
 tags: opensource, productivity, git, career

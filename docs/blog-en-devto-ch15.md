@@ -1,5 +1,6 @@
 ---
 title: "Git Archaeology #15 — AI Creates Stars, Not Gravity"
+series: "Git Archaeology"
 published: true
 description: "AI creates stars. But it doesn't create gravity. What happens when code universes experience their first starburst?"
 tags: ai, opensource, git, career
