@@ -60,6 +60,13 @@
       border-bottom: 2px solid var(--text);
       margin-bottom: 2em;
     }
+    .book-cover {
+      display: block;
+      max-width: 360px;
+      width: 100%;
+      margin: 0 auto 1.5em;
+      border-radius: 4px;
+    }
     .book-title { font-size: 1.55em; font-weight: 700; line-height: 1.4; }
     .book-subtitle { font-size: 0.95em; color: var(--muted); margin-top: 0.4em; }
     .book-summary { color: #444; margin-top: 0.9em; font-size: 0.93em; line-height: 1.75; }
@@ -130,6 +137,7 @@
 </head>
 <body>
   <div class="header-bar">
+    <img id="book-cover" class="book-cover" src="https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png" alt="心理OS 表紙">
     <div class="book-title">心理OS</div>
     <div class="book-subtitle">—— 自分が自分のまま稼働し続けるための作動原理</div>
     <div class="book-summary">アカギ『天』最終盤の哲学を原理として受け取り、個人と組織の内側の作動状態を「心理OS」として記述する。構造駆動エンジニアリング組織論が外側の物理を担うのに対し、本書は内側の原理を扱う姉妹編。</div>
@@ -194,14 +202,18 @@
       const tocContainer = document.getElementById('toc-container');
       const content = document.getElementById('content');
       const nav = document.getElementById('chapter-nav');
+      const cover = document.getElementById('book-cover');
 
       if (!slug) {
         content.innerHTML = '';
         tocContainer.style.display = 'block';
         nav.style.display = 'none';
+        if (cover) cover.style.display = 'block';
         document.title = '心理OS —— 自分が自分のまま稼働し続けるための作動原理';
         return;
       }
+
+      if (cover) cover.style.display = 'none';
 
       const idx = CHAPTERS.findIndex(c => c.slug === slug);
       if (idx === -1) {
