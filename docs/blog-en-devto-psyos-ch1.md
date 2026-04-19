@@ -102,6 +102,6 @@ So the real value of self-observation isn't "knowing the state" — it's **recov
 
 ---
 
-*Next: [Psychological OS #2 — What a Strong Psychological OS Actually Is]()*
+*Next: [Psychological OS #2 — What a Strong Psychological OS Actually Is](./psychological-os-2)*
 
 *Previous: [Psychological OS #0 — Why Do Some People Keep Burning While Others Fade?](./psychological-os-0)*

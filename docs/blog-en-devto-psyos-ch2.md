@@ -183,6 +183,6 @@ Chapter 3 handles that collision plane.
 
 ---
 
-*Next: [Psychological OS #3 — What Breaks When Psychological OS Meets an Organization]()*
+*Next: [Psychological OS #3 — What Breaks When Psychological OS Meets an Organization](./psychological-os-3)*
 
 *Previous: [Psychological OS #1 — The Observer Can't Reach](./psychological-os-1)*

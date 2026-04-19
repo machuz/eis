@@ -57,7 +57,7 @@ Across roles, Psychological OS erosion falls into a few patterns.
 
 **Unwanted tasks keep landing on you.** Each individually is a reasonable request with no basis for refusal. But as they stack, **the direction of your heat and the direction of organizational demand quietly diverge**. Hours that should run on inner pressure get filled with outer pressure.
 
-**Dismissal and ridicule becoming normal.** Statements get reflexively dismissed. Expressions of heat get mocked. People who speak up look awkward. When this becomes daily, **holding heat itself carries a penalty**. Eventually you learn to stop expressing heat.
+**Dismissal and one-upmanship becoming normal.** Statements get reflexively dismissed. Expressions of heat get mocked. People who speak up look awkward. When this becomes daily, **holding heat itself carries a penalty**. Eventually you learn to stop expressing heat.
 
 **Whack-a-mole response.** A problem appears, you patch that spot. Another appears, you patch there. The overall structure is untouched because **the cost of touching the underlying structure is too high**. Patches accumulate, structure stays warped.
 
@@ -141,6 +141,6 @@ Chapter 4 handles how the outside (structure-driven) and the inside (Psychologic
 
 ---
 
-*Next: [Psychological OS #4 — When They Mesh: Translation and Preservation]()*
+*Next: [Psychological OS #4 — When They Mesh: Translation and Preservation](./psychological-os-4)*
 
 *Previous: [Psychological OS #2 — What a Strong Psychological OS Actually Is](./psychological-os-2)*
