@@ -1,5 +1,5 @@
 ---
-title: "Psychological OS #0 — Why Do Some People Keep Burning While Others Fade?"
+title: "Psychological OS #0 — Why Some People Keep Burning While Others Fade"
 series: "Psychological OS"
 published: false
 description: "An operating principle for staying yourself. Why some people keep their heat while others lose it — and what the invisible base layer of decision-making really is."
@@ -9,25 +9,29 @@ cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychologic
 
 Same workplace. Some keep burning. Some fade.
 
-Same job, even. To one person it still means something after five years. To another it's empty in a year. The difference isn't talent. It isn't environment either. It sits in a layer you can't see from the outside — a layer where **whether you're still running as yourself** gets decided.
+Even in the same job, one person still finds meaning in it after five years, while another goes empty within one. The difference isn't talent. It isn't just environment, either. It lies in a layer you can't see from the outside — the layer where it gets decided whether you're still operating as yourself.
 
-Engineer, athlete, musician, researcher, founder, parent — it doesn't matter what you do. **The operating principle that lets someone keep their heat is the same across domains.** This book names that inner principle **Psychological OS**.
+Engineer, athlete, musician, researcher, founder, parent — the domain doesn't matter. **The operating principle that lets someone sustain that inner heat is the same across them all.** This book gives that principle a name: **Psychological OS**.
+
+> Before we go further, a quick note. By "heat," I don't mean intensity for its own sake — not hustle, not bravado. I mean **motion driven by your own will**. That distinction carries the whole series.
 
 This is a sister work. [Structure-Driven Engineering Organization Theory](https://zenn.dev/) handles the external physics of organizations. This one handles the internal operating state of individuals and the organizations they live in. I arrived at both through [EIS (Engineering Impact Signal)](https://github.com/machuz/eis) — a tool that reads engineering impact from git history alone. The tool is the external observer; this book is the internal principle. **Persistent strength only emerges when both sides are running.**
 
 ---
 
-> **Psychological OS is the operating principle for staying in motion by your own will — without being overwritten by external success, correctness, or consensus.**
+> **Psychological OS is the operating principle for staying in motion by your own will — without being overwritten by success, social correctness, or consensus.**
 
-Psychological OS is not thought. Psychological OS is not personality. **It's the base layer of decision-making.** When two people receive the same information, what makes each decide to move or stay still — that's the layer underneath. Not the content of thought, not the surface of personality, but the foundation those sit on. **The moment that base layer gets overwritten from outside, however correctly you think, what you produce is no longer your own will.**
+Psychological OS sits deeper than thought or personality. **It's the base layer of decision-making.**
+
+When two people receive the same information, what makes one decide to move and the other stay still — that's this layer underneath. Not the content of thought, not the surface of personality, but the foundation those sit on. **The moment this base layer gets overwritten from outside, however correctly you think, what you produce is no longer your own will.**
 
 ---
 
-A note on the source material. This book uses quotes from Akagi — the protagonist of *Akagi* by Nobuyuki Fukumoto, who also appears as a character in the sequel *Ten*. Akagi is a legendary mahjong player, but what I'm quoting is not about mahjong. It's **a man who kept money, power, fame — even his own life — outside the purity of his heat.** His worldview, and the operating principle extractable from it. You don't need to have read *Ten*. All necessary quotes are self-contained here. Quotes are the author's translations from the Japanese original.
+A note on the source material. This book uses quotes from Akagi — the protagonist of *Akagi* by Nobuyuki Fukumoto, who also appears as a character in the sequel *Ten*. Akagi is a legendary mahjong player, but what I'm quoting is not about mahjong. It's **a man who kept money, power, fame — even his own life — outside the purity of his heat.** His worldview, and the operating principle you can extract from it. You don't need to have read *Ten*. All necessary quotes are self-contained here. Quotes are the author's translations from the Japanese.
 
 ## 1. Dignity erodes, day by day
 
-In the final arc of *Ten*, Akagi has advancing dementia. His memory and judgment dull a little each day. His **dignity erodes a little each day**. A man who lived his whole life seeking nothing but to be himself — no money, no power, no fame — faces the question of how to keep his operating state intact until the last possible moment.
+In the final arc of *Ten*, Akagi has advancing dementia. His memory and judgment dull a little each day. His **dignity erodes a little each day**. A man who spent his life refusing to become anyone but himself — no money, no power, no fame — faces the question of how to keep his operating state intact until the last possible moment.
 
 We don't have Akagi's resolve. But the erosion of dignity is familiar. Customer feedback, industry common sense, "correct management," best practices, copied success stories. A little of your core gets scraped off every day.
 
@@ -45,7 +49,7 @@ Your first success still belongs to the brightness of being alive. Winning light
 
 > A shabby life. Can you really call that living? With that?
 
-Organizations live the same pattern. Past winning patterns. Promises to customers. The brand you built. They used to light you up. Then they become **a coffin made of success**. A conservative product with no backbone isn't born from lack of ability. It's born when **too much accumulated success has hijacked the Psychological OS.**
+Organizations live the same pattern. Past winning patterns. Promises to customers. The brand you built. They used to light you up. Then they become **a coffin made of success**. A conservative product with no backbone isn't born from lack of ability. It's born when **too much accumulated success has hijacked your Psychological OS.**
 
 ## 3. Mass hypnosis, dressed as correctness
 
@@ -55,9 +59,9 @@ Akagi has a sharp stance on "normal," "proper," "the right life."
 
 The content changes every era. Long hours used to be the "correctness." Something else sits in that seat now. **The content changes, but the mechanism hijacking Psychological OS is identical.** Correctness, ought-to, best practices, the image of success polished on social media — all of them come to darken the shadows.
 
-## 4. Life is not a chess puzzle — life means moving
+## 4. Life is not a chess problem — life means moving
 
-A chess puzzle requires you to see the perfect move before lifting a piece. Akagi dismisses that as "not how the world actually works."
+A chess problem asks you to see the perfect move before you touch a piece. Akagi dismisses that as "not how the world actually works."
 
 > Moving, even imperfectly, is what opens the path. Being earnest is a bad habit. That's what stopped you. For nine whole years.
 
@@ -75,9 +79,7 @@ Then comes the line this series takes its spirit from.
 >
 > So don't fear it... Again... **Don't fear failure.**
 
-A healthy Psychological OS is hard to paraphrase better than this. Third-rate is fine. It's enough. **The only condition is that the heat still remains.**
-
-The heat meant here — I'll formalize the definition in chapter 2, but here's the preview — is not the loudness of emotion. It's **the state of being in motion by your own will**. Whether your voice is loud, whether you're visibly blazing, is irrelevant.
+A healthy Psychological OS is hard to paraphrase better than this. Third-rate is fine. It's enough. **The only condition is that the heat remains.**
 
 So Psychological OS is this: **the state of running, at your own temperature, as yourself.** Not hijacked by success, not hijacked by correctness, not hijacked by mass hypnosis. Even if you look shabby. Even if the world calls you "not normal." **Only the heat — that, you never hand over.**
 
@@ -85,9 +87,9 @@ What Akagi chose at the threshold of death was to not release this state until t
 
 > Regret sharpens the wish.
 
-Regret isn't weakness. **Regret is proof that Psychological OS is still running.** Those who are fully satisfied, those who have lost desire, those who've agreed to mass hypnosis — they can no longer hold regret.
+Regret isn't weakness. **Regret is proof that Psychological OS is still running.** Those who are fully satisfied, those who have lost desire, those who've agreed to mass hypnosis — they are no longer capable of regret.
 
-## 6. The direction of heat — the line between burning and "enthusiastic incompetent"
+## 6. The direction of heat — the difference between burning and mere enthusiastic incompetence
 
 One clarification before closing. "Hot-blooded third-rate is enough" only holds when **the heat points inward, toward yourself**.
 
@@ -99,11 +101,11 @@ Without this distinction, "hot-blooded third-rate is enough" degrades into self-
 
 ## Closing — the choice
 
-Honestly, I don't hold this state constantly either. I catch myself nearly stepping into the success coffin. There are days when I've already consented to mass hypnosis. That's why I wanted to put a name on Psychological OS — as a place to return to, once you notice.
+Honestly, I don't hold this state constantly either. I catch myself drifting toward the success coffin. There are days when I've already consented to mass hypnosis. That's why I wanted to put a name on Psychological OS — as a place to return to, once you notice.
 
 In the midst of daily erosion, what do you choose?
 
-Step into the success coffin? Get re-hypnotized by the collective? Wait forever for the perfect first move in an imaginary chess puzzle? Or —
+Step into the success coffin? Get re-hypnotized by the collective? Wait forever for the perfect first move in an imaginary chess problem? Or —
 
 **Keep burning. Stay third-rate. Keep moving.**
 
