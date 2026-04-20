@@ -102,7 +102,7 @@ With the same inner-directed attachment, **the larger the scope of the target, t
 - **Large scope** — making the structure work, essence-level exploration, operating principles themselves. Multiple paths to realization; when one approval or resource gets blocked, another path continues.
 - **Small scope** — devotion to a specific craft (the UX of this feature, the aesthetics of this code, the precision of this paper). Purity is high, but realization paths are narrow; approvals, priorities, or budgets block, and heat gets directly eroded.
 
-Both are inner-directed attachments — the direction is pure. But **decay resistance differs**. Many people with "good heat that fades fast" have correct direction but small scope. Their deep devotion to a single craft loses heat each time that path gets blocked.
+Both are inner-directed attachments — the direction is pure. But **decay resistance differs**. Many people whose **good heat withers easily under external pressure** have correct direction but small scope. Their deep devotion to a single craft loses heat each time that path gets blocked.
 
 ### Scope is not static
 
