@@ -144,6 +144,6 @@ Thanks for reading to the end.
 
 If you made it here, you probably carry some version of this fight yourself. That's who I wrote it for.
 
-If this series resonated, the Japanese original book is [here on GitHub Pages](https://machuz.github.io/eis/docs/psychological-os/). The sister work (Structure-Driven Engineering Organization Theory) and the tool that started it all ([EIS — Engineering Impact Signal](https://github.com/machuz/eis)) are linked from there.
+If this series resonated, the Japanese original book is [here on OrbitLens Library](https://library.orbitlens.io/psychological-os/). The sister work (Structure-Driven Engineering Organization Theory) and the tool that started it all ([EIS — Engineering Impact Signal](https://github.com/machuz/eis)) are linked from there.
 
 **Heat is born alone, but survives only inside structure.** That's the real reach of Psychological OS.

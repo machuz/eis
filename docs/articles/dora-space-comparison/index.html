@@ -2,6 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function() {
+    if (location.hostname === 'machuz.github.io' && location.pathname.startsWith('/eis/docs/')) {
+      var newPath = location.pathname.replace('/eis/docs/', '/');
+      location.replace('https://library.orbitlens.io' + newPath + location.search + location.hash);
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>EIS と DORA・SPACE・LinearB — 観測する対象の違い — OrbitLens Library</title>

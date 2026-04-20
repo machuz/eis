@@ -2,6 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function() {
+    if (location.hostname === 'machuz.github.io' && location.pathname.startsWith('/eis/docs/')) {
+      var newPath = location.pathname.replace('/eis/docs/', '/');
+      location.replace('https://library.orbitlens.io' + newPath + location.search + location.hash);
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>構造駆動エンジニアリング組織論 — OrbitLens Library</title>
 <meta name="description" content="評価ではなく観測、人ではなく構造、感情ではなく設計。組織を観測可能なシステムとして扱う、構造駆動エンジニアリング組織論。全11章。">

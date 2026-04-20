@@ -2,6 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function() {
+    if (location.hostname === 'machuz.github.io' && location.pathname.startsWith('/eis/docs/')) {
+      var newPath = location.pathname.replace('/eis/docs/', '/');
+      location.replace('https://library.orbitlens.io' + newPath + location.search + location.hash);
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>心理OS — OrbitLens Library</title>
 <meta name="description" content="アカギ『天』最終盤の哲学を原理として受け取り、個人と組織の内側の作動状態を「心理OS」として記述する。構造駆動エンジニアリング組織論が外側の物理を担うのに対し、本書は内側の原理を扱う姉妹編。">

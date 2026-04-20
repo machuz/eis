@@ -127,4 +127,4 @@ This series walks through a five-chapter arc:
 
 If this chapter resonated — if you're someone who feels the heat in *Space Brothers* or *Blue Giant* and can't quite articulate why — the next chapters are where the operating principle gets formalized. **Those characters burn because they haven't handed over the operating principle that keeps heat alive.** This series puts language on that principle.
 
-The Japanese original book is [here on GitHub Pages](https://machuz.github.io/eis/docs/psychological-os/).
+The Japanese original book is [here on OrbitLens Library](https://library.orbitlens.io/psychological-os/).
