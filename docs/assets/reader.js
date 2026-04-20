@@ -424,36 +424,23 @@
     });
   }
 
+  let tocHeadings = [];
+  let tocLinkMap = new Map();
+
   function buildInlineTOC() {
-    const heads = main.querySelectorAll('article.chapter-content h2, article.chapter-content h3');
-    if (!heads.length) { inlineToc.style.display = 'none'; return; }
-    inlineTocList.innerHTML = Array.from(heads).map((h) => {
+    const heads = Array.from(main.querySelectorAll('article.chapter-content h2, article.chapter-content h3'));
+    if (!heads.length) { inlineToc.style.display = 'none'; tocHeadings = []; return; }
+    inlineTocList.innerHTML = heads.map((h) => {
       const lvl = h.tagName === 'H3' ? 3 : 2;
       const text = h.textContent.replace(/^§/, '').trim();
       return `<li><a href="#${h.id}" class="level-${lvl}">${escapeHTML(text)}</a></li>`;
     }).join('');
     inlineToc.style.display = '';
 
-    // Intersection observer for active heading
-    if (activeObserver) activeObserver.disconnect();
-    const links = new Map();
+    tocHeadings = heads;
+    tocLinkMap = new Map();
     inlineTocList.querySelectorAll('a').forEach((a) => {
-      const id = a.getAttribute('href').slice(1);
-      links.set(id, a);
-    });
-    activeObserver = new IntersectionObserver((entries) => {
-      entries.forEach((ent) => {
-        if (ent.isIntersecting) {
-          links.forEach(a => a.classList.remove('active'));
-          const a = links.get(ent.target.id);
-          if (a) a.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-80px 0px -70% 0px' });
-    heads.forEach(h => activeObserver.observe(h));
-
-    // Smooth scroll on click
-    inlineTocList.querySelectorAll('a').forEach((a) => {
+      tocLinkMap.set(a.getAttribute('href').slice(1), a);
       a.addEventListener('click', (e) => {
         e.preventDefault();
         const id = a.getAttribute('href').slice(1);
@@ -461,6 +448,33 @@
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       });
     });
+    updateActiveHeading();
+  }
+
+  function updateActiveHeading() {
+    if (!tocHeadings.length) return;
+    const probe = window.scrollY + window.innerHeight * 0.25;
+    let current = tocHeadings[0];
+    for (const h of tocHeadings) {
+      const top = h.getBoundingClientRect().top + window.scrollY;
+      if (top <= probe) current = h;
+      else break;
+    }
+    // At page bottom: force last
+    if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 8)) {
+      current = tocHeadings[tocHeadings.length - 1];
+    }
+    tocLinkMap.forEach(a => a.classList.remove('active'));
+    const active = tocLinkMap.get(current.id);
+    if (active) {
+      active.classList.add('active');
+      // Keep active entry in view within the TOC column
+      const rect = active.getBoundingClientRect();
+      const parentRect = inlineToc.getBoundingClientRect();
+      if (rect.top < parentRect.top + 20 || rect.bottom > parentRect.bottom - 20) {
+        active.scrollIntoView({ block: 'nearest' });
+      }
+    }
   }
 
   // ---------- Progress bar + scroll save ----------
@@ -480,6 +494,8 @@
     });
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('scroll', updateActiveHeading, { passive: true });
+  window.addEventListener('resize', updateActiveHeading);
 
   // ---------- Hash routing ----------
   function scrollToSection(idx) {
