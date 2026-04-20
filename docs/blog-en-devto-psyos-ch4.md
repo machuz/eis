@@ -2,6 +2,7 @@
 title: "Psychological OS #4 — When They Mesh: The Dual Design of Translation and Preservation"
 series: "Psychological OS"
 published: true
+date: 2026-04-19 23:04:00 +0000
 description: "Chapter 3 showed why Psychological OS and organization destroy each other. This chapter shows the only way they stop: dual design — translation on the individual side, preservation on the organizational side. Without both, heat doesn't survive."
 tags: career, productivity, leadership, philosophy
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=1
