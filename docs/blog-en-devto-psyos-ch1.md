@@ -101,9 +101,3 @@ When you're not observing, the system runs on inertia. The moment you observe, i
 So the real value of self-observation isn't "knowing the state" — it's **recovering the state**.
 
 **People don't change unless they ask. But the moment they ask correctly, they've already begun to change.**
-
----
-
-*Next: [Psychological OS #2 — What a Strong Psychological OS Actually Is](./psychological-os-2)*
-
-*Previous: [Psychological OS #0 — Why Do Some People Keep Burning While Others Fade?](./psychological-os-0)*

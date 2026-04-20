@@ -161,9 +161,3 @@ One last thing.
 The heat — that, you never hand over. But heat doesn't burn alone. You keep it without handing it over, and you propagate it. Facing that difficulty is the real reach of the principle called Psychological OS.
 
 **Heat is born alone, but survives only inside structure.**
-
----
-
-*Next: [Psychological OS #Epilogue — Why I Built This, and a 10-Question Self-Diagnostic](./psychological-os-epilogue)*
-
-*Previous: [Psychological OS #3 — What Breaks When a Strong Individual Meets an Organization](./psychological-os-3)*

@@ -213,9 +213,3 @@ And — as §6 noted — **strength is bought in exchange for the density of sol
 This was the interior of the individual. But Psychological OS isn't closed to the outside. It transmits, reflects, and gets suppressed inside groups. When a strong Psychological OS enters an organization, **what breaks?**
 
 Chapter 3 handles that collision plane.
-
----
-
-*Next: [Psychological OS #3 — What Breaks When Psychological OS Meets an Organization](./psychological-os-3)*
-
-*Previous: [Psychological OS #1 — The Observer Can't Reach](./psychological-os-1)*

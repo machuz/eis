@@ -140,9 +140,3 @@ The organization — its single-layer decisions accumulating unconverted, erodin
 This collision cannot be absorbed by individual strength alone. **Individual strength alone can't bridge this gap. If the structure isn't changed, everyone gets eroded in turn.** Can an organization hold a design that doesn't erode individual Psychological OS? That's an organizational-design question.
 
 Chapter 4 handles how the outside (structure-driven) and the inside (Psychological OS) can mesh so heat survives even through collision.
-
----
-
-*Next: [Psychological OS #4 — When They Mesh: Translation and Preservation](./psychological-os-4)*
-
-*Previous: [Psychological OS #2 — What a Strong Psychological OS Actually Is](./psychological-os-2)*
