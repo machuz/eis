@@ -51,11 +51,26 @@
       <span class="orbit-spacer"></span>
       <button class="orbit-menu-toggle" id="orbit-menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
       <div class="orbit-tools" id="orbit-tools">
-        <button class="orbit-tool" id="tool-theme" data-closes-menu title="Toggle theme (T)">◐</button>
-        <button class="orbit-tool" id="tool-font-s" title="Smaller text">A−</button>
-        <button class="orbit-tool" id="tool-font-l" title="Larger text">A+</button>
-        <button class="orbit-tool" id="tool-help" data-closes-menu title="Shortcuts (?)">?</button>
-        <a class="orbit-tool" id="tool-en" data-closes-menu href="${cfg.chapters[0].en}" target="_blank" rel="noopener">EN ↗</a>
+        <button class="orbit-tool" id="tool-theme" data-closes-menu title="${cfg.lang === 'ja' ? 'テーマ切替 (T)' : 'Toggle theme (T)'}">
+          <span class="tool-icon">◐</span>
+          <span class="tool-label">${cfg.lang === 'ja' ? 'テーマ' : 'Theme'}</span>
+        </button>
+        <button class="orbit-tool" id="tool-font-s" title="${cfg.lang === 'ja' ? '文字を小さく' : 'Smaller text'}">
+          <span class="tool-icon">A−</span>
+          <span class="tool-label">${cfg.lang === 'ja' ? '小さく' : 'Smaller'}</span>
+        </button>
+        <button class="orbit-tool" id="tool-font-l" title="${cfg.lang === 'ja' ? '文字を大きく' : 'Larger text'}">
+          <span class="tool-icon">A+</span>
+          <span class="tool-label">${cfg.lang === 'ja' ? '大きく' : 'Larger'}</span>
+        </button>
+        <button class="orbit-tool" id="tool-help" data-closes-menu title="${cfg.lang === 'ja' ? 'ショートカット (?)' : 'Shortcuts (?)'}">
+          <span class="tool-icon">?</span>
+          <span class="tool-label">${cfg.lang === 'ja' ? 'ショートカット' : 'Shortcuts'}</span>
+        </button>
+        <a class="orbit-tool" id="tool-en" data-closes-menu href="${cfg.chapters[0].en}" target="_blank" rel="noopener">
+          <span class="tool-icon">EN ↗</span>
+          <span class="tool-label">${cfg.lang === 'ja' ? '英語版' : 'English'}</span>
+        </a>
       </div>
       <div class="progress-track" id="progress-track" role="slider" tabindex="0" aria-label="${cfg.lang === 'ja' ? 'ページ位置' : 'Page position'}">
         <div class="progress-markers" id="progress-markers"></div>
