@@ -117,7 +117,7 @@ body {
 
 ::selection { background: var(--selection); color: var(--text-strong); }
 
-a { color: var(--purple-bright); text-decoration: none; transition: color .12s; }
+a { color: var(--text-strong); text-decoration: none; transition: color .12s; }
 a:hover { color: var(--text-strong); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Quiet starfield */
@@ -626,7 +626,7 @@ body.theme-light .progress-thumb { border-color: #1a1e2a; }
 .book-meta-item strong { color: var(--text-strong); font-weight: 600; }
 .book-meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--purple); display: inline-block; }
 a.book-meta-link { color: var(--muted); text-decoration: none; transition: color .14s; }
-a.book-meta-link:hover { color: var(--purple-bright); text-decoration: none; }
+a.book-meta-link:hover { color: var(--text-strong); text-decoration: none; }
 
 /* TOC listing */
 .toc-grid {
@@ -941,15 +941,15 @@ article.chapter-content::before {
 }
 .chapter-content h2:hover .heading-anchor,
 .chapter-content h3:hover .heading-anchor { opacity: 1; }
-.heading-anchor:hover { color: var(--purple-bright); text-decoration: none; }
+.heading-anchor:hover { color: var(--text-strong); text-decoration: none; }
 
 .chapter-content p { margin: 1.15em 0; color: var(--body); }
 .chapter-content p:first-child { margin-top: 0; }
 .chapter-content ul, .chapter-content ol { margin: 1em 0; padding-left: 1.8em; color: var(--body); }
 .chapter-content li { margin: 0.4em 0; }
-.chapter-content li::marker { color: var(--purple-dim); }
+.chapter-content li::marker { color: var(--dim); }
 .chapter-content strong { font-weight: 700; color: var(--text-strong); }
-.chapter-content em { color: var(--purple-bright); font-style: italic; }
+.chapter-content em { color: var(--text); font-style: italic; }
 
 .chapter-content blockquote {
   border-left: 3px solid var(--quote-border);
@@ -962,13 +962,13 @@ article.chapter-content::before {
   position: relative;
 }
 .chapter-content a.xref {
-  color: var(--purple-bright);
+  color: var(--text);
   text-decoration: none;
   border-bottom: 1px dotted var(--purple-soft);
   padding-bottom: 1px;
   transition: color .12s, border-color .12s;
 }
-.chapter-content a.xref:hover { color: var(--text-strong); border-bottom-color: var(--purple-bright); text-decoration: none; }
+.chapter-content a.xref:hover { color: var(--text-strong); border-bottom-color: var(--purple); text-decoration: none; }
 
 .chapter-content blockquote p { margin: 0.4em 0; }
 .chapter-content blockquote p:first-child { margin-top: 0; }
@@ -1118,7 +1118,7 @@ article.chapter-content::before {
   letter-spacing: 1.8px;
   text-transform: uppercase;
 }
-.chapter-nav .home:hover { color: var(--purple-bright); }
+.chapter-nav .home:hover { color: var(--text-strong); }
 
 @media (max-width: 720px) {
   .chapter-nav { grid-template-columns: 1fr; }
@@ -1151,7 +1151,7 @@ article.chapter-content::before {
   text-transform: uppercase;
 }
 .book-footer a { color: var(--muted); }
-.book-footer a:hover { color: var(--purple-bright); }
+.book-footer a:hover { color: var(--text-strong); }
 
 /* ======================================================================
    Mobile drawer
