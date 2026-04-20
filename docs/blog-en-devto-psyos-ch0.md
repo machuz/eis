@@ -15,7 +15,7 @@ Engineer, athlete, musician, researcher, founder, parent — the domain doesn't 
 
 > Before we go further, a quick note. By "heat," I don't mean intensity for its own sake — not hustle, not bravado. I mean **motion driven by your own will**. That distinction carries the whole series.
 
-This is a sister work. [Structure-Driven Engineering Organization Theory](https://zenn.dev/) handles the external physics of organizations. This one handles the internal operating state of individuals and the organizations they live in. I arrived at both through [EIS (Engineering Impact Signal)](https://github.com/machuz/eis) — a tool that reads engineering impact from git history alone. The tool is the external observer; this book is the internal principle. **Persistent strength only emerges when both sides are running.**
+This is a sister work. [Structure-Driven Engineering Organization Theory](https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101) handles the external physics of organizations. This one handles the internal operating state of individuals and the organizations they live in. I arrived at both through [EIS (Engineering Impact Signal)](https://github.com/machuz/eis) — a tool that reads engineering impact from git history alone. The tool is the external observer; this book is the internal principle. **Persistent strength only emerges when both sides are running.**
 
 ---
 

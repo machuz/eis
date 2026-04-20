@@ -240,7 +240,7 @@ So new vocabulary is introduced deliberately:
 
 "Git Archaeology" is the design philosophy and implementation behind EIS, already published as a separate book.
 
-- [**git-archaeology — Observing Gravity, Civilization, and the Future of AI from the Strata of Code**](https://zenn.dev/machuz/books/git-archaeology) (Zenn Book, Japanese) — English dev.to series also available.
+- [**Git Archaeology — Observing Gravity, Civilization, and the Future of AI from the Strata of Code**](https://dev.to/machuz/git-archaeology-0-what-if-git-history-could-tell-you-who-your-strongest-engineers-are-5397) (dev.to series)
 
 Reading it first deepens the EIS context later, but **it's not required**. All terms this book needs will be redefined in Chapter 1 and Chapter 2. Consult it only when you're curious.
 
