@@ -209,6 +209,7 @@ body.theme-light .orbit-bar a:hover { color: #eef1f7; }
   display: inline-flex; align-items: center; gap: 6px;
   text-decoration: none;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .orbit-tool:hover { border-color: var(--purple-dim); color: var(--purple-bright); text-decoration: none; }
 .orbit-tool.active { background: rgba(124, 92, 224, 0.08); color: var(--purple-bright); border-color: var(--purple-dim); }
@@ -810,6 +811,28 @@ a.book-meta-link:hover { color: var(--purple-bright); text-decoration: none; }
 }
 .chapter-bar .en-link:hover { background: var(--purple); color: var(--bg-void); border-color: var(--purple); text-decoration: none; }
 
+/* Chapter title — displayed prominently above the section TOC accordion.
+   Replaces the markdown H1 (which is stripped from body). Zenn-style. */
+.chapter-title-display {
+  font-family: var(--display);
+  font-size: clamp(1.85rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+  margin: 20px 0 24px;
+  padding: 0;
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 820px) {
+  .chapter-title-display {
+    font-size: clamp(1.6rem, 5.5vw, 1.95rem);
+    margin: 16px 0 18px;
+  }
+}
+
 article.chapter-content {
   background: var(--paper);
   border: 1px solid var(--border);
@@ -1392,6 +1415,12 @@ body.theme-light .chapter-content h1 {
   margin: 0 0 1em;
   padding-bottom: 0.5em;
   border-bottom: 1px solid rgba(28, 31, 38, 0.06);
+}
+
+/* Chapter title (rendered outside .chapter-content) — same light-mode color.
+   Font-weight / size already defined in the base rule; no override needed here. */
+body.theme-light .chapter-title-display {
+  color: var(--text-strong);
 }
 
 /* H2 — vertical purple pillar as the structural marker */

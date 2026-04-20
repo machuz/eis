@@ -295,7 +295,10 @@
       const res = await fetch(cfg.rawBase + slug + '.md' + CACHE_BUST);
       if (!res.ok) throw new Error('fetch failed');
       const md = await res.text();
-      const body = md.replace(/^---[\s\S]*?---\s*/, '');
+      // Strip frontmatter and the leading H1 (we render the title ourselves above the article)
+      const body = md
+        .replace(/^---[\s\S]*?---\s*/, '')
+        .replace(/^\s*#\s+[^\n]+\n+/, '');
       const readMins = estimateReadingMins(body);
       const prev = idx > 0 ? cfg.chapters[idx - 1] : null;
       const next = idx < cfg.chapters.length - 1 ? cfg.chapters[idx + 1] : null;
@@ -333,7 +336,8 @@
         </nav>
       `;
 
-      main.innerHTML = barHtml + mobileSectionsHtml + articleHtml + navHtml;
+      const titleHtml = `<h1 class="chapter-title-display">${escapeHTML(chapter.title)}</h1>`;
+      main.innerHTML = barHtml + titleHtml + mobileSectionsHtml + articleHtml + navHtml;
 
       // Auto-close mobile section accordion after tap
       const msl = main.querySelector('.mobile-section-list');
