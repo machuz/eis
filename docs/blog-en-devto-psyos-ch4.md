@@ -84,7 +84,7 @@ A converter needs two qualities.
 
 A converter with both qualities is not middle management and not a technical interpreter. They are **a specialist who works across the aesthetics of multiple layers and keeps reading history.**
 
-![Without a converter, decisions arrive unconverted and extinguish heat. With a converter, heat crosses layers.](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch4-section-3-layer-converter.png)
+![Without a converter, decisions arrive unconverted and extinguish heat. With a converter, heat crosses layers.](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch4-section-3-layer-converter-en.png)
 
 In organizations with conversion, correct decisions in one layer don't extinguish fire in others. In fact, **correct decisions can ignite heat in other layers.** **In organizations without converters, even correct decisions extinguish heat.** **The total energy of the organization isn't determined by the correctness of decisions — it's determined by the density of conversion.** An organization without converters loses heat, however strong its individuals.
 
@@ -106,13 +106,14 @@ An enclosure with these three conditions is **a space that preserves heat**. The
 
 ## 4. The condition for mesh — when they align
 
-Translation (individual) and preservation (organization) don't hold alone. Each side's absence produces its own failure mode.
+Translation (individual) and preservation (organization) don't hold alone. The four quadrants below show what happens when each combination is missing. Heat only survives in **the top-right cell: both present**.
 
-- **No translation** → heat doesn't reach the organization and burns out within the individual (**disappearance**)
-- **No preservation** → heat that reaches gets eroded continuously, and the individual wears down (**heat loss**)
-- **Both present** → heat propagates from individual into organization, from organization into other individuals, in cascade
+- **Translation × no preservation** → heat that arrives keeps getting eroded; the individual wears down (**heat loss**)
+- **No translation × no preservation** → heat is born inside the individual but has no outlet; it spins inward (**hollow motion**)
+- **No translation × preservation** → the organization is ready but no heat reaches it; only the space remains (**disappearance**)
+- **Both present** → heat propagates from individual into organization, from organization into other individuals, in cascade (**propagation**)
 
-![Translation × Preservation — the four quadrants: propagation (both present) / heat loss (no preservation) / hollow motion (no translation) / disappearance (neither)](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch4-section-4-matrix.png)
+![Translation × Preservation — four quadrants: propagation (both) / heat loss (translation only) / hollow motion (neither) / disappearance (preservation only)](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch4-section-4-matrix-en.png)
 
 When translation exists but preservation doesn't, the translated heat gets poured into a space that grinds it down, and the individual is worn out. When preservation exists but translation doesn't, the organization is ready but no translated source of heat reaches it — the space exists but no heat flows through it.
 

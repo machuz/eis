@@ -155,7 +155,7 @@ The four dimensions above are the **quantitative** side of heat. Here I turn to 
 
 External pressure by default decays heat. Requests, deadlines, routine — these replace time that could run on inner pressure with time driven by outer pressure, eroding purity. The question is **the difference in decay rate**.
 
-![Vector alignment reduces decay rate and extends heat persistence; misalignment raises decay and shortens persistence](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch2-section-7-vector-alignment.png)
+![Vector alignment lowers the decay rate, heat persists longer; misalignment raises decay, heat fades fast](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch2-section-7-vector-alignment-en.png)
 
 I call it **the state of vectors being aligned**. When the individual's direction and the external pressure's direction line up, **the decay rate on the same external pressure drops significantly**. When they don't line up, the same pressure erodes heat at a high rate.
 

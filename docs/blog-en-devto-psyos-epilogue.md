@@ -13,7 +13,7 @@ What follows is less theory, more **how I got here**.
 
 Before that, here's the full structure of the book, in one image.
 
-![Psychological OS — full structure: individual side (Psychological OS → attachment → heat → purity/vector → translation) and organization side (converter → controlled chaos → preservation → alignment), connected through translation and propagation](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/system-map.png)
+![Psychological OS — full structure: individual side (Psychological OS → attachment → heat → purity/vector → translation) and organization side (converter → controlled chaos → preservation → alignment), connected through translation and propagation](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/system-map-en.png)
 
 Left: the individual side (chapters 0–2) — Psychological OS as the base layer, attachment as the source that sustains heat, purity and vector determining heat's quality, translation as the way heat leaves the individual. Right: the organization side (chapters 3–4) — converters and controlled chaos building the space of preservation, alignment as dynamic equilibrium. Only when they mesh does heat propagate, lighting the Psychological OS of other individuals.
 
