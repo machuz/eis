@@ -4,7 +4,7 @@ series: "Psychological OS"
 published: true
 description: "When a strong Psychological OS enters an organization, both sides break each other. The mechanism: mutual destruction, not malice. One reason the startup death rate sits where it does."
 tags: career, productivity, leadership, philosophy
-cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=2
 ---
 
 Chapter 2 was the interior: inner operating intensity. Heat purity, subject placement, unusual persistence. Everything closed within the individual.

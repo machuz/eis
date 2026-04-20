@@ -4,7 +4,7 @@ series: "Psychological OS"
 published: true
 description: "An operating principle for staying yourself. Why some people keep their heat while others lose it — and what the invisible base layer of decision-making really is."
 tags: career, productivity, leadership, philosophy
-cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=2
 ---
 
 Same workplace. Some keep burning. Some fade.

@@ -4,7 +4,7 @@ series: "Psychological OS"
 published: true
 description: "Chapter 3 showed why Psychological OS and organization destroy each other. This chapter shows the only way they stop: dual design — translation on the individual side, preservation on the organizational side. Without both, heat doesn't survive."
 tags: career, productivity, leadership, philosophy
-cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=2
 ---
 
 Chapter 3 wasn't about what breaks when individual and organization collide. It was about **the mechanism that makes that breakage inevitable**. The conclusion was direct: **unless the structure changes, strength gets eroded every time.**
