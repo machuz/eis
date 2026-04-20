@@ -358,9 +358,25 @@
       const msl = main.querySelector('.mobile-section-list');
       if (msl) {
         msl.addEventListener('click', (e) => {
-          if (e.target.closest('a')) {
-            setTimeout(() => msl.removeAttribute('open'), 150);
-          }
+          const link = e.target.closest('a');
+          if (!link) return;
+          const href = link.getAttribute('href') || '';
+          if (!href.startsWith('#')) return;
+          e.preventDefault();
+          const id = href.slice(1);
+          // Close accordion first so height collapses before we scroll
+          msl.removeAttribute('open');
+          // Wait two frames for layout, then scroll to the real final position
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              const target = document.getElementById(id);
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Update hash without triggering another scroll
+                history.replaceState(null, '', '#' + id);
+              }
+            });
+          });
         });
       }
 
