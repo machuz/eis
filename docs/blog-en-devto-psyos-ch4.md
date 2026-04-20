@@ -7,13 +7,13 @@ tags: career, productivity, leadership, philosophy
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=1
 ---
 
-Chapter 3 wasn't about what breaks when individual and organization collide. It was about **the mechanism of why they must**. The conclusion was direct: **unless the structure changes, strength gets eroded, every time.**
+Chapter 3 wasn't about what breaks when individual and organization collide. It was about **the mechanism that makes that breakage inevitable**. The conclusion was direct: **unless the structure changes, strength gets eroded every time.**
 
 This isn't a personality problem. It isn't an effort problem. **It can only be solved at the level of structure.** This chapter takes on that structure.
 
 The answer isn't single. **Both sides — individual and organization — need their own design.** Neither alone holds. Only when both are running do they mesh.
 
-The two moves this chapter names are **translation** (the individual's move) and **preservation** (the organization's design). Translation is the technique of making your heat arrive in a form the organization can receive. Preservation is the structural design that doesn't erode the heat once it arrives. **Only when both exist simultaneously does the mutual destruction from chapter 3 stop.**
+The two structural requirements this chapter names are **translation** (the individual's design) and **preservation** (the organization's design). Translation is the technique of making your heat arrive in a form the organization can receive. Preservation is the structural design that doesn't erode the heat once it arrives. **Only when both exist simultaneously does the mutual destruction from chapter 3 stop.**
 
 ## 1. The question — can we cross this?
 
@@ -23,11 +23,11 @@ Three choices sit here.
 
 **Exit.** The "rowing out" from chapter 3 §5. Leave the organization and move toward your own heat.
 
-**Keep being eroded.** If you're aware but can't leave, purity drops, and eventually Psychological OS stops running.
+**Stay and be eroded.** If you're aware but can't leave, purity drops, and eventually Psychological OS stops running.
 
 The third is this chapter's question. **Mesh them.** Accept the collision as a given, and design — from both sides — a structure that keeps heat running through it.
 
-Meshing is harder than exit. Rowing out is a single decision. Meshing is a daily practice. But **when the mesh works, the volume of heat propagation is not comparable to leaving.** Heat spreads from one individual into the organization, from the organization into other individuals, and back. Whether you can build that cascade is the actual substance of sustainable strength.
+Meshing is harder than exit. Rowing out is a single decision. Meshing is a daily practice. But **when the mesh works, the reach of heat propagation is far greater than what exit can achieve.** Heat spreads from one individual into the organization, from the organization into other individuals, and back. Whether you can build that cascade is the actual substance of sustainable strength.
 
 ## 2. The individual's move — translation
 
@@ -35,14 +35,14 @@ When someone with a strong Psychological OS enters an organization, high purity 
 
 ### 2-1. The proof phase — nothing moves until trust is established
 
-An individual who steps into a new organization and tries to move on their own principles from day one almost always gets rejected. However correct the principle, **if trust hasn't been established, correctness doesn't arrive**. **Unproven strength does not exist inside the organization.**
+An individual who steps into a new organization and tries to move on their own principles from day one almost always gets rejected. However correct the principle, **if trust hasn't been established, correctness doesn't land**. **Unproven strength does not exist inside the organization.**
 
 The bar you have to clear here is the **proof phase**. In sports, when an ace replaces the previous one, or when tactics shift, the central figure always passes through such a period. Proof runs on several axes:
 
 - **Reliability of execution** — you can not only see it, but also reproduce it yourself
 - **Strategic effectiveness** — operating on your principle actually produces results
 - **Fit with the team** — how quickly your personality dissolves into the organization
-- **Worth betting the future on** — not a one-off peak, but a core you can carry long-term
+- **Worth betting the future on** — not a one-off spike, but a core that holds over time
 
 Strength that skips this proof, however pure, floats in the organization. Before you speak of principle, **show results and alignment first.** That's the work of the proof phase.
 
@@ -50,19 +50,19 @@ The proof phase isn't a period of eroding heat. It's **a period of translating h
 
 Strength that skips proof and only pushes principle disappears before reaching anyone. The "distortion a strong individual drops into the organization" from chapter 3 §4 kicks in precisely here. **Without translation, strength produces only collision.**
 
-### 2-2. Osmotic behavior — gradient over sudden
+### 2-2. Osmotic behavior — gradual over sudden
 
-After the proof phase, two stances are available. From observed git history, two types have been identified when an engineer evolves into an architect.
+After the proof phase, two stances are available. Git history suggests two recurring patterns when an engineer evolves into an architect.
 
-**Sudden mode** — after a brief anchor period, immediately start designing with your own architecture. Fast. But continuity with the predecessor's structure is broken, so **the risk of collision with the team is high**.
+**Sudden mode** — after a brief anchor period, immediately start redesigning around your own architecture. Fast. But continuity with the predecessor's structure is broken, so **the risk of collision with the team is high**.
 
-**Osmotic mode** — respect the predecessor's structure, keep producing, and let your own design diffuse into it gradually. Through the anchor period you understand existing structure. Through the producer period you ship heavily, and in that process your architecture quietly propagates through the codebase. It takes time, but **continuity with existing structure is preserved**.
+**Osmotic mode** — respect the predecessor's structure, keep producing, and let your own design diffuse into it gradually. Through the anchor period you understand existing structure. Through the producer period you keep shipping at high volume, and in that process your architecture quietly propagates through the codebase. It takes time, but **continuity with existing structure is preserved**.
 
 Neither is correct in the abstract. But for someone with a strong Psychological OS who wants to deliver heat while avoiding collision, osmotic mode has less friction. Don't **push** heat; **propagate** it.
 
 You might feel this contradicts chapter 3 §2's "even life is irrelevant." Disconnected from the organization, but osmotically blending into it? That's a contradiction only at the surface. **Being cut from the organization inside, and behaving osmotically outside, hold true simultaneously.** The cut is about the drive source. Osmosis is about the outward behavior.
 
-People who haven't cut synchronize with the organization's temperature and don't have an original principle to propagate in the first place. Only people who have cut hold a principle worth propagating. On top of that, they choose osmotic external behavior. **Untranslated strength doesn't arrive.**
+People who haven't cut synchronize with the organization's temperature and don't have an original principle to propagate in the first place. Only people who have cut hold a principle worth propagating. On top of that, they choose osmotic external behavior. **Untranslated strength doesn't land.**
 
 ## 3. The organizational design — a structure that doesn't erode heat
 
@@ -72,17 +72,17 @@ Even if the individual carries the translation work, as long as the organization
 
 Chapter 3 §3-2 handled the mechanism where single-layer decisions extinguish the fire in other layers. The reverse design sits here.
 
-Each layer (principle / structure / implementation) makes correct decisions from inside its own view. But those decisions, arriving unconverted at other layers, extinguish heat. Therefore: **explicitly place converters.** That's the core of organizational design.
+Each layer (principle / structure / implementation) makes correct decisions from inside its own view. But those decisions, arriving unconverted at other layers, extinguish heat. So the answer is simple: **place converters explicitly.** That's the core of organizational design.
 
 A converter isn't another name for middle management. It's a **professional of conversion**. Converting principle-layer strategic pivots into language the implementation layer receives as "an extension of our own work." Converting implementation-layer warnings like "this design will break" into a structural signal the principle layer receives as "strategic reconsideration material."
 
 A converter needs two qualities.
 
-**Aesthetic empathy** — each layer has its own aesthetic. The principle layer has strategic elegance. The structure layer has architectural simplicity. The implementation layer has the physical satisfaction of clean code. A converter must be able to genuinely empathize with the aesthetic of layers that aren't their home. **Translation without empathy, even when technically correct, doesn't carry that layer's heat.**
+**Aesthetic empathy** — each layer has its own aesthetic. The principle layer has strategic elegance. The structure layer has architectural simplicity. The implementation layer has the physical satisfaction of clean code. A converter must be able to genuinely empathize with the aesthetic of layers outside their home layer. **Translation without empathy, even when technically correct, doesn't carry that layer's heat.**
 
 **The ability to read history** — every decision in every layer has a history behind it. Why did the current design come to be? Which judgments held, which fell away? A converter who can't read history only translates the surface. **A translation that doesn't carry the deeper context gets rejected by the receiving side.**
 
-A converter with both qualities is not middle management and not a technical interpreter. They are **a specialist who touches the aesthetics of multiple layers and keeps reading history.**
+A converter with both qualities is not middle management and not a technical interpreter. They are **a specialist who works across the aesthetics of multiple layers and keeps reading history.**
 
 ![Without a converter, decisions arrive unconverted and extinguish heat. With a converter, heat crosses layers.](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch4-section-3-layer-converter.png)
 
@@ -92,15 +92,15 @@ In organizations with conversion, correct decisions in one layer don't extinguis
 
 The other layer of preservation: **strategically build spaces inside the structure where heat is preserved.**
 
-If everyone moves freely, the whole becomes mere chaos. But a perfectly controlled organization generates no heat. What's needed is **to strategically build enclosures that permit the out-of-the-book move.**
+If everyone moves freely, the whole becomes mere chaos. But a perfectly controlled organization generates no heat. What's needed is **to strategically build enclosures that permit moves outside the script.**
 
-Inside the enclosure, job title and role don't matter. The enclosure is self-contained for its function. Only moves driven by heat happen inside — because moves without heat don't attract people. Heat can come from anywhere: "fixing an existing structure," "building a big new feature," "breaking something that existed." **Any source counts, as long as there's heat.**
+Inside the enclosure, job title and role don't matter. The enclosure is functionally self-contained. Only moves driven by heat happen inside — because people don't gather around moves without heat. Heat can come from anywhere: "fixing an existing structure," "building a big new feature," "breaking something that existed." **Any source counts, as long as there's heat.**
 
 But a completely unmanaged enclosure spirals into destruction. The enclosure needs **three conditions: observability, boundary, and coupling.**
 
 - **Observability** — what happens inside the enclosure is visible from outside
 - **Boundary** — how far the enclosure is allowed to expand is made explicit
-- **Coupling** — movements inside the enclosure have a path to mesh with other structures in the rest of the organization
+- **Coupling** — movements inside the enclosure have a path to integrate with the rest of the organization
 
 An enclosure with these three conditions is **a space that preserves heat**. The "synergy among activities born from heat" from chapter 3 §1 only really moves inside enclosures like this.
 
@@ -108,13 +108,13 @@ An enclosure with these three conditions is **a space that preserves heat**. The
 
 Translation (individual) and preservation (organization) don't hold alone. Each side's absence produces its own failure mode.
 
-- **No translation** → heat doesn't reach the organization and dies inside the individual (**disappearance**)
+- **No translation** → heat doesn't reach the organization and burns out within the individual (**disappearance**)
 - **No preservation** → heat that reaches gets eroded continuously, and the individual wears down (**heat loss**)
 - **Both present** → heat propagates from individual into organization, from organization into other individuals, in cascade
 
 ![Translation × Preservation — the four quadrants: propagation (both present) / heat loss (no preservation) / hollow motion (no translation) / disappearance (neither)](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch4-section-4-matrix.png)
 
-When translation exists but preservation doesn't, the translated heat gets poured into a space that grinds it down, and the individual is worn out. When preservation exists but translation doesn't, the organization is ready but no heat source shows up — the space exists but no heat flows through it.
+When translation exists but preservation doesn't, the translated heat gets poured into a space that grinds it down, and the individual is worn out. When preservation exists but translation doesn't, the organization is ready but no translated source of heat reaches it — the space exists but no heat flows through it.
 
 **Only when both exist does heat propagate.** The individual translates their heat into a form the organization can receive. The organization provides a space that doesn't erode the heat it receives. The moment this correspondence is established, **the most valuable form of contagion from chapter 3 §1 — "synergy among activities born from heat" — actually starts moving.**
 
@@ -130,7 +130,7 @@ Chapter 1 handled observation. Your own Psychological OS is hard to see for your
 
 Chapter 2 handled the strong state. Purity, response speed, restartability. Not caught by outcomes. Subject placed on yourself. Keep returning even after you break. Strength isn't perfection — it's being able to return.
 
-Chapter 3 handled the collision with organizations. Psychological OS isn't closed. The organization, when the path of correct decisions is broken, erodes heat. The individual, as a side effect of strength, destabilizes the organization. Each side breaks the other. **Row out, or keep being eroded — or —**
+Chapter 3 handled the collision with organizations. Psychological OS isn't closed. And when the path between correct decisions breaks, the organization begins to erode heat. The individual, as a side effect of strength, destabilizes the organization. Each side breaks the other. **Row out, or keep being eroded — or —**
 
 Chapter 4 handled the meshing. The individual **translates** heat. The organization **preserves** heat. When both mesh, heat cascades from individual to organization, and from organization to other individuals.
 
