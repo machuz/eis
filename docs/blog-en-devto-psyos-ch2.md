@@ -112,7 +112,7 @@ What makes *Space Brothers*' Mutta beautiful is the process of **transferring hi
 
 What makes *Blue Giant*'s Dai and his companions beautiful is how **each one's small-scope heat converges into a single direction through the form of a session**. Tenor, piano, drums — three different attachments collide, fuse, and become one music. A collection of small scopes, without individual expansion, creates greater heat through resonance.
 
-*Aoashi* — the protagonist Ashito beautifully shows **scope expanding step by step: from personal craft, to the coach's philosophy, to understanding the team as a system**. Craft-scale devotion as a single player doubles its heat when it meshes with system-level comprehension.
+*Aoashi* — what's beautiful is how **the team, as a container, weaves each player's small-scope attachment into a single system, meshing with the coach's tactical philosophy**. Each role, each sense of pride, each defeat, each new challenge — all carried intact, integrated into the team's larger heat. This is precisely **the ideal form of the "preserved space" (controlled chaos)** that ch4 will describe.
 
 *Vagabond* — Musashi's journey is one level deeper. Starting with outer-directed attachment to "becoming the greatest swordsman under heaven," his training gradually reveals that **the real opponent was within, not outside**. Scope doesn't just expand — **the target itself gets redefined**. The desire to win transforms qualitatively into the inward purity of treating the sword as a "way."
 
