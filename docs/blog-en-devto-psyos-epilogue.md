@@ -59,6 +59,20 @@ If Mutta pushing toward astronaut selection in *Space Brothers*, or Dai chasing 
 
 If you feel your heat is fading. If you can't shake a discomfort with the image of success everyone around you agrees on. If you feel a little of your core being worn away each day — and any of that lands with you — this book can serve as a map.
 
+### A note for the AI era
+
+I've picked up this thread in the sister works too (*Git Archaeology*, *Structure-Driven Engineering Organization Theory*): what human work becomes after general-purpose AI.
+
+Until now, organizational strength was measured by **heat × headcount / mass / work volume**. Even high-purity heat couldn't be materialized without hands to carry it.
+
+AI releases humans from that material side — the number of hands, the physical mass, the sheer work volume. AI isn't a mass-production machine in the simple sense. It's a **catalyst that makes high-purity heat propagate more easily**.
+
+The human role shifts here: **establish heat**, and **organize through the catalyst**. What used to require headcount to organize can now run on a small number of people carrying high-purity heat. The ground is prepared for **small, extremely powerful organizations**.
+
+But the catalyst only works **as long as the heat itself hasn't been handed over**. AI replaces parts of translation and implementation, but it doesn't replace **attachment or purity**. Deciding what to be attached to, choosing where to set the scope, keeping heat alive under external pressure — that is the core of human work that remains after general-purpose AI.
+
+**This isn't about giving up on human potential. It's about the ceiling being raised.** Anyone can use the catalyst. Only someone with Psychological OS running can wield it well.
+
 ## 6. Self-diagnostic — a Psychological OS checklist
 
 If you've stayed with me this far, the most useful thing now is to **stop reading and actually look**. The vocabulary is meant to be used, not admired.
