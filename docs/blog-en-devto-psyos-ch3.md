@@ -2,7 +2,7 @@
 title: "Psychological OS #3 — What Breaks When a Strong Individual Meets an Organization"
 series: "Psychological OS"
 published: true
-date: 2026-04-19 23:03:00 +0000
+date: "2026-04-19T23:03:00Z"
 description: "When a strong Psychological OS enters an organization, both sides break each other. The mechanism: mutual destruction, not malice. One reason the startup death rate sits where it does."
 tags: career, productivity, leadership, philosophy
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=1
