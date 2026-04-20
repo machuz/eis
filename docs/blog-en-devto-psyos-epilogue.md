@@ -4,7 +4,7 @@ series: "Psychological OS"
 published: true
 description: "Why this book ended up as a dual structure (structure-driven × Psychological OS), a 10-question self-diagnostic for individuals and organizations, and the full glossary of the series."
 tags: career, productivity, leadership, philosophy
-cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=4
 ---
 
 A short appendix for readers who've stayed with the book to the end. Here I'll explain how this system came to take a dual structure (Structure-Driven Engineering Organization Theory × Psychological OS). Read only if interested.

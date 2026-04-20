@@ -4,7 +4,7 @@ series: "Psychological OS"
 published: true
 description: "A strong Psychological OS isn't perfection. It's heat kept pointing inward, attachment directed to the right target, and vectors aligned so external pressure doesn't erode purity."
 tags: career, productivity, leadership, philosophy
-cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=3
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=4
 ---
 
 Chapter 0 defined Psychological OS as "the state of keeping your heat." Chapter 1 asked how to observe your state. This chapter goes one step further: **what a strong Psychological OS actually looks like, and what happens when it's running.**
