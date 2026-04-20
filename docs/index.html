@@ -393,9 +393,8 @@ section { padding: 80px 0; position: relative; scroll-margin-top: 80px; }
   border-top: 1px dashed var(--border);
 }
 .book-btn {
-  flex: 1;
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 11px 14px;
+  padding: 11px 16px;
   border-radius: 5px;
   font-family: var(--mono);
   font-size: 11px;
@@ -405,7 +404,10 @@ section { padding: 80px 0; position: relative; scroll-margin-top: 80px; }
   text-decoration: none;
   transition: all .15s;
   border: 1px solid;
+  white-space: nowrap;
 }
+.book-btn-primary { flex: 1 1 auto; }
+.book-btn-secondary { flex: 0 0 auto; }
 .book-btn-primary {
   background: var(--purple);
   border-color: var(--purple);
