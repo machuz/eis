@@ -214,6 +214,14 @@ body.theme-light .orbit-bar a:hover { color: #eef1f7; }
 .orbit-tool:hover { border-color: var(--purple-dim); color: var(--purple-bright); text-decoration: none; }
 .orbit-tool.active { background: rgba(124, 92, 224, 0.08); color: var(--purple-bright); border-color: var(--purple-dim); }
 
+/* Default: icon only (desktop tool bar) */
+.orbit-tool .tool-label { display: none; }
+.orbit-tool .tool-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
 /* Mobile hamburger toggle — hidden on desktop */
 .orbit-menu-toggle {
   display: none;
@@ -257,7 +265,8 @@ body.theme-light .orbit-bar a:hover { color: #eef1f7; }
   .orbit-bar #orbit-tools .orbit-tool {
     width: 100%;
     justify-content: flex-start;
-    padding: 8px 12px;
+    gap: 12px;
+    padding: 10px 14px;
     font-size: 13px;
     letter-spacing: 1px;
     color: var(--text);
@@ -266,6 +275,21 @@ body.theme-light .orbit-bar a:hover { color: #eef1f7; }
   .orbit-bar #orbit-tools .orbit-tool:hover {
     background: var(--paper-hi);
     border-color: var(--border);
+  }
+  .orbit-bar #orbit-tools .orbit-tool .tool-icon {
+    min-width: 28px;
+    font-size: 14px;
+    color: var(--purple-bright);
+    justify-content: center;
+  }
+  .orbit-bar #orbit-tools .orbit-tool .tool-label {
+    display: inline;
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--text);
+    font-weight: 500;
   }
 }
 
@@ -286,6 +310,12 @@ body.theme-light .orbit-menu-toggle:hover { color: #eef1f7; border-color: var(--
   body.theme-light .orbit-bar #orbit-tools .orbit-tool:hover {
     background: rgba(255,255,255,0.05);
     color: #eef1f7;
+  }
+  body.theme-light .orbit-bar #orbit-tools .orbit-tool .tool-icon {
+    color: var(--purple-bright);
+  }
+  body.theme-light .orbit-bar #orbit-tools .orbit-tool .tool-label {
+    color: #d0d6e2;
   }
 }
 
