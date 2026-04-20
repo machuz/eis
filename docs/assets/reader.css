@@ -42,9 +42,11 @@
   --shadow: rgba(0, 0, 0, 0.55);
 
   --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  --sans: 'Inter', 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, -apple-system, BlinkMacSystemFont, sans-serif;
-  --jp: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
-  --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --sans: 'Inter', 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, -apple-system, BlinkMacSystemFont, sans-serif;
+  --jp: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif;
+  --display: 'Fraunces', 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'MS PMincho', serif;
+  --mincho: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'MS PMincho', serif;
+  --serif: var(--mincho);
 
   --font-size: 17px;
   --line-height: 1.95;
@@ -403,13 +405,13 @@ body.theme-light .orbit-bar a:hover { color: #f2e4c0; }
   margin-bottom: 10px;
 }
 .book-title-main {
-  font-family: var(--sans);
-  font-size: clamp(1.7rem, 3.2vw, 2.15rem);
+  font-family: var(--mincho);
+  font-size: clamp(1.9rem, 3.6vw, 2.5rem);
   font-weight: 600;
   color: var(--text-strong);
-  line-height: 1.3;
-  letter-spacing: -0.2px;
-  margin-bottom: 10px;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
 }
 .book-subtitle-main {
   font-size: 15px;
@@ -522,11 +524,12 @@ body.theme-light .orbit-bar a:hover { color: #f2e4c0; }
   z-index: 1;
 }
 .toc-list .toc-title-text {
-  font-size: 14.5px;
-  line-height: 1.55;
+  font-family: var(--mincho);
+  font-size: 16px;
+  line-height: 1.5;
   font-weight: 500;
   color: var(--text);
-  letter-spacing: -0.1px;
+  letter-spacing: 0.01em;
 }
 .toc-list .toc-en-badge {
   font-family: var(--mono);
@@ -605,18 +608,19 @@ article.chapter-content::before {
 
 /* Typography */
 .chapter-content h1 {
-  font-family: var(--sans);
-  font-size: clamp(1.55rem, 3vw, 1.95rem);
+  font-family: var(--mincho);
+  font-size: clamp(1.7rem, 3.2vw, 2.1rem);
   font-weight: 600;
   color: var(--text-strong);
   line-height: 1.4;
   margin: 0 0 1em;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.02em;
   padding-bottom: 0.5em;
   border-bottom: 2px solid var(--border-hi);
 }
 .chapter-content h2 {
-  font-size: 1.34rem;
+  font-family: var(--mincho);
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--text-strong);
   margin: 2.4em 0 0.9em;
@@ -624,15 +628,17 @@ article.chapter-content::before {
   border-bottom: 1px solid var(--border);
   scroll-margin-top: 88px;
   position: relative;
-  letter-spacing: -0.1px;
+  letter-spacing: 0.01em;
 }
 .chapter-content h3 {
-  font-size: 1.1rem;
+  font-family: var(--mincho);
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-strong);
   margin: 1.9em 0 0.7em;
   scroll-margin-top: 88px;
   position: relative;
+  letter-spacing: 0.01em;
 }
 .chapter-content h4 {
   font-size: 0.98rem;
@@ -841,11 +847,13 @@ article.chapter-content::before {
   border-top: 1px dashed var(--border);
 }
 .book-footer .quote {
-  color: var(--muted);
+  font-family: var(--display);
+  color: var(--text-strong);
   font-style: italic;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   margin-bottom: 16px;
-  font-size: 0.88rem;
+  font-size: 1.05rem;
+  font-weight: 400;
 }
 .book-footer .foot-links {
   display: flex;
