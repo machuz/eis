@@ -31,7 +31,7 @@ Meshing is harder than exit. Rowing out is a single decision. Meshing is a daily
 
 ## 2. The individual's move — translation
 
-When someone with a strong Psychological OS enters an organization, high purity doesn't automatically reach anyone. To make it reach, **there's only one option: translate it into a form visible from outside. Untranslated heat is the same as no heat at all.** Translation has two stages.
+When someone with a strong Psychological OS enters an organization, high purity doesn't automatically land with anyone. To make it land, **there's only one option: translate it into a form visible from outside. Untranslated heat is the same as no heat at all.** Translation has two stages.
 
 ### 2-1. The proof phase — nothing moves until trust is established
 
@@ -63,6 +63,8 @@ Neither is correct in the abstract. But for someone with a strong Psychological 
 You might feel this contradicts chapter 3 §2's "even life is irrelevant." Disconnected from the organization, but osmotically blending into it? That's a contradiction only at the surface. **Being cut from the organization inside, and behaving osmotically outside, hold true simultaneously.** The cut is about the drive source. Osmosis is about the outward behavior.
 
 People who haven't cut synchronize with the organization's temperature and don't have an original principle to propagate in the first place. Only people who have cut hold a principle worth propagating. On top of that, they choose osmotic external behavior. **Untranslated strength doesn't land.**
+
+Translation is **most demanding for small-scope purity** (ch2 §4). Craft-level devotion — good UX, the precision of a specific implementation — must be carried across without being flattened. If you generalize it into something abstract, it stops landing. This is exactly where the converter's **aesthetic empathy** (§3-1) matters most: only someone who has touched multiple layer aesthetics can keep the specificity of small-scope purity intact across layers.
 
 ## 3. The organizational design — a structure that doesn't erode heat
 
@@ -124,6 +126,8 @@ When translation exists but preservation doesn't, the translated heat gets poure
 **Only when both exist does heat propagate.** The individual translates their heat into a form the organization can receive. The organization provides a space that doesn't erode the heat it receives. The moment this correspondence is established, **the most valuable form of contagion from chapter 3 §1 — "synergy among activities born from heat" — actually starts moving.**
 
 Meshing isn't the individual controlling the organization. It isn't the organization owning the individual. **It's the two operating as equals — each delivering their own heat without eroding the other's temperature.** **The moment one subordinates the other, the alignment collapses.** When this equality condition is met, the organization becomes a propagation device larger than any individual.
+
+Integration **works across scope levels** (ch2 §4). Large-scope heat crosses layers directly through translation and propagates. Small-scope purity doesn't transfer the same way — instead it spreads through **resonance**: multiple craft-level devotions enter the same preserved space, reflect each other's heat, and produce shared motion (the *Blue Giant* pattern). Large scope delivers; small scope resonates. Neither happens outside the mesh.
 
 ## 5. Closing — strength doesn't persist alone
 

@@ -69,7 +69,7 @@ A person with a strong Psychological OS is conscious, daily, of which side their
 
 Heat only emerges in someone who is attached to something.
 
-This isn't paradoxical, it's the definition's consequence. Heat is the internal energy that sustains action (§1). For energy to sustain, you need a reason to keep moving — **something you can't let go of**. Someone who has shed everything looks light, but they can't hold heat.
+This isn't paradoxical, it's the definition's consequence. Heat is the internal energy that sustains action (§1). For energy to sustain, you need a reason to keep moving — **something you can't let go of**. Someone who has shed everything may look light, but they can't hold heat.
 
 > **Attachment is the source of action that continues even when external evaluation vanishes.**
 
@@ -94,6 +94,8 @@ When you self-observe, the real question isn't "am I attached to something" — 
 ### Scope — purity's second axis
 
 Purity isn't fully explained by direction (inner/outer). There's a second axis: **scope**.
+
+![Purity — the four quadrants: inner×large (most resilient), inner×small (good but fragile), outer×large (hollow), outer×small (weakest)](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch2-section-4-purity-quadrants-en.png)
 
 With the same inner-directed attachment, **the larger the scope of the target, the stronger the resistance to decay pressure**.
 
