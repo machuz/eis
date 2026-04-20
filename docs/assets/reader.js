@@ -14,9 +14,9 @@
 
   // Sibling books for the cover-page switcher (order = L1 → L3)
   const BOOKS = [
-    { id: 'psychological-os',    code: 'BOOK · 1', layer: 'L1 / INTERIOR',  title: '心理OS',                            path: '../psychological-os/' },
-    { id: 'structure-driven-org', code: 'BOOK · 2', layer: 'L2 / STRUCTURE', title: '構造駆動エンジニアリング組織論', path: '../structure-driven-org/' },
-    { id: 'git-archaeology',     code: 'BOOK · 3', layer: 'L3 / STRATA',    title: 'git考古学',                          path: '../git-archaeology/' }
+    { id: 'psychological-os',    code: 'Book 1', layer: 'L1 / INTERIOR',  title: '心理OS',                            path: '../psychological-os/' },
+    { id: 'structure-driven-org', code: 'Book 2', layer: 'L2 / STRUCTURE', title: '構造駆動エンジニアリング組織論', path: '../structure-driven-org/' },
+    { id: 'git-archaeology',     code: 'Book 3', layer: 'L3 / STRATA',    title: 'git考古学',                          path: '../git-archaeology/' }
   ];
 
   // Restore preferences
