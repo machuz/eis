@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/reader.css?v=4">
+<link rel="stylesheet" href="../../assets/reader.css?v=10">
 <style>
   .reader-layout { grid-template-columns: minmax(0, 1fr); max-width: 820px; }
   .inline-toc { display: none !important; }
@@ -50,72 +50,282 @@
     <article class="chapter-content">
       <h1>EIS と DORA・SPACE・LinearB —— 観測する対象の違い</h1>
 
-      <p><em>「結局、その指標は何を見ようとしているのか」</em>で整理する。</p>
+      <p><em>どのフレームワークも、実在する何かを測っている。問いはただひとつ —— それが何を闇に置き去りにしているか、だ。</em></p>
 
-      <h2>観測対象がそもそも違う</h2>
+      <hr>
 
-      <p>エンジニアリングの数値化を掲げるフレームワークは多い。ただ、<strong>何を観測しているか</strong>で切ると、実は別物の道具が並んでいるだけのことが多い。</p>
+      <h2>2026 年の計測フレームワーク地図</h2>
+
+      <p>エンジニアリングリーダーが手にできる計測フレームワークは、かつてないほど増えた。</p>
+
+      <ul>
+        <li><strong>DORA</strong> —— デリバリー性能のゴールドスタンダード</li>
+        <li><strong>SPACE</strong> —— Microsoft Research 発の多次元開発者生産性フレームワーク</li>
+        <li><strong>LinearB</strong> —— エンジニアリングワークフロー指標を追う商用プラットフォーム</li>
+        <li><strong>CodeScene</strong> —— ホットスポット検出を持つ振る舞い指向のコード解析</li>
+        <li><strong>git-fame / git-quick-stats</strong> —— 素朴な git 帰属ツール</li>
+      </ul>
+
+      <p>どれも何か実体のあるものを捉えている。ただ、複数のチームで使い回しているうちに、同じ盲点に何度もぶつかるようになった —— <strong>どのフレームワークも、あるエンジニアが書いたコードが今も立っているかどうかを教えてくれない。</strong></p>
+
+      <p>この問い —— <em>あなたのコードは生き残ったか？</em> —— こそが、<a href="https://github.com/machuz/eis" target="_blank" rel="noopener">EIS (Engineering Impact Signal)</a> を作った動機だ。この記事は勝者を決めるための比較ではない。それぞれのフレームワークが何を見ていて、何を見ていないか、そしてその隙間がどこにあるかを整理するためのものだ。</p>
+
+      <hr>
+
+      <h2>DORA: The Pipeline Telescope</h2>
+
+      <p><strong>何を測るか:</strong> デプロイ頻度、変更リードタイム、変更失敗率、平均復旧時間。</p>
+
+      <p><strong>正しく捉えていること:</strong> DORA は業界に初めて、実証に裏打ちされたデリバリー性能フレームワークをもたらした。4 指標は定義が明快で、計測可能で、組織成果と相関する。毎年の State of DevOps レポートは縦断的エビデンスを積み上げてきた。</p>
+
+      <p><strong>闇に置き去りにしていること:</strong></p>
+
+      <ul>
+        <li><strong>個人解像度はゼロ。</strong> DORA は設計上チーム／組織の単位でしか動かない。チームが速くシップできているかはわかるが、<em>その速度を作っている構造を</em>誰が築いているかはわからない。</li>
+        <li><strong>コードの耐久性が見えない。</strong> チームが DORA のエリート指標を叩き出しながら、裏で巨大な技術的負債を積み上げている、という状態は成立する。デプロイが速いことは、そのコードが来期も生き残るかどうかについて何も語らない。</li>
+        <li><strong>アーキテクチャは観測されない。</strong> システムを形作ったのは誰か。設計知識を抱えているのは誰か。DORA はそもそも訊かない。</li>
+      </ul>
+
+      <p><strong>ポジション:</strong> DORA はデリバリーのヘルスチェックだ。「このチームはどれくらい速く・安全にシップしているか？」という問いに答える —— 重要だが、狭い問いだ。</p>
+
+      <table>
+        <thead>
+          <tr><th></th><th>DORA</th><th>EIS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>スコープ</strong></td><td>チーム／組織</td><td>個人＋チーム</td></tr>
+          <tr><td><strong>データ源</strong></td><td>CI/CD パイプライン</td><td>Git 履歴のみ</td></tr>
+          <tr><td><strong>核の問い</strong></td><td>「どれくらい速くシップしているか？」</td><td>「そのコードは生き残るか？」</td></tr>
+          <tr><td><strong>個人解像度</strong></td><td>なし</td><td>エンジニアごとに 7 軸</td></tr>
+          <tr><td><strong>コード生存</strong></td><td>測らない</td><td>核となる主張（重み 25%）</td></tr>
+          <tr><td><strong>アーキテクチャ可視化</strong></td><td>なし</td><td>Design 軸 + module topology</td></tr>
+          <tr><td><strong>セットアップ</strong></td><td>CI/CD 連携が必要</td><td><code>brew install eis &amp;&amp; eis</code></td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h2>SPACE: The Survey Telescope</h2>
+
+      <p><strong>何を測るか:</strong> Satisfaction &amp; well-being（満足と健全性）、Performance（成果）、Activity（活動）、Communication &amp; collaboration（協働）、Efficiency &amp; flow（効率とフロー）。Microsoft Research・GitHub・University of Victoria が提唱した。</p>
+
+      <p><strong>正しく捉えていること:</strong> SPACE は「生産性は多次元である」——つまり単一指標は必ずゲームされるか誤解される——という前提を正面から認めた。満足度やフローといった主観指標を、客観指標と並べて正当化した。これは重要な知的前進だった。</p>
+
+      <p><strong>闇に置き去りにしていること:</strong></p>
+
+      <ul>
+        <li><strong>ツールではなくフレームワークだ。</strong> SPACE は<em>何のカテゴリを</em>測るべきかを語るが、<em>どう測るか</em>は規定しない。運用化にはサーベイ、テレメトリ連携、相応の組織的労力が必要になる。</li>
+        <li><strong>サーベイデータは急速に劣化する。</strong> Q1 に取った開発者満足度は Q2 の現実を映しているとは限らない。サーベイはスナップショットであり、社会的望ましさバイアスを免れない。</li>
+        <li><strong>コードレベルの観測は不在。</strong> SPACE の「Performance」次元にはコードレビュー速度やコード品質が含まれるが、測り方は指定されない。コードが生き残るか、誰がアーキテクチャを所有しているか、バスファクターのリスクはどこにあるか —— これらはフレームワーク外だ。</li>
+        <li><strong>個人シグナルは政治的に扱われる。</strong> SPACE を個人レベルの測定に使うことは、著者たち自身が明示的に非推奨としている。結果として、個人の貢献という問いは未解決のまま置かれる。</li>
+      </ul>
+
+      <p><strong>ポジション:</strong> SPACE は生産性を考えるための、最も思慮深いメタフレームワークだ。<em>何を</em>測るかを決めるときの出発点として正しい。ただし、実測を担うツールは別に必要になる。</p>
+
+      <table>
+        <thead>
+          <tr><th></th><th>SPACE</th><th>EIS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>性格</strong></td><td>概念的フレームワーク</td><td>計測ツール</td></tr>
+          <tr><td><strong>データ源</strong></td><td>サーベイ + テレメトリ + コード指標</td><td>Git 履歴のみ</td></tr>
+          <tr><td><strong>核の問い</strong></td><td>「どの次元が重要か？」</td><td>「あなたはどんな痕跡を残したか？」</td></tr>
+          <tr><td><strong>運用化</strong></td><td>相応のセットアップが要る</td><td>CLI 1 コマンド</td></tr>
+          <tr><td><strong>主観性</strong></td><td>サーベイを含む</td><td>完全に客観（git データ）</td></tr>
+          <tr><td><strong>コード生存</strong></td><td>規定なし</td><td>核となる主張</td></tr>
+          <tr><td><strong>アーキテクチャ</strong></td><td>規定なし</td><td>Design 軸 + module topology</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h2>LinearB: The Workflow Telescope</h2>
+
+      <p><strong>何を測るか:</strong> サイクルタイム、コーディング時間、レビュー時間、デプロイ頻度、PR サイズ、開発者のワークロード。Git とプロジェクト管理ツール連携を持つ商用プラットフォーム。</p>
+
+      <p><strong>正しく捉えていること:</strong> LinearB は実行可能なワークフロー分析を提供する。開発サイクルのボトルネック——長いレビュー時間、過大な PR、偏ったワークロード——を可視化する。ベンチマーク機能で業界データとの比較も可能だ。</p>
+
+      <p><strong>闇に置き去りにしていること:</strong></p>
+
+      <ul>
+        <li><strong>インパクトより活動量。</strong> LinearB は<em>いつ</em>・<em>どれだけ速く</em>コードが書かれレビューされたかを測る —— <em>それが残ったかどうか</em>は測らない。翌スプリントに全部書き直される小さな PR を 50 本シップしたエンジニアが、生産的に見えてしまう。</li>
+        <li><strong>コード耐久性は不在。</strong> 生存分析がない。残り続けるコードと、すぐに書き換わるコードの区別がない。</li>
+        <li><strong>アーキテクチャは不透明。</strong> 誰がアーキテクチャ上の判断に寄与しているか。誰が重要モジュールの知識を抱えているか。LinearB が追うのはワークフローであって、構造的影響力ではない。</li>
+        <li><strong>プロプライエタリかつ SaaS 専用。</strong> リポジトリとプロジェクト管理ツールを接続する必要がある。観測方法論はオープンではない。</li>
+      </ul>
+
+      <p><strong>ポジション:</strong> LinearB はエンジニアリングワークフローのオプティマイザだ。開発プロセスを可視化し、摩擦点を特定する。「プロセスのどこが遅いか？」には答えるが —— 「コードベースの構造的な健全性はどうか？」には答えない。</p>
+
+      <table>
+        <thead>
+          <tr><th></th><th>LinearB</th><th>EIS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>スコープ</strong></td><td>チームのワークフロー</td><td>個人＋チームの構造</td></tr>
+          <tr><td><strong>データ源</strong></td><td>Git + Jira/Linear + CI/CD</td><td>Git 履歴のみ</td></tr>
+          <tr><td><strong>核の問い</strong></td><td>「プロセスのどこが遅いか？」</td><td>「どんな構造的インパクトを残したか？」</td></tr>
+          <tr><td><strong>コード生存</strong></td><td>測らない</td><td>核となる主張（重み 25%）</td></tr>
+          <tr><td><strong>料金</strong></td><td>無料枠 + 有料プラン</td><td>無料・オープンソース</td></tr>
+          <tr><td><strong>セットアップ</strong></td><td>SaaS 連携</td><td>CLI 1 コマンド</td></tr>
+          <tr><td><strong>アーキテクチャ</strong></td><td>測らない</td><td>Design 軸 + module topology</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h2>CodeScene: The Behavioral Telescope</h2>
+
+      <p><strong>何を測るか:</strong> コードヘルス、ホットスポット、コードレベルの複雑性トレンド、組織結合、知識分布。</p>
+
+      <p><strong>正しく捉えていること:</strong> CodeScene は哲学的に EIS に最も近い。コードの振る舞いパターンを分析し、ホットスポット（頻繁に変更される複雑なコード）を特定し、組織パターンを検出する。X-ray 機能はファイル内の複雑性トレンドを見せる。プロセスだけではなく、コード自身について問いを立てる道具だ。</p>
+
+      <p><strong>闇に置き去りにしていること:</strong></p>
+
+      <ul>
+        <li><strong>エンジニアトポロジーは限定的。</strong> CodeScene は知識サイロと組織パターンを特定するが、エンジニアを複数軸（Role, Style, State）で分類しない。知識が<em>偏っている</em>ことは見えても、それを抱えているのが<em>どんな種類の</em>エンジニアかは見えない。</li>
+        <li><strong>生存分析の立て方が違う。</strong> CodeScene はコードの年齢や変更頻度を追うが、時間減衰による生存重み付けは適用しない。変更圧の下で耐え続ける<em>堅牢な</em>生存（robust survival）と、誰も触らないから残っているだけの<em>休眠</em>生存（dormant survival）の区別がない。</li>
+        <li><strong>プロプライエタリな方法論。</strong> スコアリングアルゴリズムは完全には公開されていない。EIS は全ての式を<a href="https://github.com/machuz/eis/blob/main/docs/whitepaper.md" target="_blank" rel="noopener">ホワイトペーパー</a>で公開している。</li>
+        <li><strong>Module topology の立て方が違う。</strong> CodeScene は組織結合とホットスポットをマップする。EIS は変更圧、co-change coupling、モジュール生存、オーナーシップ断片化をマップし、そのうえで 3 軸（Coupling / Vitality / Ownership）でモジュールを分類する。</li>
+      </ul>
+
+      <p><strong>ポジション:</strong> CodeScene はコードレベルの健全性モニタリングと組織リスク検出に強い。EIS とは解像度が違う —— コードの健康に寄っており、エンジニア個人の構造的指紋には寄っていない。</p>
+
+      <table>
+        <thead>
+          <tr><th></th><th>CodeScene</th><th>EIS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>フォーカス</strong></td><td>コードヘルス + 組織パターン</td><td>エンジニアのインパクト + 構造トポロジー</td></tr>
+          <tr><td><strong>データ源</strong></td><td>Git + オプション連携</td><td>Git 履歴のみ</td></tr>
+          <tr><td><strong>核の問い</strong></td><td>「コードのどこが不健全か？」</td><td>「構造を形作ったのは誰か？」</td></tr>
+          <tr><td><strong>エンジニア分類</strong></td><td>知識分布</td><td>3 軸 topology（Role/Style/State）</td></tr>
+          <tr><td><strong>コード生存</strong></td><td>コード年齢の追跡</td><td>時間減衰 + robust/dormant 分離</td></tr>
+          <tr><td><strong>料金</strong></td><td>商用（有料）</td><td>無料・オープンソース</td></tr>
+          <tr><td><strong>方法論</strong></td><td>プロプライエタリ</td><td>完全公開（<a href="https://github.com/machuz/eis/blob/main/docs/whitepaper.md" target="_blank" rel="noopener">ホワイトペーパー</a>）</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h2>git-fame と git-quick-stats: The Raw Data</h2>
+
+      <p><strong>何を測るか:</strong> 著者ごとの行数、コミット数、ファイル単位の帰属。</p>
+
+      <p>この種のツールはクイックサマリには便利だが、測っているのは<em>量</em>であって<em>インパクト</em>ではない。自動生成コードを 50,000 行書いたエンジニアがランキングを支配する。システム全体が依存するアーキテクチャを 500 行書いたエンジニアは、見えないままだ。</p>
+
+      <p>EIS は同じ生データ（<code>git log</code>、<code>git blame</code>）から出発するが、その上に以下を足している:</p>
+
+      <ul>
+        <li><strong>時間減衰 Survival</strong> —— 古いコードは新しいコードより重みが小さい</li>
+        <li><strong>Robust と Dormant の区別</strong> —— 変更圧の下で生き残ったコードと、触られない片隅で生き残っただけのコード</li>
+        <li><strong>Debt cleanup の追跡</strong> —— 他人のバグを直しているのは誰か</li>
+        <li><strong>アーキテクチャパターン検出</strong> —— 構造的に重要なファイルへの貢献</li>
+        <li><strong>3 軸エンジニアトポロジー</strong> —— 「どれだけ」ではなく「どんな種類か」</li>
+      </ul>
+
+      <hr>
+
+      <h2>The Gap: どのフレームワークも測らないもの</h2>
+
+      <p>既存のフレームワークが未回答のまま残す、核心の問いがある:</p>
+
+      <blockquote>
+        <p><strong>このエンジニアが書いたコードのうち、今もどれだけ立っているか —— そしてそれは良いコードだから立っているのか、誰も触らないから立っているのか？</strong></p>
+      </blockquote>
+
+      <p>これが<strong>生存の問い</strong>だ。そして、これがすべてを変える。</p>
+
+      <p>2 人のエンジニアを思い浮かべてほしい:</p>
+
+      <ul>
+        <li><strong>Engineer A</strong> は四半期で 200 本の PR をシップする。DORA 指標はエリートだ。LinearB はサイクルタイムの速さを示す。だが 6 ヶ月後、そのコードの 80% は他の誰かに書き直されている。</li>
+        <li><strong>Engineer B</strong> は四半期で 40 本の PR しかシップしない。どの活動量指標でも控えめだ。だがそのコードはシステムの構造的背骨を形作っている —— 2 年経った今も残り、活発な変更圧の下で生き残っている。</li>
+      </ul>
+
+      <p>DORA には速いチームが見える。LinearB には高いスループットが見える。SPACE は満足度を捕まえるかもしれない。<strong>だが、どれも Engineer B がコードベースの重力の中心であることは見ない。</strong></p>
+
+      <p>EIS はそれを見る。なぜなら、答えるために <code>git blame</code> を必要とする問い —— <em>何が生き残ったか？</em> —— を立てているからだ。</p>
+
+      <hr>
+
+      <h2>競合ではなく、相補</h2>
+
+      <p>これらのフレームワークはライバルではない。空の異なる部分に向けられた望遠鏡だ。</p>
+
+      <pre><code>DORA        → 「デリバリーパイプラインは健全か？」
+SPACE       → 「生産性のどの次元が重要か？」
+LinearB     → 「ワークフローのボトルネックはどこか？」
+CodeScene   → 「コードのどこが不健全か？」
+EIS         → 「構造を形作ったのは誰か —— そしてそれは耐えているか？」</code></pre>
+
+      <p>成熟したエンジニアリング組織は、DORA をデリバリーヘルスに、LinearB をプロセス最適化に、そして EIS を<em>あらゆるものが動くための構造を、実際に作っているのは誰か</em>を理解するために、同時に使えるだろう。</p>
+
+      <p>もっとも危険な状態は、活動量だけを測っている状態だ。デプロイ頻度とサイクルタイムだけを最適化し、コード生存を観測しないチームは、速くシップしながら不可視の構造的負債を積み上げていく。コードは書き換わり続け、アーキテクチャは浸食され、そして全体を静かに支えているエンジニアたち —— <a href="https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c" target="_blank" rel="noopener">Anchor</a>、<a href="https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c" target="_blank" rel="noopener">Cleaner</a>、<a href="https://dev.to/machuz/git-archaeology-10-dark-matter-the-invisible-gravity-45ne" target="_blank" rel="noopener">Dark Matter</a> —— は見えないままになる。</p>
+
+      <hr>
+
+      <h2>フル比較表</h2>
 
       <table>
         <thead>
           <tr>
-            <th>道具</th>
-            <th>観測対象</th>
-            <th>データ源</th>
-            <th>立場</th>
+            <th>次元</th>
+            <th>DORA</th>
+            <th>SPACE</th>
+            <th>LinearB</th>
+            <th>CodeScene</th>
+            <th>EIS</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><strong>DORA</strong></td><td>チームの出力速度</td><td>CI/CD パイプライン</td><td>管理</td></tr>
-          <tr><td><strong>SPACE</strong></td><td>チームの状態（5 次元）</td><td>サーベイ＋定量混成</td><td>評価</td></tr>
-          <tr><td><strong>LinearB</strong></td><td>チームの生産性</td><td>DORA + SPACE を統合</td><td>管理・評価</td></tr>
-          <tr><td><strong>EIS</strong></td><td><strong>個人の痕跡の重力</strong></td><td><code>git log</code> / <code>git blame</code> のみ</td><td><strong>観測</strong></td></tr>
+          <tr><td><strong>スコープ</strong></td><td>チーム/組織</td><td>フレームワーク</td><td>チームのワークフロー</td><td>コード + 組織</td><td>個人 + チーム + モジュール</td></tr>
+          <tr><td><strong>データ源</strong></td><td>CI/CD</td><td>サーベイ + 混成</td><td>Git + PM ツール</td><td>Git + オプション</td><td>Git のみ</td></tr>
+          <tr><td><strong>個人解像度</strong></td><td>なし</td><td>非推奨</td><td>開発者ごとのワークフロー</td><td>知識マップ</td><td>7 軸 + 3 軸 topology</td></tr>
+          <tr><td><strong>コード生存</strong></td><td>なし</td><td>規定なし</td><td>なし</td><td>コード年齢</td><td>時間減衰 + robust/dormant</td></tr>
+          <tr><td><strong>アーキテクチャ</strong></td><td>なし</td><td>規定なし</td><td>なし</td><td>ホットスポット</td><td>Design 軸 + module topology</td></tr>
+          <tr><td><strong>バスファクター</strong></td><td>なし</td><td>規定なし</td><td>なし</td><td>知識サイロ</td><td>Indispensability 軸</td></tr>
+          <tr><td><strong>負債の追跡</strong></td><td>なし</td><td>規定なし</td><td>なし</td><td>コードヘルス</td><td>Debt Cleanup 軸</td></tr>
+          <tr><td><strong>エンジニア分類</strong></td><td>なし</td><td>なし</td><td>なし</td><td>限定的</td><td>Role / Style / State</td></tr>
+          <tr><td><strong>モジュール分類</strong></td><td>なし</td><td>なし</td><td>なし</td><td>ホットスポット</td><td>Coupling / Vitality / Ownership</td></tr>
+          <tr><td><strong>セットアップコスト</strong></td><td>CI/CD 連携</td><td>サーベイ + ツール類</td><td>SaaS 連携</td><td>SaaS / オンプレ</td><td><code>brew install eis</code></td></tr>
+          <tr><td><strong>料金</strong></td><td>無料（指標）</td><td>無料（フレームワーク）</td><td>フリーミアム</td><td>商用</td><td>無料・オープンソース</td></tr>
+          <tr><td><strong>方法論</strong></td><td>公開</td><td>公開</td><td>プロプライエタリ</td><td>プロプライエタリ</td><td><a href="https://github.com/machuz/eis/blob/main/docs/whitepaper.md" target="_blank" rel="noopener">完全公開</a></td></tr>
         </tbody>
       </table>
 
-      <h2>DORA が答えない問い</h2>
+      <hr>
 
-      <p>DORA は優れた道具だ。だが答えられない問いがひとつある —— <strong>「このチームが強いのは、誰がいるからか？」</strong> DORA はチームという単位でしか見ない。チームの速度が出ているとき、その速度を作っているのは誰か、という問いには手が届かない。</p>
+      <h2>自分で試す</h2>
 
-      <p>SPACE はそこに踏み込もうとしたが、主観サーベイを混ぜた結果、<strong>自己申告と上司の印象に依存した</strong>計測に戻った。個人に迫ったが、自己申告の壁で止まった。</p>
+      <pre><code>brew tap machuz/tap &amp;&amp; brew install eis
+cd your-repo
+eis analyze .</code></pre>
 
-      <p>LinearB は DORA + SPACE の合成で、すべての生産性指標を一画面にまとめる。強力だが、根っこの問いは変わらない —— <strong>チーム単位の出力</strong>を、見やすく見せているだけ。</p>
+      <p>API キー不要。AI トークン不要。SaaS 連携不要。<code>git log</code> と <code>git blame</code> だけだ。</p>
 
-      <h2>EIS は何を観測するか</h2>
-
-      <p>EIS は個人の<strong>痕跡</strong>だけを観測する。具体的には：</p>
-
-      <ul>
-        <li><strong>生存したコード</strong>（時間減衰 blame）</li>
-        <li><strong>設計ファイルへの貢献</strong>（アーキテクチャの骨格）</li>
-        <li><strong>他者の負債の清掃率</strong>（見えにくい貢献）</li>
-        <li><strong>モジュール所有率</strong>（バスファクター）</li>
-        <li>ほか 3 軸で、計 7 軸</li>
-      </ul>
-
-      <p>データ源は <code>git log</code> と <code>git blame</code> のみ。外部 API も AI トークンも不要。自己申告も入らない。</p>
-
-      <h2>決定的な違い —— 評価を混ぜない</h2>
-
-      <p>DORA・SPACE・LinearB はいずれも<strong>管理のための道具</strong>だ。数字を見て、どのチームに介入するかを決める。評価の回路に直結している。</p>
-
-      <p>EIS は意図的に<strong>観測と評価を分離</strong>する。出てきたシグナルを見て何を判断するかは、後工程のレイヤー（SaaS や組織）に委ねる。CLI 自体は望遠鏡のままで、裁判所にはならない。</p>
+      <p>自分のコードベースに望遠鏡を向けて、他のフレームワークには見せられないものを見る —— <strong>構造を形作ったのは誰で、それは耐えているのか。</strong></p>
 
       <blockquote>
-        <p>CLI は望遠鏡、SaaS は天文台。観測であって、評価ではない。</p>
+        <p>完全な方法論は <a href="https://github.com/machuz/eis/blob/main/docs/whitepaper.md" target="_blank" rel="noopener">Whitepaper</a> · <a href="https://github.com/machuz/eis" target="_blank" rel="noopener">GitHub</a> を参照。</p>
       </blockquote>
-
-      <h2>もうひとつの違い —— ゲーム耐性</h2>
-
-      <p>EIS の <strong>Survival</strong> 軸は時間減衰する。急いで書き捨てたコードは減衰で消え、<strong>残ったコードだけがカウントされる</strong>。コミット数や行数を稼いでも、後で消される仕事はスコアに残らない。</p>
-
-      <p>指標を追いかけるとゲームになる、という批判はこの手の計器に常に付きまとうが、EIS は<strong>望遠鏡を曲げない</strong>ための設計を優先した。</p>
 
       <hr>
 
-      <p>ここまでが短い見取り図。本格的な比較は英語版 dev.to 記事でもう一段深く展開している。</p>
+      <h3>The Git Archaeology Series</h3>
 
-      <p><a href="https://dev.to/machuz/dora-space-linearb-and-the-question-they-all-leave-unanswered-41di" target="_blank" rel="noopener"><strong>EN 原文（dev.to）で詳細を読む →</strong></a></p>
+      <p>この記事は単体で読める比較記事だ。git 履歴がエンジニアリング組織について何を明かしうるかの全貌を知りたければ:</p>
+
+      <ul>
+        <li><a href="https://dev.to/machuz/git-archaeology-0-what-if-git-history-could-tell-you-who-your-strongest-engineers-are-5397" target="_blank" rel="noopener">Chapter 0: What If Git History Could Tell You Who Your Strongest Engineers Are?</a></li>
+        <li><a href="https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c" target="_blank" rel="noopener">Chapter 1: Measuring Engineering Impact from Git History Alone</a></li>
+        <li><a href="https://dev.to/machuz/git-archaeology-0-what-if-git-history-could-tell-you-who-your-strongest-engineers-are-5397" target="_blank" rel="noopener">全シリーズ（全 17 章）</a></li>
+      </ul>
+
+      <hr>
+
+      <p><strong>GitHub:</strong> <a href="https://github.com/machuz/eis" target="_blank" rel="noopener">eis</a> —— CLI ツール、式、方法論のすべてがオープンソース。</p>
+
+      <p>役に立ったなら: <a href="https://github.com/sponsors/machuz" target="_blank" rel="noopener">Sponsor on GitHub</a></p>
     </article>
 
     <div class="book-footer">

@@ -590,6 +590,13 @@ body.ja .mini[data-lang="ja"] { display: block; }
 body.ja [data-lang-inline="en"] { display: none; }
 body.ja [data-lang-inline="ja"] { display: inline; }
 
+/* Book button language swap — keep inline-flex display, solo button layout */
+.book-btn[data-lang="en"] { display: inline-flex; }
+body.ja .book-btn[data-lang="en"] { display: none; }
+body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
+/* Solo button should not stretch to full width */
+.book-actions .book-btn-primary { flex: 0 1 auto; }
+
 /* ===== Page TOC (right-sticky scrollspy) ===== */
 .page-toc {
   position: fixed;
@@ -785,8 +792,8 @@ body.ja [data-lang-inline="ja"] { display: inline; }
           外部の成功・正論・空気に上書きされず、自分の意思で動き続けるための作動原理。一番内側の層から始められる。
         </p>
         <div class="book-actions">
-          <a href="./psychological-os/" class="book-btn book-btn-primary"><span data-lang-inline="en">Read JP →</span><span data-lang-inline="ja">日本語で読む →</span></a>
-          <a href="https://dev.to/machuz/psychological-os-0-why-some-people-keep-burning-while-others-fade-2cgj" class="book-btn book-btn-secondary" target="_blank" rel="noopener">EN · dev.to ↗</a>
+          <a href="./psychological-os/" class="book-btn book-btn-primary" data-lang="ja">日本語で読む →</a>
+          <a href="https://dev.to/machuz/psychological-os-0-why-some-people-keep-burning-while-others-fade-2cgj" class="book-btn book-btn-primary" data-lang="en" target="_blank" rel="noopener">Read on dev.to ↗</a>
         </div>
       </div>
 
@@ -803,8 +810,8 @@ body.ja [data-lang-inline="ja"] { display: inline; }
           評価ではなく観測、人ではなく構造、感情ではなく設計。組織を観測可能なシステムとして扱う —— 管理するものから、設計するものへ。
         </p>
         <div class="book-actions">
-          <a href="./structure-driven-org/" class="book-btn book-btn-primary"><span data-lang-inline="en">Read JP →</span><span data-lang-inline="ja">日本語で読む →</span></a>
-          <a href="https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101" class="book-btn book-btn-secondary" target="_blank" rel="noopener">EN · dev.to ↗</a>
+          <a href="./structure-driven-org/" class="book-btn book-btn-primary" data-lang="ja">日本語で読む →</a>
+          <a href="https://dev.to/machuz/structure-driven-organization-theory-0-why-existing-org-theory-doesnt-work-1101" class="book-btn book-btn-primary" data-lang="en" target="_blank" rel="noopener">Read on dev.to ↗</a>
         </div>
       </div>
 
@@ -821,8 +828,8 @@ body.ja [data-lang-inline="ja"] { display: inline; }
           Git履歴だけで、各エンジニアの重力が見える。外部API不要、AIトークン不要 —— git log と git blame、7軸、そして望遠鏡。
         </p>
         <div class="book-actions">
-          <a href="./git-archaeology/" class="book-btn book-btn-primary"><span data-lang-inline="en">Read JP →</span><span data-lang-inline="ja">日本語で読む →</span></a>
-          <a href="https://dev.to/machuz/git-archaeology-0-what-if-git-history-could-tell-you-who-your-strongest-engineers-are-5397" class="book-btn book-btn-secondary" target="_blank" rel="noopener">EN · dev.to ↗</a>
+          <a href="./git-archaeology/" class="book-btn book-btn-primary" data-lang="ja">日本語で読む →</a>
+          <a href="https://dev.to/machuz/git-archaeology-0-what-if-git-history-could-tell-you-who-your-strongest-engineers-are-5397" class="book-btn book-btn-primary" data-lang="en" target="_blank" rel="noopener">Read on dev.to ↗</a>
         </div>
       </div>
     </div>

@@ -212,8 +212,8 @@
         <div class="book-meta">
           <span class="book-meta-item"><span class="book-meta-dot"></span><strong>${cfg.chapters.length}</strong> ${cfg.lang === 'ja' ? '章' : 'chapters'}</span>
           <span class="book-meta-item"><span class="book-meta-dot"></span>JP · ${cfg.lang === 'ja' ? '日本語原文' : 'Japanese original'}</span>
-          <span class="book-meta-item"><span class="book-meta-dot"></span>EN · dev.to</span>
-          <span class="book-meta-item">github.com/machuz/eis</span>
+          <a class="book-meta-item book-meta-link" href="${cfg.chapters[0].en}" target="_blank" rel="noopener"><span class="book-meta-dot"></span>EN · dev.to ↗</a>
+          <a class="book-meta-item book-meta-link" href="https://github.com/machuz/eis" target="_blank" rel="noopener">github.com/machuz/eis ↗</a>
         </div>
       </section>
 
