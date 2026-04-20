@@ -19,13 +19,13 @@ Left: the individual side (chapters 0–2) — Psychological OS as the base laye
 
 ## 1. Principles get polluted, fast
 
-When you encounter a strong principle, you unconsciously pull it toward your own concerns. An engineer reading Akagi's philosophy translates it into organizational theory. A founder translates it into strategy. An artist translates it into creative theory. Translation helps understanding, yes — but **at the moment of translation, the principle is polluted.** The original range it held — reaching the individual directly, regardless of role or domain — is lost.
+When you encounter a strong principle, you unconsciously pull it toward your own concerns. An engineer reading Akagi's philosophy translates it into organizational theory. A founder translates it into strategy. An artist translates it into creative theory. Translation helps understanding, yes — but **at the moment of translation, the principle is polluted.** The original reach it held — reaching the individual directly, regardless of role or domain — is lost.
 
 This pollution happens easily for thinkers, founders, engineering managers — anyone who thinks through a system of their own. The stronger the frame you bring, the more easily the principle gets absorbed into that frame.
 
 ## 2. The failed first translation
 
-Two years ago, I wrote an Akagi-based piece for my employer at the time, using the same material. I was doing exactly this pollution. Akagi's philosophy is about **the individual's operating principle** — domain-independent. But I had pulled it toward my own organizational theory. The article came out structured as "borrow Akagi to strengthen the organizational argument," narrowing the range Akagi originally held.
+Two years ago, I wrote an Akagi-based piece for my employer at the time, using the same material. I was doing exactly this pollution. Akagi's philosophy is about **the individual's operating principle** — domain-independent. But I had pulled it toward my own organizational theory. The article came out structured as "borrow Akagi to strengthen the organizational argument," narrowing the reach Akagi originally held.
 
 I put it up as internal knowledge. But it didn't shift the organization's recognition. Whether the seed of either the Structure-Driven Engineering Organization Theory or Psychological OS got shared in any real sense, I don't know. What I do know is: the way I told it then didn't reach.
 
@@ -125,7 +125,7 @@ Thanks for reading to the end.
 
 If this series resonated, the Japanese original book is [here on GitHub Pages](https://machuz.github.io/eis/docs/psychological-os/). The sister work (Structure-Driven Engineering Organization Theory) and the tool that started it all ([EIS — Engineering Impact Signal](https://github.com/machuz/eis)) are linked from there.
 
-**Heat is born alone, but survives only inside structure.** That's the real range of Psychological OS.
+**Heat is born alone, but survives only inside structure.** That's the real reach of Psychological OS.
 
 ---
 

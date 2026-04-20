@@ -17,7 +17,7 @@ The two moves this chapter names are **translation** (the individual's move) and
 
 ## 1. The question — can we cross this?
 
-Let me restate the mechanism from chapter 3, shortly. The organization, through single-layer decisions accumulating unconverted, erodes individual heat. The individual, as a side effect of strength, destabilizes the organization's average motion. Bidirectional destruction proceeds quietly if left alone.
+Let me restate the mechanism from chapter 3, briefly. The organization, through single-layer decisions accumulating unconverted, erodes individual heat. The individual, as a side effect of strength, destabilizes the organization's average motion. Bidirectional destruction proceeds quietly if left alone.
 
 Three choices sit here.
 
@@ -39,7 +39,7 @@ An individual who steps into a new organization and tries to move on their own p
 
 The bar you have to clear here is the **proof phase**. In sports, when an ace replaces the previous one, or when tactics shift, the central figure always passes through such a period. Proof runs on several axes:
 
-- **Reliability of execution** — you can not only see it, you can reproduce it yourself
+- **Reliability of execution** — you can not only see it, but also reproduce it yourself
 - **Strategic effectiveness** — operating on your principle actually produces results
 - **Fit with the team** — how quickly your personality dissolves into the organization
 - **Worth betting the future on** — not a one-off peak, but a core you can carry long-term
@@ -60,7 +60,7 @@ After the proof phase, two stances are available. From observed git history, two
 
 Neither is correct in the abstract. But for someone with a strong Psychological OS who wants to deliver heat while avoiding collision, osmotic mode has less friction. Don't **push** heat; **propagate** it.
 
-You might feel this contradicts chapter 3 §2's "even life is irrelevant." Disconnected from the organization, but osmotically blending into it? That's a contradiction only at the surface. **Being cut from the organization inside, and behaving osmotically outside, hold simultaneously.** The cut is about the drive source. Osmosis is about the outward behavior.
+You might feel this contradicts chapter 3 §2's "even life is irrelevant." Disconnected from the organization, but osmotically blending into it? That's a contradiction only at the surface. **Being cut from the organization inside, and behaving osmotically outside, hold true simultaneously.** The cut is about the drive source. Osmosis is about the outward behavior.
 
 People who haven't cut synchronize with the organization's temperature and don't have an original principle to propagate in the first place. Only people who have cut hold a principle worth propagating. On top of that, they choose osmotic external behavior. **Untranslated strength doesn't arrive.**
 
@@ -134,7 +134,7 @@ Chapter 3 handled the collision with organizations. Psychological OS isn't close
 
 Chapter 4 handled the meshing. The individual **translates** heat. The organization **preserves** heat. When both mesh, heat cascades from individual to organization, and from organization to other individuals.
 
-This entire arc is the range of Psychological OS as the internal operating principle. Structure-driven theory handles the external physics; this book is its sibling for the internal principle. Neither alone is enough. **Only when both inside and outside are running does sustainable strength appear.**
+This entire arc is the reach of Psychological OS as the internal operating principle. Structure-driven theory handles the external physics; this book is its sibling for the internal principle. Neither alone is enough. **Only when both inside and outside are running does sustainable strength appear.**
 
 ---
 
