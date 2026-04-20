@@ -72,8 +72,10 @@ Heat only emerges in someone who is attached to something.
 This isn't paradoxical, it's the definition's consequence. Heat is the internal energy that sustains action (§1). For energy to sustain, you need a reason to keep moving — **something you can't let go of**. Someone who has shed everything may look light, but they can't hold heat.
 
 > **Attachment is the source of action that continues even when external evaluation vanishes.**
+>
+> **Conversely: the moment attachment depends on external evaluation, it stops persisting.**
 
-**Heat is ignition, attachment is combustion.** Heat is a drive-energy, attachment is a sustain-energy. Momentary drive without attachment ignites and fades in one burst. Only heat backed by attachment keeps going for decades.
+**Heat = ignition. Attachment = combustion.** Heat is a drive-energy, attachment is a sustain-energy. Momentary drive without attachment ignites and fades in one burst. Only heat backed by attachment keeps going for decades.
 
 > **Someone with no attachment cannot hold heat in the first place.**
 
