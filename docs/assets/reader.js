@@ -12,6 +12,13 @@
   const LS_FONT = 'orbit-reader-font';
   const LS_SCROLL = (slug) => `orbit-reader-scroll-${cfg.bookId}-${slug}`;
 
+  // Sibling books for the cover-page switcher (order = L1 → L3)
+  const BOOKS = [
+    { id: 'psychological-os',    code: 'BOOK · 1', layer: 'L1 / INTERIOR',  title: '心理OS',                            path: '../psychological-os/' },
+    { id: 'structure-driven-org', code: 'BOOK · 2', layer: 'L2 / STRUCTURE', title: '構造駆動エンジニアリング組織論', path: '../structure-driven-org/' },
+    { id: 'git-archaeology',     code: 'BOOK · 3', layer: 'L3 / TRACE',     title: 'git考古学',                          path: '../git-archaeology/' }
+  ];
+
   // Restore preferences
   const savedTheme = localStorage.getItem(LS_THEME);
   if (savedTheme === 'light') document.body.classList.add('theme-light');
@@ -235,6 +242,19 @@
             </a></li>`).join('')}
         </ul>
       </div>
+
+      <section class="book-switch">
+        <div class="book-switch-label">${cfg.lang === 'ja' ? '他の Book' : 'Other books'}</div>
+        <div class="book-switch-list">
+          ${BOOKS.map(b => `
+            <a href="${b.path}" class="book-switch-item${b.id === cfg.bookId ? ' current' : ''}"${b.id === cfg.bookId ? ' aria-current="page"' : ''}>
+              <span class="bs-code">${b.code}</span>
+              <span class="bs-layer">${b.layer}</span>
+              <span class="bs-title">${escapeHTML(b.title)}</span>
+            </a>
+          `).join('')}
+        </div>
+      </section>
 
       <div class="book-footer">
         <div class="quote">${cfg.closingQuote || ''}</div>

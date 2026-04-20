@@ -553,6 +553,78 @@ body.theme-light .orbit-bar a:hover { color: #f2e4c0; }
 }
 
 /* ======================================================================
+   Book switcher (cover page only) — cross-links to sibling books
+   ====================================================================== */
+.book-switch {
+  margin-top: 40px;
+}
+.book-switch-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2.8px;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-left: 4px;
+}
+.book-switch-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+@media (max-width: 600px) {
+  .book-switch-list { grid-template-columns: 1fr; }
+}
+.book-switch-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 18px 20px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color .14s, background .14s, transform .14s, box-shadow .14s;
+}
+.book-switch-item:hover {
+  border-color: var(--purple);
+  background: var(--paper-hi);
+  transform: translateY(-2px);
+  text-decoration: none;
+  box-shadow: 0 6px 18px var(--purple-glow);
+}
+.book-switch-item.current {
+  pointer-events: none;
+  cursor: default;
+  background: var(--purple-glow);
+  border-color: var(--purple);
+  transform: none;
+}
+.book-switch-item .bs-code {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--purple-bright);
+  text-transform: uppercase;
+}
+.book-switch-item .bs-layer {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.book-switch-item .bs-title {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text-strong);
+  letter-spacing: -0.005em;
+}
+
+/* ======================================================================
    Chapter content
    ====================================================================== */
 .chapter-bar {
