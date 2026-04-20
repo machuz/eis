@@ -52,13 +52,18 @@ Strength that skips proof and only pushes principle disappears before reaching a
 
 ### 2-2. Osmotic behavior — gradual over sudden
 
-After the proof phase, two stances are available. Git history suggests two recurring patterns when an engineer evolves into an architect.
+The proof phase itself comes in two styles. Git history suggests two recurring patterns when an engineer evolves into an architect.
 
 **Sudden mode** — after a brief anchor period, immediately start redesigning around your own architecture. Fast. But continuity with the predecessor's structure is broken, so **the risk of collision with the team is high**.
 
 **Osmotic mode** — respect the predecessor's structure, keep producing, and let your own design diffuse into it gradually. Through the anchor period you understand existing structure. Through the producer period you keep shipping at high volume, and in that process your architecture quietly propagates through the codebase. It takes time, but **continuity with existing structure is preserved**.
 
-Neither is correct in the abstract. But for someone with a strong Psychological OS who wants to deliver heat while avoiding collision, osmotic mode has less friction. Don't **push** heat; **propagate** it.
+**Which one wins depends on the temperature of the environment.**
+
+- **In a rigid, conservative environment** — osmotic takes too long, and heat wears out along the way. **Sudden mode, paired with enough authority to break things,** produces results faster.
+- **In an environment already running at high heat** — just aligning the existing vectors is enough. Osmotic mode has less friction and leaves more durable results.
+
+Either way, the goal is the same — **don't push; propagate.** What differs is the speed, and how your heat meshes with the room's temperature.
 
 You might feel this contradicts chapter 3 §2's "even life is irrelevant." Disconnected from the organization, but osmotically blending into it? That's a contradiction only at the surface. **Being cut from the organization inside, and behaving osmotically outside, hold true simultaneously.** The cut is about the drive source. Osmosis is about the outward behavior.
 
@@ -92,7 +97,7 @@ In organizations with conversion, correct decisions in one layer don't extinguis
 
 ### 3-2. Controlled chaos
 
-The other layer of preservation: **strategically build spaces inside the structure where heat is preserved.**
+If the converter is the first design — **keeping heat from being extinguished** across layers — the second design is **securing places where heat can be born**. Strategically build spaces inside the structure where heat is preserved.
 
 If everyone moves freely, the whole becomes mere chaos. But a perfectly controlled organization generates no heat. What's needed is **to strategically build enclosures that permit moves outside the script.**
 
