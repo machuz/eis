@@ -118,7 +118,8 @@ The glossary the series built, in one table. Core concepts first, then related t
 
 ### Related (4)
 
-- **Purity** — Where heat draws its fuel. From approval, comparison, obligation, fear — low purity. From exploration, curiosity, conviction — high purity. (ch2 §7)
+- **Purity** — Where heat draws its fuel. Determined by two axes: direction (inner/outer) and scope (large/small). From approval, comparison, obligation, fear — low purity. From exploration, curiosity, conviction — high purity. (ch2 §7, §4)
+- **Scope** — Purity's second axis. The abstraction/breadth of the attachment target. Large scope (structure, principle) is resistant to decay pressure; small scope (specific craft) gets directly hit by external pressure. Scope can move, expand, and converge. (ch2 §4)
 - **Vector alignment** — The state where the individual's direction and the direction of external pressure line up. When aligned, the decay rate of heat under outer pressure drops. (ch2 §8)
 - **Cut** — The state where the organization's temperature is not used as a drive source. You understand the organization, but don't use it as internal fuel. (ch3 §2)
 - **Inner / outer pressure** — The distinction between drive sources. Inner pressure comes from your own will. Outer pressure comes from requests, expectations, the flow. (ch2 §1)

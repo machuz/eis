@@ -104,6 +104,10 @@ But a completely unmanaged enclosure spirals into destruction. The enclosure nee
 
 An enclosure with these three conditions is **a space that preserves heat**. The "synergy among activities born from heat" from chapter 3 §1 only really moves inside enclosures like this.
 
+### What preservation keeps alive
+
+Preservation doesn't serve only those with large-scope heat. The more urgent case is the people with **small-scope purity** (ch2 §4) — deep devotion to UX, the aesthetics of code, precision. Their direction is correct, but their paths are narrow, easily hit by external pressure. Converters and controlled chaos are also about **designing detours and resonance spaces so that small-scope heat doesn't burn out alone**. Large-scope people can keep their own fire alive. Not letting small-scope people's fire go out is one of preservation's core reasons for existing.
+
 ## 4. The condition for mesh — when they align
 
 Translation (individual) and preservation (organization) don't hold alone. The four quadrants below show what happens when each combination is missing. Heat only survives in **the top-right cell: both present**.

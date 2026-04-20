@@ -91,6 +91,31 @@ So telling someone without heat to "drop your attachment" is the wrong prescript
 
 When you self-observe, the real question isn't "am I attached to something" — it's **"to what am I attached."** That answer determines the purity of your Psychological OS.
 
+### Scope — purity's second axis
+
+Purity isn't fully explained by direction (inner/outer). There's a second axis: **scope**.
+
+With the same inner-directed attachment, **the larger the scope of the target, the stronger the resistance to decay pressure**.
+
+- **Large scope** — making the structure work, essence-level exploration, operating principles themselves. Multiple paths to realization; when one approval or resource gets blocked, another path continues.
+- **Small scope** — devotion to a specific craft (the UX of this feature, the aesthetics of this code, the precision of this paper). Purity is high, but realization paths are narrow; approvals, priorities, or budgets block, and heat gets directly eroded.
+
+Both are inner-directed attachments — the direction is pure. But **decay resistance differs**. Many people with "good heat that fades fast" have correct direction but small scope. Their deep devotion to a single craft loses heat each time that path gets blocked.
+
+### Scope is not static
+
+Scope is not fixed. It can **move, expand, and converge**.
+
+What makes *Space Brothers*' Mutta beautiful is the process of **transferring his attachment to space onto the team**. From individual dream, to carrying the dreams of his cohort, to juniors, to the whole team — the scope widens. As scope widens, his heat no longer stops on his own individual setback.
+
+What makes *Blue Giant*'s Dai and his companions beautiful is how **each one's small-scope heat converges into a single direction through the form of a session**. Tenor, piano, drums — three different attachments collide, fuse, and become one music. A collection of small scopes, without individual expansion, creates greater heat through resonance.
+
+Both are motions that take small-scope purity — which would burn out alone — and convert it into more persistent heat. **Scope can be increased. Transferred. Layered.**
+
+### A personal note
+
+I'm on the large-scope side myself — the source of my heat sits in "making the structure work." I don't hold deep attachment to any specific craft. In exchange, when an organization or project is about to stop, my heat activates more strongly. And I notice that when someone nearby with small-scope heat — deep devotion to good UX, to precision — is about to be crushed by external pressure, **I move in ways that keep that fire from going out**. Different scope, same direction of purity. When the two mesh, they compensate each other's decay.
+
 ## 5. What actually happens in a strong Psychological OS
 
 With high-purity heat, not-being-caught, and the subject kept on your side — three things start happening.
