@@ -16,7 +16,7 @@
   const BOOKS = [
     { id: 'psychological-os',    code: 'BOOK · 1', layer: 'L1 / INTERIOR',  title: '心理OS',                            path: '../psychological-os/' },
     { id: 'structure-driven-org', code: 'BOOK · 2', layer: 'L2 / STRUCTURE', title: '構造駆動エンジニアリング組織論', path: '../structure-driven-org/' },
-    { id: 'git-archaeology',     code: 'BOOK · 3', layer: 'L3 / TRACE',     title: 'git考古学',                          path: '../git-archaeology/' }
+    { id: 'git-archaeology',     code: 'BOOK · 3', layer: 'L3 / STRATA',    title: 'git考古学',                          path: '../git-archaeology/' }
   ];
 
   // Restore preferences
@@ -174,11 +174,12 @@
       .replace(/-+/g, '-').replace(/^-|-$/g, '');
   }
   function chapterNumLabel(i, total, lang) {
-    // ja: 第0章, 第1章 ... last is 最終章 if labeled epilogue
+    // ja: 序章, 第1章 ... last is 最終章 if labeled epilogue
     const slug = cfg.chapters[i].slug;
     if (slug === 'epilogue') return lang === 'ja' ? '最終章' : 'Epilogue';
-    if (lang === 'ja') return i === 0 ? '第0章' : '第' + i + '章';
-    return 'Ch ' + (i === 0 ? '00' : String(i).padStart(2, '0'));
+    if (i === 0) return lang === 'ja' ? '序章' : 'Prologue';
+    if (lang === 'ja') return '第' + i + '章';
+    return 'Ch ' + String(i).padStart(2, '0');
   }
   function showToast(msg) {
     toastEl.textContent = msg;

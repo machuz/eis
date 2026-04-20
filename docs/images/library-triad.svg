@@ -64,7 +64,7 @@
   <g transform="translate(80 380)">
     <rect x="0" y="0" width="800" height="120" rx="10" fill="url(#lvl1)" stroke="#3c2d70" stroke-width="1.2"/>
     <rect x="0" y="0" width="4" height="120" fill="#a188ed"/>
-    <text class="lbl" x="24" y="28">L3 · Trace</text>
+    <text class="lbl" x="24" y="28">L3 · Strata</text>
     <text class="cap" x="720" y="28" text-anchor="end">Book 3</text>
     <text class="ttl" x="24" y="60">Git Archaeology</text>
     <text class="ja"  x="24" y="84">git 考古学  ·  観測の実装</text>
