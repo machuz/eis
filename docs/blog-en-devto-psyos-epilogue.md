@@ -2,7 +2,6 @@
 title: "Psychological OS #Epilogue — Why I Built This System, and a 10-Question Self-Diagnostic"
 series: "Psychological OS"
 published: true
-date: "2026-04-19T23:05:00Z"
 description: "Why this book ended up as a dual structure (structure-driven × Psychological OS), a 10-question self-diagnostic for individuals and organizations, and the full glossary of the series."
 tags: career, productivity, leadership, philosophy
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/cover.png?v=1
