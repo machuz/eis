@@ -149,10 +149,12 @@ a:hover { color: var(--text-strong); }
   margin: 0 auto;
 }
 .hero-logo {
-  width: 96px; height: 96px;
-  margin-bottom: 36px;
-  opacity: 0.95;
-  filter: drop-shadow(0 0 24px rgba(177, 98, 134, 0.18));
+  display: block;
+  width: clamp(240px, 30vw, 400px);
+  height: auto;
+  margin: 0 0 40px -16px;
+  opacity: 1;
+  filter: drop-shadow(0 0 64px rgba(124, 92, 224, 0.45)) drop-shadow(0 0 18px rgba(124, 92, 224, 0.28));
 }
 .eyebrow {
   font-family: var(--mono);
