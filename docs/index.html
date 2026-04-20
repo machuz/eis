@@ -23,17 +23,17 @@
   --bg-card-hi: #1a2238;
   --border: #1e2a45;
   --border-hi: #2a3a5e;
-  --border-glow: #3c2d70;
+  --border-glow: #4a2e44;
   --text: #e8e0d0;
   --text-strong: #ebdbb2;
   --text-muted: #7a8599;
   --text-dim: #4d5a73;
-  /* Lakers-inspired royal purple — vivid on the deep void. */
-  --purple: #8e66ec;
-  --purple-dim: #7258bc;
-  --purple-bright: #b393f3;
-  --purple-deep: #4a3593;
-  --purple-glow: rgba(142, 102, 236, 0.22);
+  /* Ideal D-01 magenta primary — warm, restrained */
+  --purple: #b16286;
+  --purple-dim: #8a4858;
+  --purple-bright: #d3869b;
+  --purple-deep: #6b3a4f;
+  --purple-glow: rgba(177, 98, 134, 0.22);
   --gray1: #928374;
   --gray2: #665c54;
   --gray3: #504945;
@@ -125,6 +125,16 @@ a:hover { color: var(--text-strong); }
 }
 .crumb-action:hover { border-color: var(--purple-dim); color: var(--purple-bright); }
 .crumb-action.active { background: rgba(177,98,134,0.08); color: var(--purple-bright); border-color: var(--purple-dim); }
+.crumb-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  transition: all 150ms ease;
+  margin-left: 4px;
+}
+.crumb-icon:hover { color: var(--text-strong); background: rgba(255,255,255,0.05); }
+.crumb-icon svg { width: 16px; height: 16px; display: block; }
 
 .content { position: relative; z-index: 1; }
 .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
@@ -591,7 +601,11 @@ body.ja [data-lang-inline="ja"] { display: inline; }
   <div class="crumb-right">
     <button class="crumb-action" id="btn-en" onclick="setLang('en')">EN</button>
     <button class="crumb-action" id="btn-ja" onclick="setLang('ja')">JA</button>
-    <a href="https://github.com/machuz/eis" class="crumb-action" target="_blank" rel="noopener">GH</a>
+    <a href="https://github.com/machuz/eis" class="crumb-icon" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.17c-3.34.72-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.4 3-.41 1.02.01 2.04.14 3 .41 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.69.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/>
+      </svg>
+    </a>
   </div>
 </nav>
 
@@ -752,7 +766,7 @@ body.ja [data-lang-inline="ja"] { display: inline; }
 
     <div class="books">
       <div class="book">
-        <div class="book-code">BOOK · I</div>
+        <div class="book-code">BOOK · 1</div>
         <div class="book-tag">17 chapters</div>
         <div class="book-title" data-lang="en">Git Archaeology</div>
         <div class="book-title" data-lang="ja">git考古学</div>
@@ -770,7 +784,7 @@ body.ja [data-lang-inline="ja"] { display: inline; }
       </div>
 
       <div class="book">
-        <div class="book-code">BOOK · II</div>
+        <div class="book-code">BOOK · 2</div>
         <div class="book-tag">11 chapters</div>
         <div class="book-title" data-lang="en">Structure-Driven Org Theory</div>
         <div class="book-title" data-lang="ja">構造駆動エンジニアリング組織論</div>
@@ -788,7 +802,7 @@ body.ja [data-lang-inline="ja"] { display: inline; }
       </div>
 
       <div class="book">
-        <div class="book-code">BOOK · III</div>
+        <div class="book-code">BOOK · 3</div>
         <div class="book-tag">6 chapters</div>
         <div class="book-title" data-lang="en">Psychological OS</div>
         <div class="book-title" data-lang="ja">心理OS</div>
@@ -873,37 +887,29 @@ body.ja [data-lang-inline="ja"] { display: inline; }
     </p>
 
     <div class="article-list">
-      <a href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-comparison.md" class="article" target="_blank" rel="noopener">
+      <a href="https://dev.to/machuz/dora-space-linearb-and-the-question-they-all-leave-unanswered-41di" class="article" target="_blank" rel="noopener">
         <div class="article-idx">01</div>
         <div class="article-body">
           <div class="article-title">EIS vs DORA vs SPACE vs LinearB — How OrbitLens differs from the rest</div>
           <div class="article-sub">comparison · positioning</div>
         </div>
-        <div class="article-lang">EN</div>
+        <div class="article-lang">EN ↗</div>
       </a>
-      <a href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-complete.md" class="article" target="_blank" rel="noopener">
+      <a href="https://dev.to/machuz/git-archaeology-a-complete-theory-of-software-universes-1057" class="article" target="_blank" rel="noopener">
         <div class="article-idx">02</div>
         <div class="article-body">
-          <div class="article-title">Engineering Impact Signal — The Complete Guide</div>
+          <div class="article-title">Git Archaeology — A Complete Theory of Software Universes</div>
           <div class="article-sub">long-form origin article</div>
         </div>
-        <div class="article-lang">EN</div>
+        <div class="article-lang">EN ↗</div>
       </a>
-      <a href="https://github.com/machuz/eis/blob/main/docs/blog-ja-zenn-complete.md" class="article" target="_blank" rel="noopener">
+      <a href="./articles/git-archaeology-complete/" class="article">
         <div class="article-idx">03</div>
         <div class="article-body">
           <div class="article-title">Engineering Impact Signal —— 完全版</div>
           <div class="article-sub">原点の長尺記事</div>
         </div>
-        <div class="article-lang">JA</div>
-      </a>
-      <a href="https://github.com/machuz/eis/blob/main/docs/module-science-roadmap.md" class="article" target="_blank" rel="noopener">
-        <div class="article-idx">04</div>
-        <div class="article-body">
-          <div class="article-title">Module Science Roadmap</div>
-          <div class="article-sub">structural scoring · from metrics to telescope</div>
-        </div>
-        <div class="article-lang">EN</div>
+        <div class="article-lang">JA →</div>
       </a>
     </div>
   </div>

@@ -1,5 +1,5 @@
 /* ======================================================================
-   OrbitLens Reader — dark void, Lakers purple accent
+   OrbitLens Reader — dark void, Ideal D-01 magenta accent
    Ideal design principles: D-01 purple, D-04 numbers as heroes,
    D-06 compass rose, D-11 notebook margin, D-29 reticle on focus,
    UX-06 scope always visible.
@@ -15,7 +15,7 @@
   --paper-hi: #1a2238;
   --border: #1e2a45;
   --border-hi: #2a3a5e;
-  --border-glow: #3c2d70;
+  --border-glow: #4a2e44;
 
   /* Text (Ideal gruvbox-warm) */
   --text: #ebdbb2;
@@ -24,21 +24,21 @@
   --muted: #928374;
   --dim: #665c54;
 
-  /* Lakers royal purple — vivid on void */
-  --purple: #8e66ec;
-  --purple-dim: #7258bc;
-  --purple-bright: #b393f3;
-  --purple-deep: #4a3593;
-  --purple-glow: rgba(142, 102, 236, 0.22);
+  /* Ideal D-01 magenta primary */
+  --purple: #b16286;
+  --purple-dim: #8a4858;
+  --purple-bright: #d3869b;
+  --purple-deep: #6b3a4f;
+  --purple-glow: rgba(177, 98, 134, 0.22);
 
   /* Code tokens */
   --code-bg: #1c2540;
-  --code-text: #b393f3;
+  --code-text: #d3869b;
   --pre-bg: #06080e;
   --pre-text: #e8dfc7;
   --quote-bg: #181f36;
-  --quote-border: #8e66ec;
-  --selection: rgba(142, 102, 236, 0.28);
+  --quote-border: #b16286;
+  --selection: rgba(177, 98, 134, 0.28);
   --shadow: rgba(0, 0, 0, 0.55);
 
   --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
@@ -112,11 +112,11 @@ a:hover { color: var(--text-strong); text-decoration: underline; text-underline-
   background-image:
     radial-gradient(1px 1px at 12% 18%, rgba(235,219,178,0.45), transparent),
     radial-gradient(1px 1px at 28% 72%, rgba(235,219,178,0.28), transparent),
-    radial-gradient(1.5px 1.5px at 52% 10%, rgba(179,147,243,0.55), transparent),
+    radial-gradient(1.5px 1.5px at 52% 10%, rgba(211,134,155,0.55), transparent),
     radial-gradient(1px 1px at 68% 42%, rgba(235,219,178,0.22), transparent),
     radial-gradient(1px 1px at 91% 78%, rgba(235,219,178,0.38), transparent),
     radial-gradient(1px 1px at 42% 86%, rgba(235,219,178,0.28), transparent),
-    radial-gradient(1px 1px at 82% 20%, rgba(179,147,243,0.4), transparent),
+    radial-gradient(1px 1px at 82% 20%, rgba(211,134,155,0.4), transparent),
     radial-gradient(1px 1px at 18% 56%, rgba(235,219,178,0.32), transparent),
     radial-gradient(1.5px 1.5px at 95% 38%, rgba(235,219,178,0.36), transparent);
 }
@@ -168,9 +168,9 @@ body.theme-light .orbit-bar a:hover { color: #f2e4c0; }
   font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
   padding: 3px 9px;
   color: var(--purple-bright);
-  border: 1px solid rgba(142, 102, 236, 0.35);
+  border: 1px solid rgba(177, 98, 134, 0.35);
   border-radius: 3px;
-  background: rgba(142, 102, 236, 0.05);
+  background: rgba(177, 98, 134, 0.05);
 }
 .private-chip svg { width: 10px; height: 10px; }
 
@@ -193,7 +193,7 @@ body.theme-light .orbit-bar a:hover { color: #f2e4c0; }
   text-transform: uppercase;
 }
 .orbit-tool:hover { border-color: var(--purple-dim); color: var(--purple-bright); text-decoration: none; }
-.orbit-tool.active { background: rgba(142, 102, 236, 0.08); color: var(--purple-bright); border-color: var(--purple-dim); }
+.orbit-tool.active { background: rgba(177, 98, 134, 0.08); color: var(--purple-bright); border-color: var(--purple-dim); }
 
 /* Progress bar at bottom edge */
 .progress-bar {
@@ -347,7 +347,7 @@ body.theme-light .orbit-bar a:hover { color: #f2e4c0; }
 }
 .compass-divider .line {
   flex: 1; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(114, 88, 188, 0.5), transparent);
+  background: linear-gradient(to right, transparent, rgba(138, 72, 88, 0.5), transparent);
 }
 .compass-divider svg { width: 22px; height: 22px; flex-shrink: 0; }
 
@@ -579,7 +579,7 @@ body.theme-light .orbit-bar a:hover { color: #f2e4c0; }
   letter-spacing: 2px;
   text-transform: uppercase;
   transition: all .12s;
-  background: rgba(142, 102, 236, 0.05);
+  background: rgba(177, 98, 134, 0.05);
 }
 .chapter-bar .en-link:hover { background: var(--purple); color: var(--bg-void); border-color: var(--purple); text-decoration: none; }
 
@@ -737,8 +737,8 @@ article.chapter-content::before {
 .copy-btn {
   position: absolute;
   top: 10px; right: 10px;
-  background: rgba(142, 102, 236, 0.08);
-  border: 1px solid rgba(142, 102, 236, 0.2);
+  background: rgba(177, 98, 134, 0.08);
+  border: 1px solid rgba(177, 98, 134, 0.2);
   color: var(--purple-bright);
   font-family: var(--mono);
   font-size: 10px;
@@ -751,7 +751,7 @@ article.chapter-content::before {
   text-transform: uppercase;
 }
 .chapter-content pre:hover .copy-btn { opacity: 1; }
-.copy-btn:hover { background: rgba(142, 102, 236, 0.2); border-color: var(--purple); }
+.copy-btn:hover { background: rgba(177, 98, 134, 0.2); border-color: var(--purple); }
 .copy-btn.copied { color: var(--text-strong); border-color: var(--purple); }
 
 .chapter-content table {
