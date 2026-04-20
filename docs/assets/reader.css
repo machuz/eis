@@ -156,6 +156,7 @@ body.theme-light .starfield { display: none; }
 body.theme-light .orbit-bar { background: rgba(26, 30, 42, 0.92); color: #d0d6e2; border-bottom-color: rgba(255,255,255,0.08); }
 body.theme-light .orbit-bar .crumb-brand { color: #eef1f7; }
 body.theme-light .orbit-bar .crumb-sep { color: #7a8190; }
+body.theme-light .orbit-bar .crumb-book { color: #d0d6e2; }
 body.theme-light .orbit-bar a { color: #d0d6e2; }
 body.theme-light .orbit-bar a:hover { color: #eef1f7; }
 
