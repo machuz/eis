@@ -178,7 +178,7 @@ target_url: https://x.com/machuz_lens (未投稿)
 
 ## 第4章 観測器は届かない —— 自分の心理OSは、自分で見られない
 
-![観測の問題](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch1-three-paths-en.png)
+![観測の問題](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/ch1-three-paths.png)
 
 ここは、本記事で一番置きたい問いになる。
 
