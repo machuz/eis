@@ -127,7 +127,7 @@ It's not bad faith. **Transformation is just missing.**
 
 > **From the field**
 >
-> I've seen this pattern many times — a VPoE who holds 1-on-1s with two or three engineers every day. They have a complete map of what's hard on the ground: the friction, the contradictions, the exhaustion, all visible to them. But **no circuit in their job translates that information back into the Principle layer.** "I only listen — there's no return path," they would acknowledge.
+> I've seen this pattern many times — a VPoE who holds 1-on-1s with two or three engineers every day. They have a complete map of what's hard on the ground: the friction, the contradictions, the exhaustion, all visible to them. But **the circuit that would translate that information back into the Principle layer was never wired into the organization.** "I only listen — there's no return path," they would acknowledge.
 >
 > Six months later, their department was dissolved for "not aligning with strategy." The truth: **exactly one transformer was missing.** The floor's cry had been audible every single day, yet it never once reshaped the strategy — and that structural gap carried itself, almost automatically, to the department's loss.
 >

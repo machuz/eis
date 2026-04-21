@@ -112,7 +112,7 @@ Neither meeting transcription nor chat-log analysis can start **without consent.
 The people being observed need to understand "what, for what purpose, visible to whom, at what granularity" — and **the rules of observation themselves need to be structured**:
 
 - **Explicit consent** — document the observation target, purpose, retention period, and access rights up front
-- **No direct link to performance review or discipline** — observation is for the organization's self-correction, not material for evaluating individuals. The moment you mix the two, the floor stops speaking naturally and the culture dies
+- **No direct link to performance review or discipline** — observation is for the organization's self-correction, not material for evaluating individuals. The moment you mix the two, the floor stops speaking naturally and the culture comes to a halt
 - **Observe the observer** — who saw what, with an auditable access log
 - **Room to opt out** — 1-on-1s, mental-health topics, and sensitive agendas can be explicitly excluded
 - **Limit both granularity and use** — what surfaces on dashboards or in evaluation contexts should be structural signals (utterance frequency, distribution, transitions), never a view that lets a manager trace "who said what." Handing raw text to an AI for context is acceptable, but the principle is that such raw content **must not directly feed into performance review or discipline.** OrbitLens's `dm` operates under exactly this constraint.

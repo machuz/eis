@@ -10,7 +10,7 @@ tags: management, leadership, engineering, productivity
 
 *Six months of weekly "how are things going?" 1-on-1s won't move the organization one millimeter — the intervention is trapped at the behavior layer. The moment the conversation opens that way, it doesn't touch accumulation by a single gram.*
 
-*Cut with structure, not with emotion. That's the only intervention that moves organizations.*
+*Cut with structure, not with feeling. That's the only intervention that reaches an organization's accumulation.*
 
 ---
 
