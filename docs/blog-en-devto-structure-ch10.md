@@ -176,7 +176,7 @@ Structure-driven theory handles the **inner physics** of an organization. But no
 
 These matter to the organization, but **they are not objects the structure-driven frame optimizes from inside**. Pulling them inside would scatter the thought and break the inner language. Instead, we treat them as **boundary conditions** — immovable constants that appear in the structure-driven equations.
 
-![Boundary Conditions — inner cosmos and outer cosmos](https://raw.githubusercontent.com/machuz/eis/main/docs/images/library-boundary.svg)
+![Boundary Conditions — inner cosmos and outer cosmos](https://raw.githubusercontent.com/machuz/eis/main/docs/images/library-boundary.png)
 
 ### Three boundary coefficients
 
