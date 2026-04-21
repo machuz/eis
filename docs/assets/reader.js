@@ -383,6 +383,7 @@
       // Enhance rendered content
       enhanceCodeBlocks();
       enhanceHeadings();
+      wrapTables();
       linkifyCrossRefs();
       buildInlineTOC();
       setActiveSidebar(slug);
@@ -455,6 +456,23 @@
         h.scrollIntoView({ behavior: 'smooth' });
       });
       h.prepend(anchor);
+    });
+  }
+
+  // Wrap tables so they can scroll horizontally within the main card when
+  // there are too many columns to fit (prevents overflow into the inline-TOC
+  // column on desktop/iPad). Tables with >=4 columns are marked "wide" and
+  // get nowrap + natural width so the horizontal scroll actually kicks in.
+  function wrapTables() {
+    const article = main.querySelector('article.chapter-content');
+    if (!article) return;
+    article.querySelectorAll('table').forEach((tbl) => {
+      if (tbl.parentElement && tbl.parentElement.classList.contains('table-wrap')) return;
+      const numCols = tbl.rows[0] ? tbl.rows[0].cells.length : 0;
+      const wrap = document.createElement('div');
+      wrap.className = numCols >= 4 ? 'table-wrap table-wrap-wide' : 'table-wrap';
+      tbl.parentNode.insertBefore(wrap, tbl);
+      wrap.appendChild(tbl);
     });
   }
 

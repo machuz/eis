@@ -1127,14 +1127,29 @@ article.chapter-content::before {
 .copy-btn:hover { background: rgba(124, 92, 224, 0.2); border-color: var(--purple); }
 .copy-btn.copied { color: var(--text-strong); border-color: var(--purple); }
 
-.chapter-content table {
-  width: 100%;
-  border-collapse: collapse;
+.chapter-content .table-wrap {
   margin: 1.6em 0;
-  font-size: 0.9em;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   background: var(--paper-hi);
   border-radius: 6px;
-  overflow: hidden;
+}
+.chapter-content .table-wrap table {
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 0.9em;
+  background: transparent;
+  width: 100%;
+}
+/* Wide table (4+ columns): let it grow beyond the container and scroll. */
+.chapter-content .table-wrap-wide table {
+  width: max-content;
+  min-width: 100%;
+}
+.chapter-content .table-wrap-wide th,
+.chapter-content .table-wrap-wide td {
+  white-space: nowrap;
 }
 .chapter-content th, .chapter-content td {
   padding: 0.8em 1em;
