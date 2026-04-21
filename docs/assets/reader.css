@@ -327,10 +327,11 @@ body.theme-light .orbit-menu-toggle:hover { color: #eef1f7; border-color: var(--
   right: 0;
   bottom: -1px;
   height: 8px;  /* widened clickable/tap area */
-  cursor: pointer;
+  cursor: grab;
   user-select: none;
   touch-action: none;
 }
+.progress-track.dragging { cursor: grabbing; }
 .progress-track::before {
   content: '';
   position: absolute;
@@ -339,6 +340,12 @@ body.theme-light .orbit-menu-toggle:hover { color: #eef1f7; border-color: var(--
   height: 2px;
   background: rgba(124, 92, 224, 0.12);
   pointer-events: none;
+  transition: height .18s ease, background .18s ease;
+}
+.progress-track:hover::before,
+.progress-track.dragging::before {
+  height: 4px;
+  background: rgba(124, 92, 224, 0.22);
 }
 .progress-bar {
   position: absolute;
@@ -346,11 +353,17 @@ body.theme-light .orbit-menu-toggle:hover { color: #eef1f7; border-color: var(--
   height: 2px;
   background: linear-gradient(90deg, var(--purple-deep), var(--purple), var(--purple-bright));
   width: 0;
-  transition: width .12s linear;
+  transition: width .12s linear, height .18s ease, box-shadow .22s ease;
   box-shadow: 0 0 10px var(--purple-glow);
   pointer-events: none;
 }
-.progress-track.dragging .progress-bar { transition: none; }
+.progress-track:hover .progress-bar,
+.progress-track.dragging .progress-bar {
+  height: 4px;
+  box-shadow: 0 0 14px var(--purple-glow), 0 0 4px var(--purple-bright);
+}
+/* While dragging, width must follow the thumb without easing */
+.progress-track.dragging .progress-bar { transition: height .18s ease, box-shadow .22s ease; }
 .progress-markers {
   position: absolute;
   left: 0; right: 0;
@@ -367,24 +380,91 @@ body.theme-light .orbit-menu-toggle:hover { color: #eef1f7; border-color: var(--
   transform: translateX(-50%);
   opacity: 0.5;
 }
+.progress-marker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--purple-bright);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 8px var(--purple-bright);
+}
+.progress-marker.ping::after {
+  animation: marker-ping .9s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+}
+@keyframes marker-ping {
+  0%   { opacity: .95; transform: translate(-50%, -50%) scale(1); }
+  80%  { opacity: .25; }
+  100% { opacity: 0;   transform: translate(-50%, -50%) scale(5); }
+}
 .progress-thumb {
   position: absolute;
-  bottom: -3px;
+  bottom: -4px;
   width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  height: 12px;
+  border-radius: 1px;
   background: var(--purple);
-  border: 2px solid var(--bg-void);
-  transform: translateX(-50%);
+  border: 1px solid var(--bg-void);
+  transform: translateX(-50%) scale(1);
   left: 0;
   pointer-events: none;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   opacity: 0;
-  transition: opacity .2s;
+  transition:
+    left .12s linear,
+    opacity .2s ease,
+    transform .18s ease-out,
+    box-shadow .2s ease;
 }
-.progress-track:hover .progress-thumb,
-.progress-track.dragging .progress-thumb { opacity: 1; }
+.progress-thumb::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 2px;
+  background: radial-gradient(circle, var(--purple-glow) 0%, transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+/* Hover: thumb appears and grows slightly — grip affordance */
+.progress-track:hover .progress-thumb {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.2);
+}
+
+/* Dragging: bigger, stronger bloom, instant position tracking */
+.progress-track.dragging .progress-thumb {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.5);
+  box-shadow:
+    0 0 0 4px rgba(124, 92, 224, 0.2),
+    0 0 18px var(--purple),
+    0 0 3px var(--purple-bright);
+  /* follow pointer immediately during drag — no transitions on position/scale */
+  transition:
+    left 0s,
+    opacity .2s ease,
+    transform .18s ease-out,
+    box-shadow .22s ease;
+}
+.progress-track.dragging .progress-thumb::after {
+  opacity: .8;
+}
+
 body.theme-light .progress-thumb { border-color: #1a1e2a; }
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-marker.ping::after { animation: none; }
+  .progress-thumb,
+  .progress-bar,
+  .progress-track::before { transition: none; }
+}
 
 /* ======================================================================
    Layout
