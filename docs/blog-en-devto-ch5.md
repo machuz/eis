@@ -69,7 +69,7 @@ I'll focus on three key members.
 
 ![Y.Y. Timeline](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-engineer-f-timeline.png?v=4)
 
-**In the first half of 2024, Y.Y. was putting up numbers on par with machuz.**
+**In the first half of 2024, Y.Y. was putting up numbers that broke through the ceiling.**
 
 Impact above 90. Architect Builder. Production 100, Design 100, Survival 100.
 
@@ -93,7 +93,7 @@ The subject of Chapter 4's "laying souls to rest" is exactly this person. And th
 
 **2024-Q4: O., Impact 91.7. Architect Builder.**
 
-This number is extraordinary. When you consider that machuz (Backend) was at 64.1 in the same quarter, **O. had the highest structural influence across all teams that quarter**.
+This number is extraordinary. **In that quarter, O. had the highest structural influence across the entire team.**
 
 Design 100. Production 100. Survival 96.
 
@@ -213,7 +213,7 @@ Design: 73 → 100. Anchor → Architect.
 
 **On a greenfield, the designer's true nature exploded.**
 
-R.M. was a rare breed — an engineer who could also design. Not just code architecture, but visual design.
+R.M. was a rare breed — obsessed not only with FE code and architecture, but with UI and UX design too, and backed by substantial design skill.
 
 Initially, the new product was expected to follow the existing design language. But R.M. wanted to build from scratch.
 
@@ -245,7 +245,7 @@ Their ability didn't change. **The universe changed.**
 
 ![Return](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-data-return.png?v=4)
 
-Design stayed at 100 the following quarter too. The structure-building in web-admin continued.
+Design stayed at 100 the following quarter too. The structure-building on the new product continued.
 
 Through friction, through strategic patience, they found their stage in a new universe. This "step back, then emerge somewhere new" pattern signals **Architect maturity**.
 
@@ -253,7 +253,7 @@ A young Architect who hits friction either retreats or bulldozes. A mature Archi
 
 R.M.'s timeline and `--per-repo` record that maturation process — quarter by quarter, repository by repository.
 
-And here's another telling number. R.S., an existing team member, started joining R.M.'s new universe. R.S.'s commits in web-admin jumped from 86 in Q4 to 283 in Q1 — more than tripling. They were adapting to the gravitational field R.M. created, and accelerating. The new structure wasn't just one person's output — it was beginning to function as the team's gravity.
+And here's another telling number. R.S., an existing team member, started joining R.M.'s new universe. R.S.'s commits on the new product jumped from 86 in Q4 to 283 in Q1 — more than tripling. They were adapting to the gravitational field R.M. created, and accelerating. The new structure wasn't just one person's output — it was beginning to function as the team's gravity.
 
 ---
 
