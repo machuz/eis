@@ -122,7 +122,7 @@ Let's state this up front: **a thought doesn't emerge from customer voices or pr
 2. Against that problem, **aesthetics and philosophy** (how we want to be, what we find beautiful, what we prioritize) form the **prototype of the thought**.
 3. That prototype is then **honed through customer voices and problem research**.
 
-This is the only order in which a thought stands up. The reverse — a thought emerging from averaging voices or the greatest common denominator of problems — is impossible. A Principle layer is **a prototype someone established ("this is how it should be") that was then sharpened through contact with reality.**
+This is the only order in which a thought stands up. The reverse — trying to let a thought emerge from averaging voices or the greatest common denominator of problems — is an order in which no thought rises. A Principle layer is **a prototype someone established ("this is how it should be") that was then sharpened through contact with reality.**
 
 The distinction that matters: **a thought that won't bend and a thought that just wavers are different problems.**
 

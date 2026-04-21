@@ -20,7 +20,7 @@ tags: management, leadership, engineering, culture
 
 Engineering org theory has, for a long time, taken **people** as its subject.
 
-Hiring, evaluations, 1-on-1s, feedback, career paths, culture fit — the objects being handled are all people. And the lever pulled to change the organization has always been the person.
+Hiring, evaluations, 1-on-1s, feedback, career paths, culture fit — the objects being handled are all people. And the belief has always been that intervening on the person is what makes the organization move.
 
 This book steps off that subject, once.
 

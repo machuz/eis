@@ -133,7 +133,7 @@ Postures split into two:
 
 ### Anchor
 
-**Places long-lived, high-quality code; constructs a skeleton others don't casually rewrite.**
+**Places long-lived, high-quality code that persists as a skeleton with no need for others to rewrite it.**
 
 - Signal: Quality ↑, Prod ○
 - Field picture:
