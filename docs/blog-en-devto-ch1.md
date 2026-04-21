@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: A 7-axis observation model that quantifies engineer impact using nothing but git log and git blame. Code survival, debt cleanup, bus factor — all from data you already have.
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch1.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch1.png?v=4
 ---
 
 *Why commit counts, PR counts, and lines of code fail to capture real engineering strength*
 
-![7-axis signal visualization](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-iconic.png?v=4)
+![7-axis signal visualization](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch1-iconic.png?v=4)
 
 ## From Scores to Signals
 
@@ -50,7 +50,7 @@ But even survival must be handled carefully. Raw git blame favors early contribu
 | 1 year | 0.13 |
 | 2 years | 0.02 |
 
-![Time-decayed Survival Weight curve showing exponential decay over 730 days](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/survival-decay-curve.png?v=5)
+![Time-decayed Survival Weight curve showing exponential decay over 730 days](https://raw.githubusercontent.com/machuz/eis/main/docs/images/survival-decay-curve.png?v=5)
 
 This means departed team members' signals naturally decay over time. It approximates **who is currently writing durable code**, not who wrote the most code historically.
 
@@ -69,7 +69,7 @@ This distinction is EIS's most important innovation. An engineer with low overal
 
 ## 7 Axes of Engineering Impact
 
-![EIS Framework Overview](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-impact-framework-diagram-fixed.png?v=5)
+![EIS Framework Overview](https://raw.githubusercontent.com/machuz/eis/main/docs/images/engineering-impact-framework-diagram-fixed.png?v=5)
 *Git history flows into 7-axis signals, 3-axis topology (Role/Style/State), and Gravity.*
 
 | Axis | Weight | What it captures |
@@ -124,7 +124,7 @@ The scale is intentionally strict:
 
 **Critical caveat:** EIS measures **impact on *this* codebase**, not absolute engineering ability. High Survival might even mean the code can't be refactored away. If the observations don't match your gut feeling, that's worth investigating — it may reveal codebase design issues rather than people issues. (We call this [Engineering Relativity](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl).)
 
-![Impact Guide](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/score-guide.png?v=5)
+![Impact Guide](https://raw.githubusercontent.com/machuz/eis/main/docs/images/score-guide.png?v=5)
 
 ---
 
@@ -132,7 +132,7 @@ The scale is intentionally strict:
 
 Once signals are calculated, recognizable patterns emerge. EIS decomposes engineer topology into **three independent axes**:
 
-![Engineer Topology](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/engineering-archetypes-paper-figure.png?v=5)
+![Engineer Topology](https://raw.githubusercontent.com/machuz/eis/main/docs/images/engineering-archetypes-paper-figure.png?v=5)
 
 ### Role — *What* they contribute
 
@@ -197,7 +197,7 @@ Red gravity means **"the system depends on this person AND the code is fragile."
 
 I ran this on my own team (14 repos, 10+ engineers). The signals matched the team's gut feeling almost perfectly.
 
-![Backend Rankings](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch1-backend-table.png?v=4)
+![Backend Rankings](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch1-backend-table.png?v=4)
 
 **R.S.** — Production 17 doesn't turn heads. But Survival 50 (2nd on the team) means their recent code stays. Debt Cleanup 88 means they're quietly fixing everyone else's bugs. **This is exactly the kind of person that Debt Cleanup was designed to surface.** The Anchor role captures this perfectly.
 
@@ -236,7 +236,7 @@ The model's accuracy scales with codebase design quality. In chaotic codebases, 
 
 Zero AI tokens. Zero API keys. Just `git log` and `git blame`.
 
-![Terminal Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/terminal-output.png?v=0.11.0)
+![Terminal Output](https://raw.githubusercontent.com/machuz/eis/main/docs/images/terminal-output.png?v=0.11.0)
 
 The real value comes from **tracking changes over time**. If Survival rises quarter-over-quarter, design skills are growing. If Debt Cleanup rises, team contribution is increasing.
 
@@ -244,7 +244,7 @@ The real value comes from **tracking changes over time**. If Survival rises quar
 
 ---
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

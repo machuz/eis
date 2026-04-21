@@ -4,7 +4,7 @@ series: "Git Archaeology"
 published: true
 description: "A 3-minute intro to Engineering Impact Signal — an OSS CLI that quantifies engineering impact from git log and git blame alone. No API keys, no AI tokens."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch0.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch0.png?v=1
 ---
 
 *git log + git blame. That's all it takes.*
@@ -25,7 +25,7 @@ eis
 
 That's it. Here's what you get:
 
-![Terminal Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/terminal-output.png?v=0.11.0)
+![Terminal Output](https://raw.githubusercontent.com/machuz/eis/main/docs/images/terminal-output.png?v=0.11.0)
 
 ---
 
@@ -318,4 +318,4 @@ go install github.com/machuz/eis/cmd/eis@latest
 
 ---
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full-zenn.png)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)

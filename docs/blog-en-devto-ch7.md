@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: "Chapter 7 of Engineering Impact Signal. Codebases have gravitational structures. Great engineers don't just write code — they bend the gravity of codebases."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch7.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch7.png?v=4
 ---
 
 *Great engineers don't just write code. They bend the gravity of codebases.*
 
-![Four fundamental forces of code](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch7-iconic.png?v=4)
+![Four fundamental forces of code](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch7-iconic.png?v=4)
 
 ## Previously
 
@@ -25,7 +25,7 @@ This chapter is different. It's about the sensation I arrived at after building 
 
 First, the practical part. `eis timeline --format html` now outputs an interactive dashboard that's actually useful.
 
-![Timeline HTML Dashboard](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/timeline-html-output.png?v=0.11.0)
+![Timeline HTML Dashboard](https://raw.githubusercontent.com/machuz/eis/main/docs/images/timeline-html-output.png?v=0.11.0)
 
 ```bash
 ❯ eis timeline --format html --output timeline.html --recursive ~/workspace
@@ -35,7 +35,7 @@ Chart.js-based line charts show individual and team impact trajectories, health 
 
 For a quick terminal check, there's also `--format ascii`:
 
-![Timeline ASCII Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/timeline-ascii-output.png?v=0.11.0)
+![Timeline ASCII Output](https://raw.githubusercontent.com/machuz/eis/main/docs/images/timeline-ascii-output.png?v=0.11.0)
 
 What makes this powerful is that **you can look at this screen alongside an AI**.
 
@@ -43,7 +43,7 @@ Open the HTML in a browser, feed `eis timeline --format json` output to an AI, a
 
 The team Health Metrics view is particularly interesting. Complementarity, Growth Potential, Sustainability, Debt Balance — you can see at a glance how these evolve across periods.
 
-![Team Health Metrics](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/team-health-metrics-output.png?v=0.12.0)
+![Team Health Metrics](https://raw.githubusercontent.com/machuz/eis/main/docs/images/team-health-metrics-output.png?v=0.12.0)
 
 ---
 
@@ -107,7 +107,7 @@ But structurally, this is the **evolution of the code universe**.
 
 In EIS team timelines, this evolution is traceable through concrete metrics:
 
-![Team Classification](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch7-team-classification.png?v=4)
+![Team Classification](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch7-team-classification.png?v=4)
 
 **Architectural Team → Maintenance Team → Architectural Engine**
 
@@ -224,7 +224,7 @@ They might be **someone who bends the gravity of codebases**.
 - [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 - [Final Chapter: The Engineers Who Shape Gravity](https://dev.to/machuz/git-archaeology-16-the-engineers-who-shape-gravity-3fmi)
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

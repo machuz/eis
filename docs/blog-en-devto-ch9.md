@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: "Chapter 9 of Engineering Impact Signal. Every universe has an origin. In code universes, it's the first commit."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch9.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch9.png?v=4
 ---
 
 *Every universe has an origin. In code universes, it's the first commit.*
 
-![Big Bang — the origin of a code universe](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch9-iconic.png?v=4)
+![Big Bang — the origin of a code universe](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch9-iconic.png?v=4)
 
 ## Previously
 
@@ -165,7 +165,7 @@ Gravity is born, structure forms, constellations are drawn, Architects appear, t
 - [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 - [Final Chapter: The Engineers Who Shape Gravity](https://dev.to/machuz/git-archaeology-16-the-engineers-who-shape-gravity-3fmi)
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

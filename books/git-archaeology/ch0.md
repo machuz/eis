@@ -2,7 +2,7 @@
 title: "git考古学の始め方 —— 3分でわかるEngineering Impact Signal"
 ---
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch0.png?v=2)
+![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ch0.png?v=2)
 
 *git log と git blame だけで、エンジニアの「戦闘力」が見える。*
 
@@ -22,7 +22,7 @@ eis
 
 これだけで、こういう出力が得られる：
 
-![Terminal Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/terminal-output.svg)
+![Terminal Output](https://raw.githubusercontent.com/machuz/eis/main/docs/images/terminal-output.svg)
 
 ---
 
@@ -220,7 +220,7 @@ Salvatore Sanfilippo（Redis）、Alexey Milovidov（ClickHouse）、Ritchie Vin
 
 各銀河で最も明るい星をマッピングしていると考えてほしい。銀河の大きさは異なるが、どの銀河でも重力場を形作る星は観測できる。
 
-> 詳細な分析結果：[OSS Gravity Map](https://machuz.github.io/engineering-impact-score/research/oss-gravity-map/analysis/oss-gravity-map-ja.html)
+> 詳細な分析結果：[OSS Gravity Map](https://machuz.github.io/eis/research/oss-gravity-map/analysis/oss-gravity-map-ja.html)
 
 ---
 
@@ -290,4 +290,4 @@ go install github.com/machuz/eis/cmd/eis@latest
 
 ---
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full-zenn.png)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)

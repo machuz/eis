@@ -1,6 +1,6 @@
 # git考古学 #16（最終章）—— The Engineers Who Shape Gravity：重力を作るエンジニアたち
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch16.png?v=1)
+![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ch16.png?v=1)
 
 *Git remembers the past. AI imagines the future. Between them, engineers shape gravity.*
 
@@ -230,7 +230,7 @@ Telescope     →     EIS
 - [第15章：AI Creates Stars, Not Gravity](https://ma2k8.hateblo.jp/entry/2026/03/15/221250)
 - **最終章：The Engineers Who Shape Gravity：重力を作るエンジニアたち**（本記事）
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
 

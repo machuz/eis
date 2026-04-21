@@ -4,7 +4,7 @@ series: "Git Archaeology"
 published: true
 description: "Git remembers the past. AI imagines the future. Between them, engineers shape gravity."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch16.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch16.png?v=1
 ---
 
 *Git remembers the past. AI imagines the future. Between them, engineers shape gravity.*
@@ -230,7 +230,7 @@ Point the telescope and see.
 - [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 - **Final Chapter: The Engineers Who Shape Gravity** (this post)
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

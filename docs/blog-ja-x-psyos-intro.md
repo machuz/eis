@@ -6,7 +6,7 @@ status: draft
 target_url: https://x.com/machuz_lens (未投稿)
 ---
 
-# "熱い三流なら上等よ" —— アカギがヒロに残した問いの話
+# "熱い三流なら上等よ" —— 誠実な EM ほど見失う、自分の作動原理
 
 ![成功の棺](https://raw.githubusercontent.com/machuz/eis/main/books/psychological-os/images/section-2-success-coffin.png)
 

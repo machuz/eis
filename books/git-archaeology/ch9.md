@@ -2,7 +2,7 @@
 title: "Origin：コード宇宙のビッグバン"
 ---
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch9.png)
+![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ch9.png)
 
 *すべての宇宙には起源がある。コード宇宙では、それは最初のcommitだ。*
 
@@ -134,7 +134,7 @@ EISはこの初期条件の影響も映し出す。
 
 ---
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full-zenn.png)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLIツール、計算式、方法論すべてオープンソース。`brew tap machuz/tap && brew install eis` でインストール。
 

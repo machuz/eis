@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: "Chapter 10 of Engineering Impact Signal. Most of the universe's mass is invisible. The same is true in code universes."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch10.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch10.png?v=4
 ---
 
 *Most of the universe's mass cannot be observed. The same is true in code universes.*
 
-![Dark Matter — visible vs invisible contributions](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch10-iconic.png?v=4)
+![Dark Matter — visible vs invisible contributions](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch10-iconic.png?v=4)
 
 ## Previously
 
@@ -187,7 +187,7 @@ When you look at EIS numbers, never forget that layers upon layers of dark matte
 - [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 - [Final Chapter: The Engineers Who Shape Gravity](https://dev.to/machuz/git-archaeology-16-the-engineers-who-shape-gravity-3fmi)
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

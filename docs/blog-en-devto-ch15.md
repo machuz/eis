@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: "AI creates stars. But it doesn't create gravity. What happens when code universes experience their first starburst?"
 tags: ai, opensource, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch15.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch15.png?v=4
 ---
 
 *AI creates stars. But it doesn't create gravity.*
 
-![AI Creates Stars, Not Gravity](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch15-iconic.png?v=4)
+![AI Creates Stars, Not Gravity](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch15-iconic.png?v=4)
 
 ## Previously
 
@@ -507,7 +507,7 @@ In the AI era especially, look through the telescope. Does your code universe ha
 - **Chapter 15: AI Creates Stars, Not Gravity** (this post)
 - [Final Chapter: The Engineers Who Shape Gravity](https://dev.to/machuz/git-archaeology-16-the-engineers-who-shape-gravity-3fmi)
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

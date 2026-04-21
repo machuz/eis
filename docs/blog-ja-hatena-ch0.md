@@ -1,6 +1,6 @@
 # git考古学 #0 —— 3分でわかるEngineering Impact Signal
 
-![Cover](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/hatena/cover-ch0.png?v=2)
+![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ch0.png?v=2)
 
 *git log と git blame だけで、エンジニアの「戦闘力」が見える。*
 
@@ -20,7 +20,7 @@ eis
 
 これだけで、こういう出力が得られる：
 
-![Terminal Output](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/terminal-output.svg)
+![Terminal Output](https://raw.githubusercontent.com/machuz/eis/main/docs/images/terminal-output.svg)
 
 ---
 
@@ -288,4 +288,4 @@ go install github.com/machuz/eis/cmd/eis@latest
 
 ---
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full-zenn.png)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)

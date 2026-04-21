@@ -3,7 +3,7 @@ title: "DORA, SPACE, LinearB — and the Question They All Leave Unanswered"
 published: true
 description: "DORA measures deployment speed. SPACE surveys developer experience. LinearB tracks cycle time. None of them ask: does your code still exist? A comparison of engineering metrics frameworks — and what git blame reveals that they can't."
 tags: productivity, devops, git, opensource
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-comparison.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-comparison.png?v=1
 ---
 
 *Every framework measures something real. The question is what it leaves in the dark.*
@@ -231,7 +231,7 @@ This article is a standalone comparison piece. For the full exploration of what 
 
 ---
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full-zenn.png)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source.
 

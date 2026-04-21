@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: "Chapter 8 of Engineering Impact Signal. The same engineer produces different EIS signals in different codebases — and that's not a bug, it's physics."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch8.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch8.png?v=4
 ---
 
 *The same object is lighter on the Moon and heavier on Jupiter. The same thing happens in codebases.*
 
-![Same engineer, different signals across repos](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch8-iconic.png?v=4)
+![Same engineer, different signals across repos](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch8-iconic.png?v=4)
 
 ## Previously
 
@@ -78,7 +78,7 @@ This has important implications for engineering evaluation.
 
 Imagine an engineer whose signals look like this:
 
-![Repo Scores](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch8-repo-scores.png?v=4)
+![Repo Scores](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch8-repo-scores.png?v=4)
 
 Naturally, 60 looks "better."
 
@@ -106,7 +106,7 @@ How do you account for this relativity when reading EIS? Here are some approache
 
 Look at `eis analyze --team`:
 
-![Structure Comparison](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch8-structure-comparison.png?v=4)
+![Structure Comparison](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch8-structure-comparison.png?v=4)
 
 Impact: 40 inside an Architectural Engine and Impact: 40 inside an Unstructured team have completely different meanings.
 
@@ -146,7 +146,7 @@ Conversely, an engineer who is Architect in only one repository is creating grav
 
 EIS `--per-repo` analysis makes this reproducibility **numerically verifiable**:
 
-![Per-Repo Breakdown](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch8-per-repo-breakdown.png?v=4)
+![Per-Repo Breakdown](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch8-per-repo-breakdown.png?v=4)
 
 ---
 
@@ -230,7 +230,7 @@ But that gravity looks different depending on the universe.
 - [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 - [Final Chapter: The Engineers Who Shape Gravity](https://dev.to/machuz/git-archaeology-16-the-engineers-who-shape-gravity-3fmi)
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

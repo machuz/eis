@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: "Chapter 12 of Engineering Impact Signal. Not all strong gravity is good gravity. Some engineers create structure that survives their departure. Others create gravity that collapses without them."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch12.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch12.png?v=4
 ---
 
 *The universe has another property. Collapse.*
 
-![Good Architect vs Black Hole Engineer](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch12-iconic.png?v=4)
+![Good Architect vs Black Hole Engineer](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch12-iconic.png?v=4)
 
 ## Previously
 
@@ -65,7 +65,7 @@ The same type of engineer exists in code universes.
 
 Their characteristics:
 
-![Black Hole Pattern](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch12-black-hole-pattern.png?v=4)
+![Black Hole Pattern](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch12-black-hole-pattern.png?v=4)
 
 High technical skill. High output. Strong influence.
 
@@ -85,7 +85,7 @@ Work concentrates, dependencies concentrate, code concentrates.
 
 The result — **the center of the universe becomes one engineer.**
 
-![Good Architect vs Black Hole](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch12-good-vs-blackhole.png?v=4)
+![Good Architect vs Black Hole](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch12-good-vs-blackhole.png?v=4)
 
 A good Architect distributes gravity. Leaves structure. Gives the universe order.
 
@@ -101,7 +101,7 @@ When the black hole disappears, the center of the universe disappears.
 
 What happens then?
 
-![Collapse Timeline](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch12-collapse-timeline.png?v=4)
+![Collapse Timeline](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch12-collapse-timeline.png?v=4)
 
 Design decisions stop. Dependencies break. Nobody can touch the code.
 
@@ -250,7 +250,7 @@ What a Black Hole Engineer leaves behind is — void.
 - [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 - [Final Chapter: The Engineers Who Shape Gravity](https://dev.to/machuz/git-archaeology-16-the-engineers-who-shape-gravity-3fmi)
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

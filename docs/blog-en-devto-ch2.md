@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: "Chapter 2 of Engineering Impact Signal. Team-level analysis — complementarity, risk ratio, productivity density — all from git data you already have."
 tags: opensource, productivity, git, teams
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch2.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch2.png?v=4
 ---
 
 *Individual signals tell you whose signal is strong. Team health tells you whether the team will still be strong next quarter.*
 
-![Team structure and health radar](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-iconic.png?v=4)
+![Team structure and health radar](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch2-iconic.png?v=4)
 
 ## Why Individual Signals Aren't Enough
 
@@ -63,7 +63,7 @@ Git history contains signals that revenue can't:
 
 EIS classifies teams along **five axes**, derived bottom-up from individual topologies:
 
-![Team Classification Flow](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/team-classification-flow.png?v=4)
+![Team Classification Flow](https://raw.githubusercontent.com/machuz/eis/main/docs/images/team-classification-flow.png?v=4)
 
 | Axis | Derived from | Question |
 |---|---|---|
@@ -95,7 +95,7 @@ Classification is **weighted by Impact** — an Architect at 90 shapes the team'
 
 EIS's Role classification maps to three layers:
 
-![Growth Model](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-diagram-growth-model.png?v=4)
+![Growth Model](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch2-diagram-growth-model.png?v=4)
 
 **Implementation** → **Stabilization** → **Design**
 
@@ -105,7 +105,7 @@ EIS's Role classification maps to three layers:
 
 Teams with high Growth Potential have environments where this climb is possible — role models at each layer. Without them, Growing members spin at Implementation.
 
-![Decline Model](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-diagram-decline.png?v=4)
+![Decline Model](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch2-diagram-decline.png?v=4)
 
 **Teams with a Builder or Cleaner grow people faster.** When a role model exists, Growing members transition to Active at roughly double the rate. **Teams without an Architect degrade over time.**
 
@@ -125,7 +125,7 @@ The header shows `4 core + 3 risk / 16 total`. Drive-by contributors don't dilut
 
 EIS also surfaces **automatic warnings** — bus factor risk, silent accumulation, gravity fragility, top-contributor concentration.
 
-![Team Warnings](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch2-warnings.png?v=4)
+![Team Warnings](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch2-warnings.png?v=4)
 
 ---
 
@@ -180,7 +180,7 @@ All from git history. No surveys. No additional tooling.
 
 ---
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

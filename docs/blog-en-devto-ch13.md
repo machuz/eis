@@ -4,12 +4,12 @@ series: "Git Archaeology"
 published: true
 description: "Final chapter of Engineering Impact Signal. Git archaeology is the astronomy of code universes."
 tags: opensource, productivity, git, career
-cover_image: https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/cover-ch13.png?v=4
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ch13.png?v=4
 ---
 
 *Git archaeology is the astronomy of code universes.*
 
-![Code cosmology star map](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch13-iconic.png?v=4)
+![Code cosmology star map](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch13-iconic.png?v=4)
 
 ## Previously
 
@@ -496,7 +496,7 @@ Just by looking through the telescope, the laws of the universe become visible.
 - [Chapter 15: AI Creates Stars, Not Gravity](https://dev.to/machuz/git-archaeology-15-ai-creates-stars-not-gravity-4i05)
 - [Final Chapter: The Engineers Who Shape Gravity](https://dev.to/machuz/git-archaeology-16-the-engineers-who-shape-gravity-3fmi)
 
-![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/logo-full.png?v=2)
+![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png?v=2)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — CLI tool, formulas, and methodology all open source. `brew tap machuz/tap && brew install eis` to install.
 

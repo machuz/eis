@@ -584,11 +584,17 @@
     const active = tocLinkMap.get(current.id);
     if (active) {
       active.classList.add('active');
-      // Keep active entry in view within the TOC column
+      // Keep active entry in view within the TOC column.
+      // NOTE: scrollIntoView can bubble to window on iPad Safari when the
+      // nearest scrollable ancestor computation is off (sticky container +
+      // fits-in-viewport content). Set scrollTop directly on inlineToc to
+      // guarantee the scroll stays scoped to this container.
       const rect = active.getBoundingClientRect();
       const parentRect = inlineToc.getBoundingClientRect();
-      if (rect.top < parentRect.top + 20 || rect.bottom > parentRect.bottom - 20) {
-        active.scrollIntoView({ block: 'nearest' });
+      if (rect.top < parentRect.top + 20) {
+        inlineToc.scrollTop += rect.top - parentRect.top - 20;
+      } else if (rect.bottom > parentRect.bottom - 20) {
+        inlineToc.scrollTop += rect.bottom - parentRect.bottom + 20;
       }
     }
     // Mobile section-list summary label reflects the current H2
