@@ -436,22 +436,6 @@ a:hover { color: var(--text-strong); }
 }
 @media (max-width: 720px) { .bearing-indicator { display: none; } }
 
-/* D-13 3-column intervention strip in hero */
-.intervention-strip {
-  display: flex; align-items: center; gap: 0;
-  margin: 28px 0 0;
-  max-width: 540px;
-}
-.intervention-strip .label {
-  flex: 1;
-  font-family: var(--mono);
-  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--purple-dim);
-  text-align: center;
-  padding: 7px 0;
-}
-.intervention-strip .sep { width: 1px; height: 14px; background: rgba(138, 72, 88, 0.5); }
-
 /* ===== Hub redesign: hero tagline / subline / CTA grid ===== */
 .hero-tagline {
   font-family: var(--display);
@@ -559,14 +543,7 @@ a:hover { color: var(--text-strong); }
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 10px;
-  transition: border-color 150ms ease, background 150ms ease;
-  text-decoration: none;
   display: block;
-}
-.vocab-card:hover {
-  border-color: var(--border-glow);
-  background: var(--bg-card-hi);
-  text-decoration: none;
 }
 .vocab-card .tag {
   font-family: var(--mono);
@@ -592,53 +569,6 @@ a:hover { color: var(--text-strong); }
   font-size: 14px;
   color: var(--text);
   line-height: 1.65;
-}
-
-/* ===== Recommended reading path ===== */
-.path-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 26px;
-}
-@media (max-width: 960px) { .path-grid { grid-template-columns: 1fr; } }
-.path-step {
-  padding: 22px 22px 20px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: linear-gradient(180deg, rgba(124, 92, 224, 0.045), rgba(10, 14, 23, 0));
-  text-decoration: none;
-  transition: border-color 150ms ease, background 150ms ease;
-  display: block;
-}
-.path-step:hover {
-  border-color: var(--purple-dim);
-  background: linear-gradient(180deg, rgba(124, 92, 224, 0.1), rgba(10, 14, 23, 0));
-  text-decoration: none;
-}
-.path-step .step-num {
-  font-family: var(--mono);
-  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--purple-dim);
-  margin-bottom: 10px;
-}
-.path-step h4 {
-  font-family: var(--display);
-  font-size: 16px; font-weight: 600;
-  color: var(--text-strong);
-  margin-bottom: 6px;
-  letter-spacing: -0.005em;
-}
-.path-step .summary {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-.path-step .time {
-  font-family: var(--mono);
-  font-size: 10px; letter-spacing: 1.5px;
-  color: var(--purple-bright);
-  margin-top: 12px;
-  display: inline-block;
 }
 
 /* Radar 12-tick divider */
@@ -1065,7 +995,6 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 <nav class="page-toc" aria-label="On this page">
   <ol>
     <li><a href="#vocabulary" data-spy="vocabulary"><span data-lang-inline="en">Vocabulary</span><span data-lang-inline="ja">3つの語</span></a></li>
-    <li><a href="#path" data-spy="path"><span data-lang-inline="en">Reading Path</span><span data-lang-inline="ja">読む順番</span></a></li>
     <li><a href="#books" data-spy="books"><span data-lang-inline="en">The Library</span><span data-lang-inline="ja">ライブラリ</span></a></li>
     <li><a href="#whitepapers" data-spy="whitepapers"><span data-lang-inline="en">Whitepapers</span><span data-lang-inline="ja">ホワイトペーパー</span></a></li>
     <li><a href="#research" data-spy="research"><span data-lang-inline="en">Research</span><span data-lang-inline="ja">リサーチ</span></a></li>
@@ -1167,15 +1096,6 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
   <div class="motto" data-lang="ja">
     <strong>誠実な仕事</strong>が、正しい軌道に乗るように。
   </div>
-
-  <!-- D-13 3-column intervention strip -->
-  <div class="intervention-strip">
-    <div class="label">Strata</div>
-    <div class="sep"></div>
-    <div class="label">Structure</div>
-    <div class="sep"></div>
-    <div class="label">Interior</div>
-  </div>
 </section>
 
 <!-- Radar tick divider -->
@@ -1245,79 +1165,27 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     </p>
 
     <div class="vocab-grid">
-      <a class="vocab-card" href="./psychological-os/">
+      <div class="vocab-card">
         <div class="tag">Book 1 · Interior</div>
         <h3>Psychological OS</h3>
         <div class="ja-title">心理OS</div>
         <p class="definition" data-lang="en">The operating principle that treats a person's inner state as structure.</p>
         <p class="definition" data-lang="ja">人間の内面を「構造として扱う」ための作動原理。</p>
-      </a>
-      <a class="vocab-card" href="./structure-driven-org/">
+      </div>
+      <div class="vocab-card">
         <div class="tag">Book 2 · Structure</div>
         <h3>Structure-Driven</h3>
         <div class="ja-title">構造駆動</div>
         <p class="definition" data-lang="en">Designing the organization as structure — not as people.</p>
         <p class="definition" data-lang="ja">組織を「構造」として設計する思想。人ではなく構造を動かす。</p>
-      </a>
-      <a class="vocab-card" href="./git-archaeology/">
+      </div>
+      <div class="vocab-card">
         <div class="tag">Book 3 · Strata</div>
         <h3>Git Archaeology · EIS</h3>
         <div class="ja-title">git考古学</div>
         <p class="definition" data-lang="en">A telescope that observes an engineer's gravity from git history alone.</p>
         <p class="definition" data-lang="ja">git履歴だけから、エンジニアの影響力（重力）を観測する望遠鏡。</p>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Recommended Path — 3 steps -->
-<section id="path">
-  <div class="container">
-    <div class="compass-divider">
-      <span class="line"></span>
-      <svg viewBox="0 0 22 22" fill="none">
-        <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="0.6"/>
-        <circle cx="11" cy="11" r="5" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
-        <circle cx="11" cy="11" r="1.5" fill="currentColor"/>
-      </svg>
-      <span class="line"></span>
-    </div>
-    <div class="section-head">
-      <div class="section-label">Recommended Path</div>
-      <div class="section-count">step 1 → 2 → 3</div>
-    </div>
-    <p class="section-lede" data-lang="en">
-      If you're not sure where to start, begin at the innermost layer and move outward only as far as you need. Each step stands on its own; taken together, they close a loop.
-    </p>
-    <p class="section-lede" data-lang="ja">
-      迷ったら、一番内側の層から外へ。必要な分だけ進めばいい。各ステップは単独でも成立し、3つで一周する。
-    </p>
-
-    <div class="path-grid">
-      <a class="path-step" href="./psychological-os/">
-        <div class="step-num">Step 1 · Interior</div>
-        <h4 data-lang="en">The inner operating principle</h4>
-        <h4 data-lang="ja">個人の作動原理から始める</h4>
-        <p class="summary" data-lang="en">Heat, purity, direction. What keeps a person moving under their own will.</p>
-        <p class="summary" data-lang="ja">熱とは何か、どう純度を保ち、どう内圧で動き続けるか。</p>
-        <span class="time">~30 min · 6 chapters</span>
-      </a>
-      <a class="path-step" href="./structure-driven-org/">
-        <div class="step-num">Step 2 · Structure</div>
-        <h4 data-lang="en">The outer physics of organizations</h4>
-        <h4 data-lang="ja">組織の外側の物理</h4>
-        <p class="summary" data-lang="en">Three layers, two transformations, the archetypes of Role × Style × State.</p>
-        <p class="summary" data-lang="ja">3層 + 2変換、Role × Style × State の観測言語。配置で組織を動かす。</p>
-        <span class="time">~60 min · 11 chapters</span>
-      </a>
-      <a class="path-step" href="./git-archaeology/">
-        <div class="step-num">Step 3 · Strata</div>
-        <h4 data-lang="en">The empirical record of observation</h4>
-        <h4 data-lang="ja">観測の実録</h4>
-        <p class="summary" data-lang="en">The 7-axis signal, timeline evolution, and archetype dynamics, all from git.</p>
-        <p class="summary" data-lang="ja">7軸観測、タイムライン進化、アーキタイプ遷移 —— すべて git 履歴から。</p>
-        <span class="time">~90 min · 17 chapters</span>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1348,7 +1216,7 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     <div class="books">
       <div class="book">
         <div class="book-code">Book 1</div>
-        <div class="book-tag">L1 · Interior · 6 chapters</div>
+        <div class="book-tag">L1 · Interior · 6 chapters · ~30 min</div>
         <div class="book-title" data-lang="en">Psychological OS</div>
         <div class="book-title" data-lang="ja">心理OS</div>
         <div class="book-subtitle">The Inner Operating Principle</div>
@@ -1366,7 +1234,7 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 
       <div class="book">
         <div class="book-code">Book 2</div>
-        <div class="book-tag">L2 · Structure · 11 chapters</div>
+        <div class="book-tag">L2 · Structure · 11 chapters · ~60 min</div>
         <div class="book-title" data-lang="en">Structure-Driven Org Theory</div>
         <div class="book-title" data-lang="ja">構造駆動エンジニアリング組織論</div>
         <div class="book-subtitle">The Outer Physics</div>
@@ -1384,7 +1252,7 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 
       <div class="book">
         <div class="book-code">Book 3</div>
-        <div class="book-tag">L3 · Strata · 17 chapters</div>
+        <div class="book-tag">L3 · Strata · 17 chapters · ~90 min</div>
         <div class="book-title" data-lang="en">Git Archaeology</div>
         <div class="book-title" data-lang="ja">git考古学</div>
         <div class="book-subtitle">Engineering Impact Signal</div>
@@ -1692,8 +1560,8 @@ document.addEventListener('keydown', (e) => {
   const linkMap = new Map(links.map(a => [a.dataset.spy, a]));
 
   const SECTION_NAMES = {
-    en: { vocabulary: 'Vocabulary', path: 'Reading Path', books: 'The Library', whitepapers: 'Whitepapers', research: 'Research', articles: 'Articles', tools: 'Tools' },
-    ja: { vocabulary: '3つの語', path: '読む順番', books: 'ライブラリ', whitepapers: 'ホワイトペーパー', research: 'リサーチ', articles: '記事', tools: 'ツール' }
+    en: { vocabulary: 'Vocabulary', books: 'The Library', whitepapers: 'Whitepapers', research: 'Research', articles: 'Articles', tools: 'Tools' },
+    ja: { vocabulary: '3つの語', books: 'ライブラリ', whitepapers: 'ホワイトペーパー', research: 'リサーチ', articles: '記事', tools: 'ツール' }
   };
   const crumbSection = document.getElementById('crumb-section');
   let currentSectionId = null;
