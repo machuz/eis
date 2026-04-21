@@ -1144,20 +1144,20 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
   <p class="hero-subline" data-lang="ja">見えない「熱」と「構造」を観測し、理解し、設計するための体系。</p>
 
   <div class="hero-cta-grid">
+    <a href="#system-map" class="cta">
+      <span class="cta-tag"><span class="cta-dot p1"></span>10 sec</span>
+      <span class="cta-label" data-lang-inline="en">See the map</span>
+      <span class="cta-label" data-lang-inline="ja">一目で見る</span>
+    </a>
     <a href="#vocabulary" class="cta">
-      <span class="cta-tag"><span class="cta-dot p1"></span>3 min</span>
-      <span class="cta-label" data-lang-inline="en">First look</span>
-      <span class="cta-label" data-lang-inline="ja">はじめて読む</span>
+      <span class="cta-tag"><span class="cta-dot p2"></span>2 min</span>
+      <span class="cta-label" data-lang-inline="en">Grasp the concepts</span>
+      <span class="cta-label" data-lang-inline="ja">3つの語で掴む</span>
     </a>
-    <a href="#path" class="cta">
-      <span class="cta-tag"><span class="cta-dot p2"></span>10 min</span>
-      <span class="cta-label" data-lang-inline="en">Understand the thought</span>
-      <span class="cta-label" data-lang-inline="ja">思想を理解する</span>
-    </a>
-    <a href="#books" class="cta">
-      <span class="cta-tag"><span class="cta-dot p3"></span>3 books</span>
-      <span class="cta-label" data-lang-inline="en">Read deep</span>
-      <span class="cta-label" data-lang-inline="ja">深く読む</span>
+    <a href="./psychological-os/" class="cta">
+      <span class="cta-tag"><span class="cta-dot p3"></span>→ Book 1</span>
+      <span class="cta-label" data-lang-inline="en">Start reading</span>
+      <span class="cta-label" data-lang-inline="ja">読み始める</span>
     </a>
   </div>
 
@@ -1201,7 +1201,7 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 </div>
 
 <!-- System map — triad diagram elevated to near first view -->
-<section class="system-map">
+<section id="system-map" class="system-map">
   <figure class="triad-figure">
     <img src="./images/library-triad.svg" alt="Three layers of the OrbitLens Library — Psychological OS (L3 Interior) translates heat into Structure-Driven Organization (L2), which settles as traces observed by Git Archaeology (L1).">
   </figure>
@@ -1658,8 +1658,12 @@ function setLang(lang) {
   document.documentElement.lang = lang;
   if (window.__refreshCrumbSection) window.__refreshCrumbSection();
 }
+// Priority: URL ?lang=xx > localStorage > browser language > 'en'
+const urlLangParam = new URLSearchParams(window.location.search).get('lang');
+const urlLang = (urlLangParam === 'ja' || urlLangParam === 'en') ? urlLangParam : null;
 const savedLang = localStorage.getItem('orbit-lang');
-const initialLang = savedLang || (navigator.language && navigator.language.startsWith('ja') ? 'ja' : 'en');
+const browserLang = (navigator.language && navigator.language.startsWith('ja')) ? 'ja' : 'en';
+const initialLang = urlLang || savedLang || browserLang;
 // Initialize container state without animation on first paint
 const _langTabs = document.getElementById('lang-tabs');
 if (_langTabs) _langTabs.dataset.active = initialLang;
