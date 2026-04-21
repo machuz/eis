@@ -61,7 +61,7 @@ If you feel your heat is fading. If you can't shake a discomfort with the image 
 
 ### A note for the AI era
 
-I've picked up this thread in the sister works too (*Git Archaeology*, *Structure-Driven Engineering Organization Theory*): what human work becomes after general-purpose AI.
+I've picked up this thread in the sister works too ([*Git Archaeology*](https://library.orbitlens.io/git-archaeology/), [*Structure-Driven Engineering Organization Theory*](https://library.orbitlens.io/structure-driven-org/)): what human work becomes after general-purpose AI.
 
 Until now, organizational strength was measured by **heat × headcount / mass / work volume**. Even high-purity heat couldn't be materialized without hands to carry it.
 

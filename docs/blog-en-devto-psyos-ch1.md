@@ -9,7 +9,7 @@ cover_image: https://raw.githubusercontent.com/machuz/eis/main/books/psychologic
 
 **You can't directly observe your own Psychological OS.** The reason is structural: the observer and the observed are the same system.
 
-Structure-driven theory deals with the outside — git logs, review signals, timeline data. All of it leaves a trace in the ledger, observable without being filtered through identity.
+Structure-driven theory deals with the outside — [git logs, review signals, timeline data](https://library.orbitlens.io/git-archaeology/#ch1). All of it leaves a trace in the ledger, observable without being filtered through identity.
 
 Psychological OS isn't like that. The apparatus of observation (your own cognition) and the thing being observed (your Psychological OS) cannot be separated. And this apparatus **breaks down most precisely when the target is breaking down**. People who are collapsing are the least likely to notice it. This isn't just cognitive distortion. It's a **structural blind spot**.
 

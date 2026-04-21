@@ -52,9 +52,9 @@ Strength that skips proof and only pushes principle disappears before reaching a
 
 ### 2-2. Osmotic behavior — gradual over sudden
 
-The proof phase itself comes in two styles. Git history suggests two recurring patterns when an engineer evolves into an architect.
+The proof phase itself comes in two styles. [Git history](https://library.orbitlens.io/git-archaeology/#ch5) suggests two recurring patterns when an engineer evolves into an architect.
 
-**Sudden mode** — after a brief anchor period, immediately start redesigning around your own architecture. Fast. But continuity with the predecessor's structure is broken, so **the risk of collision with the team is high**.
+**Sudden mode** — after a brief [anchor period](https://library.orbitlens.io/git-archaeology/#ch3), immediately start redesigning around your own architecture. Fast. But continuity with the predecessor's structure is broken, so **the risk of collision with the team is high**.
 
 **Osmotic mode** — respect the predecessor's structure, keep producing, and let your own design diffuse into it gradually. Through the anchor period you understand existing structure. Through the producer period you keep shipping at high volume, and in that process your architecture quietly propagates through the codebase. It takes time, but **continuity with existing structure is preserved**.
 
