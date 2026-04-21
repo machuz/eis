@@ -1166,6 +1166,7 @@ article.chapter-content::before {
   transition: all .14s;
   line-height: 1.45;
   font-size: 0.88rem;
+  min-height: 88px;
 }
 .chapter-nav a:hover {
   border-color: var(--purple);
