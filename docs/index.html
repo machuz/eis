@@ -134,6 +134,71 @@ a:hover { color: var(--text-strong); }
 }
 .crumb-action:hover { border-color: var(--purple-dim); color: var(--purple-bright); }
 .crumb-action.active { background: rgba(177,98,134,0.08); color: var(--purple-bright); border-color: var(--purple-dim); }
+/* Language tab toggle — sliding pill (yui540 motion 43 inspired) */
+.lang-tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 40px);
+  align-items: center;
+  padding: 3px;
+  background: rgba(30, 42, 69, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  isolation: isolate;
+}
+.lang-tabs.squish-r { animation: lang-squish-r .5s ease-in-out; }
+.lang-tabs.squish-l { animation: lang-squish-l .5s ease-in-out; }
+@keyframes lang-squish-r {
+  0%, 100% { transform: scaleX(1); transform-origin: left center; }
+  50%      { transform: scaleX(1.04); transform-origin: left center; }
+}
+@keyframes lang-squish-l {
+  0%, 100% { transform: scaleX(1); transform-origin: right center; }
+  50%      { transform: scaleX(1.04); transform-origin: right center; }
+}
+.lang-tab,
+body.ja .lang-tab {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  transition: color .35s ease;
+}
+.lang-tab:focus-visible { outline: 1px solid var(--purple-bright); outline-offset: 2px; border-radius: 4px; }
+.lang-tabs[data-active="en"] .lang-tab[data-lang="en"],
+.lang-tabs[data-active="ja"] .lang-tab[data-lang="ja"] {
+  color: var(--text-strong);
+}
+.lang-pill {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 40px;
+  height: 22px;
+  background: var(--purple-dim);
+  border-radius: 5px;
+  z-index: 0;
+  transition: transform .45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 12px rgba(124, 92, 224, 0.25);
+  pointer-events: none;
+}
+.lang-tabs[data-active="ja"] .lang-pill {
+  transform: translateX(100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lang-tabs.squish-r, .lang-tabs.squish-l { animation: none; }
+  .lang-pill { transition: none; }
+}
 .crumb-icon {
   display: inline-flex; align-items: center; justify-content: center;
   width: 28px; height: 28px;
@@ -680,8 +745,11 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     </span>
   </div>
   <div class="crumb-right">
-    <button class="crumb-action" id="btn-en" onclick="setLang('en')">EN</button>
-    <button class="crumb-action" id="btn-ja" onclick="setLang('ja')">JA</button>
+    <div class="lang-tabs" id="lang-tabs" data-active="en">
+      <button class="lang-tab" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+      <button class="lang-tab" data-lang="ja" onclick="setLang('ja')" aria-label="日本語">JA</button>
+      <span class="lang-pill" aria-hidden="true"></span>
+    </div>
     <a href="https://github.com/machuz/eis" class="crumb-icon" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.17c-3.34.72-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.4 3-.41 1.02.01 2.04.14 3 .41 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.69.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/>
@@ -1074,14 +1142,24 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 
 <script>
 function setLang(lang) {
+  const tabs = document.getElementById('lang-tabs');
+  const prev = tabs ? tabs.dataset.active : null;
+  if (tabs && prev !== lang) {
+    tabs.dataset.active = lang;
+    tabs.classList.remove('squish-r', 'squish-l');
+    // force reflow so animation restarts on repeat clicks
+    void tabs.offsetWidth;
+    tabs.classList.add(lang === 'ja' ? 'squish-r' : 'squish-l');
+  }
   document.body.classList.toggle('ja', lang === 'ja');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
   localStorage.setItem('orbit-lang', lang);
   document.documentElement.lang = lang;
 }
 const savedLang = localStorage.getItem('orbit-lang');
 const initialLang = savedLang || (navigator.language && navigator.language.startsWith('ja') ? 'ja' : 'en');
+// Initialize container state without animation on first paint
+const _langTabs = document.getElementById('lang-tabs');
+if (_langTabs) _langTabs.dataset.active = initialLang;
 setLang(initialLang);
 
 // Keyboard shortcuts (j/k → scroll between sections)
