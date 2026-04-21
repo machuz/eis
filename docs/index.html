@@ -156,8 +156,7 @@ a:hover { color: var(--text-strong); }
   0%, 100% { transform: scaleX(1); transform-origin: right center; }
   50%      { transform: scaleX(1.04); transform-origin: right center; }
 }
-.lang-tab,
-body.ja .lang-tab {
+.lang-tab {
   position: relative;
   z-index: 1;
   display: grid;
@@ -175,8 +174,8 @@ body.ja .lang-tab {
   transition: color .35s ease;
 }
 .lang-tab:focus-visible { outline: 1px solid var(--purple-bright); outline-offset: 2px; border-radius: 4px; }
-.lang-tabs[data-active="en"] .lang-tab[data-lang="en"],
-.lang-tabs[data-active="ja"] .lang-tab[data-lang="ja"] {
+.lang-tabs[data-active="en"] .lang-tab[data-tab-lang="en"],
+.lang-tabs[data-active="ja"] .lang-tab[data-tab-lang="ja"] {
   color: var(--text-strong);
 }
 .lang-pill {
@@ -746,8 +745,8 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
   </div>
   <div class="crumb-right">
     <div class="lang-tabs" id="lang-tabs" data-active="en">
-      <button class="lang-tab" data-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
-      <button class="lang-tab" data-lang="ja" onclick="setLang('ja')" aria-label="日本語">JA</button>
+      <button class="lang-tab" data-tab-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
+      <button class="lang-tab" data-tab-lang="ja" onclick="setLang('ja')" aria-label="日本語">JA</button>
       <span class="lang-pill" aria-hidden="true"></span>
     </div>
     <a href="https://github.com/machuz/eis" class="crumb-icon" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
