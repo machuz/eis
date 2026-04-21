@@ -128,7 +128,7 @@ H.: "Producing like mad, but only 11% survives. And yet — still producing." Th
 
 O.: "Has gravity. But keeps getting overwritten. But not completely erased." Another signal of struggle. But something remains. Something you can't feel intuitively — but the telescope catches it.
 
-**Cold numbers turn out to be the most emotional.**
+**Cold numbers are what reflect [the hottest thing](https://library.orbitlens.io/psychological-os/#ch2).**
 
 Daily effort etched into the codebase. Signals of struggle. Signals of persistence. Things that slowly remain. The telescope makes that observable.
 

@@ -263,11 +263,11 @@ AGI might be able to construct a universe. But deciding **why** that universe sh
 
 I'm currently in the entertainment domain.
 
-Why did I choose this field? Because I believe **defining "fun" is something only humans can do.**
+Why did I choose this field? Because **defining "fun" is something that only stays on the human side.**
 
 Entertainment is the act of humans deciding "this is fun." No matter how far AI evolves, humans set the standard for "fun." Designing game rules. Crafting experiences. Understanding the sensation of "this moment is exciting" and translating it into a product.
 
-I see this as the most concrete form of Purpose. Even when AGI can write code and design structure — **no matter how far we go, deciding what's fun remains human.** That fact doesn't change.
+I see this as the most concrete form of Purpose. Even when AGI can write code and design structure — **no matter how far we go, deciding what's fun stays on the human side.** That fact doesn't change.
 
 That's why I jumped into this field. And this conviction is one answer for engineers living in the AI era. Placing human will on top of technology. That's work that never becomes obsolete, in any era.
 
@@ -389,19 +389,19 @@ In Chapter 12, I wrote about the danger of Black Holes — when gravity concentr
 
 ### My Own Transformation
 
-Of course, I use AI extensively in my own development.
+This shift is also taking place inside my own development environment.
 
 I've been an Architect/Builder for much of my career, but before AI, my work was almost entirely about facing code. Design the structure, implement it with my own hands. That alone would fill a day.
 
 After acquiring AI, this changed fundamentally.
 
-With AI handling the Producer role and writing large volumes of code, **I now have time for dark matter work too.** Maintaining design documents, expanding CLAUDE.md, having design discussions with team members, making structural decisions — things that were squeezed out by "time spent writing code" are now possible.
+With AI taking on the Producer role and writing large volumes of code, **margin has opened up for dark matter work.** Maintaining design documents, expanding CLAUDE.md, having design discussions with team members, making structural decisions — time is now flowing into the territory that used to be squeezed out by "time spent writing code."
 
 And code output hasn't decreased — it's increased. Through pair programming with AI, I can produce massive amounts of structurally-aware code at high speed.
 
 Building structure as an Architect/Builder, making dark matter visible, and weaving large volumes of features through AI. **A way of working that was impossible before AI** is now routine.
 
-This is the true power of the Architect/Builder in the AI era.
+This is a new operating range that has opened up for the Architect/Builder in the AI era.
 
 ---
 

@@ -280,7 +280,7 @@ R.M. is the engineer who built the new project's FE repository from scratch — 
 
 **For the sheer volume of design decisions made, Impact 51.8/50.4 may look low.** This is exactly what Style=**Emergent** represents — creating a new universe alone, code that no one else has touched yet, relative metrics like Breadth and Indispensability that don't fully activate. EIS measures "gravity within a team" — in a universe of one, relative gravity is hard to express.
 
-But I know. **From another universe, I know this design carries refined, high-quality gravity.** R.M. and I built structure together in a different codebase, and I've experienced firsthand the soundness of this architectural thinking. How much structural intelligence lives behind these Impact numbers — the telescope alone can't see it. Only an observer who has shared another universe can understand the true intensity of this light.
+But from another universe, this design has already been observed to carry refined, high-quality gravity. R.M. and I have built structure together in a different codebase. What was visible there was an **[obsession with UI/UX, and a posture of carving structure under internal pressure](https://library.orbitlens.io/psychological-os/#ch2)**. How much structural intelligence lives behind these Impact numbers — the telescope alone can't see it. Only an observer carrying readings from another universe can see the true intensity of this light.
 
 Q4 — Prod=100, commits=993, Lines=+174k/-119k. **A single engineer triggering the Big Bang of a new universe.** This is exactly the "initial conditions determine structure" from Chapter 9. The architecture R.M. laid down in this period defined the gravitational field for the entire frontend that followed.
 

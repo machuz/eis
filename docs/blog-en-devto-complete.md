@@ -50,7 +50,7 @@ When I added timelines — quarterly snapshots of signals — stories emerged.
 
 An engineer's Role shifts from Producer to Anchor to Architect. Another's signals plateau — not from stagnation, but from **strategic patience**. A departure trajectory becomes visible three quarters before anyone notices.
 
-Cold numbers tell the most human stories.
+Cold numbers are what reflect the hottest stories.
 
 From these timelines, I extracted evolution laws:
 

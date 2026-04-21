@@ -131,7 +131,7 @@ This isn't "the afterimage of someone who was once strong."
 
 But Former state has another meaning.
 
-**It's something that needs to be laid to rest.**
+**It's a state waiting to be laid to rest.**
 
 The team metrics show:
 
@@ -362,9 +362,9 @@ EIS visualizes these differences and can suggest appropriate prescriptions for e
 
 ## Being Honest
 
-My impact of 92.4 at #1 feels good — like my ability as an Architect is being validated.
+My impact of 92.4 at #1, as a signal of how I'm being observed as an Architect, is a strong one.
 
-But honestly, **I also work an absurd number of hours**.
+But honestly, **the number of hours I put in is also extreme**. This is [psychological-OS strength](https://library.orbitlens.io/psychological-os/#ch2) showing on the outside — an **obsession with getting the running structure right from the very start**. From the inside, it's visible: finishing the structure up front is ultimately the most efficient path, and structurally, now is the phase where it propagates most easily. So the internal pressure keeps the work moving. The number is the sum of that.
 
 And there's another thing that makes me happy.
 
@@ -380,21 +380,21 @@ That accumulation is what these numbers represent.
 
 I worked with P. before, at another company. We merged our design knowledge back then. So we share common understanding of each other's design approach. Whatever their current impact shows, I know they have horsepower. **I know they have the ability to hit 80+ on our team.**
 
-R.S. is doing really good work. When I invited them to join this team, they said "I lack confidence because I don't have much experience." But from my experience, I was absolutely certain they could do good work. So I invited them. **And now, they've become an Anchor.** An Anchor on a Spiral team. That's something to brag about anywhere. Deeply moving.
+R.S. is doing really good work. When I reached out to them, they said "I lack confidence because I don't have much experience." But the [strength of their psychological OS](https://library.orbitlens.io/psychological-os/#ch2) — heat held at high purity, able to run under internal pressure — was visible. So the conviction was there. **And now, they've settled into the structure as an Anchor.** A Spiral team's Anchor. A shape that holds up on its own, in numbers.
 
 ---
 
-And even more honestly, **what I really want to brag about is the team**.
+And even more honestly, **what I really want to show is the team**.
 
 ![Spiral team classification](https://raw.githubusercontent.com/machuz/engineering-impact-score/main/docs/images/blog/png/ch4-data-elite.png?v=4)
 
 That this team gets a Spiral classification. That it functions despite carrying Legacy-Heavy weight. That it's moving forward while laying departed Architects' assets to rest.
 
-**One of my motivations for building EIS? I wanted to brag about this team.**
+**One of my motivations for building EIS was to show this team's strength on a playing field where bias can't enter.**
 
 I wanted to say "my team is strong." But "somehow strong" isn't convincing.
 
-And critically, **I wanted to brag on a playing field where bias can't enter**.
+And critically, **I wanted to reach a state where this team could be called strong on a playing field where bias can't enter**.
 
 When someone subjectively says "that person is strong," it might just be the evaluator's bias. Maybe the person who's good at politics gets high ratings.
 
@@ -478,7 +478,7 @@ Active members take them over, understand them, rewrite them.
 
 **That sacred work is visualized as Debt Cleanup.**
 
-Cold numbers, it turns out, tell the most human stories.
+Cold numbers are what reflect the hottest thing.
 
 That might be the essence of EIS.
 

@@ -312,9 +312,9 @@ But the team I described in Chapter 13 shows **signs**:
 
 Whether we become a civilization depends on what comes next.
 
-But we have proof from another universe. In past codebases, we built structure that survived beyond team turnover. And the culture we shared in that previous universe — the culture of visualizing design gravity, of taking pride in structure — we've carried it into this team. So I'm confident. **The conviction that this team can build a civilization — that was taught to us by a previous universe.**
+But a similar observation already exists in another universe. Structures built in past codebases did survive beyond team turnover — they actually remained. And those teams held a [pool of strong psychological OS](https://library.orbitlens.io/psychological-os/#ch3) — a culture of visualizing design gravity and taking pride in structure. The same pool is forming in this team now. **The read that this team can build a civilization — that comes from those observations.**
 
-**Will this structure survive after I leave?**
+**Will this structure hold even as people turn over?**
 
 That's the question. And facing that question honestly is, I believe, the final work of an Architect/Builder.
 

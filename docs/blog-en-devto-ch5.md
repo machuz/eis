@@ -185,11 +185,11 @@ R.M. had a design vision they'd been carrying — a conviction about how Fronten
 
 But the timing wasn't right yet.
 
-**"Once the engineering org has proven itself and the business side is ready to go all-in on engineering, I'll hand it to you. Wait for me."**
+**"Once the engineering org has proven itself and the business side moves into a phase of going all-in on engineering, I can hand it over. So please wait for that moment."**
 
 I was certain their design was right. I was certain the whole team would benefit from a structure built around their strengths. But as a startup, the business side wasn't yet fully invested in engineering. The ambition to become a tech company was there — but the timing hadn't arrived. So — please, wait a little longer.
 
-Q3's "hesitation" wasn't just friction. It was also **strategic patience**.
+Q3's "hesitation" wasn't just friction. In the middle of the organization's [proof phase](https://library.orbitlens.io/psychological-os/#ch4), it was also the **strategic patience** of waiting for the moment the [immediate-type](https://library.orbitlens.io/psychological-os/#ch4) would gain the mandate to open up and swing freely.
 
 ---
 
@@ -365,7 +365,7 @@ Y.Y. built the structure. machuz became Architect on top of it. O. built a struc
 
 **All of it was preserved in the numbers.**
 
-Cold numbers tell the most compelling stories. That's the essence of the timeline.
+Cold numbers are what hold the hottest stories. That's the essence of the timeline.
 
 ---
 

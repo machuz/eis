@@ -268,7 +268,7 @@ This aligns with the essence of "designing." Design isn't "modifying what exists
 
 It's no coincidence that the moment Frontend's Culture shifted from Stability → Builder in the team timeline, the Phase changed from Declining → Mature.
 
-**Teams without Builder culture can't mature.** Defense alone leads to decline.
+**Teams without Builder culture have a harder time moving toward maturity.** Defense alone leads to decline.
 
 ---
 

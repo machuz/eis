@@ -40,7 +40,7 @@ Yet inside every team, people sense whose structural signal is strongest.
 > "That person writes code that lasts."
 > "That person touches everything but nothing improves."
 
-Those intuitions exist, but they're not measurable. I wanted to **turn gut feeling into numbers** — and I wanted those numbers to come from a source that can't be gamed by politics: **the git history itself.**
+Those intuitions exist, but they're not measurable. I wanted to find a way to **observe that gut feeling as numbers** — drawn from a source that can't be gamed by politics: **the git history itself.**
 
 ---
 
@@ -66,7 +66,7 @@ Anyone can use it. Point it at any team. Through the lens of git history — a l
 
 Engineers in Japan are paid less than their peers in other countries.
 
-It's not because they lack skill. I believe it comes from a cultural tendency to let the work speak for itself — rather than asserting their own value. They write code in silence, fix architecture in silence, clean up debt in silence — and that work stays **invisible**. Invisible means unheard. And when it's unheard, the credit — the soul of their work — gets absorbed by whoever speaks the loudest.
+It's not because they lack skill. I believe it comes from a cultural tendency to let the work speak for itself — rather than asserting their own value. They write code in silence, fix architecture in silence, clean up debt in silence — and that work stays **invisible**. Invisible means unheard. And when it's unheard, the structure pulls the soul of their work toward whoever speaks the loudest.
 
 Whenever I've sensed that happening, I've resisted hard enough to warp the team's magnetic field.
 

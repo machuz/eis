@@ -123,7 +123,7 @@ This is **seasoned, good gravity**.
 
 Remember Chapter 4's "laying souls to rest." A good Architect can be laid to rest. Their code lives on after departure. Survival 100 is proof that the structure remains.
 
-**A Black Hole Engineer cannot be laid to rest.**
+**A Black Hole Engineer, left alone, will not be laid to rest.**
 
 Because the code universe collapses the moment they leave.
 

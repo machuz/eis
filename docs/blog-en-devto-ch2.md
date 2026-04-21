@@ -157,7 +157,7 @@ And yet, the team hasn't collapsed.
 
 Why? Because those modules were built on well-organized design. No comprehensive documentation. No complete knowledge transfer. But **the design embedded in the code's structure gave the remaining engineers enough understanding to operate confidently.**
 
-Strong design leaves knowledge in structure, not in people. A strong team will gradually replace Former members' code with their own, and Legacy-Heavy resolves itself. EIS captures that convergence through Survival trajectories.
+Strong design leaves knowledge in structure, not in people. In a strong team, Former members' code gradually gives way to the team's own, and Legacy-Heavy resolves itself. EIS captures that convergence through Survival trajectories.
 
 ---
 
