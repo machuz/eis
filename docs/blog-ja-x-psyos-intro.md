@@ -3,7 +3,7 @@ platform: x
 series: psychological-os
 part: intro
 status: draft
-target_url: https://x.com/wing_007 (未投稿)
+target_url: https://x.com/machuz_lens (未投稿)
 ---
 
 # "熱い三流なら上等よ" —— アカギがヒロに残した問いの話
@@ -303,4 +303,4 @@ target_url: https://x.com/wing_007 (未投稿)
 
 ---
 
-*本記事は福本伸行『天』『アカギ』への個人的な考察です。引用部分に関するお問い合わせは X DM (@wing_007) までご連絡ください。*
+*本記事は福本伸行『天』『アカギ』への個人的な考察です。引用部分に関するお問い合わせは X DM (@machuz_lens) までご連絡ください。*
