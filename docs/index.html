@@ -209,6 +209,162 @@ a:hover { color: var(--text-strong); }
 .crumb-icon:hover { color: var(--text-strong); background: rgba(255,255,255,0.05); }
 .crumb-icon svg { width: 16px; height: 16px; display: block; }
 
+/* Breadcrumb current section (scrollspy echo) */
+.crumb-sep-section { color: var(--gray2); }
+.crumb-section {
+  color: var(--purple-bright);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  white-space: nowrap;
+  max-width: 40vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity .16s ease;
+}
+.crumb-section.fading { opacity: 0; }
+@media (max-width: 720px) {
+  .crumb-section { max-width: 32vw; }
+  /* On very narrow screens, hide the "LIBRARY /" prefix to give the section room */
+  .breadcrumb .crumb-scope,
+  .breadcrumb .crumb-sep:not(.crumb-sep-section),
+  .breadcrumb .private-chip { display: none; }
+}
+
+/* Progress slider at bottom of breadcrumb */
+.nav-progress {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -1px;
+  height: 8px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.nav-progress.dragging { cursor: grabbing; }
+.nav-progress::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: rgba(124, 92, 224, 0.12);
+  pointer-events: none;
+  transition: height .18s ease, background .18s ease;
+}
+.nav-progress:hover::before,
+.nav-progress.dragging::before {
+  height: 4px;
+  background: rgba(124, 92, 224, 0.22);
+}
+.nav-progress-bar {
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--purple-deep), var(--purple), var(--purple-bright));
+  box-shadow: 0 0 10px var(--purple-glow);
+  transition: width .12s linear, height .18s ease, box-shadow .22s ease;
+  pointer-events: none;
+}
+.nav-progress:hover .nav-progress-bar,
+.nav-progress.dragging .nav-progress-bar {
+  height: 4px;
+  box-shadow: 0 0 14px var(--purple-glow), 0 0 4px var(--purple-bright);
+}
+.nav-progress.dragging .nav-progress-bar {
+  transition: height .18s ease, box-shadow .22s ease;
+}
+.nav-progress-markers {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 8px;
+  pointer-events: none;
+}
+.nav-marker {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  height: 6px;
+  background: var(--purple-dim);
+  transform: translateX(-50%);
+  opacity: 0.5;
+}
+.nav-marker::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--purple-bright);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 8px var(--purple-bright);
+}
+.nav-marker.ping::after {
+  animation: nav-marker-ping .9s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+}
+@keyframes nav-marker-ping {
+  0%   { opacity: .95; transform: translate(-50%, -50%) scale(1); }
+  80%  { opacity: .25; }
+  100% { opacity: 0;   transform: translate(-50%, -50%) scale(5); }
+}
+.nav-progress-thumb {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 10px;
+  height: 12px;
+  border-radius: 1px;
+  background: var(--purple);
+  border: 1px solid var(--bg-void);
+  transform: translateX(-50%) scale(1);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition:
+    left .12s linear,
+    opacity .2s ease,
+    transform .18s ease-out,
+    box-shadow .2s ease;
+}
+.nav-progress-thumb::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 2px;
+  background: radial-gradient(circle, var(--purple-glow) 0%, transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.nav-progress:hover .nav-progress-thumb {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.2);
+}
+.nav-progress.dragging .nav-progress-thumb {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.5);
+  box-shadow:
+    0 0 0 4px rgba(124, 92, 224, 0.2),
+    0 0 18px var(--purple),
+    0 0 3px var(--purple-bright);
+  transition:
+    left 0s,
+    opacity .2s ease,
+    transform .18s ease-out,
+    box-shadow .22s ease;
+}
+.nav-progress.dragging .nav-progress-thumb::after { opacity: .8; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-marker.ping::after { animation: none; }
+  .crumb-section,
+  .nav-progress-thumb,
+  .nav-progress-bar,
+  .nav-progress::before { transition: none; }
+}
+
 .content { position: relative; z-index: 1; }
 .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
 .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 32px; }
@@ -735,6 +891,8 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     </a>
     <span class="crumb-sep">/</span>
     <span class="crumb-scope">LIBRARY</span>
+    <span class="crumb-sep crumb-sep-section">·</span>
+    <span class="crumb-section" id="crumb-section"></span>
     <span class="private-chip">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
         <rect x="3" y="7" width="10" height="7" rx="1"/>
@@ -754,6 +912,11 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
         <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.17c-3.34.72-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.4 3-.41 1.02.01 2.04.14 3 .41 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.69.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/>
       </svg>
     </a>
+  </div>
+  <div class="nav-progress" id="nav-progress" role="slider" tabindex="0" aria-label="Page position">
+    <div class="nav-progress-markers" id="nav-progress-markers"></div>
+    <div class="nav-progress-bar" id="nav-progress-bar"></div>
+    <div class="nav-progress-thumb" id="nav-progress-thumb" aria-hidden="true"></div>
   </div>
 </nav>
 
@@ -1153,6 +1316,7 @@ function setLang(lang) {
   document.body.classList.toggle('ja', lang === 'ja');
   localStorage.setItem('orbit-lang', lang);
   document.documentElement.lang = lang;
+  if (window.__refreshCrumbSection) window.__refreshCrumbSection();
 }
 const savedLang = localStorage.getItem('orbit-lang');
 const initialLang = savedLang || (navigator.language && navigator.language.startsWith('ja') ? 'ja' : 'en');
@@ -1175,12 +1339,34 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Scrollspy: highlight page TOC entry matching current section
+// Scrollspy: highlight page TOC entry matching current section, and mirror the
+// current section name into the fixed breadcrumb.
 (function(){
   const links = Array.from(document.querySelectorAll('.page-toc a[data-spy]'));
-  if (!links.length) return;
-  const linkMap = new Map(links.map(a => [a.dataset.spy, a]));
   const sections = Array.from(document.querySelectorAll('section[id]'));
+  if (!sections.length) return;
+  const linkMap = new Map(links.map(a => [a.dataset.spy, a]));
+
+  const SECTION_NAMES = {
+    en: { books: 'The Library', whitepapers: 'Whitepapers', research: 'Research', articles: 'Articles', tools: 'Tools' },
+    ja: { books: 'ライブラリ', whitepapers: 'ホワイトペーパー', research: 'リサーチ', articles: '記事', tools: 'ツール' }
+  };
+  const crumbSection = document.getElementById('crumb-section');
+  let currentSectionId = null;
+
+  function setCrumbSection(id) {
+    if (!crumbSection) return;
+    const lang = document.body.classList.contains('ja') ? 'ja' : 'en';
+    const text = (SECTION_NAMES[lang] && SECTION_NAMES[lang][id]) || '';
+    if (crumbSection.textContent === text) return;
+    crumbSection.classList.add('fading');
+    setTimeout(() => {
+      crumbSection.textContent = text;
+      crumbSection.classList.remove('fading');
+    }, 140);
+  }
+  // Expose so setLang() can trigger a language re-sync
+  window.__refreshCrumbSection = () => setCrumbSection(currentSectionId);
 
   function updateActive(){
     const scrollY = window.scrollY;
@@ -1199,11 +1385,118 @@ document.addEventListener('keydown', (e) => {
     if (current) {
       const a = linkMap.get(current.id);
       if (a) a.classList.add('active');
+      if (current.id !== currentSectionId) {
+        currentSectionId = current.id;
+        setCrumbSection(currentSectionId);
+      }
     }
   }
   window.addEventListener('scroll', updateActive, { passive: true });
   window.addEventListener('resize', updateActive);
   updateActive();
+})();
+
+// Navbar progress slider — mirrors the reader's in-page scrubber
+(function(){
+  const track = document.getElementById('nav-progress');
+  const bar = document.getElementById('nav-progress-bar');
+  const thumb = document.getElementById('nav-progress-thumb');
+  const markersEl = document.getElementById('nav-progress-markers');
+  if (!track || !bar || !thumb || !markersEl) return;
+
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+
+  function buildMarkers() {
+    const doc = document.documentElement;
+    const scrollMax = doc.scrollHeight - doc.clientHeight;
+    if (scrollMax <= 0) { markersEl.innerHTML = ''; return; }
+    markersEl.innerHTML = sections.map(s => {
+      const top = s.getBoundingClientRect().top + window.scrollY;
+      const pct = Math.min(100, Math.max(0, (top / scrollMax) * 100));
+      return `<span class="nav-marker" style="left: ${pct}%" data-target="${s.id}"></span>`;
+    }).join('');
+  }
+
+  let lastPct = -1;
+  let raf = null;
+  function updateProgress() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const doc = document.documentElement;
+      const scrollMax = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollMax > 0 ? (window.scrollY / scrollMax) * 100 : 0;
+      const clamped = Math.min(100, Math.max(0, pct));
+      const dragging = track.classList.contains('dragging');
+      if (!dragging) {
+        bar.style.width = clamped + '%';
+        thumb.style.left = clamped + '%';
+      }
+      if (lastPct >= 0 && !dragging) {
+        const ms = markersEl.querySelectorAll('.nav-marker');
+        const lo = Math.min(lastPct, clamped);
+        const hi = Math.max(lastPct, clamped);
+        ms.forEach(m => {
+          const mp = parseFloat(m.style.left);
+          if (!isNaN(mp) && mp > lo && mp <= hi && !m.classList.contains('ping')) {
+            m.classList.remove('ping'); void m.offsetWidth; m.classList.add('ping');
+            setTimeout(() => m.classList.remove('ping'), 1000);
+          }
+        });
+      }
+      lastPct = clamped;
+    });
+  }
+
+  // Build + paint on load, and after fonts settle (section positions shift)
+  window.addEventListener('load', () => { buildMarkers(); updateProgress(); });
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { buildMarkers(); updateProgress(); }, 120);
+  });
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  // Initial paint in case load already fired
+  buildMarkers();
+  updateProgress();
+
+  // Drag
+  let isDragging = false;
+  function seekFromX(clientX) {
+    const rect = track.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const doc = document.documentElement;
+    const target = ratio * (doc.scrollHeight - doc.clientHeight);
+    if (isDragging) {
+      const pct = ratio * 100;
+      bar.style.width = pct + '%';
+      thumb.style.left = pct + '%';
+      lastPct = pct;
+    }
+    window.scrollTo({ top: target, behavior: isDragging ? 'auto' : 'smooth' });
+  }
+  track.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    try { track.setPointerCapture(e.pointerId); } catch (_) {}
+    track.classList.add('dragging');
+    seekFromX(e.clientX);
+  });
+  track.addEventListener('pointermove', (e) => { if (isDragging) seekFromX(e.clientX); });
+  track.addEventListener('pointerup', () => { isDragging = false; track.classList.remove('dragging'); });
+  track.addEventListener('pointercancel', () => { isDragging = false; track.classList.remove('dragging'); });
+
+  // Keyboard: arrow keys on the slider move by 10% of page
+  track.addEventListener('keydown', (e) => {
+    const step = (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -0.1
+               : (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 0.1
+               : 0;
+    if (!step) return;
+    e.preventDefault();
+    const doc = document.documentElement;
+    const scrollMax = doc.scrollHeight - doc.clientHeight;
+    const newPct = Math.max(0, Math.min(1, (window.scrollY / scrollMax) + step));
+    window.scrollTo({ top: newPct * scrollMax, behavior: 'smooth' });
+  });
 })();
 </script>
 
