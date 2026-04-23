@@ -41,6 +41,7 @@
       <a href="../" class="crumb-scope">LIBRARY</a>
       <span class="crumb-sep">/</span>
       <span class="crumb-book" id="crumb-book">${escapeHTML(cfg.title)}</span>
+      <span class="orbit-spacer"></span>
       <span class="private-chip" title="Read traces, not people">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
           <rect x="3" y="7" width="10" height="7" rx="1"/>
@@ -48,7 +49,6 @@
         </svg>
         ${cfg.lang === 'ja' ? '観測' : 'Observe'}
       </span>
-      <span class="orbit-spacer"></span>
       <button class="orbit-menu-toggle" id="orbit-menu-toggle" aria-label="Menu" aria-expanded="false">☰</button>
       <div class="orbit-tools" id="orbit-tools">
         <button class="orbit-tool" id="tool-theme" data-closes-menu title="${cfg.lang === 'ja' ? 'テーマ切替 (T)' : 'Toggle theme (T)'}">
