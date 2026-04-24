@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -134,8 +135,29 @@ func runTimeline(args []string) error {
 		return err
 	}
 
+	// When --since is not supplied, anchor to the first of the month
+	// the oldest reachable commit belongs to. This matches the SaaS
+	// window boundary (services/ace/backend's firstOfMonth(earliest
+	// CommitDate)) so `eis timeline` and the SaaS observation pipeline
+	// bucket commits into the same calendar-month windows by default.
+	// Without this, CLI defaults to "4 periods ending today", which
+	// produced rolling windows that sliced across calendar months and
+	// made side-by-side comparison between CLI and SaaS confusing —
+	// the same commit landed in a Spiral window in one view and a
+	// Nebula window in the other even though the underlying scoring
+	// was identical.
+	//
+	// Explicit --since still wins: callers who want today-anchored
+	// rolling windows pass --since today to recover the old behavior.
 	sinceDate := parseTimelineSince(*sinceFlag)
-	windows := pkgtimeline.BuildPeriods(spanMonths, spanDays, *periodsFlag, sinceDate, time.Now())
+	effectivePeriods := *periodsFlag
+	if *sinceFlag == "" {
+		if auto := firstOfMonthForEarliestCommit(repoPaths); !auto.IsZero() {
+			sinceDate = auto
+			effectivePeriods = 0 // walk forward from `since` to now; ignore periods cap
+		}
+	}
+	windows := pkgtimeline.BuildPeriods(spanMonths, spanDays, effectivePeriods, sinceDate, time.Now())
 	if !quiet {
 		fmt.Fprintf(os.Stderr, "Timeline: %d periods (%s span)\n", len(windows), *spanFlag)
 		for _, w := range windows {
@@ -191,11 +213,20 @@ func runTimeline(args []string) error {
 		}
 	}
 
-	// Run the library analysis
+	// Run the library analysis. When --since was not supplied, thread
+	// the calendar-month-anchored date we computed above into the
+	// library so pkgtimeline.Run builds the same windows we just
+	// printed — otherwise Run would redo BuildPeriods with empty Since
+	// and the Periods flag would re-engage, producing a 4-window
+	// today-anchored view that disagrees with the pre-run preview.
+	effectiveSince := *sinceFlag
+	if effectiveSince == "" && !sinceDate.IsZero() {
+		effectiveSince = sinceDate.Format("2006-01-02")
+	}
 	opts := pkgtimeline.Options{
 		Span:         *spanFlag,
-		Periods:      *periodsFlag,
-		Since:        *sinceFlag,
+		Periods:      effectivePeriods,
+		Since:        effectiveSince,
 		Workers:      *workers,
 		DomainFilter: *domainFilter,
 		PressureMode: *pressureMode,
@@ -348,4 +379,42 @@ func parseTimelineSince(s string) time.Time {
 	}
 	t, _ := time.Parse("2006-01-02", s)
 	return t
+}
+
+// firstOfMonthForEarliestCommit returns the first-of-month date for the
+// oldest reachable commit across all repoPaths. Zero time if any step
+// fails — caller falls back to pkgtimeline's own default anchoring.
+//
+// The walk is `git log --reverse --format=%aI HEAD`, taking the first
+// line as the oldest author date. Topological root via `--max-parents=0`
+// isn't used because squash-merge / filter-branch / orphan roots can
+// surface a synthetic recent root; `--reverse` orders by date and is
+// the same strategy the SaaS worker uses (see
+// services/ace/backend/.../earliestCommitDate for the same logic).
+func firstOfMonthForEarliestCommit(repoPaths []string) time.Time {
+	var earliest time.Time
+	for _, p := range repoPaths {
+		out, err := exec.Command("git", "-C", p, "log", "--reverse", "--format=%aI", "HEAD").Output()
+		if err != nil {
+			continue
+		}
+		s := strings.TrimSpace(string(out))
+		if s == "" {
+			continue
+		}
+		first := strings.SplitN(s, "\n", 2)[0]
+		t, err := time.Parse(time.RFC3339, first)
+		if err != nil {
+			continue
+		}
+		if earliest.IsZero() || t.Before(earliest) {
+			earliest = t
+		}
+	}
+	if earliest.IsZero() {
+		return time.Time{}
+	}
+	// Snap to the first of the month — same knob the SaaS pipeline
+	// uses to align windows on calendar boundaries.
+	return time.Date(earliest.Year(), earliest.Month(), 1, 0, 0, 0, 0, earliest.Location())
 }
