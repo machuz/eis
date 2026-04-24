@@ -6,7 +6,7 @@ import (
 	"io"
 	"text/template"
 
-	"github.com/machuz/eis/internal/timeline"
+	"github.com/machuz/eis/v2/internal/timeline"
 )
 
 // DomainTimelineData groups author timelines under a domain for HTML output.

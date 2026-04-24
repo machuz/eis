@@ -1,6 +1,6 @@
 package team
 
-import "github.com/machuz/eis/internal/scorer"
+import "github.com/machuz/eis/v2/internal/scorer"
 
 // TeamClassification holds the 5-axis team-level topology.
 type TeamClassification struct {

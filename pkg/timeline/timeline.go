@@ -1,6 +1,6 @@
 package timeline
 
-import "github.com/machuz/eis/internal/timeline"
+import "github.com/machuz/eis/v2/internal/timeline"
 
 type PeriodResult = timeline.PeriodResult
 type AuthorTimeline = timeline.AuthorTimeline

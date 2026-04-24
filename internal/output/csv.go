@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/machuz/eis/internal/scorer"
+	"github.com/machuz/eis/v2/internal/scorer"
 )
 
 func PrintRankingsCSV(domain string, results []scorer.Result, writeHeader bool) {

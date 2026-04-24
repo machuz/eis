@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/machuz/eis/internal/config"
-	"github.com/machuz/eis/internal/output"
-	"github.com/machuz/eis/internal/team"
+	"github.com/machuz/eis/v2/internal/config"
+	"github.com/machuz/eis/v2/internal/output"
+	"github.com/machuz/eis/v2/internal/team"
 )
 
 func runTeam(args []string) error {

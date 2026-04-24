@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/machuz/eis/internal/team"
+	"github.com/machuz/eis/v2/internal/team"
 )
 
 type teamJSONOutput struct {

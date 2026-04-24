@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/machuz/eis/internal/git"
+	"github.com/machuz/eis/v2/internal/git"
 )
 
 // ChangePressure maps module path → pressure value (commits / blame lines).

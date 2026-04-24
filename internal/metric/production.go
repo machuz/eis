@@ -3,7 +3,7 @@ package metric
 import (
 	"path/filepath"
 
-	"github.com/machuz/eis/internal/git"
+	"github.com/machuz/eis/v2/internal/git"
 )
 
 func CalcProduction(commits []git.Commit, excludePatterns []string) map[string]float64 {

@@ -8,7 +8,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/fatih/color"
-	"github.com/machuz/eis/internal/team"
+	"github.com/machuz/eis/v2/internal/team"
 )
 
 const (

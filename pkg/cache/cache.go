@@ -1,7 +1,7 @@
 // Package cache re-exports the internal cache types for external consumers.
 package cache
 
-import "github.com/machuz/eis/internal/cache"
+import "github.com/machuz/eis/v2/internal/cache"
 
 // Store is a disk-based cache for expensive git operations.
 type Store = cache.Store

@@ -3,7 +3,7 @@ package timeline
 import (
 	"testing"
 
-	"github.com/machuz/eis/internal/scorer"
+	"github.com/machuz/eis/v2/internal/scorer"
 )
 
 func TestBuildTimeline_BasicFlow(t *testing.T) {

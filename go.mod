@@ -1,4 +1,4 @@
-module github.com/machuz/eis
+module github.com/machuz/eis/v2
 
 go 1.25.0
 

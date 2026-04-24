@@ -3,7 +3,7 @@ package metric
 import (
 	"sort"
 
-	"github.com/machuz/eis/internal/git"
+	"github.com/machuz/eis/v2/internal/git"
 )
 
 // ModulePair represents a co-change relationship between two modules.

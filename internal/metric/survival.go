@@ -4,7 +4,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/machuz/eis/internal/git"
+	"github.com/machuz/eis/v2/internal/git"
 )
 
 // SurvivalResult holds multiple views of per-author blame survival:

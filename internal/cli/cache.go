@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/machuz/eis/internal/cache"
+	"github.com/machuz/eis/v2/internal/cache"
 )
 
 func runCache(args []string) error {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/machuz/eis/internal/scorer"
+	"github.com/machuz/eis/v2/internal/scorer"
 )
 
 // detectWarnings generates human-readable warnings from dangerous metric combinations.

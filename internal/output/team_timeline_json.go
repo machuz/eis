@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/machuz/eis/internal/timeline"
+	"github.com/machuz/eis/v2/internal/timeline"
 )
 
 type teamTimelineJSONOutput struct {

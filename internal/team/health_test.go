@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/machuz/eis/internal/scorer"
+	"github.com/machuz/eis/v2/internal/scorer"
 )
 
 func TestCalcHealth_FullTeam(t *testing.T) {

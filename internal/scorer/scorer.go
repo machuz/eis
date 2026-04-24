@@ -4,8 +4,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/machuz/eis/internal/config"
-	"github.com/machuz/eis/internal/metric"
+	"github.com/machuz/eis/v2/internal/config"
+	"github.com/machuz/eis/v2/internal/metric"
 )
 
 type Result struct {

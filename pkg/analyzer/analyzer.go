@@ -11,12 +11,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/machuz/eis/internal/cache"
-	"github.com/machuz/eis/internal/config"
-	"github.com/machuz/eis/internal/domain"
-	"github.com/machuz/eis/internal/git"
-	"github.com/machuz/eis/internal/metric"
-	"github.com/machuz/eis/internal/scorer"
+	"github.com/machuz/eis/v2/internal/cache"
+	"github.com/machuz/eis/v2/internal/config"
+	"github.com/machuz/eis/v2/internal/domain"
+	"github.com/machuz/eis/v2/internal/git"
+	"github.com/machuz/eis/v2/internal/metric"
+	"github.com/machuz/eis/v2/internal/scorer"
 )
 
 // Options controls the analysis pipeline behavior.

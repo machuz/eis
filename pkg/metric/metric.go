@@ -1,6 +1,6 @@
 package metric
 
-import "github.com/machuz/eis/internal/metric"
+import "github.com/machuz/eis/v2/internal/metric"
 
 type RawScores = metric.RawScores
 type SurvivalResult = metric.SurvivalResult

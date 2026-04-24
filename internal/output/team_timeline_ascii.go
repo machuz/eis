@@ -6,7 +6,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/guptarohit/asciigraph"
-	"github.com/machuz/eis/internal/timeline"
+	"github.com/machuz/eis/v2/internal/timeline"
 )
 
 // PrintTeamTimelineASCII renders team timeline data as ASCII line charts.

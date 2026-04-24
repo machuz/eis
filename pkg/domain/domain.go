@@ -1,6 +1,6 @@
 package domain
 
-import "github.com/machuz/eis/internal/domain"
+import "github.com/machuz/eis/v2/internal/domain"
 
 type Domain = domain.Domain
 

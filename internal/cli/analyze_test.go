@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/machuz/eis/internal/config"
-	"github.com/machuz/eis/internal/domain"
-	"github.com/machuz/eis/internal/git"
+	"github.com/machuz/eis/v2/internal/config"
+	"github.com/machuz/eis/v2/internal/domain"
+	"github.com/machuz/eis/v2/internal/git"
 )
 
 // --- resolveRepoDomain tests (config repo-pattern path, no git needed) ---

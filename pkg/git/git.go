@@ -1,6 +1,6 @@
 package git
 
-import "github.com/machuz/eis/internal/git"
+import "github.com/machuz/eis/v2/internal/git"
 
 type Commit = git.Commit
 type FileStat = git.FileStat

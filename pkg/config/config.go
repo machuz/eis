@@ -1,6 +1,6 @@
 package config
 
-import "github.com/machuz/eis/internal/config"
+import "github.com/machuz/eis/v2/internal/config"
 
 type Config = config.Config
 type Weights = config.Weights

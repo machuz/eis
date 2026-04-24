@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/machuz/eis/internal/timeline"
+	"github.com/machuz/eis/v2/internal/timeline"
 	chart "github.com/wcharczuk/go-chart/v2"
 	"github.com/wcharczuk/go-chart/v2/drawing"
 )

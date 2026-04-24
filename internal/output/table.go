@@ -7,8 +7,8 @@ import (
 	"unicode/utf8"
 
 	"github.com/fatih/color"
-	"github.com/machuz/eis/internal/metric"
-	"github.com/machuz/eis/internal/scorer"
+	"github.com/machuz/eis/v2/internal/metric"
+	"github.com/machuz/eis/v2/internal/scorer"
 	"github.com/rodaine/table"
 )
 

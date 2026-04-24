@@ -4,7 +4,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/machuz/eis/internal/metric"
+	"github.com/machuz/eis/v2/internal/metric"
 )
 
 // ModuleScore holds 4 module indicators + 3-axis classification.

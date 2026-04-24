@@ -1,7 +1,7 @@
 package team
 
 import (
-	"github.com/machuz/eis/internal/scorer"
+	"github.com/machuz/eis/v2/internal/scorer"
 )
 
 // MinContributionThreshold is the minimum Impact score for a member to be

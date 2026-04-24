@@ -3,7 +3,7 @@ package team
 import (
 	"testing"
 
-	"github.com/machuz/eis/internal/scorer"
+	"github.com/machuz/eis/v2/internal/scorer"
 )
 
 func TestClassify_Structure_ArchitecturalEngine(t *testing.T) {

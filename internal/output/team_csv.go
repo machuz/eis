@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/machuz/eis/internal/team"
+	"github.com/machuz/eis/v2/internal/team"
 )
 
 // PrintTeamCSV outputs team results as CSV (one row per team).

@@ -3,8 +3,8 @@ package timeline
 import (
 	"sort"
 
-	"github.com/machuz/eis/internal/scorer"
-	"github.com/machuz/eis/internal/team"
+	"github.com/machuz/eis/v2/internal/scorer"
+	"github.com/machuz/eis/v2/internal/team"
 )
 
 // PeriodResult holds scored results for a single time period within a domain.
