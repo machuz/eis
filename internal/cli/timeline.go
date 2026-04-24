@@ -18,7 +18,7 @@ import (
 func runTimeline(args []string) error {
 	fs := flag.NewFlagSet("timeline", flag.ExitOnError)
 	configPath := fs.String("config", "", "Config file path")
-	spanFlag := fs.String("span", "3m", "Period span: 3m, 6m, 1y")
+	spanFlag := fs.String("span", "3m", "Period span: 1w, 1m, 3m, 6m, 1y")
 	periodsFlag := fs.Int("periods", 4, "Number of periods to show (0=all)")
 	sinceFlag := fs.String("since", "", "Start date (e.g. 2024-01-01, overrides --periods)")
 	formatFlag := fs.String("format", "table", "Output format: table, csv, json, ascii, html, svg")
@@ -116,12 +116,16 @@ func runTimeline(args []string) error {
 		cfg.ExcludeAuthors = newExclude
 	}
 
-	// Validate span — CLI supports 3m, 6m, 1y only (1w, 1m are SaaS-only)
-	switch *spanFlag {
-	case "3m", "6m", "1y":
-		// OK
-	default:
-		return fmt.Errorf("invalid span %q (use 3m, 6m, or 1y)", *spanFlag)
+	// Validate span — accept every value pkgtimeline.ParseSpan accepts.
+	// The previous allowlist (3m/6m/1y only) existed because 1w and 1m
+	// windows were considered SaaS-only presentation modes, but that
+	// made stg runs non-reproducible with the CLI: SaaS observes at 1m
+	// granularity by design (monthly periods are the selling point),
+	// and users comparing a stg row to their local CLI output could
+	// never match the window size. Defer to the library's own parser
+	// so anything that ships in pkgtimeline is valid at the CLI too.
+	if _, _, err := pkgtimeline.ParseSpan(*spanFlag); err != nil {
+		return err
 	}
 
 	// Print period info before running analysis
