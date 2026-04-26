@@ -43,6 +43,19 @@ type Callbacks struct {
 	OnPeriodStart   func(periodLabel string, index, total int)
 	OnBlameProgress func(repoName string, done, total int)
 	OnVerbose       func(msg string)
+
+	// OnPeriodComplete fires once per timeline window after every domain
+	// in that window has produced its scored result. The map is keyed
+	// by domain name and mirrors the per-domain PeriodResult that ends
+	// up in the final []DomainTimeline returned by Run.
+	//
+	// SaaS callers use this to persist each period as it completes —
+	// pkgtimeline still returns the full slice on success, but a
+	// streaming consumer no longer has to wait for every period to
+	// land. If the host process is killed mid-run (worker timeout,
+	// OOM, deploy), the previously emitted periods are already on
+	// disk and the next run only has to fill in the missing tail.
+	OnPeriodComplete func(domains map[string]PeriodResult)
 }
 
 // DomainTimeline holds timeline results for one domain.
@@ -314,19 +327,26 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 	}
 	allDomains := domain.SortDomains(domainKeys)
 
-	var results []DomainTimeline
+	// domainPeriodMap accumulates per-domain results as the period-outer
+	// loop runs, so the original []DomainTimeline shape can be returned
+	// on success even though we now compute period-by-period across all
+	// domains (the order pkgtimeline used to compute domain-by-period).
+	// Flipping the loop is what unlocks OnPeriodComplete: every domain
+	// for a window finishes before the next window starts, so the
+	// callback fires once per window with all domains' results.
+	domainPeriodMap := make(map[string][]PeriodResult, len(allDomains))
 
-	for _, d := range allDomains {
-		drepos, ok := domainRepos[d]
-		if !ok {
-			continue
+	for pi, window := range windows {
+		if cb.OnPeriodStart != nil {
+			cb.OnPeriodStart(window.Label, pi, len(windows))
 		}
 
-		var periodResults []PeriodResult
+		windowDomainResults := make(map[string]PeriodResult, len(allDomains))
 
-		for pi, window := range windows {
-			if cb.OnPeriodStart != nil {
-				cb.OnPeriodStart(window.Label, pi, len(windows))
+		for _, d := range allDomains {
+			drepos, ok := domainRepos[d]
+			if !ok {
+				continue
 			}
 
 			acc := newAccumulator()
@@ -537,18 +557,28 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				}
 			}
 
-			periodResults = append(periodResults, PeriodResult{
+			pr := PeriodResult{
 				Label:   window.Label,
 				Start:   window.Start.Format("2006-01-02"),
 				End:     window.End.Format("2006-01-02"),
 				Members: filtered,
-			})
+			}
+			windowDomainResults[string(d)] = pr
+			domainPeriodMap[string(d)] = append(domainPeriodMap[string(d)], pr)
 		}
 
-		if len(periodResults) > 0 {
+		if cb.OnPeriodComplete != nil && len(windowDomainResults) > 0 {
+			cb.OnPeriodComplete(windowDomainResults)
+		}
+	}
+
+	var results []DomainTimeline
+	for _, d := range allDomains {
+		periods := domainPeriodMap[string(d)]
+		if len(periods) > 0 {
 			results = append(results, DomainTimeline{
 				Domain:  string(d),
-				Periods: periodResults,
+				Periods: periods,
 			})
 		}
 	}
