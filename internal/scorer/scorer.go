@@ -94,6 +94,18 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 
 	var results []Result
 	for _, author := range authors {
+		// Observation, not evaluation: a domain's team consists of people who
+		// authored code (non-merge commits) to that domain's repos. Merge-only
+		// authors (e.g. PR-mergers, automation accounts) have TotalCommits == 0
+		// because TotalCommits is incremented only for non-merge commits.
+		// They may still have a non-zero Quality score (the quality axis includes
+		// merge commits), but emitting them in the team rollup conflates "merged
+		// PRs" with "wrote code". Reviewer / merger contribution is a dark-matter
+		// concern (D-06 prose), not a member-list concern.
+		if raw.TotalCommits[author] == 0 {
+			continue
+		}
+
 		// Determine if author has been active in last 6 months
 		recentlyActive := false
 		if lastDate, ok := authorLastDate[author]; ok {
