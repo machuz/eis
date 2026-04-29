@@ -505,8 +505,14 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				fmt.Fprintf(os.Stderr, "  %s [2/4] Blame (cached)\n", color.New(color.FgGreen).Sprint("✓"))
 			}
 		} else {
+			// Pre-skip files larger than cfg.MaxBlameFileBytes so a single
+			// pathological dump can't drag the whole blame phase down.
+			files, err = git.FilterFilesBySize(ctx, repoPath, "HEAD", files, cfg.MaxBlameFileBytes, blameVerbose)
+			if err != nil && blameVerbose != nil {
+				blameVerbose(fmt.Sprintf("  [blame] size filter error: %v", err))
+			}
 			blameProg := newLiveProgress("[2/4] Blame")
-			blameLines, err = git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers,
+			blameLines, err = git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers, cfg.BlameTimeout,
 				func(done, total int) {
 					blameProg.Update(done, total)
 				}, blameVerbose)

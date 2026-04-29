@@ -18,6 +18,7 @@ var (
 	ConcurrentBlameFiles         = git.ConcurrentBlameFiles
 	ConcurrentBlameFilesAtCommit = git.ConcurrentBlameFilesAtCommit
 	DiffTreeFiles                = git.DiffTreeFiles
+	FilterFilesBySize            = git.FilterFilesBySize
 	FindCommitAtDate             = git.FindCommitAtDate
 	HeadHash                     = git.HeadHash
 	IsShallowRepo                = git.IsShallowRepo

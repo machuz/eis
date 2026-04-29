@@ -264,7 +264,10 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		if headHash != "" && cacheStore.Get(blameCacheKey, &blameLines) {
 			// cache hit
 		} else {
-			blameLines, _ = git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers, cb.OnBlameProgress, blameVerbose)
+			// Pre-skip oversized files so blame can't deadlock on a
+			// single huge single-line dump.
+			files, _ = git.FilterFilesBySize(ctx, repoPath, "HEAD", files, cfg.MaxBlameFileBytes, blameVerbose)
+			blameLines, _ = git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers, cfg.BlameTimeout, cb.OnBlameProgress, blameVerbose)
 			if headHash != "" && len(blameLines) > 0 {
 				cacheStore.Set(blameCacheKey, blameLines)
 			}

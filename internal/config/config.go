@@ -27,6 +27,12 @@ type Config struct {
 	ExcludeRepos         []string             `yaml:"exclude_repos"`
 	ActiveDays           int                  `yaml:"active_days"`
 	BlameTimeout         int                  `yaml:"blame_timeout"`
+	// MaxBlameFileBytes is the upper bound (in bytes) for files passed to
+	// git blame. Files whose blob size exceeds this are skipped before the
+	// blame call, which protects against pathological huge single-line
+	// dumps (e.g. SQL bulk inserts) that would otherwise stall git blame
+	// for minutes per file. <= 0 disables the filter.
+	MaxBlameFileBytes int64 `yaml:"max_blame_file_bytes"`
 	// UntestedSurvivalWeight multiplies the survival contribution of blame lines
 	// whose source file is not guarded by a test. 1.0 disables the weighting and
 	// matches pre-v2 behaviour; 0.5 (default) treats untested code as half-value.
@@ -93,6 +99,7 @@ func Default() *Config {
 		BreadthMax:             5,
 		ActiveDays:             30,
 		BlameTimeout:           120,
+		MaxBlameFileBytes:      5 * 1024 * 1024,
 		ProductionDailyRef:     1000,
 		UntestedSurvivalWeight: 0.5,
 		ExcludeFilePatterns: []string{

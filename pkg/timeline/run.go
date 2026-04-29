@@ -479,6 +479,20 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					continue
 				}
 
+				// Pre-skip files larger than cfg.MaxBlameFileBytes at the
+				// boundary commit. The boundary tree can include checked-in
+				// dumps (huge SQL bulk inserts, generated assets) that
+				// aren't in HEAD anymore — those would otherwise deadlock
+				// blame and there's no per-file timeout in the boundary
+				// path's parent context.
+				files, err = git.FilterFilesBySize(ctx, repo.path, boundaryCommit, files, cfg.MaxBlameFileBytes, blameVerbose)
+				if err != nil && blameVerbose != nil {
+					blameVerbose(fmt.Sprintf("  [blame] size filter error: %v", err))
+				}
+				if len(files) == 0 {
+					continue
+				}
+
 				var blameLines []git.BlameLine
 				blameCacheKey := cache.BlameAtCommitKey(repo.path, boundaryCommit, files, cfg.SampleSize)
 				if cacheStore.Get(blameCacheKey, &blameLines) {
@@ -492,7 +506,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 						}
 					}
 
-					blameLines, err = git.ConcurrentBlameFilesAtCommit(ctx, repo.path, boundaryCommit, files, cfg.SampleSize, workers, blameProg, blameVerbose)
+					blameLines, err = git.ConcurrentBlameFilesAtCommit(ctx, repo.path, boundaryCommit, files, cfg.SampleSize, workers, cfg.BlameTimeout, blameProg, blameVerbose)
 					if err != nil {
 						// Non-fatal: continue with whatever blame lines we got
 					}

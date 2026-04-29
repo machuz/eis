@@ -174,5 +174,6 @@ Config file (eis.yaml):
   active_days:                Days to consider author active (default: 30)
   debt_threshold:             Min events for debt score (default: 10)
   blame_timeout:              Per-file blame timeout in seconds (default: 120)
+  max_blame_file_bytes:       Skip files larger than N bytes before blame (default: 5242880, 0=disable)
   teams:                      Team definitions (optional, see config.example.yaml)`)
 }

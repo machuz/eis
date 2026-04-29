@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"io"
 	"math/rand"
 	"path/filepath"
 	"sort"
@@ -11,6 +12,16 @@ import (
 	"strings"
 	"time"
 )
+
+// defaultBlameTimeoutSec mirrors metric.CalcDebt's fallback when the caller
+// passes 0 or a negative timeout — kept here so per-file blame timeouts in
+// the worker pools have a sane upper bound even when cfg.BlameTimeout is
+// not wired through.
+const defaultBlameTimeoutSec = 120
+
+// filterChunkSize bounds how many file paths get passed to a single
+// `git ls-tree -l` call; argv length is OS-limited so we batch.
+const filterChunkSize = 500
 
 type BlameLine struct {
 	Author        string
@@ -339,7 +350,7 @@ func BlameFileStream(ctx context.Context, repoPath, filepath string) ([]BlameLin
 	filterFor := filepath
 
 	scanner := bufio.NewScanner(stdout)
-	scanner.Buffer(make([]byte, 1024*1024), 1024*1024)
+	scanner.Buffer(make([]byte, 64*1024), scannerMaxBuf)
 
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -370,12 +381,20 @@ func BlameFileStream(ctx context.Context, repoPath, filepath string) ([]BlameLin
 		}
 	}
 
+	// Drain anything the scanner skipped (bufio.ErrTooLong path) so git's
+	// pipe write side doesn't block cmd.Wait below.
+	_, _ = io.Copy(io.Discard, stdout)
+
 	_ = cmd.Wait()
 	return result, scanner.Err()
 }
 
-// ConcurrentBlameFiles runs blame on files concurrently with a worker pool
-func ConcurrentBlameFiles(ctx context.Context, repoPath string, files []string, maxFiles, workers int, progressFn func(done, total int), verboseFn func(string)) ([]BlameLine, error) {
+// ConcurrentBlameFiles runs blame on files concurrently with a worker pool.
+// blameTimeoutSec bounds each per-file blame call; <= 0 falls back to
+// defaultBlameTimeoutSec. Without this guard a single pathological file
+// (huge single-line dumps, repo corruption) can stall the whole pool
+// indefinitely.
+func ConcurrentBlameFiles(ctx context.Context, repoPath string, files []string, maxFiles, workers int, blameTimeoutSec int, progressFn func(done, total int), verboseFn func(string)) ([]BlameLine, error) {
 	sampled := SampleFiles(files, maxFiles)
 	total := len(sampled)
 
@@ -383,11 +402,18 @@ func ConcurrentBlameFiles(ctx context.Context, repoPath string, files []string, 
 		workers = 4
 	}
 
+	timeoutSec := blameTimeoutSec
+	if timeoutSec <= 0 {
+		timeoutSec = defaultBlameTimeoutSec
+	}
+	timeout := time.Duration(timeoutSec) * time.Second
+
 	type result struct {
-		file  string
-		lines []BlameLine
-		err   error
-		dur   time.Duration
+		file    string
+		lines   []BlameLine
+		err     error
+		dur     time.Duration
+		timeout bool
 	}
 
 	fileCh := make(chan string, total)
@@ -398,8 +424,11 @@ func ConcurrentBlameFiles(ctx context.Context, repoPath string, files []string, 
 		go func() {
 			for f := range fileCh {
 				start := time.Now()
-				lines, err := BlameFileStream(ctx, repoPath, f)
-				resultCh <- result{f, lines, err, time.Since(start)}
+				fileCtx, cancel := context.WithTimeout(ctx, timeout)
+				lines, err := BlameFileStream(fileCtx, repoPath, f)
+				timedOut := fileCtx.Err() == context.DeadlineExceeded
+				cancel()
+				resultCh <- result{f, lines, err, time.Since(start), timedOut}
 			}
 		}()
 	}
@@ -414,13 +443,16 @@ func ConcurrentBlameFiles(ctx context.Context, repoPath string, files []string, 
 	var allLines []BlameLine
 	for i := 0; i < total; i++ {
 		r := <-resultCh
-		if r.err == nil {
+		if r.err == nil && !r.timeout {
 			allLines = append(allLines, r.lines...)
 		}
-		if verboseFn != nil && (r.dur > 2*time.Second || r.err != nil) {
-			if r.err != nil {
+		if verboseFn != nil && (r.dur > 2*time.Second || r.err != nil || r.timeout) {
+			switch {
+			case r.timeout:
+				verboseFn(fmt.Sprintf("  [blame] %s: TIMEOUT (>%ds, skipped)", r.file, timeoutSec))
+			case r.err != nil:
 				verboseFn(fmt.Sprintf("  [blame] %s: error (%v)", r.file, r.err))
-			} else {
+			default:
 				verboseFn(fmt.Sprintf("  [blame] %s: %d lines (SLOW: %v)", r.file, len(r.lines), r.dur.Round(time.Millisecond)))
 			}
 		}
@@ -453,7 +485,7 @@ func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath strin
 	filterFor := filepath
 
 	scanner := bufio.NewScanner(stdout)
-	scanner.Buffer(make([]byte, 1024*1024), 1024*1024)
+	scanner.Buffer(make([]byte, 64*1024), scannerMaxBuf)
 
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -483,6 +515,9 @@ func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath strin
 			author = ""
 		}
 	}
+
+	// Same drain-before-Wait fail-safe as BlameFileStream.
+	_, _ = io.Copy(io.Discard, stdout)
 
 	_ = cmd.Wait()
 	return result, scanner.Err()
@@ -522,7 +557,10 @@ func ListFilesAtCommit(ctx context.Context, repoPath, commitHash string, pattern
 }
 
 // ConcurrentBlameFilesAtCommit runs blame at a specific commit on files concurrently.
-func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash string, files []string, maxFiles, workers int, progressFn func(done, total int), verboseFn func(string)) ([]BlameLine, error) {
+// blameTimeoutSec bounds each per-file blame call; see ConcurrentBlameFiles
+// for the rationale. Timeline boundary blame in particular needed this
+// because the boundary tree can include checked-in dumps absent from HEAD.
+func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash string, files []string, maxFiles, workers int, blameTimeoutSec int, progressFn func(done, total int), verboseFn func(string)) ([]BlameLine, error) {
 	sampled := SampleFiles(files, maxFiles)
 	total := len(sampled)
 
@@ -530,11 +568,18 @@ func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash stri
 		workers = 4
 	}
 
+	timeoutSec := blameTimeoutSec
+	if timeoutSec <= 0 {
+		timeoutSec = defaultBlameTimeoutSec
+	}
+	timeout := time.Duration(timeoutSec) * time.Second
+
 	type result struct {
-		file  string
-		lines []BlameLine
-		err   error
-		dur   time.Duration
+		file    string
+		lines   []BlameLine
+		err     error
+		dur     time.Duration
+		timeout bool
 	}
 
 	fileCh := make(chan string, total)
@@ -545,8 +590,11 @@ func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash stri
 		go func() {
 			for f := range fileCh {
 				start := time.Now()
-				lines, err := BlameFileAtCommit(ctx, repoPath, commitHash, f)
-				resultCh <- result{f, lines, err, time.Since(start)}
+				fileCtx, cancel := context.WithTimeout(ctx, timeout)
+				lines, err := BlameFileAtCommit(fileCtx, repoPath, commitHash, f)
+				timedOut := fileCtx.Err() == context.DeadlineExceeded
+				cancel()
+				resultCh <- result{f, lines, err, time.Since(start), timedOut}
 			}
 		}()
 	}
@@ -561,14 +609,21 @@ func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash stri
 	var allLines []BlameLine
 	for i := 0; i < total; i++ {
 		r := <-resultCh
-		if r.err == nil {
+		if r.err == nil && !r.timeout {
 			allLines = append(allLines, r.lines...)
 		}
-		if verboseFn != nil && (r.dur > 2*time.Second || r.err != nil) {
-			if r.err != nil {
-				verboseFn(fmt.Sprintf("  [blame@%s] %s: error (%v)", commitHash[:8], r.file, r.err))
-			} else {
-				verboseFn(fmt.Sprintf("  [blame@%s] %s: %d lines (SLOW: %v)", commitHash[:8], r.file, len(r.lines), r.dur.Round(time.Millisecond)))
+		if verboseFn != nil && (r.dur > 2*time.Second || r.err != nil || r.timeout) {
+			short := commitHash
+			if len(short) > 8 {
+				short = short[:8]
+			}
+			switch {
+			case r.timeout:
+				verboseFn(fmt.Sprintf("  [blame@%s] %s: TIMEOUT (>%ds, skipped)", short, r.file, timeoutSec))
+			case r.err != nil:
+				verboseFn(fmt.Sprintf("  [blame@%s] %s: error (%v)", short, r.file, r.err))
+			default:
+				verboseFn(fmt.Sprintf("  [blame@%s] %s: %d lines (SLOW: %v)", short, r.file, len(r.lines), r.dur.Round(time.Millisecond)))
 			}
 		}
 		if progressFn != nil && (i+1)%50 == 0 {
@@ -580,6 +635,88 @@ func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash stri
 	}
 
 	return allLines, nil
+}
+
+// FilterFilesBySize returns files whose blob size at commitHash is <= maxBytes.
+// maxBytes <= 0 disables filtering and returns the input unchanged. Files
+// whose size cannot be determined (e.g. submodules, missing objects, or git
+// errors) are kept — the goal is to avoid known-huge files, not to be
+// strict about every edge case. verboseFn, when non-nil, is invoked once
+// per skipped file so callers can surface what was dropped.
+//
+// commitHash == "" or "HEAD" both resolve against HEAD via `git ls-tree -l`.
+// We chunk into filterChunkSize-sized argv batches so very wide file lists
+// don't bump into the OS argv length limit.
+func FilterFilesBySize(ctx context.Context, repoPath, commitHash string, files []string, maxBytes int64, verboseFn func(string)) ([]string, error) {
+	if maxBytes <= 0 || len(files) == 0 {
+		return files, nil
+	}
+
+	ref := commitHash
+	if ref == "" {
+		ref = "HEAD"
+	}
+
+	// Build size lookup: path -> bytes. Missing entries mean "unknown size";
+	// such files pass the filter unchanged so we don't accidentally drop
+	// real code because of an ls-tree quirk.
+	sizes := make(map[string]int64, len(files))
+	for start := 0; start < len(files); start += filterChunkSize {
+		end := min(start+filterChunkSize, len(files))
+		args := []string{"ls-tree", "-l", "-z", ref, "--"}
+		args = append(args, files[start:end]...)
+
+		// We use -z (NUL-terminated) so paths with spaces or tabs work.
+		// RunLines is line-oriented (newline split), so go direct: read
+		// all stdout, split on NUL.
+		stdout, cmd, err := RunStream(ctx, repoPath, args...)
+		if err != nil {
+			return files, err
+		}
+		raw, _ := io.ReadAll(stdout)
+		_ = stdout.Close()
+		_ = cmd.Wait()
+
+		for rec := range strings.SplitSeq(string(raw), "\x00") {
+			if rec == "" {
+				continue
+			}
+			// Format: "<mode> <type> <object> <size>\t<path>"
+			meta, path, ok := strings.Cut(rec, "\t")
+			if !ok {
+				continue
+			}
+			fields := strings.Fields(meta)
+			if len(fields) < 4 {
+				continue
+			}
+			// fields[3] is size or "-" for non-blobs (trees/submodules)
+			n, err := strconv.ParseInt(fields[3], 10, 64)
+			if err != nil {
+				continue
+			}
+			sizes[path] = n
+		}
+	}
+
+	kept := make([]string, 0, len(files))
+	for _, f := range files {
+		size, ok := sizes[f]
+		if !ok {
+			// Unknown size — keep, callers shouldn't lose files just
+			// because ls-tree didn't list them.
+			kept = append(kept, f)
+			continue
+		}
+		if size > maxBytes {
+			if verboseFn != nil {
+				verboseFn(fmt.Sprintf("[blame] skip large file: %s (%d bytes > %d limit)", f, size, maxBytes))
+			}
+			continue
+		}
+		kept = append(kept, f)
+	}
+	return kept, nil
 }
 
 // FindCommitAtDate returns the latest commit hash on or before the given date.
