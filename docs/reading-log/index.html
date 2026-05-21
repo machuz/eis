@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function() {
+    if (location.hostname === 'machuz.github.io' && location.pathname.startsWith('/eis/docs/')) {
+      var newPath = location.pathname.replace('/eis/docs/', '/');
+      location.replace('https://library.orbitlens.io' + newPath + location.search + location.hash);
+    }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>読書ログ — OrbitLens Library</title>
+<meta name="description" content="漫画と思想書を、心理OS / 組織OS のサンプルケースとして構造抽出で読む連作。原作の重みを崩さず、身体で受け取ったものと概念で受け取ったものを同じ机の上で照合する。">
+<link rel="icon" type="image/png" href="../images/orbitlens-royal-purple-shadow.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/reader.css?v=25">
+<style>
+  .reader-layout { grid-template-columns: minmax(0, 1fr); max-width: 820px; }
+  .inline-toc { display: none !important; }
+  @media (min-width: 1221px) { .reader-layout { grid-template-columns: minmax(0, 1fr); } }
+  .log-list { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-direction: column; gap: 2px; }
+  .log-item { display: flex; gap: 18px; align-items: baseline; padding: 18px 14px; border-top: 1px solid var(--border, #21262d); text-decoration: none; transition: background .15s, padding-left .15s; }
+  .log-item:last-child { border-bottom: 1px solid var(--border, #21262d); }
+  .log-item:hover { background: rgba(177, 98, 134, 0.05); padding-left: 22px; text-decoration: none; }
+  .log-item.upcoming { opacity: .5; pointer-events: none; }
+  .log-num { font-family: var(--mono, monospace); font-size: 13px; color: var(--text-muted, #8b949e); min-width: 34px; }
+  .log-body { flex: 1; min-width: 0; }
+  .log-title { font-weight: 600; color: var(--text-strong, #f0f6fc); line-height: 1.5; }
+  .log-sub { font-size: 12.5px; color: var(--text-muted, #8b949e); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="starfield"></div>
+
+<nav class="orbit-bar">
+  <a href="../" class="crumb-logo" style="display:inline-flex;align-items:center;gap:10px;">
+    <img src="../images/orbitlens-royal-purple-shadow.png" alt="" style="width:22px;height:22px">
+    <span class="crumb-brand">ORBITLENS</span>
+  </a>
+  <span class="crumb-sep">/</span>
+  <a href="../" class="crumb-scope">LIBRARY</a>
+  <span class="crumb-sep">/</span>
+  <span class="crumb-book">読書ログ</span>
+  <span class="orbit-spacer"></span>
+</nav>
+
+<div class="reader-layout">
+  <main class="reader-main">
+    <article class="chapter-content">
+      <h1>読書ログ</h1>
+
+      <p><em>漫画と思想書を、同じ机の上で照合する。</em></p>
+
+      <p>美意識は、階級と履歴で作られる。けれど日本では、漫画が文化資本の民主化装置として機能してきた。この連作では、漫画と思想書を <strong>ファンとしてではなく、構造として</strong> 読み直す。どちらの棚も、個人の心理OS と組織OS のサンプルケースとして。原作の重みは崩さない。身体で受け取ったものと、概念で受け取ったものを、同じ机の上で照合する試みだ。</p>
+
+      <ul class="log-list">
+        <a class="log-item" href="./0/">
+          <span class="log-num">#0</span>
+          <span class="log-body">
+            <span class="log-title">漫画は文化資本の民主化装置だった</span>
+            <span class="log-sub">シリーズイントロ · 階級なき場所から、美学はどう立ち上がるか</span>
+          </span>
+        </a>
+        <span class="log-item upcoming">
+          <span class="log-num">#1</span>
+          <span class="log-body">
+            <span class="log-title">ベルセルク —— 理想実現OS が共同体を供物に変えるとき</span>
+            <span class="log-sub">近日 · グリフィスの意味生成装置と、その危険な転回</span>
+          </span>
+        </span>
+      </ul>
+    </article>
+
+    <div class="book-footer">
+      <div class="quote">熱は一人で生まれるが、構造の中でしか生き残らない。</div>
+      <div class="foot-links">
+        <a href="../">Library</a>
+        <a href="https://github.com/machuz/eis" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
