@@ -302,5 +302,13 @@
   "blog-ja-hatena-reading-log-1.md": {
     "hatena_id": "17179246901390291136",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/21/130907"
+  },
+  "blog-en-devto-reading-log-2.md": {
+    "devto_id": 3713498,
+    "devto_url": "https://dev.to/machuz/reading-log-2-sapiens-x-imagined-communities-an-organization-is-made-of-shared-fiction-82h"
+  },
+  "blog-ja-hatena-reading-log-2.md": {
+    "hatena_id": "17179246901390298698",
+    "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/21/134052"
   }
 }

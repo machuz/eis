@@ -168,6 +168,15 @@ go test ./...
 - ポータルの場所: `/Users/machu/Mydev/myGithub/orbit/pages/index.html`
 - Cloudflare Pages（orbit-d8x.pages.dev）で自動デプロイされる
 
+## Library ランディングの dev.to リンク同期
+
+`docs/index.html`（Library ランディング）の記事一覧は、EN版（`data-lang="en"` → dev.to）と JA版（`data-lang="ja"` → 内部ページ）を出し分ける。dev.to URL は CI が公開時に採番（末尾ランダム）するため、執筆時には確定できない。
+
+- **記事を一覧に追加するとき**: EN版 `<a>` に `data-devto-src="<対応する blog-en-devto-*.md のファイル名>"` 属性を付け、`href` は仮値でよい。
+- CI（`publish-blog.yml`）が公開後に `scripts/sync-library-links.py` を実行し、`.blog-mapping.json` の `devto_url` を該当 `href` に自動挿入・コミットする。**手動でURLを埋める必要はない**。
+- 公開前の記事（mapping に未登録）は JA-only のままにし、EN版を足すなら `data-devto-src` だけ付けておけば公開後に自動で繋がる。
+- ローカル検証: `python scripts/sync-library-links.py --check`（要同期なら非0終了）。
+
 ## 自律的に進めてよい作業
 
 - archetype.goの修正 → ドキュメント4箇所の更新 → コミット → リリースまで一気通貫でOK
