@@ -108,11 +108,11 @@ I arrive at one answer.
 
 ## 6. Manga was a democratization device for cultural capital
 
-Japan's manga culture has a property that's unusual even by global standards.
+Japan's manga culture has one property that stands out.
 
 In Bourdieu's terms, aesthetic sense, cultivation, discernment, the manners of how to live are normally heavily dependent on home environment and class. Each class inherits its "correct" way to read, to listen, to carry oneself. For someone outside a class, accessing that cultural capital is structurally hard.
 
-But in Japan, manga came to stand in a fairly special position.
+But in Japan, manga came to stand in a fairly strong position.
 
 Berserk. Chi. Space Brothers. Aoashi. Vagabond. Slam Dunk. Hunter × Hunter. Attack on Titan. These aren't mere entertainment. They've distributed, at a national scale, **an aesthetic of how to live, an ethic, heat, a way of facing defeat.**
 
@@ -120,13 +120,13 @@ And per episode in a weekly magazine, it's astonishingly cheap. The collected vo
 
 Honestly, my household wasn't wealthy at all. I didn't even have the bracket called "a child's allowance." And still, manga reached me. Volumes stacked at a friend's house. The sun-faded *Shonen Jump* in the waiting area of a barbershop. It came around even to a kid who couldn't buy it — manga had soaked that far into every corner of society. And as an adult, I'm still reading like crazy.
 
-This is, I think, a fairly exceptional structure even globally.
+Of course, mass culture democratizing cultural capital isn't unique to Japan. The West has long had its own devices for spreading stories to the many — pulp fiction, comics, Hollywood, TV syndication. Claiming "only Japan is special" would be inaccurate.
 
-In the West, "personality-forming aesthetic sharing" tends to lean toward religion, classical literature, elite education, film, art school. The gap in access by class becomes, directly, a gap in aesthetics.
+Still, within all that, manga came to occupy a particularly strong position in Japan.
 
-In Japan, manga, anime, and games carried no small part of that role. Even in a home that class-wise "doesn't have it," a child can learn the world through manga. Can acquire an aesthetic of how to live.
+One reason is the breadth of what it carries. Beyond mere entertainment, it has distributed — at high density — an aesthetic of how to live, an ethic, heat, a way of facing defeat. Another is how thoroughly it crosses class. Per episode in a weekly magazine it's astonishingly cheap, and it soaked into every place: convenience stores, used bookshops, libraries, the barbershop waiting room. The world reached even the child of a home that class-wise "doesn't have it."
 
-Manga was, in Japan, **a democratization device for cultural capital**. A boy on Kumejima could touch the same aesthetic as a boy in an upper-class Tokyo home. Reconsidered, that's an astonishing thing.
+In that sense, manga functioned especially strongly as **a democratization device for cultural capital** in Japan. A boy on Kumejima could touch the same aesthetic as a boy in an upper-class Tokyo home. Reconsidered, that's an astonishing thing.
 
 ---
 
