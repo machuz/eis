@@ -246,6 +246,6 @@ The Japanese original is on [OrbitLens Library](https://library.orbitlens.io/art
 
 ---
 
-![OrbitLens](https://raw.githubusercontent.com/machuz/eis/main/docs/images/orbitlens-royal-purple-shadow.png)
+![OrbitLens](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch9-orbitlens-inversion.png)
 
 *P.S. I designed this logo myself. The three slightly-misaligned orbits are my favorite part of it.*

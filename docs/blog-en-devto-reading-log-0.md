@@ -245,9 +245,3 @@ On the theme "when an ideal-realizing OS turns a community into an offering," I 
 The Japanese version lives on [OrbitLens Library](https://library.orbitlens.io/reading-log/).
 
 *OrbitLens / machuz*
-
----
-
-![OrbitLens](https://raw.githubusercontent.com/machuz/eis/main/docs/images/orbitlens-royal-purple-shadow.png)
-
-*P.S. I designed this logo myself. The three slightly-misaligned orbits are my favorite part of it.*
