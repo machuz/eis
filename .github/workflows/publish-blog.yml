@@ -130,7 +130,11 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add docs/.blog-mapping.json docs/index.html
-            git commit -m "chore: update blog mapping & sync library links [skip ci]"
+            # [skip actions] keeps THIS workflow from re-triggering on its own
+            # commit, while still letting Cloudflare Pages deploy (Pages ignores
+            # the "actions" skip token but honors "[skip ci]"). Using [skip ci]
+            # here would suppress the deploy and the synced links never go live.
+            git commit -m "chore: update blog mapping & sync library links [skip actions]"
             git pull --rebase origin main
             git push
           fi
