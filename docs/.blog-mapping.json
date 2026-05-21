@@ -310,5 +310,13 @@
   "blog-ja-hatena-reading-log-2.md": {
     "hatena_id": "17179246901390298698",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/21/134052"
+  },
+  "blog-en-devto-reading-log-3.md": {
+    "devto_id": 3713636,
+    "devto_url": "https://dev.to/machuz/reading-log-3-homo-ludens-x-finite-and-infinite-games-x-exit-voice-and-loyalty-3d34"
+  },
+  "blog-ja-hatena-reading-log-3.md": {
+    "hatena_id": "17179246901390305390",
+    "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/21/140859"
   }
 }
