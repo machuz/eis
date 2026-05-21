@@ -290,5 +290,9 @@
   "blog-ja-hatena-reading-log-0.md": {
     "hatena_id": "17179246901390281678",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/21/123436"
+  },
+  "blog-en-devto-reading-log-0.md": {
+    "devto_id": 3713183,
+    "devto_url": "https://dev.to/machuz/reading-log-0-manga-was-a-democratization-device-for-cultural-capital-366d"
   }
 }
