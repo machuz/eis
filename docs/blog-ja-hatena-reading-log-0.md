@@ -235,7 +235,3 @@
 ---
 
 *OrbitLens / machuz*
-
----
-
-![OrbitLens](https://raw.githubusercontent.com/machuz/eis/main/docs/images/orbitlens-royal-purple-shadow.png)

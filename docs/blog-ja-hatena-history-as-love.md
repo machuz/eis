@@ -235,6 +235,6 @@ OrbitLens は、その循環の最初の一歩 —— 誰かの熱量を地層�
 
 ---
 
-![OrbitLens](https://raw.githubusercontent.com/machuz/eis/main/docs/images/orbitlens-royal-purple-shadow.png)
+![OrbitLens](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/sdo-ch9-orbitlens-inversion.svg)
 
 *※ このロゴ、自分でデザインした。版ズレで重なる三つの軌道がめっちゃお気に入り。*
