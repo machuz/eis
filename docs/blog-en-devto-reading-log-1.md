@@ -22,6 +22,8 @@ The Golden Age arc, especially — Griffith and the Band of the Hawk — holds a
 
 This is only one facet of the work. But seen through psychological OS and organizational OS, something in it rings straight into real organizations.
 
+By psychological OS here, I mean the inner operating principle that decides how a person sees the world, what they value, and which actions they choose by default. Organizational OS is the org-scale version of that.
+
 ---
 
 ## 2. Griffith as a meaning-generating apparatus
@@ -31,8 +33,6 @@ Griffith isn't merely charismatic. He was **a being who gives people meaning**.
 The members of the Band of the Hawk weren't nobly born, weren't socially secured. Most were mercenaries who had no way to live but the battlefield.
 
 Onto that, Griffith placed a story. You aren't just mercenaries. You can become part of history. Follow this man, and you can cross the layers of the world. Someday, you might reach the castle.
-
-![From "You alone" — the peak of the Band's bond](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-1-bond.png)
 
 As organizational theory, this is quite strong.
 
@@ -130,6 +130,8 @@ And there's something now beyond recovery: **he can never be Guts's equal.** For
 
 At the single point where all of these converged, he chose. The community, as offering.
 
+![From "You alone" — the one equal he loses](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-1-bond.png)
+
 This is the cruel part. The Band mattered to Griffith. There's no doubt of it. **But it's precisely because it mattered that it could become the offering.** Something that didn't matter can't be offered.
 
 So the dread of the Eclipse lies in this structure:
@@ -150,7 +152,7 @@ This structure gets clearer when seen through each character's psychological OS.
 
 - **Griffith (ideal-realizing OS)** — the world is ascendable, and there's a castle he must reach. Relationships are given meaning in light of the dream. One who has no dream is no true friend.
 - **Guts (survival-combat OS → self-acquisition OS)** — from "to live = to fight" to "fighting to find my own fire."
-- **Casca (devotion OS → recovery of agency)** — from "I was saved, so I support this man's dream" to "I'm allowed to have my own feelings."
+- **Casca (devotion OS → agency-recovery OS)** — from "I was saved, so I support this man's dream" to "I'm allowed to have my own feelings."
 - **Judeau (observation-mediation OS)** — reads the room well, senses who feels what, doesn't need to be the lead.
 - **Rickert (inheritance-witness OS)** — remembers what was lost, doesn't believe the heroic tale naively, and doesn't dye fully in hatred either.
 
@@ -191,7 +193,7 @@ A few real-world shapes. The key is that none of them broke "because a villain w
 - **Challenger type** — there's no easy villain. "It was fine last time" piled up, and danger signals got absorbed into normal operations (the normalization of deviance). When success continues, the anomaly-detection OS dulls.
 - **Volkswagen type** — achievement pressure and a governance failure. In a structure where you can't say "we can't," cheating came to look like a rational option. An achievement OS running wild.
 
-And here lies the sad part of so many organizations: **without Griffith's meaning-generation, charisma, or salvation, they still treat the community as a resource.** They don't even distribute a dream big enough to be worth offering — only the fuel-making happens.
+And here lies the sad — or cruel — part of so many organizations: **without Griffith's meaning-generation, charisma, or salvation, they still treat the community as a resource.** They don't even distribute a dream big enough to be worth offering — only the fuel-making happens.
 
 ---
 
@@ -245,7 +247,7 @@ So the question we should hold is, I think, this:
 
 Psychological OS, organizational OS — in the end, both return here. Holding a strong OS matters. It's just that an OS is for moving ourselves forward, not for overwriting reality or others.
 
-That OrbitLens, an apparatus for observation, exists at all has its root here. Good gravity doesn't crush its stars. If anything, it works so each star begins its own fusion. Whether the person at the center of the gravity can keep asking themselves this — **is my gravity keeping the people around me alive? Or have I started to swallow them?**
+That I'm so insistent on "observing organizations" at all has its root here. Good gravity doesn't crush its stars. If anything, it works so each star begins its own fusion. Whether the person at the center of the gravity can keep asking themselves this — **is my gravity keeping the people around me alive? Or have I started to swallow them?**
 
 That's the quite practical organizational theory you can read out of Berserk.
 
