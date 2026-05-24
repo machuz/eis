@@ -29,6 +29,13 @@
   .chapter-content figure img { max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 18px rgba(0,0,0,.35); }
   .chapter-content figure figcaption { font-size: 12.5px; color: var(--text-muted, #8b949e); margin-top: 10px; font-style: italic; }
   .chapter-content pre { background: var(--bg-card, #161b22); border: 1px solid var(--border, #21262d); border-radius: 8px; padding: 16px 18px; margin: 20px 0; overflow-x: auto; font-family: var(--mono, 'JetBrains Mono', monospace); font-size: 13px; line-height: 1.7; color: var(--text-muted, #8b949e); }
+  .series-nav { display: flex; justify-content: space-between; gap: 16px; margin: 28px 0 0; padding-top: 22px; border-top: 1px solid var(--border, #21262d); }
+  .series-nav a { display: inline-flex; flex-direction: column; gap: 4px; text-decoration: none; max-width: 48%; }
+  .series-nav a:hover { text-decoration: none; }
+  .series-nav a:hover .nav-title { color: var(--accent, #b16286); }
+  .series-nav .nav-dir { font-family: var(--mono, monospace); font-size: 11px; letter-spacing: 1px; color: var(--text-muted, #8b949e); }
+  .series-nav .nav-title { color: var(--text-strong, #f0f6fc); font-size: 13.5px; line-height: 1.45; }
+  .series-nav .series-next { margin-left: auto; text-align: right; }
 </style>
 </head>
 <body>
@@ -335,6 +342,17 @@
 
       <p><em>OrbitLens / machuz</em></p>
     </article>
+
+    <nav class="series-nav">
+      <a class="series-prev" href="../0/">
+        <span class="nav-dir">← 前の記事 #0</span>
+        <span class="nav-title">漫画は文化資本の民主化装置だった</span>
+      </a>
+      <a class="series-next" href="../2/">
+        <span class="nav-dir">次の記事 #2 →</span>
+        <span class="nav-title">サピエンス全史 × 想像の共同体</span>
+      </a>
+    </nav>
 
     <div class="book-footer">
       <div class="quote">良い重力は、星を潰さない。</div>

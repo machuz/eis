@@ -25,6 +25,13 @@
   @media (min-width: 1221px) { .reader-layout { grid-template-columns: minmax(0, 1fr); } }
   .chapter-content figure { margin: 40px 0 0; text-align: center; }
   .chapter-content figure img { max-width: 280px; width: 100%; height: auto; }
+  .series-nav { display: flex; justify-content: space-between; gap: 16px; margin: 28px 0 0; padding-top: 22px; border-top: 1px solid var(--border, #21262d); }
+  .series-nav a { display: inline-flex; flex-direction: column; gap: 4px; text-decoration: none; max-width: 48%; }
+  .series-nav a:hover { text-decoration: none; }
+  .series-nav a:hover .nav-title { color: var(--accent, #b16286); }
+  .series-nav .nav-dir { font-family: var(--mono, monospace); font-size: 11px; letter-spacing: 1px; color: var(--text-muted, #8b949e); }
+  .series-nav .nav-title { color: var(--text-strong, #f0f6fc); font-size: 13.5px; line-height: 1.45; }
+  .series-nav .series-next { margin-left: auto; text-align: right; }
 </style>
 </head>
 <body>
@@ -303,6 +310,13 @@
 
       <p><em>OrbitLens / machuz</em></p>
     </article>
+
+    <nav class="series-nav">
+      <a class="series-next" href="../1/">
+        <span class="nav-dir">次の記事 #1 →</span>
+        <span class="nav-title">ベルセルク —— 夢が共同体を供物に変えるとき</span>
+      </a>
+    </nav>
 
     <div class="book-footer">
       <div class="quote">熱は一人で生まれるが、構造の中でしか生き残らない。</div>
