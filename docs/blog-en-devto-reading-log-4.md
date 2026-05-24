@@ -86,6 +86,10 @@ Neither of these is the right one. **A coach of questions alone can't erect a st
 
 Usually he places a question and waits for the noticing; at the load-bearing points of structure, he declares, almost cruelly. The thinker as the baseline, the philosopher narrowed to the necessary point. That balance, itself, is probably the body of the thing called coaching.
 
+And this thinker-type stance is, I think, not Fukuda's alone. It's an aesthetic that runs through the club called Esperion. When the senior Yoshitsune tells Ashito, "Don't aim to become me. You're already climbing a fine staircase," the same perspective flows there too. Don't make anyone a copy of yourself; the organization believes in, and waits for, each person climbing their own staircase. The thinker-type is at once one person's touch and a culture handed down.
+
+![“Don't aim to become me” — senior Yoshitsune to Ashito; the thinker-type isn't Fukuda's alone but the club's aesthetic, handed down](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-mezasuna.png)
+
 ---
 
 ## 6. Why the moving-between is needed
