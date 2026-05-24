@@ -104,6 +104,8 @@ A good scout is someone who doesn't fully trust the grid of legibility. Beyond t
 
 And that discovering eye, too, is itself an un-verbalizable hunch — the observer's own Metis. Fukuda probably can't fully put into words why he chose Ashito. That's why the eye is precious. And that's why it's dangerous — because, as we saw, a hunch isn't neutral.
 
+And still, what's remarkable about Fukuda is that he never lets go of both sides at once. He relentlessly demands **verbalization** from his players — "what was visible to you just now?" — making them put play into words; he uses the power of legibility to the fullest, for cultivation. And yet he doesn't crudely crush the hunches and impulses that can't quite be worded. **He treasures verbalization, while properly guarding the territory that can't be verbalized.** Not legibility *or* field knowledge, but holding both. That's probably the hardest — and the most precious — part of the act of observing.
+
 So the discoverer and the one who makes them see don't oppose each other. **They're accomplices.** An eye that can doubt the ruler on one side, a will that presents how to be read on the other. When the two mesh, the talent that would have spilled finally catches its orbit.
 
 What's frightening is the place where both are missing. Only evaluators who never doubt the ruler, and no margin to raise a voice. There, Metis keeps quietly spilling. With no one meaning any harm.
