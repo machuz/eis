@@ -20,7 +20,7 @@ Fukuda, a J-league youth coach, picks him up. What Fukuda saw wasn't Ashito's fi
 
 What this manga keeps drawing isn't, I think, a "getting good" story. It's a story about **how seeing changes.** The same pitch, the same twenty-two players, the same ball. And yet, from one day on, Ashito starts to see something entirely different.
 
-![“To see” — Fukuda's eye that watches placement and flow, not meaning](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-miru.png)
+![“To see” — a first-rate eye that watches placement and flow, not meaning](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-miru.png)
 
 ---
 
@@ -79,8 +79,6 @@ What's cruel is that in that moment, the rhythm isn't visible to him yet. Only t
 Read *Aoashi* as a theory of leadership, and Fukuda's conduct is fascinating. He moves between two distinct stances.
 
 One is **the thinker.** He doesn't teach the answer. He places only a question. "Why did you run there?" "What was visible to you just now?" Instead of handing over the correct answer, he leaves the margin for a player to notice on his own. Realization can't be given to someone else. The way of seeing changes only inside the person. So Fukuda often waits in silence.
-
-![“Don't aim to become me” — leaving a question and a margin, not an answer (the thinker)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-mezasuna.png)
 
 The other is **the philosopher.** A decision like a position change isn't handed over as a question. It's declared. *You'll play defender.* In it lives an unyielding will toward his ideal image of a team — soccer where everyone thinks, where the whole pitch moves as a single perception. The face of the side that defines concepts and decides.
 
