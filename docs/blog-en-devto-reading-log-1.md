@@ -146,7 +146,23 @@ So the Eclipse isn't merely a massacre. It's **a ritual where a community's syst
 
 ---
 
-## 6. Each operating principle, in psychological-OS terms
+## 6. The mechanism of sacrifice — rereading through René Girard
+
+I called the Eclipse "a ritual of sacrifice." Here I want to lay René Girard's *Violence and the Sacred* over it.
+
+Girard placed **mimetic desire** at the root of human violence. People desire not the object itself so much as "what someone else desires." Desire flares up through a mediator. That, I think, is how the Band of the Hawk became one. They didn't each want different things. **Through Griffith's dream as mediator, they wanted the same thing.** A "meaning-generating apparatus" is, put another way, the center point of mimetic desire.
+
+According to Girard, mimetic desire eventually breeds collision. If everyone desires the same thing, the community drifts toward a crisis of "all against all" violence. What arose to quell it is **sacrifice (the scapegoat mechanism)**. The community concentrates violence onto a single victim, and by expelling them, restores order. The victim becomes cursed and, at once, sacred. The moment violence turns into the sacred.
+
+The Eclipse was exactly this "violence turning sacred" ritual. The moment Guts left and Griffith fell is Girard's **sacrificial crisis** itself — the center of desire broken, order crumbling. And through the Eclipse, Griffith gains divinity (Femto). The sacrifice pushes him up into the sacred.
+
+**But here Girard's theory doesn't fit cleanly. It slips.** In Girard's classic mechanism, the sacrifice is "**the many, offering up the one**" — the community concentrates violence onto a single scapegoat. But the Eclipse is the reverse. "**The one, offering up the many.**" A single Griffith sacrifices the whole community, the Band of the Hawk, to make *himself* sacred. The arrow of the scapegoat is flipped.
+
+And this inversion is, probably, the most frightening form in a modern organization. Ancient sacrifice killed one person so the community could survive (still cruel, but there's a logic of protecting the community). Griffith-type sacrifice sacrifices the community itself so that the one at the center may survive and ascend. Not by fitting the theory neatly, but by spilling out of it, the Eclipse's abnormality comes into sharper focus.
+
+---
+
+## 7. Each operating principle, in psychological-OS terms
 
 This structure gets clearer when seen through each character's psychological OS.
 
@@ -160,7 +176,7 @@ Seen this way, the Eclipse isn't simply a scene of people being killed. It's a s
 
 ---
 
-## 7. This happens in reality too
+## 8. This happens in reality too
 
 Of course, there's no Eclipse in reality. No demons, no Behelit.
 
@@ -197,7 +213,7 @@ And here lies the sad — or cruel — part of so many organizations: **without 
 
 ---
 
-## 8. A strong OS isn't safe just by being strong
+## 9. A strong OS isn't safe just by being strong
 
 By here, something important comes into view. **A strong OS isn't itself the evil.**
 
@@ -215,7 +231,7 @@ There's no perfect person, and no perfect OS. Which is exactly why you build a s
 
 ---
 
-## 9. Warning signs of a Griffith-type organization
+## 10. Warning signs of a Griffith-type organization
 
 Seen from here, a dangerous organization has a few signs.
 
@@ -231,7 +247,7 @@ A dream isn't bad. A strong story isn't bad. To accomplish anything, they're oft
 
 ---
 
-## 10. A dream is meant to make people stand
+## 11. A dream is meant to make people stand
 
 Berserk's Griffith drew people in. He gave them meaning. He made the Band of the Hawk not just a mercenary troop, but a community that challenges history.
 
@@ -253,13 +269,20 @@ That's the quite practical organizational theory you can read out of Berserk.
 
 ---
 
+## Books
+
+- Kentaro Miura, *Berserk* (Hakusensha) — [Amazon](https://www.amazon.com/s?k=Berserk%20Kentaro%20Miura)
+- René Girard, *Violence and the Sacred* — [Amazon](https://www.amazon.com/s?k=Violence%20and%20the%20Sacred%20Girard)
+
+---
+
 ## Next
 
 In #2, a book from the thought-book shelf. I'll take up, from another angle, the "shared story" that makes a community hold together.
 
 ---
 
-*This is a personal reading of Kentaro Miura's* Berserk *(Hakusensha). Quoted images are from the work.*
+*This is a personal reading of Kentaro Miura's* Berserk *(Hakusensha) and René Girard's* Violence and the Sacred. *Quoted images are from* Berserk.*
 
 The Japanese version lives on [OrbitLens Library](https://library.orbitlens.io/reading-log/1/).
 
