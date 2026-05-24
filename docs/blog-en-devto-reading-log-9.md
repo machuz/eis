@@ -2,7 +2,7 @@
 title: "Reading Log #9 — Aoashi × The Tacit Dimension × Thinking, Fast and Slow"
 series: "Reading Log"
 published: true
-description: "The master's knowing sinks past verbalization into the tacit. Top play looks like 'not thinking' because it's compressed System 2 turned System 1 (Kahneman); we know more than we can tell (Polanyi). Verbalization is also limitation, so masters sometimes choose not to verbalize; the ball is a non-verbal conversation; the forward lives on honed instinct alone. Observation can only catch the explicit — the honesty is not to nullify the tacit it can't see. The Aoashi arc finale."
+description: "The master's knowing sinks past verbalization into the tacit. Top play looks like 'not thinking' because it's compressed System 2 turned System 1 (Kahneman); we know more than we can tell (Polanyi). Verbalization is also limitation, so masters sometimes choose not to verbalize; the ball is a non-verbal conversation; the forward lives on honed instinct alone. Observation can only catch the explicit — the honesty is not to nullify the tacit it can't see. The finale of the Aoashi run."
 tags: management, leadership, culture, philosophy
 ---
 
@@ -18,7 +18,7 @@ In Aoashi's Spain arc, Ashito hits a wall beyond technique.
 
 **"The dimension of verbalization is different…!"** Ashito's strength was putting his own play into words, thinking it through, reproducing it. The "thinker-type" coaching from #4 raised him into a "player who can verbalize." But the top world has players who play one step beyond that verbalization.
 
-Something faster than thinking-and-wording. This time I want to read that "realm that can't be told" alongside two books: Daniel Kahneman's *Thinking, Fast and Slow* and Michael Polanyi's *The Tacit Dimension.* The Aoashi arc finale.
+Something faster than thinking-and-wording. This time I want to read that "realm that can't be told" alongside two books: Daniel Kahneman's *Thinking, Fast and Slow* and Michael Polanyi's *The Tacit Dimension.* The finale of the Aoashi run.
 
 ---
 
@@ -114,11 +114,11 @@ Don't nullify what you can't observe. That, probably, is the last pride of the o
 
 ---
 
-## After the Aoashi arc
+## After the Aoashi run
 
 From #4 to #9, I've watched Aoashi from six angles.
 
-In #4 he acquired the **perception** of the overhead view; in #9 he arrived at the **tacit** that can't be told. Both ends are "seeing and knowing, before it becomes words." Ashito grasped the world by verbalizing, and at the end, went beyond verbalization. The whole arc drew a single circle.
+In #4 he acquired the **perception** of the overhead view; in #9 he arrived at the **tacit** that can't be told. Both ends are "seeing and knowing, before it becomes words." Ashito grasped the world by verbalizing, and at the end, went beyond verbalization. The whole run drew a single circle.
 
 To discover, to cultivate, to build the environment, to guard the essence, to respect what can't be told. A single soccer manga held all of organization and observation. Next, to another work — but the "seeing" Ashito taught will go on.
 
@@ -145,7 +145,7 @@ So someday — not necessarily next, whenever a good theme comes — I'd like to
 
 ## Next
 
-The Aoashi arc ends here. From #10, another work. I'll read Chuya Koyama's *Space Brothers (Uchu Kyodai)* alongside Marcel Mauss's *The Gift.* The quiet heat of the one who doesn't stand out — how does contribution that's hard to count hold up a community?
+The Aoashi run ends here. From #10, another work. I'll read Chuya Koyama's *Space Brothers (Uchu Kyodai)* alongside Marcel Mauss's *The Gift.* The quiet heat of the one who doesn't stand out — how does contribution that's hard to count hold up a community?
 
 ---
 
