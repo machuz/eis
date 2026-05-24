@@ -20,6 +20,8 @@ Fukuda, a J-league youth coach, picks him up. What Fukuda saw wasn't Ashito's fi
 
 What this manga keeps drawing isn't, I think, a "getting good" story. It's a story about **how seeing changes.** The same pitch, the same twenty-two players, the same ball. And yet, from one day on, Ashito starts to see something entirely different.
 
+![“To see” — Fukuda's eye that watches placement and flow, not meaning](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-miru.png)
+
 ---
 
 ## 2. The Philosophy of Sense: from meaning to rhythm
@@ -46,6 +48,8 @@ The ball: "a thing to score with." Space: "where I break through." Teammates: "t
 
 What Fukuda opens is what lies before that. Peel the ball off of meaning and watch the **whole placement and flow of the pitch.** Who is where, which space is open, which way the opponent's weight is tilting. Not the single point of a goal, but the movement the twenty-two make together.
 
+![“See the flow of everyone's intent” — read as the pitch's rhythm, not points](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-arrows.png)
+
 This is almost the same thing happening as Chiba's turn "from meaning to rhythm." Ashito's bird's-eye view, I think, is a perception that stops summarizing the world by the goal (meaning) and watches it as placement (rhythm).
 
 And what matters is that it's **not a talent complete from the start.** The aptitude is there. But what *Aoashi* draws across many volumes is the process of that perception growing, little by little, through questions and repetition. Sense isn't given; it grows. The manga and the philosophy book are saying the same thing in different words.
@@ -57,6 +61,8 @@ And what matters is that it's **not a talent complete from the start.** The apti
 Early in the story, Fukuda hands Ashito a cruel verdict.
 
 Quit being a forward. You'll play defender.
+
+![“Switch to defender” — the cruel re-placement that peels meaning away](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-df.png)
 
 To a boy who came all this way to score, he says "you're on the side that defends." He takes the "scoring story" that sat at the center of the dream out of his hands. Ashito rages. Of course he does. His meaning was taken.
 
@@ -73,6 +79,8 @@ What's cruel is that in that moment, the rhythm isn't visible to him yet. Only t
 Read *Aoashi* as a theory of leadership, and Fukuda's conduct is fascinating. He moves between two distinct stances.
 
 One is **the thinker.** He doesn't teach the answer. He places only a question. "Why did you run there?" "What was visible to you just now?" Instead of handing over the correct answer, he leaves the margin for a player to notice on his own. Realization can't be given to someone else. The way of seeing changes only inside the person. So Fukuda often waits in silence.
+
+![“Don't aim to become me” — leaving a question and a margin, not an answer (the thinker)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-mezasuna.png)
 
 The other is **the philosopher.** A decision like a position change isn't handed over as a question. It's declared. *You'll play defender.* In it lives an unyielding will toward his ideal image of a team — soccer where everyone thinks, where the whole pitch moves as a single perception. The face of the side that defines concepts and decides.
 
@@ -102,7 +110,9 @@ What's kind about Chiba's book is that it lands, at the end, on "and so sense ca
 
 Sense isn't a born talent. Not class, not bloodline. It's the accumulation of a habit — perceiving detail, watching rhythm. So anyone can grow it. This lands in the same place as #0 of this series, "manga was a democratization device for cultural capital."
 
-Ashito's bird's-eye view is, in the end, the same. It isn't drawn as a one-shot genius trick. He takes a question, runs, errs, and watches again. Through that repetition, the perception widens little by little. Because it's **not a story of talent but a story of perception growing,** a little room is left for something to shift on our side too, as we read.
+Ashito's bird's-eye view is, in the end, the same. It isn't drawn as a one-shot genius trick. He takes a question, runs, errs, and watches again. Through that repetition, the perception widens little by little.
+
+![“Was my vision really this narrow?” — perception grows past the chagrin](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-shiya.png) Because it's **not a story of talent but a story of perception growing,** a little room is left for something to shift on our side too, as we read.
 
 The way of seeing can be changed. That's a fairly hopeful thing, I think.
 
@@ -137,7 +147,7 @@ The bird's-eye view wasn't the talent of the chosen. Observation, probably, is t
 
 ## Next
 
-In #5, *Space Brothers (Uchu Kyodai).* The quiet heat of the one who doesn't stand out. How does contribution that's hard to count hold up a community — read alongside Marcel Mauss's *The Gift.*
+From here, the next several entries form a deeper reading of *Aoashi.* #5 is "The Seen and the Self-Made" — must talent wait to be discovered, or can it force itself into view? Read alongside James C. Scott's *Seeing Like a State* and Bourdieu's *Distinction.*
 
 ---
 
