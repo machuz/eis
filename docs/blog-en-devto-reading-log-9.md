@@ -124,6 +124,18 @@ To discover, to cultivate, to build the environment, to guard the essence, to re
 
 ---
 
+## A confession
+
+Having written this far, I want to confess one thing.
+
+This series landed too neatly on "structure" every time. Not all of Aoashi mapped conveniently onto a concept. In truth there was excess that wouldn't fit a concept, ambiguity that could tip either way. I cut it to fit the structure. In #5 I wrote "legibility spills Metis" — and that legibility is exactly what I was doing to these stories, trimming them into a readable shape.
+
+That I folded back to OrbitLens every time was, honestly, a funnel. I knew that landing on observation would make it close cleanly, so I let it run there. A convenient form becomes, before you notice, form for form's sake. What I wrote in #8 comes straight back at me.
+
+So from the next work, I'll let a book win, once. An entry where OrbitLens's thinking gets shaken — and revised — by a book. Where the structure comes undone and water spills from the funnel. To a series that preached respecting what can't be told while tidying it into the tellable, this is my homework. When I can write that, this reading log will finally catch up to the "ethics of observation" it claimed.
+
+---
+
 ## Books
 
 - Michael Polanyi, *The Tacit Dimension* — [Amazon](https://www.amazon.com/s?k=The+Tacit+Dimension+Michael+Polanyi)
