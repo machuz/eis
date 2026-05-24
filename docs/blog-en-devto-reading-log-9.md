@@ -132,7 +132,7 @@ This series landed too neatly on "structure" every time. Not all of Aoashi mappe
 
 That I folded back to OrbitLens every time was, honestly, a funnel. I knew that landing on observation would make it close cleanly, so I let it run there. A convenient form becomes, before you notice, form for form's sake. What I wrote in #8 comes straight back at me.
 
-So from the next work, I'll let a book win, once. An entry where OrbitLens's thinking gets shaken — and revised — by a book. Where the structure comes undone and water spills from the funnel. To a series that preached respecting what can't be told while tidying it into the tellable, this is my homework. When I can write that, this reading log will finally catch up to the "ethics of observation" it claimed.
+So someday — not necessarily next, whenever a good theme comes — I'd like to let a book win. An entry where OrbitLens's thinking gets shaken — and revised — by a book. Where the structure comes undone and water spills from the funnel. To a series that preached respecting what can't be told while tidying it into the tellable, this is my homework, one I don't have to rush. When I can write that, this reading log will finally catch up to the "ethics of observation" it claimed.
 
 ---
 
