@@ -326,5 +326,13 @@
   "blog-ja-hatena-reading-log-4.md": {
     "hatena_id": "17179246901391556250",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/25/000401"
+  },
+  "blog-en-devto-reading-log-5.md": {
+    "devto_id": 3741615,
+    "devto_url": "https://dev.to/machuz/reading-log-5-aoashi-x-seeing-like-a-state-x-distinction-6i"
+  },
+  "blog-ja-hatena-reading-log-5.md": {
+    "hatena_id": "17179246901391567904",
+    "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/25/005842"
   }
 }
