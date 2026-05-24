@@ -10,7 +10,7 @@
 
 スカウトが、観客席から一人の選手を視る。誰も注目していない、地味な動き。けれどその人にだけ、何かが視えている。「見つけた」。そう呟いた瞬間、一人の人間の軌道が、静かに変わりはじめる。
 
-![「見つけた」——可読化の網の外にある才能を、拾い上げる視線](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-5-mitsuketa.png)
+![「お前というピースが…はいれ」——盤面に欠けたピースを、見出す視線](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-5-piece.png)
 
 この「見つけた」は、美しい。でも、少し怖くもある。**見つけてもらえなかった才能は、どうなるのか**。見出す側の目が節穴だったら? そもそも、その「見る目」は、何を基準に「才能」と「凡庸」を分けているのか?
 
