@@ -121,7 +121,7 @@ And I'll write about myself. **I want to hold a pride that never abandons play.*
 
 ## Next
 
-In #9, the Aoashi arc reaches its finale. The theme: pride, and the awe you don't put into words. The forward's pride, the conviction to finish, the awe that comes from accumulated time — and why the master deliberately doesn't verbalize. Read alongside Michael Polanyi's *The Tacit Dimension* and Daniel Kahneman's *Thinking, Fast and Slow.*
+In #9, the Aoashi run reaches its finale. The theme: pride, and the awe you don't put into words. The forward's pride, the conviction to finish, the awe that comes from accumulated time — and why the master deliberately doesn't verbalize. Read alongside Michael Polanyi's *The Tacit Dimension* and Daniel Kahneman's *Thinking, Fast and Slow.*
 
 ---
 
