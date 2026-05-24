@@ -318,5 +318,13 @@
   "blog-ja-hatena-reading-log-3.md": {
     "hatena_id": "17179246901390305390",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/21/140859"
+  },
+  "blog-en-devto-reading-log-4.md": {
+    "devto_id": 3741344,
+    "devto_url": "https://dev.to/machuz/reading-log-4-aoashi-x-the-philosophy-of-sense-28jh"
+  },
+  "blog-ja-hatena-reading-log-4.md": {
+    "hatena_id": "17179246901391556250",
+    "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/05/25/000401"
   }
 }
