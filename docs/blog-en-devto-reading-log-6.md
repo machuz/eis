@@ -64,6 +64,12 @@ There's a strange paradox here. Usually, if you hand something over, the giver i
 
 Through Dawkins's eye, this is natural. Success for a replicator isn't the original keeping its throne. It's **multiplying at the copy site and spreading farther than the original.** When the student surpasses you, the meme, for the first time, leaves your single body and begins to run on its own.
 
+*Aoashi* shows this vividly. Ashito, on his knees before the coaches, says it flat:
+
+![“Give me command!” — the cultivated one demands to direct](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-6-shikiken.png)
+
+**“Give me command!”** The cultivated one comes this far. Having made the handed-down form his own flesh, he now turns to the side that moves the field. For the one who taught, there's no moment better than this — the copy telling the original, "leave it to me."
+
 The true nature of the heat to cultivate is probably this. Not that you win, but that you want to see your heat continue beyond you.
 
 ---
