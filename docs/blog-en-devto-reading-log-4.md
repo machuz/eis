@@ -72,6 +72,18 @@ This overlaps with the core of *The Philosophy of Sense.* **Peel meaning away on
 
 What's cruel is that in that moment, the rhythm isn't visible to him yet. Only the pain of having meaning taken arrives first. The point of the re-placement can only be understood afterward.
 
+And behind that cruelty, a kindness hides too. Fukuda was sure Ashito would come to enjoy playing defender.
+
+![“The one who'll enjoy it most is — you, Ashito” — Fukuda had seen where the boy's joy lay](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-tanoshii.png)
+
+"The one who'll enjoy it most is — you, Ashito." Even as he handed down the cruel verdict, Fukuda had already seen where this boy's joy lay. And indeed —
+
+![“Defense…!! This is so much fun” — in the re-placed position, Ashito finds joy](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-shubi.png)
+
+"Defense…!! This is so much fun." In the re-placed position, Ashito properly finds **play**. Fukuda's call rested on a conviction — that Ashito could *play* even on defense. That's why the cruelty of peeling meaning away could, at the same time, become kindness.
+
+A line can be drawn here. A reassignment that leaves **no room for play** is, sometimes, necessary for an organization too. But that one is merely cruel. Fukuda's re-placement was kind because, beyond it, he had clearly seen the room for play the boy didn't yet know.
+
 ---
 
 ## 5. Coach Fukuda moves between the thinker and the philosopher
