@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function() {
+    if (location.hostname === 'machuz.github.io' && location.pathname.startsWith('/eis/docs/')) {
+      var newPath = location.pathname.replace('/eis/docs/', '/');
+      location.replace('https://library.orbitlens.io' + newPath + location.search + location.hash);
+    }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>重力は移っていた — OrbitLens Library</title>
+<meta name="description" content="git 履歴だけで29リポジトリ・55,343人を読む。React の重力は10年で5世代を移り、esbuild は一人の頭に収まり、440人が見えないまま構造を支えていた。活動量ではなく構造的影響を観測する。">
+<link rel="icon" type="image/png" href="../../images/orbitlens-royal-purple-shadow.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/reader.css?v=25">
+<style>
+  .reader-layout { grid-template-columns: minmax(0, 1fr); max-width: 820px; }
+  .inline-toc { display: none !important; }
+  @media (min-width: 1221px) { .reader-layout { grid-template-columns: minmax(0, 1fr); } }
+  .chapter-content blockquote { border-left: 3px solid var(--accent, #b16286); padding-left: 18px; margin: 24px 0; color: var(--text, #c9d1d9); font-style: normal; opacity: .92; }
+  .chapter-content blockquote p { margin: 6px 0; }
+  .chapter-content figure { margin: 32px 0; text-align: center; }
+  .chapter-content figure img { max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 18px rgba(0,0,0,.35); }
+  .chapter-content figure figcaption { font-size: 12.5px; color: var(--text-muted, #8b949e); margin-top: 10px; font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="starfield"></div>
+
+<nav class="orbit-bar">
+  <a href="../../" class="crumb-logo" style="display:inline-flex;align-items:center;gap:10px;">
+    <img src="../../images/orbitlens-royal-purple-shadow.png" alt="" style="width:22px;height:22px">
+    <span class="crumb-brand">ORBITLENS</span>
+  </a>
+  <span class="crumb-sep">/</span>
+  <a href="../../" class="crumb-scope">LIBRARY</a>
+  <span class="crumb-sep">/</span>
+  <span class="crumb-book">重力は移っていた</span>
+  <span class="orbit-spacer"></span>
+  <div class="orbit-tools">
+    <a class="orbit-tool" href="https://dev.to/machuz" target="_blank" rel="noopener">EN ↗</a>
+  </div>
+  <div class="progress-bar" id="progress-bar"></div>
+</nav>
+
+<div class="reader-layout">
+  <main class="reader-main">
+    <div class="chapter-bar">
+      <div class="ch-info">
+        <strong>ARTICLE</strong>
+        <span>Standalone / 組織設計</span>
+      </div>
+      <a href="https://dev.to/machuz" target="_blank" rel="noopener" class="en-link">EN 原文 · dev.to ↗</a>
+    </div>
+
+    <article class="chapter-content">
+      <h1>重力は移っていた</h1>
+
+      <p><em>—— React の10年を git 履歴だけで読むと、誰が支えていたのか</em></p>
+
+      <hr>
+
+      <p>Dan Abramov は2020年、React を支えていた。2024年には、もう支えていなかった。そして代わりに支えていた人の名前を、プロジェクトの外にいる多くの人は言えない。</p>
+
+      <p>これを知るために、誰にもインタビューしていない。リリースノートも一行も読んでいない。リポジトリが10年のあいだ、毎日自分について書き残してきたもの——git 履歴——を、ただ読んだだけだ。</p>
+
+      <p>エンジニアを語るとき、静かな前提が一つある。重要なのは、見える人だ、という前提。声の大きいレビュアー。登壇者の名前。コミット数ランキングの上位。けれどコードベースは、別の物語を記録している。そして、誰かにおもねる術を知らない。</p>
+
+      <p>だから読んでみた。29のオープンソースリポジトリ。55,343人のエンジニア。使ったのは <code>git log</code> と <code>git blame</code> だけ——サーベイも、AIトークンも、自己申告もなしに。</p>
+
+      <p>そこで浮かび上がったもののうち、いくつかが頭から離れない：</p>
+
+      <ul>
+        <li><strong>React の重力は、定刻どおりに移っていた。</strong> 2016〜2025年、影響力は有名な顔のところに留まらなかった。移動していた——Abramov は2020年ごろ Architect のピークに昇り、やがて退いていく。Sebastian Markbåge は2024年までに、このデータセットで最も高い Anchor のシグナルに落ち着く。5回の世代交代が、履歴に淡々と書かれていた。誰も宣言しなかった。コードが記録していた。</li>
+        <li><strong>esbuild の構造は、一人の頭の中に収まっている。</strong> 重力の92.5%が、たった一人のエンジニアに集中している。これは脆さではない——むしろ、最も澄んだ一貫性のかたちかもしれない。設計の全体が一つの頭に収まり、委員会には保てない筋の通り方で保たれている。重力は、分散していなくても本物でありうる。</li>
+        <li><strong>肩書きも知名度もないまま、構造を支えている人が440人いた。</strong> メンテナのバッジもなく、語るほどの公開プロフィールもない。コミット数を数えるのをやめ、何が残っているかを測ったときに、はじめて浮かび上がる。</li>
+        <li><strong>言語ファミリーには、それぞれの物理がある。</strong> Go のリポジトリは重力が16%前後に集中し、Rust と Scala は7%前後。一人がどれだけ抱え込みうるかに、4〜5倍の開きがあった。</li>
+      </ul>
+
+      <p>これが何なのかは、慎重に置いておきたい。スコアボードではないし、誰かの価値の判定でもない。シグナルは意図して狭くしてある——どれだけコミットしたかではなく、コミットしたうちのどれだけが数ヶ月後も残っているか。そして、それが変更の圧に耐えて残っているのか、それとも誰も触れようとしないから残っているのか。前者を、重力と呼んでみる。後者はもっと静かで、強さと見間違えやすい何かだ。</p>
+
+      <p>たぶん、ここが座って考える価値のある部分かもしれない。活動量は世界でいちばん見えやすいもので、そして、誰が構造を支えているかについては、ほとんど何も語らない。重力をかたちづくるエンジニアは、たいてい、その人が去った瞬間にはじめてチームが気づく人だ。</p>
+
+      <p>このレンズはオープンソースだ——EIS という小さな CLI で、読むのは git のメタデータだけ、コードの中身には触れない。29リポジトリすべての地図は、React の10年も含めて、ここにある：<a href="https://machuz.github.io/eis/research/oss-gravity-map/analysis/oss-gravity-map-ja.html" target="_blank" rel="noopener">https://machuz.github.io/eis/research/oss-gravity-map/analysis/oss-gravity-map-ja.html</a></p>
+
+      <p>頭から離れない問いを、最後に置いておく。もし今夜、あなた自身のリポジトリでこれを走らせたら——コミット数ではなく、重力を——浮かび上がる名前は、あなたが予想する名前だろうか。</p>
+
+      <hr>
+
+      <p><em>OrbitLens / machuz</em></p>
+
+      <hr>
+
+      <figure style="margin: 48px auto 0; text-align: center;">
+        <img src="../../images/blog/sdo-ch9-orbitlens-inversion.svg" alt="OrbitLens" style="max-width: 280px; width: 100%; height: auto; box-shadow: none;">
+        <figcaption><em>※ このロゴ、自分でデザインした。版ズレで重なる三つの軌道がめっちゃお気に入り。</em></figcaption>
+      </figure>
+    </article>
+
+    <div class="book-footer">
+      <div class="quote">熱は一人で生まれるが、構造の中でしか生き残らない。</div>
+      <div class="foot-links">
+        <a href="../../">Library</a>
+        <a href="../../structure-driven-org/">構造駆動エンジニアリング組織論</a>
+        <a href="https://github.com/machuz/eis/blob/main/docs/blog-ja-hatena-oss-gravity-map.md" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="firewall">
+  <div class="firewall-msg">
+    <svg class="firewall-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="3" y="7" width="10" height="7" rx="1"/>
+      <path d="M5 7V5a3 3 0 016 0v2"/>
+    </svg>
+    <span class="firewall-tag">Firewall</span>
+    <strong>観測であって、評価ではない。</strong>
+    <span>個人の点数はこの層から漏らさない。</span>
+  </div>
+  <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--dim)">T-30 · UX-12</span>
+</div>
+
+<script>
+(function(){
+  const progressBar = document.getElementById('progress-bar');
+  let raf = null;
+  function upd() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const d = document.documentElement;
+      const pct = (window.scrollY / (d.scrollHeight - d.clientHeight)) * 100;
+      progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+    });
+  }
+  window.addEventListener('scroll', upd, { passive: true });
+})();
+</script>
+
+</body>
+</html>
