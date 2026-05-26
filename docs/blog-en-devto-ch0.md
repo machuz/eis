@@ -217,7 +217,7 @@ We also mapped the **Gravity distribution of the top 50 engineers** — structur
 
 > [OSS Gravity Map — Top 50 Engineers](https://machuz.github.io/eis/research/oss-gravity-map/analysis/top50.html)
 
-Salvatore Sanfilippo (Redis), Alexey Milovidov (ClickHouse), Ritchie Vink (Polars) — their gravity saturates the scale. But the more remarkable finding was the **440 engineers the world has never heard of.** They don't give conference talks. They don't have mass Twitter followings. Yet when we traced the gravitational field lines through the codebase, there they were — quietly holding the architecture together. We call them **Hidden Architects.**
+Salvatore Sanfilippo (Redis), Alexey Milovidov (ClickHouse), Ritchie Vink (Polars) — their gravity saturates the scale. But the more remarkable finding was the **440 engineers the world has never heard of.** They don't give conference talks. They don't have mass Twitter followings. Yet when we traced module ownership and design involvement through the codebase, there they were — quietly holding the architecture together. We call them **Hidden Architects.**
 
 **A note on cross-universe comparison.** Gravity is a *relative signal within each repository*, not an absolute value across repositories. Josh Goldberg's Gravity 100 in eslint and Jordan Liggitt's Gravity 77.3 in Kubernetes are observations from **different universes** — they cannot be directly compared. This is Engineering Relativity (Ch. 8) in action.
 

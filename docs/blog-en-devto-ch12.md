@@ -43,7 +43,7 @@ They define design, create abstractions, organize dependencies, and build gravit
 
 But here's the critical point: a truly great Architect designs for "the universe after they're gone."
 
-In a universe built by a good Architect, order is maintained even after they leave, because the structure remains. The gravitational field of the design persists in the universe.
+In a universe built by a good Architect, order is maintained even after they leave, because the structure remains. The constraints the design set keep shaping how later code is written, even after the architect is gone.
 
 ---
 
