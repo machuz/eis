@@ -137,7 +137,8 @@
     raf = requestAnimationFrame(() => {
       raf = null;
       const d = document.documentElement;
-      const pct = (window.scrollY / (d.scrollHeight - d.clientHeight)) * 100;
+      const limit = d.scrollHeight - d.clientHeight;
+      const pct = limit > 0 ? (window.scrollY / limit) * 100 : 0;
       progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
     });
   }
