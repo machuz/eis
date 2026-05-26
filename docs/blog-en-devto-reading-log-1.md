@@ -28,7 +28,7 @@ By psychological OS here, I mean the inner operating principle that decides how 
 
 ## 2. Griffith as a meaning-generating apparatus
 
-Griffith isn't merely charismatic. He was **a being who gives people meaning**.
+Griffith was more than charismatic: he was a being who gives people meaning.
 
 The members of the Band of the Hawk weren't nobly born, weren't socially secured. Most were mercenaries who had no way to live but the battlefield.
 
@@ -36,9 +36,9 @@ Onto that, Griffith placed a story. You aren't just mercenaries. You can become 
 
 As organizational theory, this is quite strong.
 
-People don't move on reward alone. When someone feels that their life has become part of some larger story, they move past their limits. Griffith made that possible. He gave the Band not just work, but **meaning**. So the Band, while an army, carried a heat closer to a religious community.
+People don't move on reward alone. When someone feels that their life has become part of some larger story, they move past their limits. Griffith made that possible. He gave the Band not just work, but meaning. So the Band, while an army, carried a heat closer to a religious community.
 
-But here's the danger. At the center of that community is, in the end, not "the community's happiness." It's **Griffith's private dream.**
+But there's a danger in it. At the center of that community is, in the end, not "the community's happiness." It's Griffith's private dream.
 
 ---
 
@@ -96,7 +96,7 @@ At that point, Griffith's ideal-realizing OS is already buggy. The man who subor
 
 ![From "[he] made me forget my dream" — the one who shook him from outside the dream](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-1-dream.png)
 
-So Guts leaving isn't merely a loss of force. For Griffith, it was an event that **destroyed his self-story itself.**
+So Guts leaving isn't merely a loss of force. For Griffith, it was an event that destroyed his self-story itself.
 
 ---
 
@@ -132,7 +132,7 @@ At the single point where all of these converged, he chose. The community, as of
 
 ![From "You alone" — the one equal he loses](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-1-bond.png)
 
-This is the cruel part. The Band mattered to Griffith. There's no doubt of it. **But it's precisely because it mattered that it could become the offering.** Something that didn't matter can't be offered.
+This is the cruel part. The Band mattered to Griffith. There's no doubt of it. But it's precisely because it mattered that it could become the offering. Something that didn't matter can't be offered.
 
 So the dread of the Eclipse lies in this structure:
 
@@ -142,7 +142,7 @@ The dream the members entrusted their lives to. The community that was their pri
 
 ![The apostles descending — the ritual that converts a community into resource](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-1-eclipse.png)
 
-So the Eclipse isn't merely a massacre. It's **a ritual where a community's system of meaning is converted into raw material for the dream.**
+So the Eclipse isn't merely a massacre. It's a ritual where a community's system of meaning is converted into raw material for the dream.
 
 ---
 
@@ -150,13 +150,13 @@ So the Eclipse isn't merely a massacre. It's **a ritual where a community's syst
 
 I called the Eclipse "a ritual of sacrifice." Here I want to lay René Girard's *Violence and the Sacred* over it.
 
-Girard placed **mimetic desire** at the root of human violence. People desire not the object itself so much as "what someone else desires." Desire flares up through a mediator. That, I think, is how the Band of the Hawk became one. They didn't each want different things. **Through Griffith's dream as mediator, they wanted the same thing.** A "meaning-generating apparatus" is, put another way, the center point of mimetic desire.
+Girard placed **mimetic desire** at the root of human violence. People desire not the object itself so much as "what someone else desires." Desire flares up through a mediator. That, I think, is how the Band of the Hawk became one. They didn't each want different things. Through Griffith's dream as mediator, they wanted the same thing. A "meaning-generating apparatus" is, put another way, the center point of mimetic desire.
 
-According to Girard, mimetic desire eventually breeds collision. If everyone desires the same thing, the community drifts toward a crisis of "all against all" violence. What arose to quell it is **sacrifice (the scapegoat mechanism)**. The community concentrates violence onto a single victim, and by expelling them, restores order. The victim becomes cursed and, at once, sacred. The moment violence turns into the sacred.
+According to Girard, mimetic desire eventually breeds collision. If everyone desires the same thing, the community drifts toward a crisis of "all against all" violence. What arose to quell it is sacrifice (the scapegoat mechanism). The community concentrates violence onto a single victim, and by expelling them, restores order. The victim becomes cursed and, at once, sacred. The moment violence turns into the sacred.
 
 The Eclipse was exactly this "violence turning sacred" ritual. The moment Guts left and Griffith fell is Girard's **sacrificial crisis** itself — the center of desire broken, order crumbling. And through the Eclipse, Griffith gains divinity (Femto). The sacrifice pushes him up into the sacred.
 
-**But here Girard's theory doesn't fit cleanly. It slips.** In Girard's classic mechanism, the sacrifice is "**the many, offering up the one**" — the community concentrates violence onto a single scapegoat. But the Eclipse is the reverse. "**The one, offering up the many.**" A single Griffith sacrifices the whole community, the Band of the Hawk, to make *himself* sacred. The arrow of the scapegoat is flipped.
+But here Girard's theory doesn't fit cleanly; it slips. In Girard's classic mechanism, the sacrifice is "the many, offering up the one" — the community concentrates violence onto a single scapegoat. But the Eclipse is the reverse: "the one, offering up the many." A single Griffith sacrifices the whole community, the Band of the Hawk, to make *himself* sacred. The arrow of the scapegoat is flipped.
 
 And this inversion is, probably, the most frightening form in a modern organization. Ancient sacrifice killed one person so the community could survive (still cruel, but there's a logic of protecting the community). Griffith-type sacrifice sacrifices the community itself so that the one at the center may survive and ascend. Not by fitting the theory neatly, but by spilling out of it, the Eclipse's abnormality comes into sharper focus.
 
@@ -215,11 +215,11 @@ And here lies the sad — or cruel — part of so many organizations: **without 
 
 ## 9. A strong OS isn't safe just by being strong
 
-By here, something important comes into view. **A strong OS isn't itself the evil.**
+By here, something important comes into view: a strong OS isn't itself the evil.
 
 An ideal-realizing OS moves people forward. A victory OS produces breakthrough force. A devotion OS supports comrades. An achievement OS produces high output. A story-generating OS gives people meaning.
 
-The problem is **any of them growing too strong alone.**
+The problem is any of them growing too strong alone.
 
 Psychological OS and organizational OS, the stronger they get, the more they fix how the world is seen. And they make the realities inconvenient to them harder to see. The ideal-realizing OS dislikes reality-checking; the victory OS dulls to others' pain; the devotion OS ignores its own limits; the achievement OS postpones the rightness of means; the story-generating OS slights the plain truths; the success-continuation OS stops feeling the anomaly as an anomaly.
 

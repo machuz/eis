@@ -41,15 +41,9 @@ Architects create universes.
 
 They define design, create abstractions, organize dependencies, and build gravitational centers.
 
-But here's the critical point.
+But here's the critical point: a truly great Architect designs for "the universe after they're gone."
 
-**A truly great Architect designs for "the universe after they're gone."**
-
-In a universe built by a good Architect, order is maintained even after they leave.
-
-Because the structure remains.
-
-The gravitational field of the design persists in the universe.
+In a universe built by a good Architect, order is maintained even after they leave, because the structure remains. The gravitational field of the design persists in the universe.
 
 ---
 
@@ -57,7 +51,7 @@ The gravitational field of the design persists in the universe.
 
 But not all strong gravity is good gravity.
 
-The universe has black holes. Black holes have extremely strong gravity. But their gravity doesn't create structure — it **swallows everything**.
+The universe has black holes. Black holes have extremely strong gravity. But their gravity doesn't create structure — it swallows everything.
 
 The same type of engineer exists in code universes.
 
@@ -67,11 +61,7 @@ Their characteristics:
 
 ![Black Hole Pattern](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch12-black-hole-pattern.png?v=4)
 
-High technical skill. High output. Strong influence.
-
-But — they don't create structure.
-
-Instead — dependency concentrates.
+High technical skill. High output. Strong influence. But they don't create structure. Instead, dependency concentrates.
 
 ---
 
@@ -81,9 +71,7 @@ Around a Black Hole Engineer, this happens:
 
 Massive services. Massive utilities. Massive modules.
 
-Work concentrates, dependencies concentrate, code concentrates.
-
-The result — **the center of the universe becomes one engineer.**
+Work concentrates, dependencies concentrate, code concentrates. The result: the center of the universe becomes one engineer.
 
 ![Good Architect vs Black Hole](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch12-good-vs-blackhole.png?v=4)
 
@@ -115,17 +103,13 @@ A good Architect is different from a black hole.
 
 They don't concentrate gravity. They distribute structure.
 
-They share abstractions, clarify boundaries, and leave order in the universe.
-
-So — even after they leave, the universe doesn't collapse.
+They share abstractions, clarify boundaries, and leave order in the universe. So even after they leave, the universe doesn't collapse.
 
 This is **seasoned, good gravity**.
 
 Remember Chapter 4's "laying souls to rest." A good Architect can be laid to rest. Their code lives on after departure. Survival 100 is proof that the structure remains.
 
-**A Black Hole Engineer, left alone, will not be laid to rest.**
-
-Because the code universe collapses the moment they leave.
+A Black Hole Engineer, left alone, will not be laid to rest, because the code universe collapses the moment they leave.
 
 ---
 
@@ -159,7 +143,7 @@ One person with extremely high Indispensability while everyone else is extremely
 
 A good Architect's timeline shows an Architect → Producer transition (like O. in Chapter 5). Once the structure is built, they produce on top of it.
 
-A Black Hole Engineer's timeline shows **permanent Architect**. They never release the structure. They keep concentrating gravity.
+A Black Hole Engineer's timeline shows permanent Architect. They never release the structure. They keep concentrating gravity.
 
 ### 4. Judge Gravity Quality Through Surrounding Signals
 
@@ -173,7 +157,7 @@ Around a Black Hole Engineer:
 - Teammates' Design signals stay low (they can't touch — or don't dare touch — the structure)
 - New joiners ramp up slowly (you have to ask one person to understand anything)
 
-**The quality of gravity is reflected in the surrounding signals.**
+The quality of gravity is reflected in the surrounding signals.
 
 ---
 
@@ -212,9 +196,7 @@ When such an engineer joins a post-collapse team:
 - Bus Factor rises from 1 to 2, then 3
 - Multiple members' Design signals start rising simultaneously
 
-**Only an Architect who distributes structure can turn collapse into regeneration.**
-
-What's needed to replace a Black Hole isn't the same strength of gravity. It's a **different quality** of gravity.
+Only an Architect who distributes structure can turn collapse into regeneration. What's needed to replace a Black Hole isn't the same strength of gravity. It's a different quality of gravity.
 
 ---
 
@@ -222,11 +204,9 @@ What's needed to replace a Black Hole isn't the same strength of gravity. It's a
 
 In the universe, when a star dies, the elements it created remain. Iron, oxygen, carbon — all forged in the star's nuclear fusion.
 
-A good Architect is the same. What remains after they leave isn't code — it's **structure**.
+A good Architect is the same. What remains after they leave isn't code — it's structure.
 
-What a Black Hole Engineer leaves behind is — void.
-
-**Stars are not forever. That's why structure matters.**
+What a Black Hole Engineer leaves behind is void. Stars are not forever. That's why structure matters.
 
 ---
 

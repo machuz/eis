@@ -40,7 +40,7 @@ Yet inside every team, people sense whose structural signal is strongest.
 > "That person writes code that lasts."
 > "That person touches everything but nothing improves."
 
-Those intuitions exist, but they're not measurable. I wanted to find a way to **observe that gut feeling as numbers** — drawn from a source that can't be gamed by politics: **the git history itself.**
+Those intuitions exist, but they're not measurable. I wanted to find a way to observe that gut feeling as numbers, drawn from a source that can't be gamed by politics: the git history itself.
 
 ---
 
@@ -205,7 +205,7 @@ An even more interesting finding: **gravity concentration varies 4.8× across la
 | Rails / Laravel (framework-driven) | 5.1% | Frameworks absorb structure |
 | C / C++ (systems) | 3.4% | Most distributed |
 
-Here's the critical point: **this is not about which structure is "correct."**
+The critical point is that this is not about which structure is "correct."
 
 esbuild's 92.5% concentration isn't "bad design" — at a scale where one person can hold the entire system in their head, it may be optimal. Kubernetes' 0.8% distribution isn't "better because it's distributed" — at 5,000+ contributors, distribution is inevitable, and that itself is a design outcome.
 

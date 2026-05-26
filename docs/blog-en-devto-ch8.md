@@ -21,19 +21,13 @@ This chapter is about another fundamental property of that gravity.
 
 ## Gravity Changes with the Universe
 
-Looking at EIS results across different codebases, I noticed something.
+Looking at EIS results across different codebases, I noticed something: gravity changes depending on the universe.
 
-**Gravity changes depending on the universe.**
-
-EIS measures "how much gravity you created" in a codebase. But gravity has one critical property:
-
-**It depends on the space it exists in.**
+EIS measures "how much gravity you created" in a codebase. But gravity has one critical property: it depends on the space it exists in.
 
 In physics, Earth, the Moon, and Jupiter each have different gravitational fields. The same object becomes lighter or heavier depending on where it is.
 
-The same phenomenon occurs in codebases.
-
-**The same engineer gets different EIS signals in different codebases.**
+The same phenomenon occurs in codebases: the same engineer gets different EIS signals in different codebases.
 
 ---
 
@@ -46,7 +40,7 @@ In a mature codebase:
 - Abstractions are well-established
 - "Seasoned, good gravity" is already present
 
-In such environments, creating new gravity is not easy. The stronger the existing structure, the more energy it takes to shift the center. **EIS signals are harder to raise.**
+In such environments, creating new gravity is not easy. The stronger the existing structure, the more energy it takes to shift the center. EIS signals are harder to raise.
 
 In a structurally weak codebase:
 
@@ -54,21 +48,15 @@ In a structurally weak codebase:
 - Design is fragmented
 - Abstractions are lacking
 
-In such environments, new gravity forms easily. The first person to introduce decent design becomes an Architect overnight. **EIS signals are easier to raise.**
+In such environments, new gravity forms easily. The first person to introduce decent design becomes an Architect overnight. EIS signals are easier to raise.
 
 ---
 
 ## EIS Is Not an Absolute Value
 
-This means EIS is **not an absolute value**.
+This means EIS is not an absolute value. It is determined not by an engineer's ability alone, but by the interaction between the engineer and the codebase's gravitational field.
 
-EIS is determined not by an engineer's ability alone, but by the **interaction between the engineer and the codebase's gravitational field**.
-
-This is, in a sense —
-
-**Engineering Relativity.**
-
-The same engineer, in a different universe, produces different gravity.
+This is, in a sense, Engineering Relativity. The same engineer, in a different universe, produces different gravity.
 
 ---
 
@@ -82,17 +70,11 @@ Imagine an engineer whose signals look like this:
 
 Naturally, 60 looks "better."
 
-But if **Repo A has an extremely strong gravitational field** — multiple Architects, highly refined structure, battle-tested abstractions — then **35 in that context may actually be remarkable**.
+But if Repo A has an extremely strong gravitational field — multiple Architects, highly refined structure, battle-tested abstractions — then 35 in that context may actually be remarkable.
 
-There's a "normalization trap" here. EIS's relative normalization means the top contributor in each team reaches 100 — so the top signal in one repo might be mediocre in another. But this chapter's point is more fundamental than normalization mechanics. Normalization is a calculation issue; Engineering Relativity is a **structural** issue.
+There's a "normalization trap" here. EIS's relative normalization means the top contributor in each team reaches 100 — so the top signal in one repo might be mediocre in another. But this chapter's point is more fundamental than normalization mechanics. Normalization is a calculation issue; Engineering Relativity is a structural issue. The codebase itself changes the *meaning* of the signal. That's Engineering Relativity.
 
-**The codebase itself changes the *meaning* of the signal.**
-
-That's Engineering Relativity.
-
-Let me be explicit about something important:
-
-**EIS does not directly measure an engineer's ability. It measures their impact within a code universe.**
+Let me be explicit about something important: EIS does not directly measure an engineer's ability. It measures their impact within a code universe.
 
 Ability and impact are different things. A highly capable engineer may show modest impact in a universe with strong existing gravity. An average engineer may show outsized impact in a young universe. What EIS measures is "how much gravity did this engineer create in this universe" — not "how talented is this engineer."
 
@@ -134,17 +116,15 @@ Codebase structure isn't static. Member departures, refactoring, new features �
 
 ## The Reproducibility of Architects
 
-Looking at EIS across multiple codebases, you notice a certain type of engineer exists. **Engineers who create gravity no matter what universe they're in.**
+Looking at EIS across multiple codebases, you notice a certain type of engineer exists: engineers who create gravity no matter what universe they're in.
 
-Different codebase. Different team. Different tech stack. They still build **structural centers**.
-
-This might be called **Architect Reproducibility**.
+Different codebase. Different team. Different tech stack. They still build structural centers. This might be called Architect Reproducibility.
 
 When you analyze an entire workspace with `--recursive --per-repo`, an engineer who is consistently Architect across multiple repositories has "general-purpose design capability" that doesn't depend on any specific codebase.
 
 Conversely, an engineer who is Architect in only one repository is creating gravity within that repository's specific context. This is also valuable, but it's a different kind of strength.
 
-EIS `--per-repo` analysis makes this reproducibility **numerically verifiable**:
+EIS `--per-repo` analysis makes this reproducibility numerically verifiable:
 
 ![Per-Repo Breakdown](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch8-per-repo-breakdown.png?v=4)
 
@@ -154,9 +134,9 @@ EIS `--per-repo` analysis makes this reproducibility **numerically verifiable**:
 
 There's a subtler phenomenon worth noting — one borrowed from astrophysics.
 
-In physics, you can detect massive objects not by looking at them directly, but by observing how they bend the light of objects behind them. This is **gravitational lensing**.
+In physics, you can detect massive objects not by looking at them directly, but by observing how they bend the light of objects behind them. This is gravitational lensing.
 
-In codebases, something similar happens. An Architect's gravity is sometimes most visible not in their own signals, but in how it **shapes everyone else's signals**.
+In codebases, something similar happens. An Architect's gravity is sometimes most visible not in their own signals, but in how it shapes everyone else's signals.
 
 When a strong Architect is present:
 - Other engineers' Survival signals may be lower (the Architect's code dominates blame)
@@ -168,25 +148,23 @@ When that Architect leaves:
 - Design Vacuum risk appears
 - The "flattening" of signal distributions indicates the loss of a gravitational center
 
-You can observe this in `eis timeline --team`: the moment a gravitational center disappears, the entire team's metrics ripple. **The gravity was real — you just needed to look at its effects on others to see its full shape.**
+You can observe this in `eis timeline --team`: the moment a gravitational center disappears, the entire team's metrics ripple. The gravity was real — you just needed to look at its effects on others to see its full shape.
 
 ---
 
 ## The Laws of Physics Are Not Uniform Across Universes
 
-Engineering Relativity has one more deep implication.
-
-**Each universe has its own laws of physics.**
+Engineering Relativity has one more deep implication: each universe has its own laws of physics.
 
 In a universe built on a certain framework, structure is implicitly delegated to the framework itself. There's less design freedom, but a small team can bootstrap a universe quickly. Observed through EIS, the Design axis tends to be low across the board, with Production dominating.
 
 In a universe built with a language whose type system is highly expressive, design decisions are explicitly inscribed in code. Interface design, constraints expressed through types, layers of abstraction — all of it is recorded in commits. Observed through EIS, the Design axis tends to be higher, and Survival stabilizes.
 
-This is not about superiority. **It's about different laws of physics.**
+This is not about superiority. It's about different laws of physics.
 
 In a small-to-medium universe where complexity is manageable, delegating structure to a framework is the right call. The universe runs efficiently with minimal gravity. Most engineers know this intuitively.
 
-But when the universe expands, complexity explodes, and many engineers begin working on it simultaneously — **implicit structure can no longer maintain order.** Explicit design decisions, inscribed in code, become necessary to resist entropy.
+But when the universe expands, complexity explodes, and many engineers begin working on it simultaneously, implicit structure can no longer maintain order. Explicit design decisions, inscribed in code, become necessary to resist entropy.
 
 The question of "which laws of physics suit which scale of universe" has been an **aerial battle** for years. "That tech choice was right." "No, it was wrong." — backed by nothing but experience and gut feeling.
 
@@ -194,7 +172,7 @@ EIS might bring observational data to this aerial battle.
 
 By observing universes with different physical laws side by side — comparing Design axis, Survival axis, Robust Survival, and team structure tendencies — it may become possible to test hypotheses like "beyond a certain scale, type system expressiveness has a significant impact on Survival" using commit light.
 
-Furthermore — language and type system choices **influence culture**. A team whose culture is to express constraints through types and a team whose culture is to guarantee correctness through tests will produce Architects with different characteristics and Entropy Fighters with different behaviors. The laws of physics of the universe shape the ecosystem of engineers who live within it.
+Furthermore, language and type system choices influence culture. A team whose culture is to express constraints through types and a team whose culture is to guarantee correctness through tests will produce Architects with different characteristics and Entropy Fighters with different behaviors. The laws of physics of the universe shape the ecosystem of engineers who live within it.
 
 This is still a hypothesis. But the results of observing 29 OSS projects and 55,000 engineers across universes are [beginning to show glimpses](https://github.com/machuz/eis/blob/main/research/oss-gravity-map/analysis/cross-language-gravity.md). Gravity concentration varies by **4.8x** between language families.
 
@@ -202,11 +180,7 @@ This is still a hypothesis. But the results of observing 29 OSS projects and 55,
 
 ## Great engineers create gravity in every universe.
 
-Truly great engineers create gravity in every universe.
-
-But that gravity looks different depending on the universe.
-
-**That's Engineering Relativity.**
+Truly great engineers create gravity in every universe. But that gravity looks different depending on the universe. That's Engineering Relativity.
 
 ---
 

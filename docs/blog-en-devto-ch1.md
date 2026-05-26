@@ -19,13 +19,9 @@ I wanted to visualize things like: the effort someone puts in, the ability to cr
 
 **There is no way to reduce all of this into a single, absolute score from code alone.**
 
-However, I realized something important. While absolute scoring is impossible, we *can* observe **changes in strength.**
+What's impossible is the absolute number. What you can still observe is how strength moves. At one point a certain engineer is holding the system together; a quarter later someone else takes that role. That shift isn't something you assign from outside — it's a signal left in the code on its own.
 
-At one point, a certain engineer is driving the system forward. At another moment, someone else takes that role. This is not a score. **This is a signal.**
-
-You can't assign a fixed value to a human or a system. But you can observe: where momentum exists, where pressure is building, where stability is forming or breaking.
-
-Scores try to evaluate. **Signals reveal.**
+You can't assign a fixed value to a human or a system. But you can observe where momentum exists, where pressure is building, where stability is forming or breaking. Scoring asks how good someone is; watching the signal only asks where the structural weight is sitting right now.
 
 I jokingly call it an engineer's **"combat power."** The formal name is **Engineering Impact Signal** — **EIS**, pronounced *"ace."* But what it actually measures is something more precise:
 
@@ -35,7 +31,7 @@ I jokingly call it an engineer's **"combat power."** The formal name is **Engine
 
 ## The Core Idea: Code That Survives Matters Most
 
-The strongest engineers don't just write code. They write code that **continues to exist months later** without needing to be rewritten.
+The strongest engineers write code that continues to exist months later without needing to be rewritten.
 
 So the most important signal in this model is **Code Survival**.
 
@@ -199,7 +195,7 @@ I ran this on my own team (14 repos, 10+ engineers). The signals matched the tea
 
 ![Backend Rankings](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch1-backend-table.png?v=4)
 
-**R.S.** — Production 17 doesn't turn heads. But Survival 50 (2nd on the team) means their recent code stays. Debt Cleanup 88 means they're quietly fixing everyone else's bugs. **This is exactly the kind of person that Debt Cleanup was designed to surface.** The Anchor role captures this perfectly.
+**R.S.** — Production 17 doesn't turn heads. But Survival 50 (2nd on the team) means their recent code stays. Debt Cleanup 88 means they're quietly fixing everyone else's bugs. This is exactly the kind of person that Debt Cleanup was designed to surface, and the Anchor role captures it perfectly.
 
 **Y.Y.** — Design 67, Breadth 81. The original architect. Indispensability 100 — more modules are still attributed to this person than to any active member. Topology reads `Architect / — / Former` — the Role persists in the code even after departure. This is the signal that [Chapter 4](https://dev.to/machuz/backend-architects-converge-the-sacred-work-of-laying-souls-to-rest-m6d) calls "a soul that needs to be laid to rest" — a handoff priority.
 
@@ -209,7 +205,7 @@ I ran this on my own team (14 repos, 10+ engineers). The signals matched the tea
 
 ## What Existing Metrics Miss
 
-DORA measures deployment velocity. SPACE uses surveys. Git analytics tools track *when* code was written. **None of them ask whether the code actually survived.**
+DORA measures deployment velocity. SPACE uses surveys. Git analytics tools track *when* code was written. None of them ask whether the code actually survived.
 
 EIS fills that gap: time-decayed survival + robust/dormant separation + debt cleanup tracking. From data you already have.
 

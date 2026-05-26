@@ -26,7 +26,7 @@ But — what is that pride made of? And where does it lose its essence? This tim
 
 Anderson's *Imagined Communities*, seen in #2, grasped the nation as "a community that holds together on shared story." People who don't even know each other's faces become one "we" by believing the same story.
 
-A storied club is exactly the same. The crest, the club colors, the founding myth, the legendary players, the memories supporters pass down. These build **the imagined community of "I'm a member of this kingdom."** The source of pride is neither blood nor soil, but **a shared story.**
+A storied club is exactly the same. The crest, the club colors, the founding myth, the legendary players, the memories supporters pass down. These build the imagined community of "I'm a member of this kingdom." The source of pride is neither blood nor soil, but a shared story.
 
 The stronger the story, the stronger the pull. Talent from all over the world gathers, drawn by that story. So far, it's beautiful. The problem is what that strong story starts spinning *for.*
 
@@ -70,7 +70,7 @@ The efficiency of winning swallows the essence of cultivating. The "heat to cult
 
 ## 6. No malice is the scariest
 
-And here is the scariest part. **What turns the kingdom into a finite game isn't villains.**
+And here is the scariest part: what turns the kingdom into a finite game isn't villains.
 
 Everyone means well. They want them to win. To grow. They're thinking of the club. No one is trying to break the essence. And yet, at the far end of each person's good intentions, the place to keep playing has been swapped for a machine to win through.
 
@@ -88,9 +88,9 @@ But there's hope too. On that same pitch of the kingdom swallowed by the finite 
 
 This is a little different from the core of play (the infinite game) seen in #3. It's rather the most beautiful part of the harsh finite game — the strict equality that a contest is decided purely by ability.
 
-If so, the kingdom's true fall lies further out than the moment winning becomes the end. It's when it loses even this pure equality — when connections, politics, and deference begin to decide the outcome off the pitch. Pride is, probably, not winning forever. It's **never letting go, to the very end, of that one point: "before the ball, everyone is equal."**
+If so, the kingdom's true fall lies further out than the moment winning becomes the end. It's when it loses even this pure equality — when connections, politics, and deference begin to decide the outcome off the pitch. Pride is, probably, not winning forever. It's never letting go, to the very end, of that one point: "before the ball, everyone is equal."
 
-And one more thing. A kingdom that aims only at winning — even if its competition is fair — may someday be outcompeted by another civilization. One that keeps play, and keeps trying new things. **The room for evolution is always opened inside play.** Not the one who perfects the form and guards it, but the one who can still break the form and play, opens the next era. If so, never letting go of pure equality and never letting go of play turn out, in the end, to be one and the same.
+And one more thing. A kingdom that aims only at winning — even if its competition is fair — may someday be outcompeted by another civilization. One that keeps play, and keeps trying new things. The room for evolution is always opened inside play. Not the one who perfects the form and guards it, but the one who can still break the form and play, opens the next era. If so, never letting go of pure equality and never letting go of play turn out, in the end, to be one and the same.
 
 ---
 
@@ -100,15 +100,15 @@ Finally, to OrbitLens.
 
 An organization, too, is an imagined community (#2). Mission, values, the founding story — a shared story builds the "we." That itself is a source of strength.
 
-The danger is when observation becomes **an "apparatus to rank for winning"** (#3). Selecting people by score, sieving them, keeping only those who can win. That way, a community for keeping going is swapped for an arena for winning through. And — with no malice. Everyone, meaning well, spins the KPIs. The Berserk of #1, the shared illusion of #2, the finite game of #3. In the end, it returns to the same conditions.
+The danger is when observation becomes an "apparatus to rank for winning" (#3). Selecting people by score, sieving them, keeping only those who can win. That way, a community for keeping going is swapped for an arena for winning through. And — with no malice. Everyone, meaning well, spins the KPIs. The Berserk of #1, the shared illusion of #2, the finite game of #3. In the end, it returns to the same conditions.
 
-That EIS could become a leaderboard is what I fear most, here. Observation can be a tool of ranking, and an apparatus that guards the essence. Not to fix a ranking, but to see **whether that playground is still going, whether the pure, equal core is kept** — and to light up the malice-free decay before anyone has to become the villain — that's what observation is for.
+That EIS could become a leaderboard is what I fear most, here. Observation can be a tool of ranking, and an apparatus that guards the essence. Not to fix a ranking, but to see whether that playground is still going, whether the pure, equal core is kept — and to light up the malice-free decay before anyone has to become the villain — that's what observation is for.
 
 > A kingdom is made of story. The moment that story becomes "an apparatus for winning," the kingdom loses its essence.
 
 Pride is, perhaps, not winning forever, but never letting go of the essence.
 
-And I'll write about myself. **I want to hold a pride that never abandons play.** I'll keep the strength to win, properly. But I want to spend that strength not on guarding the form, but on still breaking it to play. To hold both the pure, equal arena and the room to seriously play — that, I want to make my own pride. Even where it makes winning harder in some moment.
+And I'll write about myself. I want to hold a pride that never abandons play. I'll keep the strength to win, properly. But I want to spend that strength not on guarding the form, but on still breaking it to play. To hold both the pure, equal arena and the room to seriously play — that, I want to make my own pride. Even where it makes winning harder in some moment.
 
 ---
 

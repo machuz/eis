@@ -54,7 +54,7 @@ Leather assembled by hand. A tool where the design intent overlaps perfectly wit
 
 There, the history itself is the purpose. The price is a result, not the victory condition.
 
-So what I'm observing isn't high versus cheap. It's **whether thought and history are the purpose, or have been made into a pedestal for a token**. This isn't a question of superior or inferior taste — it's a question of where the observation is focused.
+So what I'm observing isn't high versus cheap. It's whether thought and history are the purpose, or have been made into a pedestal for a token. This isn't a question of superior or inferior taste — it's a question of where the observation is focused.
 
 ---
 
@@ -100,9 +100,7 @@ And yet, there's a certain focus of observation left in me. At least, whether so
 
 Where did it come from?
 
-I arrive at one answer.
-
-**Manga.**
+I arrive at one answer: manga.
 
 ---
 
@@ -171,7 +169,7 @@ To be clear, this is the order in which *I* received them, not the order the boo
 
 In that sense, the two aren't separate things. They're the same single observation, confirmed from different entrances. The ethic I received over Guts's back, and Heidegger's "technology turns people into resources," are layered in the same strata inside me.
 
-So this reading log moves back and forth between the manga shelf and the thought-book shelf. The medium doesn't matter. **Checking what I received in the body against what I received in concept, on the same desk.** That's the actual work of this series.
+So this reading log moves back and forth between the manga shelf and the thought-book shelf. The medium doesn't matter. Checking what I received in the body against what I received in concept, on the same desk — that's the actual work of this series.
 
 ---
 

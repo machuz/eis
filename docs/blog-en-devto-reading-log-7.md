@@ -12,7 +12,7 @@ tags: management, leadership, culture, philosophy
 
 ## 1. Why is the ground that grows players so different
 
-In the later arc of *Aoashi*, the stage moves to Spain. What's thrust at Ashito there isn't a gap in technique. It's the fact that **the very environment that raised them is utterly different.**
+In the later arc of *Aoashi*, the stage moves to Spain. What's thrust at Ashito there isn't a gap in technique. It's the fact that the very environment that raised them is utterly different.
 
 ![The European top is already beyond where the Japanese are still thinking — the environment gap](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-7-sonosaki.png)
 
@@ -24,11 +24,11 @@ This time I want to read this "environment gap" alongside two books: Jared Diamo
 
 ## 2. Guns, Germs, and Steel: strength was decided by environment
 
-Diamond's *Guns, Germs, and Steel* answers one big question. **Why did the people of one continent become the ones who conquered the people of another?**
+Diamond's *Guns, Germs, and Steel* answers one big question: why did the people of one continent become the ones who conquered the people of another?
 
-The answer isn't racial superiority. It's **environment and geography.** Plants fit for cultivation, animals fit for domestication, a continent long on its east-west axis — people who happened to be in a blessed environment generated surplus through farming, grew their population, and accumulated technology, immunity, and the state. The difference was born not from ability, but from **the conditions you were placed in at the starting line.**
+The answer isn't racial superiority. It's environment and geography. Plants fit for cultivation, animals fit for domestication, a continent long on its east-west axis — people who happened to be in a blessed environment generated surplus through farming, grew their population, and accumulated technology, immunity, and the state. The difference was born not from ability, but from the conditions you were placed in at the starting line.
 
-Soccer is similar. Spanish players are strong not because they were born fast. It's because they happened to be born into **an environment where football is rooted as culture.** "Before you blame the person, look at the structure" — this book's reach lands straight on the pitch too.
+Soccer is similar. Spanish players are strong not because they were born fast. It's because they happened to be born into an environment where football is rooted as culture. "Before you blame the person, look at the structure" — this book's reach lands straight on the pitch too.
 
 ---
 
@@ -38,7 +38,7 @@ Look at Spain's league structure, and it shows.
 
 ![Spain's league runs seven divisions deep — the thickness of football rooted as culture](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-7-pyramid.png)
 
-From the first division down to the seventh. Even small towns have clubs, and soccer is dissolved into daily life. This **thickness of layers** isn't made overnight. It's many generations of time, fallen and piled up.
+From the first division down to the seventh. Even small towns have clubs, and soccer is dissolved into daily life. This thickness of layers isn't made overnight. It's many generations of time, fallen and piled up.
 
 And this thickness isn't only a matter of "long history." It's an accumulation of how much heat a whole society has poured into football. In Spain there's an air that permits prioritizing the local club's coaching over your job. On a weekday evening, adults and children gather on a small town pitch as a matter of course. That daily heat, piled over generations, became that thick pyramid. The Japan/Spain gap isn't a gap in talent. It's a gap in the *amount* of heat society has bet on the game. Diamond's "accumulation born of environment" takes, in soccer, the shape of this heat and this pyramid.
 
@@ -46,7 +46,7 @@ And this thickness isn't only a matter of "long history." It's an accumulation o
 
 ## 4. Environment changes the premises themselves
 
-The frightening thing about environment is that it changes not only "what you think," but **"what your body does before you think."**
+The frightening thing about environment is that it changes not only "what you think," but what your body does before you think.
 
 Picture Barcelona's soccer. That beautiful passing combination, the ball circulating among the players without stagnation. Even someone who doesn't follow football has surely seen that scene once. It's become, before anyone noticed, a shared "normal" the whole world knows.
 
@@ -70,29 +70,29 @@ So Ashito's fight is doubly heavy. While closing the environment gap, he must al
 
 ## 6. And still, the individual crosses the sea
 
-But — don't read Diamond's book as fatalism. That environment sets the conditions is true. Yet a person can **re-choose** their environment.
+But — don't read Diamond's book as fatalism. That environment sets the conditions is true. Yet a person can re-choose their environment.
 
 ![Glad I crossed the sea. I couldn't have seen this in Japan — re-choosing your environment](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-7-umi.png)
 
-Fukuda crossed the sea to see football's ceiling. A view he couldn't have seen in Japan. To see it, he moved his own environment. You can't choose the environment you were born into, but **the environment you stand in next, you can choose.**
+Fukuda crossed the sea to see football's ceiling. A view he couldn't have seen in Japan. To see it, he moved his own environment. You can't choose the environment you were born into, but the environment you stand in next, you can choose.
 
 And there, in the re-chosen place, someone says it flat.
 
 ![Japanese can do it too — the individual pins down environmental determinism](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-7-yareru.png)
 
-**"Japanese can do it too."** The environment gap they were told was absolutely impossible, pinned down by results. Environment is strong. But environment isn't everything. Having taken on the conditions, the individual who still goes to surpass opens a hole in the environment's story.
+"Japanese can do it too." The environment gap they were told was absolutely impossible, pinned down by results. Environment is strong. But environment isn't everything. Having taken on the conditions, the individual who still goes to surpass opens a hole in the environment's story.
 
-And the hole one person forces open becomes, in time, a path. The footprints of the one who first proved "Japanese can do it" — the next generation can walk them as a road. The individual who went where no one had gone becomes, before anyone notices, the successors' very environment. **A path isn't given. The first person carves it with their own feet.** And that path becomes the next person's "normal."
+And the hole one person forces open becomes, in time, a path. The footprints of the one who first proved "Japanese can do it" — the next generation can walk them as a road. The individual who went where no one had gone becomes, before anyone notices, the successors' very environment. A path isn't given; the first person carves it with their own feet. And that path becomes the next person's "normal."
 
 ---
 
 ## 7. Environments can be designed
 
-The most hopeful implication of Diamond's book is, I think, here. **If strength is a product of environment, then the environment is what you can design.**
+The most hopeful implication of Diamond's book is, I think, here: if strength is a product of environment, then the environment is what you can design.
 
-If Spain's pyramid took many generations, then an environment that grows players can also be made on purpose. What *Aoashi*'s Esperion tries to draw is, probably, exactly that — not waiting for chance talent, but **designing the very environment in which talent grows.**
+If Spain's pyramid took many generations, then an environment that grows players can also be made on purpose. What *Aoashi*'s Esperion tries to draw is, probably, exactly that — not waiting for chance talent, but designing the very environment in which talent grows.
 
-The "heat to cultivate" I read in #6 was an individual act. What I'm reading in #7 is the story of that heat piling up and, in time, becoming an **environment.** One coach's heat becomes one rung of the pyramid. That's how an accumulation of time gets built.
+The "heat to cultivate" I read in #6 was an individual act. What I'm reading in #7 is the story of that heat piling up and, in time, becoming an environment. One coach's heat becomes one rung of the pyramid. That's how an accumulation of time gets built.
 
 ---
 
@@ -100,11 +100,11 @@ The "heat to cultivate" I read in #6 was an individual act. What I'm reading in 
 
 Finally, to OrbitLens.
 
-The most dangerous thing about observation is **attributing strength to the individual alone.** A score of "this person is excellent / low" usually ignores the environment they were placed in. Accumulation built in a blessed environment, and grit endured alone in a barren one, both get rounded into the same "individual score."
+The most dangerous thing about observation is attributing strength to the individual alone. A score of "this person is excellent / low" usually ignores the environment they were placed in. Accumulation built in a blessed environment, and grit endured alone in a barren one, both get rounded into the same "individual score."
 
-This is continuous with #5's unconscious discrimination. Measure the individual without seeing the environment gap, and you **misread an environment gap as a talent gap.** High just for being from Spain, low just for being from Japan — observation like that preserves the structure as is.
+This is continuous with #5's unconscious discrimination. Measure the individual without seeing the environment gap, and you misread an environment gap as a talent gap. High just for being from Spain, low just for being from Japan — observation like that preserves the structure as is.
 
-So EIS observes by separating domains. It doesn't mix them. It keeps the relative-within-the-same-environment and the absolute-across-organizations apart. And it tries to observe the accumulation of time (surviving code) together with that person's context. Before pushing strength onto the individual, it asks **what environment made it possible.** Observation, the moment it overlooks environment, becomes an apparatus of discrimination.
+So EIS observes by separating domains. It doesn't mix them. It keeps the relative-within-the-same-environment and the absolute-across-organizations apart. And it tries to observe the accumulation of time (surviving code) together with that person's context. Before pushing strength onto the individual, it asks what environment made it possible. Observation, the moment it overlooks environment, becomes an apparatus of discrimination.
 
 > Strength is a product of environment and accumulation. So before measuring the individual, see the environment. And design the better environment.
 

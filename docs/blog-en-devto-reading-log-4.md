@@ -18,7 +18,7 @@ Ashito Aoi, up from Ehime, is a forward starved for goals. He wants to score. To
 
 Fukuda, a J-league youth coach, picks him up. What Fukuda saw wasn't Ashito's finishing. It was **a vision that seems to watch the pitch from above** — a perception of space itself, one Ashito didn't even know he had.
 
-What this manga keeps drawing isn't, I think, a "getting good" story. It's a story about **how seeing changes.** The same pitch, the same twenty-two players, the same ball. And yet, from one day on, Ashito starts to see something entirely different.
+What this manga keeps drawing isn't, I think, a "getting good" story. It's a story about how seeing changes. The same pitch, the same twenty-two players, the same ball. And yet, from one day on, Ashito starts to see something entirely different.
 
 ![“To see” — a first-rate eye that watches placement and flow, not meaning](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-miru.png)
 
@@ -52,7 +52,7 @@ What Fukuda opens is what lies before that. Peel the ball off of meaning and wat
 
 This is almost the same thing happening as Chiba's turn "from meaning to rhythm." Ashito's bird's-eye view, I think, is a perception that stops summarizing the world by the goal (meaning) and watches it as placement (rhythm).
 
-And what matters is that it's **not a talent complete from the start.** The aptitude is there. But what *Aoashi* draws across many volumes is the process of that perception growing, little by little, through questions and repetition. Sense isn't given; it grows. The manga and the philosophy book are saying the same thing in different words.
+And what matters is that it's not a talent complete from the start. The aptitude is there. But what *Aoashi* draws across many volumes is the process of that perception growing, little by little, through questions and repetition. Sense isn't given; it grows. The manga and the philosophy book are saying the same thing in different words.
 
 ---
 
@@ -66,9 +66,9 @@ Quit being a forward. You'll play defender.
 
 To a boy who came all this way to score, he says "you're on the side that defends." He takes the "scoring story" that sat at the center of the dream out of his hands. Ashito rages. Of course he does. His meaning was taken.
 
-But Fukuda could see it. Ashito's bird's-eye view **lives better from a position that watches the whole from behind** than waiting for goals at the front line. Not a perception that charges forward, but one that folds the pitch in from the back. That's exactly why he placed him in the rear.
+But Fukuda could see it. Ashito's bird's-eye view lives better from a position that watches the whole from behind than waiting for goals at the front line. Not a perception that charges forward, but one that folds the pitch in from the back. That's exactly why he placed him in the rear.
 
-This overlaps with the core of *The Philosophy of Sense.* **Peel meaning away once, and re-place it as rhythm.** Only when the meaning-tag of "the scoring hero" is removed does Ashito's perception begin to move at its true range. Not by taking the placement away, but by changing it, the way of seeing itself changes.
+This overlaps with the core of *The Philosophy of Sense.* Peel meaning away once, and re-place it as rhythm. Only when the meaning-tag of "the scoring hero" is removed does Ashito's perception begin to move at its true range. Not by taking the placement away, but by changing it, the way of seeing itself changes.
 
 What's cruel is that in that moment, the rhythm isn't visible to him yet. Only the pain of having meaning taken arrives first. The point of the re-placement can only be understood afterward.
 
@@ -94,7 +94,7 @@ One is **the thinker.** He doesn't teach the answer. He places only a question. 
 
 The other is **the philosopher.** A decision like a position change isn't handed over as a question. It's declared. *You'll play defender.* In it lives an unyielding will toward his ideal image of a team — soccer where everyone thinks, where the whole pitch moves as a single perception. The face of the side that defines concepts and decides.
 
-Neither of these is the right one. **A coach of questions alone can't erect a structure.** It looks gentle, but sometimes it's just fleeing from the decision. **A coach of declarations alone kills realization.** Players obey, but the way of seeing doesn't change. Fukuda can grow players because he can move between the two, by the situation.
+Neither of these is the right one. A coach of questions alone can't erect a structure; it looks gentle, but sometimes it's just fleeing from the decision. A coach of declarations alone kills realization; players obey, but the way of seeing doesn't change. Fukuda can grow players because he can move between the two, by the situation.
 
 Usually he places a question and waits for the noticing; at the load-bearing points of structure, he declares, almost cruelly. The thinker as the baseline, the philosopher narrowed to the necessary point. That balance, itself, is probably the body of the thing called coaching.
 
@@ -112,7 +112,7 @@ A place of questions alone is comfortable. No one gets hurt. But a team where no
 
 A place of declarations alone is fast. Things get decided. But in a place with no margin for noticing, players move without understanding the reason. The way of seeing doesn't change, so the moment the coach is gone, it collapses. Obedience isn't autonomy.
 
-So the moving-between is needed. **Structure can only stand by declaration, but perception can only grow by question.** Fukuda lets go of neither. The strength not to yield his ideal, and the patience not to rush the answer — the same person holds both.
+So the moving-between is needed. Structure can only stand by declaration, but perception can only grow by question. Fukuda lets go of neither. The strength not to yield his ideal, and the patience not to rush the answer — the same person holds both.
 
 This works, I think, the same way in writing, and in organizations. Don't mistake the place that needs a declaration for the place that needs a question left open.
 
@@ -126,7 +126,7 @@ Sense isn't a born talent. Not class, not bloodline. It's the accumulation of a 
 
 Ashito's bird's-eye view is, in the end, the same. It isn't drawn as a one-shot genius trick. He takes a question, runs, errs, and watches again. Through that repetition, the perception widens little by little.
 
-![“Was my vision really this narrow?” — perception grows past the chagrin](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-shiya.png) Because it's **not a story of talent but a story of perception growing,** a little room is left for something to shift on our side too, as we read.
+![“Was my vision really this narrow?” — perception grows past the chagrin](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-4-shiya.png) Because it's not a story of talent but a story of perception growing, a little room is left for something to shift on our side too, as we read.
 
 The way of seeing can be changed. That's a fairly hopeful thing, I think.
 
@@ -144,7 +144,7 @@ And the observer's stance stands at the same question as Fukuda. To declare "thi
 
 But the thinker alone can't erect a structure. The seven axes, the archetypes — at some point, they can only be named by declaration. This is close to the cruelty of "you'll play defender." Without the courage to name a structure, observation becomes gentle noise.
 
-So observation, too, is a moving-between. **Watch placement as rhythm (sense) as the baseline, and name structure by declaration only at the load-bearing points.** The telescope leaves a question, and points at structure at the one necessary place. The moment that balance breaks, observation falls into a leaderboard.
+So observation, too, is a moving-between. Watch placement as rhythm (sense) as the baseline, and name structure by declaration only at the load-bearing points. The telescope leaves a question, and points at structure at the one necessary place. The moment that balance breaks, observation falls into a leaderboard.
 
 > The way of seeing can be grown. By stopping the counting of points, and starting to watch rhythm.
 

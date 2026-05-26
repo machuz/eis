@@ -14,13 +14,13 @@ Over 17 chapters (0–16), I built a theory of software — starting from a simp
 
 ## 0. The Telescope
 
-It started with a frustration: **"This team is strong. But I had no words to explain it."**
+It started with a frustration: this team is strong, but I had no words to explain it.
 
-Over the years, I've recruited several strong engineers by reaching out personally. Why did they come? I believe it's because they felt: **"This person actually sees my work."** Not commit counts — but whether code survives, whether you contribute to architecture, whether you clean up debt.
+Over the years, I've recruited several strong engineers by reaching out personally. Why did they come? I believe it's because they felt: "this person actually sees my work." Not commit counts, but whether code survives, whether you contribute to architecture, whether you clean up debt.
 
-I had that observer's eye. EIS is that **eye turned into an open-source telescope.**
+I had that observer's eye. EIS is that eye turned into an open-source telescope.
 
-Math has complexity theory. Programming languages have type theory. But software architecture still lacks a unified scientific foundation — 30 years of academic attempts (ADLs, ATAM) remain fragmented and haven't made it into practice. In the age of AI, what matters most is structure. If EIS can become a tool for **making architecture a science**, I'd be glad.
+Math has complexity theory. Programming languages have type theory. But software architecture still lacks a unified scientific foundation — 30 years of academic attempts (ADLs, ATAM) remain fragmented and haven't made it into practice. In the age of AI, what matters most is structure. If EIS can become a tool for making architecture a science, I'd be glad.
 
 So I built this telescope. Using nothing but `git log` and `git blame`, I quantified engineering impact across 7 axes:
 
@@ -77,7 +77,7 @@ The deeper I looked, the more codebases looked like universes.
 | Black Holes | Engineers who concentrate dependency instead of distributing structure |
 | Collapse | What happens when a Black Hole Engineer leaves |
 
-This isn't metaphor. It's **structural correspondence**.
+This isn't metaphor. It's structural correspondence.
 
 **Gravity** is the central concept. Not all code is equal. An engineer who creates a module boundary that 50 files depend on has generated gravity — a structural force that shapes everything around it.
 
@@ -97,7 +97,7 @@ This isn't metaphor. It's **structural correspondence**.
 
 Most codebases die within a few years. Entropy wins. The team changes. Knowledge scatters. Someone says "let's rewrite from scratch."
 
-But a few survive. **Linux. Git. PostgreSQL. React.** Their creators left, contributors turned over across generations, and the structure persisted. These are not repositories. They are **civilizations**.
+But a few survive. Linux. Git. PostgreSQL. React. Their creators left, contributors turned over across generations, and the structure persisted. These are not repositories. They are civilizations.
 
 Civilization requires three roles:
 
@@ -116,7 +116,7 @@ Remove any one and the equation breaks:
 | No Anchor | Beautiful but fragile — collapses when Architect leaves |
 | No Producer | Structure without growth — fossilization |
 
-The most important engineers build systems that don't need them. That's the civilization test: **does the structure survive after the Architect leaves?**
+The most important engineers build systems that don't need them. That's the civilization test: does the structure survive after the Architect leaves?
 
 *Deep dive: [Chapter 13](https://dev.to/machuz/git-archaeology-13-cosmology-of-code-dci), [Chapter 14](https://dev.to/machuz/git-archaeology-14-civilization-why-only-some-codebases-become-civilizations-2nl3)*
 
@@ -153,7 +153,7 @@ Git remembers the past. AI imagines the future.
 
 Between them, engineers shape gravity — creating structure, creating order, keeping the system from collapsing.
 
-Where gravity exists, code is not mere fragments — it becomes structure. When structure emerges, systems persist beyond time. That is not just a repository. **It becomes a civilization.**
+Where gravity exists, code is not mere fragments — it becomes structure. When structure emerges, systems persist beyond time. That is not just a repository. It becomes a civilization.
 
 ```
 Git remembers the past.

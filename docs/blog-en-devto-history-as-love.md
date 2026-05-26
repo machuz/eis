@@ -17,9 +17,7 @@ There's nothing to argue against. You actually agree. But something stays clogge
 
 This unease repeats itself across many organizations. The long-tenured person resists, in ways they can't quite articulate, the *correct* proposal from the new arrival. Calling it "old-guard syndrome" closes the case quickly. But is that really all? Could there be something not being observed, sitting in that gap?
 
-For me, this unease keeps landing in the same place.
-
-**History.**
+For me, this unease keeps landing in the same place: history.
 
 ---
 

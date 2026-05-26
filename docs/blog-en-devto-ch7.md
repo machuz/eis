@@ -17,7 +17,7 @@ In [Chapter 6](https://dev.to/machuz/git-archaeology-6-teams-evolve-the-laws-of-
 
 But that was still about "reading analysis results."
 
-This chapter is different. It's about the sensation I arrived at after building EIS — **the universe-like structure of codebases**, and what it means to make that structure observable.
+This chapter is different. It's about the sensation I arrived at after building EIS — the universe-like structure of codebases, and what it means to make that structure observable.
 
 ---
 
@@ -37,7 +37,7 @@ For a quick terminal check, there's also `--format ascii`:
 
 ![Timeline ASCII Output](https://raw.githubusercontent.com/machuz/eis/main/docs/images/timeline-ascii-output.png?v=0.11.0)
 
-What makes this powerful is that **you can look at this screen alongside an AI**.
+What makes this powerful is that you can look at this screen alongside an AI.
 
 Open the HTML in a browser, feed `eis timeline --format json` output to an AI, and ask "What happened to this team in 2024-H2?" The AI reads the signal changes, role transitions, and health metric movements — formulates hypotheses and offers interpretations. This kind of experience was difficult with terminal output alone.
 
@@ -49,17 +49,11 @@ The team Health Metrics view is particularly interesting. Complementarity, Growt
 
 ## The Universe of Code
 
-Building EIS, the sensation I ultimately arrived at was surprisingly simple.
+Building EIS, the sensation I ultimately arrived at was surprisingly simple: a codebase has a universe-like structure.
 
-**A codebase has a universe-like structure.**
+There is gravity. Other code starts gathering around certain code. Abstractions pass through it. Design is built around it as a center. And then a **structural center** is born.
 
-There is gravity.
-
-Other code starts gathering around certain code. Abstractions pass through it. Design is built around it as a center.
-
-And then a **structural center** is born.
-
-In EIS terms, this is an **Architect**. High Design axis, high Survival axis. Meaning: code written by this engineer becomes the center around which other code is built — and **that structure survives**.
+In EIS terms, this is an **Architect**. High Design axis, high Survival axis. Meaning: code written by this engineer becomes the center around which other code is built, and that structure survives.
 
 This is the gravity of a codebase.
 
@@ -73,9 +67,7 @@ In many teams, there is only one gravity.
 
 A single Architect builds the central structure of the codebase. Decides the API design philosophy. Defines the granularity of abstractions. Solidifies the directory structure.
 
-This is a strong structure. It has consistency. No ambiguity.
-
-But it is simultaneously a **very fragile structure**.
+This is a strong structure. It has consistency. No ambiguity. But it is simultaneously a very fragile structure.
 
 In EIS metrics, such teams have distinctive signatures:
 
@@ -91,25 +83,19 @@ Y.Y.'s departure in Chapter 5 was the moment this could have happened. But it di
 
 ## A Universe with Multiple Gravities
 
-In truly strong teams, something else happens.
+In truly strong teams, something else happens: new gravity is born.
 
-**New gravity is born.**
+The existing Architect maintains the structure. Around them, emergent Architects begin creating new gravitational centers.
 
-The existing Architect maintains the structure. Around them, **emergent Architects** begin creating new gravitational centers.
+And over time, gravity is refined. Abstractions stabilize, code survives, dependencies converge. What emerges is "seasoned, good gravity" — structural influence that has been tempered and proven through collaboration and time.
 
-And over time, gravity is refined. Abstractions stabilize, code survives, dependencies converge. What emerges is **"seasoned, good gravity"** — structural influence that has been tempered and proven through collaboration and time.
-
-Designs collide. Abstraction granularity is debated. Implementation approaches clash.
-
-At first glance, it might look like **conflict**.
-
-But structurally, this is the **evolution of the code universe**.
+Designs collide. Abstraction granularity is debated. Implementation approaches clash. At first glance, it might look like conflict. But structurally, this is the evolution of the code universe.
 
 In EIS team timelines, this evolution is traceable through concrete metrics:
 
 ![Team Classification](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch7-team-classification.png?v=4)
 
-**Architectural Team → Maintenance Team → Architectural Engine**
+Architectural Team → Maintenance Team → Architectural Engine.
 
 Initially, one Architect supported the structure (Architectural Team). As that person's influence faded, the structure entered maintenance mode (Maintenance Team). But as multiple members grew their Design axis, the team evolved into a structure where design capability was distributed (Architectural Engine).
 
@@ -143,27 +129,23 @@ Conversely, when any one is missing, it surfaces as Risk:
 
 Writing this far, I notice it has interesting implications for engineering evaluation.
 
-In the software world, there are **engineers who are skilled but quiet**.
+In the software world, there are engineers who are skilled but quiet. They understand good design. They write good code. But they don't talk much in meetings. Documentation is minimal. Presentations aren't their thing.
 
-They understand good design. They write good code. But they don't talk much in meetings. Documentation is minimal. Presentations aren't their thing.
+Conversely, there are engineers whose voice is loud but whose code leaves no gravity. They articulate direction. They speak up in design reviews. But look at the actual codebase — their code isn't at the center of other code. Low Survival axis. Low Design axis.
 
-Conversely, there are **engineers whose voice is loud but whose code leaves no gravity**.
+Which one is actually moving the codebase?
 
-They articulate direction. They speak up in design reviews. But look at the actual codebase — their code isn't at the center of other code. Low Survival axis. Low Design axis.
+That answer lives not in discussions but in code. Git history contains not just *who wrote code*, but who created the gravity of the codebase.
 
-Which one is **actually moving the codebase**?
-
-That answer lives not in discussions but in code. Git history contains not just *who wrote code*, but **who created the gravity of the codebase**.
-
-What EIS tries to do is see engineers by **structural impact, not volume of voice**.
+What EIS tries to do is see engineers by structural impact, not volume of voice.
 
 ---
 
 ## Proving Your Team's Strength — The Hiring Context
 
-This "observability" has another practical application: **hiring**.
+This "observability" has another practical application: hiring.
 
-In engineering hiring, it's easy to say "our team has strong technical culture." But almost no team can **back that up with data**.
+In engineering hiring, it's easy to say "our team has strong technical culture." But almost no team can back that up with data.
 
 With EIS team timelines, you can:
 
@@ -172,7 +154,7 @@ With EIS team timelines, you can:
 - **Risk: Healthy** — "No Bus Factor, Design Vacuum, or Quality Drift risks."
 - **Phase: Sustained Mature** — "Stable without stagnating."
 
-Instead of telling candidates "this is a technically interesting team," you **show them the graphs**. Show impact trajectories. Show how the team has evolved over time, backed by data.
+Instead of telling candidates "this is a technically interesting team," you show them the graphs. Show impact trajectories. Show how the team has evolved over time, backed by data.
 
 This works in reverse too. Candidates can use it to evaluate teams. "Is this team actually growing?" "Does it have a design culture?" — the EIS dashboard can answer that.
 
@@ -184,23 +166,21 @@ Hiring is matching. Being able to show your team's real capability honestly and 
 
 The history of physics is also a history of observation.
 
-Planets orbited the sun before telescopes existed. But it was only when this became **observable** that we could understand the structure, make predictions, and put it to use.
+Planets orbited the sun before telescopes existed. But it was only when this became observable that we could understand the structure, make predictions, and put it to use.
 
 Codebase structure is the same.
 
 Who is the Architect? Where is the gravity? Is the team evolving or declining?
 
-These things **already exist** in Git history. They just weren't observable.
+These things already exist in Git history. They just weren't observable.
 
-EIS is an attempt to make the universe of code **a little more observable**.
+EIS is an attempt to make the universe of code a little more observable.
 
 ---
 
 ## Great engineers don't just write code. They bend the gravity of codebases.
 
-A great engineer is not simply someone who writes code.
-
-They might be **someone who bends the gravity of codebases**.
+A great engineer is not simply someone who writes code. They might be someone who bends the gravity of codebases.
 
 ---
 
