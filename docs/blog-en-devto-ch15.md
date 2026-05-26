@@ -319,7 +319,7 @@ The Anchor, on that foundation, teaches AI to understand the structure. Maintain
 
 And as Architect and Anchor complement each other, they weave massive amounts of functionality into the product with order, alongside AI as the ultimate Producer.
 
-This is a new form of Succession — the structural knowledge transfer I wrote about in Chapter 14. Not human-to-human succession, but human-to-AI succession. The Anchor transmits the soul of the Architect's structure to AI. AI receives that soul and produces code that follows the structure. A succession of the soul to AI.
+This is a new form of succession — the structural knowledge transfer I wrote about in Chapter 14. Not human-to-human succession, but human-to-AI succession. The Anchor transmits the soul of the Architect's structure to AI. AI receives that soul and produces code that follows the structure. A succession of the soul to AI.
 
 Just as civilizations persist across generations, a codebase's structure is inherited by AI as a new "generation." CLAUDE.md becomes the civilization's legal codex — rules that AI reads, understands, and follows. The design intent that human Architects encoded continues to be implemented through AI's hands.
 

@@ -189,7 +189,7 @@ There's a deeper principle at work here. Nassim Taleb's Lindy Effect states that
 
 A codebase that has been maintained for 10 years is more likely to survive another 10 years than a codebase that launched last month. This isn't mysticism — it's selection bias made real. The codebase has already proven it can survive team changes, technology shifts, and entropy. Each year it survives is evidence that its structure works.
 
-This is why civilizations compound. Linux isn't successful *despite* being old. It's successful *because* it's old. Thirty years of Succession, maintenance, and evolution have embedded design intent so deeply into the structure that new contributors naturally write code that fits.
+This is why civilizations compound. Linux isn't successful *despite* being old. It's successful *because* it's old. Thirty years of succession, maintenance, and evolution have embedded design intent so deeply into the structure that new contributors naturally write code that fits.
 
 EIS can see this effect indirectly. A codebase with consistently high Survival across multiple timeline periods is exhibiting Lindy behavior — its structure is durable enough that code doesn't need to be rewritten. The architecture has proven itself.
 
