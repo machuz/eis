@@ -29,7 +29,7 @@ Yet it cannot be observed.
 
 Telescopes can't see it. There's no means of direct detection.
 
-Still, we're certain dark matter exists. Because — **it manifests only as gravity, but gravity is undeniably there.**
+Still, we're certain dark matter exists, because it manifests only as gravity, and gravity is undeniably there.
 
 When you calculate a galaxy's rotation speed, visible matter alone can't explain it. Invisible mass is holding the galaxy together.
 
@@ -73,19 +73,15 @@ Reviews don't produce commits.
 
 Yet a codebase without reviews loses its structure.
 
-Review is **observation**. Just like the Observer Effect in physics, observed code always changes.
+Review is observation. Just like the Observer Effect in physics, observed code always changes.
 
-It might be deleted. It might be improved. New dependencies might emerge.
-
-**Observation changes the universe.**
+It might be deleted. It might be improved. New dependencies might emerge. Observation changes the universe.
 
 ### Design Discussion
 
 Thirty minutes in front of a whiteboard, and the design is decided.
 
-Those thirty minutes aren't recorded in commits. But they determine the structure of thousands of lines of code that follow.
-
-**Invisible forces determine visible structure.**
+Those thirty minutes aren't recorded in commits. But they determine the structure of thousands of lines of code that follow. Invisible forces determine visible structure.
 
 ### Small Refactors
 
@@ -99,9 +95,7 @@ But this is the act of fighting the universe's entropy. The accumulation of smal
 
 ## The Limits of EIS
 
-Here's something I must be honest about.
-
-**EIS cannot see dark matter.**
+Here's something I must be honest about: EIS cannot see dark matter.
 
 EIS is a commit-based tool. It can't measure work that doesn't appear in commits.
 
@@ -111,9 +105,7 @@ These are all dark matter.
 
 What EIS shows us is only the "visible part" of the universe — stars and galaxies.
 
-But knowing that dark matter exists lets you interpret EIS numbers correctly.
-
-**An Anchor's impact looks low because most of their work is dark matter.**
+But knowing that dark matter exists lets you interpret EIS numbers correctly. An Anchor's impact looks low because most of their work is dark matter.
 
 Judging "this engineer has low productivity" by looking only at numbers is the same mistake as calculating a galaxy's mass from visible matter alone.
 
@@ -123,7 +115,7 @@ Judging "this engineer has low productivity" by looking only at numbers is the s
 
 When using EIS, always be aware of dark matter's existence.
 
-Dark matter doesn't only exist within engineers. **It exists in every layer of the organization and business.**
+Dark matter doesn't only exist within engineers. It exists in every layer of the organization and business.
 
 ### Engineer Dark Matter
 
@@ -137,7 +129,7 @@ A planner pouring their soul into the business, producing precise specifications
 
 But without that precision, code gets rewritten over and over. Survival drops. Quality crumbles.
 
-**A team's high Robust signal isn't just engineering skill. It's because the specs are stable.** And the one creating that stability is a planner — dark matter fighting invisible battles with the business.
+A team's high Robust signal isn't just engineering skill; it's because the specs are stable. And the one creating that stability is a planner — dark matter fighting invisible battles with the business.
 
 ### Cultural Dark Matter
 
@@ -149,21 +141,19 @@ The result: gravitational fields get torn apart. Architects disappear. If engine
 
 Conversely, in organizations with good culture — where failure is tolerated, where time for Debt Cleanup is secured, where design discussions are valued — Growing engineers develop, Cleaners function, and Architects are reproduced.
 
-**Culture is the largest dark matter of all.** It never appears in commits, but it determines the entire structure of the universe.
+Culture is the largest dark matter of all. It never appears in commits, but it determines the entire structure of the universe.
 
 ### Hiring Dark Matter
 
 Having strong engineers on the team is no accident.
 
-Someone identified them, persuaded them, built the right environment. That work is never recorded in commits. But it determines the team's initial conditions — the Big Bang from Chapter 9.
-
-**The one who sets the universe's initial conditions is also dark matter.**
+Someone identified them, persuaded them, built the right environment. That work is never recorded in commits. But it determines the team's initial conditions — the Big Bang from Chapter 9. The one who sets the universe's initial conditions is also dark matter.
 
 ---
 
 When you look at EIS numbers, never forget that layers upon layers of dark matter exist behind them.
 
-**Trying to see the invisible. That too is an act of observing the universe.**
+Trying to see the invisible — that too is an act of observing the universe.
 
 ---
 

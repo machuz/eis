@@ -18,7 +18,7 @@ In [Chapter 3](https://dev.to/machuz/two-paths-to-architect-how-engineers-evolve
 - **Inheritance Architect**: Anchor → guards and refines existing structure
 - **Emergent Architect**: High-Gravity Producer → creates new gravitational fields
 
-In frontend, multiple aesthetics of structure can coexist. This means multiple Architect candidates can emerge. **Structural competition** happens.
+In frontend, multiple aesthetics of structure can coexist. This means multiple Architect candidates can emerge, and structural competition happens.
 
 But when I ran EIS on a Backend team, I saw a completely different landscape.
 
@@ -44,11 +44,7 @@ This is a completely different structure from frontend.
 
 In frontend, multiple Architects can emerge.
 
-In backend, that rarely happens.
-
-The reason is simple.
-
-**Backend has "correct answers" for structure.**
+In backend, that rarely happens. The reason is simple: backend has "correct answers" for structure.
 
 For example, backend systems often have stable patterns like:
 
@@ -67,7 +63,7 @@ In other words:
 |---|---|
 | BE | Correct answers tend to exist |
 
-Because of this difference, **Backend Architects concentrate rather than proliferate**.
+Because of this difference, Backend Architects concentrate rather than proliferate.
 
 Think of it like a solar system:
 
@@ -83,13 +79,9 @@ Look at Y.Y.:
 
 ![Y.Y. profile](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch4-data-engineer-f.png?v=4)
 
-Y.Y. is a **departed Architect**.
+Y.Y. is a departed Architect. But even with time decay applied, they're still ranked #2 on the team.
 
-But even with time decay applied, **they're still ranked #2 on the team**.
-
-What does this mean?
-
-**The assets they created are still massively present in the codebase.**
+What does this mean? The assets they created are still massively present in the codebase.
 
 ---
 
@@ -103,9 +95,9 @@ Former state conditions:
 - Survival (with time decay) is low
 - AND Design or Indispensability is high
 
-This means: **"This person once shaped the structure. They're no longer active. But their code remains."**
+This means: this person once shaped the structure, they're no longer active, but their code remains.
 
-You don't become Former just by leaving. **Only those who left assets worth leaving** become Former.
+You don't become Former just by leaving. Only those who left assets worth leaving become Former.
 
 Y.Y. meets exactly these conditions.
 
@@ -115,29 +107,21 @@ Y.Y. meets exactly these conditions.
 
 This is the emotional part.
 
-EIS uses **time-decayed Survival**. Code from 2 years ago has a weight of just 0.02.
+EIS uses time-decayed Survival, and code from 2 years ago has a weight of just 0.02. And yet Y.Y. is still #2. They continue to have massive influence on the codebase even after departure.
 
-And yet Y.Y. is still #2.
-
-This means **they continue to have massive influence on the codebase even after departure**.
-
-This isn't "the afterimage of someone who was once strong."
-
-**It's real assets that still support the codebase today.**
+This isn't "the afterimage of someone who was once strong." It's real assets that still support the codebase today.
 
 ---
 
 ## Laying the Former to Rest
 
-But Former state has another meaning.
-
-**It's a state waiting to be laid to rest.**
+But Former state has another meaning: it's a state waiting to be laid to rest.
 
 The team metrics show:
 
 ![Phase and Risk indicators](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch4-data-phase-risk.png?v=4)
 
-Legacy-Heavy means **strong but historically heavy team**.
+Legacy-Heavy means a strong but historically heavy team.
 
 Departed members' code remains in large quantities. That's not inherently bad — good design is why it remains.
 
@@ -145,23 +129,15 @@ Departed members' code remains in large quantities. That's not inherently bad �
 
 ### Good Design Creates Common Sense
 
-Here's an important fact.
+Here's an important fact: this team hasn't collapsed.
 
-**This team hasn't collapsed.**
+Several modules that only Y.Y. touched still exist. Most of git blame belongs to the Former member. Yet the team functions normally.
 
-Several modules that only Y.Y. touched still exist. Most of git blame belongs to the Former member.
-
-Yet the team functions normally.
-
-Why?
-
-**Because those modules were built under well-organized design.**
-
-We received verbal handoffs. But complete documentation or knowledge transfer didn't happen. Still, **the design embedded as structure in the code gives later engineers a certain understanding**.
+Why? Because those modules were built under well-organized design. We received verbal handoffs, but complete documentation or knowledge transfer didn't happen. Still, the design embedded as structure in the code gives later engineers a certain understanding.
 
 This is what I call "good design creates common sense."
 
-Excellent design doesn't necessarily require complete documentation or knowledge transfer. **The structure of the code itself communicates the module's intent and usage.**
+Excellent design doesn't necessarily require complete documentation or knowledge transfer. The structure of the code itself communicates the module's intent and usage.
 
 Strong design leaves knowledge in structure, not in people. And that structure creates shared understanding across the team.
 
@@ -173,9 +149,7 @@ EIS currently handles quantitative metrics like history and code survival rates.
 
 If that became possible, we could distinguish between "structurally healthy despite heavy history" and "truly dangerous dependency structures."
 
-But we may not need to measure that far.
-
-**Strong teams gradually replace Former members' code with their own. Legacy-Heavy resolves over time. It converges toward the right state.**
+But we may not need to measure that far. Strong teams gradually replace Former members' code with their own. Legacy-Heavy resolves over time, converging toward the right state.
 
 EIS can naturally capture this convergence process through Survival trends and Risk Ratio changes.
 
@@ -189,17 +163,13 @@ That's why laying the Former to rest becomes necessary.
 
 ### Souls Get Absorbed into Debt
 
-What does laying a Former to rest mean?
-
-It means **being absorbed into Debt Cleanup**.
+What does laying a Former to rest mean? It means being absorbed into Debt Cleanup.
 
 ![Team average Debt Cleanup score](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch4-data-debt-avg.png?v=4)
 
 Active members touch Former's code. Understand it. Fix it. Rewrite it.
 
-Then Former's blame lines decrease. They're replaced by active members' lines.
-
-This is **laying to rest**.
+Then Former's blame lines decrease. They're replaced by active members' lines. This is laying to rest.
 
 EIS visualizes this process:
 
@@ -207,9 +177,7 @@ EIS visualizes this process:
 - Active members' Debt Cleanup increases
 - Team's Legacy-Heavy degree decreases
 
-**This is sacred work.**
-
-The departed Architect's soul, through active members' hands, gradually dissolves into the codebase.
+This is sacred work. The departed Architect's soul, through active members' hands, gradually dissolves into the codebase.
 
 ---
 
@@ -221,9 +189,7 @@ This Backend team has 3 Anchors:
 - P.
 - R.S.
 
-Anchor isn't just "quality guardian."
-
-**Anchor means structure-understanding engineer.**
+Anchor isn't just "quality guardian." Anchor means structure-understanding engineer.
 
 Anchor traits:
 
@@ -232,9 +198,7 @@ Anchor traits:
 - Guards quality
 - Maintains system integrity
 
-In other words, Anchor is **an engineer who understands structure and produces on top of it**.
-
-And in Backend, this Anchor becomes **the evolution path to Architect**.
+In other words, Anchor is an engineer who understands structure and produces on top of it. And in Backend, this Anchor becomes the evolution path to Architect.
 
 ---
 
@@ -254,28 +218,26 @@ This is the **Convergent Evolution Model**.
 
 ### The Reproducing Architect
 
-Backend Architects are characterized by **being able to reproduce structure**.
+Backend Architects are characterized by being able to reproduce structure.
 
 Say a design like this worked in one codebase:
 
 ![Design pattern: Domain + Presentation + UseCase + Infrastructure](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch4-data-design-pattern.png?v=4)
 
-A skilled Backend Architect can **reproduce that structure in a different system**.
+A skilled Backend Architect can reproduce that structure in a different system.
 
 So Backend Architect means:
 
 - Someone who creates structure
-- **AND someone who can reproduce structure**
+- AND someone who can reproduce structure
 
-If FE Architects are the type who "create emergent new structures," Backend Architects are the type who "**purify and reproduce structures**."
+If FE Architects are the type who "create emergent new structures," Backend Architects are the type who "purify and reproduce structures."
 
 ---
 
 ## Producer Vacuum
 
-Another interesting point.
-
-This team has **no Producers**.
+Another interesting point: this team has no Producers.
 
 ![Role distribution: Architect 1, Anchor 3, Producer 0](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch4-data-role-count.png?v=4)
 
@@ -309,17 +271,13 @@ EIS raises warnings for this team:
 
 ![Bus factor warning](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch4-data-bus-factor.png?v=4)
 
-This means **Architect Bus Factor = 1**.
+This means Architect Bus Factor = 1.
 
 If the Architect leaves, team productivity density drops significantly.
 
 This is the most typical risk for Backend teams.
 
-In frontend, Emergent Architect candidates can mitigate this problem.
-
-But in Backend, **because correct structural answers exist, Architects tend to concentrate**.
-
-Result: Bus Factor risk increases.
+In frontend, Emergent Architect candidates can mitigate this problem. But in Backend, because correct structural answers exist, Architects tend to concentrate. Result: Bus Factor risk increases.
 
 ---
 
@@ -333,9 +291,7 @@ What does this Backend team need?
 
 #2 is especially important.
 
-Legacy-Heavy state isn't "bad." It's proof that **good design remains**.
-
-But understanding it, taking it over, and rewriting when needed — **someone has to do that work**.
+Legacy-Heavy state isn't "bad." It's proof that good design remains. But understanding it, taking it over, and rewriting when needed — someone has to do that work.
 
 That work is visualized as Debt Cleanup.
 
@@ -352,9 +308,7 @@ Summary:
 | Evolution Model | Branching (Emergent or Inheritance) | Convergent (Inheritance dominant) |
 | Risk | Structural collision | Bus Factor concentration |
 
-Neither is better.
-
-**The nature of the domain determines the evolution model.**
+Neither is better. The nature of the domain determines the evolution model.
 
 EIS visualizes these differences and can suggest appropriate prescriptions for each.
 
@@ -364,11 +318,9 @@ EIS visualizes these differences and can suggest appropriate prescriptions for e
 
 My impact of 92.4 at #1, as a signal of how I'm being observed as an Architect, is a strong one.
 
-But honestly, **the number of hours I put in is also extreme**. This is [psychological-OS strength](https://library.orbitlens.io/psychological-os/#ch2) showing on the outside — an **obsession with getting the running structure right from the very start**. From the inside, it's visible: finishing the structure up front is ultimately the most efficient path, and structurally, now is the phase where it propagates most easily. So the internal pressure keeps the work moving. The number is the sum of that.
+But honestly, the number of hours I put in is also extreme. This is [psychological-OS strength](https://library.orbitlens.io/psychological-os/#ch2) showing on the outside — an obsession with getting the running structure right from the very start. From the inside, it's visible: finishing the structure up front is ultimately the most efficient path, and structurally, now is the phase where it propagates most easily. So the internal pressure keeps the work moving. The number is the sum of that.
 
-And there's another thing that makes me happy.
-
-**I could only achieve this Architect impact because I inherited solid design from Y.Y. and made it even better.**
+And there's another thing that makes me happy. I could only achieve this Architect impact because I inherited solid design from Y.Y. and made it even better.
 
 Backend has time-tested good design passed down through generations — structures refined by those who came before. I learned them and built on them. Y.Y. also learned them and built on them. When we met, we already shared the same understanding. That's why common sense emerged and inheritance became possible.
 
@@ -378,23 +330,21 @@ That accumulation is what these numbers represent.
 
 ---
 
-I worked with P. before, at another company. We merged our design knowledge back then. So we share common understanding of each other's design approach. Whatever their current impact shows, I know they have horsepower. **I know they have the ability to hit 80+ on our team.**
+I worked with P. before, at another company. We merged our design knowledge back then. So we share common understanding of each other's design approach. Whatever their current impact shows, I know they have horsepower. I know they have the ability to hit 80+ on our team.
 
-R.S. is doing really good work. When I reached out to them, they said "I lack confidence because I don't have much experience." But the [strength of their psychological OS](https://library.orbitlens.io/psychological-os/#ch2) — heat held at high purity, able to run under internal pressure — was visible. So the conviction was there. **And now, they've settled into the structure as an Anchor.** A Spiral team's Anchor. A shape that holds up on its own, in numbers.
+R.S. is doing really good work. When I reached out to them, they said "I lack confidence because I don't have much experience." But the [strength of their psychological OS](https://library.orbitlens.io/psychological-os/#ch2) — heat held at high purity, able to run under internal pressure — was visible. So the conviction was there. And now they've settled into the structure as an Anchor: a Spiral team's Anchor, a shape that holds up on its own, in numbers.
 
 ---
 
-And even more honestly, **what I really want to show is the team**.
+And even more honestly, what I really want to show is the team.
 
 ![Spiral team classification](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch4-data-elite.png?v=4)
 
 That this team gets a Spiral classification. That it functions despite carrying Legacy-Heavy weight. That it's moving forward while laying departed Architects' assets to rest.
 
-**One of my motivations for building EIS was to show this team's strength on a playing field where bias can't enter.**
+One of my motivations for building EIS was to show this team's strength on a playing field where bias can't enter.
 
-I wanted to say "my team is strong." But "somehow strong" isn't convincing.
-
-And critically, **I wanted to reach a state where this team could be called strong on a playing field where bias can't enter**.
+I wanted to say "my team is strong." But "somehow strong" isn't convincing. And critically, I wanted to reach a state where this team could be called strong on a playing field where bias can't enter.
 
 When someone subjectively says "that person is strong," it might just be the evaluator's bias. Maybe the person who's good at politics gets high ratings.
 
@@ -402,13 +352,11 @@ But git history doesn't lie.
 
 Does the code survive? Are they involved in design? Are they creating debt, or cleaning it up?
 
-**Reverse-engineering from history leaves no room for bias.**
+Reverse-engineering from history leaves no room for bias.
 
 So I built the numbers on this playing field.
 
-Of course, this isn't everything.
-
-**Whether the product that emerges is good, whether it fits the market — that needs to be judged on a different axis.**
+Of course, this isn't everything. Whether the product that emerges is good, whether it fits the market — that needs to be judged on a different axis.
 
 EIS measures technical impact on the codebase. But product value isn't determined by code quality alone. Is it reaching users? Is it viable as a business? That's a different conversation.
 
@@ -424,15 +372,11 @@ A team member asked:
 
 > Do spec changes that overwrite code get reflected in Robust signals?
 
-**Yes, they do.**
-
-When spec changes cause code rewrites, the original author's Robust signal drops.
-
-This means **planner precision also affects these signals**.
+Yes, they do. When spec changes cause code rewrites, the original author's Robust signal drops. This means planner precision also affects these signals.
 
 If specs are unstable, code gets rewritten. If planning is sloppy, no matter how good the code an engineer writes, it disappears.
 
-That this team achieves strong Robust signals isn't just an engineering achievement. **It's the achievement of the entire development organization, including planners.**
+That this team achieves strong Robust signals isn't just an engineering achievement. It's the achievement of the entire development organization, including planners.
 
 ---
 
@@ -442,25 +386,17 @@ Another question came up:
 
 > If we do a major renovation, will the people who wrote pre-renovation code see their signals drop?
 
-**Yes.**
+Yes. If renovation replaces previous code, the previous authors' signals drop.
 
-If renovation replaces previous code, the previous authors' signals drop.
-
-But here's the key point.
-
-**Can you adapt?**
+But here's the key point: can you adapt?
 
 - Can you weave your opinions into the post-renovation design?
 - Can you produce impact even on top of the new good design?
-- More broadly, **can you produce impact across multiple codebases**, whether they're good or bad?
+- More broadly, can you produce impact across multiple codebases, whether they're good or bad?
 
-That's what real engineering strength is.
+That's what real engineering strength is. Achieving high impact on one codebase is possible if you're lucky with your environment. But being able to adapt and generate gravity on any codebase, any team — that's what a real engineer looks like.
 
-Achieving high impact on one codebase is possible if you're lucky with your environment.
-
-But **being able to adapt and generate gravity on any codebase, any team** — that's what a real engineer looks like.
-
-EIS measures impact on a single codebase. But if you repeat that measurement across multiple codebases, you start seeing **reproducibility that transcends environment**.
+EIS measures impact on a single codebase. But if you repeat that measurement across multiple codebases, you start seeing reproducibility that transcends environment.
 
 ---
 
@@ -474,9 +410,7 @@ And one more concept emerged: **laying the Former to rest**.
 
 Departed Architects' souls remain in the codebase.
 
-Active members take them over, understand them, rewrite them.
-
-**That sacred work is visualized as Debt Cleanup.**
+Active members take them over, understand them, rewrite them. That sacred work is visualized as Debt Cleanup.
 
 Cold numbers are what reflect the hottest thing.
 

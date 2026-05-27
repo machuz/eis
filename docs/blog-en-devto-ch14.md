@@ -31,9 +31,9 @@ Across the previous chapters, we saw that software can be understood as a univer
 
 These are the physics of code universes.
 
-But in the real universe, there is one more stage. Matter coalesces, stars form, galaxies take shape. And in vanishingly rare cases, **order begins to sustain itself, expand, and propagate across generations.**
+But in the real universe, there is one more stage. Matter coalesces, stars form, galaxies take shape. And in vanishingly rare cases, order begins to sustain itself, expand, and propagate across generations.
 
-That is **civilization.**
+That is civilization.
 
 ---
 
@@ -43,7 +43,7 @@ You don't need statistics to know this. Most software projects die within a few 
 
 They launch. Code is written in a burst of momentum. The team changes. Knowledge scatters. Entropy wins. Eventually someone says, "it'd be faster to rewrite from scratch," and the universe collapses.
 
-This isn't unusual. **It's the default outcome.**
+This isn't unusual. It's the default outcome.
 
 Expecting a codebase to spontaneously develop order is like expecting a room to clean itself. The second law of thermodynamics applies to code without mercy.
 
@@ -51,15 +51,13 @@ Expecting a codebase to spontaneously develop order is like expecting a room to 
 
 ## But a Few Are Different
 
-**Linux. Git. PostgreSQL. React.**
+Linux. Git. PostgreSQL. React.
 
 The first commit of each of these repositories was made over a decade ago. Linux — over 30 years ago.
 
 Their creators have stepped back or moved on. Contributors have cycled through multiple generations. Yet the structure persists. They resist entropy. They don't just survive — they *evolve*.
 
-These are not mere repositories.
-
-**They are civilizations.**
+These are not mere repositories. They are civilizations.
 
 ---
 
@@ -89,23 +87,23 @@ Architects generate gravity. Module structure, naming conventions, dependency di
 
 But as Chapter 12 showed, Architect gravity is also dangerous. When gravity concentrates in a single Architect, it becomes a Black Hole.
 
-A civilization's Architect is **one who creates gravity, then releases it.** After building the structure, they enable others to build on top of it. Like O. in Chapter 5, who transitioned from Architect to Producer — structure complete, now producing on top of it.
+A civilization's Architect is one who creates gravity, then releases it. After building the structure, they enable others to build on top of it. Like O. in Chapter 5, who transitioned from Architect to Producer — structure complete, now producing on top of it.
 
 This is the essence of the **Architect/Builder** from Chapter 13. The founder of a civilization must be an architect who is simultaneously prepared to leave.
 
 ### Anchor — The One Who Maintains Order
 
-Anchors work like dark matter. They're not flashy. They don't create new structures. But they **stabilize existing structure without breaking it.**
+Anchors work like dark matter. They're not flashy. They don't create new structures. But they stabilize existing structure without breaking it.
 
 Chapter 10 called it "invisible gravity" — Anchors are exactly that. A team with Architects but no Anchors has beautiful but fragile structure. Nobody maintains it, so the moment the Architect leaves, entropy wins.
 
-The dual-Anchor formation on our BE team wasn't coincidence — it's a **stability condition for civilization.** Two Anchors supporting the structure means that when one Architect departs, the structure doesn't collapse. Redundancy in maintenance is as important as brilliance in design.
+The dual-Anchor formation on our BE team wasn't coincidence — it's a stability condition for civilization. Two Anchors supporting the structure means that when one Architect departs, the structure doesn't collapse. Redundancy in maintenance is as important as brilliance in design.
 
 ### Producer — The One Who Expands Territory
 
 Producers write new code. They extend the territory of civilization.
 
-But Producers alone don't make a civilization. Without an Architect's structure, continuous production is just **chaotic expansion** — entropy increasing. As Chapter 11 established, code left to itself rots. Structureless production accelerates decay.
+But Producers alone don't make a civilization. Without an Architect's structure, continuous production is just chaotic expansion — entropy increasing. As Chapter 11 established, code left to itself rots. Structureless production accelerates decay.
 
 However, when Producers build on top of an Architect's structure, civilization expands. Like new stars forming within a gravitational field, new code is laid down within the framework of order.
 
@@ -136,7 +134,7 @@ Remove any one, and civilization cannot form.
 
 Let me talk about our BE team.
 
-As I mentioned in Chapter 13, our backend runs on a formation of **one Architect/Builder plus two Anchors.** When I asked an AI "what do you think of this composition?" it responded that a dual-Anchor setup is extremely rare. That made me happy.
+As I mentioned in Chapter 13, our backend runs on a formation of one Architect/Builder plus two Anchors. When I asked an AI "what do you think of this composition?" it responded that a dual-Anchor setup is extremely rare. That made me happy.
 
 Why is this structure unusual? And why is it uniquely suited for civilization?
 
@@ -153,45 +151,45 @@ Most teams fall into one of these patterns:
 
 ### What It Means to Be an Architect/Builder
 
-As I wrote in Chapter 13, an Architect/Builder is **fundamentally different from an Architect who only designs.** They create the structure *and* write code on top of it themselves.
+As I wrote in Chapter 13, an Architect/Builder is fundamentally different from an Architect who only designs. They create the structure *and* write code on top of it themselves.
 
-This is critically important for civilization because **design intent survives as implementation.**
+This is critically important for civilization because design intent survives as implementation.
 
 A Classical Architect's design philosophy often exists only in their head. Even when documented, the documentation frequently diverges from the actual implementation. When the Architect leaves, the *why* behind the structure is lost.
 
-With an Architect/Builder, design philosophy is **embedded in the code itself.** Naming conventions, module decomposition, dependency direction — these are implemented by the Architect's own hands. Subsequent engineers can read the *why* directly from the code.
+With an Architect/Builder, design philosophy is embedded in the code itself. Naming conventions, module decomposition, dependency direction — these are implemented by the Architect's own hands. Subsequent engineers can read the *why* directly from the code.
 
-**The code becomes the documentation of its own design.** This is the civilizational value of the Architect/Builder.
+The code becomes the documentation of its own design. This is the civilizational value of the Architect/Builder.
 
 ### What It Means to Have Dual-Anchors
 
 A team with one Anchor has no redundancy in maintenance. If that Anchor takes leave, transfers, or burns out — the maintainer of order disappears.
 
-With dual-Anchors, **order maintenance is distributed.** If one falls, the other continues supporting the structure. This is critical as a stability condition for civilization.
+With dual-Anchors, order maintenance is distributed. If one falls, the other continues supporting the structure. This is critical as a stability condition for civilization.
 
-What's even more interesting is the complementary effect. The modules guarded by Anchor A and Anchor B are different, so coverage expands. It's not just backup — **the surface area of maintenance doubles.**
+What's even more interesting is the complementary effect. The modules guarded by Anchor A and Anchor B are different, so coverage expands. It's not just backup — the surface area of maintenance doubles.
 
 ### The Civilizational Durability This Structure Creates
 
-The greatest effect of combining Architect/Builder with dual-Anchors is that **the probability of civilization surviving the Architect's departure jumps dramatically.**
+The greatest effect of combining Architect/Builder with dual-Anchors is that the probability of civilization surviving the Architect's departure jumps dramatically.
 
 1. Design philosophy is embedded in code (the Architect/Builder's legacy)
 2. Order maintainers are redundant (the dual-Anchor stability)
 3. New Producers can join and write code that fits the structure (civilization's self-extension)
 
-This didn't happen by accident. But it wasn't deliberately designed either. Looking back, I think **strong engineers gathered, and the structure naturally converged to this formation.**
+This didn't happen by accident. But it wasn't deliberately designed either. Looking back, I think strong engineers gathered, and the structure naturally converged to this formation.
 
-Perhaps civilization isn't something you design. Perhaps it's something that **emerges naturally when conditions align.**
+Perhaps civilization isn't something you design. Perhaps it's something that emerges naturally when conditions align.
 
 ---
 
 ## The Lindy Effect of Code
 
-There's a deeper principle at work here. Nassim Taleb's **Lindy Effect** states that the longer something non-perishable has survived, the longer its expected remaining lifespan.
+There's a deeper principle at work here. Nassim Taleb's Lindy Effect states that the longer something non-perishable has survived, the longer its expected remaining lifespan.
 
 A codebase that has been maintained for 10 years is more likely to survive another 10 years than a codebase that launched last month. This isn't mysticism — it's selection bias made real. The codebase has already proven it can survive team changes, technology shifts, and entropy. Each year it survives is evidence that its structure works.
 
-This is why civilizations compound. Linux isn't successful *despite* being old. It's successful **because** it's old. Thirty years of Succession, maintenance, and evolution have embedded design intent so deeply into the structure that new contributors naturally write code that fits.
+This is why civilizations compound. Linux isn't successful *despite* being old. It's successful *because* it's old. Thirty years of succession, maintenance, and evolution have embedded design intent so deeply into the structure that new contributors naturally write code that fits.
 
 EIS can see this effect indirectly. A codebase with consistently high Survival across multiple timeline periods is exhibiting Lindy behavior — its structure is durable enough that code doesn't need to be rewritten. The architecture has proven itself.
 
@@ -199,13 +197,11 @@ EIS can see this effect indirectly. A codebase with consistently high Survival a
 
 ## The Bus Factor Paradox
 
-Chapter 1 introduced Bus Factor as a risk metric. But civilization reframes it entirely.
-
-**A civilization's Bus Factor approaches infinity.**
+Chapter 1 introduced Bus Factor as a risk metric. But civilization reframes it entirely: a civilization's Bus Factor approaches infinity.
 
 Not because no one is important, but because the system has made itself independent of any single contributor. Design intent is encoded in the structure. Maintenance patterns are shared across Anchors. Production conventions are absorbed by new Producers through the code itself.
 
-The paradox is this: the most important engineers build systems that don't need them. The highest expression of engineering impact is **making yourself replaceable** — not because you're weak, but because the structure you built is strong enough to stand on its own.
+The paradox is this: the most important engineers build systems that don't need them. The highest expression of engineering impact is making yourself replaceable — not because you're weak, but because the structure you built is strong enough to stand on its own.
 
 This is why EIS measures Indispensability but weights it at only 5%. High Indispensability is a risk signal. In a civilization, Indispensability is distributed.
 
@@ -221,9 +217,7 @@ This is the civilization test.
 
 While Architects are present, any project can maintain order. As long as design intent lives in the Architect's head, code evolves in the right direction.
 
-But Architects don't stay forever. They change jobs. They move to other projects. They burn out.
-
-**What happens at that moment separates civilization from kingdom.**
+But Architects don't stay forever. They change jobs. They move to other projects. They burn out. What happens at that moment separates civilization from kingdom.
 
 In a kingdom, order collapses when the king leaves. Design intent existed only in the king's head. The remaining team doesn't understand the *why* behind the code. Changes that contradict the design start creeping in. Structure rots from the inside.
 
@@ -239,13 +233,13 @@ But the **precursors** of civilization appear in EIS data.
 
 ### 1. Architect Diversification
 
-In teams heading toward civilization, there isn't just one Architect. Like the dual-Anchor formation from Chapter 13, **multiple Architects generate gravity in different domains.**
+In teams heading toward civilization, there isn't just one Architect. Like the dual-Anchor formation from Chapter 13, multiple Architects generate gravity in different domains.
 
 In EIS timelines, if multiple members show high Design signals and each has healthy (green) Gravity — that codebase is approaching civilization.
 
 ### 2. Succession Traces
 
-Another sign: **generational transition visible in timelines.**
+Another sign: generational transition visible in timelines.
 
 One Architect's Design gradually declines while another member's Design rises. A member's Role transitions from "Producer → Architect." This is evidence of structural knowledge propagating.
 
@@ -283,17 +277,15 @@ Civilization was about structure persisting beyond time.
 
 But there is a stage beyond.
 
-When structure begins to change how people behave — it becomes **culture.**
+When structure begins to change how people behave, it becomes culture.
 
-Imagine two Architects committing different design philosophies to the same module. In verbal design debates, the loudest voice might win. But run `eis timeline` and track the Design axis — history shows which design survived, which generated gravity.
+Imagine two Architects committing different design philosophies to the same module. In verbal design debates, the loudest voice might win. But run `eis timeline` and track the Design axis — history shows which design survived, which generated gravity. Code becomes the judge.
 
-**Code becomes the judge.**
-
-In early Silicon Valley, they say that simply posting task progress on a board was enough to make talented engineers compete with natural intensity. That wasn't visibility creating competition. **It was visibility creating pride.**
+In early Silicon Valley, they say that simply posting task progress on a board was enough to make talented engineers compete with natural intensity. That wasn't visibility creating competition. It was visibility creating pride.
 
 Run `eis timeline` every week. See what gravity you left behind. When that becomes a team's routine — culture already exists.
 
-Civilization is structure surviving after the Architect leaves. Culture is **the next Architect emerging naturally** without anyone forcing it. Structure changes behavior, behavior creates new structure. When that cycle starts turning, a codebase transcends civilization and becomes culture.
+Civilization is structure surviving after the Architect leaves. Culture is the next Architect emerging naturally without anyone forcing it. Structure changes behavior, behavior creates new structure. When that cycle starts turning, a codebase transcends civilization and becomes culture.
 
 ---
 
@@ -312,11 +304,9 @@ But the team I described in Chapter 13 shows **signs**:
 
 Whether we become a civilization depends on what comes next.
 
-But a similar observation already exists in another universe. Structures built in past codebases did survive beyond team turnover — they actually remained. And those teams held a [pool of strong psychological OS](https://library.orbitlens.io/psychological-os/#ch3) — a culture of visualizing design gravity and taking pride in structure. The same pool is forming in this team now. **The read that this team can build a civilization — that comes from those observations.**
+But a similar observation already exists in another universe. Structures built in past codebases did survive beyond team turnover — they actually remained. And those teams held a [pool of strong psychological OS](https://library.orbitlens.io/psychological-os/#ch3) — a culture of visualizing design gravity and taking pride in structure. The same pool is forming in this team now. The read that this team can build a civilization comes from those observations.
 
-**Will this structure hold even as people turn over?**
-
-That's the question. And facing that question honestly is, I believe, the final work of an Architect/Builder.
+Will this structure hold even as people turn over? That's the question. And facing that question honestly is, I believe, the final work of an Architect/Builder.
 
 ---
 

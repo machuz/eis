@@ -23,9 +23,7 @@ This final chapter looks back at the entire series.
 
 Over 13 chapters, I've been writing about git archaeology.
 
-Looking back, a unified framework emerges.
-
-**Software Cosmology.**
+Looking back, a unified framework emerges: Software Cosmology.
 
 ---
 
@@ -89,15 +87,9 @@ Without understanding, there can be no improvement.
 
 ### 2. Changing
 
-Just like the Observer Effect in quantum mechanics, **observation changes what is observed.**
+Just like the Observer Effect in quantum mechanics, observation changes what is observed.
 
-Engineers who see their EIS signals start to become conscious of their commit patterns.
-
-Leaders who see team signals recognize structural distortions.
-
-Organizations that see timelines correct the direction of evolution.
-
-**The act of observation itself changes the universe.**
+Engineers who see their EIS signals start to become conscious of their commit patterns. Leaders who see team signals recognize structural distortions. Organizations that see timelines correct the direction of evolution. The act of observation itself changes the universe.
 
 ---
 
@@ -105,9 +97,7 @@ Organizations that see timelines correct the direction of evolution.
 
 In Chapter 10, I wrote about dark matter. EIS cannot see dark matter.
 
-This is important honesty.
-
-**A measurement tool should be explicit about what it cannot measure.**
+This is important honesty: a measurement tool should be explicit about what it cannot measure.
 
 What EIS shows is only starlight — the light of commits. Not the entire universe.
 
@@ -123,19 +113,15 @@ This is the stance of git archaeology.
 
 ## Structural Memory — Git Stores Decision History
 
-There's a concept that has been implicit throughout this series.
+There's a concept that has been implicit throughout this series: Structural Memory.
 
-**Structural Memory.**
-
-Git is thought to store "code." But what it fundamentally stores is — **a history of decisions.**
+Git is thought to store "code." But what it fundamentally stores is a history of decisions.
 
 A commit is a record of "I decided to place this interface here." A blame result is the fact that "this design decision survived six months." A refactor is a record of "I chose to revise the previous decision."
 
-What EIS measures isn't the volume of code. It's **the impact of decisions.**
+What EIS measures isn't the volume of code. It's the impact of decisions.
 
-Engineers with high Design axes have left many decisions about structure. Engineers with high Survival axes have left *good* decisions.
-
-**A codebase is not a collection of features. It's a sediment of decisions.**
+Engineers with high Design axes have left many decisions about structure. Engineers with high Survival axes have left *good* decisions. A codebase is not a collection of features; it's a sediment of decisions.
 
 And git archaeology is the work of excavating that sediment.
 
@@ -143,21 +129,17 @@ And git archaeology is the work of excavating that sediment.
 
 ## Restoring Justice — Code Doesn't Lie
 
-There's another theme running through this series.
-
-In real organizations, loud voices get rewarded. Political skill gets rewarded. The person who speaks most in meetings becomes the "leader."
+There's another theme running through this series. In real organizations, loud voices get rewarded. Political skill gets rewarded. The person who speaks most in meetings becomes the "leader."
 
 But code doesn't lie.
 
 `git blame` records who actually built the structure. `git log` records who actually did the work.
 
-**EIS doesn't ask people about people. It makes the effort preserved in code visible — through code.**
-
-This is a restoration of justice.
+EIS doesn't ask people about people. It makes the effort preserved in code visible, through code. This is a restoration of justice.
 
 The quiet engineer who was actually holding the team's structure together. The invisible work that existed as dark matter behind EIS numbers.
 
-EIS isn't omniscient. It can't see dark matter. But at the very least — **the facts recorded in code are immune to politics.**
+EIS isn't omniscient. It can't see dark matter. But at the very least, the facts recorded in code are immune to politics.
 
 ---
 
@@ -167,15 +149,13 @@ What is engineering ability?
 
 The ability to write code? Knowledge of algorithms? Those matter.
 
-But what this series has shown is another kind of ability.
-
-**The ability to create gravity in a structure.**
+But what this series has shown is another kind of ability: the ability to create gravity in a structure.
 
 Design that other code naturally depends on. Structure that other engineers intuitively follow. Abstraction that maintains order after you leave.
 
 This is the ability to create "good gravity."
 
-Gravity isn't measured by degrees or years of experience. It can only be measured as **the actual track record of creating structure within a codebase.**
+Gravity isn't measured by degrees or years of experience. It can only be measured as the actual track record of creating structure within a codebase.
 
 Architect Reproducibility from Chapter 8 — engineers who create gravity regardless of which universe they enter — is evidence that this ability is real.
 
@@ -205,7 +185,7 @@ This is Observer Theory — the observation philosophy of EIS.
 
 Let me get personal.
 
-The motivation for building EIS was simple. **I wanted to brag about my team.**
+The motivation for building EIS was simple: I wanted to brag about my team.
 
 We had a new product development planned for six months. The frontend team was exploring the new version ahead of us, but the backend — caught between enhancing the existing product and building the new one — had **only 3.5 months** of actual development time.
 
@@ -213,13 +193,13 @@ The scope was enormous. Abstracting the existing account system. Adding new conc
 
 But we charged ahead.
 
-Why? **Because I had teammates I'd been through hell with before, and I knew exactly how strong they were.**
+Why? Because I had teammates I'd been through hell with before, and I knew exactly how strong they were.
 
 This is exactly the Architect Reproducibility from Chapter 8 — engineers who create gravity regardless of which universe they enter. We'd built structure together in a different codebase. We knew each other's gravitational fields. That's why we could leap into an unknown universe.
 
 The result: a beautiful product was born. The "proof" phase of our engineering organization was complete, and we felt the culture of building good things take root across the company.
 
-So — I want to point EIS at this crucible and see what it reveals.
+So I want to point EIS at this crucible and see what it reveals.
 
 Thirteen chapters of building this telescope. Now I'm turning it toward my own team. Not theory — actual commit logs, actual blame data, observing what happened during those three months.
 
@@ -239,9 +219,9 @@ Let's point the telescope at this period.
 
 Q1 2026 — the height of the new product crunch. Quality plummets from 74.5 to **41.4**.
 
-This isn't quality degradation. **It's the trace of debugging and finishing during the frontend integration phase.** The ratio of fix commits rose, pushing Quality signals down. But Commits hit their peak at 1120, Breadth=100 (commits across every repository), Indisp=100 (every module depends on this engineer).
+This isn't quality degradation. It's the trace of debugging and finishing during the frontend integration phase. The ratio of fix commits rose, pushing Quality signals down. But Commits hit their peak at 1120, Breadth=100 (commits across every repository), Indisp=100 (every module depends on this engineer).
 
-**One engineer crossing all domains, building structure, and simultaneously debugging to the finish line.** That's what the signals show.
+One engineer crossing all domains, building structure, and simultaneously debugging to the finish line. That's what the signals show.
 
 Looking at the **frontend timeline** too:
 
@@ -276,13 +256,13 @@ Impact 83.4, commits=1038 across all FE. Already high. But to see R.M.'s true gr
 
 R.M. is the engineer who built the new project's FE repository from scratch — creating its entire structure. On top of that, R.M. personally took on a significant share of the UI design. Architecture, implementation, and UI — all driven through by a single person.
 
-**Design=100, Survival=100, Role=Architect — both periods.** Style=Emergent — the creative type. Not inheriting existing design, but generating structure from zero.
+Design=100, Survival=100, Role=Architect — both periods. Style=Emergent, the creative type. Not inheriting existing design, but generating structure from zero.
 
-**For the sheer volume of design decisions made, Impact 51.8/50.4 may look low.** This is exactly what Style=**Emergent** represents — creating a new universe alone, code that no one else has touched yet, relative metrics like Breadth and Indispensability that don't fully activate. EIS measures "gravity within a team" — in a universe of one, relative gravity is hard to express.
+For the sheer volume of design decisions made, Impact 51.8/50.4 may look low. This is exactly what Style=Emergent represents — creating a new universe alone, code that no one else has touched yet, relative metrics like Breadth and Indispensability that don't fully activate. EIS measures "gravity within a team" — in a universe of one, relative gravity is hard to express.
 
-But from another universe, this design has already been observed to carry refined, high-quality gravity. R.M. and I have built structure together in a different codebase. What was visible there was an **[obsession with UI/UX, and a posture of carving structure under internal pressure](https://library.orbitlens.io/psychological-os/#ch2)**. How much structural intelligence lives behind these Impact numbers — the telescope alone can't see it. Only an observer carrying readings from another universe can see the true intensity of this light.
+But from another universe, this design has already been observed to carry refined, high-quality gravity. R.M. and I have built structure together in a different codebase. What was visible there was an [obsession with UI/UX, and a posture of carving structure under internal pressure](https://library.orbitlens.io/psychological-os/#ch2). How much structural intelligence lives behind these Impact numbers — the telescope alone can't see it. Only an observer carrying readings from another universe can see the true intensity of this light.
 
-Q4 — Prod=100, commits=993, Lines=+174k/-119k. **A single engineer triggering the Big Bang of a new universe.** This is exactly the "initial conditions determine structure" from Chapter 9. The architecture R.M. laid down in this period defined the gravitational field for the entire frontend that followed.
+Q4 — Prod=100, commits=993, Lines=+174k/-119k. A single engineer triggering the Big Bang of a new universe. This is exactly the "initial conditions determine structure" from Chapter 9. The architecture R.M. laid down in this period defined the gravitational field for the entire frontend that followed.
 
 In Q1, commits reached **1398**. Lines shift to +168k/-68k with deletions dropping sharply — the exploratory phase of destruction and reconstruction has given way to building up.
 
@@ -304,7 +284,7 @@ And Debt Cleanup — 54 → 58 → 35. Quietly fixing other people's bugs. Resol
 
 R.S. also appears in the FE domain in Growing state. A backend engineer reaching into frontend territory.
 
-**Stabilizing the team's gravitational field while guarding the last line of user experience.** As the name Anchor implies — without this person, the team's gravity would have wavered.
+Stabilizing the team's gravitational field while guarding the last line of user experience. As the name Anchor implies, without this person the team's gravity would have wavered.
 
 **BE P. — The other gravity supporting the crunch:**
 
@@ -322,7 +302,7 @@ The Mass period in Q4-Q1 was when P. took on the most complex and operation-heav
 
 And P. was simultaneously handling the handover and deadlines of an entirely separate domain while putting up these numbers. The coordination and knowledge transfer that don't appear in commits — the ratio of dark matter work was enormous.
 
-P. has also inherited my architecture in the past. In another universe, P. served as an Architect who carried structure on their shoulders. That means knowledge embedded in architecture transfers smoothly between us, and I know that if needed, P. can take over design wholesale. **Having an engineer you can trust at your back.** In this crucible, that mattered more than any signal can show.
+P. has also inherited my architecture in the past. In another universe, P. served as an Architect who carried structure on their shoulders. That means knowledge embedded in architecture transfers smoothly between us, and I know that if needed, P. can take over design wholesale. Having an engineer you can trust at your back, in this crucible, mattered more than any signal can show.
 
 **FE O. — Laid the foundation, then committed to the finish:**
 
@@ -337,7 +317,7 @@ In Q1, Architect/Builder with Design=100 — a star creating FE structure. But t
 
 From Q3 onward, R.M. shifted resources to the new repository, and the collision subsided. Survival jumped from 44 to **100.** While watching a new universe being built in parallel, carrying the anxiety that their own structure might be replaced — O. trusted the existing architecture and pushed through.
 
-Q4 Survival=100 — not a single line of code was rewritten. **The existing structure worked.** Which architecture to choose is simply a team decision. But O. proved definitively that the existing structure had value too. That's what Survival=100 as starlight means.
+Q4 Survival=100 — not a single line of code was rewritten. The existing structure worked. Which architecture to choose is simply a team decision. But O. proved definitively that the existing structure had value too. That's what Survival=100 as starlight means.
 
 **FE K.M. — Guardian of the user experience:**
 
@@ -350,9 +330,9 @@ K.M. owned the domain most directly tied to user experience and brought it to co
 
 The key metric is Survival — **79 rising to 90.** High Survival means the code they wrote wasn't rewritten. It survived. Meaning they got the design right the first time.
 
-In Q4, Design drops to 0 and Production falls. This isn't decline — it's a shift from building new structure to **polishing and perfecting the existing design for the end user.** And the polish was right — users have been sending overwhelmingly positive feedback.
+In Q4, Design drops to 0 and Production falls. This isn't decline — it's a shift from building new structure to polishing and perfecting the existing design for the end user. And the polish was right; users have been sending overwhelmingly positive feedback.
 
-**Not generating high gravity, but an engineer who can move like this is the one actually determining the product's value.** This is the dark matter of Chapter 10, in the flesh.
+Not generating high gravity, but an engineer who can move like this is the one actually determining the product's value. This is the dark matter of Chapter 10, in the flesh.
 
 **FE H. — The struggle of knowledge transfer:**
 
@@ -366,19 +346,19 @@ H. is the engineer who dove into the entirely new FE repository that R.M. built 
 
 In Q2, Design=100, Style=Builder — a star that creates structure. But from Q3 onward, Design drops from 64 to 10, and Style shifts from Builder → Mass → Balanced.
 
-This isn't decline. **It's the trace of building structure that didn't take root — and the struggle that followed.** Robust Survival tells the story — 71→30→28. The structure H. poured design into was being rewritten by R.M.'s new infrastructure. Code that embodied architectural intent didn't survive.
+This isn't decline. It's the trace of building structure that didn't take root, and the struggle that followed. Robust Survival tells the story — 71→30→28. The structure H. poured design into was being rewritten by R.M.'s new infrastructure. Code that embodied architectural intent didn't survive.
 
 But H. is fundamentally an emergent Architect — someone who creates structure from zero. And now, inside the new repository R.M. built, H. is absorbing feedback through code reviews, calibrating design sensibility, and evolving into a succession Architect.
 
-Meanwhile, Dormant drops from 31 → 3 → 10. Even in low change-pressure areas, survival rates fell — the new infrastructure's ripple effects reached the entire existing structure. **Watching your own architecture get rewritten by another engineer.** The numbers capture that struggle.
+Meanwhile, Dormant drops from 31 → 3 → 10. Even in low change-pressure areas, survival rates fell — the new infrastructure's ripple effects reached the entire existing structure. Watching your own architecture get rewritten by another engineer: the numbers capture that struggle.
 
-And yet Quality — **80 → 96 → 94.** On a high-quality, high-gravity field, continuing to build new code even while being rewritten.
+And yet Quality — 80 → 96 → 94. On a high-quality, high-gravity field, continuing to build new code even while being rewritten.
 
 Q2 Lines = +75k/-133k — deletions far exceed additions. Evidence of restructuring and cleaning up existing architecture. From Q3 onward, +78k/-75k and +25k/-13k stabilize, showing continued forward momentum even while being rewritten.
 
 At the same time, H. appears in the BE domain in Growing state (Quality 94-97). Handing off FE knowledge while stepping into backend territory themselves.
 
-**When Impact drops from 70.4 to 30.4, do you see "declining performance"? Or do you see "transmitting structure for the team's future"?** Without the telescope, it looks like the former. With the telescope — the high Quality, the Robust Survival crash, and the Style transitions tell the truth.
+When Impact drops from 70.4 to 30.4, do you see "declining performance"? Or do you see "transmitting structure for the team's future"? Without the telescope, it looks like the former. With the telescope — the high Quality, the Robust Survival crash, and the Style transitions tell the truth.
 
 ---
 
@@ -386,15 +366,15 @@ At the same time, H. appears in the BE domain in Growing state (Quality 94-97). 
 
 A brief aside about myself.
 
-My signals consistently show **Architect / Builder**. Why do I refuse to let go of Builder?
+My signals consistently show Architect / Builder. Why do I refuse to let go of Builder?
 
 Backend design — Clean Architecture, DDD layering — has established patterns. But the real art is in modeling. The subtle nuances of a domain, the gradations, where to draw boundaries. This is impossible without being a Builder. Classical Architects who define structure without writing code are valuable. Distributing well-designed starting points across the codebase is real, important work.
 
-But I want to **keep modeling on top of structure, fighting the unknown, producing high gravity with my own hands.** That's why I write code.
+But I want to keep modeling on top of structure, fighting the unknown, producing high gravity with my own hands. That's why I write code.
 
 FE's R.M. is the same way. Architecture, implementation, UI — all driven through by a single person. An Architect/Builder. R.M. and I exist in different universes (BE/FE), but we share the same nature: modeling on top of structure, creating gravity with our own hands.
 
-This is precisely why H.'s "succession Architect" carries different weight. **A succession Architect in an Architect/Builder environment is fundamentally different from one in a classical Architect environment.** They're not just inheriting structural scaffolding — they're absorbing the depth of modeling, the gradations of design judgment, the density of a high-gravity field. What they inherit is denser.
+This is precisely why H.'s "succession Architect" carries different weight. A succession Architect in an Architect/Builder environment is fundamentally different from one in a classical Architect environment. They're not just inheriting structural scaffolding — they're absorbing the depth of modeling, the gradations of design judgment, the density of a high-gravity field. What they inherit is denser.
 
 And then there are BE's R.S. and P. — two engineers serving as **Anchors** within this Architect/Builder high-gravity field. When I ran the team data through AI for deeper insights, it came back with: "A two-Anchor formation is exceptionally rare. Typically, an Architect's gravitational field pulls other members down to Producer level." An Architect/Builder creates structure, and two Anchors support and stabilize it — this formation holding together is one of the reasons we survived the crucible.
 
@@ -414,11 +394,11 @@ And I look forward to watching O. — an emergent Architect — trace the trajec
 | 2025-Q4 | 87.7 | +153k/-208k | Architect | Builder |
 | 2026-Q1 | 92.4 | +140k/-33k | Architect | Builder |
 
-The evolution from Anchor to Architect is visible. The Architect Reproducibility from Chapter 8 — **engineers who create gravity regardless of which universe they enter** — is inscribed in the timeline.
+The evolution from Anchor to Architect is visible. The Architect Reproducibility from Chapter 8 — engineers who create gravity regardless of which universe they enter — is inscribed in the timeline.
 
 This is the starlight the telescope revealed. Behind the numbers, you can see 3.5 months of battle. Behind the Quality crash, days of debugging. Behind Breadth=100, cross-repository design work. Behind "Rescue," the moment a backend engineer leapt into frontend.
 
-**Commit light doesn't lie. And a team's starlight can be told in numbers, not opinions.**
+Commit light doesn't lie. And a team's starlight can be told in numbers, not opinions.
 
 ---
 
@@ -436,7 +416,7 @@ R.M. said it half-jokingly over drinks one night: "I wanna make S.T. happy, man�
 
 QA never appears in commits. But without QA, an engineer's commits remain "code that might work." Only after passing QA verification does a commit become "code that works." QA is the entity that converts commit light into starlight — light that actually reaches users. Dark matter invisible to the telescope, yet determining the product's quality.
 
-**EIS can only observe commit light. But there was dark matter that provided the fuel generating that light — vision, planning, organizational coordination, passion, and the last line of defense for quality.** Massive dark matter that built a culture of quality. Knowing the telescope's limits is also the observer's duty.
+EIS can only observe commit light. But there was dark matter that provided the fuel generating that light — vision, planning, organizational coordination, passion, and the last line of defense for quality. Massive dark matter that built a culture of quality. Knowing the telescope's limits is also the observer's duty.
 
 ---
 
@@ -446,11 +426,11 @@ This is where EIS becomes meaningful.
 
 Observe the team's starlight — the track record preserved in commits — through the telescope, and turn it into numbers. Then "our team is strong" stops being subjective.
 
-**If you can prove the team's capability, then even when aligning with business direction is hard, you can move as dark matter with conviction and purpose.**
+If you can prove the team's capability, then even when aligning with business direction is hard, you can move as dark matter with conviction and purpose.
 
 As I wrote in Chapter 10, dark matter doesn't appear in commits. Design discussions, spec negotiations, technical persuasion — none of these become starlight.
 
-But if the telescope accurately captures the team's starlight, **dark matter starts to believe in the existence and value of the stars.**
+But if the telescope accurately captures the team's starlight, dark matter starts to believe in the existence and value of the stars.
 
 Just as starlight cannot see dark matter, dark matter could not see us either.
 

@@ -15,11 +15,9 @@ cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/
 
 In [Chapter 4](https://dev.to/machuz/backend-architects-converge-the-sacred-work-of-laying-souls-to-rest-m6d), I explored the Backend team's Architect concentration and the concept of "laying departed Architects' souls to rest."
 
-But that analysis had a limitation. **It was a single point-in-time snapshot.**
+But that analysis had a limitation: it was a single point-in-time snapshot.
 
-Engineers change. They grow. They hesitate. When team dynamics shift, the way they engage with the codebase shifts too.
-
-**To see that change, you need a timeline.**
+Engineers change. They grow. They hesitate. When team dynamics shift, the way they engage with the codebase shifts too. To see that change, you need a timeline.
 
 ---
 
@@ -51,7 +49,7 @@ The mechanism is simple:
 3. For each period, run `git blame <boundary-commit> -- <file>` to reconstruct blame state at that point in time
 4. Run the observation pipeline for each period
 
-**"Collect once, slice many" strategy.** Commit collection happens once. Only blame runs per period.
+It's a "collect once, slice many" strategy: commit collection happens once, and only blame runs per period.
 
 This gives you each member's Impact, Role, Style, and State lined up quarter by quarter. Change becomes visible.
 
@@ -69,21 +67,17 @@ I'll focus on three key members.
 
 ![Y.Y. Timeline](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-engineer-f-timeline.png?v=4)
 
-**In the first half of 2024, Y.Y. was putting up numbers that broke through the ceiling.**
+In the first half of 2024, Y.Y. was putting up numbers that broke through the ceiling. Impact above 90. Architect Builder. Production 100, Design 100, Survival 100.
 
-Impact above 90. Architect Builder. Production 100, Design 100, Survival 100.
-
-This isn't just "strong." **This person was the codebase's architect, full stop.**
+This isn't just "strong." This person was the codebase's architect, full stop.
 
 They dipped to Producer in 2024-Q3, but snapped right back to Architect Builder in Q4. That wobble just means "one quarter without design involvement" — and the instant recovery proves the depth of structural understanding underneath.
 
-Starting in 2025, signals begin a steady decline. Architect → Anchor → Fragile → Former.
-
-**This is the trajectory of a departure.**
+Starting in 2025, signals begin a steady decline. Architect → Anchor → Fragile → Former. This is the trajectory of a departure.
 
 But notice: even at 2025-Q2, Survival is still 100. The code remains. The design lives on.
 
-The subject of Chapter 4's "laying souls to rest" is exactly this person. And this timeline shows at a glance **just how much there is to lay to rest**.
+The subject of Chapter 4's "laying souls to rest" is exactly this person. And this timeline shows at a glance just how much there is to lay to rest.
 
 ---
 
@@ -91,13 +85,9 @@ The subject of Chapter 4's "laying souls to rest" is exactly this person. And th
 
 ![O. Timeline](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-engineer-j-timeline.png?v=4)
 
-**2024-Q4: O., Impact 91.7. Architect Builder.**
+2024-Q4: O., Impact 91.7, Architect Builder. This number is extraordinary. In that quarter, O. had the highest structural influence across the entire team.
 
-This number is extraordinary. **In that quarter, O. had the highest structural influence across the entire team.**
-
-Design 100. Production 100. Survival 96.
-
-In other words, that quarter's Frontend structure was **built by O.**.
+Design 100. Production 100. Survival 96. In other words, that quarter's Frontend structure was built by O..
 
 The Role transitions afterward are fascinating:
 
@@ -105,9 +95,7 @@ The Role transitions afterward are fascinating:
 
 After building the structure as an Architect Builder, they shifted to Anchor, briefly returned to Architect, and finally settled into Producer.
 
-This means "the Architect's work is done." The structure was built. Now they produce on top of it.
-
-**A healthy transition.**
+This means "the Architect's work is done." The structure was built. Now they produce on top of it. A healthy transition.
 
 ---
 
@@ -115,17 +103,11 @@ This means "the Architect's work is done." The structure was built. Now they pro
 
 ![R.M. Timeline](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-engineer-i-timeline.png?v=4)
 
-**Architect by their second quarter. Consistently in Architect territory ever since.**
+Architect by their second quarter, and consistently in Architect territory ever since. They joined in 2024-Q3, starting as Anchor. By the next quarter, they'd ascended to Architect. This is what "they've been doing Architect work since day one" looks like in data.
 
-They joined in 2024-Q3, starting as Anchor. By the next quarter, they'd ascended to Architect.
+Impact: 75.7 → 87.5 → 73.2 → 72.4 → 81.7 → 78.1. Consistently above 70. Design 100 in multiple quarters, which means architectural file changes were happening continuously.
 
-This is what "they've been doing Architect work since day one" looks like in data.
-
-Impact: 75.7 → 87.5 → 73.2 → 72.4 → 81.7 → 78.1. **Consistently above 70.**
-
-Design 100 in multiple quarters. This means architectural file changes were happening continuously.
-
-And here's where it gets interesting — **a curious wobble**.
+And here's where it gets interesting — a curious wobble.
 
 ---
 
@@ -135,21 +117,13 @@ And here's where it gets interesting — **a curious wobble**.
 
 In 2025-Q3, they dropped from Architect to Anchor. Style shifted from Builder to Balanced.
 
-Impact barely changed (73.2 → 72.4). Production went up (67 → 73). Quality went up (91 → 97).
-
-**Their ability didn't decline. Only their design involvement did.**
+Impact barely changed (73.2 → 72.4). Production went up (67 → 73). Quality went up (91 → 97). Their ability didn't decline — only their design involvement did.
 
 Design: 100 → 73. That's what caused the "demotion" to Anchor.
 
-What happened that quarter?
+What happened that quarter? They clashed with the team. Specifically, there was a disagreement over Frontend architecture direction.
 
-**They clashed with the team.**
-
-Specifically, there was a disagreement over Frontend architecture direction.
-
-R.M. had been driving design decisions since joining. That design philosophy didn't align with existing team members at certain points.
-
-The result: **they deliberately reduced their involvement in design decisions**.
+R.M. had been driving design decisions since joining. That design philosophy didn't align with existing team members at certain points. The result: they deliberately reduced their involvement in design decisions.
 
 EIS captured this precisely:
 
@@ -157,7 +131,7 @@ EIS captured this precisely:
 - Style: Builder → Balanced (from creating structure to adapting to existing structure)
 - Role: Architect → Anchor (from designer to structure maintainer)
 
-**Numbers capture hesitation.**
+Numbers capture hesitation.
 
 ---
 
@@ -169,9 +143,7 @@ Here's R.M.'s per-repo commit distribution:
 
 ![Per-Repo Commits](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-per-repo-commits.png?v=4)
 
-**The true shape of Q3's "hesitation" emerges.**
-
-In Q3, R.M. poured 274 commits into Repo B — their highest-ever quarter in that repo. Production didn't decline — it increased. But it was **production on top of already-established design**, not work that moved the architecture itself.
+The true shape of Q3's "hesitation" emerges. In Q3, R.M. poured 274 commits into Repo B — their highest-ever quarter in that repo. Production didn't decline, it increased. But it was production on top of already-established design, not work that moved the architecture itself.
 
 That's why Design dropped from 100 to 73. You can ship massive volume in an existing repo, but if you're not moving the structural center, the Design axis won't register it.
 
@@ -187,7 +159,7 @@ But the timing wasn't right yet.
 
 **"Once the engineering org has proven itself and the business side moves into a phase of going all-in on engineering, I can hand it over. So please wait for that moment."**
 
-I was certain their design was right. I was certain the whole team would benefit from a structure built around their strengths. But as a startup, the business side wasn't yet fully invested in engineering. The ambition to become a tech company was there — but the timing hadn't arrived. So — please, wait a little longer.
+I was certain their design was right. I was certain the whole team would benefit from a structure built around their strengths. But as a startup, the business side wasn't yet fully invested in engineering. The ambition to become a tech company was there, but the timing hadn't arrived. So, please, wait a little longer.
 
 Q3's "hesitation" wasn't just friction. In the middle of the organization's [proof phase](https://library.orbitlens.io/psychological-os/#ch4), it was also the **strategic patience** of waiting for the moment the [immediate-type](https://library.orbitlens.io/psychological-os/#ch4) would gain the mandate to open up and swing freely.
 
@@ -203,23 +175,21 @@ I handed it to R.M..
 
 Honestly, whether we could hit the tight schedule was uncertain. But given I's implementation speed and ability, and with me covering the gaps, I judged the odds of success were far from low. I told the business side we'd go with a new engineering structure — and got their buy-in.
 
-Commits to existing repos dropped to single digits. In their place: 1,352 commits to the new repo. **1,352 commits in three months.** The following quarter, another 1,333. That's 2,685 commits in six months — +257,362 / -202,390 lines of hand-written TS/TSX (excluding API auto-generation).
+Commits to existing repos dropped to single digits. In their place: 1,352 commits to the new repo in three months. The following quarter, another 1,333. That's 2,685 commits in six months — +257,362 / -202,390 lines of hand-written TS/TSX (excluding API auto-generation).
 
 This number is extraordinary. One engineer producing this volume in half a year can't be explained by raw productivity alone.
 
 ![Transition](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-data-transition.png?v=4)
 
-Design: 73 → 100. Anchor → Architect.
-
-**On a greenfield, the designer's true nature exploded.**
+Design: 73 → 100. Anchor → Architect. On a greenfield, the designer's true nature exploded.
 
 R.M. was a rare breed — obsessed not only with FE code and architecture, but with UI and UX design too, and backed by substantial design skill.
 
 Initially, the new product was expected to follow the existing design language. But R.M. wanted to build from scratch.
 
-**Two weeks later**, they came back with a prototype: dark theme, mobile-responsive, beautiful visuals, a side-pane architecture that enabled rich expressiveness — a level of polish that the existing design's incremental extension could never have reached.
+Two weeks later, they came back with a prototype: dark theme, mobile-responsive, beautiful visuals, a side-pane architecture that enabled rich expressiveness — a level of polish that the existing design's incremental extension could never have reached.
 
-Something interesting happened. An excellent external designer was involved in the project. When this designer saw R.M.'s design work, they redefined their own role. Rather than competing on visual design, they **stepped back and focused on what they did best — deep information architecture expertise**.
+Something interesting happened. An excellent external designer was involved in the project. When this designer saw R.M.'s design work, they redefined their own role. Rather than competing on visual design, they stepped back and focused on what they did best: deep information architecture expertise.
 
 The result: engineering design skill and information design expertise locked together. The new product became a major success. The team decided to adopt the new codebase as the design reference going forward.
 
@@ -235,9 +205,9 @@ With `--per-repo`, the "hesitation" gains three dimensions:
 
 Q4 connected everything. A new universe was born, and R.M. created gravity in it.
 
-This is the very phenomenon Chapter 8 calls "Engineering Relativity" — **the same engineer produces different gravity in different universes**. In a mature gravitational field, R.M. was an Anchor. In a brand new universe, they became Architect instantly.
+This is the very phenomenon Chapter 8 calls "Engineering Relativity": the same engineer produces different gravity in different universes. In a mature gravitational field, R.M. was an Anchor. In a brand new universe, they became Architect instantly.
 
-Their ability didn't change. **The universe changed.**
+Their ability didn't change. The universe changed.
 
 ---
 
@@ -247,9 +217,9 @@ Their ability didn't change. **The universe changed.**
 
 Design stayed at 100 the following quarter too. The structure-building on the new product continued.
 
-Through friction, through strategic patience, they found their stage in a new universe. This "step back, then emerge somewhere new" pattern signals **Architect maturity**.
+Through friction, through strategic patience, they found their stage in a new universe. This "step back, then emerge somewhere new" pattern signals Architect maturity.
 
-A young Architect who hits friction either retreats or bulldozes. A mature Architect **pulls back to read the team's reaction, then re-engages**. And a good leader **reads the timing and prepares the stage**.
+A young Architect who hits friction either retreats or bulldozes. A mature Architect pulls back to read the team's reaction, then re-engages. And a good leader reads the timing and prepares the stage.
 
 R.M.'s timeline and `--per-repo` record that maturation process — quarter by quarter, repository by repository.
 
@@ -265,9 +235,7 @@ And here's another telling number. R.S., an existing team member, started joinin
 
 Just lining up Role and Style changes tells you what happened.
 
-Architect → Anchor → Architect → Producer.
-
-**Build → stabilize → build again → done, now produce.**
+Architect → Anchor → Architect → Producer. Build, stabilize, build again, done — now produce.
 
 You can read that the Architect's work is finished just from the transitions.
 
@@ -279,15 +247,11 @@ Lining up the timelines reveals one more thing:
 
 ![Comparison](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-comparison-table.png?v=4)
 
-**The moment Y.Y. exits, machuz's architecture becomes the structural backbone.**
+The moment Y.Y. exits, machuz's architecture becomes the structural backbone. 2025-Q3: the quarter Y.Y. dropped to 49.1, machuz hit 93.2 as Architect Builder. This isn't coincidence.
 
-2025-Q3. The quarter Y.Y. dropped to 49.1, machuz hit 93.2 as Architect Builder.
+The structure described in Chapter 4 — "Backend Architects concentrate" — is visible right here. There was never a period where two Backend Architects existed simultaneously. While Y.Y. held the Architect Builder position, machuz was still an Anchor. machuz reached Architect only after Y.Y.'s signals declined.
 
-This isn't coincidence.
-
-The structure described in Chapter 4 — "Backend Architects concentrate" — is visible right here. **There was never a period where two Backend Architects existed simultaneously.** While Y.Y. held the Architect Builder position, machuz was still an Anchor. machuz reached Architect only after Y.Y.'s signals declined.
-
-Whether this is a structural consequence of Backend's single design axis (DB schema, API conventions) or simply a matter of growth timing is hard to determine from this sample alone. But at minimum, **it happened as a generational transition** in this team.
+Whether this is a structural consequence of Backend's single design axis (DB schema, API conventions) or simply a matter of growth timing is hard to determine from this sample alone. But at minimum, it happened as a generational transition in this team.
 
 The timeline visualizes this transition.
 
@@ -305,7 +269,7 @@ Things invisible in a point-in-time snapshot become visible in a timeline:
 | Departure = data loss | The departure trajectory remains |
 | Team structure = static | Team structure = dynamic (generational transitions visible) |
 
-**Numbers don't lie. And they capture hesitation too.**
+Numbers don't lie. And they capture hesitation too.
 
 R.M.'s "step back" in 2025-Q3 was probably a conscious decision. But it's preserved as a quarter's worth of data, and only when you line it up against adjacent quarters do you think "ah, that's when it happened."
 
@@ -325,7 +289,7 @@ Some practical uses for timelines:
 
 Pull up a member's individual timeline at the start of a 1:1. "Your Design dropped this quarter. What happened?"
 
-Numbers aren't for attacking. **They're conversation starters.**
+Numbers aren't for attacking. They're conversation starters.
 
 ### 2. Hire Retrospectives
 
@@ -333,11 +297,11 @@ Check a new member's timeline 3-6 months after joining. If you see a Growing →
 
 ### 3. Departure Signal Detection
 
-The Active → Fragile → Former transition pattern tells you the departure trajectory. **In theory, you can intervene at the Active → Fragile stage.**
+The Active → Fragile → Former transition pattern tells you the departure trajectory. In theory, you can intervene at the Active → Fragile stage.
 
-Y.Y.'s case, however, was not a typical departure pattern. They didn't leave by choice — they were pulled away when an **inter-company investment relationship was dissolved**. This wasn't personal dissatisfaction or motivation loss. It was Fragile → Former driven by external factors.
+Y.Y.'s case, however, was not a typical departure pattern. They didn't leave by choice — they were pulled away when an inter-company investment relationship was dissolved. This wasn't personal dissatisfaction or motivation loss. It was Fragile → Former driven by external factors.
 
-Yet EIS captured the change accurately. Regardless of the reason, **if codebase involvement drops, the numbers reflect it**. When Fragile appears, you check "why" — whether it's voluntary departure preparation or an external factor, the numbers alone can't tell you. But **the fact that change is occurring is detectable**.
+Yet EIS captured the change accurately. Regardless of the reason, if codebase involvement drops, the numbers reflect it. When Fragile appears, you check "why" — whether it's voluntary departure preparation or an external factor, the numbers alone can't tell you. But the fact that change is occurring is detectable.
 
 What matters is that it works even in atypical cases. For standard departure signals, you'd likely catch them even earlier.
 
@@ -347,9 +311,7 @@ What matters is that it works even in atypical cases. For standard departure sig
 
 ![Team Timeline](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ch5-team-timeline.png?v=4)
 
-Dwarf → Lenticular → Spiral. Declining → Mature. Design Vacuum → Healthy.
-
-**You can see the team becoming healthier over time.**
+Dwarf → Lenticular → Spiral. Declining → Mature. Design Vacuum → Healthy. You can see the team becoming healthier over time.
 
 ---
 
@@ -357,13 +319,9 @@ Dwarf → Lenticular → Spiral. Declining → Mature. Design Vacuum → Healthy
 
 Chapter 1 built snapshots. Chapter 2 looked at teams. Chapter 3 explored Architect lineages. Chapter 4 explored laying souls to rest.
 
-Chapter 5 **gains the time axis**.
+Chapter 5 gains the time axis. Snapshots show "now." Timelines show "why it's like this now."
 
-Snapshots show "now." Timelines show "why it's like this now."
-
-Y.Y. built the structure. machuz became Architect on top of it. O. built a structure, then settled into producing. R.M. stepped back, then stepped forward again.
-
-**All of it was preserved in the numbers.**
+Y.Y. built the structure. machuz became Architect on top of it. O. built a structure, then settled into producing. R.M. stepped back, then stepped forward again. All of it was preserved in the numbers.
 
 Cold numbers are what hold the hottest stories. That's the essence of the timeline.
 

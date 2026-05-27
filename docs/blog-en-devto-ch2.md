@@ -15,9 +15,7 @@ cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/
 
 A team where every member hits 80+ isn't necessarily strong. If everyone is a Producer, nobody is shaping architecture. Nobody is paying down debt. The codebase ships fast and rots faster.
 
-Conversely, a team averaging 50 — but with one Architect, one Cleaner, and two Growing juniors — may be in a much healthier position.
-
-**A strong team is not the sum of individual signals. It's about composition and complementarity.**
+Conversely, a team averaging 50 — but with one Architect, one Cleaner, and two Growing juniors — may be in a much healthier position. A strong team is not the sum of individual signals; it's about composition and complementarity.
 
 ---
 
@@ -33,7 +31,7 @@ Git history contains signals that revenue can't:
 - **Technical debt** — does adding 1 feature generate 2 bug fixes?
 - **Bus factor** — how many modules die if one person leaves?
 
-**Even with revenue growing, if Survival decline + Debt increase + Bus Factor concentration are progressing simultaneously, the organization will collapse at scale.**
+Even with revenue growing, if Survival decline, Debt increase, and Bus Factor concentration are progressing simultaneously, the organization will collapse at scale.
 
 ---
 
@@ -145,7 +143,7 @@ Running `eis team` on our product (12 Backend repos + 9 Frontend repos):
 - Architect + Anchor present, Risk 0%
 - One Gravity warning remains, but structurally healthy
 
-**The numbers tell a story.** Not just "whose signal is strong" but "what state is the team in, and what happens next."
+The numbers tell a story: not just "whose signal is strong" but "what state is the team in, and what happens next."
 
 ---
 
@@ -155,7 +153,7 @@ Our Backend is Legacy-Heavy because a former architect left. Several modules rem
 
 And yet, the team hasn't collapsed.
 
-Why? Because those modules were built on well-organized design. No comprehensive documentation. No complete knowledge transfer. But **the design embedded in the code's structure gave the remaining engineers enough understanding to operate confidently.**
+Why? Because those modules were built on well-organized design. No comprehensive documentation, no complete knowledge transfer, but the design embedded in the code's structure gave the remaining engineers enough understanding to operate confidently.
 
 Strong design leaves knowledge in structure, not in people. In a strong team, Former members' code gradually gives way to the team's own, and Legacy-Heavy resolves itself. EIS captures that convergence through Survival trajectories.
 

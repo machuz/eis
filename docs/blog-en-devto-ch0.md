@@ -40,7 +40,7 @@ Yet inside every team, people sense whose structural signal is strongest.
 > "That person writes code that lasts."
 > "That person touches everything but nothing improves."
 
-Those intuitions exist, but they're not measurable. I wanted to find a way to **observe that gut feeling as numbers** — drawn from a source that can't be gamed by politics: **the git history itself.**
+Those intuitions exist, but they're not measurable. I wanted to find a way to observe that gut feeling as numbers, drawn from a source that can't be gamed by politics: the git history itself.
 
 ---
 
@@ -205,7 +205,7 @@ An even more interesting finding: **gravity concentration varies 4.8× across la
 | Rails / Laravel (framework-driven) | 5.1% | Frameworks absorb structure |
 | C / C++ (systems) | 3.4% | Most distributed |
 
-Here's the critical point: **this is not about which structure is "correct."**
+The critical point is that this is not about which structure is "correct."
 
 esbuild's 92.5% concentration isn't "bad design" — at a scale where one person can hold the entire system in their head, it may be optimal. Kubernetes' 0.8% distribution isn't "better because it's distributed" — at 5,000+ contributors, distribution is inevitable, and that itself is a design outcome.
 
@@ -217,7 +217,7 @@ We also mapped the **Gravity distribution of the top 50 engineers** — structur
 
 > [OSS Gravity Map — Top 50 Engineers](https://machuz.github.io/eis/research/oss-gravity-map/analysis/top50.html)
 
-Salvatore Sanfilippo (Redis), Alexey Milovidov (ClickHouse), Ritchie Vink (Polars) — their gravity saturates the scale. But the more remarkable finding was the **440 engineers the world has never heard of.** They don't give conference talks. They don't have mass Twitter followings. Yet when we traced the gravitational field lines through the codebase, there they were — quietly holding the architecture together. We call them **Hidden Architects.**
+Salvatore Sanfilippo (Redis), Alexey Milovidov (ClickHouse), Ritchie Vink (Polars) — their gravity saturates the scale. But the more remarkable finding was the **440 engineers the world has never heard of.** They don't give conference talks. They don't have mass Twitter followings. Yet when we traced module ownership and design involvement through the codebase, there they were — quietly holding the architecture together. We call them **Hidden Architects.**
 
 **A note on cross-universe comparison.** Gravity is a *relative signal within each repository*, not an absolute value across repositories. Josh Goldberg's Gravity 100 in eslint and Jordan Liggitt's Gravity 77.3 in Kubernetes are observations from **different universes** — they cannot be directly compared. This is Engineering Relativity (Ch. 8) in action.
 

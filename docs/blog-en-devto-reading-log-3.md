@@ -26,15 +26,15 @@ Three books light that up: Johan Huizinga's *Homo Ludens*, James P. Carse's *Fin
 
 Huizinga's *Homo Ludens* recasts the human as "the one who plays (Homo Ludens)."
 
-Usually the human is spoken of as "the one who knows (Homo Sapiens)" or "the one who makes (Homo Faber)." Huizinga places another layer before those. **Humans make culture by playing.**
+Usually the human is spoken of as "the one who knows (Homo Sapiens)" or "the one who makes (Homo Faber)." Huizinga places another layer before those: humans make culture by playing.
 
 And the "play" he means isn't entertainment.
 
 > Law, war, art, religion, poetry, sport — even philosophy — have play at their origin.
 
-The trial was born from stylized play that competes for a verdict under rules. Poetry was born from play that makes words dance within the constraint of meter. **Much of culture's serious territory holds the form of play inside it.**
+The trial was born from stylized play that competes for a verdict under rules. Poetry was born from play that makes words dance within the constraint of meter. Much of culture's serious territory holds the form of play inside it.
 
-Honestly, this is dead center of how I feel. In my case, the **fun usually comes first, and the logic rides on afterward.** Git Archaeology, Psychological OS — they started from "huh, that's interesting," and got structured later. Play is the engine of my thinking.
+Honestly, this is dead center of how I feel. In my case, the fun usually comes first, and the logic rides on afterward. Git Archaeology, Psychological OS — they started from "huh, that's interesting," and got structured later. Play is the engine of my thinking.
 
 ---
 
@@ -61,7 +61,7 @@ Here I want to quote Akagi, from Nobuyuki Fukumoto's *Ten*.
 
 > Earnestness... is a bad habit. That's what stopped you.
 
-What Akagi criticizes isn't diligence itself. It's **over-adaptation to rules.** "I have to do it right." "I mustn't fail." "Same as everyone." — this kills play. It strips away the margin play needs — to try, to break, to bet, to deviate.
+What Akagi criticizes isn't diligence itself. It's over-adaptation to rules. "I have to do it right." "I mustn't fail." "Same as everyone." — this kills play. It strips away the margin play needs — to try, to break, to bet, to deviate.
 
 Modern Japan, especially postwar, leaned hard toward "earnestness = discipline = endurance." In the phases of industrialization and recovery, that was rational. But as a side effect, "play" got easily branded as unserious.
 
@@ -70,7 +70,7 @@ Let me sort it like this:
 - **Bad earnestness** — submission to rules. It kills play
 - **Good earnestness** — the discipline that keeps play going
 
-What I really dislike isn't diligence itself, but **diligence that has lost its meaning.** KPIs for KPIs' sake, work for form's sake, overtime for the air's sake. That's the state where play has died. Conversely, serious play always has good earnestness built in somewhere.
+What I really dislike isn't diligence itself, but diligence that has lost its meaning. KPIs for KPIs' sake, work for form's sake, overtime for the air's sake. That's the state where play has died. Conversely, serious play always has good earnestness built in somewhere.
 
 ---
 
@@ -86,7 +86,7 @@ The decisive difference is here.
 
 > A finite-game player fights others to win. An infinite-game player engages others to keep going.
 
-And Carse's other sharp point. **Finite-game players protect their titles; infinite-game players transform themselves.** Cling to a role to keep winning, or keep updating yourself to keep going.
+And Carse's other sharp point: finite-game players protect their titles; infinite-game players transform themselves. Cling to a role to keep winning, or keep updating yourself to keep going.
 
 ---
 
@@ -106,7 +106,7 @@ Victory is a moment. A release, a signed deal, winning a competition, hitting th
 
 The finite-game record almost never logs these. But what keeps the infinite game going is exactly these. The work of keeping the playground playable tomorrow and the day after.
 
-Civilization isn't for winning. It's **for continuing.** So unless you change *what you count as valuable contribution*, an organization gets swallowed by the finite game fast. An organization that counts only the flashy victories overlooks the people who tend the playground — and eventually loses the playground itself.
+Civilization isn't for winning. It's for continuing. So unless you change *what you count as valuable contribution*, an organization gets swallowed by the finite game fast. An organization that counts only the flashy victories overlooks the people who tend the playground — and eventually loses the playground itself.
 
 ---
 
@@ -114,13 +114,13 @@ Civilization isn't for winning. It's **for continuing.** So unless you change *w
 
 A little about myself, from here.
 
-I'm probably **"an infinite-game person who's strong at finite games."** Implementation, launches, firefighting, fast decisions — I'm reasonably strong at these short-term contests. But what I'm ultimately interested in isn't winning; it's that **a place where you can safely, seriously play keeps going for a long time.**
+I'm probably an infinite-game person who's strong at finite games. Implementation, launches, firefighting, fast decisions — I'm reasonably strong at these short-term contests. But what I'm ultimately interested in isn't winning; it's that a place where you can safely, seriously play keeps going for a long time.
 
-So what I've done is take trust and dynamics with short-term combat power, and use that to turn the very vibe of an organization into an infinite game. Less "to win the war" than **"to leave behind a good town."**
+So what I've done is take trust and dynamics with short-term combat power, and use that to turn the very vibe of an organization into an infinite game. Less "to win the war" than "to leave behind a good town."
 
-What I don't want misread: this isn't "the infinite game is superior." The opposite, if anything — **an infinite game can't be protected by someone weak at finite games.**
+What I don't want misread: this isn't "the infinite game is superior." The opposite, if anything — an infinite game can't be protected by someone weak at finite games.
 
-"Continuation matters," spoken by ideals alone, usually ends as a pretty platitude. When someone who can't deliver in implementation, can't put out fires, can't make the numbers says "continuation over winning," the field doesn't follow. An infinite game stands only on **the tug-of-war between the field's grit and idealism.** Only when someone who took trust with the power to win spends that trust not on "keeping winning" but on "keeping the playground going" does the infinite game get protected.
+"Continuation matters," spoken by ideals alone, usually ends as a pretty platitude. When someone who can't deliver in implementation, can't put out fires, can't make the numbers says "continuation over winning," the field doesn't follow. An infinite game stands only on the tug-of-war between the field's grit and idealism. Only when someone who took trust with the power to win spends that trust not on "keeping winning" but on "keeping the playground going" does the infinite game get protected.
 
 So for me, finite-game strength is a weapon for protecting the infinite game. Not winning to win, but holding the power to win — in order to continue.
 
@@ -142,7 +142,7 @@ Hirschman says that when people are discontent with an organization or community
 - **Voice** — stay and demand improvement. Dissent, proposal, dialogue
 - **Loyalty** — attachment. The force that keeps you from leaving right away and makes you try Voice first
 
-What's interesting is the balance of the three. An organization with only Exit has people vanish in silence — and the sensitive, capable ones leave first. An organization with only Voice becomes a pressure you can't escape. And **when Loyalty is too strong, you can't speak up or leave even when something's off.** This is continuous with the Berserk-ification of #1 and the culting of #2. The moment loyalty becomes a hostage, the community swallows people.
+What's interesting is the balance of the three. An organization with only Exit has people vanish in silence — and the sensitive, capable ones leave first. An organization with only Voice becomes a pressure you can't escape. And when Loyalty is too strong, you can't speak up or leave even when something's off. This is continuous with the Berserk-ification of #1 and the culting of #2. The moment loyalty becomes a hostage, the community swallows people.
 
 So the ideal becomes this:
 
@@ -150,7 +150,7 @@ So the ideal becomes this:
 
 Healthy Loyalty isn't blind obedience. It takes the form "I love this place, so I want to make it better." So the more Loyalty there is, the more Voice comes out instead of a silent Exit. Loyalty can be fuel for keeping the infinite game going.
 
-Here, I want to write about myself. **I hold Loyalty toward organizations that play seriously.** Not meaning-lost diligence, but a place where serious play is running — to such a playground I don't want to Exit, and instead want to make it better. Conversely, to a place where play has died and only KPIs-for-KPIs run, no loyalty wells up in me. My Loyalty, probably, hangs on whether the organization is living an infinite game.
+Here, I want to write about myself. I hold Loyalty toward organizations that play seriously. Not meaning-lost diligence, but a place where serious play is running — to such a playground I don't want to Exit, and instead want to make it better. Conversely, to a place where play has died and only KPIs-for-KPIs run, no loyalty wells up in me. My Loyalty, probably, hangs on whether the organization is living an infinite game.
 
 ---
 

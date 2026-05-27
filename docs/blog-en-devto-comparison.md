@@ -20,7 +20,7 @@ Engineering leaders have more measurement frameworks than ever:
 - **CodeScene** — behavioral code analysis with hotspot detection
 - **git-fame / git-quick-stats** — basic git attribution tools
 
-Each captures something genuine. But after using them across multiple teams, I kept running into the same blind spot: **none of them tell you whether the code an engineer wrote is still standing.**
+Each captures something genuine. But after using them across multiple teams, I kept running into the same blind spot: none of them tell you whether the code an engineer wrote is still standing.
 
 That question — *does your code survive?* — is what led me to build [EIS (Engineering Impact Signal)](https://github.com/machuz/eis). This article isn't about declaring a winner. It's about understanding what each framework sees, what it misses, and where the gaps are.
 
@@ -155,14 +155,14 @@ Here's the fundamental question that existing frameworks leave unanswered:
 
 > **Of all the code this engineer wrote, how much is still standing — and is it standing because it's good, or because nobody touches it?**
 
-This is the **survival question**, and it changes everything.
+This is the survival question, and it changes everything.
 
 Consider two engineers:
 
 - **Engineer A** ships 200 PRs per quarter. DORA metrics are elite. LinearB shows fast cycle time. But 6 months later, 80% of their code has been rewritten by others.
 - **Engineer B** ships 40 PRs per quarter. Modest by any activity metric. But their code forms the structural backbone of the system — still there after two years, surviving under active change pressure.
 
-DORA sees a fast team. LinearB sees high throughput. SPACE might capture satisfaction. **But none of them see that Engineer B is the gravitational center of the codebase.**
+DORA sees a fast team. LinearB sees high throughput. SPACE might capture satisfaction. But none of them see that Engineer B is the gravitational center of the codebase.
 
 EIS sees it. Because it asks the question that requires `git blame` to answer: *what survived?*
 
@@ -215,7 +215,7 @@ eis analyze .
 
 No API keys. No AI tokens. No SaaS integration. Just `git log` and `git blame`.
 
-Point the telescope at your codebase and see what the other frameworks can't show you: **who shaped the structure, and does it endure.**
+Point the telescope at your codebase and see what the other frameworks can't show you: who shaped the structure, and does it endure.
 
 > Full methodology: [Whitepaper](https://github.com/machuz/eis/blob/main/docs/whitepaper.md) · [GitHub](https://github.com/machuz/eis)
 

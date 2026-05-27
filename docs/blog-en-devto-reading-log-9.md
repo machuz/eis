@@ -38,7 +38,7 @@ A scout who saw the Spanish top mutters this.
 
 ![Are they not even thinking? — too fast to look like thought](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-9-kangaete.png)
 
-**"Are they not even thinking?"** Top players' play is too fast to look like they're thinking each move through. But it's not that they think nothing. The opposite. **A vast amount of System 2 training has settled into patterns in the brain and turned into System 1.** The trace of having thought so hard you no longer need to. Compressed System 2, moving at the speed of intuition.
+**"Are they not even thinking?"** Top players' play is too fast to look like they're thinking each move through. But it's not that they think nothing. The opposite: a vast amount of System 2 training has settled into patterns in the brain and turned into System 1. The trace of having thought so hard you no longer need to. Compressed System 2, moving at the speed of intuition.
 
 ![The body moves on its own. Trust that impulse — the body acts before thought](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-9-shoudou.png)
 
@@ -54,7 +54,7 @@ The book's core folds into a single line. **"We know more than we can tell."**
 
 Someone who can ride a bike can't explain in words how they balance. A skilled craftsman can't fully say why they shave this grain this way. Knowledge has the **explicit** that can be worded and the **tacit** that can't. And the core of a master's knowing is usually on the tacit side.
 
-The truth behind the top players' "not even thinking?" is this. Their knowing has sunk past the dimension of verbalization, into the tacit. Not inferior because it can't be told. **They know so deeply it can't be told.**
+The truth behind the top players' "not even thinking?" is this. Their knowing has sunk past the dimension of verbalization, into the tacit. Not inferior because it can't be told — they know so deeply it can't be told.
 
 ---
 
@@ -68,7 +68,7 @@ What's interesting is that Aoashi doesn't simply praise "verbalization."
 
 Put it into words, and yes, you grasp it. You can reproduce it. But the moment you word it, something spills from there. Verbalization also trims rich tacit knowing down to the tellable range — it's also a kind of **limitation.**
 
-So a master, sometimes, deliberately doesn't verbalize. Rather than thin it by wording, they leave it whole in the body, untold. This is the flip side of the Fukuda from #5. He relentlessly demanded verbalization, yet also guarded what couldn't be verbalized. **The courage to word, and the courage not to word. Holding both is, probably, the condition of a master.**
+So a master, sometimes, deliberately doesn't verbalize. Rather than thin it by wording, they leave it whole in the body, untold. This is the flip side of the Fukuda from #5. He relentlessly demanded verbalization, yet also guarded what couldn't be verbalized. The courage to word, and the courage not to word. Holding both is, probably, the condition of a master.
 
 ---
 
@@ -78,7 +78,7 @@ Knowing that can't be told passes, untold, between people.
 
 ![Honestly, I want to converse with just the ball — wordless, non-verbal dialogue](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/reading-log-9-kaiwa.png)
 
-**"Honestly, I want to converse with just the soccer ball."** I love this line of Fukuda's. As we saw in #7, he fought in a foreign land where the language didn't carry. But with a ball, you don't need words. Intent rides on a single pass; a reply comes back in one trap. **Play itself becomes a conversation traded in tacit knowing.**
+**"Honestly, I want to converse with just the soccer ball."** I love this line of Fukuda's. As we saw in #7, he fought in a foreign land where the language didn't carry. But with a ball, you don't need words. Intent rides on a single pass; a reply comes back in one trap. Play itself becomes a conversation traded in tacit knowing.
 
 Precisely because language doesn't carry, a high-purity non-verbal dialogue rises. The best combinations usually have no words.
 
@@ -102,11 +102,11 @@ And when Aoashi draws the existence of the forward, the pen takes on its deepest
 
 Finally, to OrbitLens.
 
-I have to admit it honestly. **What EIS can observe is only the explicit side.** What remains in git history is commits, diffs, blame — only what can be made into words and numbers. The resolve to finish, the non-verbal combination, the intuition that moves before thought, the unspoken pride. The tacit I've watched all chapter spills, root and all, from the net of observation.
+I have to admit it honestly: what EIS can observe is only the explicit side. What remains in git history is commits, diffs, blame — only what can be made into words and numbers. The resolve to finish, the non-verbal combination, the intuition that moves before thought, the unspoken pride. The tacit I've watched all chapter spills, root and all, from the net of observation.
 
 In #5 I wrote "Metis spills from legibility." It's the same here. If anything, the most awesome things are the ones that don't show up in observation.
 
-If so, the honesty available to observation is one thing. **To admit that what you've grasped is only the tellable part.** Not to think the number on the score is the whole person. Signals, not Scores works here too. Observation reflects tellable signals, but it must not erase the existence of the awe that can't be told. The most important thing is outside the observation — to observe, knowing that.
+If so, the honesty available to observation is one thing: to admit that what you've grasped is only the tellable part. Not to think the number on the score is the whole person. Signals, not Scores works here too. Observation reflects tellable signals, but it must not erase the existence of the awe that can't be told. The most important thing is outside the observation — to observe, knowing that.
 
 > Putting everything into words isn't honesty. Respecting the realm that can't be told, leaving it untold, is also honesty.
 

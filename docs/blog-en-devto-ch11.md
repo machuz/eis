@@ -25,7 +25,7 @@ The Second Law of Thermodynamics. The increase of entropy.
 
 Physics has a concept called entropy.
 
-Put simply — **order, left alone, always breaks down.**
+Put simply: order, left alone, always breaks down.
 
 Drop a single drop of ink into a glass of water. The ink diffuses and mixes uniformly. But the reverse never happens. Ink never spontaneously separates from the mixed water.
 
@@ -37,9 +37,7 @@ The universe always tends toward disorder. Maintaining order requires energy.
 
 ## The Entropy of Code
 
-Codebases have entropy too.
-
-**Left alone, code always rots.**
+Codebases have entropy too. Left alone, code always rots.
 
 At first, the design was beautiful. Layers were clear, responsibilities separated, naming conventions unified.
 
@@ -109,7 +107,7 @@ Watch a team's signal trends and you see the results of the battle against entro
 - Survival declining → past order is crumbling
 - Design signals rising → barriers are being reinforced
 
-**EIS timelines are the record of a battle against entropy.**
+EIS timelines are the record of a battle against entropy.
 
 ---
 
@@ -119,9 +117,7 @@ Watch a team's signal trends and you see the results of the battle against entro
 
 This is a common engineering maxim.
 
-But physics teaches us something different.
-
-**Left alone, order always breaks down.**
+But physics teaches us something different: left alone, order always breaks down.
 
 If you don't touch working code, as the surrounding code changes, order degrades relatively.
 
@@ -135,15 +131,13 @@ But they're holding back the collapse of the universe.
 
 ## Entropy Cannot Be Avoided
 
-Finally, one harsh truth.
-
-**The increase of entropy cannot be avoided.**
+Finally, one harsh truth: the increase of entropy cannot be avoided.
 
 No matter how beautiful the design, no matter how excellent the team, entropy will inevitably increase over time.
 
 Perfect order doesn't exist. A perfect codebase doesn't exist.
 
-What exists is — **only the will to keep fighting entropy.**
+What exists is only the will to keep fighting entropy.
 
 A good engineering team is one that keeps slowing the rate of entropy increase.
 

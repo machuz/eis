@@ -65,7 +65,7 @@ The same thing happens in code universes.
 
 The first directory structure. The first module split. The first naming convention.
 
-**These initial conditions influence every design decision that follows.**
+These initial conditions shape every design decision that follows.
 
 A project that started with `src/` and `lib/` separated will carry that split for years. A project that started as a monolith will be dragged by the monolith's gravity for years.
 
@@ -81,7 +81,7 @@ But humans find meaning in them.
 
 Orion. Cassiopeia. The Big Dipper.
 
-These aren't physical structures. **They're patterns that humans found.**
+These aren't physical structures. They're patterns that humans found.
 
 The same thing happens in codebases.
 
@@ -93,7 +93,7 @@ Modules. Services. Packages. Layers.
 
 Not the stars themselves. Maps that humans created to understand the universe.
 
-A great Architect doesn't create stars — they **create constellations**.
+A great Architect doesn't create stars — they create constellations.
 
 They discover structure, organize structure, and share structure.
 
@@ -125,9 +125,9 @@ In mature codebases, structures created early on persist as Survival 100. The fi
 
 The "laying souls to rest" from Chapter 4 often targets this initial Architect. The gravity of the person who created the Big Bang lasts the longest in the universe.
 
-Conversely, in codebases with weak initial conditions — projects that started without structure — everyone's Design axis is low. Because the gravitational center never existed from the start.
+Conversely, in codebases with weak initial conditions — projects that started without structure — everyone's Design axis is low, because the gravitational center never existed from the start.
 
-**The universe's present is determined by its Big Bang.**
+The universe's present is determined by its Big Bang.
 
 ---
 

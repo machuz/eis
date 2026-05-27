@@ -28,15 +28,15 @@ The core of *Sapiens*, in one line:
 
 > What decisively separates humans from other animals is that they can cooperate with great numbers of strangers they've never met, by believing in a shared fiction.
 
-Nations. Companies. Religions. Money. Law. Human rights. None of these lie around as substance somewhere in nature. They exist **because everyone believes they exist** — shared stories.
+Nations. Companies. Religions. Money. Law. Human rights. None of these lie around as substance somewhere in nature. They exist because everyone believes they exist — shared stories.
 
-Here, "fiction" doesn't mean a lie. **By fiction I mean a story that gains real power by being shared among many.** If anything, fiction is humanity's greatest invention.
+Here, "fiction" doesn't mean a lie. By fiction I mean a story that gains real power by being shared among many. If anything, fiction is humanity's greatest invention.
 
-A troop of chimpanzees can bond only a few dozen strong. It can't exceed the range of visible faces. But humans, ten thousand or a hundred million, can move in one direction by believing the same story. The pyramids, the joint-stock company, the modern state — all of them are **shared fiction converted into mass cooperation.**
+A troop of chimpanzees can bond only a few dozen strong. It can't exceed the range of visible faces. But humans, ten thousand or a hundred million, can move in one direction by believing the same story. The pyramids, the joint-stock company, the modern state — all of them are shared fiction converted into mass cooperation.
 
 So: civilization is made of shared illusion.
 
-What Griffith did was a miniature of this. He distributed to the mercenaries the fiction "you can become part of history," and bound a small face-to-face group into something larger. His talent wasn't inventing fiction. It was **starting up, better than anyone, a mechanism humanity has always run.**
+What Griffith did was a miniature of this. He distributed to the mercenaries the fiction "you can become part of history," and bound a small face-to-face group into something larger. His talent wasn't inventing fiction. It was starting up, better than anyone, a mechanism humanity has always run.
 
 ---
 
@@ -48,9 +48,9 @@ Anderson defined the nation like this:
 
 > A nation is **an imagined political community.**
 
-A Japanese person has never met almost any of their hundred million compatriots. Doesn't know their faces or names. And yet feels "we're the same people." Why? **Because they share the same story.**
+A Japanese person has never met almost any of their hundred million compatriots. Doesn't know their faces or names. And yet feels "we're the same people." Why? Because they share the same story.
 
-Here too, "imagined" doesn't mean fake. Unlike the face-to-face community of a village, it means **supplementing, with imagination, solidarity with others you can't directly observe.** Before modernity, people lived within "the range of visible faces" — village, tribe, religious sphere. The modern state needed to make a community with strangers. The adhesive was imagination.
+Here too, "imagined" doesn't mean fake. Unlike the face-to-face community of a village, it means supplementing, with imagination, solidarity with others you can't directly observe. Before modernity, people lived within "the range of visible faces" — village, tribe, religious sphere. The modern state needed to make a community with strangers. The adhesive was imagination.
 
 ---
 
@@ -94,7 +94,7 @@ In civilizational terms, the question of who makes a design's center of gravity,
 
 But here, the previous chapter returns.
 
-A shared story makes a community hold together. Yet **when that story grows too strong, dissent starts to be excluded as "something that breaks the story."**
+A shared story makes a community hold together. Yet when that story grows too strong, dissent starts to be excluded as "something that breaks the story."
 
 Nationalism. Religious fundamentalism. The startup myth. A culted-up corporate culture. In none of these is the shared illusion itself the evil. It turns dangerous the moment the illusion is placed above reality.
 
