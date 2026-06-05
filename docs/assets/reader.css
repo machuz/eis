@@ -244,6 +244,10 @@ body.theme-light .orbit-bar a:hover { color: #eef1f7; }
 @media (max-width: 640px) {
   .orbit-menu-toggle { display: inline-flex; }
   .orbit-bar .private-chip { display: none; }
+  /* Collapse the breadcrumb: drop the redundant LIBRARY level (the logo
+     already links there) so ORBITLENS / 読書ログ / #N fits on one line. */
+  .orbit-bar .crumb-logo + .crumb-sep + .crumb-scope,
+  .orbit-bar .crumb-logo + .crumb-sep + .crumb-scope + .crumb-sep { display: none; }
   /* Scoped to the reader.js toolbar (#orbit-tools), so standalone articles
      that reuse .orbit-tools without a hamburger keep rendering inline. */
   .orbit-bar #orbit-tools {
