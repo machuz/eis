@@ -135,6 +135,9 @@ a:hover { color: var(--text-strong); }
 }
 .crumb-action:hover { border-color: var(--purple-dim); color: var(--purple-bright); }
 .crumb-action.active { background: rgba(177,98,134,0.08); color: var(--purple-bright); border-color: var(--purple-dim); }
+.crumb-action::after { content: "\2197"; font-size: 0.85em; margin-left: 4px; opacity: 0.55; }
+.crumb-burger { display: none; background: none; border: none; cursor: pointer; color: var(--text-strong); padding: 4px; align-items: center; }
+.crumb-burger svg { width: 20px; height: 20px; display: block; }
 /* Language tab toggle — sliding pill (yui540 motion 43 inspired) */
 .lang-tabs {
   position: relative;
@@ -230,6 +233,17 @@ a:hover { color: var(--text-strong); }
   .breadcrumb .crumb-scope,
   .breadcrumb .crumb-sep:not(.crumb-sep-section),
   .breadcrumb .private-chip { display: none; }
+  /* Collapse the right-side actions into a hamburger menu */
+  .crumb-burger { display: inline-flex; }
+  .crumb-right {
+    display: none; position: absolute; top: calc(100% + 4px); right: 12px;
+    flex-direction: column; align-items: stretch; gap: 12px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px; min-width: 176px; max-width: calc(100vw - 24px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.5); z-index: 60;
+  }
+  .crumb-right.open { display: flex; }
+  .crumb-action { justify-content: flex-start; }
 }
 
 /* Progress slider at bottom of breadcrumb */
@@ -1020,6 +1034,9 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     <span class="crumb-sep crumb-sep-section">·</span>
     <span class="crumb-section" id="crumb-section"></span>
   </div>
+  <button class="crumb-burger" aria-label="menu" onclick="this.parentElement.querySelector('.crumb-right').classList.toggle('open')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
   <div class="crumb-right">
     <span class="private-chip">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
