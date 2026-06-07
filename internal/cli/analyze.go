@@ -37,7 +37,7 @@ type AnalyzeOptions struct {
 	DomainFilter   string
 	Verbose        bool
 	NoCache        bool
-	PerRepo      bool
+	PerRepo        bool
 }
 
 // DomainResults holds scored results for a single domain.
@@ -54,8 +54,8 @@ type DomainResults struct {
 	TestFileRatio  float64 // convenience: TotalTestFiles / TotalFiles
 
 	// Module Science Phase 1: direct structural measurement
-	Cochange  []metric.CochangeResult    // per-repo co-change coupling (DSM)
-	Ownership []metric.ModuleOwnership   // accumulated ownership fragmentation
+	Cochange  []metric.CochangeResult  // per-repo co-change coupling (DSM)
+	Ownership []metric.ModuleOwnership // accumulated ownership fragmentation
 
 	// Module Science Phase 2: 3-axis module topology
 	ModuleScores []scorer.ModuleScore
@@ -75,20 +75,24 @@ type domainAccumulator struct {
 	debtCounts          map[string]int
 	authorRepoCommits   map[string]map[string]int // author -> repo -> commit count
 	authorModuleCommits map[string]map[string]int // author -> module -> commit count
-	authorFirstDate     map[string]time.Time      // earliest commit date per author
-	authorLastDate      map[string]time.Time      // latest commit date per author
-	repoCount           int
-	risks             []metric.ModuleRisk   // accumulated bus factor risks
-	changePressure    metric.ChangePressure // accumulated change pressure across repos
+	// authorModuleSurvival accumulates per-(module, author) surviving gravity
+	// mass across repos — the input to the survival-weighted, structure-
+	// neutral Breadth (Hill number). Keyed module -> author -> mass.
+	authorModuleSurvival map[string]map[string]float64
+	authorFirstDate      map[string]time.Time // earliest commit date per author
+	authorLastDate       map[string]time.Time // latest commit date per author
+	repoCount            int
+	risks                []metric.ModuleRisk   // accumulated bus factor risks
+	changePressure       metric.ChangePressure // accumulated change pressure across repos
 
 	// Module Science Phase 1
-	cochangeResults []metric.CochangeResult    // per-repo co-change coupling
-	ownership       []metric.ModuleOwnership   // accumulated ownership fragmentation
+	cochangeResults []metric.CochangeResult  // per-repo co-change coupling
+	ownership       []metric.ModuleOwnership // accumulated ownership fragmentation
 
 	// Module Science Phase 2
-	moduleSurvival      map[string]float64    // per-module survival rate (0-1)
-	modulePressure      metric.ChangePressure // per-module change pressure (without repo prefix)
-	modulePressureCounts map[string]int       // count for averaging across repos
+	moduleSurvival       map[string]float64    // per-module survival rate (0-1)
+	modulePressure       metric.ChangePressure // per-module change pressure (without repo prefix)
+	modulePressureCounts map[string]int        // count for averaging across repos
 
 	// Test coverage observability (populated from each repo's TestedSet)
 	totalFiles     int // sum of code files across all repos in this domain
@@ -103,13 +107,14 @@ type domainAccumulator struct {
 
 func newDomainAccumulator() *domainAccumulator {
 	return &domainAccumulator{
-		raw:                 metric.NewRawScores(),
-		qualityCounts:       make(map[string]int),
-		debtCounts:          make(map[string]int),
-		authorRepoCommits:   make(map[string]map[string]int),
-		authorModuleCommits: make(map[string]map[string]int),
-		authorFirstDate:     make(map[string]time.Time),
-		authorLastDate:      make(map[string]time.Time),
+		raw:                  metric.NewRawScores(),
+		qualityCounts:        make(map[string]int),
+		debtCounts:           make(map[string]int),
+		authorRepoCommits:    make(map[string]map[string]int),
+		authorModuleCommits:  make(map[string]map[string]int),
+		authorModuleSurvival: make(map[string]map[string]float64),
+		authorFirstDate:      make(map[string]time.Time),
+		authorLastDate:       make(map[string]time.Time),
 		changePressure:       make(metric.ChangePressure),
 		moduleSurvival:       make(map[string]float64),
 		modulePressure:       make(metric.ChangePressure),
@@ -159,7 +164,7 @@ func runAnalyze(args []string) error {
 		DomainFilter:   *domainFilter,
 		Verbose:        *verbose,
 		NoCache:        *noCache,
-		PerRepo:      *perRepo,
+		PerRepo:        *perRepo,
 	}
 
 	domainResults, cfg, err := RunAnalyzePipeline(opts, pathArgs)
@@ -686,6 +691,19 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		}
 
+		// Per-(module, author) surviving gravity for Breadth (Hill number).
+		repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.Tau, start, moduleResolver)
+		for mod, authors := range repoMSBA {
+			dst := acc.authorModuleSurvival[mod]
+			if dst == nil {
+				dst = make(map[string]float64)
+				acc.authorModuleSurvival[mod] = dst
+			}
+			for author, mass := range authors {
+				dst[author] += mass
+			}
+		}
+
 		// Step 4: Accumulate bus factor risks per domain; print immediately for table format
 		acc.risks = append(acc.risks, risks...)
 		if opts.Format == "table" && len(risks) > 0 {
@@ -766,16 +784,11 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			continue
 		}
 
-		// Breadth: unit follows the analysis scope (repo for multi-repo,
-		// module for monorepo) via the shared computeBreadth helper, so the
-		// CLI, analyzer and timeline pipelines can't drift (W-02).
-		breadth := metric.ComputeBreadth(
-			acc.authorRepoCommits,
-			acc.authorModuleCommits,
-			cfg.BreadthUnit(),
-			cfg.BreadthMinCommits(),
-			acc.repoCount,
-		)
+		// Breadth = effective number of modules an author holds surviving
+		// gravity in (Hill number over per-module gravity), structure-neutral
+		// and survival-weighted — same shared helper as the analyzer and
+		// timeline pipelines so the three can't drift (W-02).
+		breadth := metric.ComputeBreadth(acc.authorModuleSurvival)
 		for author, b := range breadth {
 			acc.raw.Breadth[author] = b
 		}

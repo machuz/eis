@@ -1,72 +1,59 @@
 package metric
 
-// ComputeBreadth derives the per-author raw Breadth score from commit
-// counts, choosing the counting unit (repo vs module) per analysis run.
-//
-// Why a single shared function: the analyzer and timeline pipelines used to
-// each carry their own copy of the breadth loop. Two copies drift — a
-// threshold change in one is silently missed in the other, and the same
-// git history then yields different Breadth depending on which entry point
-// observed it. EIS requires determinism (W-02): identical input must give
-// identical output regardless of pipeline. Folding both into this one
-// function makes drift structurally impossible.
-//
-// Parameters:
-//   - authorRepoCommits:   author -> repo   -> commit count
-//   - authorModuleCommits: author -> module -> commit count
-//   - unit:       "auto" | "repo" | "module" (empty string == "auto")
-//   - minCommits: minimum commits in a repo/module for it to count
-//   - repoCount:  number of repos in this analysis run (drives "auto")
-//
-// Unit selection:
-//   - "auto":   repoCount == 1 -> module unit (monorepo), else repo unit.
-//   - "repo":   always repo unit.
-//   - "module": always module unit.
-//
-// The unit is decided once per run, not per author, so every author in the
-// same run is counted the same way and their Breadth scores stay comparable.
-//
-// Raw Breadth for an author is the number of distinct keys (repos or
-// modules) in which that author has at least minCommits commits. Authors
-// with a zero count are omitted from the result map (mirroring the prior
-// behaviour where Breadth was only set when count > 0).
-func ComputeBreadth(
-	authorRepoCommits map[string]map[string]int,
-	authorModuleCommits map[string]map[string]int,
-	unit string,
-	minCommits int,
-	repoCount int,
-) map[string]float64 {
-	if minCommits < 1 {
-		minCommits = 1
-	}
+import "math"
 
-	useModule := false
-	switch unit {
-	case "module":
-		useModule = true
-	case "repo":
-		useModule = false
-	default: // "auto" and any unrecognised value
-		useModule = repoCount == 1
-	}
-
-	source := authorRepoCommits
-	if useModule {
-		source = authorModuleCommits
-	}
-
-	result := make(map[string]float64, len(source))
-	for author, counts := range source {
-		count := 0
-		for _, c := range counts {
-			if c >= minCommits {
-				count++
+// ComputeBreadth derives the per-author raw Breadth score as the effective
+// number of modules over which an author holds surviving gravity — a Hill
+// number (q=1, exp of Shannon entropy) over the per-module shares of their
+// time-decayed surviving blame mass.
+//
+// Why this definition: the old Breadth counted distinct repos (or modules)
+// with ≥N commits. That had two independent flaws. The unit (repo) was a
+// packaging decision, so reorganising the same code from one monorepo into
+// many repos — a no-op — changed Breadth (gameable, and it collapsed to {0,1}
+// inside a monorepo). And the measure (commit presence) ignored survival, the
+// one axis you could inflate by spreading thin commits. Keying on the module
+// topology makes Breadth packaging-invariant; weighting by surviving gravity
+// makes a drive-by touch worth ~nothing; and the Hill number turns "how many
+// modules" into "how many modules they *effectively* hold" — a specialist with
+// all gravity in one module scores ≈1, someone spread evenly across five
+// scores ≈5, and 80%-in-one-plus-scraps scores ≈1.3. See
+// docs/eis/breadth-redefinition.md (in the orbit repo).
+//
+// Input is module → author → surviving gravity mass (the shape produced by
+// CalcModuleSurvivalByAuthor). Authors with zero total gravity are omitted, so
+// the result map matches the prior "only set when non-zero" contract.
+//
+// One shared function for both the analyzer and timeline pipelines: two copies
+// of the breadth loop drift, and the same git history would then yield
+// different Breadth depending on which pipeline observed it (W-02 violation).
+func ComputeBreadth(moduleSurvivalByAuthor map[string]map[string]float64) map[string]float64 {
+	// Transpose to author → []mass so each author's distribution is in hand.
+	authorMasses := make(map[string][]float64)
+	for _, authors := range moduleSurvivalByAuthor {
+		for author, mass := range authors {
+			if mass <= 0 {
+				continue
 			}
+			authorMasses[author] = append(authorMasses[author], mass)
 		}
-		if count > 0 {
-			result[author] = float64(count)
+	}
+
+	result := make(map[string]float64, len(authorMasses))
+	for author, masses := range authorMasses {
+		var total float64
+		for _, m := range masses {
+			total += m
 		}
+		if total <= 0 {
+			continue
+		}
+		var entropy float64
+		for _, m := range masses {
+			p := m / total
+			entropy -= p * math.Log(p)
+		}
+		result[author] = math.Exp(entropy)
 	}
 	return result
 }

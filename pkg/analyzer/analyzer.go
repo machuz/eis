@@ -412,16 +412,13 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		if !ok {
 			continue
 		}
-		// Breadth: unit follows the analysis scope (repo for multi-repo,
-		// module for monorepo) via the shared computeBreadth helper, so
-		// the analyzer and timeline pipelines can't drift (W-02).
-		breadth := metric.ComputeBreadth(
-			acc.authorRepoCommits,
-			acc.authorModuleCommits,
-			cfg.BreadthUnit(),
-			cfg.BreadthMinCommits(),
-			acc.repoCount,
-		)
+		// Breadth = effective number of modules an author holds surviving
+		// gravity in (Hill number over per-module gravity), structure-neutral
+		// and survival-weighted. The same per-(author,module) survival feeds
+		// DomainResults below, so compute it once with the org-level resolver.
+		domainResolver := metric.NewModuleResolver(config.PatternsForRepo(cfg, ""))
+		moduleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(acc.allBlameLines, cfg.Tau, start, domainResolver)
+		breadth := metric.ComputeBreadth(moduleSurvivalByAuthor)
 		for author, b := range breadth {
 			acc.raw.Breadth[author] = b
 		}
@@ -443,15 +440,14 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		if len(filtered) == 0 {
 			continue
 		}
-		// Module Topology — compute from accumulated cross-repo commits.
-		// Use the ORG-level resolver here: this rollup spans multiple repos
-		// in a domain, so per-repo overrides don't apply uniformly. Per-repo
-		// overrides only kick in for per-repo breakdowns below.
-		domainResolver := metric.NewModuleResolver(config.PatternsForRepo(cfg, ""))
+		// Module Topology — compute from accumulated cross-repo commits using
+		// the ORG-level resolver (domainResolver, built above for Breadth):
+		// this rollup spans multiple repos in a domain, so per-repo overrides
+		// don't apply uniformly. moduleSurvivalByAuthor is reused from the
+		// Breadth computation above (same resolver, same inputs).
 		cochange := metric.CalcCochange(acc.allCommits, domainResolver)
 		ownership := metric.CalcOwnershipFragmentation(acc.allBlameLines, domainResolver)
 		moduleSurvival := metric.CalcModuleSurvival(acc.allBlameLines, cfg.Tau, start, domainResolver)
-		moduleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(acc.allBlameLines, cfg.Tau, start, domainResolver)
 
 		dr := DomainResults{
 			Domain: d, Results: filtered, Risks: acc.risks, RepoCount: acc.repoCount,
@@ -471,13 +467,14 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					}
 					ra.acc.raw.Production[a] = t / days
 				}
-				// Per-repo Breadth saturates at 1: a per-repo breakdown is
-				// scoped to exactly one repo, so the repo-unit count is
-				// always {0,1}. Module-unit Breadth is a run-level decision
-				// (see ComputeBreadth) and is reported on the merged result,
-				// not re-derived here.
+				// Per-repo Breadth = effective number of modules the author
+				// holds gravity in WITHIN this repo (Hill number over this
+				// repo's per-module gravity), using this repo's resolver so
+				// RepoOverrides apply. Reused for the RepoResult below.
+				repoModuleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(ra.blameLines, cfg.Tau, start, ra.resolver)
+				repoBreadth := metric.ComputeBreadth(repoModuleSurvivalByAuthor)
 				for a := range ra.acc.raw.TotalCommits {
-					ra.acc.raw.Breadth[a] = 1
+					ra.acc.raw.Breadth[a] = repoBreadth[a]
 				}
 				s := scorer.Score(ra.acc.raw, cfg, ra.authorLastDate)
 				var rf []scorer.Result
@@ -492,7 +489,6 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					repoCochange := metric.CalcCochange(ra.commits, ra.resolver)
 					repoOwnership := metric.CalcOwnershipFragmentation(ra.blameLines, ra.resolver)
 					repoModuleSurvival := metric.CalcModuleSurvival(ra.blameLines, cfg.Tau, start, ra.resolver)
-					repoModuleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(ra.blameLines, cfg.Tau, start, ra.resolver)
 					dr.PerRepo = append(dr.PerRepo, RepoResult{
 						RepoName: ra.repoName, Domain: ra.domain, Results: rf,
 						Cochange: repoCochange, Ownership: repoOwnership, ModuleSurvival: repoModuleSurvival,

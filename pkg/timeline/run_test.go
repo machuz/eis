@@ -236,7 +236,6 @@ func TestRun_RepoOverrideAppliesModulePatterns(t *testing.T) {
 	cfg.RepoOverrides = map[string]config.RepoConfig{
 		repoName: {ModulePatterns: []string{"custom/*"}},
 	}
-	cfg.Breadth = config.Breadth{Unit: "module", MinCommits: 1}
 
 	results, err := Run(
 		Options{Span: "1m", Since: "2024-01-01", Workers: 1, PressureMode: "include"},

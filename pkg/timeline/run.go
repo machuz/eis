@@ -596,6 +596,32 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					}
 				}
 
+				// Per-(module, author) surviving gravity for Breadth (Hill
+				// number). Independent of the pressure split above; uses this
+				// repo's resolver and the period boundary as the time basis.
+				msba := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.Tau, window.End, moduleResolver)
+				for mod, authors := range msba {
+					dst := acc.authorModuleSurvival[mod]
+					if dst == nil {
+						dst = make(map[string]float64)
+						acc.authorModuleSurvival[mod] = dst
+					}
+					var rdst map[string]float64
+					if racc != nil {
+						rdst = racc.authorModuleSurvival[mod]
+						if rdst == nil {
+							rdst = make(map[string]float64)
+							racc.authorModuleSurvival[mod] = rdst
+						}
+					}
+					for author, mass := range authors {
+						dst[author] += mass
+						if rdst != nil {
+							rdst[author] += mass
+						}
+					}
+				}
+
 				// Indispensability
 				indisp, _ := metric.CalcIndispensability(blameLines, cfg.BusFactor.Critical, cfg.BusFactor.High)
 				mergeMap(acc.raw.Indispensability, indisp)
@@ -627,34 +653,19 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				}
 			}
 
-			// Breadth: unit follows the analysis scope (repo for multi-repo,
-			// module for monorepo) via the shared computeBreadth helper, so
-			// the timeline and analyzer pipelines can't drift (W-02).
-			breadth := metric.ComputeBreadth(
-				acc.authorRepoCommits,
-				acc.authorModuleCommits,
-				cfg.BreadthUnit(),
-				cfg.BreadthMinCommits(),
-				acc.repoCount,
-			)
+			// Breadth = effective number of modules an author holds surviving
+			// gravity in (Hill number over per-module gravity), structure-
+			// neutral and survival-weighted — same shared helper as the
+			// analyzer pipeline so the two can't drift (W-02).
+			breadth := metric.ComputeBreadth(acc.authorModuleSurvival)
 			for author, b := range breadth {
 				acc.raw.Breadth[author] = b
 			}
-			// Per-repo Breadth: each per-repo accumulator is scoped to a
-			// single repo. Under repo-unit counting the value saturates at
-			// {0,1}; under module-unit (monorepo) counting it reflects how
-			// many modules the author reached inside that repo. The unit is
-			// the run-level decision from ComputeBreadth, applied here with
-			// repoCount=1 so per-repo and merged use the same logic.
+			// Per-repo Breadth = effective modules the author reached inside
+			// that one repo (Hill number over this repo's per-module gravity).
 			if repoAccs != nil {
 				for _, racc := range repoAccs {
-					rb := metric.ComputeBreadth(
-						racc.authorRepoCommits,
-						racc.authorModuleCommits,
-						cfg.BreadthUnit(),
-						cfg.BreadthMinCommits(),
-						1,
-					)
+					rb := metric.ComputeBreadth(racc.authorModuleSurvival)
 					for author, b := range rb {
 						racc.raw.Breadth[author] = b
 					}
@@ -805,22 +816,27 @@ type accumulator struct {
 	debtCounts          map[string]int
 	authorRepoCommits   map[string]map[string]int
 	authorModuleCommits map[string]map[string]int
-	authorFirstDate     map[string]time.Time
-	authorLastDate      map[string]time.Time
-	repoCount           int
-	changePressure      metric.ChangePressure
+	// authorModuleSurvival accumulates per-(module, author) surviving gravity
+	// mass across repos in this period — the input to the survival-weighted,
+	// structure-neutral Breadth (Hill number). Keyed module → author → mass.
+	authorModuleSurvival map[string]map[string]float64
+	authorFirstDate      map[string]time.Time
+	authorLastDate       map[string]time.Time
+	repoCount            int
+	changePressure       metric.ChangePressure
 }
 
 func newAccumulator() *accumulator {
 	return &accumulator{
-		raw:                 metric.NewRawScores(),
-		qualityCounts:       make(map[string]int),
-		debtCounts:          make(map[string]int),
-		authorRepoCommits:   make(map[string]map[string]int),
-		authorModuleCommits: make(map[string]map[string]int),
-		authorFirstDate:     make(map[string]time.Time),
-		authorLastDate:      make(map[string]time.Time),
-		changePressure:      make(metric.ChangePressure),
+		raw:                  metric.NewRawScores(),
+		qualityCounts:        make(map[string]int),
+		debtCounts:           make(map[string]int),
+		authorRepoCommits:    make(map[string]map[string]int),
+		authorModuleCommits:  make(map[string]map[string]int),
+		authorModuleSurvival: make(map[string]map[string]float64),
+		authorFirstDate:      make(map[string]time.Time),
+		authorLastDate:       make(map[string]time.Time),
+		changePressure:       make(metric.ChangePressure),
 	}
 }
 
