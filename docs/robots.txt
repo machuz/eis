@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Raw markdown sources (blog-*.md etc.) are the source for the rendered
+# books — keep them out of the index so they don't compete with the HTML
+# pages as duplicate content.
+Disallow: /*.md$
+
+Sitemap: https://library.orbitlens.io/sitemap.xml
