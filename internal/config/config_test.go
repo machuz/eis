@@ -227,12 +227,6 @@ domains:
 // layer / PatternsForRepo fall through to DefaultModulePatterns).
 func TestBreadthAndModulePatternDefaults(t *testing.T) {
 	cfg := loadFromString(t, "tau: 180\n")
-	if cfg.BreadthUnit() != "auto" {
-		t.Errorf("default breadth unit = %q, want auto", cfg.BreadthUnit())
-	}
-	if cfg.BreadthMinCommits() != 3 {
-		t.Errorf("default breadth min_commits = %d, want 3", cfg.BreadthMinCommits())
-	}
 	if len(cfg.ModulePatterns) != 0 {
 		t.Errorf("module_patterns should be empty by default, got %v", cfg.ModulePatterns)
 	}
@@ -241,24 +235,16 @@ func TestBreadthAndModulePatternDefaults(t *testing.T) {
 	}
 }
 
-// Explicit breadth + module_patterns values are parsed and honoured.
+// Explicit module_patterns values are parsed and honoured. (Breadth is no
+// longer configurable — it's the structure-neutral survival Hill number.)
 func TestBreadthAndModulePatternsFromYAML(t *testing.T) {
 	yaml := `
 tau: 180
-breadth:
-  unit: module
-  min_commits: 5
 module_patterns:
   - "domains/*"
   - "cmd/*"
 `
 	cfg := loadFromString(t, yaml)
-	if cfg.BreadthUnit() != "module" {
-		t.Errorf("breadth unit = %q, want module", cfg.BreadthUnit())
-	}
-	if cfg.BreadthMinCommits() != 5 {
-		t.Errorf("breadth min_commits = %d, want 5", cfg.BreadthMinCommits())
-	}
 	if len(cfg.ModulePatterns) != 2 || cfg.ModulePatterns[0] != "domains/*" {
 		t.Errorf("module_patterns = %v, want [domains/* cmd/*]", cfg.ModulePatterns)
 	}
@@ -321,18 +307,6 @@ func TestPatternsForRepoLookup(t *testing.T) {
 	}
 	if got := PatternsForRepo(cfgEmptyOverride, "mono"); len(got) != 1 || got[0] != "services/*" {
 		t.Errorf("empty override path: PatternsForRepo(mono) = %v, want org-level [services/*]", got)
-	}
-}
-
-// An invalid breadth.unit is rejected by Validate.
-func TestBreadthUnitValidation(t *testing.T) {
-	dir := t.TempDir()
-	path := filepath.Join(dir, "eis.yaml")
-	if err := os.WriteFile(path, []byte("tau: 180\nbreadth:\n  unit: bogus\n"), 0644); err != nil {
-		t.Fatalf("write temp config: %v", err)
-	}
-	if _, err := Load(path, true); err == nil {
-		t.Error("Load should reject breadth.unit: bogus")
 	}
 }
 

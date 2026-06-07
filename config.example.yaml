@@ -109,18 +109,9 @@ tau: 180  # days. weight = exp(-age / tau)
 # Active days — how recently an author must have committed to be marked "active"
 active_days: 30  # default 30 days (1 month)
 
-# Breadth axis — how an author's reach is counted.
-#   unit:
-#     auto   — repo unit for multi-repo analysis, module unit for a single
-#              repo (monorepo). The unit is decided once per analysis run,
-#              so every author in one run is counted the same way. (default)
-#     repo   — always count distinct repos.
-#     module — always count distinct modules (convention-aware).
-#   min_commits — minimum commits in a repo/module for it to count toward
-#                 Breadth. Applies to both repo-unit and module-unit. (default 3)
-breadth:
-  unit: auto
-  min_commits: 3
+# Breadth axis is not configurable: it is the effective number of modules an
+# author holds surviving gravity in (a Hill number over per-module gravity),
+# which is structure-neutral (monorepo vs polyrepo invariant) by construction.
 
 # Glob patterns used by module resolution. Each `*` matches a SINGLE path
 # component (no `/`). When a file path matches a pattern, the module
