@@ -39,5 +39,6 @@ var (
 	// Module Topology
 	CalcCochange               = metric.CalcCochange
 	CalcModuleSurvival         = metric.CalcModuleSurvival
+	CalcModuleSurvivalByAuthor = metric.CalcModuleSurvivalByAuthor
 	CalcOwnershipFragmentation = metric.CalcOwnershipFragmentation
 )

@@ -44,16 +44,21 @@ type DomainResults struct {
 	Cochange       metric.CochangeResult
 	Ownership      []metric.ModuleOwnership
 	ModuleSurvival map[string]float64 // module → survival rate (0-1)
+	// ModuleSurvivalByAuthor decomposes surviving blame mass by module → author.
+	// The spatial distribution of each author's surviving gravity; the primitive
+	// for structure-neutral (module-unit) Breadth on the consuming side.
+	ModuleSurvivalByAuthor map[string]map[string]float64
 }
 
 // RepoResult holds scored results for a single repository.
 type RepoResult struct {
-	RepoName       string
-	Domain         domain.Domain
-	Results        []scorer.Result
-	Cochange       metric.CochangeResult
-	Ownership      []metric.ModuleOwnership
-	ModuleSurvival map[string]float64
+	RepoName               string
+	Domain                 domain.Domain
+	Results                []scorer.Result
+	Cochange               metric.CochangeResult
+	Ownership              []metric.ModuleOwnership
+	ModuleSurvival         map[string]float64
+	ModuleSurvivalByAuthor map[string]map[string]float64
 }
 
 // ProgressFunc is called with (done, total) during long-running operations.
@@ -355,10 +360,10 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			debtVerbose = cb.OnVerbose
 		}
 		var debtProg metric.ProgressFunc
-	if cb.OnDebtProgress != nil {
-		debtProg = metric.ProgressFunc(cb.OnDebtProgress)
-	}
-	debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor, debtProg, debtVerbose)
+		if cb.OnDebtProgress != nil {
+			debtProg = metric.ProgressFunc(cb.OnDebtProgress)
+		}
+		debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor, debtProg, debtVerbose)
 		mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
 
 		if opts.PerRepo {
@@ -446,10 +451,12 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		cochange := metric.CalcCochange(acc.allCommits, domainResolver)
 		ownership := metric.CalcOwnershipFragmentation(acc.allBlameLines, domainResolver)
 		moduleSurvival := metric.CalcModuleSurvival(acc.allBlameLines, cfg.Tau, start, domainResolver)
+		moduleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(acc.allBlameLines, cfg.Tau, start, domainResolver)
 
 		dr := DomainResults{
 			Domain: d, Results: filtered, Risks: acc.risks, RepoCount: acc.repoCount,
 			Cochange: cochange, Ownership: ownership, ModuleSurvival: moduleSurvival,
+			ModuleSurvivalByAuthor: moduleSurvivalByAuthor,
 		}
 
 		if opts.PerRepo {
@@ -485,9 +492,11 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					repoCochange := metric.CalcCochange(ra.commits, ra.resolver)
 					repoOwnership := metric.CalcOwnershipFragmentation(ra.blameLines, ra.resolver)
 					repoModuleSurvival := metric.CalcModuleSurvival(ra.blameLines, cfg.Tau, start, ra.resolver)
+					repoModuleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(ra.blameLines, cfg.Tau, start, ra.resolver)
 					dr.PerRepo = append(dr.PerRepo, RepoResult{
 						RepoName: ra.repoName, Domain: ra.domain, Results: rf,
 						Cochange: repoCochange, Ownership: repoOwnership, ModuleSurvival: repoModuleSurvival,
+						ModuleSurvivalByAuthor: repoModuleSurvivalByAuthor,
 					})
 				}
 			}
