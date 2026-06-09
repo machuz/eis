@@ -41,6 +41,27 @@ type Config struct {
 	// DefaultModulePatterns is used. Paths matching nothing fall back to
 	// the conservative 2-component default (e.g. "a/b/c/d.go" -> "a/b").
 	ModulePatterns []string `yaml:"module_patterns"`
+	// ExcludeModules drops resolved modules from ALL module-topology metrics
+	// (module signals, Breadth, cochange, ownership fragmentation,
+	// indispensability, per-module test ratio). Each pattern's components are
+	// matched component-wise (filepath.Match, so `*`/`?`/`[...]` work) against
+	// the FRONT of a resolved module id — a 1-component pattern matches any
+	// module whose first component matches.
+	//
+	// This is the symmetric counterpart to ModulePatterns ("what IS a module"
+	// vs "what is NOT"). It exists because the 2-component fallback turns every
+	// unmatched top-level directory into a module, so date-stamped migration /
+	// generated directories (e.g. "20240403", "20250417/update_store_plans")
+	// pollute the topology and inflate Breadth (the Hill number over per-module
+	// survival shares). Matching is deterministic (W-02) and config-driven —
+	// no date/heuristic inference (W-01).
+	//
+	// Examples:
+	//   "20*"        excludes "20240403" and "20250417/update_store_plans"
+	//   "migrations" excludes "migrations" and "migrations/<anything>"
+	//
+	// Default empty — opt-in, so existing observations are unchanged until set.
+	ExcludeModules []string `yaml:"exclude_modules"`
 	// RepoOverrides keys per-repo module pattern lists by the repo's
 	// full identifier (matching whatever the caller threads down — for
 	// the CLI today this is filepath.Base(repoPath); for SaaS callers
@@ -73,6 +94,9 @@ type RepoConfig struct {
 	// for this repo. An empty/nil list means "no override" — use the
 	// org-level patterns (or DefaultModulePatterns if those are empty too).
 	ModulePatterns []string `yaml:"module_patterns"`
+	// ExcludeModules is ADDED to (not replacing) Config.ExcludeModules for
+	// this repo — org-level excludes always apply; the repo adds its own.
+	ExcludeModules []string `yaml:"exclude_modules"`
 }
 
 // DefaultModulePatterns is the built-in set of monorepo-convention glob
@@ -103,6 +127,20 @@ func PatternsForRepo(cfg *Config, repoName string) []string {
 		}
 	}
 	return DefaultModulePatterns
+}
+
+// ExcludesForRepo returns the effective module-exclude list for a repo:
+// org-level Config.ExcludeModules plus any per-repo additions (additive, not
+// replacing — unlike module patterns). The lookup key matches PatternsForRepo.
+func ExcludesForRepo(cfg *Config, repoName string) []string {
+	if cfg == nil {
+		return nil
+	}
+	out := append([]string(nil), cfg.ExcludeModules...)
+	if ov, ok := cfg.RepoOverrides[repoName]; ok && len(ov.ExcludeModules) > 0 {
+		out = append(out, ov.ExcludeModules...)
+	}
+	return out
 }
 
 // DomainsConfig maps domain names to their configuration.

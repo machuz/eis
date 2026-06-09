@@ -149,11 +149,18 @@ func BuildTestedSet(allFiles []string, mr ModuleResolver) *TestedSet {
 	testFiles := make(map[string]struct{}, len(allFiles)/4)
 	dirHasTest := make(map[string]bool)
 	for _, f := range allFiles {
+		// mod == "" → excluded module (ExcludeModules): keep it out of the
+		// per-module test ratios, but still let the file feed the global
+		// tested-set (testFiles / dirHasTest) so survival weighting is unchanged.
 		mod := mr.ModuleOf(f)
-		ts.moduleTotalFiles[mod]++
+		if mod != "" {
+			ts.moduleTotalFiles[mod]++
+		}
 		if IsTestFile(f) {
 			testFiles[f] = struct{}{}
-			ts.moduleTestFiles[mod]++
+			if mod != "" {
+				ts.moduleTestFiles[mod]++
+			}
 			dir := filepath.Dir(filepath.ToSlash(f))
 			dirHasTest[dir] = true
 		}
@@ -204,15 +211,15 @@ func hasSiblingTestFile(prodPath string, testFiles map[string]struct{}) bool {
 	stem := strings.TrimSuffix(base, ext)
 
 	candidates := []string{
-		dir + "/" + stem + "_test" + ext,  // Go, Python: foo_test.go / foo_test.py
-		dir + "/" + stem + ".test" + ext,  // JS/TS: foo.test.ts
-		dir + "/" + stem + ".spec" + ext,  // JS/TS: foo.spec.ts
-		dir + "/" + "test_" + stem + ext,  // Python: test_foo.py
-		dir + "/" + stem + "_spec" + ext,  // Ruby: foo_spec.rb (+ other .ext)
-		dir + "/" + stem + "Test" + ext,   // Java/Kotlin: FooTest.java
-		dir + "/" + stem + "Tests" + ext,  // Java variant
-		dir + "/" + stem + "Spec" + ext,   // Scala: FooSpec.scala
-		dir + "/" + "Test" + stem + ext,   // Java: TestFoo.java (older style)
+		dir + "/" + stem + "_test" + ext, // Go, Python: foo_test.go / foo_test.py
+		dir + "/" + stem + ".test" + ext, // JS/TS: foo.test.ts
+		dir + "/" + stem + ".spec" + ext, // JS/TS: foo.spec.ts
+		dir + "/" + "test_" + stem + ext, // Python: test_foo.py
+		dir + "/" + stem + "_spec" + ext, // Ruby: foo_spec.rb (+ other .ext)
+		dir + "/" + stem + "Test" + ext,  // Java/Kotlin: FooTest.java
+		dir + "/" + stem + "Tests" + ext, // Java variant
+		dir + "/" + stem + "Spec" + ext,  // Scala: FooSpec.scala
+		dir + "/" + "Test" + stem + ext,  // Java: TestFoo.java (older style)
 	}
 	for _, c := range candidates {
 		if _, ok := testFiles[c]; ok {

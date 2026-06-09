@@ -43,8 +43,9 @@ func CalcCochange(commits []git.Commit, mr ModuleResolver) CochangeResult {
 		// Unique modules touched by this commit
 		touched := make(map[string]bool)
 		for _, fs := range c.FileStats {
-			mod := mr.ModuleOf(fs.Filename)
-			touched[mod] = true
+			if mod := mr.ModuleOf(fs.Filename); mod != "" {
+				touched[mod] = true
+			}
 		}
 
 		mods := make([]string, 0, len(touched))

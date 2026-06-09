@@ -17,8 +17,9 @@ func CalcChangePressure(commits []git.Commit, blameLines []git.BlameLine, mr Mod
 	for _, c := range commits {
 		touched := make(map[string]bool)
 		for _, fs := range c.FileStats {
-			mod := mr.ModuleOf(fs.Filename)
-			touched[mod] = true
+			if mod := mr.ModuleOf(fs.Filename); mod != "" {
+				touched[mod] = true
+			}
 		}
 		for mod := range touched {
 			moduleCommits[mod]++
@@ -28,8 +29,9 @@ func CalcChangePressure(commits []git.Commit, blameLines []git.BlameLine, mr Mod
 	// Count blame lines per module
 	moduleBlameLines := make(map[string]int)
 	for _, bl := range blameLines {
-		mod := mr.ModuleOf(bl.Filename)
-		moduleBlameLines[mod]++
+		if mod := mr.ModuleOf(bl.Filename); mod != "" {
+			moduleBlameLines[mod]++
+		}
 	}
 
 	// Calculate pressure

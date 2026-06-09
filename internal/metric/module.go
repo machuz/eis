@@ -55,6 +55,11 @@ type patternComponent struct {
 //     or "." for a root-level file).
 type ModuleResolver struct {
 	patterns []parsedPattern
+	// excludes is the compiled ExcludeModules list — each entry is a pattern
+	// split into path components. A resolved module is dropped (ModuleOf
+	// returns "") when any exclude matches the FRONT of its components via
+	// filepath.Match. Empty (the default) means no exclusion.
+	excludes [][]string
 }
 
 // NewModuleResolver builds a resolver from a glob-pattern list. When the
@@ -81,6 +86,57 @@ func NewModuleResolver(patterns []string) ModuleResolver {
 		out = append(out, pp)
 	}
 	return ModuleResolver{patterns: out}
+}
+
+// NewModuleResolverWithExcludes is NewModuleResolver plus an ExcludeModules
+// list (see config.ExcludeModules). Excluded modules resolve to "" so every
+// module-topology aggregation drops them. Excludes are matched component-wise
+// with filepath.Match against the front of a resolved module id.
+func NewModuleResolverWithExcludes(patterns, excludes []string) ModuleResolver {
+	r := NewModuleResolver(patterns)
+	for _, e := range excludes {
+		clean := strings.Trim(filepath.ToSlash(e), "/")
+		if clean == "" {
+			continue
+		}
+		var comps []string
+		for _, p := range strings.Split(clean, "/") {
+			if p != "" {
+				comps = append(comps, p)
+			}
+		}
+		if len(comps) > 0 {
+			r.excludes = append(r.excludes, comps)
+		}
+	}
+	return r
+}
+
+// isExcluded reports whether a resolved module id matches any ExcludeModules
+// pattern. A pattern matches when, for its k components, filepath.Match
+// succeeds against the module's first k components (a prefix match — so a
+// 1-component pattern like "20*" drops both "20240403" and "20240403/sub").
+func (r ModuleResolver) isExcluded(module string) bool {
+	if len(r.excludes) == 0 || module == "" {
+		return false
+	}
+	parts := strings.Split(module, "/")
+	for _, pat := range r.excludes {
+		if len(pat) > len(parts) {
+			continue
+		}
+		matched := true
+		for i, comp := range pat {
+			if ok, _ := filepath.Match(comp, parts[i]); !ok {
+				matched = false
+				break
+			}
+		}
+		if matched {
+			return true
+		}
+	}
+	return false
 }
 
 // compilePattern splits a glob pattern into components. Returns (_, false)
@@ -114,8 +170,20 @@ func compilePattern(s string) (parsedPattern, bool) {
 }
 
 // ModuleOf returns the module identifier for a file path under this
-// resolver's pattern set. See ModuleResolver for the resolution rule.
+// resolver's pattern set, or "" when the resolved module is excluded
+// (ExcludeModules). Callers that aggregate by module MUST skip the "" result
+// so excluded modules stay out of every module-topology metric. See
+// ModuleResolver for the resolution rule.
 func (r ModuleResolver) ModuleOf(path string) string {
+	module := r.resolve(path)
+	if r.isExcluded(module) {
+		return ""
+	}
+	return module
+}
+
+// resolve maps a file path to a module identifier without applying excludes.
+func (r ModuleResolver) resolve(path string) string {
 	dir := filepath.Dir(path)
 	parts := strings.Split(filepath.ToSlash(dir), "/")
 

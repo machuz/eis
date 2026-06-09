@@ -2,9 +2,7 @@ package metric
 
 import (
 	"math"
-	"path/filepath"
 	"sort"
-	"strings"
 
 	"github.com/machuz/eis/v2/internal/git"
 )
@@ -16,14 +14,15 @@ type ModuleRisk struct {
 	Level     string // "CRITICAL" or "HIGH"
 }
 
-func CalcIndispensability(blameLines []git.BlameLine, criticalThreshold, highThreshold float64) (map[string]float64, []ModuleRisk) {
-	// Group blame lines by module (top-level directory)
+func CalcIndispensability(blameLines []git.BlameLine, mr ModuleResolver, criticalThreshold, highThreshold float64) (map[string]float64, []ModuleRisk) {
+	// Group blame lines by module via the shared resolver, so module_patterns
+	// and ExcludeModules apply consistently with the other module metrics.
 	moduleAuthors := make(map[string]map[string]int) // module -> author -> count
 
 	for _, bl := range blameLines {
-		module := getModule(bl.Filename)
+		module := mr.ModuleOf(bl.Filename)
 		if module == "" {
-			continue
+			continue // root-level file or excluded module (ExcludeModules)
 		}
 
 		if _, ok := moduleAuthors[module]; !ok {
@@ -122,6 +121,9 @@ func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) [
 
 	for _, bl := range blameLines {
 		mod := mr.ModuleOf(bl.Filename)
+		if mod == "" {
+			continue // excluded module (ExcludeModules)
+		}
 		if _, ok := moduleAuthors[mod]; !ok {
 			moduleAuthors[mod] = make(map[string]int)
 		}
@@ -181,10 +183,10 @@ func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) [
 
 // classifyOwnership determines the ownership health level of a module.
 //
-//   SOLE_OWNER:    1 author — bus factor = 1, structural collapse risk
-//   CONCENTRATED:  top author ≥ 80% — effectively sole owner
-//   HEALTHY:       top author 40-80% — distributed with clear ownership
-//   FRAGMENTED:    top author < 40% — no clear owner, coordination risk
+//	SOLE_OWNER:    1 author — bus factor = 1, structural collapse risk
+//	CONCENTRATED:  top author ≥ 80% — effectively sole owner
+//	HEALTHY:       top author 40-80% — distributed with clear ownership
+//	FRAGMENTED:    top author < 40% — no clear owner, coordination risk
 func classifyOwnership(topShare float64, authorCount int) string {
 	if authorCount == 1 {
 		return "SOLE_OWNER"
@@ -196,16 +198,4 @@ func classifyOwnership(topShare float64, authorCount int) string {
 		return "HEALTHY"
 	}
 	return "FRAGMENTED"
-}
-
-func getModule(filename string) string {
-	parts := strings.Split(filepath.ToSlash(filename), "/")
-	if len(parts) < 2 {
-		return ""
-	}
-	// Use first two path components as module (e.g., "app/domain")
-	if len(parts) >= 3 {
-		return parts[0] + "/" + parts[1]
-	}
-	return parts[0]
 }

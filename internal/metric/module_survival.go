@@ -22,6 +22,9 @@ func CalcModuleSurvival(blameLines []git.BlameLine, tau float64, now time.Time, 
 
 	for _, bl := range blameLines {
 		mod := mr.ModuleOf(bl.Filename)
+		if mod == "" {
+			continue // excluded module (ExcludeModules)
+		}
 
 		ms, ok := modules[mod]
 		if !ok {
@@ -67,6 +70,9 @@ func CalcModuleSurvivalByAuthor(blameLines []git.BlameLine, tau float64, now tim
 
 	for _, bl := range blameLines {
 		mod := mr.ModuleOf(bl.Filename)
+		if mod == "" {
+			continue // excluded module (ExcludeModules) — keeps Breadth clean
+		}
 
 		daysAlive := now.Sub(bl.CommitterTime).Hours() / 24
 		if daysAlive < 0 {
