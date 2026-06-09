@@ -379,7 +379,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			for _, repo := range drepos {
 				// Per-repo module resolver: honors RepoOverrides keyed by
 				// repo.name (the same identifier the YAML uses).
-				moduleResolver := metric.NewModuleResolver(config.PatternsForRepo(cfg, repo.name))
+				moduleResolver := metric.NewModuleResolverWithExcludes(config.PatternsForRepo(cfg, repo.name), config.ExcludesForRepo(cfg, repo.name))
 
 				// Filter commits to this period
 				var periodCommits []git.Commit
@@ -451,7 +451,9 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					}
 					touchedModules := make(map[string]bool)
 					for _, fs := range c.FileStats {
-						touchedModules[moduleResolver.ModuleOf(fs.Filename)] = true
+						if mod := moduleResolver.ModuleOf(fs.Filename); mod != "" {
+							touchedModules[mod] = true
+						}
 					}
 					for mod := range touchedModules {
 						acc.authorModuleCommits[c.Author][mod]++
@@ -623,7 +625,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				}
 
 				// Indispensability
-				indisp, _ := metric.CalcIndispensability(blameLines, cfg.BusFactor.Critical, cfg.BusFactor.High)
+				indisp, _ := metric.CalcIndispensability(blameLines, moduleResolver, cfg.BusFactor.Critical, cfg.BusFactor.High)
 				mergeMap(acc.raw.Indispensability, indisp)
 				if racc != nil {
 					mergeMap(racc.raw.Indispensability, indisp)

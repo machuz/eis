@@ -391,7 +391,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// repoName-only identifier convention). Falls back to org-level
 		// ModulePatterns and then to DefaultModulePatterns inside
 		// PatternsForRepo.
-		moduleResolver := metric.NewModuleResolver(config.PatternsForRepo(cfg, repoName))
+		moduleResolver := metric.NewModuleResolverWithExcludes(config.PatternsForRepo(cfg, repoName), config.ExcludesForRepo(cfg, repoName))
 
 		// Get HEAD hash for cache keys
 		headHash, _ := git.HeadHash(ctx, repoPath)
@@ -484,7 +484,9 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 			touchedModules := make(map[string]bool)
 			for _, fs := range c.FileStats {
-				touchedModules[moduleResolver.ModuleOf(fs.Filename)] = true
+				if mod := moduleResolver.ModuleOf(fs.Filename); mod != "" {
+					touchedModules[mod] = true
+				}
 			}
 			for mod := range touchedModules {
 				acc.authorModuleCommits[c.Author][mod]++
@@ -640,7 +642,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 
 		// Indispensability
-		indisp, risks := metric.CalcIndispensability(blameLines, cfg.BusFactor.Critical, cfg.BusFactor.High)
+		indisp, risks := metric.CalcIndispensability(blameLines, moduleResolver, cfg.BusFactor.Critical, cfg.BusFactor.High)
 		mergeMap(acc.raw.Indispensability, indisp)
 
 		// Step 3: Debt cleanup

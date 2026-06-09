@@ -195,7 +195,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// Per-repo module resolver: honors RepoOverrides for this repo.
 		// The lookup key here is repoName (filepath.Base) — match that in
 		// the YAML repo_overrides map.
-		moduleResolver := metric.NewModuleResolver(config.PatternsForRepo(cfg, repoName))
+		moduleResolver := metric.NewModuleResolverWithExcludes(config.PatternsForRepo(cfg, repoName), config.ExcludesForRepo(cfg, repoName))
 
 		// Get HEAD hash for cache keys
 		headHash, _ := git.HeadHash(ctx, repoPath)
@@ -260,7 +260,9 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			}
 			touchedModules := make(map[string]bool)
 			for _, fs := range c.FileStats {
-				touchedModules[moduleResolver.ModuleOf(fs.Filename)] = true
+				if mod := moduleResolver.ModuleOf(fs.Filename); mod != "" {
+					touchedModules[mod] = true
+				}
 			}
 			for mod := range touchedModules {
 				acc.authorModuleCommits[c.Author][mod]++
@@ -350,7 +352,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
 		}
 
-		indisp, risks := metric.CalcIndispensability(blameLines, cfg.BusFactor.Critical, cfg.BusFactor.High)
+		indisp, risks := metric.CalcIndispensability(blameLines, moduleResolver, cfg.BusFactor.Critical, cfg.BusFactor.High)
 		mergeMap(acc.raw.Indispensability, indisp)
 		acc.risks = append(acc.risks, risks...)
 
@@ -416,7 +418,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// gravity in (Hill number over per-module gravity), structure-neutral
 		// and survival-weighted. The same per-(author,module) survival feeds
 		// DomainResults below, so compute it once with the org-level resolver.
-		domainResolver := metric.NewModuleResolver(config.PatternsForRepo(cfg, ""))
+		domainResolver := metric.NewModuleResolverWithExcludes(config.PatternsForRepo(cfg, ""), config.ExcludesForRepo(cfg, ""))
 		moduleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(acc.allBlameLines, cfg.Tau, start, domainResolver)
 		breadth := metric.ComputeBreadth(moduleSurvivalByAuthor)
 		for author, b := range breadth {
