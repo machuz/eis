@@ -368,7 +368,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 
 		bold := color.New(color.Bold)
 		domainLabel := color.New(color.FgCyan).Sprintf("[%s]", repoDomain)
-		bold.Printf("Analyzing: %s %s\n", repoName, domainLabel)
+		bold.Fprintf(os.Stderr, "Analyzing: %s %s\n", repoName, domainLabel)
 
 		// Shallow clone warning
 		if git.IsShallowRepo(ctx, repoPath) {

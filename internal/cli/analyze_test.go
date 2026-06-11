@@ -1,11 +1,15 @@
 package cli
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 
 	"github.com/machuz/eis/v2/internal/config"
@@ -551,4 +555,82 @@ func createTempGitRepo(t *testing.T, files map[string]string) string {
 	run("git", "commit", "-m", "init")
 
 	return dir
+}
+
+// captureStd swaps os.Stdout and os.Stderr with pipes for the duration of fn,
+// returning everything written to each stream. Used to assert output-stream
+// purity: machine-readable formats (json/csv) must not be polluted by
+// human-facing banners. Both the JSON encoder (json.NewEncoder(os.Stdout)) and
+// the "Analyzing:" banner (os.Stderr) resolve their stream at call time, so the
+// swap captures both.
+func captureStd(t *testing.T, fn func()) (stdout, stderr string) {
+	t.Helper()
+	origOut, origErr := os.Stdout, os.Stderr
+	outR, outW, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	errR, errW, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	os.Stdout, os.Stderr = outW, errW
+	defer func() { os.Stdout, os.Stderr = origOut, origErr }()
+
+	var outBuf, errBuf bytes.Buffer
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go func() { defer wg.Done(); _, _ = io.Copy(&outBuf, outR) }()
+	go func() { defer wg.Done(); _, _ = io.Copy(&errBuf, errR) }()
+
+	fn()
+
+	_ = outW.Close()
+	_ = errW.Close()
+	wg.Wait()
+	return outBuf.String(), errBuf.String()
+}
+
+// TestAnalyzeJSONOutput_PureStdout guards the CLI=data-generator contract: with
+// --format json, stdout must carry ONLY the JSON document. The human-facing
+// "Analyzing: <repo> [<domain>]" banner belongs on stderr. This is a regression
+// test for banner contamination that broke `eis analyze --format json | jq` and
+// the team JSON pipeline (the banner was printed to stdout via bold.Printf).
+func TestAnalyzeJSONOutput_PureStdout(t *testing.T) {
+	dir := createTempGitRepo(t, map[string]string{
+		"main.go": "package main\n\nfunc main() { println(\"hi\") }\n",
+	})
+
+	opts := AnalyzeOptions{
+		Tau:          180,
+		SampleSize:   500,
+		Workers:      2,
+		MaxDepth:     2,
+		Format:       "json",
+		PressureMode: "include",
+		ActiveDays:   30,
+		NoCache:      true,
+	}
+
+	stdout, stderr := captureStd(t, func() {
+		results, cfg, err := RunAnalyzePipeline(opts, []string{dir})
+		if err != nil {
+			t.Errorf("pipeline: %v", err)
+			return
+		}
+		if err := outputAnalyzeResults(results, cfg, "json"); err != nil {
+			t.Errorf("output: %v", err)
+		}
+	})
+
+	if strings.Contains(stdout, "Analyzing:") {
+		t.Fatalf("stdout polluted by banner — breaks `| jq`:\n%s", stdout)
+	}
+	var v map[string]any
+	if err := json.Unmarshal([]byte(stdout), &v); err != nil {
+		t.Fatalf("stdout is not valid JSON (banner contamination?): %v\n%s", err, stdout)
+	}
+	if !strings.Contains(stderr, "Analyzing:") {
+		t.Errorf("Analyzing banner should be routed to stderr; stderr was:\n%s", stderr)
+	}
 }
