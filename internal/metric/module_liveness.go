@@ -30,10 +30,26 @@ func ComputeModuleFold(commits []git.Commit, mr ModuleResolver, minMonths int) m
 	// paths resolve it as a fallback (declared wins).
 	declared := make(map[string]bool)
 
+	// Cache resolution by filename: the same path recurs across thousands of
+	// commits, and ResolveWithOrigin does path-cleaning + glob matching on each
+	// call. Resolution is pure for a fixed resolver, so memoizing by filename
+	// is safe and cuts the dominant cost in large histories.
+	type resolved struct {
+		module     string
+		isDeclared bool
+	}
+	cache := make(map[string]resolved)
+
 	for _, c := range commits {
 		ym := int(c.Date.Year())*12 + int(c.Date.Month())
 		for _, fs := range c.FileStats {
-			module, isDeclared := mr.ResolveWithOrigin(fs.Filename)
+			res, ok := cache[fs.Filename]
+			if !ok {
+				m, d := mr.ResolveWithOrigin(fs.Filename)
+				res = resolved{module: m, isDeclared: d}
+				cache[fs.Filename] = res
+			}
+			module, isDeclared := res.module, res.isDeclared
 			if module == "" {
 				// Excluded — outside module topology entirely.
 				continue
