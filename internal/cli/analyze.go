@@ -432,6 +432,14 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		}
 
+		// Module liveness gate (ADR step 2): fold fallback-derived modules not
+		// touched in >= ModuleLivenessMinMonths distinct calendar months into
+		// metric.PeripheralModule. Computed from commit.Date over the filtered
+		// non-merge commits (deterministic, W-02); must run before the resolver
+		// reaches any module-topology metric below.
+		fold := metric.ComputeModuleFold(commits, moduleResolver, cfg.ModuleLivenessMinMonths)
+		moduleResolver = moduleResolver.WithFold(fold)
+
 		// Also fetch merge commits for fix detection in Quality
 		var mergeCommits []git.Commit
 		mergeCacheKey := cache.MergeLogKey(repoPath, headHash)
