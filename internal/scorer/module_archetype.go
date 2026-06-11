@@ -131,6 +131,12 @@ func ScoreModules(
 	// Build scores
 	var scores []ModuleScore
 	for mod := range allModules {
+		// The peripheral bucket aggregates unrelated low-liveness fallback
+		// modules; it is a denoising sentinel, not a real cohesive module, so
+		// it must not appear as a topology row.
+		if mod == metric.PeripheralModule {
+			continue
+		}
 		ms := ModuleScore{
 			Module:         mod,
 			ChangePressure: pressure[mod],
