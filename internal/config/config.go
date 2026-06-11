@@ -102,12 +102,23 @@ type RepoConfig struct {
 // DefaultModulePatterns is the built-in set of monorepo-convention glob
 // patterns. Equivalent to the historical "convention dirs" hard-coded list,
 // but expressed as glob patterns so users can extend / refine it.
+//
+// The two trailing anchors `**/domain/*` and `**/usecase/*` capture
+// sub-domain modules at ANY depth: a `domain` or `usecase` directory marks a
+// business-knowledge boundary, so the module identifier extends down to the
+// immediate child of that directory wherever the monorepo nests it (e.g.
+// "services/ace/backend/app/domain/star"). Infrastructure and presentation
+// directories are deliberately NOT anchored — they carry framework/plumbing,
+// not business knowledge. See docs/eis/module-recognition.md (in the orbit
+// repo) for the rationale.
 var DefaultModulePatterns = []string{
 	"services/*",
 	"packages/*",
 	"apps/*",
 	"modules/*",
 	"libs/*",
+	"**/domain/*",
+	"**/usecase/*",
 }
 
 // PatternsForRepo returns the effective module-pattern list for a repo,
