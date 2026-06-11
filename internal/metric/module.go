@@ -35,6 +35,14 @@ var DefaultModulePatterns = []string{
 	"**/usecase/*",
 }
 
+// PeripheralModule is the sentinel module id into which fallback-derived
+// modules that fail the liveness gate are FOLDED (not dropped — observation
+// is preserved, D-07). A fallback module earns module-hood by being touched in
+// >= ModuleLivenessMinMonths distinct calendar months; otherwise its
+// survival / gravity / etc. aggregate under this id. Pattern-declared modules
+// never fold. See docs/eis/module-recognition.md (orbit repo), ADR step 2.
+const PeripheralModule = "peripheral"
+
 // parsedPattern is a pre-compiled glob pattern. Each component is a literal
 // path-component (Literal), a single-component wildcard (`*`, Wildcard ==
 // true, matches exactly ONE path component), or an any-depth wildcard (`**`,
@@ -85,6 +93,14 @@ type ModuleResolver struct {
 	// returns "") when any exclude matches the FRONT of its components via
 	// filepath.Match. Empty (the default) means no exclusion.
 	excludes [][]string
+	// fold is the set of fallback-derived module ids that failed the liveness
+	// gate (touched in fewer than ModuleLivenessMinMonths distinct calendar
+	// months). When a resolved, non-excluded module is in this set, ModuleOf
+	// returns PeripheralModule instead, folding its mass into the sentinel.
+	// nil (the default) means no folding. Populated via WithFold; the fold set
+	// itself is computed by ComputeModuleFold. Pattern-declared modules and
+	// PeripheralModule are never present here.
+	fold map[string]bool
 }
 
 // NewModuleResolver builds a resolver from a glob-pattern list. When the
@@ -200,18 +216,50 @@ func compilePattern(s string) (parsedPattern, bool) {
 // ModuleOf returns the module identifier for a file path under this
 // resolver's pattern set, or "" when the resolved module is excluded
 // (ExcludeModules). Callers that aggregate by module MUST skip the "" result
-// so excluded modules stay out of every module-topology metric. See
+// so excluded modules stay out of every module-topology metric.
+//
+// Precedence: exclude beats fold. A path resolving to an excluded module
+// returns "" (it never reaches the fold step). Otherwise, when the resolved
+// module is in the fold set (a fallback-derived module that failed the
+// liveness gate), PeripheralModule is returned, aggregating its mass into the
+// sentinel. PeripheralModule itself is never folded or excluded. See
 // ModuleResolver for the resolution rule.
 func (r ModuleResolver) ModuleOf(path string) string {
 	module := r.resolve(path)
 	if r.isExcluded(module) {
 		return ""
 	}
+	if r.fold[module] {
+		return PeripheralModule
+	}
 	return module
 }
 
-// resolve maps a file path to a module identifier without applying excludes.
+// ResolveWithOrigin returns the exclude-applied module id for a file path and
+// whether it was pattern-DECLARED (a glob pattern matched) as opposed to
+// fallback-derived (the conservative 2-component default). An excluded module
+// returns ("", false). Folding is NOT applied here — the liveness gate
+// (ComputeModuleFold) needs the un-folded origin to decide what folds. Use
+// ModuleOf for the bucketing module id (which applies fold).
+func (r ModuleResolver) ResolveWithOrigin(path string) (module string, declared bool) {
+	module, declared = r.resolveWithOrigin(path)
+	if r.isExcluded(module) {
+		return "", false
+	}
+	return module, declared
+}
+
+// resolve maps a file path to a module identifier without applying excludes
+// or fold.
 func (r ModuleResolver) resolve(path string) string {
+	module, _ := r.resolveWithOrigin(path)
+	return module
+}
+
+// resolveWithOrigin maps a file path to a module identifier without applying
+// excludes or fold, also reporting whether a glob pattern matched (declared)
+// or the conservative 2-component fallback was used (declared == false).
+func (r ModuleResolver) resolveWithOrigin(path string) (module string, declared bool) {
 	dir := filepath.Dir(path)
 	parts := strings.Split(filepath.ToSlash(dir), "/")
 
@@ -231,14 +279,23 @@ func (r ModuleResolver) resolve(path string) string {
 		}
 	}
 	if bestLen > 0 {
-		return strings.Join(parts[:bestLen], "/")
+		return strings.Join(parts[:bestLen], "/"), true
 	}
 
-	// No pattern matched: conservative 2-component default.
+	// No pattern matched: conservative 2-component default (fallback-derived).
 	if len(parts) > 2 {
 		parts = parts[:2]
 	}
-	return strings.Join(parts, "/")
+	return strings.Join(parts, "/"), false
+}
+
+// WithFold returns a copy of the resolver whose ModuleOf folds the given set
+// of (fallback-derived, gate-failing) module ids into PeripheralModule. Value
+// semantics: the receiver is unchanged. Passing nil or an empty map disables
+// folding. The fold set is produced by ComputeModuleFold.
+func (r ModuleResolver) WithFold(fold map[string]bool) ModuleResolver {
+	r.fold = fold
+	return r
 }
 
 // matchPrefix matches a compiled pattern's components against a PREFIX of

@@ -396,6 +396,15 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					}
 				}
 
+				// Module liveness gate (ADR step 2): fold fallback-derived
+				// modules not touched in >= ModuleLivenessMinMonths distinct
+				// calendar months WITHIN this window into
+				// metric.PeripheralModule. Derived from commit.Date over the
+				// in-scope periodCommits (deterministic, W-02); applied before
+				// any module-topology metric below.
+				fold := metric.ComputeModuleFold(periodCommits, moduleResolver, cfg.ModuleLivenessMinMonths)
+				moduleResolver = moduleResolver.WithFold(fold)
+
 				acc.repoCount++
 
 				var racc *accumulator

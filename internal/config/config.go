@@ -79,6 +79,17 @@ type Config struct {
 	// whose source file is not guarded by a test. 1.0 disables the weighting and
 	// matches pre-v2 behaviour; 0.5 (default) treats untested code as half-value.
 	UntestedSurvivalWeight float64 `yaml:"untested_survival_weight"`
+	// ModuleLivenessMinMonths is the module liveness gate threshold (ADR step
+	// 2). A FALLBACK-derived module (the conservative 2-component default —
+	// where date-dir / DML / dump pollution enters) earns module-hood only by
+	// being touched in >= this many DISTINCT calendar months; otherwise it
+	// folds into metric.PeripheralModule (observation preserved, not dropped —
+	// D-07). Pattern-DECLARED modules never fold. <= 1 disables the gate.
+	// Deterministic: the month set comes from commit.Date, not wall-clock
+	// (W-02). Default 2.
+	//
+	// Global for now; a per-repo override (RepoConfig) is a future step.
+	ModuleLivenessMinMonths int `yaml:"module_liveness_min_months"`
 }
 
 // TeamEntry defines a named team with its members and optional domain scope.
@@ -202,14 +213,15 @@ type BusFactor struct {
 
 func Default() *Config {
 	return &Config{
-		Tau:                    180,
-		SampleSize:             500,
-		DebtThreshold:          10,
-		ActiveDays:             30,
-		BlameTimeout:           120,
-		MaxBlameFileBytes:      5 * 1024 * 1024,
-		ProductionDailyRef:     1000,
-		UntestedSurvivalWeight: 0.5,
+		Tau:                     180,
+		SampleSize:              500,
+		DebtThreshold:           10,
+		ActiveDays:              30,
+		BlameTimeout:            120,
+		MaxBlameFileBytes:       5 * 1024 * 1024,
+		ProductionDailyRef:      1000,
+		UntestedSurvivalWeight:  0.5,
+		ModuleLivenessMinMonths: 2,
 		ExcludeFilePatterns: []string{
 			"package-lock.json",
 			"yarn.lock",

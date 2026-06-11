@@ -218,6 +218,14 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		commits = filterCommits(commits, cfg)
 		commits = filterFileStats(commits, cfg.ExcludeFilePatterns)
 
+		// Module liveness gate (ADR step 2): fold fallback-derived modules that
+		// were not touched in >= ModuleLivenessMinMonths distinct calendar
+		// months into metric.PeripheralModule. Computed from commit.Date
+		// (deterministic, W-02). Must run BEFORE the resolver reaches any
+		// module-topology metric so the bucketing reflects the fold.
+		fold := metric.ComputeModuleFold(commits, moduleResolver, cfg.ModuleLivenessMinMonths)
+		moduleResolver = moduleResolver.WithFold(fold)
+
 		// Parse merge commits (cached)
 		var mergeCommits []git.Commit
 		mergeCacheKey := cache.MergeLogKey(repoPath, headHash)
@@ -419,6 +427,13 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// and survival-weighted. The same per-(author,module) survival feeds
 		// DomainResults below, so compute it once with the org-level resolver.
 		domainResolver := metric.NewModuleResolverWithExcludes(config.PatternsForRepo(cfg, ""), config.ExcludesForRepo(cfg, ""))
+		// Module liveness gate (ADR step 2) at the domain rollup: fold from the
+		// domain's concatenated per-repo commits (acc.allCommits — date +
+		// filestats present), deterministic from commit.Date (W-02). Applied
+		// before any module-topology metric below (Breadth, cochange,
+		// ownership, module survival) so the fold is honored uniformly.
+		domainFold := metric.ComputeModuleFold(acc.allCommits, domainResolver, cfg.ModuleLivenessMinMonths)
+		domainResolver = domainResolver.WithFold(domainFold)
 		moduleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(acc.allBlameLines, cfg.Tau, start, domainResolver)
 		breadth := metric.ComputeBreadth(moduleSurvivalByAuthor)
 		for author, b := range breadth {
