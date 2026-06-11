@@ -57,14 +57,22 @@ exclude_repos:
   - docs-only-repo
   - deprecated-service
 
-# Architecture files for Design score (glob patterns, top-level)
+# Architecture files for Design score (glob patterns, top-level).
+# Segment-precise globbing (same convention as module patterns):
+#   *  matches exactly ONE path segment
+#   ** matches any depth (zero or more segments)
+#   a literal segment may carry intra-segment globs ("*.go", "*interface*")
+# A pattern ending in "/" matches files anywhere under that directory.
+# Use ** for architectural markers that live at any depth; keep generic
+# directory names single-level (*/) so framework routes that happen to share
+# the name (e.g. a Next.js "app/(site)/stores/" route) are NOT counted.
 architecture_patterns:
-  - "*/repository/*interface*"
-  - "*/domainservice/"
-  - "*/router.go"
-  - "*/middleware/"
-  - "di/*.go"
-  - "*/core/"
+  - "**/repository/*interface*"
+  - "**/domainservice/"
+  - "**/router.go"
+  - "**/middleware/"
+  - "**/di/*.go"
+  - "**/core/"
   - "*/stores/"
   - "*/hooks/"
   - "*/types/"

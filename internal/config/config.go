@@ -234,13 +234,21 @@ func Default() *Config {
 			"mock_*",
 			"*.gen.*",
 		},
+		// Architecture patterns use the segment-precise glob convention shared
+		// with the module resolver: `*` matches exactly one path segment,
+		// `**` matches any depth. Specific architectural roles (repository,
+		// domainservice, router, middleware, di, core) use `**/` so they match
+		// at any depth. Generic framework-vocabulary directories prone to route
+		// collisions (stores, hooks, types) stay single-level `*/` so a state
+		// store at "app/stores/" counts but a route like "app/(site)/stores/"
+		// does not.
 		ArchitecturePatterns: []string{
-			"*/repository/*interface*",
-			"*/domainservice/",
-			"*/router.go",
-			"*/middleware/",
-			"di/*.go",
-			"*/core/",
+			"**/repository/*interface*",
+			"**/domainservice/",
+			"**/router.go",
+			"**/middleware/",
+			"**/di/*.go",
+			"**/core/",
 			"*/stores/",
 			"*/hooks/",
 			"*/types/",
