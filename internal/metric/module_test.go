@@ -157,9 +157,11 @@ func TestNewModuleResolver_EmptyUsesDefault(t *testing.T) {
 }
 
 // Edge cases in pattern compilation: empty patterns, separator-only
-// patterns, and consecutive `*` ("**") must not crash.
+// patterns, and a lone any-depth wildcard ("**") must not crash.
 //   - "" and "/" are dropped (zero meaningful components).
-//   - "**" parses as two single-component wildcards (matches at depth 2).
+//   - "**" is an any-depth wildcard matching zero or more components; a lone
+//     "**" consumes zero parts, so it never produces a module on its own and
+//     the resolver falls back to the conservative 2-component default.
 func TestNewModuleResolver_PatternEdgeCases(t *testing.T) {
 	// Empty/separator-only patterns are dropped silently.
 	r := NewModuleResolver([]string{"", "/", "services/*"})
@@ -167,14 +169,14 @@ func TestNewModuleResolver_PatternEdgeCases(t *testing.T) {
 		t.Errorf("after dropping junk patterns: ModuleOf(services/ace/x.go) = %q, want services/ace", got)
 	}
 
-	// "**" → matches exactly 2 components → produces a 2-component module id
-	// for ANY 2+component path. The resolver's "longest wins" rule then
-	// applies between this and any other pattern.
+	// A lone "**" matches every path but consumes zero leading components, so
+	// it produces no module — the resolver falls back to the 2-component
+	// default (or whatever the dir collapses to for short paths).
 	rss := NewModuleResolver([]string{"**"})
 	if got := rss.ModuleOf("a/b/c/d.go"); got != "a/b" {
-		t.Errorf("'**' pattern: ModuleOf(a/b/c/d.go) = %q, want a/b", got)
+		t.Errorf("'**' pattern: ModuleOf(a/b/c/d.go) = %q, want a/b (fallback)", got)
 	}
 	if got := rss.ModuleOf("a.go"); got != "." {
-		t.Errorf("'**' pattern: ModuleOf(a.go) = %q, want . (no match → 2-comp fallback collapses to dir)", got)
+		t.Errorf("'**' pattern: ModuleOf(a.go) = %q, want . (fallback collapses to dir)", got)
 	}
 }
