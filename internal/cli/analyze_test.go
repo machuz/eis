@@ -280,7 +280,7 @@ func TestDomainFilter_CustomDomain(t *testing.T) {
 	}{
 		{"Mobile", domain.Domain("Mobile"), false},
 		{"mobile", domain.Domain("Mobile"), false}, // case-insensitive
-		{"Backend", domain.Domain("Mobile"), true},  // different domain
+		{"Backend", domain.Domain("Mobile"), true}, // different domain
 		{"Data", domain.Domain("Data"), false},
 	}
 	for _, tt := range tests {
@@ -572,10 +572,11 @@ func captureStd(t *testing.T, fn func()) (stdout, stderr string) {
 	}
 	errR, errW, err := os.Pipe()
 	if err != nil {
+		_ = outR.Close()
+		_ = outW.Close()
 		t.Fatal(err)
 	}
 	os.Stdout, os.Stderr = outW, errW
-	defer func() { os.Stdout, os.Stderr = origOut, origErr }()
 
 	var outBuf, errBuf bytes.Buffer
 	var wg sync.WaitGroup
@@ -583,10 +584,22 @@ func captureStd(t *testing.T, fn func()) (stdout, stderr string) {
 	go func() { defer wg.Done(); _, _ = io.Copy(&outBuf, outR) }()
 	go func() { defer wg.Done(); _, _ = io.Copy(&errBuf, errR) }()
 
-	fn()
+	// Restore streams and close the read ends however fn exits.
+	defer func() {
+		os.Stdout, os.Stderr = origOut, origErr
+		_ = outR.Close()
+		_ = errR.Close()
+	}()
+	// Close the write ends even if fn panics, so the copy goroutines unblock
+	// and never leak; the panic still propagates after cleanup.
+	func() {
+		defer func() {
+			_ = outW.Close()
+			_ = errW.Close()
+		}()
+		fn()
+	}()
 
-	_ = outW.Close()
-	_ = errW.Close()
 	wg.Wait()
 	return outBuf.String(), errBuf.String()
 }
