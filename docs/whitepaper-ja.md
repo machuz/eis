@@ -704,12 +704,12 @@ exclude_file_patterns:
   - "*.gen.*"
 
 architecture_patterns:
-  - "*/repository/*interface*"
-  - "*/domainservice/"
-  - "*/router.go"
-  - "*/middleware/"
-  - "di/*.go"
-  - "*/core/"
+  - "**/repository/*interface*"
+  - "**/domainservice/"
+  - "**/router.go"
+  - "**/middleware/"
+  - "**/di/*.go"
+  - "**/core/"
   - "*/stores/"
   - "*/hooks/"
   - "*/types/"

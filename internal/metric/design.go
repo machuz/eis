@@ -38,50 +38,100 @@ func archLinesChanged(files []git.FileStat, patterns []string) int {
 	return total
 }
 
+// matchArchPattern reports whether a file path counts as an architecture file
+// under the given glob pattern. It uses the same `*` / `**` convention as the
+// module resolver (compilePattern in module.go): `*` matches exactly ONE path
+// segment, `**` matches any depth (zero or more consecutive segments), and a
+// literal segment may carry intra-segment globs like "*.go" or "*interface*"
+// (resolved with filepath.Match).
+//
+// A pattern ending in "/" is a DIRECTORY pattern: a file matches when the
+// pattern matches a leading prefix of the file's path (the file lives somewhere
+// under that directory). Otherwise it is a FILE pattern that must match the
+// whole path.
+//
+// This deliberately replaces the old substring matching, under which "*/stores/"
+// matched a `stores` directory at ANY depth and so miscounted framework route
+// directories (e.g. Next.js "app/(site)/stores/[id]/page.tsx") as architecture.
+// Segment-precise, "*/stores/" matches "app/stores/..." but not
+// "app/(site)/stores/..."; use "**/stores/" to opt back into any-depth.
 func matchArchPattern(filename, pattern string) bool {
-	// Directory pattern: "*/domainservice/" or "di/*.go"
-	// Strip leading */ for substring matching
-	cleanPattern := strings.TrimPrefix(pattern, "*/")
-
-	// Directory pattern ending with /
-	if strings.HasSuffix(cleanPattern, "/") {
-		dir := strings.TrimSuffix(cleanPattern, "/")
-		return strings.Contains(filename, "/"+dir+"/") || strings.HasPrefix(filename, dir+"/")
+	pattern = strings.TrimSpace(pattern)
+	isDir := strings.HasSuffix(pattern, "/")
+	pat, ok := compilePattern(pattern)
+	if !ok {
+		return false
 	}
+	parts := strings.Split(filepath.ToSlash(filename), "/")
+	if isDir {
+		// File lives under the matched directory: the pattern matches a leading
+		// prefix and at least one segment remains (the file itself).
+		n, matched := matchArchPrefix(pat.components, parts)
+		return matched && n >= 1 && n < len(parts)
+	}
+	return matchArchFull(pat.components, parts)
+}
 
-	// Glob pattern like "di/*.go" or "*interface*"
-	// Try matching against each path segment and also the full path
-	if strings.Contains(cleanPattern, "/") {
-		// Pattern with directory: match against full path
-		matched, _ := filepath.Match(cleanPattern, filename)
-		if matched {
-			return true
-		}
-		// Try suffix matching: "di/*.go" should match "app/di/container.go"
-		parts := strings.Split(filename, "/")
-		for i := range parts {
-			suffix := strings.Join(parts[i:], "/")
-			matched, _ := filepath.Match(cleanPattern, suffix)
-			if matched {
+// archSegMatch matches one non-`**` pattern component against a single path
+// segment. Wildcard (`*`) matches any one segment; a literal is matched with
+// filepath.Match so intra-segment globs ("*.go", "*interface*") work, falling
+// back to exact equality if the pattern is malformed.
+func archSegMatch(c patternComponent, part string) bool {
+	if c.Wildcard {
+		return true
+	}
+	if ok, err := filepath.Match(c.Literal, part); err == nil {
+		return ok
+	}
+	return c.Literal == part
+}
+
+// matchArchFull reports whether comps match the entire parts slice. `**`
+// backtracks over the shortest run that lets the rest of the pattern match.
+func matchArchFull(comps []patternComponent, parts []string) bool {
+	if len(comps) == 0 {
+		return len(parts) == 0
+	}
+	if comps[0].DoubleWild {
+		for skip := 0; skip <= len(parts); skip++ {
+			if matchArchFull(comps[1:], parts[skip:]) {
 				return true
 			}
 		}
 		return false
 	}
+	if len(parts) == 0 {
+		return false
+	}
+	if !archSegMatch(comps[0], parts[0]) {
+		return false
+	}
+	return matchArchFull(comps[1:], parts[1:])
+}
 
-	// Simple pattern without directory: match against each path component
-	// e.g., "*interface*" should match "repository/user_repository_interface.go"
-	parts := strings.Split(filename, "/")
-	for _, part := range parts {
-		matched, _ := filepath.Match(cleanPattern, part)
-		if matched {
-			return true
+// matchArchPrefix reports how many leading parts comps consume (a prefix match),
+// mirroring matchPrefix in module.go but with intra-segment globbing.
+func matchArchPrefix(comps []patternComponent, parts []string) (int, bool) {
+	if len(comps) == 0 {
+		return 0, true
+	}
+	if comps[0].DoubleWild {
+		for skip := 0; skip <= len(parts); skip++ {
+			if n, ok := matchArchPrefix(comps[1:], parts[skip:]); ok {
+				return skip + n, true
+			}
 		}
+		return 0, false
 	}
-
-	// Also check if the pattern matches as a substring in path components
-	if strings.Contains(cleanPattern, "*") {
-		return false // already tried glob matching above
+	if len(parts) == 0 {
+		return 0, false
 	}
-	return strings.Contains(filename, cleanPattern)
+	if !archSegMatch(comps[0], parts[0]) {
+		return 0, false
+	}
+	n, ok := matchArchPrefix(comps[1:], parts[1:])
+	if !ok {
+		return 0, false
+	}
+	return 1 + n, true
 }

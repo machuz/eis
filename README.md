@@ -386,10 +386,10 @@ See [`config.example.yaml`](config.example.yaml) for all options:
 - **Production daily ref**: baseline for absolute Production observation (default: 1000 changes/day = signal 100)
 - **Aliases**: merge variant git author names into canonical names
 - **Exclude authors**: filter out bots and non-human contributors
-- **Architecture patterns**: define which files count as "design files" for the Design axis. Defaults:
-  - Backend: `*/repository/*interface*`, `*/domainservice/`, `*/router.go`, `*/middleware/`, `di/*.go`
-  - Frontend: `*/core/`, `*/stores/`, `*/hooks/`, `*/types/`
-  - Override in `eis.yaml` to match your project structure (e.g., `*/proto/`, `*/migrations/`, `Makefile`)
+- **Architecture patterns**: define which files count as "design files" for the Design axis. Segment-precise globbing: `*` matches exactly one path segment, `**` matches any depth, and a pattern ending in `/` matches files under that directory. Defaults:
+  - Backend: `**/repository/*interface*`, `**/domainservice/`, `**/router.go`, `**/middleware/`, `**/di/*.go`
+  - Frontend: `**/core/`, `*/stores/`, `*/hooks/`, `*/types/` (generic names stay single-level so framework routes like `app/(site)/stores/` are not miscounted)
+  - Override in `eis.yaml` to match your project structure (e.g., `**/proto/`, `**/migrations/`, `Makefile`). Use `**` for markers at any depth; use `*` to anchor to one level.
 - **Blame extensions**: file extensions for blame analysis
 - **Weights**: customize axis weights (default: Survival 25%, Design 20%, Production 15%, Debt 15%, Quality 10%, Breadth 10%, Indispensability 5%)
 - **Survival tau**: decay half-life in days (default: 180)
