@@ -90,3 +90,59 @@ func TestScore_ZeroCommitAuthorWithImpact(t *testing.T) {
 		t.Fatalf("expected 0 results for an author with TotalCommits=0, got %d: %+v", len(results), results)
 	}
 }
+
+// TestScore_DormantSurvivalEscapesUnprovenPenalty guards the fix for the
+// robust==0 "unproven" penalty over-deflating stable-codebase owners. The 0.8x
+// Impact penalty must fire only when code survives NOWHERE (robust==0 AND
+// dormant==0 — a pure churn/mass profile), NOT when code survives in quiet,
+// low-pressure modules (robust==0 but dormant>0), which is the signature of a
+// founder whose foundational code sits in stable modules.
+func TestScore_DormantSurvivalEscapesUnprovenPenalty(t *testing.T) {
+	raw := metric.NewRawScores()
+
+	// Register both in Authors() (which unions only Production/Quality/Survival/
+	// Design/Breadth/Debt/Indisp). Survival here is the legacy axis, unused in
+	// the robust/dormant pressure path, so it does not affect Impact below.
+	raw.Survival["stable"] = 50
+	raw.Survival["churn"] = 50
+
+	// stable: no robust survival, but its code lives on in low-pressure modules.
+	raw.RobustSurvival["stable"] = 0
+	raw.DormantSurvival["stable"] = 100
+	raw.TotalCommits["stable"] = 10
+
+	// churn: code survives nowhere — robust AND dormant are both zero.
+	raw.RobustSurvival["churn"] = 0
+	raw.DormantSurvival["churn"] = 0
+	raw.TotalCommits["churn"] = 10
+
+	cfg := config.Default()
+	now := time.Now()
+	results := Score(raw, cfg, map[string]time.Time{"stable": now, "churn": now})
+
+	var stable, churn *Result
+	for i := range results {
+		switch results[i].Author {
+		case "stable":
+			stable = &results[i]
+		case "churn":
+			churn = &results[i]
+		}
+	}
+	if stable == nil || churn == nil {
+		t.Fatalf("missing results: stable=%v churn=%v", stable, churn)
+	}
+
+	// Both share weights: Survival=0.25 (dormant slice 0.20), DebtCleanup=0.15
+	// with the neutral 50 default. Normalized dormant: stable=100, churn=0.
+	//   stable Impact = 100*(0.25*0.20) + 50*0.15 = 5 + 7.5 = 12.5   (NOT penalized)
+	//   churn  Impact = (0          + 50*0.15) * 0.80 = 7.5 * 0.80 = 6.0 (penalized)
+	const tol = 0.01
+	if got := stable.Impact; got < 12.5-tol || got > 12.5+tol {
+		t.Errorf("stable (dormant survivor) Impact = %.4f, want 12.5 (no 0.8x penalty); "+
+			"old robust==0 logic would have given 10.0", got)
+	}
+	if got := churn.Impact; got < 6.0-tol || got > 6.0+tol {
+		t.Errorf("churn (survives nowhere) Impact = %.4f, want 6.0 (0.8x penalty applied)", got)
+	}
+}
