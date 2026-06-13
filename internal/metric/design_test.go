@@ -40,6 +40,11 @@ func TestMatchArchPattern_SegmentPrecise(t *testing.T) {
 
 		// Directory pattern requires a file underneath (not the dir itself).
 		{"dir pattern needs file under", "*/stores/", "app/stores", false},
+
+		// Trailing whitespace in a pattern must be trimmed, not split into a
+		// stray empty segment that breaks matching.
+		{"trailing space dir pattern", "*/stores/ ", "app/stores/cart.ts", true},
+		{"trailing space file pattern", "**/router.go ", "internal/app/router.go", true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

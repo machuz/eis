@@ -56,7 +56,8 @@ func archLinesChanged(files []git.FileStat, patterns []string) int {
 // Segment-precise, "*/stores/" matches "app/stores/..." but not
 // "app/(site)/stores/..."; use "**/stores/" to opt back into any-depth.
 func matchArchPattern(filename, pattern string) bool {
-	isDir := strings.HasSuffix(strings.TrimSpace(pattern), "/")
+	pattern = strings.TrimSpace(pattern)
+	isDir := strings.HasSuffix(pattern, "/")
 	pat, ok := compilePattern(pattern)
 	if !ok {
 		return false
