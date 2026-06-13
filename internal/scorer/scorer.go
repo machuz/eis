@@ -160,9 +160,15 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 				r.DebtCleanup*w.DebtCleanup +
 				r.Indispensability*w.Indispensability
 
-			// Penalty: code that has never survived under change pressure
-			// is fundamentally unproven. Apply 0.8x multiplier to Impact.
-			if r.RobustSurvival == 0 {
+			// Penalty: code that has never survived ANYWHERE — neither under
+			// change pressure (robust) nor in stable, low-pressure modules
+			// (dormant) — is fundamentally unproven. Apply a 0.8x multiplier.
+			// Code that survives dormantly (RobustSurvival==0 but
+			// DormantSurvival>0) HAS lasted, just not under churn, so it is
+			// exempt: this hits pure churn/mass profiles, not stable-codebase
+			// owners and founders whose foundational code lives in quiet modules.
+			// Gated on raw survival mass so it is immune to normalization.
+			if r.RawRobustSurv == 0 && r.RawDormantSurv == 0 {
 				r.Impact *= 0.80
 			}
 		} else {
