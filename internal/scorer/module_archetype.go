@@ -125,12 +125,27 @@ func ScoreModules(
 		ownershipMap[ownership[i].Module] = &ownership[i]
 	}
 
-	// Compute percentile ranks for change pressure
-	pressureRanks := percentileRanks(pressure)
+	// Compute percentile ranks for change pressure. Exclude the peripheral
+	// sentinel first: it aggregates many low-liveness modules, so its inflated
+	// pressure would skew the relative percentile ranks (and thus Stability
+	// scores) of every real module.
+	cleanPressure := make(metric.ChangePressure, len(pressure))
+	for k, v := range pressure {
+		if k != metric.PeripheralModule {
+			cleanPressure[k] = v
+		}
+	}
+	pressureRanks := percentileRanks(cleanPressure)
 
 	// Build scores
 	var scores []ModuleScore
 	for mod := range allModules {
+		// The peripheral bucket aggregates unrelated low-liveness fallback
+		// modules; it is a denoising sentinel, not a real cohesive module, so
+		// it must not appear as a topology row.
+		if mod == metric.PeripheralModule {
+			continue
+		}
 		ms := ModuleScore{
 			Module:         mod,
 			ChangePressure: pressure[mod],

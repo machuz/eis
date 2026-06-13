@@ -21,8 +21,12 @@ func CalcIndispensability(blameLines []git.BlameLine, mr ModuleResolver, critica
 
 	for _, bl := range blameLines {
 		module := mr.ModuleOf(bl.Filename)
-		if module == "" {
-			continue // root-level file or excluded module (ExcludeModules)
+		if module == "" || module == PeripheralModule {
+			// Skip root-level/excluded files, and the peripheral denoising
+			// bucket: it aggregates unrelated low-liveness fallback modules, so
+			// its ownership concentration is not a real key-person risk and must
+			// not inflate any author's Indispensability.
+			continue
 		}
 
 		if _, ok := moduleAuthors[module]; !ok {
@@ -121,8 +125,8 @@ func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) [
 
 	for _, bl := range blameLines {
 		mod := mr.ModuleOf(bl.Filename)
-		if mod == "" {
-			continue // excluded module (ExcludeModules)
+		if mod == "" || mod == PeripheralModule {
+			continue // excluded module (ExcludeModules) or peripheral bucket
 		}
 		if _, ok := moduleAuthors[mod]; !ok {
 			moduleAuthors[mod] = make(map[string]int)
