@@ -125,8 +125,17 @@ func ScoreModules(
 		ownershipMap[ownership[i].Module] = &ownership[i]
 	}
 
-	// Compute percentile ranks for change pressure
-	pressureRanks := percentileRanks(pressure)
+	// Compute percentile ranks for change pressure. Exclude the peripheral
+	// sentinel first: it aggregates many low-liveness modules, so its inflated
+	// pressure would skew the relative percentile ranks (and thus Stability
+	// scores) of every real module.
+	cleanPressure := make(metric.ChangePressure, len(pressure))
+	for k, v := range pressure {
+		if k != metric.PeripheralModule {
+			cleanPressure[k] = v
+		}
+	}
+	pressureRanks := percentileRanks(cleanPressure)
 
 	// Build scores
 	var scores []ModuleScore
