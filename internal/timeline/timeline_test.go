@@ -11,15 +11,15 @@ func TestBuildTimeline_BasicFlow(t *testing.T) {
 		{
 			Label: "2025-Q2",
 			Members: []scorer.Result{
-				{Author: "alice", Impact: 42.3, Production: 35, Quality: 78, Role: "Producer", Style: "Mass", State: "Active"},
-				{Author: "bob", Impact: 30.0, Production: 20, Quality: 60, Role: "Producer", Style: "Balanced", State: "Active"},
+				{Author: "alice", Impact: 42.3, Production: 35, Catalysis: 78, Role: "Producer", Style: "Mass", State: "Active"},
+				{Author: "bob", Impact: 30.0, Production: 20, Catalysis: 60, Role: "Producer", Style: "Balanced", State: "Active"},
 			},
 		},
 		{
 			Label: "2025-Q3",
 			Members: []scorer.Result{
-				{Author: "alice", Impact: 55.7, Production: 52, Quality: 80, Role: "Anchor", Style: "Builder", State: "Active"},
-				{Author: "bob", Impact: 25.0, Production: 15, Quality: 55, Role: "Producer", Style: "Balanced", State: "Growing"},
+				{Author: "alice", Impact: 55.7, Production: 52, Catalysis: 80, Role: "Anchor", Style: "Builder", State: "Active"},
+				{Author: "bob", Impact: 25.0, Production: 15, Catalysis: 55, Role: "Producer", Style: "Balanced", State: "Growing"},
 			},
 		},
 	}

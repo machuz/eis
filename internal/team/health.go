@@ -13,7 +13,7 @@ func CalcHealth(tr TeamResult) TeamHealth {
 		Sustainability:       calcSustainability(tr),
 		DebtBalance:          calcDebtBalance(tr),
 		ProductivityDensity:  calcProductivityDensity(tr),
-		QualityConsistency:   calcQualityConsistency(tr),
+		CatalysisConsistency: calcCatalysisConsistency(tr),
 		RiskRatio:            calcRiskRatio(tr),
 		AAR:                  calcAAR(tr),
 		AnchorDensity:        calcAnchorDensity(tr),
@@ -102,24 +102,24 @@ func calcProductivityDensity(tr TeamResult) float64 {
 	return clamp(base, 0, 100)
 }
 
-// QualityConsistency: team quality level and consistency (low variance = good).
+// CatalysisConsistency: team quality level and consistency (low variance = good).
 // Uses CoreMembers only — risk members' quality doesn't reflect active team consistency.
-// score = avgQuality * 0.6 + (100 - stdev) * 0.4
-func calcQualityConsistency(tr TeamResult) float64 {
+// score = avgCatalysis * 0.6 + (100 - stdev) * 0.4
+func calcCatalysisConsistency(tr TeamResult) float64 {
 	if tr.CoreMemberCount < 2 {
-		return clamp(tr.AvgQuality, 0, 100)
+		return clamp(tr.AvgCatalysis, 0, 100)
 	}
 
 	// Calculate standard deviation of quality from core members
 	var sumSq float64
 	for _, m := range tr.CoreMembers {
-		diff := m.Quality - tr.AvgQuality
+		diff := m.Catalysis - tr.AvgCatalysis
 		sumSq += diff * diff
 	}
 	stdev := math.Sqrt(sumSq / float64(tr.CoreMemberCount))
 
 	// Higher avg quality + lower variance = better consistency
-	score := tr.AvgQuality*0.6 + clamp(100-stdev*2, 0, 100)*0.4
+	score := tr.AvgCatalysis*0.6 + clamp(100-stdev*2, 0, 100)*0.4
 	return clamp(score, 0, 100)
 }
 

@@ -9,7 +9,7 @@ func baseFossil() Result {
 	return Result{
 		Indispensability: 80,
 		Production:       10,
-		Quality:          40,
+		Catalysis:        40,
 		Survival:         70,
 		RawRobustSurv:    0,
 		RawDormantSurv:   0,
@@ -144,13 +144,13 @@ func TestFragile_BoostedConfidenceCappedAt097(t *testing.T) {
 // producing false positives for active untested modules.
 // (PR #19 review — high-priority issue.)
 //
-// We quality-gate (Quality ≥ 70) so the final fallback returns 0, isolating
+// We quality-gate (Catalysis ≥ 70) so the final fallback returns 0, isolating
 // the behaviour of the three Fragile bands. With the fix in place, none of
 // the three bands should fire because the untested-only path is now
 // !hasPressure-gated.
 func TestFragile_ActiveUntestedNotFragile(t *testing.T) {
 	r := baseFossil()
-	r.Quality = 70 // neutralise the permissive final fallback
+	r.Catalysis = 70 // neutralise the permissive final fallback
 	// Active module: mostly robust (change pressure present, code is not dormant).
 	r.RawRobustSurv = 80
 	r.RawDormantSurv = 20 // dormant ratio = 20%, well below 80%

@@ -35,13 +35,14 @@ func classifyRole(r Result) AxisMatch {
 			}
 			return minf(highness(r.Design), highness(surv), notLow(r.Breadth))
 		}},
-		// Anchor: reliable quality contributor, not yet shaping design.
+		// Anchor: a catalyst others build on — high Catalysis with real output,
+		// not yet shaping design.
 		{"Anchor", func() float64 {
-			return minf(highness(r.Quality), notLow(r.Production))
+			return minf(highness(r.Catalysis), notLow(r.Production))
 		}},
-		// Cleaner: high quality, high survival, high debt cleanup.
+		// Cleaner: durable code plus active debt cleanup — stabilizes the codebase.
 		{"Cleaner", func() float64 {
-			return minf(highness(r.Quality), highness(r.Survival), highness(r.DebtCleanup))
+			return minf(highness(r.Survival), highness(r.DebtCleanup))
 		}},
 		// Producer: meaningful production output.
 		{"Producer", func() float64 {
@@ -76,12 +77,12 @@ func classifyStyle(r Result) AxisMatch {
 		{"Rescue", func() float64 {
 			return minf(highness(r.Production), lowness(r.Survival), highness(r.DebtCleanup))
 		}},
-		// Churn: high output but terrible quality, constant rework.
+		// Churn: high output that doesn't last — constant rework, little survives.
 		{"Churn", func() float64 {
 			if r.Production-r.Survival < 30 {
 				return 0
 			}
-			return minf(notLow(r.Production), lowness(r.Quality), lowness(r.Survival))
+			return minf(notLow(r.Production), lowness(r.Survival))
 		}},
 		// Mass: high output but code doesn't survive.
 		{"Mass", func() float64 {
@@ -169,14 +170,14 @@ func classifyState(r Result) AxisMatch {
 				}
 			}
 			// Final fallback: no pressure, no coverage, or gating conditions failed.
-			if r.Quality >= 70 {
+			if r.Catalysis >= 70 {
 				return 0
 			}
 			return minf(highness(r.Survival), lowness(r.Production))
 		}},
-		// Growing: low volume, high quality — on a growth trajectory.
+		// Growing: low volume, but others already build on what they seed — on a growth trajectory.
 		{"Growing", func() float64 {
-			return minf(lowness(r.Production), highness(r.Quality))
+			return minf(lowness(r.Production), highness(r.Catalysis))
 		}},
 		// Active: recently contributing.
 		{"Active", func() float64 {

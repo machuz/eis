@@ -71,7 +71,6 @@ type RepoResult struct {
 // domainAccumulator holds per-domain scoring state
 type domainAccumulator struct {
 	raw                 *metric.RawScores
-	qualityCounts       map[string]int
 	debtCounts          map[string]int
 	authorRepoCommits   map[string]map[string]int // author -> repo -> commit count
 	authorModuleCommits map[string]map[string]int // author -> module -> commit count
@@ -108,7 +107,6 @@ type domainAccumulator struct {
 func newDomainAccumulator() *domainAccumulator {
 	return &domainAccumulator{
 		raw:                  metric.NewRawScores(),
-		qualityCounts:        make(map[string]int),
 		debtCounts:           make(map[string]int),
 		authorRepoCommits:    make(map[string]map[string]int),
 		authorModuleCommits:  make(map[string]map[string]int),
@@ -315,7 +313,6 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		acc             *domainAccumulator
 		repoName        string
 		domain          domain.Domain
-		qualityCounts   map[string]int
 		debtCounts      map[string]int
 		authorFirstDate map[string]time.Time
 		authorLastDate  map[string]time.Time
@@ -396,7 +393,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Get HEAD hash for cache keys
 		headHash, _ := git.HeadHash(ctx, repoPath)
 
-		// Step 1: Parse git log (feeds Production, Quality, Design)
+		// Step 1: Parse git log (feeds Production, Catalysis, Design)
 		spin := spinner("[1/4] Parsing git log...")
 		var commits []git.Commit
 		logCacheKey := cache.LogKey(repoPath, headHash)
@@ -440,7 +437,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		fold := metric.ComputeModuleFold(commits, moduleResolver, cfg.ModuleLivenessMinMonths)
 		moduleResolver = moduleResolver.WithFold(fold)
 
-		// Also fetch merge commits for fix detection in Quality
+		// Also fetch merge commits for fix detection in Catalysis
 		var mergeCommits []git.Commit
 		mergeCacheKey := cache.MergeLogKey(repoPath, headHash)
 		if headHash != "" && cacheStore.Get(mergeCacheKey, &mergeCommits) {
@@ -452,7 +449,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		}
 		mergeCommits = filterCommits(mergeCommits, cfg)
-		// Also exclude reverted merge commits from Quality calculation
+		// Also exclude reverted merge commits from Catalysis calculation
 		if len(revertedHashes) > 0 {
 			mergeCommits = filterRevertedCommits(mergeCommits, revertedHashes)
 		}
@@ -466,13 +463,9 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		mergeMapInt(acc.raw.LinesAdded, added)
 		mergeMapInt(acc.raw.LinesDeleted, deleted)
 
-		// Quality: include merge commits so fix subjects in merge messages are counted
-		// Use make+copy+append to avoid slice backing array corruption
-		allCommits := make([]git.Commit, len(commits), len(commits)+len(mergeCommits))
-		copy(allCommits, commits)
-		allCommits = append(allCommits, mergeCommits...)
-		qual := metric.CalcQuality(allCommits)
-		mergeMapAvg(acc.raw.Quality, qual, acc.qualityCounts)
+		// Catalysis is computed in the blame stage below (it needs both the
+		// commit history — to find each file's originator — and the surviving
+		// blame lines — to measure how much of others' work on those files lasts).
 
 		// Design (non-merge only — uses numstat)
 		design := metric.CalcDesign(commits, cfg.ArchitecturePatterns)
@@ -653,6 +646,12 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		indisp, risks := metric.CalcIndispensability(blameLines, moduleResolver, cfg.BusFactor.Critical, cfg.BusFactor.High)
 		mergeMap(acc.raw.Indispensability, indisp)
 
+		// Catalysis: surviving mass of others' work on files this author
+		// originated. Needs the commit history (originator per file) and the
+		// blame lines (surviving mass). Same decay reference (start) as Survival.
+		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.Tau, start)
+		mergeMap(acc.raw.Catalysis, catalysis)
+
 		// Step 3: Debt cleanup
 		fixCommits := metric.GetFixCommits(commits)
 		spin = spinner(fmt.Sprintf("[3/4] Debt analysis (%d fix commits)...", len(fixCommits)))
@@ -730,7 +729,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		if opts.PerRepo {
 			repoRaw := metric.NewRawScores()
 			mergeMap(repoRaw.Production, prod)
-			mergeMap(repoRaw.Quality, qual)
+			mergeMap(repoRaw.Catalysis, catalysis)
 			mergeMap(repoRaw.Design, design)
 			mergeMap(repoRaw.Indispensability, indisp)
 			mergeMap(repoRaw.DebtCleanup, debt)

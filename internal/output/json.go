@@ -27,7 +27,7 @@ type jsonDomain struct {
 	TestFileRatio  float64 `json:"test_file_ratio,omitempty"`
 
 	// Module Science Phase 1
-	Cochange  []jsonCochangeRepo   `json:"cochange,omitempty"`
+	Cochange  []jsonCochangeRepo    `json:"cochange,omitempty"`
 	Ownership []jsonModuleOwnership `json:"ownership,omitempty"`
 
 	// Module Science Phase 2
@@ -47,7 +47,7 @@ type jsonMember struct {
 	LinesAdded       int     `json:"lines_added"`
 	LinesDeleted     int     `json:"lines_deleted"`
 	Production       float64 `json:"production"`
-	Quality          float64 `json:"quality"`
+	Catalysis        float64 `json:"catalysis"`
 	Survival         float64 `json:"survival"`
 	RobustSurvival   float64 `json:"robust_survival"`
 	DormantSurvival  float64 `json:"dormant_survival"`
@@ -145,7 +145,7 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 			LinesAdded:       r.LinesAdded,
 			LinesDeleted:     r.LinesDeleted,
 			Production:       round1(r.Production),
-			Quality:          round1(r.Quality),
+			Catalysis:        round1(r.Catalysis),
 			Survival:         round1(r.Survival),
 			RobustSurvival:   round1(r.RobustSurvival),
 			DormantSurvival:  round1(r.DormantSurvival),
@@ -281,7 +281,7 @@ func (w *JSONWriter) AddPerRepo(domainName, repoName string, results []scorer.Re
 					LinesAdded:       r.LinesAdded,
 					LinesDeleted:     r.LinesDeleted,
 					Production:       round1(r.Production),
-					Quality:          round1(r.Quality),
+					Catalysis:        round1(r.Catalysis),
 					Survival:         round1(r.Survival),
 					RobustSurvival:   round1(r.RobustSurvival),
 					DormantSurvival:  round1(r.DormantSurvival),

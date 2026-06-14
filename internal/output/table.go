@@ -33,9 +33,9 @@ func PrintRankings(results []scorer.Result) {
 
 	var tbl table.Table
 	if hasPressure {
-		tbl = table.New("#", "Member", "Active", "Prod", "Qual", "Robust", "Dormant", "Design", "Breadth", "Debt", "Indisp", "Grav", "Impact", "Role", "Style", "State")
+		tbl = table.New("#", "Member", "Active", "Prod", "Catlys", "Robust", "Dormant", "Design", "Breadth", "Debt", "Indisp", "Grav", "Impact", "Role", "Style", "State")
 	} else {
-		tbl = table.New("#", "Member", "Active", "Prod", "Qual", "Surv", "Design", "Breadth", "Debt", "Indisp", "Grav", "Impact", "Role", "Style", "State")
+		tbl = table.New("#", "Member", "Active", "Prod", "Catlys", "Surv", "Design", "Breadth", "Debt", "Indisp", "Grav", "Impact", "Role", "Style", "State")
 	}
 	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt).WithWidthFunc(stripAnsiWidth).WithWriter(os.Stdout)
 
@@ -64,7 +64,7 @@ func PrintRankings(results []scorer.Result) {
 				nameFmt("%s", r.Author),
 				activeStr,
 				fmt.Sprintf("%.0f", r.Production),
-				fmt.Sprintf("%.0f", r.Quality),
+				fmt.Sprintf("%.0f", r.Catalysis),
 				fmt.Sprintf("%.0f", r.RobustSurvival),
 				fmt.Sprintf("%.0f", r.DormantSurvival),
 				fmt.Sprintf("%.0f", r.Design),
@@ -83,7 +83,7 @@ func PrintRankings(results []scorer.Result) {
 				nameFmt("%s", r.Author),
 				activeStr,
 				fmt.Sprintf("%.0f", r.Production),
-				fmt.Sprintf("%.0f", r.Quality),
+				fmt.Sprintf("%.0f", r.Catalysis),
 				fmt.Sprintf("%.0f", r.Survival),
 				fmt.Sprintf("%.0f", r.Design),
 				fmt.Sprintf("%.0f", r.Breadth),
@@ -143,11 +143,11 @@ func formatGravity(r scorer.Result) string {
 	}
 
 	// Gravity health: how durable is this structural influence?
-	// Quality and RobustSurvival indicate whether the gravity is sustainable.
-	health := r.Quality*0.6 + r.RobustSurvival*0.4
+	// Catalysis and RobustSurvival indicate whether the gravity is sustainable.
+	health := r.Catalysis*0.6 + r.RobustSurvival*0.4
 	if r.RobustSurvival == 0 && r.DormantSurvival == 0 {
-		// No pressure data available — fall back to Quality + Survival
-		health = r.Quality*0.6 + r.Survival*0.4
+		// No pressure data available — fall back to Catalysis + Survival
+		health = r.Catalysis*0.6 + r.Survival*0.4
 	}
 
 	switch {

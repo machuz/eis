@@ -30,7 +30,7 @@ type TeamResult struct {
 
 	// Member axis averages (0-100), computed from CoreMembers only
 	AvgProduction       float64
-	AvgQuality          float64
+	AvgCatalysis        float64
 	AvgSurvival         float64
 	AvgRobustSurvival   float64
 	AvgDormantSurvival  float64
@@ -57,13 +57,13 @@ type TeamResult struct {
 
 // TeamHealth holds the health axis scores.
 type TeamHealth struct {
-	Complementarity     float64
-	GrowthPotential     float64
-	Sustainability      float64
-	DebtBalance         float64
-	ProductivityDensity float64
-	QualityConsistency  float64
-	RiskRatio           float64 // percentage of risk members (0-100)
+	Complementarity      float64
+	GrowthPotential      float64
+	Sustainability       float64
+	DebtBalance          float64
+	ProductivityDensity  float64
+	CatalysisConsistency float64
+	RiskRatio            float64 // percentage of risk members (0-100)
 
 	// Structure metrics
 	AAR                  float64 // Architect-to-Anchor Ratio (raw ratio, not 0-100)
@@ -133,7 +133,7 @@ func Aggregate(name, domain string, repoCount int, results []scorer.Result, memb
 		var sumDesign, sumBreadth, sumDebt, sumIndisp, sumImpact float64
 		for _, m := range coreMembers {
 			sumProd += m.Production
-			sumQual += m.Quality
+			sumQual += m.Catalysis
 			sumSurv += m.Survival
 			sumRobust += m.RobustSurvival
 			sumDormant += m.DormantSurvival
@@ -145,7 +145,7 @@ func Aggregate(name, domain string, repoCount int, results []scorer.Result, memb
 		}
 		n := float64(len(coreMembers))
 		tr.AvgProduction = sumProd / n
-		tr.AvgQuality = sumQual / n
+		tr.AvgCatalysis = sumQual / n
 		tr.AvgSurvival = sumSurv / n
 		tr.AvgRobustSurvival = sumRobust / n
 		tr.AvgDormantSurvival = sumDormant / n

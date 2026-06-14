@@ -18,7 +18,7 @@ type ModuleResolver = metric.ModuleResolver
 var (
 	CalcProduction           = metric.CalcProduction
 	CalcLines                = metric.CalcLines
-	CalcQuality              = metric.CalcQuality
+	CalcCatalysis            = metric.CalcCatalysis
 	CalcSurvival             = metric.CalcSurvival
 	CalcSurvivalWithPressure = metric.CalcSurvivalWithPressure
 	CalcDesign               = metric.CalcDesign

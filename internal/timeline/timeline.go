@@ -49,7 +49,7 @@ type AuthorPeriod struct {
 	Label            string
 	Impact           float64
 	Production       float64
-	Quality          float64
+	Catalysis        float64
 	Survival         float64
 	RobustSurvival   float64
 	DormantSurvival  float64
@@ -101,7 +101,7 @@ func BuildTimeline(periods []PeriodResult) []AuthorTimeline {
 						Label:            p.Label,
 						Impact:           m.Impact,
 						Production:       m.Production,
-						Quality:          m.Quality,
+						Catalysis:        m.Catalysis,
 						Survival:         m.Survival,
 						RobustSurvival:   m.RobustSurvival,
 						DormantSurvival:  m.DormantSurvival,
@@ -212,27 +212,27 @@ type TeamTimeline struct {
 
 // TeamPeriodSnapshot holds the key metrics for one period.
 type TeamPeriodSnapshot struct {
-	Label           string
-	CoreMembers     int
+	Label            string
+	CoreMembers      int
 	EffectiveMembers int
-	TotalMembers    int
+	TotalMembers     int
 
 	// Averages
 	AvgImpact      float64
 	AvgProduction  float64
-	AvgQuality     float64
+	AvgCatalysis   float64
 	AvgSurvival    float64
 	AvgDesign      float64
 	AvgDebtCleanup float64
 
 	// Health
-	Complementarity     float64
-	GrowthPotential     float64
-	Sustainability      float64
-	DebtBalance         float64
-	ProductivityDensity float64
-	QualityConsistency  float64
-	RiskRatio           float64
+	Complementarity      float64
+	GrowthPotential      float64
+	Sustainability       float64
+	DebtBalance          float64
+	ProductivityDensity  float64
+	CatalysisConsistency float64
+	RiskRatio            float64
 
 	// Classification
 	Character string
@@ -264,18 +264,18 @@ func BuildTeamTimeline(teamName, domain string, periods []TeamPeriodResult) Team
 
 			AvgImpact:      tr.AvgImpact,
 			AvgProduction:  tr.AvgProduction,
-			AvgQuality:     tr.AvgQuality,
+			AvgCatalysis:   tr.AvgCatalysis,
 			AvgSurvival:    tr.AvgSurvival,
 			AvgDesign:      tr.AvgDesign,
 			AvgDebtCleanup: tr.AvgDebtCleanup,
 
-			Complementarity:     tr.Health.Complementarity,
-			GrowthPotential:     tr.Health.GrowthPotential,
-			Sustainability:      tr.Health.Sustainability,
-			DebtBalance:         tr.Health.DebtBalance,
-			ProductivityDensity: tr.Health.ProductivityDensity,
-			QualityConsistency:  tr.Health.QualityConsistency,
-			RiskRatio:           tr.Health.RiskRatio,
+			Complementarity:      tr.Health.Complementarity,
+			GrowthPotential:      tr.Health.GrowthPotential,
+			Sustainability:       tr.Health.Sustainability,
+			DebtBalance:          tr.Health.DebtBalance,
+			ProductivityDensity:  tr.Health.ProductivityDensity,
+			CatalysisConsistency: tr.Health.CatalysisConsistency,
+			RiskRatio:            tr.Health.RiskRatio,
 
 			Character: tr.Classification.Character.Name,
 			Structure: tr.Classification.Structure.Name,

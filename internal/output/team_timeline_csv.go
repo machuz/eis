@@ -16,9 +16,9 @@ func PrintTeamTimelineCSV(timelines []timeline.TeamTimeline) {
 		"team", "domain", "period",
 		"core_members", "effective_members", "total_members",
 		"character", "structure", "culture", "phase", "risk",
-		"avg_production", "avg_quality", "avg_survival", "avg_design", "avg_debt_cleanup", "avg_impact",
+		"avg_production", "avg_catalysis", "avg_survival", "avg_design", "avg_debt_cleanup", "avg_impact",
 		"complementarity", "growth_potential", "sustainability", "debt_balance",
-		"productivity_density", "quality_consistency", "risk_ratio",
+		"productivity_density", "catalysis_consistency", "risk_ratio",
 	})
 
 	for _, tl := range timelines {
@@ -36,7 +36,7 @@ func PrintTeamTimelineCSV(timelines []timeline.TeamTimeline) {
 				p.Phase,
 				p.Risk,
 				fmt.Sprintf("%.1f", p.AvgProduction),
-				fmt.Sprintf("%.1f", p.AvgQuality),
+				fmt.Sprintf("%.1f", p.AvgCatalysis),
 				fmt.Sprintf("%.1f", p.AvgSurvival),
 				fmt.Sprintf("%.1f", p.AvgDesign),
 				fmt.Sprintf("%.1f", p.AvgDebtCleanup),
@@ -46,7 +46,7 @@ func PrintTeamTimelineCSV(timelines []timeline.TeamTimeline) {
 				fmt.Sprintf("%.1f", p.Sustainability),
 				fmt.Sprintf("%.1f", p.DebtBalance),
 				fmt.Sprintf("%.1f", p.ProductivityDensity),
-				fmt.Sprintf("%.1f", p.QualityConsistency),
+				fmt.Sprintf("%.1f", p.CatalysisConsistency),
 				fmt.Sprintf("%.1f", p.RiskRatio),
 			})
 		}

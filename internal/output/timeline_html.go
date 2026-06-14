@@ -21,7 +21,7 @@ type htmlAuthorPeriod struct {
 	Label      string  `json:"label"`
 	Impact     float64 `json:"impact"`
 	Production float64 `json:"production"`
-	Quality    float64 `json:"quality"`
+	Catalysis  float64 `json:"catalysis"`
 	Survival   float64 `json:"survival"`
 	Design     float64 `json:"design"`
 	Role       string  `json:"role"`
@@ -43,14 +43,14 @@ type htmlTransition struct {
 
 type htmlAuthorTimeline struct {
 	Author      string             `json:"author"`
-	Periods     []htmlAuthorPeriod  `json:"periods"`
+	Periods     []htmlAuthorPeriod `json:"periods"`
 	Transitions []htmlTransition   `json:"transitions"`
 }
 
 type htmlDomainData struct {
 	DomainName string               `json:"domainName"`
 	Span       string               `json:"span"`
-	Timelines  []htmlAuthorTimeline  `json:"timelines"`
+	Timelines  []htmlAuthorTimeline `json:"timelines"`
 }
 
 type htmlTeamPeriod struct {
@@ -60,17 +60,17 @@ type htmlTeamPeriod struct {
 	TotalMembers     int     `json:"totalMembers"`
 	AvgImpact        float64 `json:"avgImpact"`
 	AvgProduction    float64 `json:"avgProduction"`
-	AvgQuality       float64 `json:"avgQuality"`
+	AvgCatalysis     float64 `json:"avgCatalysis"`
 	AvgSurvival      float64 `json:"avgSurvival"`
 	AvgDesign        float64 `json:"avgDesign"`
 
-	Complementarity     float64 `json:"complementarity"`
-	GrowthPotential     float64 `json:"growthPotential"`
-	Sustainability      float64 `json:"sustainability"`
-	DebtBalance         float64 `json:"debtBalance"`
-	ProductivityDensity float64 `json:"productivityDensity"`
-	QualityConsistency  float64 `json:"qualityConsistency"`
-	RiskRatio           float64 `json:"riskRatio"`
+	Complementarity      float64 `json:"complementarity"`
+	GrowthPotential      float64 `json:"growthPotential"`
+	Sustainability       float64 `json:"sustainability"`
+	DebtBalance          float64 `json:"debtBalance"`
+	ProductivityDensity  float64 `json:"productivityDensity"`
+	CatalysisConsistency float64 `json:"catalysisConsistency"`
+	RiskRatio            float64 `json:"riskRatio"`
 
 	Character string `json:"character"`
 	Structure string `json:"structure"`
@@ -80,10 +80,10 @@ type htmlTeamPeriod struct {
 }
 
 type htmlTeamTimeline struct {
-	TeamName    string             `json:"teamName"`
-	Domain      string             `json:"domain"`
-	Periods     []htmlTeamPeriod   `json:"periods"`
-	Transitions []htmlTransition   `json:"transitions"`
+	TeamName    string           `json:"teamName"`
+	Domain      string           `json:"domain"`
+	Periods     []htmlTeamPeriod `json:"periods"`
+	Transitions []htmlTransition `json:"transitions"`
 }
 
 type htmlTemplateData struct {
@@ -113,7 +113,7 @@ func WriteTimelineHTML(w io.Writer, domainTimelines []DomainTimelineData, teamTi
 					Label:      p.Label,
 					Impact:     p.Impact,
 					Production: p.Production,
-					Quality:    p.Quality,
+					Catalysis:  p.Catalysis,
 					Survival:   p.Survival,
 					Design:     p.Design,
 					Role:       p.Role,
@@ -146,27 +146,27 @@ func WriteTimelineHTML(w io.Writer, domainTimelines []DomainTimelineData, teamTi
 		}
 		for _, p := range tl.Periods {
 			htt.Periods = append(htt.Periods, htmlTeamPeriod{
-				Label:               p.Label,
-				CoreMembers:         p.CoreMembers,
-				EffectiveMembers:    p.EffectiveMembers,
-				TotalMembers:        p.TotalMembers,
-				AvgImpact:           p.AvgImpact,
-				AvgProduction:       p.AvgProduction,
-				AvgQuality:          p.AvgQuality,
-				AvgSurvival:         p.AvgSurvival,
-				AvgDesign:           p.AvgDesign,
-				Complementarity:     p.Complementarity,
-				GrowthPotential:     p.GrowthPotential,
-				Sustainability:      p.Sustainability,
-				DebtBalance:         p.DebtBalance,
-				ProductivityDensity: p.ProductivityDensity,
-				QualityConsistency:  p.QualityConsistency,
-				RiskRatio:           p.RiskRatio,
-				Character:           p.Character,
-				Structure:           p.Structure,
-				Culture:             p.Culture,
-				Phase:               p.Phase,
-				Risk:                p.Risk,
+				Label:                p.Label,
+				CoreMembers:          p.CoreMembers,
+				EffectiveMembers:     p.EffectiveMembers,
+				TotalMembers:         p.TotalMembers,
+				AvgImpact:            p.AvgImpact,
+				AvgProduction:        p.AvgProduction,
+				AvgCatalysis:         p.AvgCatalysis,
+				AvgSurvival:          p.AvgSurvival,
+				AvgDesign:            p.AvgDesign,
+				Complementarity:      p.Complementarity,
+				GrowthPotential:      p.GrowthPotential,
+				Sustainability:       p.Sustainability,
+				DebtBalance:          p.DebtBalance,
+				ProductivityDensity:  p.ProductivityDensity,
+				CatalysisConsistency: p.CatalysisConsistency,
+				RiskRatio:            p.RiskRatio,
+				Character:            p.Character,
+				Structure:            p.Structure,
+				Culture:              p.Culture,
+				Phase:                p.Phase,
+				Risk:                 p.Risk,
 			})
 		}
 		for _, tr := range tl.Transitions {
@@ -367,7 +367,7 @@ const DATA = {{.JSONData}};
 const COLORS = {
   total:      '#83a598',
   production: '#b8bb26',
-  quality:    '#fabd2f',
+  catalysis:    '#fabd2f',
   survival:   '#d3869b',
   design:     '#8ec07c'
 };
@@ -417,7 +417,7 @@ function createScoreChart(canvasId, labels, periods, transitions) {
   const datasets = [
     { label: 'Impact',     data: periods.map(p => p.impact),     borderColor: COLORS.total,      backgroundColor: COLORS.total + '20' },
     { label: 'Production', data: periods.map(p => p.production), borderColor: COLORS.production, backgroundColor: COLORS.production + '20' },
-    { label: 'Quality',    data: periods.map(p => p.quality),    borderColor: COLORS.quality,    backgroundColor: COLORS.quality + '20' },
+    { label: 'Catalysis',    data: periods.map(p => p.catalysis),    borderColor: COLORS.catalysis,    backgroundColor: COLORS.catalysis + '20' },
     { label: 'Survival',   data: periods.map(p => p.survival),   borderColor: COLORS.survival,   backgroundColor: COLORS.survival + '20' },
     { label: 'Design',     data: periods.map(p => p.design),     borderColor: COLORS.design,     backgroundColor: COLORS.design + '20' },
   ];
@@ -508,7 +508,7 @@ function createTeamScoreChart(canvasId, labels, periods) {
   const datasets = [
     { label: 'AvgImpact',     data: periods.map(p => p.avgImpact),     borderColor: COLORS.total },
     { label: 'AvgProduction', data: periods.map(p => p.avgProduction), borderColor: COLORS.production },
-    { label: 'AvgQuality',    data: periods.map(p => p.avgQuality),    borderColor: COLORS.quality },
+    { label: 'AvgCatalysis',    data: periods.map(p => p.avgCatalysis),    borderColor: COLORS.catalysis },
     { label: 'AvgSurvival',   data: periods.map(p => p.avgSurvival),   borderColor: COLORS.survival },
     { label: 'AvgDesign',     data: periods.map(p => p.avgDesign),     borderColor: COLORS.design },
   ];
@@ -544,7 +544,7 @@ function createHealthChart(canvasId, labels, periods) {
     { key: 'sustainability',      label: 'Sustainability' },
     { key: 'debtBalance',         label: 'DebtBalance' },
     { key: 'productivityDensity', label: 'ProductivityDensity' },
-    { key: 'qualityConsistency',  label: 'QualityConsistency' },
+    { key: 'catalysisConsistency',  label: 'CatalysisConsistency' },
     { key: 'riskRatio',           label: 'RiskRatio' },
   ];
   const datasets = metrics.map((m, i) => ({

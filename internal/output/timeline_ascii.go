@@ -33,7 +33,7 @@ func PrintTimelineASCII(domainName, span string, timelines []timeline.AuthorTime
 		for _, p := range tl.Periods {
 			impactData = append(impactData, p.Impact)
 			prodData = append(prodData, p.Production)
-			qualData = append(qualData, p.Quality)
+			qualData = append(qualData, p.Catalysis)
 			survData = append(survData, p.Survival)
 			designData = append(designData, p.Design)
 			labels = append(labels, p.Label)
@@ -69,7 +69,7 @@ func PrintTimelineASCII(domainName, span string, timelines []timeline.AuthorTime
 		fmt.Printf("  %s  %s  %s  %s  %s\n",
 			color.BlueString("Impact"),
 			color.GreenString("Production"),
-			color.YellowString("Quality"),
+			color.YellowString("Catalysis"),
 			color.RedString("Survival"),
 			color.CyanString("Design"),
 		)

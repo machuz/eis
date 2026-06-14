@@ -198,7 +198,7 @@ func (e *DomainEntry) UnmarshalYAML(value *yaml.Node) error {
 
 type Weights struct {
 	Production       float64 `yaml:"production"`
-	Quality          float64 `yaml:"quality"`
+	Catalysis        float64 `yaml:"catalysis"`
 	Survival         float64 `yaml:"survival"`
 	Design           float64 `yaml:"design"`
 	Breadth          float64 `yaml:"breadth"`
@@ -261,8 +261,8 @@ func Default() *Config {
 		ExcludeAuthors: []string{"github-actions[bot]", "renovate[bot]", "dependabot[bot]"},
 		Aliases:        map[string]string{},
 		Weights: Weights{
-			Production:       0.15,
-			Quality:          0.10,
+			Production:       0.10,
+			Catalysis:        0.15,
 			Survival:         0.25,
 			Design:           0.20,
 			Breadth:          0.10,
@@ -315,7 +315,7 @@ func (c *Config) Validate() error {
 	}
 
 	w := c.Weights
-	sum := w.Production + w.Quality + w.Survival + w.Design + w.Breadth + w.DebtCleanup + w.Indispensability
+	sum := w.Production + w.Catalysis + w.Survival + w.Design + w.Breadth + w.DebtCleanup + w.Indispensability
 	if math.Abs(sum-1.0) > 0.01 {
 		return fmt.Errorf("weights must sum to 1.0, got %f", sum)
 	}

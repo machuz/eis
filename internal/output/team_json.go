@@ -44,7 +44,7 @@ type teamClassifyJSON struct {
 
 type teamAverages struct {
 	Production       float64 `json:"production"`
-	Quality          float64 `json:"quality"`
+	Catalysis        float64 `json:"catalysis"`
 	Survival         float64 `json:"survival"`
 	RobustSurvival   float64 `json:"robust_survival"`
 	DormantSurvival  float64 `json:"dormant_survival"`
@@ -56,13 +56,13 @@ type teamAverages struct {
 }
 
 type teamHealthJSON struct {
-	Complementarity     float64 `json:"complementarity"`
-	GrowthPotential     float64 `json:"growth_potential"`
-	Sustainability      float64 `json:"sustainability"`
-	DebtBalance         float64 `json:"debt_balance"`
-	ProductivityDensity float64 `json:"productivity_density"`
-	QualityConsistency  float64 `json:"quality_consistency"`
-	RiskRatio           float64 `json:"risk_ratio"`
+	Complementarity      float64 `json:"complementarity"`
+	GrowthPotential      float64 `json:"growth_potential"`
+	Sustainability       float64 `json:"sustainability"`
+	DebtBalance          float64 `json:"debt_balance"`
+	ProductivityDensity  float64 `json:"productivity_density"`
+	CatalysisConsistency float64 `json:"catalysis_consistency"`
+	RiskRatio            float64 `json:"risk_ratio"`
 }
 
 type structureJSON struct {
@@ -97,7 +97,7 @@ func PrintTeamJSON(teams []team.TeamResult) error {
 			},
 			Averages: teamAverages{
 				Production:       round1(tr.AvgProduction),
-				Quality:          round1(tr.AvgQuality),
+				Catalysis:        round1(tr.AvgCatalysis),
 				Survival:         round1(tr.AvgSurvival),
 				RobustSurvival:   round1(tr.AvgRobustSurvival),
 				DormantSurvival:  round1(tr.AvgDormantSurvival),
@@ -108,13 +108,13 @@ func PrintTeamJSON(teams []team.TeamResult) error {
 				Impact:           round1(tr.AvgImpact),
 			},
 			Health: teamHealthJSON{
-				Complementarity:     round1(tr.Health.Complementarity),
-				GrowthPotential:     round1(tr.Health.GrowthPotential),
-				Sustainability:      round1(tr.Health.Sustainability),
-				DebtBalance:         round1(tr.Health.DebtBalance),
-				ProductivityDensity: round1(tr.Health.ProductivityDensity),
-				QualityConsistency:  round1(tr.Health.QualityConsistency),
-				RiskRatio:           round1(tr.Health.RiskRatio),
+				Complementarity:      round1(tr.Health.Complementarity),
+				GrowthPotential:      round1(tr.Health.GrowthPotential),
+				Sustainability:       round1(tr.Health.Sustainability),
+				DebtBalance:          round1(tr.Health.DebtBalance),
+				ProductivityDensity:  round1(tr.Health.ProductivityDensity),
+				CatalysisConsistency: round1(tr.Health.CatalysisConsistency),
+				RiskRatio:            round1(tr.Health.RiskRatio),
 			},
 			Structure: structureJSON{
 				AAR:                  round2(tr.Health.AAR),
@@ -134,7 +134,7 @@ func PrintTeamJSON(teams []team.TeamResult) error {
 				Active:           m.RecentlyActive,
 				Commits:          m.TotalCommits,
 				Production:       round1(m.Production),
-				Quality:          round1(m.Quality),
+				Catalysis:        round1(m.Catalysis),
 				Survival:         round1(m.Survival),
 				RobustSurvival:   round1(m.RobustSurvival),
 				DormantSurvival:  round1(m.DormantSurvival),

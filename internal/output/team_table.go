@@ -186,7 +186,7 @@ func buildHealthLines(tr team.TeamResult) []string {
 		{"Sustain", h.Sustainability},
 		{"DebtBalance", h.DebtBalance},
 		{"ProdDensity", h.ProductivityDensity},
-		{"QualConsist", h.QualityConsistency},
+		{"QualConsist", h.CatalysisConsistency},
 	}
 
 	for _, a := range axes {
@@ -212,7 +212,7 @@ func buildAverageLines(tr team.TeamResult) []string {
 		val  float64
 	}{
 		{"Production", tr.AvgProduction},
-		{"Quality", tr.AvgQuality},
+		{"Catalysis", tr.AvgCatalysis},
 		{"Survival", tr.AvgSurvival},
 		{"Design", tr.AvgDesign},
 		{"Breadth", tr.AvgBreadth},

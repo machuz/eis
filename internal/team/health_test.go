@@ -9,11 +9,11 @@ import (
 
 func TestCalcHealth_FullTeam(t *testing.T) {
 	members := []scorer.Result{
-		{Quality: 90, Role: "Architect", Style: "Builder", State: "Active"},
-		{Quality: 85, Role: "Anchor", Style: "Balanced", State: "Growing"},
-		{Quality: 80, Role: "Cleaner", Style: "Rescue", State: "Active"},
-		{Quality: 75, Role: "Producer", Style: "Mass", State: "Active"},
-		{Quality: 70, Role: "Specialist", Style: "Balanced", State: "Active"},
+		{Catalysis: 90, Role: "Architect", Style: "Builder", State: "Active"},
+		{Catalysis: 85, Role: "Anchor", Style: "Balanced", State: "Growing"},
+		{Catalysis: 80, Role: "Cleaner", Style: "Rescue", State: "Active"},
+		{Catalysis: 75, Role: "Producer", Style: "Mass", State: "Active"},
+		{Catalysis: 70, Role: "Specialist", Style: "Balanced", State: "Active"},
 	}
 	tr := TeamResult{
 		MemberCount:     5,
@@ -21,7 +21,7 @@ func TestCalcHealth_FullTeam(t *testing.T) {
 		Members:         members,
 		CoreMembers:     members,
 		AvgProduction:   60,
-		AvgQuality:      80,
+		AvgCatalysis:    80,
 		AvgDebtCleanup:  55,
 		RoleDist: map[string]int{
 			"Architect": 1, "Anchor": 1, "Cleaner": 1, "Producer": 1, "Specialist": 1,
@@ -65,10 +65,10 @@ func TestCalcHealth_FullTeam(t *testing.T) {
 func TestCalcHealth_RiskyTeam(t *testing.T) {
 	// 1 core (Active) + 3 risk (Former, Silent, Fragile) = 4 effective
 	members := []scorer.Result{
-		{Quality: 90, Role: "Producer", Style: "Mass", State: "Former"},
-		{Quality: 30, Role: "Producer", Style: "Churn", State: "Silent"},
-		{Quality: 50, Role: "—", Style: "Spread", State: "Fragile"},
-		{Quality: 80, Role: "Producer", Style: "Mass", State: "Active"},
+		{Catalysis: 90, Role: "Producer", Style: "Mass", State: "Former"},
+		{Catalysis: 30, Role: "Producer", Style: "Churn", State: "Silent"},
+		{Catalysis: 50, Role: "—", Style: "Spread", State: "Fragile"},
+		{Catalysis: 80, Role: "Producer", Style: "Mass", State: "Active"},
 	}
 	coreMembers := []scorer.Result{members[3]} // only Active member
 	tr := TeamResult{
@@ -77,7 +77,7 @@ func TestCalcHealth_RiskyTeam(t *testing.T) {
 		Members:         members,
 		CoreMembers:     coreMembers,
 		AvgProduction:   40,
-		AvgQuality:      80, // from core only
+		AvgCatalysis:    80, // from core only
 		AvgDebtCleanup:  35,
 		RoleDist: map[string]int{
 			"Producer": 3, "—": 1,
@@ -122,16 +122,16 @@ func TestCalcHealth_Empty(t *testing.T) {
 	}
 }
 
-func TestCalcQualityConsistency_LowVariance(t *testing.T) {
+func TestCalcCatalysisConsistency_LowVariance(t *testing.T) {
 	members := []scorer.Result{
-		{Quality: 88},
-		{Quality: 91},
-		{Quality: 91},
+		{Catalysis: 88},
+		{Catalysis: 91},
+		{Catalysis: 91},
 	}
 	tr := TeamResult{
 		MemberCount:     3,
 		CoreMemberCount: 3,
-		AvgQuality:      90,
+		AvgCatalysis:    90,
 		Members:         members,
 		CoreMembers:     members,
 	}
@@ -139,21 +139,21 @@ func TestCalcQualityConsistency_LowVariance(t *testing.T) {
 	h := CalcHealth(tr)
 
 	// High avg, low variance → should be near 90
-	if h.QualityConsistency < 80 {
-		t.Errorf("QualityConsistency = %f, want >= 80 for consistent high quality", h.QualityConsistency)
+	if h.CatalysisConsistency < 80 {
+		t.Errorf("CatalysisConsistency = %f, want >= 80 for consistent high quality", h.CatalysisConsistency)
 	}
 }
 
-func TestCalcQualityConsistency_HighVariance(t *testing.T) {
+func TestCalcCatalysisConsistency_HighVariance(t *testing.T) {
 	members := []scorer.Result{
-		{Quality: 95},
-		{Quality: 60},
-		{Quality: 25},
+		{Catalysis: 95},
+		{Catalysis: 60},
+		{Catalysis: 25},
 	}
 	tr := TeamResult{
 		MemberCount:     3,
 		CoreMemberCount: 3,
-		AvgQuality:      60,
+		AvgCatalysis:    60,
 		Members:         members,
 		CoreMembers:     members,
 	}
@@ -161,8 +161,8 @@ func TestCalcQualityConsistency_HighVariance(t *testing.T) {
 	h := CalcHealth(tr)
 
 	// Medium avg, high variance → lower score
-	if h.QualityConsistency > 70 {
-		t.Errorf("QualityConsistency = %f, want < 70 for inconsistent quality", h.QualityConsistency)
+	if h.CatalysisConsistency > 70 {
+		t.Errorf("CatalysisConsistency = %f, want < 70 for inconsistent quality", h.CatalysisConsistency)
 	}
 }
 

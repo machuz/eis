@@ -32,19 +32,19 @@ type seriesConfig struct {
 
 // Gruvbox Dark palette
 var (
-	gruvboxBg     = drawing.Color{R: 40, G: 40, B: 40, A: 255}     // #282828
-	gruvboxBgSoft = drawing.Color{R: 50, G: 48, B: 47, A: 255}     // #32302f
-	gruvboxFg     = drawing.Color{R: 235, G: 219, B: 178, A: 255}  // #ebdbb2
-	gruvboxFgDim  = drawing.Color{R: 168, G: 153, B: 132, A: 255}  // #a89984
-	gruvboxGrid   = drawing.Color{R: 80, G: 73, B: 69, A: 255}     // #504945
+	gruvboxBg     = drawing.Color{R: 40, G: 40, B: 40, A: 255}    // #282828
+	gruvboxBgSoft = drawing.Color{R: 50, G: 48, B: 47, A: 255}    // #32302f
+	gruvboxFg     = drawing.Color{R: 235, G: 219, B: 178, A: 255} // #ebdbb2
+	gruvboxFgDim  = drawing.Color{R: 168, G: 153, B: 132, A: 255} // #a89984
+	gruvboxGrid   = drawing.Color{R: 80, G: 73, B: 69, A: 255}    // #504945
 )
 
 var scoreSeries = []seriesConfig{
-	{"Impact", drawing.Color{R: 69, G: 133, B: 136, A: 255}},      // #458588 gruvbox blue
-	{"Production", drawing.Color{R: 152, G: 151, B: 26, A: 255}},  // #98971a gruvbox green
-	{"Quality", drawing.Color{R: 250, G: 189, B: 47, A: 255}},     // #fabd2f gruvbox yellow
-	{"Survival", drawing.Color{R: 211, G: 134, B: 155, A: 255}},   // #d3869b gruvbox purple
-	{"Design", drawing.Color{R: 142, G: 192, B: 124, A: 255}},     // #8ec07c gruvbox aqua
+	{"Impact", drawing.Color{R: 69, G: 133, B: 136, A: 255}},     // #458588 gruvbox blue
+	{"Production", drawing.Color{R: 152, G: 151, B: 26, A: 255}}, // #98971a gruvbox green
+	{"Catalysis", drawing.Color{R: 250, G: 189, B: 47, A: 255}},  // #fabd2f gruvbox yellow
+	{"Survival", drawing.Color{R: 211, G: 134, B: 155, A: 255}},  // #d3869b gruvbox purple
+	{"Design", drawing.Color{R: 142, G: 192, B: 124, A: 255}},    // #8ec07c gruvbox aqua
 }
 
 // WriteTimelineSVG generates SVG chart files for each author and team timeline.
@@ -104,7 +104,7 @@ func writeAuthorSVG(path, title string, periods []timeline.AuthorPeriod) error {
 		labels[i] = p.Label
 		values[0][i] = p.Impact
 		values[1][i] = p.Production
-		values[2][i] = p.Quality
+		values[2][i] = p.Catalysis
 		values[3][i] = p.Survival
 		values[4][i] = p.Design
 	}
@@ -123,7 +123,7 @@ func writeTeamSVG(path, title string, periods []timeline.TeamPeriodSnapshot) err
 		labels[i] = p.Label
 		values[0][i] = p.AvgImpact
 		values[1][i] = p.AvgProduction
-		values[2][i] = p.AvgQuality
+		values[2][i] = p.AvgCatalysis
 		values[3][i] = p.AvgSurvival
 		values[4][i] = p.AvgDesign
 	}
@@ -195,8 +195,8 @@ func writeSVGChart(path, title string, labels []string, values [][]float64) erro
 				FontColor: gruvboxFgDim,
 			},
 			Style: chart.Style{
-				FontSize:  11,
-				FontColor: gruvboxFgDim,
+				FontSize:    11,
+				FontColor:   gruvboxFgDim,
 				StrokeColor: gruvboxGrid,
 			},
 			Ticks: ticks,
@@ -212,8 +212,8 @@ func writeSVGChart(path, title string, labels []string, values [][]float64) erro
 				FontColor: gruvboxFgDim,
 			},
 			Style: chart.Style{
-				FontSize:  11,
-				FontColor: gruvboxFgDim,
+				FontSize:    11,
+				FontColor:   gruvboxFgDim,
 				StrokeColor: gruvboxGrid,
 			},
 			Range: &chart.ContinuousRange{Min: 0, Max: 100},
@@ -227,9 +227,9 @@ func writeSVGChart(path, title string, labels []string, values [][]float64) erro
 
 	graph.Elements = []chart.Renderable{
 		chart.LegendLeft(&graph, chart.Style{
-			FontSize:  11,
-			FontColor: gruvboxFg,
-			FillColor: gruvboxBgSoft,
+			FontSize:    11,
+			FontColor:   gruvboxFg,
+			FillColor:   gruvboxBgSoft,
 			StrokeColor: gruvboxGrid,
 		}),
 	}
