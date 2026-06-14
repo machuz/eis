@@ -89,7 +89,7 @@ EISはリポジトリ内の各コントリビュータに対して7つの軸を�
 | 軸 | シグナル | スケール | ソース |
 |----|----------|----------|--------|
 | Production | コード変更量 | 絶対 | コミット |
-| Quality | 修正比率の逆数 | 絶対 | コミットメッセージ |
+| Catalysis | 他者が自分の土台の上に積んだ生存貢献 | 相対 | `git blame` + コミット |
 | Survival | コードの耐久性（時間減衰付き） | 相対 | `git blame` |
 | Design | アーキテクチャファイルへの変更 | 相対 | コミット＋パターン |
 | Breadth | 触れたモジュールの多様性 | 相対 | コミット |
@@ -114,25 +114,23 @@ $$\text{Score}_a = \min\left(\frac{\text{Production}_a / \text{activeDays}_a}{\t
 
 **根拠:** Productionは意図的に絶対メトリクスとして維持される。2人のチームと20人のチームは、一人当たりの出力で比較可能であるべきだ。
 
-### 3.3 Quality（品質）
+### 3.3 Catalysis（触媒）
 
-Qualityはエンジニアの修正比率の逆数を測定する。
+Catalysis は、エンジニアが**他者をどれだけ前に進めたか**——自分のまだ生き残っている土台の上に、後続の貢献者が積み上げ、それが生き残っているコード量——を測定する。7軸で唯一、「自分がコードに何をしたか」ではなく「自分のコードが**他者に**何をしたか」を見る軸である。
+
+土台とは「誰がファイルを作ったか」ではない。最初にファイルを置いた人でも、その行が全て書き換えられていれば何も残していない。土台とは**生存の先行性**である。すなわち、自分のコードがまだ生き残っているファイルについて、自分より後にそのファイルへ最初に触れた著者の生存貢献が加点される。
 
 **計算式:**
 
-$$\text{FixRatio}_a = \frac{|\{c \in \text{commits}(a) : \text{isFix}(c)\}|}{|\text{commits}(a) \setminus \text{merges}(a)|}$$
+ファイル $f$ について、$\text{first}_f(a)$ を著者 $a$ が $f$ に触れた最古コミットの日付、$\text{surv}_f(a)$ を $f$ における $a$ の時間減衰付き生存 blame 質量とする（減衰は Survival と同じ。§3.4）：
 
-$$\text{Quality}_a = 100 - \text{FixRatio}_a \times 100$$
+$$\text{Catalysis}_a = \sum_{f\,:\,\text{surv}_f(a) > 0}\ \ \sum_{\substack{b \neq a \\ \text{first}_f(b) > \text{first}_f(a)}} \text{surv}_f(b)$$
 
-**修正検出:** コミットメッセージが以下にマッチする場合、修正として分類される：
+外側の和は $a$ 自身のコードがまだ生存するファイル（$\text{surv}_f(a) > 0$）のみを走り、その中で $a$ は後から来た全著者の生存質量で加点される。
 
-```
-(?i)^[^\w]*(?:\[?\s*(?:fix|revert|hotfix)\s*\]?[:/\s])
-```
+**正規化（相対）:** Survival と同様にグループ内で正規化される。
 
-または日本語の「修正」を含む場合。マージコミットは修正カウントに寄与するが、総カウントには寄与しない。これにより、マージの多いワークフローで品質シグナルが膨張するのを防ぐ。
-
-**根拠:** コミットの大部分が修正であるエンジニアは、ミスの修正に時間を費やしている（自分自身のまたは他者の）。Qualityは絶対スケールであり、チーム構成に依存しない。
+**根拠:** 自分がファイルを置き、誰かが全て書き換えれば、自分の行は消え——加点ゼロ——書き換えた人（そのコードが今生存している人）が次の貢献者の土台になる。このシグナルは三重にゲートされ偽装に強い：(1) 自分の土台が生存していること、(2) 後から別の人間が来ること、(3) その人の作業も生存すること。`git log`（ファイル別の初貢献日）と `git blame`（生存質量）から算出され——どちらも他軸のために既に収集済み——コミットメッセージのヒューリスティックも行単位の履歴も不要。
 
 ### 3.4 Survival（生存率）
 
@@ -213,7 +211,7 @@ Debt Cleanupはエンジニアが他者の技術的負債を清算している�
 
 **アルゴリズム:**
 
-1. 修正コミットを識別（Qualityの修正検出正規表現を使用）
+1. 修正コミットを識別（修正コミット検出の正規表現を使用）
 2. 最大500件の修正コミットをサンプリング
 3. 各修正コミットについて、親コミットで `git blame` を実行し、変更された行の元の著者を特定
 4. カウント:
@@ -265,9 +263,9 @@ $$\text{Score}_a = \min\left(\frac{\text{raw}_a}{\max_b(\text{raw}_b)} \times 10
 
 最高貢献者は常にシグナル100を獲得する。チームコンテキスト外で絶対値が無意味なメトリクスに適切。
 
-**絶対正規化**（Production、Quality、Debt Cleanup向け）：
+**絶対正規化**（Production、Debt Cleanup向け）：
 
-チーム間比較を可能にする固定参照点。Productionは日次参照率を使用し、QualityとDebt Cleanupは本質的に有界。
+チーム間比較を可能にする固定参照点。Productionは日次参照率を使用し、Debt Cleanupは本質的に有界。Catalysisはグループ内で正規化される（相対）。
 
 ### 3.10 Impact
 
@@ -279,8 +277,8 @@ $$\text{Impact} = \sum_{i} w_i \times \text{Score}_i$$
 
 | 軸 | 重み |
 |----|------|
-| Production | 0.15 |
-| Quality | 0.10 |
+| Production | 0.10 |
+| Catalysis | 0.15 |
 | Survival | 0.25 |
 | Design | 0.20 |
 | Breadth | 0.10 |
@@ -336,8 +334,8 @@ $$\text{notLow}(v) = \begin{cases} 1.0 & v \geq 50 \\ 0.5 + \frac{v-30}{40} & 30
 | Role | 信頼度の計算式 | 解釈 |
 |------|---------------|------|
 | **Architect** | $\min(\text{highness(Design)},\; \text{highness(Survival)},\; \text{notLow(Breadth)})$ | 他者がその上に構築する構造を形成する |
-| **Anchor** | $\min(\text{highness(Quality)},\; \text{notLow(Production)})$ | コードベース全体の品質を安定させる |
-| **Cleaner** | $\min(\text{highness(Quality)},\; \text{highness(Survival)},\; \text{highness(DebtCleanup)})$ | 他者の技術的負債を解消する |
+| **Anchor** | $\min(\text{highness(Catalysis)},\; \text{notLow(Production)})$ | 他者が積み上げる土台となる |
+| **Cleaner** | $\min(\text{highness(Survival)},\; \text{highness(DebtCleanup)})$ | 他者の技術的負債を解消する |
 | **Producer** | $\text{notLow(Production)}$ | アウトプットを生成し、機能を前進させる |
 | **Specialist** | $\min(\text{highness(Survival)},\; \text{lowness(Breadth)})$ | 狭い領域での深い専門性 |
 
@@ -352,7 +350,7 @@ $$\text{notLow}(v) = \begin{cases} 1.0 & v \geq 50 \\ 0.5 + \frac{v-30}{40} & 30
 | **Builder** | $\min(\text{highness(Production)},\; \text{highness(Design)},\; \text{notLow(DebtCleanup)})$ | 設計し、大量に構築し、さらに後始末もする |
 | **Resilient** | $\min(\text{highness(Production)},\; \text{lowness(Survival)},\; \text{notLow(RobustSurvival)})$ | 大量にイテレーションし、圧力下で生存したものは堅牢 |
 | **Rescue** | $\min(\text{highness(Production)},\; \text{lowness(Survival)},\; \text{highness(DebtCleanup)})$ | レガシーコードを整理する高出力 |
-| **Churn** | $\min(\text{notLow(Production)},\; \text{lowness(Quality)},\; \text{lowness(Survival)})$ | 高出力だが品質が低く、常に書き直し |
+| **Churn** | $\min(\text{notLow(Production)},\; \text{lowness(Survival)})$ | 高出力だが生き残らず、常に書き直し |
 | **Mass** | $\min(\text{highness(Production)},\; \text{lowness(Survival)})$ | 高出力だがコードが残らない |
 | **Emergent** | $\min(\text{highness(Gravity)},\; \text{notLow(Production)},\; \text{lowness(RobustSurvival)})$ | まだ実戦テストされていない新しい構造を創造中 |
 | **Balanced** | $0.30$（固定） | 安定した貢献者、支配的パターンなし |
@@ -367,7 +365,7 @@ $$\text{notLow}(v) = \begin{cases} 1.0 & v \geq 50 \\ 0.5 + \frac{v-30}{40} & 30
 | **Former** | $\min(\text{high(RawSurv)},\; \text{low(Surv)},\; \max(\text{high(Design)},\; \text{high(Indisp)}))$ | コードは残存しているが本人は非活動。重要人物だった |
 | **Silent** | $\min(\text{low(Prod)},\; \text{low(Surv)},\; \text{low(Debt)})$ | 観測シグナルがすべて低い——生産・生存・負債清掃のいずれも検出されない。ロールのミスマッチや環境要因の可能性がある |
 | **Fragile** | $0.85 + \frac{\text{dormantRatio} - 80}{200}$ | コードは誰も触らない場所でだけ生存 |
-| **Growing** | $\min(\text{low(Prod)},\; \text{high(Quality)})$ | 低量だが高品質——成長軌道上 |
+| **Growing** | $\min(\text{low(Prod)},\; \text{high(Catalysis)})$ | 低量だが他者が既にその土台に積んでいる——成長軌道上 |
 | **Active** | 最近活動している場合 $0.80$ | 現在貢献中 |
 
 `dormantRatio` はエンジニアの生存blame行のうち、中央値未満の変更圧力を持つモジュールに存在する割合: $\text{dormantRatio}_a = \frac{\text{DormantSurvival}_a}{\text{RawSurvival}_a} \times 100$。
@@ -380,7 +378,7 @@ Fragileの条件: 休眠比率≥80%、Indispensability≥60、Production<40。�
 
 - **Architect Builder Active** — 活発に設計し、耐久性のある構造を構築中
 - **Producer Mass Active** — 高出力だがコードが生存しない
-- **Anchor Balanced Growing** — 品質重視、まだ幅を広げている途中
+- **Anchor Balanced Growing** — 他者の土台づくり重視、まだ幅を広げている途中
 - **Architect Emergent Active** — まだ実証されていない新しいアーキテクチャパターンを創造中
 
 ---
@@ -445,17 +443,17 @@ $$\text{ProductivityDensity} = \text{AvgProduction}_{\text{core}}$$
 
 小規模チームボーナス付き：チーム≤3人で×1.2、≤5人で×1.1（AvgProduction≥50の場合）。
 
-#### Quality Consistency（品質一貫性）
+#### Catalysis Consistency（触媒一貫性）
 
-$$\text{QualityConsistency} = 0.6 \times \text{AvgQuality} + 0.4 \times \text{clamp}(100 - 2\sigma_{\text{Quality}},\; 0,\; 100)$$
+$$\text{CatalysisConsistency} = 0.6 \times \text{AvgCatalysis} + 0.4 \times \text{clamp}(100 - 2\sigma_{\text{Catalysis}},\; 0,\; 100)$$
 
-高い平均品質と低い分散のバランス。全員が80%品質のチームは、95%/65%に分かれたチームより高シグナル。
+相互に土台を築き合う平均水準と低い分散のバランス。メンバーが互いの生存コードの上に均等に積み上げるチームは、少数の触媒と多数の孤立貢献者に分かれたチームより高シグナル。
 
 ### 5.3 チーム分類: 5軸システム
 
 #### Character（性格・総合的なアイデンティティ）
 
-**AAR (Architect-to-Anchor Ratio)** は設計能力と品質安定化のバランスを測定する: $\text{AAR} = \frac{\text{weightedRatio(Architect)}}{\text{weightedRatio(Anchor)}}$。均衡したAAR（0.5--2.0）は設計と安定化の間の健全な緊張を示す。
+**AAR (Architect-to-Anchor Ratio)** は設計能力と土台形成のバランスを測定する: $\text{AAR} = \frac{\text{weightedRatio(Architect)}}{\text{weightedRatio(Anchor)}}$。均衡したAAR（0.5--2.0）は設計と安定化の間の健全な緊張を示す。
 
 | Character | 銀河アナロジー | 主要基準 | 解釈 |
 |-----------|---------------|----------|------|
@@ -501,7 +499,7 @@ $$\text{QualityConsistency} = 0.6 \times \text{AvgQuality} + 0.4 \times \text{cl
 |------|----------|
 | **Bus Factor** | メンバー≤5人、高い平均Indispensability |
 | **Design Vacuum** | Architectなし、低いComplementarity |
-| **Quality Drift** | Quality Consistency≤60 |
+| **Catalysis Drift** | Catalysis Consistency≤60 |
 | **Debt Spiral** | Debt Balance≤45 |
 | **Talent Drain** | リスク比率≥25% |
 | **Healthy** | 重大なリスクが検出されない |
@@ -537,7 +535,7 @@ Style[t] ≠ Style[t-1] かつ どちらも "—" でない → Transition(Style
 State[t] ≠ State[t-1] かつ どちらも "—" でない → Transition(State, from, to, period)
 ```
 
-これらの遷移はキャリア軌跡を明らかにする：「Producer → Anchor」（品質への注力が発展）、「Mass → Builder」（耐久的な構築を学習）、「Active → Former」（離脱）。
+これらの遷移はキャリア軌跡を明らかにする：「Producer → Anchor」（他者の土台になる動きへ発展）、「Mass → Builder」（耐久的な構築を学習）、「Active → Former」（離脱）。
 
 ### 6.3 チームタイムライン
 
@@ -560,7 +558,7 @@ State[t] ≠ State[t-1] かつ どちらも "—" でない → Transition(State
 
 ### 7.2 コミットメッセージ依存
 
-品質検出はコミットメッセージの規約（`fix:`、`revert:` など）に依存する。コミットメッセージの規律が低いチームでは、Qualityシグナルの信頼性が低下する。スカッシュマージのワークフローは個人の貢献パターンを不明瞭にする可能性がある。
+Debt Cleanup の修正検出はコミットメッセージの規約（`fix:`、`revert:` など）に依存する。コミットメッセージの規律が低いチームでは Debt シグナルの信頼性が低下する。Catalysis は `git log` と `git blame` をまたぐ著者同一性に依存し、未統合のエイリアス（同一人物が複数メール）は土台への加点を分割してしまう。スカッシュマージのワークフローは個人の貢献パターンを不明瞭にする可能性がある。
 
 ### 7.3 アーキテクチャパターン設定
 
@@ -732,7 +730,7 @@ blame_extensions:
 |------|------|
 | **AAR** | Architect-to-Anchor Ratio。設計ロールと安定化ロールのバランスを測定。 |
 | **Architecture Coverage** | (Architect数 + Anchor数) / メンバー数。構造的に貢献するメンバーの割合。 |
-| **Anchor Density** | Anchor数 / メンバー数。品質安定化メンバーの割合。 |
+| **Anchor Density** | Anchor数 / メンバー数。他者の土台となるメンバーの割合。 |
 | **Change Pressure** | コミット数 / blameの行数（モジュール単位）。モジュールの開発活発度を示す。 |
 | **Core Member** | 最近活動があり、Impact≥20。チーム平均に含まれる。 |
 | **Gravity** | Indispensability、Breadth、Designの複合。構造的影響を測定。 |

@@ -89,7 +89,7 @@ EIS computes 7 axes for each contributor in a repository:
 | Axis | Signal | Scale | Source |
 |------|--------|-------|--------|
 | Production | Volume of code changes | Absolute | Commits |
-| Quality | Inverse of fix ratio | Absolute | Commit messages |
+| Catalysis | Surviving work others built on your foundation | Relative | `git blame` + commits |
 | Survival | Durability of code (time-decayed) | Relative | `git blame` |
 | Design | Changes to architectural files | Relative | Commits + patterns |
 | Breadth | Diversity of modules touched | Relative | Commits |
@@ -114,25 +114,23 @@ Where `activeDays_a` is the number of distinct days on which author $a$ has at l
 
 **Rationale:** Production is deliberately kept as an absolute metric. A team of two engineers and a team of twenty should be comparable on per-person output.
 
-### 3.3 Quality
+### 3.3 Catalysis
 
-Quality measures the inverse of an engineer's fix ratio.
+Catalysis measures how much an engineer *enabled others* — the surviving mass of code that later contributors built on top of this engineer's still-living foundation. It is the only axis that looks at what your code did **for others** rather than what you did to the code.
+
+The foundation is not "who created the file." A file-creator whose lines were all rewritten away built nothing lasting. It is *surviving precedence*: for each file where your own code still survives, you are credited with the surviving work of authors who first touched that file after you.
 
 **Calculation:**
 
-$$\text{FixRatio}_a = \frac{|\{c \in \text{commits}(a) : \text{isFix}(c)\}|}{|\text{commits}(a) \setminus \text{merges}(a)|}$$
+For a file $f$, let $\text{first}_f(a)$ be the date of author $a$'s earliest commit touching $f$, and $\text{surv}_f(a)$ the time-decayed surviving blame mass of $a$ in $f$ (same decay as Survival, §3.4):
 
-$$\text{Quality}_a = 100 - \text{FixRatio}_a \times 100$$
+$$\text{Catalysis}_a = \sum_{f\,:\,\text{surv}_f(a) > 0}\ \ \sum_{\substack{b \neq a \\ \text{first}_f(b) > \text{first}_f(a)}} \text{surv}_f(b)$$
 
-**Fix Detection:** A commit is classified as a fix if its message matches:
+The outer sum runs only over files where $a$'s own code still survives ($\text{surv}_f(a) > 0$); within those, $a$ is credited with the surviving mass of every author who arrived later.
 
-```
-(?i)^[^\w]*(?:\[?\s*(?:fix|revert|hotfix)\s*\]?[:/\s])
-```
+**Normalization (Relative):** normalized within the comparison group, like Survival.
 
-or contains the Japanese word "修正" (fix/correction). Merge commits contribute to fix count but not to total count, preventing merge-heavy workflows from inflating quality signals.
-
-**Rationale:** An engineer whose commits are predominantly fixes is spending time correcting mistakes (their own or others'). Quality is an absolute scale — it does not depend on team composition.
+**Rationale:** If you seed a file and someone rewrites it entirely, your lines vanish — you are credited with nothing — and the rewriter, whose code now survives, becomes the foundation the next contributor builds on. The signal is triple-gated against gaming: it requires (1) your own foundation to survive, (2) other distinct humans arriving later, and (3) their work to survive too. It is computed from `git log` (per-file first-contribution dates) and `git blame` (surviving mass), both already gathered for other axes — no commit-message heuristics and no line-level history.
 
 ### 3.4 Survival
 
@@ -213,7 +211,7 @@ Debt Cleanup measures whether an engineer cleans up others' technical debt or cr
 
 **Algorithm:**
 
-1. Identify fix commits (using Quality's fix detection regex)
+1. Identify fix commits (using the fix-commit detection regex)
 2. Sample up to 500 fix commits
 3. For each fix commit, run `git blame` on the parent commit to identify the original author of the changed lines
 4. Count:
@@ -259,15 +257,15 @@ Normalized relative to team maximum.
 
 EIS uses two normalization strategies:
 
-**Max-Based Relative Normalization** (for Survival, Design, Breadth, Indispensability):
+**Max-Based Relative Normalization** (for Survival, Catalysis, Design, Breadth, Indispensability):
 
 $$\text{Score}_a = \min\left(\frac{\text{raw}_a}{\max_b(\text{raw}_b)} \times 100,\; 100\right)$$
 
 The highest contributor always signals 100. This is appropriate for metrics where the absolute value is meaningless outside the team context.
 
-**Absolute Normalization** (for Production, Quality, Debt Cleanup):
+**Absolute Normalization** (for Production, Debt Cleanup):
 
-Fixed reference points that allow cross-team comparison. Production uses a daily reference rate; Quality and Debt Cleanup are inherently bounded.
+Fixed reference points that allow cross-team comparison. Production uses a daily reference rate; Debt Cleanup is inherently bounded. Catalysis is normalized within the group (relative).
 
 ### 3.10 Impact
 
@@ -279,8 +277,8 @@ Default weights:
 
 | Axis | Weight |
 |------|--------|
-| Production | 0.15 |
-| Quality | 0.10 |
+| Production | 0.10 |
+| Catalysis | 0.15 |
 | Survival | 0.25 |
 | Design | 0.20 |
 | Breadth | 0.10 |
@@ -336,8 +334,8 @@ These functions produce continuous confidence values in [0, 1], avoiding the bri
 | Role | Confidence Formula | Interpretation |
 |------|-------------------|----------------|
 | **Architect** | $\min(\text{highness(Design)},\; \text{highness(Survival)},\; \text{notLow(Breadth)})$ | Shapes the structure that others build upon |
-| **Anchor** | $\min(\text{highness(Quality)},\; \text{notLow(Production)})$ | Stabilizes quality across the codebase |
-| **Cleaner** | $\min(\text{highness(Quality)},\; \text{highness(Survival)},\; \text{highness(DebtCleanup)})$ | Resolves others' technical debt |
+| **Anchor** | $\min(\text{highness(Catalysis)},\; \text{notLow(Production)})$ | A foundation others build on |
+| **Cleaner** | $\min(\text{highness(Survival)},\; \text{highness(DebtCleanup)})$ | Resolves others' technical debt |
 | **Producer** | $\text{notLow(Production)}$ | Generates output and moves features forward |
 | **Specialist** | $\min(\text{highness(Survival)},\; \text{lowness(Breadth)})$ | Deep expertise in a narrow domain |
 
@@ -352,7 +350,7 @@ When change-pressure data is available, Architect uses Robust Survival instead o
 | **Builder** | $\min(\text{highness(Production)},\; \text{highness(Design)},\; \text{notLow(DebtCleanup)})$ | Designs, builds, and cleans up |
 | **Resilient** | $\min(\text{highness(Production)},\; \text{lowness(Survival)},\; \text{notLow(RobustSurvival)})$ | Iterates heavily; what survives pressure is durable |
 | **Rescue** | $\min(\text{highness(Production)},\; \text{lowness(Survival)},\; \text{highness(DebtCleanup)})$ | High output cleaning up legacy |
-| **Churn** | $\min(\text{notLow(Production)},\; \text{lowness(Quality)},\; \text{lowness(Survival)})$ | High output, constant rework |
+| **Churn** | $\min(\text{notLow(Production)},\; \text{lowness(Survival)})$ | High output, constant rework |
 | **Mass** | $\min(\text{highness(Production)},\; \text{lowness(Survival)})$ | High output but code doesn't last |
 | **Emergent** | $\min(\text{highness(Gravity)},\; \text{notLow(Production)},\; \text{lowness(RobustSurvival)})$ | Creating new structures not yet battle-tested |
 | **Balanced** | $0.30$ (flat) | Steady contributor, no dominant pattern |
@@ -367,7 +365,7 @@ For brevity in the tables below: RawSurv = RawSurvival (blame line count before 
 | **Former** | $\min(\text{high(RawSurv)},\; \text{low(Surv)},\; \max(\text{high(Design)},\; \text{high(Indisp)}))$ | Code persists but engineer is inactive; was important |
 | **Silent** | $\min(\text{low(Prod)},\; \text{low(Surv)},\; \text{low(Debt)})$ | All observed signals are low — no production, no survival, no debt cleanup. May indicate role mismatch or an environment that hasn't activated this person's strengths |
 | **Fragile** | $0.85 + \frac{\text{dormantRatio} - 80}{200}$ | Code survives only where no one touches it |
-| **Growing** | $\min(\text{low(Prod)},\; \text{high(Quality)})$ | Low volume, high quality — on growth trajectory |
+| **Growing** | $\min(\text{low(Prod)},\; \text{high(Catalysis)})$ | Low volume, but others build on what they seed |
 | **Active** | $0.80$ if recently active | Currently contributing |
 
 Where `dormantRatio` is the percentage of an engineer's surviving blame lines that reside in modules below the median change pressure: $\text{dormantRatio}_a = \frac{\text{DormantSurvival}_a}{\text{RawSurvival}_a} \times 100$.
@@ -445,11 +443,11 @@ $$\text{ProductivityDensity} = \text{AvgProduction}_{\text{core}}$$
 
 With small-team bonus: ×1.2 for teams ≤3, ×1.1 for teams ≤5 (when AvgProduction ≥50).
 
-#### Quality Consistency
+#### Catalysis Consistency
 
-$$\text{QualityConsistency} = 0.6 \times \text{AvgQuality} + 0.4 \times \text{clamp}(100 - 2\sigma_{\text{Quality}},\; 0,\; 100)$$
+$$\text{CatalysisConsistency} = 0.6 \times \text{AvgCatalysis} + 0.4 \times \text{clamp}(100 - 2\sigma_{\text{Catalysis}},\; 0,\; 100)$$
 
-Balances high average quality with low variance. A team where everyone has 80% quality signals higher than one with 95%/65% split.
+Balances a high average level of mutual foundation-building with low variance. A team where members evenly build on one another's surviving work signals higher than one split between a few catalysts and many isolated contributors.
 
 ### 5.3 Team Classification: 5-Axis System
 
@@ -501,7 +499,7 @@ Where `unstructured ratio` is the proportion of core members whose Role is uncla
 |------|-------------|
 | **Bus Factor** | ≤5 members, high average Indispensability |
 | **Design Vacuum** | No Architects, low Complementarity |
-| **Quality Drift** | Quality Consistency ≤60 |
+| **Catalysis Drift** | Catalysis Consistency ≤60 |
 | **Debt Spiral** | Debt Balance ≤45 |
 | **Talent Drain** | Risk ratio ≥25% |
 | **Healthy** | No significant risks detected |
@@ -643,9 +641,9 @@ Module topology complements, not replaces, individual profiling. Future work wil
 
 Relative normalization means that adding or removing a team member can change everyone's signals. The highest contributor always signals 100 on relative axes, making cross-team comparison impossible for those dimensions.
 
-### 8.2 Commit Hygiene Dependency
+### 8.2 Commit Hygiene & Author Identity
 
-Quality detection relies on commit message conventions (`fix:`, `revert:`, etc.). Teams with poor commit hygiene will have unreliable Quality signals. Squash-merge workflows may obscure individual contribution patterns.
+Debt Cleanup's fix detection relies on commit message conventions (`fix:`, `revert:`, etc.); teams with poor commit hygiene will have unreliable Debt signals. Catalysis relies on consistent author identity across `git log` and `git blame` — unmerged aliases (the same person under several emails) split a foundation's credit. Squash-merge workflows may obscure individual contribution patterns.
 
 ### 8.3 Architecture Pattern Configuration
 
