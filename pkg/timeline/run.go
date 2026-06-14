@@ -381,11 +381,18 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				// repo.name (the same identifier the YAML uses).
 				moduleResolver := metric.NewModuleResolverWithExcludes(config.PatternsForRepo(cfg, repo.name), config.ExcludesForRepo(cfg, repo.name))
 
-				// Filter commits to this period
-				var periodCommits []git.Commit
+				// Filter commits to this period. cumulativeCommits holds ALL
+				// commits up to the period boundary — Catalysis precedence
+				// (who first touched a file before whom) must be judged against
+				// the full history, not just this window, or recent narrow
+				// periods have no precedence structure and collapse to ~0.
+				var periodCommits, cumulativeCommits []git.Commit
 				for _, c := range repo.commits {
-					if !c.Date.Before(window.Start) && c.Date.Before(window.End) {
-						periodCommits = append(periodCommits, c)
+					if c.Date.Before(window.End) {
+						cumulativeCommits = append(cumulativeCommits, c)
+						if !c.Date.Before(window.Start) {
+							periodCommits = append(periodCommits, c)
+						}
 					}
 				}
 
@@ -552,9 +559,12 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				}
 				blameLines = filterBlameLines(blameLines, cfg)
 
-				// Catalysis: surviving mass of others' work on files this author
-				// originated. Period decay reference is window.End (matches Survival).
-				catalysis := metric.CalcCatalysis(periodCommits, blameLines, cfg.Tau, window.End)
+				// Catalysis: surviving mass others built on this author's still-
+				// living foundation, as of the period boundary. Precedence uses
+				// cumulativeCommits (full history up to window.End), not just the
+				// window; survival uses the period-boundary blame. Decay ref =
+				// window.End (matches Survival).
+				catalysis := metric.CalcCatalysis(cumulativeCommits, blameLines, cfg.Tau, window.End)
 				mergeMap(acc.raw.Catalysis, catalysis)
 				if racc != nil {
 					mergeMap(racc.raw.Catalysis, catalysis)
