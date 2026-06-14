@@ -1,6 +1,7 @@
 package metric
 
 import (
+	"math"
 	"testing"
 	"time"
 
@@ -111,6 +112,26 @@ func TestCatalysis_DecaysWithAge(t *testing.T) {
 	old := CalcCatalysis(commits, []git.BlameLine{aliceLine, blameOn("bob", "f.go", now.AddDate(0, -5, 0))}, tau, now)
 	if !(fresh["alice"] > old["alice"]) {
 		t.Errorf("recent build-on should weigh more than old: fresh=%f old=%f", fresh["alice"], old["alice"])
+	}
+}
+
+// tau <= 0 must not divide-by-zero / NaN; it falls back to no decay (factor 1).
+func TestCatalysis_NonPositiveTauNoDecay(t *testing.T) {
+	now := time.Date(2026, time.January, 1, 0, 0, 0, 0, time.UTC)
+	commits := []git.Commit{
+		commitOn("alice", "f.go", now.AddDate(0, -3, 0)),
+		commitOn("bob", "f.go", now.AddDate(0, -1, 0)),
+	}
+	blame := []git.BlameLine{
+		blameOn("alice", "f.go", now.AddDate(0, 0, -20)),
+		blameOn("bob", "f.go", now.AddDate(0, 0, -10)),
+	}
+	s := CalcCatalysis(commits, blame, 0, now)
+	if math.IsNaN(s["alice"]) || math.IsInf(s["alice"], 0) {
+		t.Fatalf("tau=0 produced non-finite Catalysis: %f", s["alice"])
+	}
+	if s["alice"] != 1 { // one later surviving line, no decay
+		t.Errorf("tau=0 should apply no decay (factor 1): expected 1, got %f", s["alice"])
 	}
 }
 

@@ -57,7 +57,7 @@ func PrintTeamTimelineTable(tl timeline.TeamTimeline) {
 	printTeamTimelineFloatRow("Sustain", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.Sustainability })
 	printTeamTimelineFloatRow("DebtBalance", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.DebtBalance })
 	printTeamTimelineFloatRow("ProdDensity", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.ProductivityDensity })
-	printTeamTimelineFloatRow("QualConsist", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.CatalysisConsistency })
+	printTeamTimelineFloatRow("CatlysConsist", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.CatalysisConsistency })
 	printTeamTimelineFloatRow("RiskRatio", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.RiskRatio })
 	fmt.Println()
 

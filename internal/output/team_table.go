@@ -186,7 +186,7 @@ func buildHealthLines(tr team.TeamResult) []string {
 		{"Sustain", h.Sustainability},
 		{"DebtBalance", h.DebtBalance},
 		{"ProdDensity", h.ProductivityDensity},
-		{"QualConsist", h.CatalysisConsistency},
+		{"CatlysConsist", h.CatalysisConsistency},
 	}
 
 	for _, a := range axes {

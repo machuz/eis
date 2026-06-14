@@ -61,7 +61,11 @@ func CalcCatalysis(commits []git.Commit, blameLines []git.BlameLine, tau float64
 		if daysAlive < 0 {
 			daysAlive = 0
 		}
-		fa[bl.Author] += math.Exp(-daysAlive / tau)
+		factor := 1.0
+		if tau > 0 {
+			factor = math.Exp(-daysAlive / tau)
+		}
+		fa[bl.Author] += factor
 	}
 
 	result := make(map[string]float64)
