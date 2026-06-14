@@ -11,7 +11,7 @@ import (
 type Result struct {
 	Author           string
 	Production       float64
-	Quality          float64
+	Catalysis        float64
 	Survival         float64
 	RawSurvival      float64 // normalized raw blame (no decay), used for archetype detection
 	RobustSurvival   float64 // survival in high change-pressure modules
@@ -28,16 +28,16 @@ type Result struct {
 	Indispensability float64
 	Gravity          float64 // structural influence: f(Indispensability, Breadth, Design)
 	Impact           float64
-	TotalCommits   int
-	LinesAdded     int
-	LinesDeleted   int
-	RecentlyActive bool    // true if author has commits within active_days (default 30)
-	Role           string  // Role axis: what they contribute (Architect, Anchor, Cleaner, Producer, Specialist, —)
-	RoleConf       float64 // Role confidence (0.0-1.0)
-	Style          string  // Style axis: how they contribute (Builder, Resilient, Rescue, Churn, Mass, Balanced, Spread, —)
-	StyleConf      float64 // Style confidence (0.0-1.0)
-	State          string  // State axis: lifecycle phase (Active, Growing, Former, Silent, Fragile, —)
-	StateConf      float64 // State confidence (0.0-1.0)
+	TotalCommits     int
+	LinesAdded       int
+	LinesDeleted     int
+	RecentlyActive   bool    // true if author has commits within active_days (default 30)
+	Role             string  // Role axis: what they contribute (Architect, Anchor, Cleaner, Producer, Specialist, —)
+	RoleConf         float64 // Role confidence (0.0-1.0)
+	Style            string  // Style axis: how they contribute (Builder, Resilient, Rescue, Churn, Mass, Balanced, Spread, —)
+	StyleConf        float64 // Style confidence (0.0-1.0)
+	State            string  // State axis: lifecycle phase (Active, Growing, Former, Silent, Fragile, —)
+	StateConf        float64 // State confidence (0.0-1.0)
 }
 
 // ScoreAt is like Score but uses refTime as the "now" reference for RecentlyActive calculation.
@@ -70,9 +70,9 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 	normIndisp := Normalize(raw.Indispensability)
 	normRawSurv := Normalize(raw.RawSurvival)
 
-	// Quality is already on 0-100 absolute scale (100 - fix_ratio), use directly
-	// This makes Quality scores comparable across organizations
-	normQual := raw.Quality
+	// Catalysis is a relative surviving-mass score (others' work on files you
+	// originated), normalized within the group like Survival.
+	normCatalysis := Normalize(raw.Catalysis)
 
 	// Breadth: relative scale — normalized within the group
 	normBreadth := Normalize(raw.Breadth)
@@ -98,10 +98,9 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 		// authored code (non-merge commits) to that domain's repos. Merge-only
 		// authors (e.g. PR-mergers, automation accounts) have TotalCommits == 0
 		// because TotalCommits is incremented only for non-merge commits.
-		// They may still have a non-zero Quality score (the quality axis includes
-		// merge commits), but emitting them in the team rollup conflates "merged
-		// PRs" with "wrote code". Reviewer / merger contribution is a dark-matter
-		// concern (D-06 prose), not a member-list concern.
+		// Emitting them in the team rollup conflates "merged PRs" with "wrote
+		// code". Reviewer / merger contribution is a dark-matter concern (D-06
+		// prose), not a member-list concern.
 		if raw.TotalCommits[author] == 0 {
 			continue
 		}
@@ -115,7 +114,7 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 		r := Result{
 			Author:           author,
 			Production:       normProd[author],
-			Quality:          normQual[author],
+			Catalysis:        normCatalysis[author],
 			Survival:         normSurv[author],
 			RobustSurvival:   normRobustSurv[author],
 			DormantSurvival:  normDormantSurv[author],
@@ -147,12 +146,12 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 			// OR when the author actively builds (high production proves design through action).
 			// Low production + high design = likely inflated by solo ownership.
 			robustFactor := r.RobustSurvival/100*0.8 + 0.2 // 0.2 at Robust=0, 1.0 at Robust=100
-			productionFactor := r.Production/100*0.8 + 0.2  // 0.2 at Prod=0, 1.0 at Prod=100
+			productionFactor := r.Production/100*0.8 + 0.2 // 0.2 at Prod=0, 1.0 at Prod=100
 			designDamping := maxf(robustFactor, productionFactor)
 			effectiveDesign := r.Design * designDamping
 
 			r.Impact = r.Production*w.Production +
-				r.Quality*w.Quality +
+				r.Catalysis*w.Catalysis +
 				r.RobustSurvival*robustWeight +
 				r.DormantSurvival*dormantWeight +
 				effectiveDesign*w.Design +
@@ -173,7 +172,7 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 			}
 		} else {
 			r.Impact = r.Production*w.Production +
-				r.Quality*w.Quality +
+				r.Catalysis*w.Catalysis +
 				r.Survival*w.Survival +
 				r.Design*w.Design +
 				r.Breadth*w.Breadth +

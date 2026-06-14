@@ -9,10 +9,10 @@ import (
 )
 
 type timelineJSONOutput struct {
-	Domain  string                  `json:"domain"`
-	Span    string                  `json:"span"`
-	Periods []timelineJSONPeriod    `json:"periods"`
-	Authors []timelineJSONAuthor    `json:"authors"`
+	Domain  string               `json:"domain"`
+	Span    string               `json:"span"`
+	Periods []timelineJSONPeriod `json:"periods"`
+	Authors []timelineJSONAuthor `json:"authors"`
 }
 
 type timelineJSONPeriod struct {
@@ -22,7 +22,7 @@ type timelineJSONPeriod struct {
 }
 
 type timelineJSONAuthor struct {
-	Author      string                    `json:"author"`
+	Author      string                     `json:"author"`
 	Periods     []timelineJSONAuthorPeriod `json:"periods"`
 	Transitions []timelineJSONTransition   `json:"transitions,omitempty"`
 }
@@ -31,7 +31,7 @@ type timelineJSONAuthorPeriod struct {
 	Label            string  `json:"label"`
 	Impact           float64 `json:"impact"`
 	Production       float64 `json:"production"`
-	Quality          float64 `json:"quality"`
+	Catalysis        float64 `json:"catalysis"`
 	Survival         float64 `json:"survival"`
 	RobustSurvival   float64 `json:"robust_survival"`
 	DormantSurvival  float64 `json:"dormant_survival"`
@@ -83,7 +83,7 @@ func PrintTimelineJSON(domainName, span string, periods []timeline.PeriodResult,
 				Label:            p.Label,
 				Impact:           round1(p.Impact),
 				Production:       round1(p.Production),
-				Quality:          round1(p.Quality),
+				Catalysis:        round1(p.Catalysis),
 				Survival:         round1(p.Survival),
 				RobustSurvival:   round1(p.RobustSurvival),
 				DormantSurvival:  round1(p.DormantSurvival),

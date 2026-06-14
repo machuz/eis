@@ -362,12 +362,12 @@ func classifyRisk(tr TeamResult) TeamLabel {
 			return 1.0 - tr.Health.Complementarity/100.0
 		}()},
 
-		// Quality Drift: low consistency
-		{"Quality Drift", func() float64 {
-			if tr.Health.QualityConsistency > 60 {
+		// Catalysis Drift: low consistency
+		{"Catalysis Drift", func() float64 {
+			if tr.Health.CatalysisConsistency > 60 {
 				return 0
 			}
-			return 1.0 - tr.Health.QualityConsistency/100.0
+			return 1.0 - tr.Health.CatalysisConsistency/100.0
 		}()},
 
 		// Debt Spiral: accumulating debt

@@ -13,13 +13,13 @@ import (
 // team rollups via the quality axis.
 //
 // Setup mirrors what pkg/analyzer accumulates:
-//   - "alice" wrote real commits → TotalCommits=10, Production/Quality/etc populated.
+//   - "alice" wrote real commits → TotalCommits=10, Production/Catalysis/etc populated.
 //   - "merger" only merged PRs   → TotalCommits=0 (analyzer.go only increments it
-//     for non-merge commits) but Quality is populated because metric.CalcQuality
+//     for non-merge commits) but Catalysis is populated because metric.CalcCatalysis
 //     is fed merge+non-merge commits.
 //
-// The bug: scorer.Score collected authors from the union of Production/Quality/...
-// maps, so "merger" was emitted with non-zero Quality (and downstream Impact /
+// The bug: scorer.Score collected authors from the union of Production/Catalysis/...
+// maps, so "merger" was emitted with non-zero Catalysis (and downstream Impact /
 // Gravity) despite never authoring code in this domain.
 //
 // The fix: skip any author with raw.TotalCommits[author] == 0, matching the
@@ -29,7 +29,7 @@ func TestScore_ExcludesMergeOnlyAuthors(t *testing.T) {
 
 	// alice — real author
 	raw.Production["alice"] = 200 // per-day rate post-Run normalization
-	raw.Quality["alice"] = 80
+	raw.Catalysis["alice"] = 80
 	raw.Survival["alice"] = 50
 	raw.Design["alice"] = 40
 	raw.Breadth["alice"] = 2
@@ -40,9 +40,9 @@ func TestScore_ExcludesMergeOnlyAuthors(t *testing.T) {
 	raw.LinesDeleted["alice"] = 100
 
 	// merger — merge-only. analyzer.go does NOT increment TotalCommits for merge
-	// commits, so TotalCommits[merger] stays 0 even though Quality is non-zero
-	// (CalcQuality is fed both merge and non-merge commits).
-	raw.Quality["merger"] = 43.75
+	// commits, so TotalCommits[merger] stays 0 even though Catalysis is non-zero
+	// (CalcCatalysis is fed both merge and non-merge commits).
+	raw.Catalysis["merger"] = 43.75
 	// Production / Survival / Design / Indispensability all stay at 0 for merger.
 
 	cfg := config.Default()
@@ -76,12 +76,12 @@ func TestScore_ExcludesMergeOnlyAuthors(t *testing.T) {
 }
 
 // TestScore_ZeroCommitAuthorWithImpact guards against authors that have non-zero
-// computed metrics (Quality, Design, etc.) but TotalCommits=0. They are by
+// computed metrics (Catalysis, Design, etc.) but TotalCommits=0. They are by
 // definition merge-only / phantom contributors and must be filtered.
 func TestScore_ZeroCommitAuthorWithImpact(t *testing.T) {
 	raw := metric.NewRawScores()
-	// Only Quality populated, like a merge-only author.
-	raw.Quality["ghost"] = 50
+	// Only Catalysis populated, like a merge-only author.
+	raw.Catalysis["ghost"] = 50
 
 	cfg := config.Default()
 	results := Score(raw, cfg, map[string]time.Time{"ghost": time.Now()})
@@ -100,7 +100,7 @@ func TestScore_ZeroCommitAuthorWithImpact(t *testing.T) {
 func TestScore_DormantSurvivalEscapesUnprovenPenalty(t *testing.T) {
 	raw := metric.NewRawScores()
 
-	// Register both in Authors() (which unions only Production/Quality/Survival/
+	// Register both in Authors() (which unions only Production/Catalysis/Survival/
 	// Design/Breadth/Debt/Indisp). Survival here is the legacy axis, unused in
 	// the robust/dormant pressure path, so it does not affect Impact below.
 	raw.Survival["stable"] = 50

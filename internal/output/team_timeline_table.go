@@ -57,7 +57,7 @@ func PrintTeamTimelineTable(tl timeline.TeamTimeline) {
 	printTeamTimelineFloatRow("Sustain", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.Sustainability })
 	printTeamTimelineFloatRow("DebtBalance", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.DebtBalance })
 	printTeamTimelineFloatRow("ProdDensity", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.ProductivityDensity })
-	printTeamTimelineFloatRow("QualConsist", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.QualityConsistency })
+	printTeamTimelineFloatRow("CatlysConsist", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.CatalysisConsistency })
 	printTeamTimelineFloatRow("RiskRatio", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.RiskRatio })
 	fmt.Println()
 
@@ -69,7 +69,7 @@ func PrintTeamTimelineTable(tl timeline.TeamTimeline) {
 	}
 	fmt.Println()
 	printTeamTimelineFloatRow("Production", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.AvgProduction })
-	printTeamTimelineFloatRow("Quality", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.AvgQuality })
+	printTeamTimelineFloatRow("Catalysis", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.AvgCatalysis })
 	printTeamTimelineFloatRow("Survival", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.AvgSurvival })
 	printTeamTimelineFloatRow("Design", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.AvgDesign })
 	printTeamTimelineFloatRow("DebtCleanup", tl.Periods, func(p timeline.TeamPeriodSnapshot) float64 { return p.AvgDebtCleanup })

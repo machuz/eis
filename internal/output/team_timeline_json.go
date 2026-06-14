@@ -12,23 +12,23 @@ type teamTimelineJSONOutput struct {
 }
 
 type teamTimelineJSON struct {
-	TeamName    string                        `json:"team_name"`
-	Domain      string                        `json:"domain"`
-	Periods     []teamPeriodSnapshotJSON      `json:"periods"`
-	Transitions []teamTimelineTransitionJSON      `json:"transitions,omitempty"`
+	TeamName    string                       `json:"team_name"`
+	Domain      string                       `json:"domain"`
+	Periods     []teamPeriodSnapshotJSON     `json:"periods"`
+	Transitions []teamTimelineTransitionJSON `json:"transitions,omitempty"`
 }
 
 type teamPeriodSnapshotJSON struct {
-	Label            string         `json:"label"`
-	CoreMembers      int            `json:"core_members"`
-	EffectiveMembers int            `json:"effective_members"`
-	TotalMembers     int            `json:"total_members"`
-	Averages         teamAverages   `json:"averages"`
-	Health           teamHealthJSON `json:"health"`
+	Label            string           `json:"label"`
+	CoreMembers      int              `json:"core_members"`
+	EffectiveMembers int              `json:"effective_members"`
+	TotalMembers     int              `json:"total_members"`
+	Averages         teamAverages     `json:"averages"`
+	Health           teamHealthJSON   `json:"health"`
 	Classification   teamClassifyJSON `json:"classification"`
-	RoleDist         map[string]int `json:"role_distribution"`
-	StyleDist        map[string]int `json:"style_distribution"`
-	StateDist        map[string]int `json:"state_distribution"`
+	RoleDist         map[string]int   `json:"role_distribution"`
+	StyleDist        map[string]int   `json:"style_distribution"`
+	StateDist        map[string]int   `json:"state_distribution"`
 }
 
 type teamTimelineTransitionJSON struct {
@@ -56,20 +56,20 @@ func PrintTeamTimelineJSON(timelines []timeline.TeamTimeline) error {
 				TotalMembers:     p.TotalMembers,
 				Averages: teamAverages{
 					Production:  round1(p.AvgProduction),
-					Quality:     round1(p.AvgQuality),
+					Catalysis:   round1(p.AvgCatalysis),
 					Survival:    round1(p.AvgSurvival),
 					Design:      round1(p.AvgDesign),
 					DebtCleanup: round1(p.AvgDebtCleanup),
 					Impact:      round1(p.AvgImpact),
 				},
 				Health: teamHealthJSON{
-					Complementarity:     round1(p.Complementarity),
-					GrowthPotential:     round1(p.GrowthPotential),
-					Sustainability:      round1(p.Sustainability),
-					DebtBalance:         round1(p.DebtBalance),
-					ProductivityDensity: round1(p.ProductivityDensity),
-					QualityConsistency:  round1(p.QualityConsistency),
-					RiskRatio:           round1(p.RiskRatio),
+					Complementarity:      round1(p.Complementarity),
+					GrowthPotential:      round1(p.GrowthPotential),
+					Sustainability:       round1(p.Sustainability),
+					DebtBalance:          round1(p.DebtBalance),
+					ProductivityDensity:  round1(p.ProductivityDensity),
+					CatalysisConsistency: round1(p.CatalysisConsistency),
+					RiskRatio:            round1(p.RiskRatio),
 				},
 				Classification: teamClassifyJSON{
 					Character: p.Character,

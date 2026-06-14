@@ -25,7 +25,7 @@ func PrintTeamTimelineASCII(tl timeline.TeamTimeline) {
 	for _, p := range tl.Periods {
 		avgImpactData = append(avgImpactData, p.AvgImpact)
 		avgProdData = append(avgProdData, p.AvgProduction)
-		avgQualData = append(avgQualData, p.AvgQuality)
+		avgQualData = append(avgQualData, p.AvgCatalysis)
 		avgSurvData = append(avgSurvData, p.AvgSurvival)
 		avgDesignData = append(avgDesignData, p.AvgDesign)
 		labels = append(labels, p.Label)
@@ -64,7 +64,7 @@ func PrintTeamTimelineASCII(tl timeline.TeamTimeline) {
 	fmt.Printf("  %s  %s  %s  %s  %s\n",
 		color.BlueString("AvgImpact"),
 		color.GreenString("AvgProduction"),
-		color.YellowString("AvgQuality"),
+		color.YellowString("AvgCatalysis"),
 		color.RedString("AvgSurvival"),
 		color.CyanString("AvgDesign"),
 	)

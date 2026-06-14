@@ -430,15 +430,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					mergeMapInt(racc.raw.LinesDeleted, deleted)
 				}
 
-				// Quality
-				allCommits := make([]git.Commit, len(periodCommits), len(periodCommits)+len(periodMerges))
-				copy(allCommits, periodCommits)
-				allCommits = append(allCommits, periodMerges...)
-				qual := metric.CalcQuality(allCommits)
-				mergeMapAvg(acc.raw.Quality, qual, acc.qualityCounts)
-				if racc != nil {
-					mergeMapAvg(racc.raw.Quality, qual, racc.qualityCounts)
-				}
+				// Catalysis is computed in the blame stage below (needs the
+				// period commit history for file origin + the period blame lines).
 
 				// Design
 				design := metric.CalcDesign(periodCommits, cfg.ArchitecturePatterns)
@@ -558,6 +551,14 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					blameLines[i].Author = cfg.ResolveAuthor(blameLines[i].Author)
 				}
 				blameLines = filterBlameLines(blameLines, cfg)
+
+				// Catalysis: surviving mass of others' work on files this author
+				// originated. Period decay reference is window.End (matches Survival).
+				catalysis := metric.CalcCatalysis(periodCommits, blameLines, cfg.Tau, window.End)
+				mergeMap(acc.raw.Catalysis, catalysis)
+				if racc != nil {
+					mergeMap(racc.raw.Catalysis, catalysis)
+				}
 
 				// Survival
 				pressureMode := opts.PressureMode
@@ -823,7 +824,6 @@ func BuildTeamPeriodResults(d string, periods []PeriodResult, cfg *config.Config
 
 type accumulator struct {
 	raw                 *metric.RawScores
-	qualityCounts       map[string]int
 	debtCounts          map[string]int
 	authorRepoCommits   map[string]map[string]int
 	authorModuleCommits map[string]map[string]int
@@ -840,7 +840,6 @@ type accumulator struct {
 func newAccumulator() *accumulator {
 	return &accumulator{
 		raw:                  metric.NewRawScores(),
-		qualityCounts:        make(map[string]int),
 		debtCounts:           make(map[string]int),
 		authorRepoCommits:    make(map[string]map[string]int),
 		authorModuleCommits:  make(map[string]map[string]int),

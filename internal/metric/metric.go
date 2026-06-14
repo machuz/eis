@@ -2,7 +2,7 @@ package metric
 
 type RawScores struct {
 	Production       map[string]float64
-	Quality          map[string]float64
+	Catalysis        map[string]float64 // surviving mass later contributors built on this author's still-living foundation
 	Survival         map[string]float64 // time-decayed, with untested lines scaled by α
 	RawSurvival      map[string]float64 // non-decayed blame line count
 	RobustSurvival   map[string]float64 // survival in high change-pressure modules
@@ -21,7 +21,7 @@ type RawScores struct {
 func NewRawScores() *RawScores {
 	return &RawScores{
 		Production:       make(map[string]float64),
-		Quality:          make(map[string]float64),
+		Catalysis:        make(map[string]float64),
 		Survival:         make(map[string]float64),
 		RawSurvival:      make(map[string]float64),
 		RobustSurvival:   make(map[string]float64),
@@ -43,7 +43,7 @@ func (r *RawScores) Authors() []string {
 	var authors []string
 
 	for _, m := range []map[string]float64{
-		r.Production, r.Quality, r.Survival, r.Design,
+		r.Production, r.Catalysis, r.Survival, r.Design,
 		r.Breadth, r.DebtCleanup, r.Indispensability,
 	} {
 		for author := range m {

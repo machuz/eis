@@ -105,7 +105,6 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 
 	type accumulator struct {
 		raw                 *metric.RawScores
-		qualityCounts       map[string]int
 		debtCounts          map[string]int
 		authorRepoCommits   map[string]map[string]int
 		authorModuleCommits map[string]map[string]int
@@ -121,7 +120,6 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 	newAcc := func() *accumulator {
 		return &accumulator{
 			raw:                 metric.NewRawScores(),
-			qualityCounts:       make(map[string]int),
 			debtCounts:          make(map[string]int),
 			authorRepoCommits:   make(map[string]map[string]int),
 			authorModuleCommits: make(map[string]map[string]int),
@@ -246,11 +244,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		mergeMapInt(acc.raw.LinesAdded, added)
 		mergeMapInt(acc.raw.LinesDeleted, deleted)
 
-		allCommits := make([]git.Commit, len(commits), len(commits)+len(mergeCommits))
-		copy(allCommits, commits)
-		allCommits = append(allCommits, mergeCommits...)
-		qual := metric.CalcQuality(allCommits)
-		mergeMapAvg(acc.raw.Quality, qual, acc.qualityCounts)
+		// Catalysis is computed in the blame stage below (it needs the commit
+		// history for file origin + the surviving blame lines).
 
 		design := metric.CalcDesign(commits, cfg.ArchitecturePatterns)
 		mergeMap(acc.raw.Design, design)
@@ -362,6 +357,11 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 
 		indisp, risks := metric.CalcIndispensability(blameLines, moduleResolver, cfg.BusFactor.Critical, cfg.BusFactor.High)
 		mergeMap(acc.raw.Indispensability, indisp)
+
+		// Catalysis: surviving mass of others' work on files this author
+		// originated (commit history → file origin; blame → surviving mass).
+		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.Tau, start)
+		mergeMap(acc.raw.Catalysis, catalysis)
 		acc.risks = append(acc.risks, risks...)
 
 		fixCommits := metric.GetFixCommits(commits)
@@ -379,7 +379,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		if opts.PerRepo {
 			rr := metric.NewRawScores()
 			mergeMap(rr.Production, prod)
-			mergeMap(rr.Quality, qual)
+			mergeMap(rr.Catalysis, catalysis)
 			mergeMap(rr.Design, design)
 			mergeMap(rr.Indispensability, indisp)
 			mergeMap(rr.DebtCleanup, debt)
