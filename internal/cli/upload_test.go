@@ -77,7 +77,7 @@ func TestPostUpload_SendsBearerAndJSON(t *testing.T) {
 	if gotCT != "application/json" {
 		t.Errorf("content-type = %q", gotCT)
 	}
-	if gotPath != "/api/v1/signals/upload" {
+	if gotPath != "/v1/signals/upload" {
 		t.Errorf("path = %q", gotPath)
 	}
 }

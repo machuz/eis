@@ -15,8 +15,10 @@ import (
 )
 
 // defaultUploadURL is the observatory the CLI uploads signals to. The URL is
-// fixed (users never type it); ACE_API_URL overrides it for staging only.
-const defaultUploadURL = "https://ace.orbitlens.io"
+// fixed (users never type it); ACE_API_URL overrides it for staging only. This
+// is the dedicated public API host (ALB-direct), kept off the frontend's
+// ace.orbitlens.io/api/* path so the contract stays stable across FE changes.
+const defaultUploadURL = "https://api.orbitlens.io"
 
 // uploadMemberSignal mirrors the SaaS UploadMemberSignal contract
 // (services/ace/backend/app/usecase/signal_upload.go). The json tags are the
@@ -49,7 +51,7 @@ type uploadMemberSignal struct {
 	StateConfidence    float64 `json:"state_confidence"`
 }
 
-// uploadRequest is the POST body for /api/v1/signals/upload. The git_sha /
+// uploadRequest is the POST body for /v1/signals/upload. The git_sha /
 // sha_author_date / analysis_time fields carry the observation lineage the
 // observatory needs (and cannot derive, since it never sees the repo): they key
 // observations_member_signals as (galaxy, git_sha, kind, user) at sha_author_date.
@@ -140,7 +142,7 @@ func postUpload(ctx context.Context, baseURL, token string, req uploadRequest) e
 	if err != nil {
 		return fmt.Errorf("marshal payload: %w", err)
 	}
-	url := baseURL + "/api/v1/signals/upload"
+	url := baseURL + "/v1/signals/upload"
 	httpReq, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(body))
 	if err != nil {
 		return fmt.Errorf("build request: %w", err)
