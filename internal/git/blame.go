@@ -749,6 +749,25 @@ func HeadHash(ctx context.Context, repoPath string) (string, error) {
 	return lines[0], nil
 }
 
+// HeadAuthorDate returns the author date of the current HEAD commit (RFC3339).
+// Used by `analyze --upload` to stamp the observation's sha_author_date so the
+// observatory can place the uploaded signals on the timeline (the SaaS never
+// sees the repo, so it cannot derive this itself).
+func HeadAuthorDate(ctx context.Context, repoPath string) (time.Time, error) {
+	lines, err := RunLines(ctx, repoPath, "show", "-s", "--format=%aI", "HEAD")
+	if err != nil {
+		return time.Time{}, err
+	}
+	if len(lines) == 0 {
+		return time.Time{}, fmt.Errorf("no HEAD found")
+	}
+	t, err := time.Parse(time.RFC3339, lines[0])
+	if err != nil {
+		return time.Time{}, fmt.Errorf("parse HEAD author date %q: %w", lines[0], err)
+	}
+	return t, nil
+}
+
 // IsShallowRepo checks if the repository is a shallow clone
 func IsShallowRepo(ctx context.Context, repoPath string) bool {
 	lines, err := RunLines(ctx, repoPath, "rev-parse", "--is-shallow-repository")

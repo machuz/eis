@@ -137,6 +137,8 @@ func runAnalyze(args []string) error {
 	verbose := fs.Bool("verbose", false, "Show detailed debug output (file-level timing)")
 	noCache := fs.Bool("no-cache", false, "Skip disk cache")
 	perRepo := fs.Bool("per-repo", false, "Show per-repository breakdown (requires --recursive)")
+	upload := fs.Bool("upload", false, "Upload signals to the OrbitLens observatory (code stays local; only signals are sent)")
+	token := fs.String("token", os.Getenv("EIS_TOKEN"), "Upload token (or set EIS_TOKEN); create one in Settings → API tokens")
 
 	flagArgs, pathArgs := separateArgs(args, fs)
 	if err := fs.Parse(flagArgs); err != nil {
@@ -170,7 +172,25 @@ func runAnalyze(args []string) error {
 		return err
 	}
 
-	return outputAnalyzeResults(domainResults, cfg, opts.Format)
+	if err := outputAnalyzeResults(domainResults, cfg, opts.Format); err != nil {
+		return err
+	}
+
+	if *upload {
+		// Resolve the analyzed repo from the first path arg (default ".") — the
+		// HEAD sha there stamps the observation lineage. Upload status goes to
+		// stderr so it never pollutes --format=json stdout.
+		repoPath := "."
+		if len(pathArgs) > 0 {
+			repoPath = pathArgs[0]
+		}
+		if err := uploadResults(context.Background(), domainResults, repoPath, *token); err != nil {
+			return fmt.Errorf("upload: %w", err)
+		}
+		fmt.Fprintln(os.Stderr, "✦ signals uploaded to the observatory")
+	}
+
+	return nil
 }
 
 func outputAnalyzeResults(domainResults []DomainResults, cfg *config.Config, format string) error {
