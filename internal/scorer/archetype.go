@@ -16,6 +16,15 @@ func classifyTopology(r Result) (role AxisMatch, style AxisMatch, state AxisMatc
 
 // --- Role: what they contribute to the team ---
 
+// producerCeiling caps the fallback Producer role's confidence. Paired with
+// pickBest's priorityMargin (0.15): a higher-meaning role (Architect / Anchor /
+// Cleaner) wins the precedence tiebreak as soon as it reaches the "high" band
+// (>=0.5). We use 0.64 rather than 0.65 to clear an IEEE-754 edge — 0.65-0.15
+// evaluates to >0.5, which would push an exactly-0.5 role (e.g. Catalysis=60 →
+// Anchor) just outside the margin. 0.64-0.5 = 0.14 <= 0.15 keeps the boundary
+// inclusive. Keep the two in sync.
+const producerCeiling = 0.64
+
 func classifyRole(r Result) AxisMatch {
 	rules := []classifyRule{
 		// Architect: high design influence with durable code under pressure.
@@ -44,9 +53,17 @@ func classifyRole(r Result) AxisMatch {
 		{"Cleaner", func() float64 {
 			return minf(highness(r.Survival), highness(r.DebtCleanup))
 		}},
-		// Producer: meaningful production output.
+		// Producer: meaningful production output — but a FALLBACK identity, not a
+		// strong one. Production is the most gameable axis (raw change volume), so
+		// high output alone must not outrank a genuinely high foundation/structure
+		// signal that is far harder to fake (e.g. Catalysis: others building on
+		// your surviving code). We cap Producer's confidence at producerCeiling so
+		// any higher-meaning role that reaches the "high" band (>=0.5 — e.g.
+		// Catalysis>=60 → Anchor) wins on the precedence tiebreak. Without the cap,
+		// notLow(Production)=1.0 buried Anchor for high-Catalysis high-Production
+		// members, mislabelling a catalyst as a mere Producer.
 		{"Producer", func() float64 {
-			return notLow(r.Production)
+			return minf(notLow(r.Production), producerCeiling)
 		}},
 		// Specialist: deep in narrow area, high survival but low breadth.
 		{"Specialist", func() float64 {
