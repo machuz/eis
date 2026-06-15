@@ -17,10 +17,13 @@ func classifyTopology(r Result) (role AxisMatch, style AxisMatch, state AxisMatc
 // --- Role: what they contribute to the team ---
 
 // producerCeiling caps the fallback Producer role's confidence. Paired with
-// pickBest's priorityMargin (0.15): producerCeiling - priorityMargin = 0.5, so
-// a higher-meaning role (Architect / Anchor / Cleaner) wins the precedence
-// tiebreak as soon as it reaches the "high" band (>=0.5). Keep the two in sync.
-const producerCeiling = 0.65
+// pickBest's priorityMargin (0.15): a higher-meaning role (Architect / Anchor /
+// Cleaner) wins the precedence tiebreak as soon as it reaches the "high" band
+// (>=0.5). We use 0.64 rather than 0.65 to clear an IEEE-754 edge — 0.65-0.15
+// evaluates to >0.5, which would push an exactly-0.5 role (e.g. Catalysis=60 →
+// Anchor) just outside the margin. 0.64-0.5 = 0.14 <= 0.15 keeps the boundary
+// inclusive. Keep the two in sync.
+const producerCeiling = 0.64
 
 func classifyRole(r Result) AxisMatch {
 	rules := []classifyRule{

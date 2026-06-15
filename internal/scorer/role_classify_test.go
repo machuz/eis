@@ -19,13 +19,13 @@ func TestClassifyRole_HighCatalysisHighProductionIsAnchorNotProducer(t *testing.
 	}
 }
 
-// Catalysis just inside the high band tips the role to Anchor over a maxed
-// Producer. (Exactly 60 sits on the precedence margin's float boundary and is
-// intentionally left ambiguous; 62 is unambiguously high.)
+// Catalysis at the start of the high band (60 → highness 0.5) tips the role to
+// Anchor over a maxed Producer. producerCeiling=0.64 keeps this boundary
+// inclusive (0.64-0.5=0.14 <= priorityMargin 0.15) without a float edge.
 func TestClassifyRole_CatalysisInHighBandIsAnchor(t *testing.T) {
-	r := Result{Catalysis: 62, Production: 100}
+	r := Result{Catalysis: 60, Production: 100}
 	if got := classifyRoleName(r); got != "Anchor" {
-		t.Fatalf("Catalysis 62 + Production 100: want Anchor, got %q", got)
+		t.Fatalf("Catalysis 60 + Production 100: want Anchor, got %q", got)
 	}
 }
 
