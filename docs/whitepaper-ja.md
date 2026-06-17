@@ -301,9 +301,11 @@ Robust Survivalがゼロのエンジニアには0.80倍のペナルティが適�
 
 #### 重力シグナル（Gravity）
 
-構造的影響を測定する別の複合シグナル：
+**構造的影響** — システムの形がそのエンジニアにどれだけ依存しているか — を測定する別の複合シグナル。重力は*関係的*であり、一人だけでは観測できない。そのため、協働を必要とし単独では膨らませにくい軸を主軸に置く。
 
-$$\text{Gravity} = 0.40 \times \text{Indispensability} + 0.30 \times \text{Breadth} + 0.30 \times \text{Design}$$
+$$\text{Gravity} = 0.30\,\text{Catalysis} + 0.25\,\text{RobustSurvival} + 0.20\,\text{Design} + 0.15\,\text{Breadth} + 0.10\,\text{Indispensability}$$
+
+Catalysis（他者が自分の生存コードの上に積み上げること）が最大の比重を持ち、一人プロジェクトではゼロになるため、単独の作者が高い重力を捏造することはできない。生存項は **RobustSurvival**（変更圧の下で生き残るコード）のみ。DormantSurvival（静かな低変更圧モジュールに眠るコード）は耐久的だが他者が積み上げる引力を生まないため除外する。Indispensability（単独所有）は最も単独で膨らみやすい軸のため 0.10 に抑え（旧 0.40）、重力に寄与はするが支配はしないようにした。
 
 ---
 

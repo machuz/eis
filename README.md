@@ -138,7 +138,7 @@ Time-decayed survival is also naturally resistant to gaming — you can't inflat
 
 **Code Survival is the core thesis** — exponential time decay ensures "are you *still* writing durable designs?" matters most.
 
-**Gravity** (v0.10.0) is shown alongside signals but excluded from Impact. It measures structural influence (`Indisp×0.4 + Breadth×0.3 + Design×0.3`) and is color-coded by health: green = durable influence, yellow = moderate, red = fragile dependency.
+**Gravity** is shown alongside signals but excluded from Impact. It measures structural influence — how much the system's shape depends on an engineer — and is *relational*: it cannot be observed from one person alone, so it leads with Catalysis (zero in a solo project) and credits only durable-under-pressure survival: `Cat×0.30 + RobustSurv×0.25 + Design×0.20 + Breadth×0.15 + Indisp×0.10`. Indispensability is held low (0.10) because sole ownership is the most solo-inflatable axis. Color-coded by health: green = durable influence, yellow = moderate, red = fragile dependency.
 
 ## Signal Guide
 

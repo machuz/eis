@@ -301,9 +301,11 @@ A penalty of 0.80× is applied to the impact if an engineer has zero Robust Surv
 
 #### Gravity Signal
 
-A separate composite measures structural influence:
+A separate composite measures **structural influence** — how much the system's shape depends on an engineer. Gravity is *relational*: it cannot be observed from one person alone, so it leads with the axes that require collaborators and resist solo inflation.
 
-$$\text{Gravity} = 0.40 \times \text{Indispensability} + 0.30 \times \text{Breadth} + 0.30 \times \text{Design}$$
+$$\text{Gravity} = 0.30\,\text{Catalysis} + 0.25\,\text{RobustSurvival} + 0.20\,\text{Design} + 0.15\,\text{Breadth} + 0.10\,\text{Indispensability}$$
+
+Catalysis — others building on your surviving code — carries the most weight and is zero in a solo project, so a lone author cannot manufacture high gravity. Only **RobustSurvival** enters: code that lasts under change pressure. DormantSurvival (code resting in quiet, low-pressure modules) is durable but exerts no pull on what others build, so it is excluded. Indispensability (sole ownership) is held to 0.10 — it is the most solo-inflatable axis, so it informs gravity without dominating it, where it previously carried 0.40.
 
 ---
 

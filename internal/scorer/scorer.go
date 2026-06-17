@@ -26,7 +26,7 @@ type Result struct {
 	Breadth          float64
 	DebtCleanup      float64
 	Indispensability float64
-	Gravity          float64 // structural influence: f(Indispensability, Breadth, Design)
+	Gravity          float64 // structural influence: f(Catalysis, RobustSurvival, Design, Breadth, Indispensability)
 	Impact           float64
 	TotalCommits     int
 	LinesAdded       int
@@ -38,6 +38,34 @@ type Result struct {
 	StyleConf        float64 // Style confidence (0.0-1.0)
 	State            string  // State axis: lifecycle phase (Active, Growing, Former, Silent, Fragile, —)
 	StateConf        float64 // State confidence (0.0-1.0)
+}
+
+// gravityScore composes Gravity — how much the system's STRUCTURE depends on
+// this engineer. All inputs are normalised 0..100, the weights sum to 1, so
+// Gravity stays on a 0..100 scale.
+//
+// Gravity is relational — it cannot be observed from one person alone. So the
+// formula LEADS with the axes that require other people and resist solo
+// inflation, and only lightly credits the axes a lone author can max out alone:
+//
+//   - Catalysis (0.30): others build on your surviving code. Zero in a solo
+//     project, and the hardest axis to fake — the strongest evidence that the
+//     system genuinely leans on you.
+//   - RobustSurvival (0.25): code that lasts UNDER change pressure.
+//     DormantSurvival is excluded — code resting in quiet modules is durable but
+//     exerts no pull on what others build, so it must not manufacture gravity.
+//   - Design (0.20): architectural shaping of the system.
+//   - Breadth (0.15): how widely the work is embedded across modules.
+//   - Indispensability (0.10): sole-ownership / bus-factor. Down from the old
+//     0.40 — it is the most solo-inflatable axis (own a repo alone and it pins
+//     to 100), so a one-person project can no longer mint high gravity from
+//     ownership the way it used to.
+func gravityScore(r Result) float64 {
+	return r.Catalysis*0.30 +
+		r.RobustSurvival*0.25 +
+		r.Design*0.20 +
+		r.Breadth*0.15 +
+		r.Indispensability*0.10
 }
 
 // ScoreAt is like Score but uses refTime as the "now" reference for RecentlyActive calculation.
@@ -180,10 +208,7 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 				r.Indispensability*w.Indispensability
 		}
 
-		// Gravity: structural influence on the system.
-		// Weighted combination of the three axes that determine how much
-		// the system's shape depends on this engineer's work.
-		r.Gravity = r.Indispensability*0.40 + r.Breadth*0.30 + r.Design*0.30
+		r.Gravity = gravityScore(r)
 
 		role, style, state := classifyTopology(r)
 		r.Role = role.Name
