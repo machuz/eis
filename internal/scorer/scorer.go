@@ -26,7 +26,7 @@ type Result struct {
 	Breadth          float64
 	DebtCleanup      float64
 	Indispensability float64
-	Gravity          float64 // structural influence: f(Catalysis, RobustSurvival, Design, Breadth, Indispensability)
+	Gravity          float64 // structural influence: relational gate(Catalysis) × footprint(RobustSurvival, Design, Breadth, Indispensability)
 	Impact           float64
 	TotalCommits     int
 	LinesAdded       int
@@ -41,38 +41,44 @@ type Result struct {
 }
 
 // gravityScore composes Gravity — how much the system's STRUCTURE depends on
-// this engineer. All inputs are normalised 0..100, the weights sum to 1, so
-// Gravity stays on a 0..100 scale.
+// this engineer — as a structural FOOTPRINT scaled by a relational GATE:
 //
-// Gravity is relational — it cannot be observed from one person alone. So the
-// formula LEADS with the axes that require other people and resist solo
-// inflation, and only lightly credits the axes a lone author can max out alone:
+//	footprint = 0.35·RobustSurvival + 0.25·Design + 0.20·Breadth + 0.20·Indispensability
+//	gate      = gravityGateFloor + (1-gravityGateFloor)·(Catalysis/100)
+//	gravity   = gate · footprint
 //
-//   - Catalysis (0.30): others build on your surviving code. Zero in a solo
-//     project, and the hardest axis to fake — the strongest evidence that the
-//     system genuinely leans on you.
-//   - RobustSurvival (0.25): code that lasts UNDER change pressure.
-//     DormantSurvival is excluded — code resting in quiet modules is durable but
-//     exerts no pull on what others build, so it must not manufacture gravity.
-//     When change-pressure data is unavailable (no robust/dormant split,
-//     hasPressureData == false), RobustSurvival is 0; rather than crediting total
-//     Survival at face value we apply a STRONG discount (unprovenSurvivalDamping).
-//     Without the split we cannot tell whether the survival is held under pull
-//     (robust) or merely resting (dormant), and code with nothing pulling on it
-//     is not observable AS gravity — so unproven survival earns only a fraction,
-//     never a full robust-equivalent.
-//   - Design (0.20): architectural shaping of the system.
-//   - Breadth (0.15): how widely the work is embedded across modules.
-//   - Indispensability (0.10): sole-ownership / bus-factor. Down from the old
-//     0.40 — it is the most solo-inflatable axis (own a repo alone and it pins
-//     to 100), so a one-person project can no longer mint high gravity from
-//     ownership the way it used to.
+// All inputs are normalised 0..100, footprint weights sum to 1, and the gate is
+// in [floor, 1], so Gravity stays on a 0..100 scale.
+//
+// Why a gate, not one more weighted term: gravity is relational — it cannot be
+// observed from one person alone. Catalysis (others building on your surviving
+// code) is the ONLY axis that is necessarily zero for a solo author, so it is
+// the one true witness that the structure observably leans on someone. Every
+// footprint axis (survival, design, breadth, sole-ownership) is reachable alone,
+// so on their own they describe reach, not gravity. Multiplying by the gate means
+// nothing pulling on you (Catalysis → 0) collapses gravity toward the floor no
+// matter how large the footprint — a one-person project can no longer mint high
+// gravity. The footprint weights can then rank structural importance honestly
+// (RobustSurvival leads) without being bent into doubling as solo-suppression.
+//
+// RobustSurvival only: DormantSurvival is excluded — code resting in quiet
+// modules is durable but exerts no pull on what others build. When change-pressure
+// data is unavailable (no robust/dormant split, hasPressureData == false),
+// RobustSurvival is 0; rather than crediting total Survival at face value we apply
+// a strong discount (unprovenSurvivalDamping), since survival we cannot confirm is
+// "under pull" is closer to dormant than to robust.
 
-// unprovenSurvivalDamping discounts the gravity survival term when change-pressure
-// data is unavailable. It is intentionally strong: survival we cannot confirm is
-// "under pull" is closer to dormant (which gravity excludes outright) than to
-// robust, so it must not read as high gravity. A solo author's own code tends to
-// pin total Survival near 100, so the discount is deliberately steep (~70% off).
+// gravityGateFloor is the relational gate's value at Catalysis == 0: a structural
+// footprint with nobody building on it is credited at this small fraction (not
+// zeroed outright — a genuine foundational author whose collaborators simply have
+// not appeared in the window should not vanish to 0). Catalysis ramps the gate to
+// 1.0. With floor 0.2, a solo project caps at 0.2 × footprint ≤ 20.
+const gravityGateFloor = 0.2
+
+// unprovenSurvivalDamping discounts the footprint's survival term when
+// change-pressure data is unavailable. It is intentionally steep: a solo author's
+// own code tends to pin total Survival near 100, and survival we cannot confirm is
+// "under pull" must not read as durable robust survival (~70% off).
 const unprovenSurvivalDamping = 0.3
 
 func gravityScore(r Result, hasPressureData bool) float64 {
@@ -80,11 +86,9 @@ func gravityScore(r Result, hasPressureData bool) float64 {
 	if !hasPressureData {
 		surv = r.Survival * unprovenSurvivalDamping
 	}
-	return r.Catalysis*0.30 +
-		surv*0.25 +
-		r.Design*0.20 +
-		r.Breadth*0.15 +
-		r.Indispensability*0.10
+	footprint := surv*0.35 + r.Design*0.25 + r.Breadth*0.20 + r.Indispensability*0.20
+	gate := gravityGateFloor + (1-gravityGateFloor)*(r.Catalysis/100)
+	return gate * footprint
 }
 
 // ScoreAt is like Score but uses refTime as the "now" reference for RecentlyActive calculation.

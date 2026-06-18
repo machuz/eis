@@ -1,44 +1,75 @@
 package scorer
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
-// TestGravityScore_Formula pins the weighted composition so a future reweight is
-// a deliberate, reviewed change rather than an accident.
-func TestGravityScore_Formula(t *testing.T) {
-	r := Result{Catalysis: 80, RobustSurvival: 60, Design: 50, Breadth: 40, Indispensability: 20}
-	// 80*.30 + 60*.25 + 50*.20 + 40*.15 + 20*.10 = 24+15+10+6+2 = 57
-	if got := gravityScore(r, true); got != 57 {
-		t.Fatalf("gravityScore = %v, want 57", got)
+// approx compares gravity values, tolerating the float rounding the gate
+// multiply introduces (e.g. 0.6×100 = 60.000000000001).
+func approx(a, b float64) bool { return math.Abs(a-b) < 1e-9 }
+
+// TestGravityScore_FootprintWeights pins the footprint composition. With
+// Catalysis = 100 the gate is 1.0, so gravity == footprint and each axis alone
+// reveals its weight.
+func TestGravityScore_FootprintWeights(t *testing.T) {
+	cases := []struct {
+		name string
+		r    Result
+		want float64
+	}{
+		{"robust", Result{Catalysis: 100, RobustSurvival: 100}, 35},
+		{"design", Result{Catalysis: 100, Design: 100}, 25},
+		{"breadth", Result{Catalysis: 100, Breadth: 100}, 20},
+		{"indisp", Result{Catalysis: 100, Indispensability: 100}, 20},
+	}
+	for _, c := range cases {
+		if got := gravityScore(c.r, true); !approx(got, c.want) {
+			t.Errorf("%s: gravityScore = %v, want %v", c.name, got, c.want)
+		}
 	}
 }
 
-// TestGravityScore_UnprovenSurvivalIsStronglyDamped: when an analysis has no
-// robust/dormant split, RobustSurvival is 0. Rather than crediting total Survival
-// at face value, gravity applies a strong discount — survival we cannot confirm
-// is "under pull" is closer to dormant than robust, and must not read as high
-// gravity.
-func TestGravityScore_UnprovenSurvivalIsStronglyDamped(t *testing.T) {
-	r := Result{Catalysis: 80, Survival: 60, RobustSurvival: 0, Design: 50, Breadth: 40, Indispensability: 20}
-	// No pressure data: survival term = 60 * 0.3 = 18, contributing 18*0.25 = 4.5.
-	// 24(cat) + 4.5(surv) + 10(design) + 6(breadth) + 2(indisp) = 46.5.
-	if got := gravityScore(r, false); got != 46.5 {
-		t.Fatalf("damped gravityScore = %v, want 46.5 (Survival 60 discounted to 18)", got)
+// TestGravityScore_GateRampsWithCatalysis: Catalysis gates the footprint. With a
+// maxed footprint (100), gravity scales 20 → 60 → 100 across Catalysis 0/50/100.
+func TestGravityScore_GateRampsWithCatalysis(t *testing.T) {
+	full := func(cat float64) Result {
+		return Result{Catalysis: cat, RobustSurvival: 100, Design: 100, Breadth: 100, Indispensability: 100}
 	}
-	// Face-value would have been 57 — the damping must cost real points.
-	if gravityScore(r, false) >= 57 {
-		t.Fatal("unproven survival must be discounted below its face value")
-	}
-	// With pressure data the same row scores 42 — RobustSurvival (0) is used.
-	if got := gravityScore(r, true); got != 42 {
-		t.Fatalf("with pressure data gravityScore = %v, want 42 (RobustSurvival=0)", got)
+	cases := []struct {
+		cat, want float64
+	}{{0, 20}, {50, 60}, {100, 100}}
+	for _, c := range cases {
+		if got := gravityScore(full(c.cat), true); !approx(got, c.want) {
+			t.Errorf("Catalysis %v: gravity = %v, want %v", c.cat, got, c.want)
+		}
 	}
 }
 
-// TestGravityScore_DormantSurvivalExcluded: gravity reads RobustSurvival only.
-// DormantSurvival (code resting in quiet modules) must not move gravity at all —
-// durable, but it exerts no pull on what others build.
+// TestGravityScore_SoloIsGated: gravity cannot be observed from one person alone.
+// A solo author who maxes every footprint axis they can reach by themselves but
+// has no one building on them (Catalysis = 0) is capped at the gate floor — far
+// below the same footprint once collaborators build on it.
+func TestGravityScore_SoloIsGated(t *testing.T) {
+	footprint := Result{RobustSurvival: 100, Design: 100, Breadth: 100, Indispensability: 100}
+
+	solo := footprint // Catalysis 0
+	withCollaborators := footprint
+	withCollaborators.Catalysis = 100
+
+	if g := gravityScore(solo, true); g > 20 {
+		t.Fatalf("a solo owner must cap at the gate floor (~20), got %v", g)
+	}
+	if gravityScore(withCollaborators, true) <= gravityScore(solo, true) {
+		t.Fatalf("the same footprint with collaborators (%v) must out-gravitate solo (%v)",
+			gravityScore(withCollaborators, true), gravityScore(solo, true))
+	}
+}
+
+// TestGravityScore_DormantSurvivalExcluded: the footprint reads RobustSurvival
+// only. DormantSurvival (code resting in quiet modules) must not move gravity.
 func TestGravityScore_DormantSurvivalExcluded(t *testing.T) {
-	base := Result{Catalysis: 50, RobustSurvival: 40, Design: 30, Breadth: 20, Indispensability: 10}
+	base := Result{Catalysis: 100, RobustSurvival: 40, Design: 30, Breadth: 20, Indispensability: 10}
 	withDormant := base
 	withDormant.DormantSurvival = 100
 	if gravityScore(base, true) != gravityScore(withDormant, true) {
@@ -46,35 +77,33 @@ func TestGravityScore_DormantSurvivalExcluded(t *testing.T) {
 	}
 }
 
-// TestGravityScore_IsRelational: gravity cannot be observed from one person
-// alone. A solo author who maxes every axis they CAN reach by themselves
-// (Design / Breadth / Indispensability) but has no collaborators (Catalysis = 0)
-// and no code proven under shared change pressure (RobustSurvival = 0) must land
-// far below the ceiling — and below a genuine catalyst who scores zero on those
-// solo-inflatable axes.
-func TestGravityScore_IsRelational(t *testing.T) {
-	soloOwner := Result{Catalysis: 0, RobustSurvival: 0, Design: 100, Breadth: 100, Indispensability: 100}
-	catalyst := Result{Catalysis: 100, RobustSurvival: 100, Design: 0, Breadth: 0, Indispensability: 0}
-
-	if g := gravityScore(soloOwner, true); g >= 50 {
-		t.Fatalf("a solo owner should be capped well below the ceiling, got %v", g)
+// TestGravityScore_UnprovenSurvivalIsStronglyDamped: without the robust/dormant
+// split the survival term uses total Survival at a steep discount, never face
+// value — survival we cannot confirm is "under pull" must not read as robust.
+func TestGravityScore_UnprovenSurvivalIsStronglyDamped(t *testing.T) {
+	// Catalysis 100 (gate 1.0) isolates the survival term. Survival 100 only.
+	r := Result{Catalysis: 100, Survival: 100, RobustSurvival: 0}
+	// No pressure data: footprint = (100*0.3)*0.35 = 30*0.35 = 10.5.
+	if got := gravityScore(r, false); !approx(got, 10.5) {
+		t.Fatalf("damped gravity = %v, want 10.5 (Survival 100 discounted to 30)", got)
 	}
-	if gravityScore(catalyst, true) <= gravityScore(soloOwner, true) {
-		t.Fatalf("a catalyst (%v) must out-gravitate a solo owner (%v)",
-			gravityScore(catalyst, true), gravityScore(soloOwner, true))
+	// Face value would have been 35 — the damping must cost real points.
+	if gravityScore(r, false) >= 35 {
+		t.Fatal("unproven survival must be discounted below its robust-equivalent")
+	}
+	// With pressure data RobustSurvival (0) is used → footprint 0 → gravity 0.
+	if got := gravityScore(r, true); got != 0 {
+		t.Fatalf("with pressure data gravity = %v, want 0 (RobustSurvival=0)", got)
 	}
 }
 
-// TestGravityScore_IndispensabilityNoLongerDominates: owning everything alone
-// used to mint 0.40 of gravity; it is now 0.10, and is dwarfed by Catalysis
-// (0.30). This is the fix for one-person projects scoring unduly high gravity.
-func TestGravityScore_IndispensabilityNoLongerDominates(t *testing.T) {
-	onlyIndisp := Result{Indispensability: 100}
-	onlyCatalysis := Result{Catalysis: 100}
-	if gravityScore(onlyIndisp, true) != 10 {
-		t.Fatalf("Indispensability lever = %v, want 10", gravityScore(onlyIndisp, true))
-	}
-	if gravityScore(onlyCatalysis, true) <= gravityScore(onlyIndisp, true) {
-		t.Fatal("Catalysis must outweigh Indispensability as a gravity lever")
+// TestGravityScore_IndispensabilityDoesNotInflateSolo: sole ownership carries a
+// real footprint weight (0.20), but because the gate suppresses solo work, owning
+// everything alone (Catalysis 0) can no longer mint high gravity — the old failure
+// mode where a one-person project scored top gravity from ownership alone.
+func TestGravityScore_IndispensabilityDoesNotInflateSolo(t *testing.T) {
+	soloOwner := Result{Indispensability: 100}                 // Catalysis 0
+	if got := gravityScore(soloOwner, true); !approx(got, 4) { // 0.2 gate * (100*0.20) = 0.2*20 = 4
+		t.Fatalf("solo sole-owner gravity = %v, want 4", got)
 	}
 }

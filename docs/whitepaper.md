@@ -301,11 +301,13 @@ A penalty of 0.80× is applied to the impact if an engineer has zero Robust Surv
 
 #### Gravity Signal
 
-A separate composite measures **structural influence** — how much the system's shape depends on an engineer. Gravity is *relational*: it cannot be observed from one person alone, so it leads with the axes that require collaborators and resist solo inflation.
+A separate composite measures **structural influence** — how much the system's shape depends on an engineer. Gravity is *relational*: it cannot be observed from one person alone. So it scales a structural **footprint** by a **relational gate**, rather than summing every axis linearly.
 
-$$\text{Gravity} = 0.30\,\text{Catalysis} + 0.25\,\text{RobustSurvival} + 0.20\,\text{Design} + 0.15\,\text{Breadth} + 0.10\,\text{Indispensability}$$
+$$\text{footprint} = 0.35\,\text{RobustSurvival} + 0.25\,\text{Design} + 0.20\,\text{Breadth} + 0.20\,\text{Indispensability}$$
 
-Catalysis — others building on your surviving code — carries the most weight and is zero in a solo project, so a lone author cannot manufacture high gravity. Only **RobustSurvival** enters: code that lasts under change pressure. DormantSurvival (code resting in quiet, low-pressure modules) is durable but exerts no pull on what others build, so it is excluded. Indispensability (sole ownership) is held to 0.10 — it is the most solo-inflatable axis, so it informs gravity without dominating it, where it previously carried 0.40.
+$$\text{Gravity} = \left(0.2 + 0.8 \times \frac{\text{Catalysis}}{100}\right) \times \text{footprint}$$
+
+Every footprint axis — survival, design, reach, sole ownership — is reachable by a lone author, so on its own the footprint describes *reach*, not gravity. Catalysis (others building on your surviving code) is the only axis necessarily zero in a solo project, so it is the one witness that the structure observably leans on someone; it **gates** the footprint rather than adding to it. With nobody building on your code the gate collapses to its floor (0.2), so a one-person project caps near 20 regardless of footprint, while the footprint weights are free to rank structural importance honestly (RobustSurvival leads). Only **RobustSurvival** enters the footprint — DormantSurvival (code resting in quiet, low-pressure modules) is durable but exerts no pull on what others build, so it is excluded; when change-pressure data is absent, total Survival is credited only at a steep discount.
 
 ---
 
