@@ -93,6 +93,7 @@ func detectGravityWarnings(tr TeamResult) []string {
 	// survival-gated, so this is durable code — but durable-and-quiet code owned by
 	// one person is exactly the bus-factor risk: if they leave, who maintains the
 	// now-silent foundation?
+	var flaggedAuthor string // skip in the per-member loop so top isn't warned twice
 	if top.Gravity >= 80 && top.RobustSurvival < 50 {
 		gap := top.Gravity
 		if len(sorted) > 1 {
@@ -102,12 +103,16 @@ func detectGravityWarnings(tr TeamResult) []string {
 			warnings = append(warnings, fmt.Sprintf(
 				"Gravity bus-factor — %s (Grav %.0f) concentrates structural influence in stabilised, low-churn code (RobustSurv %.0f)",
 				top.Author, top.Gravity, top.RobustSurvival))
+			flaggedAuthor = top.Author
 		}
 	}
 
 	// Same risk, lower bar, per member: real structural influence resting on code
 	// no longer under active change pressure.
 	for _, m := range tr.Members {
+		if m.Author == flaggedAuthor {
+			continue
+		}
 		if m.Gravity >= 50 && m.RobustSurvival < 20 {
 			warnings = append(warnings, fmt.Sprintf(
 				"Gravity bus-factor — %s (Grav %.0f) holds structural influence in stabilised code (RobustSurv %.0f) — at risk if they leave",
