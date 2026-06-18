@@ -3,10 +3,19 @@ package git
 import (
 	"bufio"
 	"context"
+	"io"
+	"os/exec"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
+
+// parallelLogMinCommits is the commit count below which ParseLogParallel just
+// runs the serial ParseLog — for small repos the rev-list + fan-out overhead
+// isn't worth it (and the serial path is already sub-second). var, not const,
+// so tests can lower it to exercise the parallel path on a tiny fixture repo.
+var parallelLogMinCommits = 4000
 
 type Commit struct {
 	Hash      string
@@ -40,8 +49,19 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 		return nil, err
 	}
 	defer stdout.Close()
+	commits, scanErr := parseLogStream(stdout)
+	waitErr := cmd.Wait()
+	if scanErr != nil {
+		return commits, scanErr
+	}
+	return commits, waitErr
+}
 
-	scanner := bufio.NewScanner(stdout)
+// parseLogStream parses the stdout of a `git log -p --numstat` invocation into
+// commits with comment-filtered per-file line counts. Shared by the serial
+// ParseLog and the per-chunk workers of ParseLogParallel.
+func parseLogStream(r io.Reader) ([]Commit, error) {
+	scanner := bufio.NewScanner(r)
 	scanner.Buffer(make([]byte, 1024*1024), 16*1024*1024)
 
 	var commits []Commit
@@ -174,16 +194,130 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 	if current != nil {
 		commits = append(commits, *current)
 	}
+	return commits, scanner.Err()
+}
 
-	scanErr := scanner.Err()
+// ParseLogParallel is a drop-in faster ParseLog for large repos. The cost of
+// ParseLog is git generating `-p` (full patch) output for every commit; on a
+// 200k-commit repo that single stream is the dominant phase of analysis. This
+// splits history into `workers` contiguous chunks (cheap rev-list first, which
+// emits no diffs) and parses each chunk's `git log -p` concurrently, then
+// concatenates in history order — so the patch generation and the Go-side
+// comment filtering both fan out across cores. Output is identical to ParseLog:
+// same commit set (--all --no-merges), same order, same per-file filtered counts.
+//
+// Small repos (or workers < 2) fall back to serial ParseLog.
+func ParseLogParallel(ctx context.Context, repoPath string, workers int) ([]Commit, error) {
+	if workers < 2 {
+		return ParseLog(ctx, repoPath)
+	}
+	shas, err := revListAll(ctx, repoPath)
+	if err != nil {
+		return nil, err
+	}
+	if len(shas) < parallelLogMinCommits {
+		return ParseLog(ctx, repoPath)
+	}
+
+	chunks := chunkStrings(shas, workers)
+	results := make([][]Commit, len(chunks))
+	errs := make([]error, len(chunks))
+	var wg sync.WaitGroup
+	for i := range chunks {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			results[i], errs[i] = parseLogChunk(ctx, repoPath, chunks[i])
+		}(i)
+	}
+	wg.Wait()
+
+	total := 0
+	for i, e := range errs {
+		if e != nil {
+			return nil, e
+		}
+		total += len(results[i])
+	}
+	out := make([]Commit, 0, total)
+	for _, r := range results {
+		out = append(out, r...)
+	}
+	return out, nil
+}
+
+// revListAll returns every non-merge commit SHA reachable from any ref, in git's
+// default (reverse-chronological) order — the same set and order ParseLog walks,
+// but with no patch generation, so it returns in ~a second even on huge repos.
+func revListAll(ctx context.Context, repoPath string) ([]string, error) {
+	stdout, cmd, err := RunStream(ctx, repoPath, "rev-list", "--all", "--no-merges")
+	if err != nil {
+		return nil, err
+	}
+	defer stdout.Close()
+	var shas []string
+	sc := bufio.NewScanner(stdout)
+	sc.Buffer(make([]byte, 64*1024), 1024*1024)
+	for sc.Scan() {
+		if s := sc.Text(); s != "" {
+			shas = append(shas, s)
+		}
+	}
+	scanErr := sc.Err()
+	waitErr := cmd.Wait()
+	if scanErr != nil {
+		return shas, scanErr
+	}
+	return shas, waitErr
+}
+
+// parseLogChunk runs `git log -p --numstat` over exactly the given commits
+// (fed on stdin, shown in input order via --no-walk) and parses the stream. Each
+// commit is still diffed against its first parent, identical to the serial walk.
+func parseLogChunk(ctx context.Context, repoPath string, shas []string) ([]Commit, error) {
+	cmd := exec.CommandContext(ctx, "git",
+		"log", "--no-walk=unsorted", "--no-merges", "--no-color",
+		"--format=COMMIT:%H|%an|%ai|%s",
+		"--numstat", "-p", "--stdin",
+	)
+	cmd.Dir = repoPath
+	cmd.Stdin = strings.NewReader(strings.Join(shas, "\n") + "\n")
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		return nil, err
+	}
+	if err := cmd.Start(); err != nil {
+		return nil, err
+	}
+	commits, scanErr := parseLogStream(stdout)
 	waitErr := cmd.Wait()
 	if scanErr != nil {
 		return commits, scanErr
 	}
-	if waitErr != nil {
-		return commits, waitErr
+	return commits, waitErr
+}
+
+// chunkStrings splits s into n contiguous, near-equal slices (preserving order).
+func chunkStrings(s []string, n int) [][]string {
+	if n < 1 {
+		n = 1
 	}
-	return commits, nil
+	if n > len(s) {
+		n = len(s)
+	}
+	out := make([][]string, 0, n)
+	base := len(s) / n
+	rem := len(s) % n
+	i := 0
+	for c := 0; c < n; c++ {
+		size := base
+		if c < rem {
+			size++
+		}
+		out = append(out, s[i:i+size])
+		i += size
+	}
+	return out
 }
 
 // resolveRenamePath converts a git-numstat path that may embed rename syntax

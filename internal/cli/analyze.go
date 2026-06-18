@@ -423,7 +423,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				fmt.Fprintf(os.Stderr, "  (cached)\n")
 			}
 		} else {
-			commits, err = git.ParseLog(ctx, repoPath)
+			commits, err = git.ParseLogParallel(ctx, repoPath, workers)
 			spin.Stop()
 			if err != nil {
 				return nil, nil, fmt.Errorf("parse log %s: %w", repoName, err)

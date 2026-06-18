@@ -2,6 +2,7 @@ package git
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -277,5 +278,57 @@ def greet():
 	// Code lines: def greet():, return "hi"  = 2.
 	if fs.Insertions != 2 {
 		t.Errorf("expected 2 python code insertions (docstring excluded), got %d", fs.Insertions)
+	}
+}
+
+// TestParseLogParallel_MatchesSerial verifies the parallel path produces
+// byte-for-byte the same commits (set, per-file filtered counts) as serial
+// ParseLog. The min-commit threshold is lowered so a tiny fixture exercises the
+// real chunked fan-out instead of the serial fallback.
+func TestParseLogParallel_MatchesSerial(t *testing.T) {
+	dir := newTempRepo(t)
+	// A spread of commits across code + prose, including comment-only and
+	// rename churn, so the comment filter and numstat parsing are all exercised.
+	for i := 0; i < 12; i++ {
+		writeFile(t, dir, "a.go", fmt.Sprintf("package a\n// note %d\nfunc F%d() int { return %d }\n", i, i, i))
+		writeFile(t, dir, "README.md", fmt.Sprintf("# Title\n\nrev %d\n\n", i))
+		commit(t, dir, fmt.Sprintf("c%d", i))
+	}
+
+	serial, err := ParseLog(context.Background(), dir)
+	if err != nil {
+		t.Fatalf("ParseLog: %v", err)
+	}
+
+	old := parallelLogMinCommits
+	parallelLogMinCommits = 1 // force the parallel path
+	defer func() { parallelLogMinCommits = old }()
+	par, err := ParseLogParallel(context.Background(), dir, 4)
+	if err != nil {
+		t.Fatalf("ParseLogParallel: %v", err)
+	}
+
+	if len(serial) != len(par) {
+		t.Fatalf("commit count: serial=%d parallel=%d", len(serial), len(par))
+	}
+	// Index serial by hash, compare per-file filtered counts.
+	byHash := map[string]Commit{}
+	for _, c := range serial {
+		byHash[c.Hash] = c
+	}
+	for _, p := range par {
+		s, ok := byHash[p.Hash]
+		if !ok {
+			t.Fatalf("parallel produced unknown commit %s", p.Hash)
+		}
+		if len(s.FileStats) != len(p.FileStats) {
+			t.Fatalf("%s filestat count: serial=%d parallel=%d", p.Hash, len(s.FileStats), len(p.FileStats))
+		}
+		for _, pf := range p.FileStats {
+			sf, found := findFileStat(s, pf.Filename)
+			if !found || sf != pf {
+				t.Fatalf("%s file %s mismatch: serial=%+v parallel=%+v", p.Hash, pf.Filename, sf, pf)
+			}
+		}
 	}
 }
