@@ -26,7 +26,7 @@ type Result struct {
 	Breadth          float64
 	DebtCleanup      float64
 	Indispensability float64
-	Gravity          float64 // structural influence: f(Indispensability, Breadth, Design)
+	Gravity          float64 // structural influence: relational gate(Catalysis) × footprint(RobustSurvival, Design, Breadth, Indispensability)
 	Impact           float64
 	TotalCommits     int
 	LinesAdded       int
@@ -38,6 +38,57 @@ type Result struct {
 	StyleConf        float64 // Style confidence (0.0-1.0)
 	State            string  // State axis: lifecycle phase (Active, Growing, Former, Silent, Fragile, —)
 	StateConf        float64 // State confidence (0.0-1.0)
+}
+
+// gravityScore composes Gravity — how much the system's STRUCTURE depends on
+// this engineer — as a structural FOOTPRINT scaled by a relational GATE:
+//
+//	footprint = 0.35·RobustSurvival + 0.25·Design + 0.20·Breadth + 0.20·Indispensability
+//	gate      = gravityGateFloor + (1-gravityGateFloor)·(Catalysis/100)
+//	gravity   = gate · footprint
+//
+// All inputs are normalised 0..100, footprint weights sum to 1, and the gate is
+// in [floor, 1], so Gravity stays on a 0..100 scale.
+//
+// Why a gate, not one more weighted term: gravity is relational — it cannot be
+// observed from one person alone. Catalysis (others building on your surviving
+// code) is the ONLY axis that is necessarily zero for a solo author, so it is
+// the one true witness that the structure observably leans on someone. Every
+// footprint axis (survival, design, breadth, sole-ownership) is reachable alone,
+// so on their own they describe reach, not gravity. Multiplying by the gate means
+// nothing pulling on you (Catalysis → 0) collapses gravity toward the floor no
+// matter how large the footprint — a one-person project can no longer mint high
+// gravity. The footprint weights can then rank structural importance honestly
+// (RobustSurvival leads) without being bent into doubling as solo-suppression.
+//
+// RobustSurvival only: DormantSurvival is excluded — code resting in quiet
+// modules is durable but exerts no pull on what others build. When change-pressure
+// data is unavailable (no robust/dormant split, hasPressureData == false),
+// RobustSurvival is 0; rather than crediting total Survival at face value we apply
+// a strong discount (unprovenSurvivalDamping), since survival we cannot confirm is
+// "under pull" is closer to dormant than to robust.
+
+// gravityGateFloor is the relational gate's value at Catalysis == 0: a structural
+// footprint with nobody building on it is credited at this small fraction (not
+// zeroed outright — a genuine foundational author whose collaborators simply have
+// not appeared in the window should not vanish to 0). Catalysis ramps the gate to
+// 1.0. With floor 0.2, a solo project caps at 0.2 × footprint ≤ 20.
+const gravityGateFloor = 0.2
+
+// unprovenSurvivalDamping discounts the footprint's survival term when
+// change-pressure data is unavailable. It is intentionally steep: a solo author's
+// own code tends to pin total Survival near 100, and survival we cannot confirm is
+// "under pull" must not read as durable robust survival (~70% off).
+const unprovenSurvivalDamping = 0.3
+
+func gravityScore(r Result, hasPressureData bool) float64 {
+	surv := r.RobustSurvival
+	if !hasPressureData {
+		surv = r.Survival * unprovenSurvivalDamping
+	}
+	footprint := surv*0.35 + r.Design*0.25 + r.Breadth*0.20 + r.Indispensability*0.20
+	gate := gravityGateFloor + (1-gravityGateFloor)*(r.Catalysis/100)
+	return gate * footprint
 }
 
 // ScoreAt is like Score but uses refTime as the "now" reference for RecentlyActive calculation.
@@ -180,10 +231,7 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 				r.Indispensability*w.Indispensability
 		}
 
-		// Gravity: structural influence on the system.
-		// Weighted combination of the three axes that determine how much
-		// the system's shape depends on this engineer's work.
-		r.Gravity = r.Indispensability*0.40 + r.Breadth*0.30 + r.Design*0.30
+		r.Gravity = gravityScore(r, hasPressureData)
 
 		role, style, state := classifyTopology(r)
 		r.Role = role.Name
