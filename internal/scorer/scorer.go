@@ -55,20 +55,29 @@ type Result struct {
 //     DormantSurvival is excluded — code resting in quiet modules is durable but
 //     exerts no pull on what others build, so it must not manufacture gravity.
 //     When change-pressure data is unavailable (no robust/dormant split,
-//     hasPressureData == false), RobustSurvival is 0, so the survival term falls
-//     back to total Survival — mirroring the Impact computation, which uses
-//     classic Survival in exactly the same case. Without this fallback gravity
-//     would silently drop its entire survival component on such analyses.
+//     hasPressureData == false), RobustSurvival is 0; rather than crediting total
+//     Survival at face value we apply a STRONG discount (unprovenSurvivalDamping).
+//     Without the split we cannot tell whether the survival is held under pull
+//     (robust) or merely resting (dormant), and code with nothing pulling on it
+//     is not observable AS gravity — so unproven survival earns only a fraction,
+//     never a full robust-equivalent.
 //   - Design (0.20): architectural shaping of the system.
 //   - Breadth (0.15): how widely the work is embedded across modules.
 //   - Indispensability (0.10): sole-ownership / bus-factor. Down from the old
 //     0.40 — it is the most solo-inflatable axis (own a repo alone and it pins
 //     to 100), so a one-person project can no longer mint high gravity from
 //     ownership the way it used to.
+
+// unprovenSurvivalDamping discounts the gravity survival term when change-pressure
+// data is unavailable. It is intentionally strong: survival we cannot confirm is
+// "under pull" is closer to dormant (which gravity excludes outright) than to
+// robust, so it must not read as high gravity.
+const unprovenSurvivalDamping = 0.4
+
 func gravityScore(r Result, hasPressureData bool) float64 {
 	surv := r.RobustSurvival
 	if !hasPressureData {
-		surv = r.Survival
+		surv = r.Survival * unprovenSurvivalDamping
 	}
 	return r.Catalysis*0.30 +
 		surv*0.25 +

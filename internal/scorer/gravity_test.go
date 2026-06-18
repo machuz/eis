@@ -12,17 +12,23 @@ func TestGravityScore_Formula(t *testing.T) {
 	}
 }
 
-// TestGravityScore_FallsBackToSurvivalWithoutPressureData: when an analysis has
-// no robust/dormant split, RobustSurvival is 0, so the survival term reads total
-// Survival instead — otherwise gravity would silently lose its whole survival
-// component (the Impact formula falls back the same way).
-func TestGravityScore_FallsBackToSurvivalWithoutPressureData(t *testing.T) {
+// TestGravityScore_UnprovenSurvivalIsStronglyDamped: when an analysis has no
+// robust/dormant split, RobustSurvival is 0. Rather than crediting total Survival
+// at face value, gravity applies a strong discount — survival we cannot confirm
+// is "under pull" is closer to dormant than robust, and must not read as high
+// gravity.
+func TestGravityScore_UnprovenSurvivalIsStronglyDamped(t *testing.T) {
 	r := Result{Catalysis: 80, Survival: 60, RobustSurvival: 0, Design: 50, Breadth: 40, Indispensability: 20}
-	// With no pressure data the 0.25 term uses Survival (60): same 57 as above.
-	if got := gravityScore(r, false); got != 57 {
-		t.Fatalf("fallback gravityScore = %v, want 57 (Survival used for the survival term)", got)
+	// No pressure data: survival term = 60 * 0.4 = 24, contributing 24*0.25 = 6.
+	// 24(cat) + 6(surv) + 10(design) + 6(breadth) + 2(indisp) = 48.
+	if got := gravityScore(r, false); got != 48 {
+		t.Fatalf("damped gravityScore = %v, want 48 (Survival 60 discounted to 24)", got)
 	}
-	// With pressure data the same row scores lower — RobustSurvival (0) is used.
+	// Face-value would have been 57 — the damping must cost real points.
+	if gravityScore(r, false) >= 57 {
+		t.Fatal("unproven survival must be discounted below its face value")
+	}
+	// With pressure data the same row scores 42 — RobustSurvival (0) is used.
 	if got := gravityScore(r, true); got != 42 {
 		t.Fatalf("with pressure data gravityScore = %v, want 42 (RobustSurvival=0)", got)
 	}
