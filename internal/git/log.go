@@ -197,14 +197,22 @@ func parseLogStream(r io.Reader) ([]Commit, error) {
 	return commits, scanner.Err()
 }
 
+// parallelLogChunksPerWorker oversamples chunks relative to workers. Diff volume
+// per commit is wildly uneven (a repo can have bursts of huge commits), so equal
+// commit-count chunks are load-imbalanced and the slowest chunk dominates
+// wall-time. Cutting history into many more, smaller chunks than there are
+// workers — drained by a pool — shrinks the slowest single chunk (≈ 1/(workers·K)
+// of history) and lets idle workers steal the remaining work.
+const parallelLogChunksPerWorker = 8
+
 // ParseLogParallel is a drop-in faster ParseLog for large repos. The cost of
-// ParseLog is git generating `-p` (full patch) output for every commit; on a
-// 200k-commit repo that single stream is the dominant phase of analysis. This
-// splits history into `workers` contiguous chunks (cheap rev-list first, which
-// emits no diffs) and parses each chunk's `git log -p` concurrently, then
-// concatenates in history order — so the patch generation and the Go-side
-// comment filtering both fan out across cores. Output is identical to ParseLog:
-// same commit set (--all --no-merges), same order, same per-file filtered counts.
+// ParseLog is git generating `-p` (full patch) output for every commit AND the
+// Go side comment-filtering every diff line; on a 200k-commit repo that single
+// serial stream is the dominant phase of analysis. This lists the commits cheaply
+// first (rev-list emits no diffs), cuts them into many contiguous chunks, and
+// parses each chunk's `git log -p` concurrently via a worker pool, then
+// concatenates in history order. Output is identical to ParseLog: same commit set
+// (--all --no-merges), same order, same per-file filtered counts.
 //
 // Small repos (or workers < 2) fall back to serial ParseLog.
 func ParseLogParallel(ctx context.Context, repoPath string, workers int) ([]Commit, error) {
@@ -219,17 +227,24 @@ func ParseLogParallel(ctx context.Context, repoPath string, workers int) ([]Comm
 		return ParseLog(ctx, repoPath)
 	}
 
-	chunks := chunkStrings(shas, workers)
+	chunks := chunkStrings(shas, workers*parallelLogChunksPerWorker)
 	results := make([][]Commit, len(chunks))
 	errs := make([]error, len(chunks))
+	jobs := make(chan int)
 	var wg sync.WaitGroup
-	for i := range chunks {
+	for w := 0; w < workers; w++ {
 		wg.Add(1)
-		go func(i int) {
+		go func() {
 			defer wg.Done()
-			results[i], errs[i] = parseLogChunk(ctx, repoPath, chunks[i])
-		}(i)
+			for i := range jobs {
+				results[i], errs[i] = parseLogChunk(ctx, repoPath, chunks[i])
+			}
+		}()
 	}
+	for i := range chunks {
+		jobs <- i
+	}
+	close(jobs)
 	wg.Wait()
 
 	total := 0
