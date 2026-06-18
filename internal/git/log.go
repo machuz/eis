@@ -11,6 +11,14 @@ import (
 	"time"
 )
 
+// maxFilteredDiffLines caps how many diff lines of a single file in a single
+// commit get per-line comment filtering. A commit that dumps a huge generated or
+// vendored file produces a diff with hundreds of thousands of lines; filtering
+// each one (the dominant cost of ParseLog on large repos) is pointless for such
+// files. Past the cap we stop filtering that file and keep its raw numstat
+// counts — comment ratio is negligible at that scale anyway.
+const maxFilteredDiffLines = 50000
+
 // parallelLogMinCommits is the commit count below which ParseLogParallel just
 // runs the serial ParseLog — for small repos the rev-list + fan-out overhead
 // isn't worth it (and the serial path is already sub-second). var, not const,
@@ -67,17 +75,17 @@ func parseLogStream(r io.Reader) ([]Commit, error) {
 	var commits []Commit
 	var current *Commit
 
-	var inDiff, sawHunk bool
+	var inDiff, sawHunk, capped bool
 	var curFileName string
 	var filter *FileFilter
-	var fIns, fDel int
+	var fIns, fDel, fLines int
 
 	flushFile := func() {
 		defer func() {
-			inDiff, sawHunk = false, false
+			inDiff, sawHunk, capped = false, false, false
 			curFileName = ""
 			filter = nil
-			fIns, fDel = 0, 0
+			fIns, fDel, fLines = 0, 0, 0
 		}()
 		if current == nil || !inDiff {
 			return
@@ -153,11 +161,26 @@ func parseLogStream(r io.Reader) ([]Commit, error) {
 				}
 				continue
 			}
+			if capped {
+				// Pathologically large file diff — skip the rest of its hunk
+				// lines without per-line comment filtering (the costly part).
+				// flushFile keeps the raw numstat counts (filter == nil path).
+				continue
+			}
 			if strings.HasPrefix(line, "@@") {
 				filter = NewFileFilter(curFileName)
 				continue
 			}
 			if line == "" {
+				continue
+			}
+			fLines++
+			if fLines > maxFilteredDiffLines {
+				// One commit dumped a giant generated/vendored file. Filtering
+				// its diff line-by-line is what makes ParseLog crawl on huge
+				// repos; cap it and fall back to numstat for this file.
+				capped = true
+				filter = nil
 				continue
 			}
 			switch line[0] {

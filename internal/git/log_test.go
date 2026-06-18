@@ -332,3 +332,34 @@ func TestParseLogParallel_MatchesSerial(t *testing.T) {
 		}
 	}
 }
+
+// TestParseLog_CapsHugeFileDiff verifies the per-file diff cap engages: a commit
+// adding 60k comment lines (> maxFilteredDiffLines) keeps its raw numstat count
+// instead of comment-filtering every line to 0. Without the cap, the comment
+// filter would zero it; with the cap, filtering stops past the threshold and the
+// numstat count stands.
+func TestParseLog_CapsHugeFileDiff(t *testing.T) {
+	dir := newTempRepo(t)
+	var b strings.Builder
+	for i := 0; i < 60000; i++ {
+		b.WriteString("// comment line\n")
+	}
+	writeFile(t, dir, "huge.go", b.String())
+	commit(t, dir, "add huge generated-ish file")
+
+	commits, err := ParseLog(context.Background(), dir)
+	if err != nil {
+		t.Fatalf("ParseLog: %v", err)
+	}
+	if len(commits) != 1 {
+		t.Fatalf("want 1 commit, got %d", len(commits))
+	}
+	fs, ok := findFileStat(commits[0], "huge.go")
+	if !ok {
+		t.Fatal("huge.go not found in stats")
+	}
+	// Cap engaged → raw numstat (60000), NOT the comment-filtered 0.
+	if fs.Insertions != 60000 {
+		t.Fatalf("cap should keep numstat 60000, got %d (0 would mean the cap did not engage)", fs.Insertions)
+	}
+}
