@@ -301,13 +301,13 @@ A penalty of 0.80× is applied to the impact if an engineer has zero Robust Surv
 
 #### Gravity Signal
 
-A separate composite measures **structural influence** — how much the system's shape depends on an engineer. Gravity is *relational*: it cannot be observed from one person alone. So it scales a structural **footprint** by a **relational gate**, rather than summing every axis linearly.
+A separate composite measures **structural influence** — how much the system's shape depends on an engineer. A good architect writes code that **survives** *and* that others **build on**, so gravity treats both as NECESSARY: a structural **shape** passed through two gates.
 
-$$\text{footprint} = 0.35\,\text{RobustSurvival} + 0.25\,\text{Design} + 0.20\,\text{Breadth} + 0.20\,\text{Indispensability}$$
+$$\text{shape} = 0.45\,\text{Design} + 0.25\,\text{Breadth} + 0.30\,\text{Indispensability}$$
 
-$$\text{Gravity} = \left(0.2 + 0.8 \times \frac{\text{Catalysis}}{100}\right) \times \text{footprint}$$
+$$\text{Gravity} = \underbrace{\left(0.15 + 0.85\tfrac{\text{Catalysis}}{100}\right)}_{\text{catGate}} \cdot \underbrace{\left(0.15 + 0.85\tfrac{\text{Survival}}{100}\right)}_{\text{survGate}} \cdot \text{shape}$$
 
-Every footprint axis — survival, design, reach, sole ownership — is reachable by a lone author, so on its own the footprint describes *reach*, not gravity. Catalysis (others building on your surviving code) is the only axis necessarily zero in a solo project, so it is the one witness that the structure observably leans on someone; it **gates** the footprint rather than adding to it. With nobody building on your code the gate collapses to its floor (0.2), so a one-person project caps near 20 regardless of footprint, while the footprint weights are free to rank structural importance honestly (RobustSurvival leads). Only **RobustSurvival** enters the footprint — DormantSurvival (code resting in quiet, low-pressure modules) is durable but exerts no pull on what others build, so it is excluded; when change-pressure data is absent, total Survival is credited only at a steep discount.
+Shape (design, reach, sole ownership) is what an engineer shaped — but every shape axis is computed from change *history*, so a foundation that was later rewritten still reads high on shape. The two gates correct this. **survGate**: did the code last? Survival is total time-decayed survival, so a founder whose code stabilised in quiet modules still passes — but a "foundation" rewritten away (Survival → 0) collapses to the floor no matter how much design history it accrued. Gravity decays with the code, because structural dependence is on code that is still there. **catGate**: is it relational? Catalysis (others building on your surviving code) is the only axis necessarily zero in a solo project, so it is the witness that the structure observably leans on someone; a one-person project cannot mint gravity. RobustSurvival is *not* used here — empirically it is ≈0 for most foundational authors once their code stabilises into low-pressure modules, so total Survival is the honest "is it still load-bearing" signal.
 
 ---
 

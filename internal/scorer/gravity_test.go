@@ -5,105 +5,92 @@ import (
 	"testing"
 )
 
-// approx compares gravity values, tolerating the float rounding the gate
-// multiply introduces (e.g. 0.6×100 = 60.000000000001).
 func approx(a, b float64) bool { return math.Abs(a-b) < 1e-9 }
 
-// TestGravityScore_FootprintWeights pins the footprint composition. With
-// Catalysis = 100 the gate is 1.0, so gravity == footprint and each axis alone
-// reveals its weight.
-func TestGravityScore_FootprintWeights(t *testing.T) {
-	cases := []struct {
-		name string
-		r    Result
-		want float64
-	}{
-		{"robust", Result{Catalysis: 100, RobustSurvival: 100}, 35},
-		{"design", Result{Catalysis: 100, Design: 100}, 25},
-		{"breadth", Result{Catalysis: 100, Breadth: 100}, 20},
-		{"indisp", Result{Catalysis: 100, Indispensability: 100}, 20},
+// TestGravityScore_ShapeWeights pins the shape composition. With both gates open
+// (Catalysis = Survival = 100) gravity == shape, so each axis alone reveals its
+// weight.
+func TestGravityScore_ShapeWeights(t *testing.T) {
+	open := func(field string, v float64) Result {
+		r := Result{Catalysis: 100, Survival: 100}
+		switch field {
+		case "design":
+			r.Design = v
+		case "breadth":
+			r.Breadth = v
+		case "indisp":
+			r.Indispensability = v
+		}
+		return r
 	}
-	for _, c := range cases {
-		if got := gravityScore(c.r, true); !approx(got, c.want) {
-			t.Errorf("%s: gravityScore = %v, want %v", c.name, got, c.want)
+	for _, c := range []struct {
+		f    string
+		want float64
+	}{{"design", 45}, {"breadth", 25}, {"indisp", 30}} {
+		if got := gravityScore(open(c.f, 100)); !approx(got, c.want) {
+			t.Errorf("%s alone: gravity = %v, want %v", c.f, got, c.want)
 		}
 	}
 }
 
-// TestGravityScore_GateRampsWithCatalysis: Catalysis gates the footprint. With a
-// maxed footprint (100), gravity scales 20 → 60 → 100 across Catalysis 0/50/100.
-func TestGravityScore_GateRampsWithCatalysis(t *testing.T) {
-	full := func(cat float64) Result {
-		return Result{Catalysis: cat, RobustSurvival: 100, Design: 100, Breadth: 100, Indispensability: 100}
+// TestGravityScore_SurvivalGate: Survival is a necessary gate. With shape and
+// Catalysis maxed, gravity scales with Survival 0/50/100 → 15/57.5/100.
+func TestGravityScore_SurvivalGate(t *testing.T) {
+	full := func(s float64) Result {
+		return Result{Catalysis: 100, Survival: s, Design: 100, Breadth: 100, Indispensability: 100}
 	}
-	cases := []struct {
-		cat, want float64
-	}{{0, 20}, {50, 60}, {100, 100}}
-	for _, c := range cases {
-		if got := gravityScore(full(c.cat), true); !approx(got, c.want) {
+	for _, c := range []struct{ surv, want float64 }{{0, 15}, {50, 57.5}, {100, 100}} {
+		if got := gravityScore(full(c.surv)); !approx(got, c.want) {
+			t.Errorf("Survival %v: gravity = %v, want %v", c.surv, got, c.want)
+		}
+	}
+}
+
+// TestGravityScore_CatalysisGate: Catalysis is the other necessary gate.
+func TestGravityScore_CatalysisGate(t *testing.T) {
+	full := func(cat float64) Result {
+		return Result{Catalysis: cat, Survival: 100, Design: 100, Breadth: 100, Indispensability: 100}
+	}
+	for _, c := range []struct{ cat, want float64 }{{0, 15}, {50, 57.5}, {100, 100}} {
+		if got := gravityScore(full(c.cat)); !approx(got, c.want) {
 			t.Errorf("Catalysis %v: gravity = %v, want %v", c.cat, got, c.want)
 		}
 	}
 }
 
-// TestGravityScore_SoloIsGated: gravity cannot be observed from one person alone.
-// A solo author who maxes every footprint axis they can reach by themselves but
-// has no one building on them (Catalysis = 0) is capped at the gate floor — far
-// below the same footprint once collaborators build on it.
-func TestGravityScore_SoloIsGated(t *testing.T) {
-	footprint := Result{RobustSurvival: 100, Design: 100, Breadth: 100, Indispensability: 100}
+// TestGravityScore_RewrittenFoundationCollapses is the core property: a heavily
+// shaped "foundation" (high Design + sole-ownership history) that did NOT survive
+// — it was rewritten away, Survival → 0 — must collapse, while the same shape with
+// surviving code scores high. Gravity decays with the code.
+func TestGravityScore_RewrittenFoundationCollapses(t *testing.T) {
+	rewritten := Result{Catalysis: 73, Survival: 0, Design: 100, Breadth: 20, Indispensability: 100}
+	survived := rewritten
+	survived.Survival = 100
 
-	solo := footprint // Catalysis 0
-	withCollaborators := footprint
-	withCollaborators.Catalysis = 100
-
-	if g := gravityScore(solo, true); g > 20 {
-		t.Fatalf("a solo owner must cap at the gate floor (~20), got %v", g)
+	if g := gravityScore(rewritten); g >= 12 {
+		t.Fatalf("a rewritten foundation must collapse, got %v", g)
 	}
-	if gravityScore(withCollaborators, true) <= gravityScore(solo, true) {
-		t.Fatalf("the same footprint with collaborators (%v) must out-gravitate solo (%v)",
-			gravityScore(withCollaborators, true), gravityScore(solo, true))
+	if g := gravityScore(survived); g <= 55 {
+		t.Fatalf("the same shape that survived should score high, got %v", g)
 	}
 }
 
-// TestGravityScore_DormantSurvivalExcluded: the footprint reads RobustSurvival
-// only. DormantSurvival (code resting in quiet modules) must not move gravity.
-func TestGravityScore_DormantSurvivalExcluded(t *testing.T) {
-	base := Result{Catalysis: 100, RobustSurvival: 40, Design: 30, Breadth: 20, Indispensability: 10}
-	withDormant := base
-	withDormant.DormantSurvival = 100
-	if gravityScore(base, true) != gravityScore(withDormant, true) {
-		t.Fatal("DormantSurvival must not contribute to gravity")
-	}
-}
+// TestGravityScore_RequiresBoth: gravity needs survival AND catalysis. Either one
+// alone leaves it near the floor; only both together reach the top.
+func TestGravityScore_RequiresBoth(t *testing.T) {
+	shape := Result{Design: 100, Breadth: 100, Indispensability: 100} // shape = 100
+	survOnly := shape
+	survOnly.Survival = 100 // catalysis 0
+	catOnly := shape
+	catOnly.Catalysis = 100 // survival 0
+	both := shape
+	both.Survival, both.Catalysis = 100, 100
 
-// TestGravityScore_UnprovenSurvivalIsStronglyDamped: without the robust/dormant
-// split the survival term uses total Survival at a steep discount, never face
-// value — survival we cannot confirm is "under pull" must not read as robust.
-func TestGravityScore_UnprovenSurvivalIsStronglyDamped(t *testing.T) {
-	// Catalysis 100 (gate 1.0) isolates the survival term. Survival 100 only.
-	r := Result{Catalysis: 100, Survival: 100, RobustSurvival: 0}
-	// No pressure data: footprint = (100*0.3)*0.35 = 30*0.35 = 10.5.
-	if got := gravityScore(r, false); !approx(got, 10.5) {
-		t.Fatalf("damped gravity = %v, want 10.5 (Survival 100 discounted to 30)", got)
+	gSurv, gCat, gBoth := gravityScore(survOnly), gravityScore(catOnly), gravityScore(both)
+	if gSurv > 20 || gCat > 20 {
+		t.Fatalf("one gate alone must stay low: survOnly=%v catOnly=%v", gSurv, gCat)
 	}
-	// Face value would have been 35 — the damping must cost real points.
-	if gravityScore(r, false) >= 35 {
-		t.Fatal("unproven survival must be discounted below its robust-equivalent")
-	}
-	// With pressure data RobustSurvival (0) is used → footprint 0 → gravity 0.
-	if got := gravityScore(r, true); got != 0 {
-		t.Fatalf("with pressure data gravity = %v, want 0 (RobustSurvival=0)", got)
-	}
-}
-
-// TestGravityScore_IndispensabilityDoesNotInflateSolo: sole ownership carries a
-// real footprint weight (0.20), but because the gate suppresses solo work, owning
-// everything alone (Catalysis 0) can no longer mint high gravity — the old failure
-// mode where a one-person project scored top gravity from ownership alone.
-func TestGravityScore_IndispensabilityDoesNotInflateSolo(t *testing.T) {
-	soloOwner := Result{Indispensability: 100}                 // Catalysis 0
-	if got := gravityScore(soloOwner, true); !approx(got, 4) { // 0.2 gate * (100*0.20) = 0.2*20 = 4
-		t.Fatalf("solo sole-owner gravity = %v, want 4", got)
+	if gBoth <= 4*gSurv || gBoth <= 4*gCat {
+		t.Fatalf("both gates open must dominate either alone: both=%v survOnly=%v catOnly=%v", gBoth, gSurv, gCat)
 	}
 }
