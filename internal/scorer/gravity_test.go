@@ -19,10 +19,10 @@ func TestGravityScore_Formula(t *testing.T) {
 // gravity.
 func TestGravityScore_UnprovenSurvivalIsStronglyDamped(t *testing.T) {
 	r := Result{Catalysis: 80, Survival: 60, RobustSurvival: 0, Design: 50, Breadth: 40, Indispensability: 20}
-	// No pressure data: survival term = 60 * 0.4 = 24, contributing 24*0.25 = 6.
-	// 24(cat) + 6(surv) + 10(design) + 6(breadth) + 2(indisp) = 48.
-	if got := gravityScore(r, false); got != 48 {
-		t.Fatalf("damped gravityScore = %v, want 48 (Survival 60 discounted to 24)", got)
+	// No pressure data: survival term = 60 * 0.3 = 18, contributing 18*0.25 = 4.5.
+	// 24(cat) + 4.5(surv) + 10(design) + 6(breadth) + 2(indisp) = 46.5.
+	if got := gravityScore(r, false); got != 46.5 {
+		t.Fatalf("damped gravityScore = %v, want 46.5 (Survival 60 discounted to 18)", got)
 	}
 	// Face-value would have been 57 — the damping must cost real points.
 	if gravityScore(r, false) >= 57 {

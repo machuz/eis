@@ -71,8 +71,9 @@ type Result struct {
 // unprovenSurvivalDamping discounts the gravity survival term when change-pressure
 // data is unavailable. It is intentionally strong: survival we cannot confirm is
 // "under pull" is closer to dormant (which gravity excludes outright) than to
-// robust, so it must not read as high gravity.
-const unprovenSurvivalDamping = 0.4
+// robust, so it must not read as high gravity. A solo author's own code tends to
+// pin total Survival near 100, so the discount is deliberately steep (~70% off).
+const unprovenSurvivalDamping = 0.3
 
 func gravityScore(r Result, hasPressureData bool) float64 {
 	surv := r.RobustSurvival
