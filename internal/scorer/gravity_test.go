@@ -7,8 +7,24 @@ import "testing"
 func TestGravityScore_Formula(t *testing.T) {
 	r := Result{Catalysis: 80, RobustSurvival: 60, Design: 50, Breadth: 40, Indispensability: 20}
 	// 80*.30 + 60*.25 + 50*.20 + 40*.15 + 20*.10 = 24+15+10+6+2 = 57
-	if got := gravityScore(r); got != 57 {
+	if got := gravityScore(r, true); got != 57 {
 		t.Fatalf("gravityScore = %v, want 57", got)
+	}
+}
+
+// TestGravityScore_FallsBackToSurvivalWithoutPressureData: when an analysis has
+// no robust/dormant split, RobustSurvival is 0, so the survival term reads total
+// Survival instead — otherwise gravity would silently lose its whole survival
+// component (the Impact formula falls back the same way).
+func TestGravityScore_FallsBackToSurvivalWithoutPressureData(t *testing.T) {
+	r := Result{Catalysis: 80, Survival: 60, RobustSurvival: 0, Design: 50, Breadth: 40, Indispensability: 20}
+	// With no pressure data the 0.25 term uses Survival (60): same 57 as above.
+	if got := gravityScore(r, false); got != 57 {
+		t.Fatalf("fallback gravityScore = %v, want 57 (Survival used for the survival term)", got)
+	}
+	// With pressure data the same row scores lower — RobustSurvival (0) is used.
+	if got := gravityScore(r, true); got != 42 {
+		t.Fatalf("with pressure data gravityScore = %v, want 42 (RobustSurvival=0)", got)
 	}
 }
 
@@ -19,7 +35,7 @@ func TestGravityScore_DormantSurvivalExcluded(t *testing.T) {
 	base := Result{Catalysis: 50, RobustSurvival: 40, Design: 30, Breadth: 20, Indispensability: 10}
 	withDormant := base
 	withDormant.DormantSurvival = 100
-	if gravityScore(base) != gravityScore(withDormant) {
+	if gravityScore(base, true) != gravityScore(withDormant, true) {
 		t.Fatal("DormantSurvival must not contribute to gravity")
 	}
 }
@@ -34,12 +50,12 @@ func TestGravityScore_IsRelational(t *testing.T) {
 	soloOwner := Result{Catalysis: 0, RobustSurvival: 0, Design: 100, Breadth: 100, Indispensability: 100}
 	catalyst := Result{Catalysis: 100, RobustSurvival: 100, Design: 0, Breadth: 0, Indispensability: 0}
 
-	if g := gravityScore(soloOwner); g >= 50 {
+	if g := gravityScore(soloOwner, true); g >= 50 {
 		t.Fatalf("a solo owner should be capped well below the ceiling, got %v", g)
 	}
-	if gravityScore(catalyst) <= gravityScore(soloOwner) {
+	if gravityScore(catalyst, true) <= gravityScore(soloOwner, true) {
 		t.Fatalf("a catalyst (%v) must out-gravitate a solo owner (%v)",
-			gravityScore(catalyst), gravityScore(soloOwner))
+			gravityScore(catalyst, true), gravityScore(soloOwner, true))
 	}
 }
 
@@ -49,10 +65,10 @@ func TestGravityScore_IsRelational(t *testing.T) {
 func TestGravityScore_IndispensabilityNoLongerDominates(t *testing.T) {
 	onlyIndisp := Result{Indispensability: 100}
 	onlyCatalysis := Result{Catalysis: 100}
-	if gravityScore(onlyIndisp) != 10 {
-		t.Fatalf("Indispensability lever = %v, want 10", gravityScore(onlyIndisp))
+	if gravityScore(onlyIndisp, true) != 10 {
+		t.Fatalf("Indispensability lever = %v, want 10", gravityScore(onlyIndisp, true))
 	}
-	if gravityScore(onlyCatalysis) <= gravityScore(onlyIndisp) {
+	if gravityScore(onlyCatalysis, true) <= gravityScore(onlyIndisp, true) {
 		t.Fatal("Catalysis must outweigh Indispensability as a gravity lever")
 	}
 }

@@ -54,15 +54,24 @@ type Result struct {
 //   - RobustSurvival (0.25): code that lasts UNDER change pressure.
 //     DormantSurvival is excluded — code resting in quiet modules is durable but
 //     exerts no pull on what others build, so it must not manufacture gravity.
+//     When change-pressure data is unavailable (no robust/dormant split,
+//     hasPressureData == false), RobustSurvival is 0, so the survival term falls
+//     back to total Survival — mirroring the Impact computation, which uses
+//     classic Survival in exactly the same case. Without this fallback gravity
+//     would silently drop its entire survival component on such analyses.
 //   - Design (0.20): architectural shaping of the system.
 //   - Breadth (0.15): how widely the work is embedded across modules.
 //   - Indispensability (0.10): sole-ownership / bus-factor. Down from the old
 //     0.40 — it is the most solo-inflatable axis (own a repo alone and it pins
 //     to 100), so a one-person project can no longer mint high gravity from
 //     ownership the way it used to.
-func gravityScore(r Result) float64 {
+func gravityScore(r Result, hasPressureData bool) float64 {
+	surv := r.RobustSurvival
+	if !hasPressureData {
+		surv = r.Survival
+	}
 	return r.Catalysis*0.30 +
-		r.RobustSurvival*0.25 +
+		surv*0.25 +
 		r.Design*0.20 +
 		r.Breadth*0.15 +
 		r.Indispensability*0.10
@@ -208,7 +217,7 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 				r.Indispensability*w.Indispensability
 		}
 
-		r.Gravity = gravityScore(r)
+		r.Gravity = gravityScore(r, hasPressureData)
 
 		role, style, state := classifyTopology(r)
 		r.Role = role.Name
