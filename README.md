@@ -63,10 +63,10 @@ EIS reads `git log` and `git blame` to compute 7 axes:
 | Signal | What it captures |
 |---|---|
 | **Production** | Sustained output velocity |
-| **Quality** | First-pass correctness (low fix/revert ratio) |
-| **Survival** | Code that endures — exponential time-decay weighted |
+| **Catalysis** | Others build on your *surviving* foundation — enabling later contributors |
+| **Survival** | Code that endures — exponential time-decay weighted blame |
 | **Design** | Commits to architecture-defining files |
-| **Breadth** | Cross-repository structural presence |
+| **Breadth** | Effective number of modules shaped (survival-weighted module diversity) |
 | **Debt Cleanup** | Fixing others' bugs vs. generating new ones |
 | **Indispensability** | Modules where one engineer owns 80%+ of blame |
 
@@ -128,17 +128,17 @@ Time-decayed survival is also naturally resistant to gaming — you can't inflat
 
 | Axis | Weight | What it measures |
 |---|---|---|
-| **Production** | 15% | Changes per day (absolute: configurable `production_daily_ref`, default 1000) |
-| **First-pass Quality** | 10% | Low fix/revert commit ratio |
-| **Code Survival** | **25%** | Recency-weighted blame survival (tau=180 exponential decay) |
+| **Production** | 10% | Changes per day (absolute: configurable `production_daily_ref`, default 1000) |
+| **Catalysis** | 15% | Surviving mass others built on top of your still-living foundation — weighted by how much of your foundation remains |
+| **Code Survival** | **25%** | Recency-weighted blame survival (tau=180 exponential decay); split 80/20 robust/dormant in Impact |
 | **Design** | 20% | Commits to architecture files |
-| **Breadth** | 10% | Distinct repos (multi-repo) or modules (monorepo) contributed to — unit follows analysis scope, configurable via `breadth.unit` |
+| **Breadth** | 10% | Effective number of modules shaped — the survival-weighted diversity (Hill number) of modules your living code spans |
 | **Debt Cleanup** | 15% | Ratio of others' debt cleaned vs. own debt generated |
 | **Indispensability** | 5% | Modules where you own 80%+ of blame lines (Bus Factor) |
 
 **Code Survival is the core thesis** — exponential time decay ensures "are you *still* writing durable designs?" matters most.
 
-**Gravity** is shown alongside signals but excluded from Impact. It measures structural influence — how much the system's shape depends on an engineer — and a good architect writes code that **survives** *and* that others **build on**. So gravity passes a structural **shape** (`0.45·Design + 0.25·Breadth + 0.30·Indisp`) through two NECESSARY gates: `catGate = 0.15 + 0.85·Catalysis/100` and `survGate = 0.15 + 0.85·Survival/100`, giving `Gravity = catGate · survGate · shape`. Shape is computed from change *history*, so a foundation that was later rewritten still reads high on shape — but the survival gate collapses it: when the code didn't last (Survival→0) gravity falls to the floor regardless of design history, so gravity decays with the code. Catalysis (zero in a solo project) keeps a one-person project from minting gravity. Color-coded by health: green = durable influence, yellow = moderate, red = bus-factor risk.
+**Gravity** is shown alongside signals but excluded from Impact. It measures structural influence — how much the system's shape depends on an engineer — and a good architect writes code that **survives under others' pressure** *and* that others **build on**. So gravity passes a structural **shape** (`0.45·Design + 0.25·Breadth + 0.30·Indisp`) through two NECESSARY gates: `catGate = 0.15 + 0.85·Catalysis/100` and `survGate = 0.15 + 0.85·RobustSurvival/100`, giving `Gravity = catGate · survGate · shape`. Shape is computed from change *history*, so a foundation that was later rewritten still reads high on shape — but the survival gate collapses it. **RobustSurvival** is *others-contested* survival: code counts only where authors **other than you** actively commit. So a foundation rewritten away (survival→0) collapses, **and so does code that "survives" only because nobody else has touched it** — a dead corner, or a module you alone churn. Both are untested by anyone but you, so neither earns structural dependence; a founder whose module others keep editing still passes. Catalysis (zero in a solo project) keeps a one-person project from minting gravity. Color-coded by health: green = durable influence, yellow = moderate, red = bus-factor risk.
 
 ## Signal Guide
 
@@ -159,8 +159,8 @@ Instead of a single archetype label, EIS v0.9+ classifies each engineer along 3 
 | Role | Key Signals | Description |
 |---|---|---|
 | **Architect** | Design↑ RobustSurv↑ Breadth○ | Shapes system design with durable code under change pressure |
-| **Anchor** | Qual↑ notLow(Prod) | Reliable quality contributor, not yet shaping architecture |
-| **Cleaner** | Qual↑ Surv↑ Debt↑ | High quality, durable code, actively cleans others' debt |
+| **Anchor** | Cat↑ notLow(Prod) | A catalyst others build on, with real output — not yet shaping architecture |
+| **Cleaner** | Surv↑ Debt↑ | Durable code, actively cleans others' debt |
 | **Producer** | notLow(Prod) | Meaningful production output |
 | **Specialist** | Surv↑ Breadth↓ | Deep in narrow area, high survival but low breadth |
 | **—** | | No dominant role signal |
@@ -172,8 +172,9 @@ Instead of a single archetype label, EIS v0.9+ classifies each engineer along 3 
 | **Builder** | Prod↑ Design↑ Debt○ | Designs, builds heavily, AND cleans up — the full package |
 | **Resilient** | Prod↑ Surv↓ RobustSurv○ | Iterates heavily but what survives under pressure is durable |
 | **Rescue** | Prod↑ Surv↓ Debt↑ | Takes over and rewrites inherited legacy code |
-| **Churn** | Prod↑ Qual↓ Surv↓ gap≥30 | Constant rework — most commits are fixes or reverts |
+| **Churn** | Prod↑ Surv↓ gap≥30 | Constant rework — high output, little survives |
 | **Mass** | Prod↑ Surv↓ | High output but code doesn't survive |
+| **Emergent** | Gravity↑ Prod○ RobustSurv↓ | Creating new structural gravity not yet battle-tested — a future Architect candidate |
 | **Balanced** | Impact≥30 | Steady contributor, no dominant pattern |
 | **Spread** | Breadth↑ Prod↓ Surv↓ Design↓ | Wide presence, shallow depth everywhere |
 | **—** | | No dominant style signal |
@@ -183,10 +184,10 @@ Instead of a single archetype label, EIS v0.9+ classifies each engineer along 3 
 | State | Key Signals | Risk |
 |---|---|---|
 | **Active** | Recent commits | — |
-| **Growing** | Prod↓ Qual↑ | — |
+| **Growing** | Prod↓ Cat↑ | — |
 | **Former** | RawSurv↑ Surv↓ Design/Indisp↑ | **⚠️ Handoff** |
 | **Silent** | Prod↓ Surv↓ Debt↓ (≥100 commits) | **High** |
-| **Fragile** | Surv↑ Prod↓ Qual<70 | **⚠️ Hidden** |
+| **Fragile** | Indisp↑ Prod↓ + dormant + untested | **⚠️ Hidden** |
 | **—** | | No dominant state signal |
 
 ### Reading the output
@@ -198,7 +199,7 @@ Each engineer gets a 3-label profile. Examples:
 | Architect / Builder / Active | Core contributor: designs, builds, cleans, currently active |
 | Producer / Mass / — | High output but code doesn't last |
 | — / Spread / Silent | Wide but shallow, not contributing meaningfully |
-| Anchor / Balanced / Growing | Reliable quality, steady pace, improving |
+| Anchor / Balanced / Growing | Others build on their work, steady pace, on a growth trajectory |
 | — / — / Fragile | Code survives only due to low change pressure |
 
 **Churn, Mass, and Spread styles look productive on individual metrics** but show low impact overall. Only multi-axis observation exposes them.
@@ -255,17 +256,18 @@ indispensability = critical_count * 1.0 + high_count * 0.5
 ```python
 # Absolute axes (cross-org comparable):
 #   Production: min(changes_per_day / production_daily_ref * 100, 100)
-#   Quality: 100 - fix_ratio (already 0-100)
 #   Debt: bounded 0-100 scale
 
-# Relative axes (normalized within domain):
-#   Survival, Design, Breadth, Indispensability
+# Relative axes (max-normalized within domain; damped in pools < 3 contributors):
+#   Catalysis, Survival, Design, Breadth, Indispensability
 
 # Observed per domain (Backend/Frontend/Infra/Firmware + custom domains, separately)
+# Survival is split 80/20 into robust/dormant; design is damped when neither
+# robust survival nor production proves it; profiles that survive NOWHERE take a 0.8x penalty.
 total = (
-    norm_production * 0.15
-    + norm_quality * 0.10
-    + norm_survival * 0.25
+    norm_production * 0.10
+    + norm_catalysis * 0.15
+    + norm_survival * 0.25      # = robust * (0.25*0.8) + dormant * (0.25*0.2)
     + norm_design * 0.20
     + norm_breadth * 0.10
     + norm_debt_cleanup * 0.15
@@ -320,7 +322,7 @@ Module topology requires `--pressure-mode include` (the default).
 ## Design Principles
 
 - **Domains are observed separately** (Backend/Frontend/Infra/Firmware by default, plus custom domains) — mixing them contaminates rankings; auto-detected from file extensions or configured explicitly
-- **Hybrid observation** — Production, Quality, and Debt use absolute scales (cross-org comparable); Survival, Design, Breadth, and Indispensability use relative normalization within domain
+- **Hybrid observation** — Production and Debt use absolute scales (cross-org comparable); Catalysis, Survival, Design, Breadth, and Indispensability use relative normalization within domain (damped in pools below 3 contributors, where a max of one or two people is not a real percentile)
 - **Debt threshold** — members with fewer than 10 debt events get a neutral signal (50) to avoid extreme ratios
 - **Comments don't count** — comment-only and blank lines in code files (Go/TS/Py/Ruby/SQL/etc.) are excluded from Production, Survival, Design, and Debt. You can't inflate your scores by spamming `//` comments. Prose files (`.md`, `.txt`, `.rst`) are counted verbatim so that documentation and research writing are fully preserved.
 - **Untested code is worth half** — blame lines whose source file has no test coverage contribute to Survival at α=0.5 weight. Test coverage is inferred from sibling-pair naming (`foo.go` ↔ `foo_test.go`, `foo.test.ts`, `test_foo.py`, etc.) with a same-directory fallback. The `tested_survival` / `untested_survival` fields are exposed in JSON for downstream analysis; override the weight via `untested_survival_weight` in `eis.yaml`.
@@ -358,7 +360,7 @@ Aggregates individual signals into team-level health metrics and **5-axis team c
 | **Sustainability** | Inverse of risk state ratio (Former/Silent/Fragile) |
 | **Debt Balance** | Average debt cleanup tendency (50 = neutral) |
 | **Productivity Density** | Output per member, with small-team bonus |
-| **Quality Consistency** | Average quality + low variance |
+| **Catalysis Consistency** | Average catalysis + low variance (how evenly the team builds on each other) |
 | **Risk Ratio** | % of members in risk states |
 
 Structural metrics (AAR, Anchor Density, Architecture Coverage) and full classification details are covered in the [Chapter 2 blog posts](#blog-posts).
@@ -391,7 +393,7 @@ See [`config.example.yaml`](config.example.yaml) for all options:
   - Frontend: `**/core/`, `*/stores/`, `*/hooks/`, `*/types/` (generic names stay single-level so framework routes like `app/(site)/stores/` are not miscounted)
   - Override in `eis.yaml` to match your project structure (e.g., `**/proto/`, `**/migrations/`, `Makefile`). Use `**` for markers at any depth; use `*` to anchor to one level.
 - **Blame extensions**: file extensions for blame analysis
-- **Weights**: customize axis weights (default: Survival 25%, Design 20%, Production 15%, Debt 15%, Quality 10%, Breadth 10%, Indispensability 5%)
+- **Weights**: customize axis weights (default: Survival 25%, Design 20%, Catalysis 15%, Debt 15%, Production 10%, Breadth 10%, Indispensability 5%)
 - **Survival tau**: decay half-life in days (default: 180)
 - **Active days**: how recently an author must have committed to be marked active (default: 30)
 - **Debt threshold**: minimum events for debt signal (default: 10)
@@ -495,7 +497,9 @@ Telescope     →     EIS
 - [x] Author alias mapping via config
 - [x] Concurrent blame analysis (worker pool)
 - [x] Domain separation (BE/FE/Infra/Firmware + custom) with auto-detection
-- [x] Absolute observation for Production (per-day rate) and Quality (fix ratio)
+- [x] Absolute observation for Production (per-day rate) and Debt (bounded ratio)
+- [x] **Catalysis axis** (others build on your surviving foundation) replacing first-pass Quality
+- [x] **Gravity as a conjunctive gate** — `catGate(Catalysis) · survGate(RobustSurvival) · shape`, with others-contested survival and small-pool normalization damping
 - [x] Configurable domain mapping, repo exclusion
 - [x] JSON / CSV output format (`--format json|csv`)
 - [x] Team-level analysis (`eis team`) with 7 health axes
@@ -503,7 +507,6 @@ Telescope     →     EIS
 - [ ] GitHub Action for automated quarterly tracking
 - [x] Timeline analysis (`eis timeline`) with per-period profiling
 - [x] Chart visualization (`--format ascii|html|svg`)
-- [ ] Multi-language commit message support for Quality detection
 - [ ] **[OSS Gravity Map](research/oss-gravity-map/)** — empirical validation against 25 major OSS projects (React, Kubernetes, Terraform, Redis, Rust, etc.). Architect detection, hidden architect discovery, entropy fighter detection, collapse risk analysis. ~50,000 engineers across 8 languages. [Configs open for PRs](research/oss-gravity-map/CONTRIBUTING.md)
 
 ## Special Thanks
