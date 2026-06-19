@@ -2,9 +2,11 @@ package git
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -277,5 +279,88 @@ def greet():
 	// Code lines: def greet():, return "hi"  = 2.
 	if fs.Insertions != 2 {
 		t.Errorf("expected 2 python code insertions (docstring excluded), got %d", fs.Insertions)
+	}
+}
+
+// TestParseLogParallel_MatchesSerial verifies the parallel path produces
+// byte-for-byte the same commits (set, per-file filtered counts) as serial
+// ParseLog. The min-commit threshold is lowered so a tiny fixture exercises the
+// real chunked fan-out instead of the serial fallback.
+func TestParseLogParallel_MatchesSerial(t *testing.T) {
+	dir := newTempRepo(t)
+	// A spread of commits across code + prose, including comment-only and
+	// rename churn, so the comment filter and numstat parsing are all exercised.
+	for i := 0; i < 12; i++ {
+		writeFile(t, dir, "a.go", fmt.Sprintf("package a\n// note %d\nfunc F%d() int { return %d }\n", i, i, i))
+		writeFile(t, dir, "README.md", fmt.Sprintf("# Title\n\nrev %d\n\n", i))
+		commit(t, dir, fmt.Sprintf("c%d", i))
+	}
+
+	serial, err := ParseLog(context.Background(), dir)
+	if err != nil {
+		t.Fatalf("ParseLog: %v", err)
+	}
+
+	old := parallelLogMinCommits
+	parallelLogMinCommits = 1 // force the parallel path
+	defer func() { parallelLogMinCommits = old }()
+	par, err := ParseLogParallel(context.Background(), dir, 4)
+	if err != nil {
+		t.Fatalf("ParseLogParallel: %v", err)
+	}
+
+	if len(serial) != len(par) {
+		t.Fatalf("commit count: serial=%d parallel=%d", len(serial), len(par))
+	}
+	// Index serial by hash, compare per-file filtered counts.
+	byHash := map[string]Commit{}
+	for _, c := range serial {
+		byHash[c.Hash] = c
+	}
+	for _, p := range par {
+		s, ok := byHash[p.Hash]
+		if !ok {
+			t.Fatalf("parallel produced unknown commit %s", p.Hash)
+		}
+		if len(s.FileStats) != len(p.FileStats) {
+			t.Fatalf("%s filestat count: serial=%d parallel=%d", p.Hash, len(s.FileStats), len(p.FileStats))
+		}
+		for _, pf := range p.FileStats {
+			sf, found := findFileStat(s, pf.Filename)
+			if !found || sf != pf {
+				t.Fatalf("%s file %s mismatch: serial=%+v parallel=%+v", p.Hash, pf.Filename, sf, pf)
+			}
+		}
+	}
+}
+
+// TestParseLog_CapsHugeFileDiff verifies the per-file diff cap engages: a commit
+// adding 60k comment lines (> maxFilteredDiffLines) keeps its raw numstat count
+// instead of comment-filtering every line to 0. Without the cap, the comment
+// filter would zero it; with the cap, filtering stops past the threshold and the
+// numstat count stands.
+func TestParseLog_CapsHugeFileDiff(t *testing.T) {
+	dir := newTempRepo(t)
+	var b strings.Builder
+	for i := 0; i < 60000; i++ {
+		b.WriteString("// comment line\n")
+	}
+	writeFile(t, dir, "huge.go", b.String())
+	commit(t, dir, "add huge generated-ish file")
+
+	commits, err := ParseLog(context.Background(), dir)
+	if err != nil {
+		t.Fatalf("ParseLog: %v", err)
+	}
+	if len(commits) != 1 {
+		t.Fatalf("want 1 commit, got %d", len(commits))
+	}
+	fs, ok := findFileStat(commits[0], "huge.go")
+	if !ok {
+		t.Fatal("huge.go not found in stats")
+	}
+	// Cap engaged → raw numstat (60000), NOT the comment-filtered 0.
+	if fs.Insertions != 60000 {
+		t.Fatalf("cap should keep numstat 60000, got %d (0 would mean the cap did not engage)", fs.Insertions)
 	}
 }
