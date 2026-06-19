@@ -597,7 +597,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					if substantialAuthors < 2 {
 						pressureThreshold = math.Inf(1)
 					}
-					survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, window.End, repoPressure, pressureThreshold, moduleResolver)
+					periodOthers := metric.CalcOthersPressure(periodCommits, blameLines, moduleResolver)
+					survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, window.End, repoPressure, pressureThreshold, moduleResolver, periodOthers)
 					mergeMap(acc.raw.Survival, survResult.Decayed)
 					mergeMap(acc.raw.RawSurvival, survResult.Raw)
 					mergeMap(acc.raw.RobustSurvival, survResult.Robust)

@@ -25,7 +25,7 @@ func TestCalcSurvival_LegacyMatchesFull(t *testing.T) {
 		bl("B", "baz.go", 10, ref),
 	}
 	legacy := CalcSurvival(lines, 180, ref)
-	full := CalcSurvivalFull(lines, 180, ref, nil, 0, ModuleResolver{}, nil, 1.0)
+	full := CalcSurvivalFull(lines, 180, ref, nil, 0, ModuleResolver{}, nil, 1.0, nil)
 	for author, v := range legacy.Decayed {
 		if math.Abs(full.Decayed[author]-v) > 1e-9 {
 			t.Errorf("author %s: Decayed mismatch legacy=%v full=%v", author, v, full.Decayed[author])
@@ -57,7 +57,7 @@ func TestCalcSurvivalFull_AlphaWeighting(t *testing.T) {
 		t.Fatal("legacy/orphan.go must be untested (no test in legacy/)")
 	}
 
-	result := CalcSurvivalFull(lines, 180, ref, nil, 0, ModuleResolver{}, testedSet, 0.5)
+	result := CalcSurvivalFull(lines, 180, ref, nil, 0, ModuleResolver{}, testedSet, 0.5, nil)
 	// Decayed(A) = 2 tested × 1.0 + 2 untested × 0.5 = 3.0
 	if got := result.Decayed["A"]; math.Abs(got-3.0) > 1e-6 {
 		t.Errorf("Decayed = %v, want 3.0", got)
@@ -82,7 +82,7 @@ func TestCalcSurvivalFull_AlphaZero(t *testing.T) {
 		"covered/tested_test.go",
 		"legacy/orphan.go",
 	}, ModuleResolver{})
-	result := CalcSurvivalFull(lines, 180, ref, nil, 0, ModuleResolver{}, testedSet, 0)
+	result := CalcSurvivalFull(lines, 180, ref, nil, 0, ModuleResolver{}, testedSet, 0, nil)
 	if got := result.Decayed["A"]; math.Abs(got-1.0) > 1e-6 {
 		t.Errorf("α=0: Decayed = %v, want 1.0 (only tested line counts)", got)
 	}
@@ -101,7 +101,7 @@ func TestCalcSurvivalFull_AlphaOneMatchesClassic(t *testing.T) {
 		"legacy/orphan.go",
 	}, ModuleResolver{})
 	classic := CalcSurvival(lines, 180, ref)
-	full := CalcSurvivalFull(lines, 180, ref, nil, 0, ModuleResolver{}, testedSet, 1.0)
+	full := CalcSurvivalFull(lines, 180, ref, nil, 0, ModuleResolver{}, testedSet, 1.0, nil)
 	if math.Abs(classic.Decayed["A"]-full.Decayed["A"]) > 1e-9 {
 		t.Errorf("α=1.0 should match classic: classic=%v full=%v", classic.Decayed["A"], full.Decayed["A"])
 	}
@@ -134,7 +134,7 @@ func TestCalcSurvivalFull_PressureAndCoverage(t *testing.T) {
 	if testedSet.IsTested("high/legacy/orphan.go") {
 		t.Fatal("high/legacy/orphan.go must be untested")
 	}
-	result := CalcSurvivalFull(lines, 180, ref, pressure, 1.0, ModuleResolver{}, testedSet, 0.5)
+	result := CalcSurvivalFull(lines, 180, ref, pressure, 1.0, ModuleResolver{}, testedSet, 0.5, nil)
 
 	// high bucket: 1.0 (tested) + 0.5 (untested) = 1.5
 	if got := result.Robust["A"]; math.Abs(got-1.5) > 1e-6 {

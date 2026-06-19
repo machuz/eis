@@ -56,6 +56,77 @@ func CalcChangePressure(commits []git.Commit, blameLines []git.BlameLine, mr Mod
 	return pressure
 }
 
+// OthersPressure answers, per (module, author), how much authors OTHER than that
+// author churn the module — the basis of "others-contested" robust survival.
+//
+// Total change pressure can be self-inflicted: an author who commits to their own
+// module 50 times makes it high-pressure, so their surviving lines there read as
+// "robust" even though no one else has ever stress-tested them. That lets a solo
+// author of low-quality code that simply hasn't been touched yet show durable
+// survival. Splitting robust/dormant on OTHERS' pressure instead fixes it: code
+// is robust only if it survives where OTHER people are actively working. A
+// founder whose foundational module others keep editing still passes; a dead
+// corner or a self-churned module does not.
+type OthersPressure struct {
+	moduleCommits       map[string]int            // total commits touching each module
+	authorModuleCommits map[string]map[string]int // module → author → commits touching it
+	moduleBlame         map[string]int            // surviving blame lines per module
+}
+
+// CalcOthersPressure tallies, per module, the total commits and the per-author
+// commit counts, plus the surviving blame-line count, so For(mod, author) can
+// return the module's pressure from everyone EXCEPT author.
+func CalcOthersPressure(commits []git.Commit, blameLines []git.BlameLine, mr ModuleResolver) *OthersPressure {
+	o := &OthersPressure{
+		moduleCommits:       make(map[string]int),
+		authorModuleCommits: make(map[string]map[string]int),
+		moduleBlame:         make(map[string]int),
+	}
+	for _, c := range commits {
+		touched := make(map[string]bool)
+		for _, fs := range c.FileStats {
+			if mod := mr.ModuleOf(fs.Filename); mod != "" {
+				touched[mod] = true
+			}
+		}
+		for mod := range touched {
+			o.moduleCommits[mod]++
+			am := o.authorModuleCommits[mod]
+			if am == nil {
+				am = make(map[string]int)
+				o.authorModuleCommits[mod] = am
+			}
+			am[c.Author]++
+		}
+	}
+	for _, bl := range blameLines {
+		if mod := mr.ModuleOf(bl.Filename); mod != "" {
+			o.moduleBlame[mod]++
+		}
+	}
+	return o
+}
+
+// For returns the change pressure on mod from authors other than `author`:
+// (others' commits touching mod) / (surviving blame lines in mod). Mirrors
+// CalcChangePressure's pressure = commits/lines, with the author's own commits
+// removed; a module with commits but no surviving lines yields the raw others'
+// commit count, the same high-churn convention as the total pressure.
+func (o *OthersPressure) For(mod, author string) float64 {
+	if o == nil {
+		return 0
+	}
+	others := o.moduleCommits[mod] - o.authorModuleCommits[mod][author]
+	if others < 0 {
+		others = 0
+	}
+	lines := o.moduleBlame[mod]
+	if lines <= 0 {
+		return float64(others)
+	}
+	return float64(others) / float64(lines)
+}
+
 // MedianPressure returns the median pressure value across all modules.
 func (cp ChangePressure) MedianPressure() float64 {
 	if len(cp) == 0 {

@@ -14,7 +14,7 @@ type Result struct {
 	Catalysis        float64
 	Survival         float64
 	RawSurvival      float64 // normalized raw blame (no decay), used for archetype detection
-	RobustSurvival   float64 // survival in high change-pressure modules
+	RobustSurvival   float64 // survival in modules under OTHERS' change pressure (others-contested)
 	DormantSurvival  float64 // survival in low change-pressure modules
 	RawRobustSurv    float64 // raw (pre-normalize) robust survival, for archetype detection
 	RawDormantSurv   float64 // raw (pre-normalize) dormant survival, for archetype detection
@@ -26,7 +26,7 @@ type Result struct {
 	Breadth          float64
 	DebtCleanup      float64
 	Indispensability float64
-	Gravity          float64 // structural influence: catGate(Catalysis) × survGate(Survival) × shape(Design, Breadth, Indispensability)
+	Gravity          float64 // structural influence: catGate(Catalysis) × survGate(RobustSurvival) × shape(Design, Breadth, Indispensability)
 	Impact           float64
 	TotalCommits     int
 	LinesAdded       int
@@ -45,7 +45,7 @@ type Result struct {
 //
 //	shape    = 0.45·Design + 0.25·Breadth + 0.30·Indispensability
 //	catGate  = gravityCatFloor  + (1-gravityCatFloor) ·(Catalysis/100)
-//	survGate = gravitySurvFloor + (1-gravitySurvFloor)·(Survival/100)
+//	survGate = gravitySurvFloor + (1-gravitySurvFloor)·(RobustSurvival/100)
 //	gravity  = catGate · survGate · shape
 //
 // All inputs are normalised 0..100, shape weights sum to 1, and each gate is in
@@ -58,11 +58,13 @@ type Result struct {
 // foundation that was later rewritten still reads high on shape. Gating shape by
 // both Survival and Catalysis fixes that:
 //
-//   - survGate: did the code last? Survival is total time-decayed survival, so a
-//     founder whose code stabilised in quiet modules still passes — but a
-//     "foundation" that got rewritten away (Survival → 0) collapses to the floor
-//     no matter how much design history it accrued. Gravity decays with the code,
-//     as it should: structural dependence is on code that is still there.
+//   - survGate: did the code last under OTHERS' pressure? RobustSurvival counts
+//     only surviving lines in modules where people OTHER than the author actively
+//     commit (others-contested survival). A "foundation" rewritten away collapses
+//     to the floor, AND so does code that "survives" only because nobody else has
+//     touched it — a dead corner, or a module the author alone churns. Both are
+//     untested by anyone but the author, so neither earns structural dependence.
+//     A founder whose foundational module others keep editing still passes.
 //   - catGate: is it relational? Catalysis (others building on your surviving
 //     code) is the only axis necessarily zero for a solo author, so it is the one
 //     witness that the structure observably leans on someone. Nobody building on
@@ -70,13 +72,15 @@ type Result struct {
 //     high gravity.
 //
 // The floors keep neither gate a hard zero: a genuine contributor whose
-// collaborators or survival simply have not shown up in the window is damped, not
-// erased. RobustSurvival is intentionally NOT used here — empirically it is ~0 for
-// most foundational authors (their code stabilised into low-pressure modules), so
-// total Survival is the honest "is it still load-bearing" signal for gravity.
+// collaborators or others-contested survival simply have not shown up in the
+// window is damped, not erased. We gate on RobustSurvival (others-contested), not
+// total Survival, on purpose: total survival rewards mere persistence, which a
+// solo author of untouched low-quality code accrues for free; others-contested
+// survival is the honest "is it load-bearing where people actually work" signal.
 
-// gravityCatFloor / gravitySurvFloor are the gate values at Catalysis/Survival
-// == 0. Small but non-zero so a missing-in-window signal damps rather than erases.
+// gravityCatFloor / gravitySurvFloor are the gate values at Catalysis /
+// RobustSurvival == 0. Small but non-zero so a missing-in-window signal damps
+// rather than erases.
 const (
 	gravityCatFloor  = 0.15
 	gravitySurvFloor = 0.15
@@ -85,7 +89,7 @@ const (
 func gravityScore(r Result) float64 {
 	shape := r.Design*0.45 + r.Breadth*0.25 + r.Indispensability*0.30
 	catGate := gravityCatFloor + (1-gravityCatFloor)*(r.Catalysis/100)
-	survGate := gravitySurvFloor + (1-gravitySurvFloor)*(r.Survival/100)
+	survGate := gravitySurvFloor + (1-gravitySurvFloor)*(r.RobustSurvival/100)
 	return catGate * survGate * shape
 }
 
@@ -110,21 +114,31 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 		}
 		normProd[author] = score
 	}
-	normSurv := Normalize(raw.Survival)
-	normRobustSurv := Normalize(raw.RobustSurvival)
-	normDormantSurv := Normalize(raw.DormantSurvival)
-	normTestedSurv := Normalize(raw.TestedSurvival)
-	normUntestedSurv := Normalize(raw.UntestedSurvival)
-	normDesign := Normalize(raw.Design)
-	normIndisp := Normalize(raw.Indispensability)
-	normRawSurv := Normalize(raw.RawSurvival)
+	// Pool size = domain contributors (authors with non-merge commits), the same
+	// set emitted as members below. Drives small-pool normalization confidence so
+	// a 1–2 person domain cannot mint a confident 100 on any normalized axis.
+	poolSize := 0
+	for _, a := range raw.Authors() {
+		if raw.TotalCommits[a] > 0 {
+			poolSize++
+		}
+	}
+
+	normSurv := Normalize(raw.Survival, poolSize)
+	normRobustSurv := Normalize(raw.RobustSurvival, poolSize)
+	normDormantSurv := Normalize(raw.DormantSurvival, poolSize)
+	normTestedSurv := Normalize(raw.TestedSurvival, poolSize)
+	normUntestedSurv := Normalize(raw.UntestedSurvival, poolSize)
+	normDesign := Normalize(raw.Design, poolSize)
+	normIndisp := Normalize(raw.Indispensability, poolSize)
+	normRawSurv := Normalize(raw.RawSurvival, poolSize)
 
 	// Catalysis is a relative surviving-mass score (others' work on files you
 	// originated), normalized within the group like Survival.
-	normCatalysis := Normalize(raw.Catalysis)
+	normCatalysis := Normalize(raw.Catalysis, poolSize)
 
 	// Breadth: relative scale — normalized within the group
-	normBreadth := Normalize(raw.Breadth)
+	normBreadth := Normalize(raw.Breadth, poolSize)
 
 	// Debt is already on 0-100 scale, use directly
 	// Authors not in the debt map get 50 (neutral / insufficient data)

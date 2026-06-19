@@ -342,7 +342,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			if substantial < 2 {
 				threshold = math.Inf(1)
 			}
-			sr := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, start, repoPressure, threshold, moduleResolver)
+			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
+			sr := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, start, repoPressure, threshold, moduleResolver, repoOthers)
 			repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant = sr.Decayed, sr.Raw, sr.Robust, sr.Dormant
 			mergeMap(acc.raw.Survival, repoSurvDecayed)
 			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
