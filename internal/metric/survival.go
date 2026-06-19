@@ -30,15 +30,15 @@ const DefaultUntestedWeight = 0.5
 
 func CalcSurvival(blameLines []git.BlameLine, tau float64, now time.Time) SurvivalResult {
 	// No pressure split → ModuleResolver is unused; pass the zero value.
-	return calcSurvivalImpl(blameLines, tau, now, nil, 0, ModuleResolver{}, nil, 1.0)
+	return calcSurvivalImpl(blameLines, tau, now, nil, 0, ModuleResolver{}, nil, 1.0, nil)
 }
 
 // CalcSurvivalWithPressure splits survival into robust (high-pressure modules)
 // and dormant (low-pressure modules) based on change pressure threshold.
 // mr must use the same convention set as the resolver that built `pressure`,
 // so the module keys line up.
-func CalcSurvivalWithPressure(blameLines []git.BlameLine, tau float64, now time.Time, pressure ChangePressure, threshold float64, mr ModuleResolver) SurvivalResult {
-	return calcSurvivalImpl(blameLines, tau, now, pressure, threshold, mr, nil, 1.0)
+func CalcSurvivalWithPressure(blameLines []git.BlameLine, tau float64, now time.Time, pressure ChangePressure, threshold float64, mr ModuleResolver, others *OthersPressure) SurvivalResult {
+	return calcSurvivalImpl(blameLines, tau, now, pressure, threshold, mr, nil, 1.0, others)
 }
 
 // CalcSurvivalFull is the comprehensive survival calculator. It produces the
@@ -49,11 +49,14 @@ func CalcSurvivalWithPressure(blameLines []git.BlameLine, tau float64, now time.
 //
 // Pass nil `tested` (or untestedWeight=1.0) to skip the test-coverage weighting.
 // mr must use the same convention set as the resolver that built `pressure`.
-func CalcSurvivalFull(blameLines []git.BlameLine, tau float64, now time.Time, pressure ChangePressure, threshold float64, mr ModuleResolver, tested *TestedSet, untestedWeight float64) SurvivalResult {
-	return calcSurvivalImpl(blameLines, tau, now, pressure, threshold, mr, tested, untestedWeight)
+// When `others` is non-nil the robust/dormant split uses OTHERS-contested
+// pressure (others.For(mod, author)) instead of the module's total pressure, so
+// self-churn and untouched dead corners do not manufacture robust survival.
+func CalcSurvivalFull(blameLines []git.BlameLine, tau float64, now time.Time, pressure ChangePressure, threshold float64, mr ModuleResolver, tested *TestedSet, untestedWeight float64, others *OthersPressure) SurvivalResult {
+	return calcSurvivalImpl(blameLines, tau, now, pressure, threshold, mr, tested, untestedWeight, others)
 }
 
-func calcSurvivalImpl(blameLines []git.BlameLine, tau float64, now time.Time, pressure ChangePressure, threshold float64, mr ModuleResolver, tested *TestedSet, untestedWeight float64) SurvivalResult {
+func calcSurvivalImpl(blameLines []git.BlameLine, tau float64, now time.Time, pressure ChangePressure, threshold float64, mr ModuleResolver, tested *TestedSet, untestedWeight float64, others *OthersPressure) SurvivalResult {
 	decayed := make(map[string]float64)
 	raw := make(map[string]float64)
 	robust := make(map[string]float64)
@@ -97,7 +100,13 @@ func calcSurvivalImpl(blameLines []git.BlameLine, tau float64, now time.Time, pr
 
 		if usePressure {
 			mod := mr.ModuleOf(bl.Filename)
-			if pressure[mod] >= threshold {
+			// Robust = "survives under OTHERS' change pressure" when an others
+			// view is supplied; otherwise the module's total pressure (legacy).
+			p := pressure[mod]
+			if others != nil {
+				p = others.For(mod, bl.Author)
+			}
+			if p >= threshold {
 				robust[bl.Author] += effective
 			} else {
 				dormant[bl.Author] += effective

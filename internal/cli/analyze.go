@@ -635,7 +635,8 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			if substantialAuthors < 2 {
 				pressureThreshold = math.Inf(1) // everything becomes dormant
 			}
-			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight)
+			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
+			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvRobust = survResult.Robust
@@ -651,7 +652,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		} else {
 			// Classic mode: no pressure split, but still apply the tested-weighting
 			// so comment-era repos still benefit from gaming resistance.
-			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight)
+			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvTested = survResult.Tested
