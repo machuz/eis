@@ -105,6 +105,10 @@ func TestScore_DormantSurvivalEscapesUnprovenPenalty(t *testing.T) {
 	// the robust/dormant pressure path, so it does not affect Impact below.
 	raw.Survival["stable"] = 50
 	raw.Survival["churn"] = 50
+	// Third contributor so the pool reaches minTrustedPool (3): otherwise the
+	// small-pool normalization guard halves every normalized axis and confounds
+	// the penalty property under test. "filler" carries no robust/dormant signal.
+	raw.Survival["filler"] = 50
 
 	// stable: no robust survival, but its code lives on in low-pressure modules.
 	raw.RobustSurvival["stable"] = 0
@@ -115,10 +119,11 @@ func TestScore_DormantSurvivalEscapesUnprovenPenalty(t *testing.T) {
 	raw.RobustSurvival["churn"] = 0
 	raw.DormantSurvival["churn"] = 0
 	raw.TotalCommits["churn"] = 10
+	raw.TotalCommits["filler"] = 10
 
 	cfg := config.Default()
 	now := time.Now()
-	results := Score(raw, cfg, map[string]time.Time{"stable": now, "churn": now})
+	results := Score(raw, cfg, map[string]time.Time{"stable": now, "churn": now, "filler": now})
 
 	var stable, churn *Result
 	for i := range results {

@@ -114,21 +114,31 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 		}
 		normProd[author] = score
 	}
-	normSurv := Normalize(raw.Survival)
-	normRobustSurv := Normalize(raw.RobustSurvival)
-	normDormantSurv := Normalize(raw.DormantSurvival)
-	normTestedSurv := Normalize(raw.TestedSurvival)
-	normUntestedSurv := Normalize(raw.UntestedSurvival)
-	normDesign := Normalize(raw.Design)
-	normIndisp := Normalize(raw.Indispensability)
-	normRawSurv := Normalize(raw.RawSurvival)
+	// Pool size = domain contributors (authors with non-merge commits), the same
+	// set emitted as members below. Drives small-pool normalization confidence so
+	// a 1–2 person domain cannot mint a confident 100 on any normalized axis.
+	poolSize := 0
+	for _, a := range raw.Authors() {
+		if raw.TotalCommits[a] > 0 {
+			poolSize++
+		}
+	}
+
+	normSurv := Normalize(raw.Survival, poolSize)
+	normRobustSurv := Normalize(raw.RobustSurvival, poolSize)
+	normDormantSurv := Normalize(raw.DormantSurvival, poolSize)
+	normTestedSurv := Normalize(raw.TestedSurvival, poolSize)
+	normUntestedSurv := Normalize(raw.UntestedSurvival, poolSize)
+	normDesign := Normalize(raw.Design, poolSize)
+	normIndisp := Normalize(raw.Indispensability, poolSize)
+	normRawSurv := Normalize(raw.RawSurvival, poolSize)
 
 	// Catalysis is a relative surviving-mass score (others' work on files you
 	// originated), normalized within the group like Survival.
-	normCatalysis := Normalize(raw.Catalysis)
+	normCatalysis := Normalize(raw.Catalysis, poolSize)
 
 	// Breadth: relative scale — normalized within the group
-	normBreadth := Normalize(raw.Breadth)
+	normBreadth := Normalize(raw.Breadth, poolSize)
 
 	// Debt is already on 0-100 scale, use directly
 	// Authors not in the debt map get 50 (neutral / insufficient data)
