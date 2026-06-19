@@ -73,6 +73,34 @@ func TestCatalysis_RewriterBecomesFoundationNotFileCreator(t *testing.T) {
 	}
 }
 
+// THE PARTIAL-REWRITE CASE (the gameable one): alice creates the file but bob
+// rewrites most of it, leaving alice only a surviving remnant. alice must NOT be
+// credited for bob's whole surviving rewrite just because she touched the file
+// first — her credit is scaled down to her shrunken surviving share. (Old
+// behaviour: alice got bob's full 9-line mass; now she gets ~0.9.)
+func TestCatalysis_PartialRewriteScalesDownFileCreator(t *testing.T) {
+	now := time.Date(2026, time.January, 1, 0, 0, 0, 0, time.UTC)
+	tau := 180.0
+	commits := []git.Commit{
+		commitOn("alice", "f.go", now.AddDate(0, -6, 0)), // alice created it
+		commitOn("bob", "f.go", now.AddDate(0, -3, 0)),   // bob rewrote most of it
+	}
+	// alice keeps 1 surviving line; bob's rewrite leaves 9 surviving lines.
+	blame := []git.BlameLine{blameOn("alice", "f.go", now.AddDate(0, 0, -5))}
+	for i := 0; i < 9; i++ {
+		blame = append(blame, blameOn("bob", "f.go", now.AddDate(0, 0, -5)))
+	}
+	s := CalcCatalysis(commits, blame, tau, now)
+	// Far below bob's 9-line surviving mass: alice is a remnant, not the foundation.
+	if s["alice"] >= 2 {
+		t.Errorf("remnant file-creator must not collect the rewriter's full mass, got %f", s["alice"])
+	}
+	// But not zero — alice's remnant did survive and bob built around it.
+	if s["alice"] <= 0 {
+		t.Errorf("alice still has a surviving remnant, expected >0, got %f", s["alice"])
+	}
+}
+
 // A solo file (only the author's lines, no later contributors) yields zero —
 // catalysis requires others to build on you.
 func TestCatalysis_SoloFileScoresZero(t *testing.T) {
@@ -130,8 +158,11 @@ func TestCatalysis_NonPositiveTauNoDecay(t *testing.T) {
 	if math.IsNaN(s["alice"]) || math.IsInf(s["alice"], 0) {
 		t.Fatalf("tau=0 produced non-finite Catalysis: %f", s["alice"])
 	}
-	if s["alice"] != 1 { // one later surviving line, no decay
-		t.Errorf("tau=0 should apply no decay (factor 1): expected 1, got %f", s["alice"])
+	// alice 1 surviving line, bob 1 surviving line → alice's share is 1/2, and
+	// bob's one later surviving line (factor 1, no decay) is credited × that
+	// share = 0.5.
+	if s["alice"] != 0.5 {
+		t.Errorf("tau=0, equal shares: expected 0.5 (bSurv 1 × share 0.5), got %f", s["alice"])
 	}
 }
 
