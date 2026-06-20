@@ -76,7 +76,7 @@ func main() {}
 `)
 	commit(t, dir, "add comments")
 
-	commits, err := ParseLog(context.Background(), dir)
+	commits, err := ParseLog(context.Background(), dir, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -98,6 +98,52 @@ func main() {}
 	}
 }
 
+// The numstat-only fast path (commentFilter=false) skips `git log -p`, so it
+// must still return the right commits and filenames, but with RAW numstat counts
+// — i.e. comment lines are NOT excluded (the speed/accuracy tradeoff). This is
+// the same fixture as TestParseLog_GoCommentsExcluded, contrasted.
+func TestParseLog_FastPath_NumstatOnly(t *testing.T) {
+	dir := newTempRepo(t)
+	writeFile(t, dir, "main.go", "package main\n\nfunc main() {}\n")
+	commit(t, dir, "init")
+	writeFile(t, dir, "main.go", "package main\n\n// c1\n// c2\n// c3\nfunc main() {}\n")
+	commit(t, dir, "add comments")
+
+	for _, tc := range []struct {
+		name string
+		fn   func() ([]Commit, error)
+	}{
+		{"serial", func() ([]Commit, error) { return ParseLog(context.Background(), dir, false) }},
+		{"parallel", func() ([]Commit, error) {
+			orig := parallelLogMinCommits
+			parallelLogMinCommits = 1
+			defer func() { parallelLogMinCommits = orig }()
+			return ParseLogParallel(context.Background(), dir, 4, false)
+		}},
+	} {
+		commits, err := tc.fn()
+		if err != nil {
+			t.Fatalf("%s: %v", tc.name, err)
+		}
+		if len(commits) != 2 {
+			t.Fatalf("%s: want 2 commits, got %d", tc.name, len(commits))
+		}
+		latest := commits[0]
+		if latest.Subject != "add comments" {
+			t.Fatalf("%s: latest subject = %q", tc.name, latest.Subject)
+		}
+		fs, ok := findFileStat(latest, "main.go")
+		if !ok {
+			t.Fatalf("%s: main.go not in FileStats", tc.name)
+		}
+		// Fast path keeps raw numstat: the 4 added comment/blank lines are NOT
+		// filtered out (unlike the -p path, which would report 0).
+		if fs.Insertions == 0 {
+			t.Errorf("%s: fast path should keep raw numstat insertions (>0), got %d", tc.name, fs.Insertions)
+		}
+	}
+}
+
 // A commit to a markdown file should count every line, including blank ones,
 // because prose is preserved verbatim for research/paper use.
 func TestParseLog_MarkdownUnfiltered(t *testing.T) {
@@ -108,7 +154,7 @@ func TestParseLog_MarkdownUnfiltered(t *testing.T) {
 	writeFile(t, dir, "README.md", "# Title\n\n## Section\n\nSome prose.\n")
 	commit(t, dir, "extend readme")
 
-	commits, err := ParseLog(context.Background(), dir)
+	commits, err := ParseLog(context.Background(), dir, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -138,7 +184,7 @@ func NewFunc() int {
 `)
 	commit(t, dir, "add func + comments")
 
-	commits, err := ParseLog(context.Background(), dir)
+	commits, err := ParseLog(context.Background(), dir, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -171,7 +217,7 @@ func Foo() {}
 `)
 	commit(t, dir, "add block comment and func")
 
-	commits, err := ParseLog(context.Background(), dir)
+	commits, err := ParseLog(context.Background(), dir, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -219,7 +265,7 @@ func H() {}
 `)
 	commit(t, dir, "rename + comment")
 
-	commits, err := ParseLog(context.Background(), dir)
+	commits, err := ParseLog(context.Background(), dir, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -272,7 +318,7 @@ def greet():
 `)
 	commit(t, dir, "add greet")
 
-	commits, err := ParseLog(context.Background(), dir)
+	commits, err := ParseLog(context.Background(), dir, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -298,7 +344,7 @@ func TestParseLogParallel_MatchesSerial(t *testing.T) {
 		commit(t, dir, fmt.Sprintf("c%d", i))
 	}
 
-	serial, err := ParseLog(context.Background(), dir)
+	serial, err := ParseLog(context.Background(), dir, true)
 	if err != nil {
 		t.Fatalf("ParseLog: %v", err)
 	}
@@ -306,7 +352,7 @@ func TestParseLogParallel_MatchesSerial(t *testing.T) {
 	old := parallelLogMinCommits
 	parallelLogMinCommits = 1 // force the parallel path
 	defer func() { parallelLogMinCommits = old }()
-	par, err := ParseLogParallel(context.Background(), dir, 4)
+	par, err := ParseLogParallel(context.Background(), dir, 4, true)
 	if err != nil {
 		t.Fatalf("ParseLogParallel: %v", err)
 	}
@@ -350,7 +396,7 @@ func TestParseLog_CapsHugeFileDiff(t *testing.T) {
 	writeFile(t, dir, "huge.go", b.String())
 	commit(t, dir, "add huge generated-ish file")
 
-	commits, err := ParseLog(context.Background(), dir)
+	commits, err := ParseLog(context.Background(), dir, true)
 	if err != nil {
 		t.Fatalf("ParseLog: %v", err)
 	}
@@ -414,13 +460,13 @@ func TestParseLog_GiantSingleLineNoDeadlock(t *testing.T) {
 	}
 
 	ctx := context.Background()
-	serial := run("ParseLog", func() ([]Commit, error) { return ParseLog(ctx, dir) })
+	serial := run("ParseLog", func() ([]Commit, error) { return ParseLog(ctx, dir, true) })
 
 	// Force the parallel path on this tiny fixture.
 	orig := parallelLogMinCommits
 	parallelLogMinCommits = 1
 	defer func() { parallelLogMinCommits = orig }()
-	parallel := run("ParseLogParallel", func() ([]Commit, error) { return ParseLogParallel(ctx, dir, 4) })
+	parallel := run("ParseLogParallel", func() ([]Commit, error) { return ParseLogParallel(ctx, dir, 4, true) })
 
 	// Both must see the same commit set, and the giant file must be present with
 	// its numstat insertion count intact (1 added line), not dropped.

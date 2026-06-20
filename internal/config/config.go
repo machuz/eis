@@ -79,6 +79,17 @@ type Config struct {
 	// whose source file is not guarded by a test. 1.0 disables the weighting and
 	// matches pre-v2 behaviour; 0.5 (default) treats untested code as half-value.
 	UntestedSurvivalWeight float64 `yaml:"untested_survival_weight"`
+	// CommentFilter controls whether ParseLog requests full patches (`git log -p`)
+	// to exclude comment-only / blank diff lines from Production / Design / Debt
+	// insertion counts (gaming protection). Default true. Setting it false makes
+	// ParseLog use `--numstat` only — it skips generating and parsing the full
+	// patch stream, which is the dominant cost on large repos (it is ~24x less
+	// output and roughly halves git's own work), at the price of counts that
+	// include comment/blank lines. Gravity is essentially unaffected (its shape
+	// comes from Design/Breadth/Indispensability and its gates from blame-derived
+	// survival + catalysis, not from raw insertion counts), so the fast path is
+	// well suited to timeline / large-repo runs where speed matters most.
+	CommentFilter *bool `yaml:"comment_filter"`
 	// ModuleLivenessMinMonths is the module liveness gate threshold (ADR step
 	// 2). A FALLBACK-derived module (the conservative 2-component default —
 	// where date-dir / DML / dump pollution enters) earns module-hood only by
@@ -209,6 +220,13 @@ type Weights struct {
 type BusFactor struct {
 	Critical float64 `yaml:"critical"`
 	High     float64 `yaml:"high"`
+}
+
+// CommentFilterEnabled reports whether ParseLog should request full patches to
+// strip comment/blank lines. It defaults to true; only an explicit
+// `comment_filter: false` (or --no-comment-filter) turns on the fast numstat path.
+func (c *Config) CommentFilterEnabled() bool {
+	return c.CommentFilter == nil || *c.CommentFilter
 }
 
 func Default() *Config {

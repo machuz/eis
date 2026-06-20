@@ -163,9 +163,15 @@ func BlameAtCommitKey(repoPath, commitHash string, files []string, sampleSize in
 	return filepath.Join(repoHash(repoPath), "blame-commit", shortHash(commitHash), filesHash+".gob")
 }
 
-// LogKey returns the cache key for ParseLog results.
-func LogKey(repoPath, headHash string) string {
-	return filepath.Join(repoHash(repoPath), "log", shortHash(headHash)+".gob")
+// LogKey returns the cache key for ParseLog results. commentFilter is folded in
+// because it changes the parsed insertion/deletion counts (full-patch filtering
+// vs raw numstat), so the two variants must not share a cache entry.
+func LogKey(repoPath, headHash string, commentFilter bool) string {
+	variant := "f" // comment-filtered (default)
+	if !commentFilter {
+		variant = "n" // numstat-only fast path
+	}
+	return filepath.Join(repoHash(repoPath), "log", shortHash(headHash)+"-"+variant+".gob")
 }
 
 // MergeLogKey returns the cache key for ParseMergeCommits results.

@@ -34,6 +34,7 @@ func runTimeline(args []string) error {
 	activeDays := fs.Int("active-days", 0, "Days to consider author active (overrides config)")
 	pressureMode := fs.String("pressure-mode", "include", "Change pressure mode: include or ignore")
 	verbose := fs.Bool("verbose", false, "Show detailed debug output")
+	fastLog := fs.Bool("fast-log", false, "Skip git log -p comment filtering (numstat-only) — much faster on large repos; gravity is essentially unaffected")
 	_ = fs.Bool("no-cache", false, "Skip disk cache (currently unused with library mode)")
 
 	flagArgs, pathArgs := separateArgs(args, fs)
@@ -81,6 +82,10 @@ func runTimeline(args []string) error {
 	cfg, err := config.Load(*configPath, explicitConfig)
 	if err != nil {
 		return fmt.Errorf("load config: %w", err)
+	}
+	if *fastLog {
+		off := false
+		cfg.CommentFilter = &off
 	}
 
 	quiet := *formatFlag == "json" || *formatFlag == "csv" || *formatFlag == "html" || *formatFlag == "svg"
