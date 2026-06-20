@@ -501,12 +501,12 @@ h1 .accent{color:#58a6ff}
 <div class="section" id="react">
   <h2 class="section-title">5. React — 10年の世代交代</h2>
   <p class="section-desc">
-    2,010人のエンジニアが関わったReactは、10年間で<strong>5世代のアーキテクト交代</strong>を経験した。<br>
-    EISのtimeline機能で3ヶ月スパンのGravityを追跡すると、世代交代の瞬間が可視化される。
+    2,012人のエンジニアが関わったReactは、10年間で複数世代のアーキテクト交代を経験した。<br>
+    以下の世代交代の物語は React の史実。各期間の Gravity 値は EIS の旧（活動期）スコアリングによるもので、React は29リポ中で最も重い（1期間あたり約23分）ため v2.13.0 での per-period 再算出は実用外。現状の v2.13.0 リーダーは該当箇所に併記する。
   </p>
 
   <div class="big-stats">
-    <div class="big-stat"><div class="big-num" style="color:#61dafb">2,010</div><div class="big-label">エンジニア</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#61dafb">2,012</div><div class="big-label">エンジニア</div></div>
     <div class="big-stat"><div class="big-num" style="color:#61dafb">45.3%</div><div class="big-label">重力集中度 (top-3)</div></div>
     <div class="big-stat"><div class="big-num" style="color:#f5c211">5</div><div class="big-label">世代交代</div></div>
     <div class="big-stat"><div class="big-num" style="color:#238636">10年</div><div class="big-label">追跡期間</div></div>
@@ -543,7 +543,7 @@ h1 .accent{color:#58a6ff}
       <div class="tl-content">
         <strong>Sebastian Markb&aring;ge</strong> と <strong>lauren</strong> が中心に。<br>
         Server Components、Suspense、新しいレンダリングパイプライン。<br>
-        <span style="color:#8b949e;font-size:.85em">Dan Abramovが退職（2024）。Reactの設計権威が静かに次世代へ移行。</span>
+        <span style="color:#8b949e;font-size:.85em">Dan Abramovが退職（2024）。v2.13.0 でも Sebastian Markb&aring;ge が現状の React 重力で首位（9.4）— 高い Catalysis に対し、自身のコードは churn を生き延びにくい。</span>
       </div>
     </div>
     <div class="tl-item gold">
@@ -558,8 +558,8 @@ h1 .accent{color:#58a6ff}
   <div class="insight" style="border-left-color:#61dafb;background:rgba(97,218,251,.06)">
     <strong>Reactの世代交代は、健全なOSSプロジェクトのモデルケース。</strong><br><br>
     仮想DOMの初期実装者 → Hooks/Fiberのリーダー → DevToolsの構築者 → Server Componentsのアーキテクト → 現在の構造設計者。<br>
-    一人が去っても次の世代が構造権威を引き継ぐ。<strong>Gravity Concentration 45.3%</strong>（top-3）は、この世代継承の結果です。<br><br>
-    そして <strong>Jorge Cabiedes: 82コミットでDesign 100</strong>。コミット数が少なくても、設計の核心に触れるコードを書けば、EISはそれを正確に測定する。
+    一人が去っても次の世代が構造権威を引き継ぐ — 実際の継承だ。top-3 が重力の <strong>45.3%</strong>（top-3集中度）を占める：一度に一世代がリードするが、バトンは繰り返し渡されてきた。<br><br>
+    この教訓はモデルが変わっても残る — コミットは少なくても設計の核心に触れるコード（Design 100）は高い構造的インパクトとして表れ、書き換えられる多作なコードはそうならない。EISは「量」ではなく「どこに書いたか」を測る。
   </div>
 </div>
 
