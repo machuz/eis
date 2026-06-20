@@ -58,6 +58,11 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 	}
 	defer stdout.Close()
 	commits, scanErr := parseLogStream(stdout)
+	if scanErr != nil && cmd.Process != nil {
+		// A hard read error left git with unconsumed stdout; kill it so it
+		// can't block on a full pipe and wedge cmd.Wait() forever.
+		_ = cmd.Process.Kill()
+	}
 	waitErr := cmd.Wait()
 	if scanErr != nil {
 		return commits, scanErr
@@ -65,12 +70,74 @@ func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
 	return commits, waitErr
 }
 
+// maxLineKeep bounds how many bytes of a single physical line parseLogStream
+// holds in memory. A diff body can contain a generated/minified file committed
+// as one multi-megabyte line; we must still CONSUME the whole physical line so
+// git can finish writing and never blocks on a full stdout pipe — an unconsumed
+// over-long line was the cause of a ParseLog deadlock on huge repos (ClickHouse)
+// where bufio.Scanner's 16MB token cap made the parser bail mid-stream, leaving
+// git stuck on write and cmd.Wait() blocked forever. We only need a bounded
+// prefix to read the line's leading byte and run comment filtering; the rest is
+// drained and discarded. Real source lines are far below this, so only
+// pathological blobs are truncated — and their numstat counts come from the
+// numstat region, not the diff body, so the metrics are unaffected.
+const maxLineKeep = 1 << 20 // 1 MiB
+
+// readLogLine reads one '\n'-terminated line from r, consuming the entire
+// physical line but retaining at most maxLineKeep bytes. Unlike bufio.Scanner it
+// never fails on an over-long line. It returns (line, nil) for each line — the
+// trailing newline stripped — and (nil, io.EOF) once the stream is exhausted. A
+// final line without a trailing newline is returned with a nil error, and the
+// following call reports io.EOF. The returned slice is valid only until the next
+// call.
+func readLogLine(r *bufio.Reader) ([]byte, error) {
+	frag, err := r.ReadSlice('\n')
+	if err != bufio.ErrBufferFull {
+		if len(frag) == 0 && err == io.EOF {
+			return nil, io.EOF
+		}
+		if err == nil || err == io.EOF {
+			return trimLineEnd(frag), nil
+		}
+		return trimLineEnd(frag), err
+	}
+	// Over-long line: keep a bounded prefix, then drain the remainder so the
+	// writer (git) is never blocked on a full pipe.
+	kept := make([]byte, len(frag))
+	copy(kept, frag)
+	for err == bufio.ErrBufferFull {
+		frag, err = r.ReadSlice('\n')
+		if room := maxLineKeep - len(kept); room > 0 {
+			if room > len(frag) {
+				room = len(frag)
+			}
+			kept = append(kept, frag[:room]...)
+		}
+	}
+	if err != nil && err != io.EOF {
+		return trimLineEnd(kept), err
+	}
+	return trimLineEnd(kept), nil
+}
+
+// trimLineEnd drops a trailing "\n" or "\r\n" from a raw line.
+func trimLineEnd(b []byte) []byte {
+	if n := len(b); n > 0 && b[n-1] == '\n' {
+		b = b[:n-1]
+		if n := len(b); n > 0 && b[n-1] == '\r' {
+			b = b[:n-1]
+		}
+	}
+	return b
+}
+
 // parseLogStream parses the stdout of a `git log -p --numstat` invocation into
 // commits with comment-filtered per-file line counts. Shared by the serial
-// ParseLog and the per-chunk workers of ParseLogParallel.
+// ParseLog and the per-chunk workers of ParseLogParallel. It always reads to EOF
+// (or a hard read error) so the upstream git process can drain its stdout — see
+// maxLineKeep for why bailing mid-stream deadlocks.
 func parseLogStream(r io.Reader) ([]Commit, error) {
-	scanner := bufio.NewScanner(r)
-	scanner.Buffer(make([]byte, 1024*1024), 16*1024*1024)
+	br := bufio.NewReaderSize(r, maxLineKeep)
 
 	var commits []Commit
 	var current *Commit
@@ -104,8 +171,21 @@ func parseLogStream(r io.Reader) ([]Commit, error) {
 		}
 	}
 
-	for scanner.Scan() {
-		line := scanner.Text()
+	for {
+		lineBytes, readErr := readLogLine(br)
+		if readErr != nil {
+			if readErr == io.EOF {
+				break
+			}
+			// Hard read error (e.g. the pipe broke). Return what we have; the
+			// caller kills/waits the git process so it can't deadlock.
+			flushFile()
+			if current != nil {
+				commits = append(commits, *current)
+			}
+			return commits, readErr
+		}
+		line := string(lineBytes)
 
 		if strings.HasPrefix(line, "COMMIT:") {
 			flushFile()
@@ -217,7 +297,7 @@ func parseLogStream(r io.Reader) ([]Commit, error) {
 	if current != nil {
 		commits = append(commits, *current)
 	}
-	return commits, scanner.Err()
+	return commits, nil
 }
 
 // parallelLogChunksPerWorker oversamples chunks relative to workers. Diff volume
@@ -313,6 +393,11 @@ func revListAll(ctx context.Context, repoPath string) ([]string, error) {
 // (fed on stdin, shown in input order via --no-walk) and parses the stream. Each
 // commit is still diffed against its first parent, identical to the serial walk.
 func parseLogChunk(ctx context.Context, repoPath string, shas []string) ([]Commit, error) {
+	// Derive a cancelable context so a hard parse error can kill this chunk's
+	// git before cmd.Wait(); otherwise a git left mid-write on a full stdout
+	// pipe would wedge Wait() forever and, through wg.Wait(), hang the whole run.
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
 	cmd := exec.CommandContext(ctx, "git",
 		"log", "--no-walk=unsorted", "--no-merges", "--no-color",
 		"--format=COMMIT:%H|%an|%ai|%s",
@@ -328,6 +413,9 @@ func parseLogChunk(ctx context.Context, repoPath string, shas []string) ([]Commi
 		return nil, err
 	}
 	commits, scanErr := parseLogStream(stdout)
+	if scanErr != nil {
+		cancel()
+	}
 	waitErr := cmd.Wait()
 	if scanErr != nil {
 		return commits, scanErr
