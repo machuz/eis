@@ -43,16 +43,29 @@ type FileStat struct {
 	Filename   string
 }
 
-// ParseLog returns non-merge commits with per-file line stats. Uses
-// `-p --numstat` to get both a filename manifest and diff hunks; comment/blank
-// lines in code files are filtered out via FileFilter so that comment spam
-// cannot inflate Production, Design, or Debt metrics.
-func ParseLog(ctx context.Context, repoPath string) ([]Commit, error) {
-	stdout, cmd, err := RunStream(ctx, repoPath,
+// logArgs builds the `git log` arguments for a full-history walk. With
+// commentFilter it adds `-p` so parseLogStream can strip comment/blank diff
+// lines; without it, only `--numstat` is requested — far less output and the
+// dominant ParseLog cost on large repos — at the price of comment-inclusive
+// insertion counts.
+func logArgs(commentFilter bool, extra ...string) []string {
+	args := []string{
 		"log", "--all", "--no-merges", "--no-color",
 		"--format=COMMIT:%H|%an|%ai|%s",
-		"--numstat", "-p",
-	)
+		"--numstat",
+	}
+	if commentFilter {
+		args = append(args, "-p")
+	}
+	return append(args, extra...)
+}
+
+// ParseLog returns non-merge commits with per-file line stats. With
+// commentFilter it uses `-p --numstat` (diff hunks let comment/blank lines be
+// filtered out so comment spam cannot inflate Production, Design, or Debt);
+// otherwise it uses `--numstat` only for speed.
+func ParseLog(ctx context.Context, repoPath string, commentFilter bool) ([]Commit, error) {
+	stdout, cmd, err := RunStream(ctx, repoPath, logArgs(commentFilter)...)
 	if err != nil {
 		return nil, err
 	}
@@ -318,16 +331,16 @@ const parallelLogChunksPerWorker = 8
 // (--all --no-merges), same order, same per-file filtered counts.
 //
 // Small repos (or workers < 2) fall back to serial ParseLog.
-func ParseLogParallel(ctx context.Context, repoPath string, workers int) ([]Commit, error) {
+func ParseLogParallel(ctx context.Context, repoPath string, workers int, commentFilter bool) ([]Commit, error) {
 	if workers < 2 {
-		return ParseLog(ctx, repoPath)
+		return ParseLog(ctx, repoPath, commentFilter)
 	}
 	shas, err := revListAll(ctx, repoPath)
 	if err != nil {
 		return nil, err
 	}
 	if len(shas) < parallelLogMinCommits {
-		return ParseLog(ctx, repoPath)
+		return ParseLog(ctx, repoPath, commentFilter)
 	}
 
 	chunks := chunkStrings(shas, workers*parallelLogChunksPerWorker)
@@ -340,7 +353,7 @@ func ParseLogParallel(ctx context.Context, repoPath string, workers int) ([]Comm
 		go func() {
 			defer wg.Done()
 			for i := range jobs {
-				results[i], errs[i] = parseLogChunk(ctx, repoPath, chunks[i])
+				results[i], errs[i] = parseLogChunk(ctx, repoPath, chunks[i], commentFilter)
 			}
 		}()
 	}
@@ -389,20 +402,25 @@ func revListAll(ctx context.Context, repoPath string) ([]string, error) {
 	return shas, waitErr
 }
 
-// parseLogChunk runs `git log -p --numstat` over exactly the given commits
+// parseLogChunk runs `git log --numstat [-p]` over exactly the given commits
 // (fed on stdin, shown in input order via --no-walk) and parses the stream. Each
 // commit is still diffed against its first parent, identical to the serial walk.
-func parseLogChunk(ctx context.Context, repoPath string, shas []string) ([]Commit, error) {
+func parseLogChunk(ctx context.Context, repoPath string, shas []string, commentFilter bool) ([]Commit, error) {
 	// Derive a cancelable context so a hard parse error can kill this chunk's
 	// git before cmd.Wait(); otherwise a git left mid-write on a full stdout
 	// pipe would wedge Wait() forever and, through wg.Wait(), hang the whole run.
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
-	cmd := exec.CommandContext(ctx, "git",
+	args := []string{
 		"log", "--no-walk=unsorted", "--no-merges", "--no-color",
 		"--format=COMMIT:%H|%an|%ai|%s",
-		"--numstat", "-p", "--stdin",
-	)
+		"--numstat",
+	}
+	if commentFilter {
+		args = append(args, "-p")
+	}
+	args = append(args, "--stdin")
+	cmd := exec.CommandContext(ctx, "git", args...)
 	cmd.Dir = repoPath
 	cmd.Stdin = strings.NewReader(strings.Join(shas, "\n") + "\n")
 	stdout, err := cmd.StdoutPipe()

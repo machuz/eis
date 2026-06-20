@@ -38,6 +38,7 @@ type AnalyzeOptions struct {
 	Verbose        bool
 	NoCache        bool
 	PerRepo        bool
+	FastLog        bool // skip `git log -p` comment filtering (numstat-only) for speed
 }
 
 // DomainResults holds scored results for a single domain.
@@ -137,6 +138,7 @@ func runAnalyze(args []string) error {
 	verbose := fs.Bool("verbose", false, "Show detailed debug output (file-level timing)")
 	noCache := fs.Bool("no-cache", false, "Skip disk cache")
 	perRepo := fs.Bool("per-repo", false, "Show per-repository breakdown (requires --recursive)")
+	fastLog := fs.Bool("fast-log", false, "Skip git log -p comment filtering (numstat-only) — much faster on large repos; insertion counts then include comment/blank lines (gravity is essentially unaffected)")
 	upload := fs.Bool("upload", false, "Upload signals to the OrbitLens observatory (code stays local; only signals are sent)")
 	token := fs.String("token", os.Getenv("EIS_TOKEN"), "Upload token (or set EIS_TOKEN); create one in Settings → API tokens")
 
@@ -165,6 +167,7 @@ func runAnalyze(args []string) error {
 		Verbose:        *verbose,
 		NoCache:        *noCache,
 		PerRepo:        *perRepo,
+		FastLog:        *fastLog,
 	}
 
 	domainResults, cfg, err := RunAnalyzePipeline(opts, pathArgs)
@@ -287,6 +290,10 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 	cfg, err := config.Load(opts.ConfigPath, opts.ExplicitConfig)
 	if err != nil {
 		return nil, nil, fmt.Errorf("load config: %w", err)
+	}
+	if opts.FastLog {
+		off := false
+		cfg.CommentFilter = &off
 	}
 	if opts.Tau > 0 {
 		cfg.Tau = opts.Tau
@@ -416,14 +423,14 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Step 1: Parse git log (feeds Production, Catalysis, Design)
 		spin := spinner("[1/4] Parsing git log...")
 		var commits []git.Commit
-		logCacheKey := cache.LogKey(repoPath, headHash)
+		logCacheKey := cache.LogKey(repoPath, headHash, cfg.CommentFilterEnabled())
 		if headHash != "" && cacheStore.Get(logCacheKey, &commits) {
 			spin.Stop()
 			if !quiet {
 				fmt.Fprintf(os.Stderr, "  (cached)\n")
 			}
 		} else {
-			commits, err = git.ParseLogParallel(ctx, repoPath, workers)
+			commits, err = git.ParseLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled())
 			spin.Stop()
 			if err != nil {
 				return nil, nil, fmt.Errorf("parse log %s: %w", repoName, err)

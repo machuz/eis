@@ -200,12 +200,12 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 
 		// Parse git log (cached)
 		var commits []git.Commit
-		logCacheKey := cache.LogKey(repoPath, headHash)
+		logCacheKey := cache.LogKey(repoPath, headHash, cfg.CommentFilterEnabled())
 		if headHash != "" && cacheStore.Get(logCacheKey, &commits) {
 			// cache hit
 		} else {
 			var err error
-			commits, err = git.ParseLog(ctx, repoPath)
+			commits, err = git.ParseLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled())
 			if err != nil {
 				return nil, fmt.Errorf("parse log %s: %w", repoName, err)
 			}
