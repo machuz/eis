@@ -6,8 +6,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
+	"time"
 )
 
 // newTempRepo initialises an empty git repo in a t.TempDir() and returns its path.
@@ -362,5 +364,84 @@ func TestParseLog_CapsHugeFileDiff(t *testing.T) {
 	// Cap engaged → raw numstat (60000), NOT the comment-filtered 0.
 	if fs.Insertions != 60000 {
 		t.Fatalf("cap should keep numstat 60000, got %d (0 would mean the cap did not engage)", fs.Insertions)
+	}
+}
+
+// TestParseLog_GiantSingleLineNoDeadlock is the regression for the ClickHouse
+// hang: a commit whose diff contains a single line far larger than the old
+// bufio.Scanner 16MB token cap. The scanner used to bail mid-stream with
+// ErrTooLong, leaving git blocked writing the rest of its output to a full pipe
+// and cmd.Wait() deadlocked forever (and, in the parallel path, wg.Wait() with
+// it). Both ParseLog and ParseLogParallel must instead consume the giant line
+// and complete. A timeout guard turns a regression into a failure rather than a
+// hung suite.
+func TestParseLog_GiantSingleLineNoDeadlock(t *testing.T) {
+	dir := newTempRepo(t)
+	// One file whose entire content is a single ~24MB line (no newline) — e.g.
+	// a minified bundle or a data blob committed verbatim. 24MB > the old 16MB
+	// token cap that triggered the deadlock.
+	giant := strings.Repeat("x", 24*1024*1024)
+	writeFile(t, dir, "bundle.min.js", giant)
+	commit(t, dir, "add giant single-line bundle")
+	// A couple of normal commits so there is ordinary structure around it too.
+	writeFile(t, dir, "a.go", "package a\n\nfunc A() int { return 1 }\n")
+	commit(t, dir, "add a.go")
+
+	run := func(name string, fn func() ([]Commit, error)) []Commit {
+		t.Helper()
+		type res struct {
+			commits []Commit
+			err     error
+		}
+		ch := make(chan res, 1)
+		go func() {
+			c, e := fn()
+			ch <- res{c, e}
+		}()
+		select {
+		case r := <-ch:
+			if r.err != nil {
+				t.Fatalf("%s returned error: %v", name, r.err)
+			}
+			return r.commits
+		case <-time.After(60 * time.Second):
+			// Dump goroutines to pinpoint the block, then fail (don't hang CI).
+			buf := make([]byte, 1<<20)
+			n := runtime.Stack(buf, true)
+			t.Fatalf("%s DEADLOCKED on a giant single-line diff (regression)\n%s", name, buf[:n])
+			return nil
+		}
+	}
+
+	ctx := context.Background()
+	serial := run("ParseLog", func() ([]Commit, error) { return ParseLog(ctx, dir) })
+
+	// Force the parallel path on this tiny fixture.
+	orig := parallelLogMinCommits
+	parallelLogMinCommits = 1
+	defer func() { parallelLogMinCommits = orig }()
+	parallel := run("ParseLogParallel", func() ([]Commit, error) { return ParseLogParallel(ctx, dir, 4) })
+
+	// Both must see the same commit set, and the giant file must be present with
+	// its numstat insertion count intact (1 added line), not dropped.
+	for _, tc := range []struct {
+		name    string
+		commits []Commit
+	}{{"serial", serial}, {"parallel", parallel}} {
+		if len(tc.commits) != 2 {
+			t.Fatalf("%s: want 2 commits, got %d", tc.name, len(tc.commits))
+		}
+		var found bool
+		for _, c := range tc.commits {
+			if fs, ok := findFileStat(c, "bundle.min.js"); ok {
+				found = true
+				if fs.Insertions != 1 {
+					t.Fatalf("%s: giant file should keep numstat insertions=1, got %d", tc.name, fs.Insertions)
+				}
+			}
+		}
+		if !found {
+			t.Fatalf("%s: giant single-line file missing from parsed commits", tc.name)
+		}
 	}
 }
