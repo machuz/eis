@@ -8,8 +8,8 @@ maintainers, release authors) to validate the Software Cosmology model.
 IMPORTANT: Gravity scores are normalized per-repository ("per-universe").
 Cross-universe comparison requires adjustment for universe size.
 
-Gravity = Indispensability × 0.40 + Breadth × 0.30 + Design × 0.30
-  (structural influence — how deeply embedded an engineer is in the codebase)
+Gravity = catGate(Catalysis) × survGate(RobustSurvival) × shape(Design, Breadth, Indispensability)
+  (structural influence — both surviving-under-others-pressure AND catalysis are necessary)
 
 Adjusted Gravity = Gravity × ln(N) / ln(N_max)
   (N = engineers in repo, N_max = largest repo — accounts for universe scale)
@@ -61,7 +61,7 @@ class EngineerScore:
     state: str = ""
     state_confidence: float = 0.0
     commits: int = 0
-    # From EIS: Gravity = Indispensability*0.40 + Breadth*0.30 + Design*0.30
+    # From EIS v2.13.0: Gravity = catGate(Catalysis)*survGate(RobustSurvival)*shape
     gravity: float = 0.0
 
 
@@ -127,7 +127,9 @@ def load_eis_results(results_dir: str) -> dict[str, list[EngineerScore]]:
                 eng = EngineerScore(
                     author=member.get("member", ""),
                     repo=repo_name,
-                    total=member.get("total", 0),
+                    # EIS renamed the composite score "total" → "impact"; keep a
+                    # fallback so older result JSONs still load.
+                    total=member.get("impact", member.get("total", 0)),
                     production=member.get("production", 0),
                     quality=member.get("quality", 0),
                     survival=member.get("survival", 0),
@@ -183,6 +185,34 @@ def load_known_architects(dataset_path: str) -> dict[str, list[str]]:
     return architects
 
 
+def load_user_name_cache(path: str) -> dict[str, str]:
+    """Load the GitHub login → display-name cache. Ground truth and known
+    architects are GitHub *logins* (e.g. "gaearon") while EIS author names are
+    git *display names* (e.g. "Dan Abramov"); this map bridges the two so
+    architect recall and known-architect tagging match on either form."""
+    try:
+        with open(path) as f:
+            raw = json.load(f)
+    except (json.JSONDecodeError, IOError):
+        return {}
+    cache = {}
+    for login, v in raw.items():
+        nm = v if isinstance(v, str) else (v.get("name") if isinstance(v, dict) else None)
+        if login and nm:
+            cache[login.lower()] = nm
+    return cache
+
+
+def architect_keys(login: str, name_cache: dict[str, str]) -> set[str]:
+    """Normalized match keys for one known-architect login: the login itself and
+    its resolved display name (if known). Either matching an EIS author counts."""
+    keys = {normalize_author(login)}
+    nm = name_cache.get(login.lower()) if name_cache else None
+    if nm:
+        keys.add(normalize_author(nm))
+    return keys
+
+
 def load_alias_maps(configs_dir: str) -> dict[str, dict[str, str]]:
     """Load alias configs to build login→canonical name maps per repo."""
     try:
@@ -232,32 +262,38 @@ def compute_top_k_overlap(eis_top: list[str], gt_top: list[str], k: int = 10) ->
     return len(eis_set & gt_set) / len(gt_set)
 
 
-def compute_recall(eis_top: list[str], architects: list[str], k: int = 20) -> float:
-    """How many known architects appear in EIS top-k."""
-    eis_set = set(normalize_author(a) for a in eis_top[:k])
-    arch_set = set(normalize_author(a) for a in architects)
-    if not arch_set:
+def compute_recall(eis_top: list[str], architects: list[str], k: int = 20,
+                   name_cache: dict[str, str] = None) -> float:
+    """Fraction of known architects appearing in EIS top-k by gravity. Each
+    architect (a GitHub login) matches if either its login or its resolved
+    display name is among the top-k EIS author names."""
+    if not architects:
         return 0.0
-    return len(eis_set & arch_set) / len(arch_set)
+    eis_set = set(normalize_author(a) for a in eis_top[:k])
+    found = sum(1 for a in architects if architect_keys(a, name_cache or {}) & eis_set)
+    return found / len(architects)
 
 
 def spearman_rank(ranking_a: list[str], ranking_b: list[str]) -> float:
-    """Compute Spearman rank correlation between two rankings."""
-    set_a = set(normalize_author(a) for a in ranking_a)
-    set_b = set(normalize_author(a) for a in ranking_b)
-    common = set_a & set_b
+    """Spearman rank correlation between two rankings, over the members they
+    share. Ranks are taken WITHIN the common set (dense 0..n-1) — using each
+    name's absolute position in its full list instead lets the d² terms exceed
+    the n(n²-1) denominator and pushes ρ far outside [-1, 1]."""
+    pos_a = {normalize_author(a): i for i, a in enumerate(ranking_a)}
+    pos_b = {normalize_author(b): i for i, b in enumerate(ranking_b)}
+    common = set(pos_a) & set(pos_b)
 
     if len(common) < 3:
         return 0.0
 
-    rank_a = {normalize_author(a): i for i, a in enumerate(ranking_a)}
-    rank_b = {normalize_author(b): i for i, b in enumerate(ranking_b)}
+    # Re-rank densely within the common set, preserving each list's order.
+    order_a = sorted(common, key=lambda c: pos_a[c])
+    order_b = sorted(common, key=lambda c: pos_b[c])
+    rank_a = {c: i for i, c in enumerate(order_a)}
+    rank_b = {c: i for i, c in enumerate(order_b)}
 
     n = len(common)
     d_sq_sum = sum((rank_a[c] - rank_b[c]) ** 2 for c in common)
-
-    if n * (n**2 - 1) == 0:
-        return 0.0
     return 1 - (6 * d_sq_sum) / (n * (n**2 - 1))
 
 
@@ -313,7 +349,8 @@ def analyze_repo(repo_name: str,
                  engineers: list[EngineerScore],
                  ground_truth: Optional[dict],
                  known_architects: list[str],
-                 alias_maps: dict = None) -> RepoAnalysis:
+                 alias_maps: dict = None,
+                 name_cache: dict = None) -> RepoAnalysis:
     """Full analysis for a single repository."""
     analysis = RepoAnalysis(name=repo_name, repo=repo_name)
     analysis.engineers = engineers
@@ -344,7 +381,8 @@ def analyze_repo(repo_name: str,
         )
 
     if known_architects:
-        analysis.architect_recall = compute_recall(eis_top, known_architects, k=20)
+        analysis.architect_recall = compute_recall(eis_top, known_architects, k=20,
+                                                   name_cache=name_cache)
 
     analysis.entropy_fighters = find_entropy_fighters(engineers)
 
@@ -363,7 +401,8 @@ def analyze_repo(repo_name: str,
 def build_global_gravity_map(all_results: dict[str, list[EngineerScore]],
                              all_gt: dict[str, dict],
                              known_architects: dict[str, list[str]],
-                             alias_maps: dict = None) -> list[GlobalGravityEntry]:
+                             alias_maps: dict = None,
+                             name_cache: dict = None) -> list[GlobalGravityEntry]:
     """Build cross-project gravity ranking with universe-size adjustment.
 
     Adjusted Gravity = gravity × ln(N) / ln(N_max)
@@ -374,6 +413,7 @@ def build_global_gravity_map(all_results: dict[str, list[EngineerScore]],
     """
     entries = []
     _alias_maps = alias_maps or {}
+    _name_cache = name_cache or {}
 
     # Find largest universe for normalization
     n_max = max(len(engineers) for engineers in all_results.values()) if all_results else 1
@@ -383,7 +423,11 @@ def build_global_gravity_map(all_results: dict[str, list[EngineerScore]],
         gt = all_gt.get(repo_name, {})
         maintainers = set(normalize_author(resolve_gt_name(m, repo_name, _alias_maps))
                          for m in gt.get("architect_candidates", []))
-        repo_architects = set(normalize_author(a) for a in known_architects.get(repo_name, []))
+        # Known architects are logins; expand each to {login, display name} so an
+        # EIS author (a display name) can match. Union across all architects.
+        repo_architects = set()
+        for a in known_architects.get(repo_name, []):
+            repo_architects |= architect_keys(a, _name_cache)
 
         n = len(engineers)
         ln_n = math.log(n) if n > 1 else 0.0
@@ -433,13 +477,23 @@ def write_markdown_report(analyses: list[RepoAnalysis],
         # === Methodology note ===
         f.write("## Methodology\n\n")
         f.write("### What is Gravity?\n\n")
-        f.write("In the Software Cosmology model, **Gravity** measures structural influence:\n\n")
+        f.write("In the Software Cosmology model, **Gravity** measures structural influence — ")
+        f.write("a structural *shape* passed through two necessary gates, so neither surviving ")
+        f.write("code alone nor catalysis alone can mint it:\n\n")
         f.write("```\n")
-        f.write("Gravity = Indispensability × 0.40 + Breadth × 0.30 + Design × 0.30\n")
+        f.write("shape    = 0.45·Design + 0.25·Breadth + 0.30·Indispensability\n")
+        f.write("catGate  = 0.15 + 0.85·(Catalysis / 100)\n")
+        f.write("survGate = 0.15 + 0.85·(RobustSurvival / 100)\n")
+        f.write("Gravity  = catGate × survGate × shape\n")
         f.write("```\n\n")
-        f.write("- **Indispensability**: How much of the surviving codebase depends on this engineer's code\n")
-        f.write("- **Breadth**: How widely distributed their influence is across the codebase\n")
-        f.write("- **Design**: How much they shape architectural patterns (config files, interfaces, core modules)\n\n")
+        f.write("- **Design / Breadth / Indispensability**: the structural shape — what you shaped, ")
+        f.write("how widely, and how much the surviving codebase leans on it\n")
+        f.write("- **survGate (RobustSurvival)**: did the code last *under others' pressure*? ")
+        f.write("Robust survival counts only lines surviving in modules where authors OTHER than ")
+        f.write("you actively commit — dead-corner or self-churned code does not qualify\n")
+        f.write("- **catGate (Catalysis)**: did others build on your surviving foundation? ")
+        f.write("The one axis necessarily zero for a solo author, so it witnesses that the ")
+        f.write("structure observably leans on someone\n\n")
         f.write("### Cross-Universe Comparison\n\n")
         f.write("Gravity scores are **normalized per-repository** (per-universe). ")
         f.write("A Gravity of 100 in Express (391 engineers) is not directly comparable ")
@@ -618,6 +672,8 @@ def main():
                        help="Directory with per-repo eis.yaml configs")
     parser.add_argument("--alias-map", default="data/alias-map.json",
                        help="Path to alias-map.json (from build-alias-map.py)")
+    parser.add_argument("--user-cache", default="data/github-users-cache.json",
+                       help="GitHub login → display-name cache (bridges ground-truth logins to EIS author names)")
     args = parser.parse_args()
 
     print("=== OSS Gravity Map Analysis ===")
@@ -639,6 +695,9 @@ def main():
     print("Loading alias maps...")
     alias_maps = load_alias_maps(args.configs_dir)
     print(f"  Loaded aliases for {len(alias_maps)} repos")
+
+    name_cache = load_user_name_cache(args.user_cache)
+    print(f"  Loaded {len(name_cache)} GitHub login→name mappings")
 
     # Merge alias-map.json (from build-alias-map.py) if it exists
     if os.path.exists(args.alias_map):
@@ -672,7 +731,7 @@ def main():
     for repo_name, engineers in sorted(all_results.items()):
         gt = all_gt.get(repo_name)
         architects = known_architects.get(repo_name, [])
-        analysis = analyze_repo(repo_name, engineers, gt, architects, alias_maps)
+        analysis = analyze_repo(repo_name, engineers, gt, architects, alias_maps, name_cache)
         analyses.append(analysis)
         n_eng = len(engineers)
         n_hidden = len(analysis.hidden_architects)
@@ -685,7 +744,7 @@ def main():
 
     # Global gravity map
     print("\nBuilding global gravity map (with universe-size adjustment)...")
-    global_map = build_global_gravity_map(all_results, all_gt, known_architects, alias_maps)
+    global_map = build_global_gravity_map(all_results, all_gt, known_architects, alias_maps, name_cache)
     print(f"  Total entries: {len(global_map)}")
     if global_map:
         print(f"  Top adjusted: {global_map[0].author} ({global_map[0].repo}) = {global_map[0].adjusted_gravity:.1f}")
