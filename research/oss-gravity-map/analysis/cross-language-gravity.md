@@ -14,7 +14,7 @@ This is an empirical investigation using EIS (Engineering Impact Score) data fro
 
 ## Methodology
 
-- **29 repositories** analyzed with `eis analyze`, covering **55,343 engineers** total
+- **29 repositories** analyzed with `eis analyze`, covering **55,851 engineers** total
 - Repositories classified into **5 categories** by type system and structural culture
 - For each repo, the **top 10 contributors by Gravity** are examined (averages of the broader population are diluted by thousands of low-activity contributors)
 - **Gravity Concentration** = share of total gravity held by the top 10 contributors
@@ -41,29 +41,29 @@ This is an empirical investigation using EIS (Engineering Impact Score) data fro
 
 | Category | Repos | Avg Size | Top10 Design | Top10 Survival | Top10 Gravity | Gravity Concentration |
 |---|---|---|---|---|---|---|
-| **Go (Self-structured)** | 7 | 2,135 | 31.3 | 19.9 | 52.8 | **16.4%** |
-| **Dynamic / Structural** | 6 | 1,184 | 24.8 | 17.1 | 51.2 | 10.4% |
-| **Expressive** | 5 | 2,151 | 26.3 | 13.7 | 51.2 | 6.7% |
-| **Framework-driven** | 6 | 2,578 | 23.7 | 15.4 | 47.2 | 5.1% |
-| **Systems (C/C++)** | 5 | 1,414 | 25.4 | 14.4 | 52.4 | 3.4% |
+| **Framework-driven** | 6 | 2,572 | 21.3 | 27.0 | 4.3 | **53.4%** |
+| **Dynamic / Structural** | 6 | 1,210 | 27.6 | 14.6 | 3.1 | **49.8%** |
+| **Expressive** | 5 | 2,201 | 28.6 | 28.2 | 5.1 | **48.5%** |
+| **Go (Self-structured)** | 7 | 2,130 | 33.3 | 22.5 | 3.3 | **37.2%** |
+| **Systems (C/C++)** | 5 | 1,448 | 22.5 | 20.9 | 3.0 | **28.3%** |
 
 ### Key Observations
 
-#### 1. Go Concentrates Gravity — Expressive Types Distribute It
+#### 1. Framework-Driven Projects Concentrate Gravity the Most
 
 ![Gravity Concentration by Category](chart-gravity-concentration.svg)
 
 | Category | Gravity Concentration |
 |---|---|
-| **Go (Self-structured)** | **16.4%** |
-| **Dynamic / Structural** | 10.4% |
-| **Expressive (Rust/Scala)** | 6.7% |
-| **Framework-driven** | 5.1% |
-| **Systems (C/C++)** | 3.4% |
+| **Framework-driven** | 53.4% |
+| **Dynamic / Structural** | 49.8% |
+| **Expressive** | 48.5% |
+| **Go (Self-structured)** | 37.2% |
+| **Systems (C/C++)** | 28.3% |
 
-**Go concentrates gravity at 2.4x the rate of Expressive type systems, and 3.2x the rate of Framework-driven projects.** Go's anti-framework culture means someone *must* build the structure — and that structural authority concentrates in a few architects. The explicit interface pattern creates a small number of contract-defining files that dominate `git blame`.
+**Under v2.13.0's hardened gate, Framework-driven projects concentrate gravity the most (53.4%), and Systems (C/C++) the least (28.3%) — a ~1.9x spread.** This inverts the old additive model, which ranked Go most-concentrated. The reason is the gate: it credits gravity only where code survives under *others'* pressure AND others build on it, so a category's concentration now reflects whether a few creator-architects hold that load-bearing role. Framework-driven projects (Spring Boot, FastAPI) often funnel structure through one or two such people; Systems projects spread it across many long-lived maintainers.
 
-Expressive type systems distribute gravity more evenly. When the type system itself can encode design decisions (through ADTs, traits, type-level programming), **structure becomes embedded in the type signatures rather than in a few architects' code**. The type system acts as a distributed architect.
+Go, which the old model ranked most-concentrated, now sits mid-pack (37.2%): its many explicit-interface authors each hold real but non-dominant gravity, so no tiny group monopolizes it. The type-system-as-distributed-architect effect is still visible — Expressive (Rust/Scala) and Systems sit below Framework-driven — but the gate reframes the headline: concentration tracks *who is still load-bearing*, not which language was written first.
 
 #### 2. Frameworks Absorb Gravity
 
@@ -77,11 +77,11 @@ When Rails, Laravel, Spring, or Phoenix defines the routing, DI, middleware, and
 
 | Category | Top10 Design |
 |---|---|
-| **Go (Self-structured)** | **31.3** |
-| **Expressive** | 26.3 |
-| **Systems (C/C++)** | 25.4 |
-| **Dynamic / Structural** | 24.8 |
-| **Framework-driven** | **23.7** |
+| **Go (Self-structured)** | 33.3 |
+| **Expressive** | 28.6 |
+| **Dynamic / Structural** | 27.6 |
+| **Systems (C/C++)** | 22.5 |
+| **Framework-driven** | 21.3 |
 
 Go leads Design because its architects write the interfaces, the routing structure, the middleware patterns — all from scratch. In framework-driven ecosystems, these same design decisions are made by the framework, not by engineers.
 
@@ -95,45 +95,48 @@ Both are iconic framework-driven projects with legendary creator-architects. Bot
 
 | Metric | Rails (Ruby) | Laravel (PHP) |
 |---|---|---|
-| Engineers | 6,512 | 4,449 |
-| **Top10 Design** | **51.2** | **17.2** |
-| Top10 Survival | 7.3 | **15.3** |
-| Top10 Gravity | 54.0 | 56.2 |
-| Gravity Concentration | **0.9%** | 1.5% |
+| Engineers | 6,474 | 4,470 |
+| **Top10 Design** | **43.1** | **17.6** |
+| Top10 Survival | 39.1 | 43.1 |
+| Top10 Gravity (avg) | 1.8 | 2.6 |
+| Gravity Concentration | **5.9%** | 20.6% |
 
 ### Rails: Distributed Design
 
 | # | Engineer | Gravity | Design | Indispensability |
 |---|---|---|---|---|
-| 1 | David Heinemeier Hansson | 100.0 | 100.0 | 100.0 |
-| 2 | Aaron Patterson | 64.0 | 54.0 | 44.4 |
-| 3 | Jeremy Kemper | 58.9 | 89.0 | 5.6 |
-| 4 | Rafael Mendonça França | 55.0 | 68.4 | 11.1 |
-| 5 | Pratik Naik | 50.4 | 31.1 | 27.8 |
-| 6 | Xavier Noria | 48.2 | 45.8 | 11.1 |
-| 7 | José Valim | 41.8 | 39.4 | 0.0 |
-| 8 | Joshua Peek | 41.0 | 36.6 | 0.0 |
+| 1 | Jean Boussier | 5.3 | 39.1 | 0.0 |
+| 2 | David Heinemeier Hansson | 2.9 | 100.0 | 100.0 |
+| 3 | Rafael Mendonça França | 2.1 | 69.0 | 18.8 |
+| 4 | Gannon McGibbon | 1.5 | 9.8 | 0.0 |
+| 5 | Matthew Draper | 1.2 | 13.7 | 0.0 |
+| 6 | Jeremy Kemper | 1.2 | 90.5 | 0.0 |
+| 7 | Aaron Patterson | 1.2 | 67.3 | 56.3 |
+| 8 | Sean Doyle | 1.0 | 1.0 | 0.0 |
 
-**Design is distributed across many architects.** Aaron Patterson (54.0), Jeremy Kemper (89.0), Rafael França (68.4), Xavier Noria (45.8), José Valim (39.4) — five people with Design > 35. Rails has **multiple design authorities**.
+**Design is distributed across many architects.** Jeremy Kemper (90.5), Rafael França (69.0), Aaron Patterson (67.3) all carry deep design history, and DHH still holds Design 100 — but under the gate the live load has moved to Jean Boussier (Gravity 5.3), whose code survives where others work. Rails has **multiple design authorities and a real succession**.
 
 ### Laravel: Concentrated Design
 
 | # | Engineer | Gravity | Design | Indispensability |
 |---|---|---|---|---|
-| 1 | Taylor Otwell | 100.0 | 100.0 | 100.0 |
-| 2 | Kay W. | 70.0 | 0.1 | 100.0 |
-| 3 | Lucas Michot | 51.1 | 3.5 | 50.0 |
-| 4 | Tim MacDonald | 50.8 | 2.6 | 50.0 |
-| 9 | Graham Campbell | 48.9 | 63.1 | 0.0 |
+| 1 | Taylor Otwell | 10.8 | 100.0 | 100.0 |
+| 2 | Lucas Michot | 7.5 | 4.9 | 75.0 |
+| 3 | Graham Campbell | 2.9 | 60.6 | 0.0 |
+| 4 | Luke Kuzmish | 1.3 | 1.7 | 50.0 |
+| 5 | Jack Bayliss | 0.8 | 1.1 | 0.0 |
+| 6 | Caleb White | 0.8 | 0.7 | 50.0 |
+| 7 | Tim MacDonald | 0.6 | 3.3 | 0.0 |
+| 8 | Jesper Noordsij | 0.5 | 0.4 | 0.0 |
 
-**Taylor Otwell holds all the Design.** Only Graham Campbell (63.1) has significant Design influence — everyone else is below 4. Laravel is a **one-architect universe**.
+**Taylor Otwell holds all the Design.** Only Graham Campbell (60.6) has any comparable Design influence — everyone else is below 5. Laravel is a **one-architect universe**.
 
 ### What This Means
 
 Rails and Laravel are both "framework-driven" — but:
 
-- **Rails** has evolved into a **multi-architect civilization**. DHH created the structure, but many have since reshaped it. Top10 Design of 51.2 is higher than most Go projects. Rails is "framework-driven" in its user-facing API, but internally it functions more like a self-structured project.
-- **Laravel** remains a **creator-centric kingdom**. Taylor Otwell's Indispensability = 100 and Design = 100 mean the framework's architecture still flows through one person. This is efficient (Survival 15.3 > Rails' 7.3 — less rewriting) but creates a single point of failure.
+- **Rails** has evolved into a **multi-architect civilization**. DHH created the structure, but many have since reshaped it, and the gate confirms the succession — DHH no longer leads its gravity. Top10 Design avg 43.1 is higher than most Go projects. Rails is "framework-driven" in its user-facing API, but internally it functions more like a self-structured project.
+- **Laravel** remains a **creator-centric kingdom**. Taylor Otwell's Indispensability = 100 and Design = 100 mean the framework's architecture still flows through one person (concentration 20.6% vs Rails' 5.9%). Efficient, but a single point of failure.
 
 **Same framework-driven category. Completely different governance physics.**
 
@@ -147,36 +150,35 @@ This suggests that the Framework-driven category itself has a spectrum: from dis
 
 | Repository | Category | Language | Engineers | Top10 Design | Top10 Survival | Top10 Gravity | Grav Conc |
 |---|---|---|---|---|---|---|---|
-| polars | Expressive | Rust | 694 | 17.4 | 29.8 | 41.3 | 7.0% |
-| rust | Expressive | Rust | 7,914 | 53.0 | 5.7 | 68.9 | 0.6% |
-| scala | Expressive | Scala | 794 | 32.3 | 5.9 | 56.7 | 6.8% |
-| scala3 | Expressive | Scala 3 | 995 | 12.6 | 12.9 | 49.2 | 3.3% |
-| swc | Expressive | Rust | 357 | 16.4 | 14.0 | 40.1 | 15.7% |
-| argo-cd | Go (Self-structured) | Go | 1,889 | 41.4 | 20.5 | 52.0 | 4.0% |
-| esbuild | Go (Self-structured) | Go | 125 | 10.0 | 10.0 | 37.0 | 92.5% |
-| grafana | Go (Self-structured) | Go/TS | 2,893 | 16.3 | 24.6 | 50.1 | 1.9% |
-| kubernetes | Go (Self-structured) | Go | 5,217 | 42.5 | 19.9 | 56.1 | 0.8% |
-| loki | Go (Self-structured) | Go | 1,319 | 34.0 | 19.3 | 65.5 | 7.8% |
-| prometheus | Go (Self-structured) | Go | 1,281 | 44.5 | 11.9 | 62.1 | 5.4% |
-| terraform | Go (Self-structured) | Go | 2,223 | 30.3 | 32.7 | 46.5 | 2.4% |
-| rails | Framework-driven | Ruby | 6,512 | 51.2 | 7.3 | 54.0 | 0.9% |
-| laravel | Framework-driven | PHP | 4,449 | 17.2 | 15.3 | 56.2 | 1.5% |
-| spring-boot | Framework-driven | Java | 1,504 | 30.2 | 34.1 | 52.8 | 7.3% |
-| nest | Framework-driven | TypeScript | 684 | 13.3 | 10.2 | 39.6 | 7.0% |
-| fastapi | Framework-driven | Python | 897 | 11.7 | 11.2 | 37.7 | 9.4% |
-| phoenix | Framework-driven | Elixir | 1,424 | 18.9 | 14.4 | 42.9 | 4.5% |
-| ClickHouse | Systems (C/C++) | C++ | 2,563 | 17.3 | 30.0 | 54.8 | 1.4% |
-| arrow | Systems (C/C++) | C++/Multi | 1,466 | 28.3 | 12.4 | 50.9 | 3.8% |
-| duckdb | Systems (C/C++) | C++ | 690 | 20.7 | 4.9 | 49.3 | 4.5% |
-| envoy | Systems (C/C++) | C++ | 1,444 | 46.4 | 15.7 | 61.2 | 3.5% |
-| redis | Systems (C/C++) | C | 905 | 14.3 | 8.9 | 45.6 | 4.0% |
-| eslint | Dynamic / Structural | JavaScript | 1,180 | 18.6 | 12.8 | 58.6 | 8.1% |
-| express | Dynamic / Structural | JavaScript | 391 | 13.5 | 3.2 | 38.9 | 23.9% |
-| prettier | Dynamic / Structural | JavaScript | 799 | 42.9 | 10.0 | 48.2 | 13.4% |
-| react | Dynamic / Structural | JavaScript | 2,010 | 17.5 | 31.1 | 48.0 | 3.4% |
-| superset | Dynamic / Structural | Python/TS | 1,477 | 23.6 | 29.5 | 57.7 | 4.5% |
-| vite | Dynamic / Structural | TypeScript | 1,247 | 32.6 | 16.0 | 55.8 | 9.3% |
-
+| polars | Expressive | Rust | 730 | 37.8 | 35.3 | 8.4 | 78.3% |
+| rust | Expressive | Rust | 8,135 | 43.2 | 33.1 | 2.6 | 16.4% |
+| scala | Expressive | Scala | 775 | 26.4 | 19.6 | 1.6 | 21.7% |
+| scala3 | Expressive | Scala 3 | 998 | 16.2 | 34.6 | 2.0 | 33.6% |
+| swc | Expressive | Rust | 368 | 19.6 | 18.5 | 10.9 | 92.6% |
+| argo-cd | Go (Self-structured) | Go | 1,966 | 38.9 | 21.8 | 4.6 | 50.7% |
+| esbuild | Go (Self-structured) | Go | 126 | 10.0 | 10.2 | 1.6 | 77.0% |
+| grafana | Go (Self-structured) | Go/TS | 2,925 | 34.9 | 27.5 | 3.6 | 32.0% |
+| kubernetes | Go (Self-structured) | Go | 5,093 | 15.6 | 23.9 | 1.8 | 8.4% |
+| loki | Go (Self-structured) | Go | 1,304 | 33.8 | 5.1 | 3.5 | 30.7% |
+| prometheus | Go (Self-structured) | Go | 1,289 | 53.3 | 25.8 | 2.4 | 28.3% |
+| terraform | Go (Self-structured) | Go | 2,210 | 46.9 | 42.9 | 5.8 | 33.5% |
+| rails | Framework-driven | Ruby | 6,474 | 43.1 | 39.1 | 1.8 | 5.9% |
+| laravel | Framework-driven | PHP | 4,470 | 17.6 | 43.1 | 2.6 | 20.6% |
+| spring-boot | Framework-driven | Java | 1,510 | 27.5 | 33.0 | 8.8 | 95.7% |
+| nest | Framework-driven | TypeScript | 699 | 11.0 | 14.6 | 1.5 | 60.6% |
+| fastapi | Framework-driven | Python | 888 | 12.1 | 11.9 | 1.6 | 73.2% |
+| phoenix | Framework-driven | Elixir | 1,390 | 16.8 | 20.1 | 9.3 | 64.0% |
+| ClickHouse | Systems (C/C++) | C++ | 2,593 | 19.6 | 21.6 | 2.9 | 37.7% |
+| arrow | Systems (C/C++) | C++/Multi | 1,494 | 13.0 | 25.4 | 1.2 | 11.4% |
+| duckdb | Systems (C/C++) | C++ | 722 | 25.2 | 20.1 | 6.3 | 63.0% |
+| envoy | Systems (C/C++) | C++ | 1,496 | 40.3 | 19.3 | 2.6 | 14.6% |
+| redis | Systems (C/C++) | C | 933 | 14.6 | 18.0 | 2.2 | 15.0% |
+| eslint | Dynamic / Structural | JavaScript | 1,185 | 20.8 | 15.1 | 2.8 | 31.5% |
+| express | Dynamic / Structural | JavaScript | 398 | 15.1 | 11.1 | 0.9 | 56.4% |
+| prettier | Dynamic / Structural | JavaScript | 814 | 25.6 | 10.8 | 1.4 | 83.6% |
+| react | Dynamic / Structural | JavaScript | 2,012 | 25.0 | 17.0 | 1.9 | 45.3% |
+| superset | Dynamic / Structural | Python/TS | 1,556 | 47.4 | 18.8 | 2.8 | 31.3% |
+| vite | Dynamic / Structural | TypeScript | 1,298 | 31.6 | 15.1 | 8.9 | 50.6% |
 ---
 
 ## Interpretation
@@ -228,13 +230,13 @@ These numbers do not say one language is better than another. They show that **e
 
 The hypothesis that "the laws of physics are not uniform across code universes" is supported by the data.
 
-**Gravity concentration varies by 4.8x between Go (Self-structured) and Systems (C/C++).** Between the three structural modes — architect-centric, type-distributed, framework-absorbed — the difference in how design authority flows through a team is stark.
+**Gravity concentration varies by ~1.9x between Framework-driven projects (most concentrated) and Systems / C++ (most distributed).** Between the structural modes — architect-centric, type-distributed, framework-funneled — the difference in how load-bearing authority flows through a team is stark.
 
-The Rails vs Laravel deep dive reveals that even within the same category, **governance physics can diverge dramatically**. Rails distributes design across many architects (Top10 Design: 51.2); Laravel concentrates it in one (Top10 Design: 17.2). Same framework pattern, opposite authority structures.
+The Rails vs Laravel deep dive reveals that even within the same category, **governance physics can diverge dramatically**. Rails distributes design across many architects (Top10 Design avg 43.1, concentration 5.9%); Laravel concentrates it in one (17.6, concentration 20.6%). Same framework pattern, opposite authority structures.
 
 For years, debates about technology choices have been aerial battles — fought with experience and intuition. This data is a first step toward **making design debates scientific**.
 
 ---
 
 *Generated by [EIS (Engineering Impact Score)](https://github.com/machuz/eis) — OSS Gravity Map Project*
-*29 repositories, 55,343 engineers, observed through commit light.*
+*29 repositories, 55,851 engineers, observed through commit light — EIS v2.13.0.*
