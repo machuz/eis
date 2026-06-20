@@ -112,12 +112,12 @@ h1 .accent{color:#58a6ff}
 <header>
   <h1>OSS <span class="accent">Gravity Map</span></h1>
   <p class="subtitle">コードの宇宙に物理法則は存在するか</p>
-  <p class="subtitle" style="margin-top:4px;font-size:.85em">29リポジトリ・55,343人のエンジニア・5つの言語ファミリーを横断分析</p>
+  <p class="subtitle" style="margin-top:4px;font-size:.85em">29リポジトリ・55,851人のエンジニア・5つの言語ファミリーを横断分析</p>
   <div class="hero-badges">
     <span class="badge" style="background:#238636">29 Repos</span>
     <span class="badge" style="background:#1f6feb">55,343 Engineers</span>
     <span class="badge" style="background:#8b5cf6">5 Categories</span>
-    <span class="badge" style="background:#da3633">4.8x Gravity Gap</span>
+    <span class="badge" style="background:#da3633">1.9x Gravity Gap</span>
   </div>
 </header>
 
@@ -277,7 +277,7 @@ h1 .accent{color:#58a6ff}
   <div class="big-stats">
     <div class="big-stat"><div class="big-num" style="color:#58a6ff">29</div><div class="big-label">リポジトリ</div></div>
     <div class="big-stat"><div class="big-num" style="color:#f5c211">55,343</div><div class="big-label">エンジニア</div></div>
-    <div class="big-stat"><div class="big-num" style="color:#da3633">4.8x</div><div class="big-label">重力集中度の差</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#da3633">1.9x</div><div class="big-label">重力集中度の差</div></div>
     <div class="big-stat"><div class="big-num" style="color:#8b5cf6">5</div><div class="big-label">カテゴリ</div></div>
   </div>
 
@@ -299,36 +299,36 @@ h1 .accent{color:#58a6ff}
 
   <div class="card">
     <div class="bar-row">
-      <div class="bar-label">Go (Self-structured)</div>
-      <div class="bar-track"><div class="bar-fill" style="width:89%;background:linear-gradient(90deg,#1f6feb,#58a6ff)"></div></div>
-      <div class="bar-val" style="color:#58a6ff">16.4%</div>
+      <div class="bar-label">Framework-driven</div>
+      <div class="bar-track"><div class="bar-fill" style="width:89%;background:linear-gradient(90deg,#b91c1c,#da3633)"></div></div>
+      <div class="bar-val" style="color:#da3633">53.4%</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">Dynamic / Structural</div>
-      <div class="bar-track"><div class="bar-fill" style="width:56%;background:linear-gradient(90deg,#c49000,#f5c211)"></div></div>
-      <div class="bar-val" style="color:#f5c211">10.4%</div>
+      <div class="bar-track"><div class="bar-fill" style="width:83%;background:linear-gradient(90deg,#c49000,#f5c211)"></div></div>
+      <div class="bar-val" style="color:#f5c211">49.8%</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">Expressive</div>
-      <div class="bar-track"><div class="bar-fill" style="width:36%;background:linear-gradient(90deg,#6d28d9,#8b5cf6)"></div></div>
-      <div class="bar-val" style="color:#8b5cf6">6.7%</div>
+      <div class="bar-track"><div class="bar-fill" style="width:81%;background:linear-gradient(90deg,#6d28d9,#8b5cf6)"></div></div>
+      <div class="bar-val" style="color:#8b5cf6">48.5%</div>
     </div>
     <div class="bar-row">
-      <div class="bar-label">Framework-driven</div>
-      <div class="bar-track"><div class="bar-fill" style="width:28%;background:linear-gradient(90deg,#b91c1c,#da3633)"></div></div>
-      <div class="bar-val" style="color:#da3633">5.1%</div>
+      <div class="bar-label">Go (Self-structured)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#1f6feb,#58a6ff)"></div></div>
+      <div class="bar-val" style="color:#58a6ff">37.2%</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">Systems (C/C++)</div>
-      <div class="bar-track"><div class="bar-fill" style="width:18%;background:linear-gradient(90deg,#484f58,#8b949e)"></div></div>
-      <div class="bar-val" style="color:#8b949e">3.4%</div>
+      <div class="bar-track"><div class="bar-fill" style="width:47%;background:linear-gradient(90deg,#484f58,#8b949e)"></div></div>
+      <div class="bar-val" style="color:#8b949e">28.3%</div>
     </div>
   </div>
 
   <div class="insight">
-    <strong>Goは重力を集中させ、表現力のある型システムは分散させる。</strong><br>
-    Goの反フレームワーク文化は、誰かが構造を一から作らなければならないことを意味する。そしてその構造的権威は少数のアーキテクトに集中する。<br>
-    一方、RustやScalaでは型システム自体が設計決定をエンコードできるため、構造権威がより広く分散する。<strong>型システムが分散アーキテクトとして機能する。</strong>
+    <strong>v2.13.0 の厳格なゲートでは、Framework-driven が最も重力を集中させ、旧モデルで最集中とされた Go は中位に下がる。</strong><br>
+    ゲートは「他者の圧力下で生き残り、かつ他者がその上に築いた」コードにのみ重力を認める。だからカテゴリの集中度は、少数の creator-architect がその荷重を担っているかを反映する（Spring Boot・FastAPI は一人二人に集約）。<br>
+    Systems(C/C++) や Go は多数の長命メンテナに分散するため、少人数が独占しない。<strong>集中度は「いま誰が荷重を担うか」を追い、どの言語が先に書かれたかではない。</strong>
   </div>
 
   <!-- Three Modes -->
@@ -336,8 +336,8 @@ h1 .accent{color:#58a6ff}
 
   <div class="cmp-grid">
     <div class="card" style="border-color:#58a6ff">
-      <div class="card-title" style="color:#58a6ff">Architect-centric（Go）</div>
-      <p style="font-size:.88em;color:#8b949e">構造は「人」が作る。少数のアーキテクトが圧倒的な設計権威を持つ。集中度: 高い。</p>
+      <div class="card-title" style="color:#58a6ff">Architect-built（Go）</div>
+      <p style="font-size:.88em;color:#8b949e">構造は「人」が一から作る — Go は今も Top10 Design で首位。だが多数の explicit-interface 著者が各々 real だが非支配的な重力を持つため、集中度は中位。</p>
       <div style="text-align:center;margin-top:16px">
         <svg width="120" height="80" viewBox="0 0 120 80">
           <circle cx="60" cy="40" r="30" fill="#1f6feb" opacity="0.4"/>
@@ -361,8 +361,8 @@ h1 .accent{color:#58a6ff}
       </div>
     </div>
     <div class="card" style="border-color:#da3633">
-      <div class="card-title" style="color:#da3633">Framework-absorbed（Rails/Laravel）</div>
-      <p style="font-size:.88em;color:#8b949e">構造はフレームワークに吸収される。ただし内部のガバナンスは分散〜集中のスペクトラム。</p>
+      <div class="card-title" style="color:#da3633">Framework-funneled（Rails/Laravel）</div>
+      <p style="font-size:.88em;color:#8b949e">構造はフレームワークに吸収される。内部は広いスペクトラム — Rails の分散継承(5.9%)から Spring Boot の単独アーキテクト(95.7%)まで。カテゴリとしては最も集中。</p>
       <div style="text-align:center;margin-top:16px">
         <svg width="120" height="80" viewBox="0 0 120 80">
           <rect x="15" y="10" width="90" height="60" fill="#da3633" opacity="0.15" stroke="#da3633" stroke-width="1"/>
@@ -444,12 +444,12 @@ h1 .accent{color:#58a6ff}
 <div class="section" id="esbuild">
   <h2 class="section-title">4. esbuild — 一人の宇宙（重力特異点）</h2>
   <p class="section-desc">
-    125人のコントリビュータが存在するが、<strong>一人が全構造重力の92.5%を保持</strong>している。
+    125人のコントリビュータが存在するが、<strong>一人が top-3 構造重力の77.0%を保持</strong>し、Design や Indispensability を持つ唯一の著者である。
   </p>
 
   <div class="big-stats">
-    <div class="big-stat"><div class="big-num" style="color:#f5c211">92.5%</div><div class="big-label">重力集中度</div></div>
-    <div class="big-stat"><div class="big-num" style="color:#f5c211">100</div><div class="big-label">全軸Impact</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#f5c211">77.0%</div><div class="big-label">重力集中度 (top-3)</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#f5c211">100</div><div class="big-label">Evan Wallace の Design/Indisp/Survival</div></div>
     <div class="big-stat"><div class="big-num" style="color:#8b949e">4,208</div><div class="big-label">Evan Wallace commits</div></div>
     <div class="big-stat"><div class="big-num" style="color:#da3633">0</div><div class="big-label">#2のDesign</div></div>
   </div>
@@ -462,7 +462,7 @@ h1 .accent{color:#58a6ff}
       <circle cx="250" cy="120" r="65" fill="#f5c211" opacity="0.2"/>
       <circle cx="250" cy="120" r="40" fill="#f5c211" opacity="0.4"/>
       <text x="250" y="115" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="800" font-family="-apple-system,sans-serif">Evan Wallace</text>
-      <text x="250" y="135" text-anchor="middle" fill="#f5c211" font-size="11" font-family="-apple-system,sans-serif">Gravity 100 | Design 100 | Indisp 100 | Survival 100</text>
+      <text x="250" y="135" text-anchor="middle" fill="#f5c211" font-size="11" font-family="-apple-system,sans-serif">Gravity 15.0 | Design 100 | Indisp 100 | Survival 100</text>
       <circle cx="420" cy="60" r="4" fill="#42a5f5" opacity="0.5"/>
       <circle cx="440" cy="100" r="3" fill="#42a5f5" opacity="0.4"/>
       <circle cx="430" cy="150" r="4" fill="#42a5f5" opacity="0.5"/>
@@ -472,27 +472,26 @@ h1 .accent{color:#58a6ff}
       <circle cx="80" cy="170" r="4" fill="#42a5f5" opacity="0.5"/>
       <text x="480" y="105" fill="#42a5f5" font-size="10" font-family="-apple-system,sans-serif" opacity="0.7">124人の他コントリビュータ</text>
       <text x="480" y="120" fill="#42a5f5" font-size="10" font-family="-apple-system,sans-serif" opacity="0.7">全員 Design: 0, Indisp: 0</text>
-      <text x="300" y="225" text-anchor="middle" fill="#484f58" font-size="10" font-family="-apple-system,sans-serif">金色の領域 = 全プロジェクト重力の92.5%</text>
+      <text x="300" y="225" text-anchor="middle" fill="#484f58" font-size="10" font-family="-apple-system,sans-serif">金色の領域 = 全プロジェクト重力の77.0% (top-3)</text>
     </svg>
   </div>
 
   <!-- Comparison -->
-  <h3 class="section-subtitle">92.5%がどれだけ異常か</h3>
+  <h3 class="section-subtitle">esbuild の 77% はどこに位置するか</h3>
   <div class="card">
-    <div class="bar-row"><div class="bar-label" style="color:#f5c211;font-weight:700">esbuild</div><div class="bar-track"><div class="bar-fill" style="width:92.5%;background:#f5c211"></div></div><div class="bar-val" style="color:#f5c211">92.5%</div></div>
-    <div class="bar-row"><div class="bar-label">express</div><div class="bar-track"><div class="bar-fill" style="width:23.9%;background:#f5c211;opacity:.5"></div></div><div class="bar-val">23.9%</div></div>
-    <div class="bar-row"><div class="bar-label">swc</div><div class="bar-track"><div class="bar-fill" style="width:15.7%;background:#8b5cf6;opacity:.5"></div></div><div class="bar-val">15.7%</div></div>
-    <div class="bar-row"><div class="bar-label">vite</div><div class="bar-track"><div class="bar-fill" style="width:9.3%;background:#f5c211;opacity:.4"></div></div><div class="bar-val">9.3%</div></div>
-    <div class="bar-row"><div class="bar-label">react</div><div class="bar-track"><div class="bar-fill" style="width:3.4%;background:#61dafb;opacity:.5"></div></div><div class="bar-val">3.4%</div></div>
-    <div class="bar-row"><div class="bar-label">rails</div><div class="bar-track"><div class="bar-fill" style="width:0.9%;background:#cc0000;opacity:.5"></div></div><div class="bar-val">0.9%</div></div>
-    <div class="bar-row"><div class="bar-label">kubernetes</div><div class="bar-track"><div class="bar-fill" style="width:0.8%;background:#58a6ff;opacity:.5"></div></div><div class="bar-val">0.8%</div></div>
-    <div class="bar-row"><div class="bar-label">rust</div><div class="bar-track"><div class="bar-fill" style="width:0.6%;background:#8b5cf6;opacity:.5"></div></div><div class="bar-val">0.6%</div></div>
+    <div class="bar-row"><div class="bar-label">swc</div><div class="bar-track"><div class="bar-fill" style="width:92.6%;background:#8b5cf6;opacity:.6"></div></div><div class="bar-val">92.6%</div></div>
+    <div class="bar-row" style="color:#f5c211;font-weight:700"><div class="bar-label" style="color:#f5c211;font-weight:700">esbuild</div><div class="bar-track"><div class="bar-fill" style="width:77.0%;background:#f5c211"></div></div><div class="bar-val" style="color:#f5c211">77.0%</div></div>
+    <div class="bar-row"><div class="bar-label">express</div><div class="bar-track"><div class="bar-fill" style="width:56.4%;background:#f5c211;opacity:.5"></div></div><div class="bar-val">56.4%</div></div>
+    <div class="bar-row"><div class="bar-label">vite</div><div class="bar-track"><div class="bar-fill" style="width:50.6%;background:#f5c211;opacity:.4"></div></div><div class="bar-val">50.6%</div></div>
+    <div class="bar-row"><div class="bar-label">react</div><div class="bar-track"><div class="bar-fill" style="width:45.3%;background:#61dafb;opacity:.5"></div></div><div class="bar-val">45.3%</div></div>
+    <div class="bar-row"><div class="bar-label">rust</div><div class="bar-track"><div class="bar-fill" style="width:16.4%;background:#8b5cf6;opacity:.5"></div></div><div class="bar-val">16.4%</div></div>
+    <div class="bar-row"><div class="bar-label">kubernetes</div><div class="bar-track"><div class="bar-fill" style="width:8.4%;background:#58a6ff;opacity:.5"></div></div><div class="bar-val">8.4%</div></div>
+    <div class="bar-row"><div class="bar-label">rails</div><div class="bar-track"><div class="bar-fill" style="width:5.9%;background:#cc0000;opacity:.5"></div></div><div class="bar-val">5.9%</div></div>
   </div>
 
   <div class="insight gold">
     <strong>特異点は強力だが、継承計画は不可能。</strong><br>
-    esbuildは一人の天才アーキテクトが宇宙全体を構築できることを証明している。JS bundlingが10-100x速くできることのデモンストレーション。<br>
-    Kubernetesの115倍、Railsの103倍の集中度。これはスケールの問題ではなく、<strong>プロジェクトの性質が根本的に異なる</strong>。
+    esbuildは一人の天才アーキテクトが宇宙全体を構築できることを証明している — Evan Wallace は Design や Indispensability を持つ唯一の貢献者だ。集中度は単独最高ではない（swc が 92.6% で上、spring-boot はさらに上）が、最も純粋な特異点である：Kubernetesの約9倍、Railsの約13倍の集中度。これはスケールの問題ではなく、<strong>プロジェクトの性質が根本的に異なる</strong>。
   </div>
 </div>
 
@@ -502,13 +501,13 @@ h1 .accent{color:#58a6ff}
 <div class="section" id="react">
   <h2 class="section-title">5. React — 10年の世代交代</h2>
   <p class="section-desc">
-    2,010人のエンジニアが関わったReactは、10年間で<strong>5世代のアーキテクト交代</strong>を経験した。<br>
-    EISのtimeline機能で3ヶ月スパンのGravityを追跡すると、世代交代の瞬間が可視化される。
+    2,012人のエンジニアが関わったReactは、10年間で複数世代のアーキテクト交代を経験した。<br>
+    以下の世代交代の物語は React の史実。各期間の Gravity 値は EIS の旧（活動期）スコアリングによるもので、React は29リポ中で最も重い（1期間あたり約23分）ため v2.13.0 での per-period 再算出は実用外。現状の v2.13.0 リーダーは該当箇所に併記する。
   </p>
 
   <div class="big-stats">
-    <div class="big-stat"><div class="big-num" style="color:#61dafb">2,010</div><div class="big-label">エンジニア</div></div>
-    <div class="big-stat"><div class="big-num" style="color:#61dafb">3.4%</div><div class="big-label">重力集中度</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#61dafb">2,012</div><div class="big-label">エンジニア</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#61dafb">45.3%</div><div class="big-label">重力集中度 (top-3)</div></div>
     <div class="big-stat"><div class="big-num" style="color:#f5c211">5</div><div class="big-label">世代交代</div></div>
     <div class="big-stat"><div class="big-num" style="color:#238636">10年</div><div class="big-label">追跡期間</div></div>
   </div>
@@ -544,7 +543,7 @@ h1 .accent{color:#58a6ff}
       <div class="tl-content">
         <strong>Sebastian Markb&aring;ge</strong> と <strong>lauren</strong> が中心に。<br>
         Server Components、Suspense、新しいレンダリングパイプライン。<br>
-        <span style="color:#8b949e;font-size:.85em">Dan Abramovが退職（2024）。Reactの設計権威が静かに次世代へ移行。</span>
+        <span style="color:#8b949e;font-size:.85em">Dan Abramovが退職（2024）。v2.13.0 でも Sebastian Markb&aring;ge が現状の React 重力で首位（9.4）— 高い Catalysis に対し、自身のコードは churn を生き延びにくい。</span>
       </div>
     </div>
     <div class="tl-item gold">
@@ -559,8 +558,8 @@ h1 .accent{color:#58a6ff}
   <div class="insight" style="border-left-color:#61dafb;background:rgba(97,218,251,.06)">
     <strong>Reactの世代交代は、健全なOSSプロジェクトのモデルケース。</strong><br><br>
     仮想DOMの初期実装者 → Hooks/Fiberのリーダー → DevToolsの構築者 → Server Componentsのアーキテクト → 現在の構造設計者。<br>
-    一人が去っても次の世代がシームレスに構造権威を引き継ぐ。<strong>Gravity Concentration 3.4%</strong>は、この分散ガバナンスの結果です。<br><br>
-    そして <strong>Jorge Cabiedes: 82コミットでDesign 100</strong>。コミット数が少なくても、設計の核心に触れるコードを書けば、EISはそれを正確に測定する。
+    一人が去っても次の世代が構造権威を引き継ぐ — 実際の継承だ。top-3 が重力の <strong>45.3%</strong>（top-3集中度）を占める：一度に一世代がリードするが、バトンは繰り返し渡されてきた。<br><br>
+    この教訓はモデルが変わっても残る — コミットは少なくても設計の核心に触れるコード（Design 100）は高い構造的インパクトとして表れ、書き換えられる多作なコードはそうならない。EISは「量」ではなく「どこに書いたか」を測る。
   </div>
 </div>
 
@@ -581,11 +580,11 @@ h1 .accent{color:#58a6ff}
         <tbody>
           <tr><td>Railsの設計分散度</td><td>Top10 Design 51.2、6人のアーキテクト</td><td>「Railsはコアチームが厚い」</td><td style="color:#238636;font-weight:700">一致</td></tr>
           <tr><td>Laravelの設計集中度</td><td>Taylor Otwell = Design 100、他全員 &lt; 4</td><td>「LaravelはTaylorの作品」</td><td style="color:#238636;font-weight:700">一致</td></tr>
-          <tr><td>esbuildの単独性</td><td>92.5%集中、Evan Wallace全軸100</td><td>「esbuildはEvanが一人で作った」</td><td style="color:#238636;font-weight:700">一致</td></tr>
-          <tr><td>Kubernetesの分散性</td><td>Gravity Conc. 0.8%</td><td>「K8sは巨大コミュニティ」</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>esbuildの単独性</td><td>77.0%集中、Evan Wallace が Design/Indisp を持つ唯一の著者</td><td>「esbuildはEvanが一人で作った」</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>Kubernetesの分散性</td><td>Gravity Conc. 8.4%（大規模リポで最低水準）</td><td>「K8sは巨大コミュニティ」</td><td style="color:#238636;font-weight:700">一致</td></tr>
           <tr><td>Reactの世代交代</td><td>10年で5世代のAnchor遷移</td><td>「Reactは常に進化し続ける」</td><td style="color:#238636;font-weight:700">一致</td></tr>
           <tr><td>Jorge Cabiedes</td><td>82コミットでDesign 100</td><td>「量より質」の体現</td><td style="color:#238636;font-weight:700">一致</td></tr>
-          <tr><td>Go vs Rust 集中度</td><td>Go 16.4% vs Rust/Scala 6.7%</td><td>「Goは少数のアーキテクトが設計」</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>Goの設計リード</td><td>Go Top10 Design 33.3（全ファミリー中最高）</td><td>「Goは少数のアーキテクトが構造を一から作る」</td><td style="color:#238636;font-weight:700">一致</td></tr>
         </tbody>
       </table>
     </div>
@@ -595,7 +594,7 @@ h1 .accent{color:#58a6ff}
     <strong>「感覚的にいい線いっている」を超えて。</strong><br><br>
     EISは完璧ではない。RFCでの議論、Slackでの設計ディスカッション、コードレビューでの指導 — これらの「ダークマター」は観測できない。<br>
     しかし、<code>git blame</code> という限られたレンズからでも、プロジェクトの構造的な真実を驚くほど正確に映し出す。<br><br>
-    29リポジトリ、55,343人のエンジニアを横断した結果は、<strong>言語ファミリーごとに構造権威の物理法則が系統的に異なる</strong>ことを示している。これは経験と直感だけでは定量化できなかったインサイトです。
+    29リポジトリ、55,851人のエンジニアを横断した結果は、<strong>言語ファミリーごとに構造権威の物理法則が系統的に異なる</strong>ことを示している。これは経験と直感だけでは定量化できなかったインサイトです。
   </div>
 </div>
 
@@ -608,7 +607,7 @@ h1 .accent{color:#58a6ff}
   <div class="card" style="border-color:#58a6ff">
     <div class="card-title" style="font-size:1.2em">コードの宇宙には、物理法則が存在する</div>
     <div style="margin-top:16px;font-size:.93em;line-height:1.8">
-      <p><strong>重力集中度は言語ファミリー間で4.8倍の差</strong>がある。Go (16.4%) から Systems C/C++ (3.4%) まで。</p>
+      <p><strong>重力集中度は言語ファミリー間で約1.9倍の差</strong>がある。Framework-driven (53.4%) から Systems C/C++ (28.3%) まで。旧モデルで最高とされた Go は中位(37.2%)に。</p>
       <p style="margin-top:12px">3つの構造権威モード — <strong>Architect-centric</strong>（Go）、<strong>Type-distributed</strong>（Rust/Scala）、<strong>Framework-absorbed</strong>（Rails/Laravel） — は、コードの見た目は似ていても、<strong>構造権威の物理が根本的に異なる</strong>。</p>
       <p style="margin-top:12px">同じFramework-drivenカテゴリ内でも、RailsとLaravelは逆のガバナンス物理を示す。esbuildは物理法則が崩壊する特異点。Reactは10年かけて健全な世代交代を実現した。</p>
       <p style="margin-top:16px;color:#58a6ff;font-weight:600">あなたの宇宙がどの物理法則で動いているかを知ることは、より良い構造的意思決定への第一歩です。</p>
@@ -621,35 +620,35 @@ h1 .accent{color:#58a6ff}
     <table class="data-table" style="font-size:.8rem">
       <thead><tr><th>Repository</th><th>カテゴリ</th><th>言語</th><th class="right">Engineers</th><th class="right">Top10 Design</th><th class="right">Top10 Survival</th><th class="right">Grav Conc</th></tr></thead>
       <tbody>
-        <tr class="hl"><td>esbuild</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">125</td><td class="right">10.0</td><td class="right">10.0</td><td class="right" style="color:#f5c211;font-weight:700">92.5%</td></tr>
-        <tr><td>express</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">391</td><td class="right">13.5</td><td class="right">3.2</td><td class="right">23.9%</td></tr>
-        <tr><td>swc</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">357</td><td class="right">16.4</td><td class="right">14.0</td><td class="right">15.7%</td></tr>
-        <tr><td>prettier</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">799</td><td class="right">42.9</td><td class="right">10.0</td><td class="right">13.4%</td></tr>
-        <tr><td>fastapi</td><td style="color:#da3633">Framework</td><td>Python</td><td class="right">897</td><td class="right">11.7</td><td class="right">11.2</td><td class="right">9.4%</td></tr>
-        <tr><td>vite</td><td style="color:#f5c211">Dynamic</td><td>TS</td><td class="right">1,247</td><td class="right">32.6</td><td class="right">16.0</td><td class="right">9.3%</td></tr>
-        <tr><td>eslint</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">1,180</td><td class="right">18.6</td><td class="right">12.8</td><td class="right">8.1%</td></tr>
-        <tr><td>loki</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,319</td><td class="right">34.0</td><td class="right">19.3</td><td class="right">7.8%</td></tr>
-        <tr><td>spring-boot</td><td style="color:#da3633">Framework</td><td>Java</td><td class="right">1,504</td><td class="right">30.2</td><td class="right">34.1</td><td class="right">7.3%</td></tr>
-        <tr><td>polars</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">694</td><td class="right">17.4</td><td class="right">29.8</td><td class="right">7.0%</td></tr>
-        <tr><td>nest</td><td style="color:#da3633">Framework</td><td>TS</td><td class="right">684</td><td class="right">13.3</td><td class="right">10.2</td><td class="right">7.0%</td></tr>
-        <tr><td>scala</td><td style="color:#8b5cf6">Expressive</td><td>Scala</td><td class="right">794</td><td class="right">32.3</td><td class="right">5.9</td><td class="right">6.8%</td></tr>
-        <tr><td>prometheus</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,281</td><td class="right">44.5</td><td class="right">11.9</td><td class="right">5.4%</td></tr>
-        <tr><td>superset</td><td style="color:#f5c211">Dynamic</td><td>Python/TS</td><td class="right">1,477</td><td class="right">23.6</td><td class="right">29.5</td><td class="right">4.5%</td></tr>
-        <tr><td>duckdb</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">690</td><td class="right">20.7</td><td class="right">4.9</td><td class="right">4.5%</td></tr>
-        <tr><td>phoenix</td><td style="color:#da3633">Framework</td><td>Elixir</td><td class="right">1,424</td><td class="right">18.9</td><td class="right">14.4</td><td class="right">4.5%</td></tr>
-        <tr><td>redis</td><td style="color:#8b949e">Systems</td><td>C</td><td class="right">905</td><td class="right">14.3</td><td class="right">8.9</td><td class="right">4.0%</td></tr>
-        <tr><td>argo-cd</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,889</td><td class="right">41.4</td><td class="right">20.5</td><td class="right">4.0%</td></tr>
-        <tr><td>arrow</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">1,466</td><td class="right">28.3</td><td class="right">12.4</td><td class="right">3.8%</td></tr>
-        <tr><td>envoy</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">1,444</td><td class="right">46.4</td><td class="right">15.7</td><td class="right">3.5%</td></tr>
-        <tr><td>react</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">2,010</td><td class="right">17.5</td><td class="right">31.1</td><td class="right">3.4%</td></tr>
-        <tr><td>scala3</td><td style="color:#8b5cf6">Expressive</td><td>Scala 3</td><td class="right">995</td><td class="right">12.6</td><td class="right">12.9</td><td class="right">3.3%</td></tr>
-        <tr><td>terraform</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">2,223</td><td class="right">30.3</td><td class="right">32.7</td><td class="right">2.4%</td></tr>
-        <tr><td>grafana</td><td style="color:#58a6ff">Go</td><td>Go/TS</td><td class="right">2,893</td><td class="right">16.3</td><td class="right">24.6</td><td class="right">1.9%</td></tr>
-        <tr><td>laravel</td><td style="color:#da3633">Framework</td><td>PHP</td><td class="right">4,449</td><td class="right">17.2</td><td class="right">15.3</td><td class="right">1.5%</td></tr>
-        <tr><td>ClickHouse</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">2,563</td><td class="right">17.3</td><td class="right">30.0</td><td class="right">1.4%</td></tr>
-        <tr><td>rails</td><td style="color:#da3633">Framework</td><td>Ruby</td><td class="right">6,512</td><td class="right">51.2</td><td class="right">7.3</td><td class="right">0.9%</td></tr>
-        <tr><td>kubernetes</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">5,217</td><td class="right">42.5</td><td class="right">19.9</td><td class="right">0.8%</td></tr>
-        <tr><td>rust</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">7,914</td><td class="right">53.0</td><td class="right">5.7</td><td class="right">0.6%</td></tr>
+        <tr class="hl"><td>spring-boot</td><td style="color:#da3633">Framework</td><td>Java</td><td class="right">1,510</td><td class="right">27.5</td><td class="right">33.0</td><td class="right" style="color:#f5c211;font-weight:700">95.7%</td></tr>
+        <tr><td>swc</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">368</td><td class="right">19.6</td><td class="right">18.5</td><td class="right">92.6%</td></tr>
+        <tr><td>prettier</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">814</td><td class="right">25.6</td><td class="right">10.8</td><td class="right">83.6%</td></tr>
+        <tr><td>polars</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">730</td><td class="right">37.8</td><td class="right">35.3</td><td class="right">78.3%</td></tr>
+        <tr><td>esbuild</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">126</td><td class="right">10.0</td><td class="right">10.2</td><td class="right">77.0%</td></tr>
+        <tr><td>fastapi</td><td style="color:#da3633">Framework</td><td>Python</td><td class="right">888</td><td class="right">12.1</td><td class="right">11.9</td><td class="right">73.2%</td></tr>
+        <tr><td>phoenix</td><td style="color:#da3633">Framework</td><td>Elixir</td><td class="right">1,390</td><td class="right">16.8</td><td class="right">20.1</td><td class="right">64.0%</td></tr>
+        <tr><td>duckdb</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">722</td><td class="right">25.2</td><td class="right">20.1</td><td class="right">63.0%</td></tr>
+        <tr><td>nest</td><td style="color:#da3633">Framework</td><td>TS</td><td class="right">699</td><td class="right">11.0</td><td class="right">14.6</td><td class="right">60.6%</td></tr>
+        <tr><td>express</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">398</td><td class="right">15.1</td><td class="right">11.1</td><td class="right">56.4%</td></tr>
+        <tr><td>argo-cd</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,966</td><td class="right">38.9</td><td class="right">21.8</td><td class="right">50.7%</td></tr>
+        <tr><td>vite</td><td style="color:#f5c211">Dynamic</td><td>TS</td><td class="right">1,298</td><td class="right">31.6</td><td class="right">15.1</td><td class="right">50.6%</td></tr>
+        <tr><td>react</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">2,012</td><td class="right">25.0</td><td class="right">17.0</td><td class="right">45.3%</td></tr>
+        <tr><td>ClickHouse</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">2,593</td><td class="right">19.6</td><td class="right">21.6</td><td class="right">37.7%</td></tr>
+        <tr><td>scala3</td><td style="color:#8b5cf6">Expressive</td><td>Scala 3</td><td class="right">998</td><td class="right">16.2</td><td class="right">34.6</td><td class="right">33.6%</td></tr>
+        <tr><td>terraform</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">2,210</td><td class="right">46.9</td><td class="right">42.9</td><td class="right">33.5%</td></tr>
+        <tr><td>grafana</td><td style="color:#58a6ff">Go</td><td>Go/TS</td><td class="right">2,925</td><td class="right">34.9</td><td class="right">27.5</td><td class="right">32.0%</td></tr>
+        <tr><td>eslint</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">1,185</td><td class="right">20.8</td><td class="right">15.1</td><td class="right">31.5%</td></tr>
+        <tr><td>superset</td><td style="color:#f5c211">Dynamic</td><td>Python/TS</td><td class="right">1,556</td><td class="right">47.4</td><td class="right">18.8</td><td class="right">31.3%</td></tr>
+        <tr><td>loki</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,304</td><td class="right">33.8</td><td class="right">5.1</td><td class="right">30.7%</td></tr>
+        <tr><td>prometheus</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,289</td><td class="right">53.3</td><td class="right">25.8</td><td class="right">28.3%</td></tr>
+        <tr><td>scala</td><td style="color:#8b5cf6">Expressive</td><td>Scala</td><td class="right">775</td><td class="right">26.4</td><td class="right">19.6</td><td class="right">21.7%</td></tr>
+        <tr><td>laravel</td><td style="color:#da3633">Framework</td><td>PHP</td><td class="right">4,470</td><td class="right">17.6</td><td class="right">43.1</td><td class="right">20.6%</td></tr>
+        <tr><td>rust</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">8,135</td><td class="right">43.2</td><td class="right">33.1</td><td class="right">16.4%</td></tr>
+        <tr><td>redis</td><td style="color:#8b949e">Systems</td><td>C</td><td class="right">933</td><td class="right">14.6</td><td class="right">18.0</td><td class="right">15.0%</td></tr>
+        <tr><td>envoy</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">1,496</td><td class="right">40.3</td><td class="right">19.3</td><td class="right">14.6%</td></tr>
+        <tr><td>arrow</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">1,494</td><td class="right">13.0</td><td class="right">25.4</td><td class="right">11.4%</td></tr>
+        <tr><td>kubernetes</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">5,093</td><td class="right">15.6</td><td class="right">23.9</td><td class="right">8.4%</td></tr>
+        <tr><td>rails</td><td style="color:#da3633">Framework</td><td>Ruby</td><td class="right">6,474</td><td class="right">43.1</td><td class="right">39.1</td><td class="right">5.9%</td></tr>
       </tbody>
     </table>
   </div>
@@ -685,7 +684,7 @@ h1 .accent{color:#58a6ff}
 <div class="footer">
   Generated by <a href="https://github.com/machuz/eis">EIS (Engineering Impact Signal)</a><br>
   OSS Gravity Map Project &middot; 29 repositories &middot; 55,343 engineers<br>
-  Gravity = Indispensability &times; 0.40 + Breadth &times; 0.30 + Design &times; 0.30
+  Gravity = catGate(Catalysis) &times; survGate(RobustSurvival) &times; shape(0.45&middot;Design + 0.25&middot;Breadth + 0.30&middot;Indispensability)
 </div>
 
 </div>

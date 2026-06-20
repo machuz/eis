@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scala 2 — Generational Evolution</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#0d1117;color:#c9d1d9;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    line-height:1.6;padding:0 16px 80px;
+  }
+  ::selection{background:#388bfd44;color:#fff}
+
+  header{max-width:960px;margin:0 auto;padding:60px 0 24px;text-align:center}
+  h1{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;color:#f0f6fc;letter-spacing:-.02em;margin-bottom:8px}
+  h1 span{color:#58a6ff}
+  .subtitle{font-size:clamp(.85rem,1.8vw,1.05rem);color:#8b949e;margin-bottom:0}
+
+  .container{max-width:960px;margin:0 auto}
+
+  .section{margin-top:56px}
+  .section-title{
+    font-size:1.3rem;font-weight:700;color:#f0f6fc;margin-bottom:8px;
+    padding-bottom:8px;border-bottom:1px solid #21262d;
+  }
+  .section-desc{font-size:.9rem;color:#8b949e;margin-bottom:20px}
+  .section-subtitle{
+    font-size:1.05rem;font-weight:600;color:#c9d1d9;margin:28px 0 12px;
+  }
+
+  /* Stacked bar chart */
+  .chart-wrap{
+    background:#161b22;border:1px solid #30363d;border-radius:12px;
+    padding:24px;overflow-x:auto;
+  }
+
+  /* Role tables */
+  .table-scroll{overflow-x:auto;margin-bottom:8px}
+  .role-table{
+    border-collapse:collapse;width:100%;font-size:.85rem;
+  }
+  .role-table th{
+    padding:8px 10px;text-align:center;color:#8b949e;font-weight:600;
+    border-bottom:1px solid #30363d;white-space:nowrap;
+  }
+  .role-table th:first-child{text-align:left;min-width:180px}
+  .role-table td{padding:6px 10px;text-align:center;border-bottom:1px solid #161b22}
+  .role-table .name-cell{
+    text-align:left;font-weight:500;color:#e6edf3;white-space:nowrap;
+    max-width:200px;overflow:hidden;text-overflow:ellipsis;
+  }
+  .cell-active{
+    background:#1f6feb22;color:#79c0ff;font-weight:600;font-variant-numeric:tabular-nums;
+  }
+  .cell-empty{color:#21262d}
+
+  /* Leaderboard */
+  .lb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+  .lb-period{
+    background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px;
+  }
+  .lb-period-label{
+    font-size:1.1rem;font-weight:700;color:#f0f6fc;margin-bottom:12px;
+    padding-bottom:8px;border-bottom:1px solid #21262d;
+  }
+  .lb-card{
+    display:flex;align-items:center;gap:8px;padding:5px 0;
+  }
+  .lb-rank{font-size:.85rem;font-weight:700;color:#484f58;width:28px;font-variant-numeric:tabular-nums}
+  .lb-name{font-weight:600;font-size:.9rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lb-grav{font-size:.8rem;color:#8b949e;font-variant-numeric:tabular-nums;margin-right:4px}
+  .lb-role-tag{
+    font-size:.65rem;font-weight:600;padding:1px 6px;border:1px solid;border-radius:8px;
+    text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;
+  }
+  .badge-new{
+    display:inline-block;font-size:.6rem;font-weight:700;
+    background:#238636;color:#fff;padding:1px 5px;border-radius:6px;
+    margin-left:4px;vertical-align:middle;
+  }
+  .lb-departed{
+    margin-top:8px;padding-top:8px;border-top:1px solid #21262d;
+    font-size:.75rem;color:#f8514966;font-style:italic;
+  }
+
+  /* Sparklines */
+  .spark-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+  .spark-card{
+    background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px 16px;
+  }
+  .spark-header{display:flex;justify-content:space-between;align-items:baseline}
+  .spark-name{font-weight:600;font-size:.95rem}
+  .spark-peak{font-size:.75rem;color:#8b949e;font-variant-numeric:tabular-nums}
+  .spark-meta{font-size:.72rem;color:#484f58;margin:2px 0 8px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span>Scala 2</span> — Generational Evolution</h1>
+  <p class="subtitle">How structural gravity transferred across 24 years</p>
+</header>
+
+<div class="container">
+
+  <!-- Section 1: Role Composition -->
+  <div class="section">
+    <h2 class="section-title">Role Composition Timeline</h2>
+    <p class="section-desc">Active engineers per role in each period. Shows how the team's role balance evolved.</p>
+    <div class="chart-wrap">
+      <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px">
+  <rect x="46" y="288.2" width="26" height="1.8" fill="#79c0ff" rx="2"><title>Anchor: 1</title></rect>
+  <rect x="46" y="286.4" width="26" height="1.8" fill="#56d364" rx="2"><title>Producer: 1</title></rect>
+  <rect x="46" y="270.3" width="26" height="16.1" fill="#484f58" rx="2"><title>Other: 9</title></rect>
+  <text x="59.0" y="264.3" text-anchor="middle" fill="#8b949e" font-size="11">11</text>
+  <text x="59.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2003</text>
+  <rect x="80" y="268.5" width="26" height="21.5" fill="#484f58" rx="2"><title>Other: 12</title></rect>
+  <text x="93.0" y="262.5" text-anchor="middle" fill="#8b949e" font-size="11">12</text>
+  <text x="93.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2004</text>
+  <rect x="114" y="288.2" width="26" height="1.8" fill="#f97583" rx="2"><title>Architect: 1</title></rect>
+  <rect x="114" y="284.6" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="114" y="263.1" width="26" height="21.5" fill="#484f58" rx="2"><title>Other: 12</title></rect>
+  <text x="127.0" y="257.1" text-anchor="middle" fill="#8b949e" font-size="11">15</text>
+  <text x="127.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2005</text>
+  <rect x="148" y="288.2" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="148" y="273.9" width="26" height="14.3" fill="#484f58" rx="2"><title>Other: 8</title></rect>
+  <text x="161.0" y="267.9" text-anchor="middle" fill="#8b949e" font-size="11">9</text>
+  <text x="161.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2006</text>
+  <rect x="182" y="288.2" width="26" height="1.8" fill="#ffa657" rx="2"><title>Specialist: 1</title></rect>
+  <rect x="182" y="266.7" width="26" height="21.5" fill="#484f58" rx="2"><title>Other: 12</title></rect>
+  <text x="195.0" y="260.7" text-anchor="middle" fill="#8b949e" font-size="11">13</text>
+  <text x="195.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2007</text>
+  <rect x="216" y="286.4" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="216" y="284.6" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="216" y="241.6" width="26" height="43.0" fill="#484f58" rx="2"><title>Other: 24</title></rect>
+  <text x="229.0" y="235.6" text-anchor="middle" fill="#8b949e" font-size="11">27</text>
+  <text x="229.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2008</text>
+  <rect x="250" y="288.2" width="26" height="1.8" fill="#f97583" rx="2"><title>Architect: 1</title></rect>
+  <rect x="250" y="286.4" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="250" y="243.4" width="26" height="43.0" fill="#484f58" rx="2"><title>Other: 24</title></rect>
+  <text x="263.0" y="237.4" text-anchor="middle" fill="#8b949e" font-size="11">26</text>
+  <text x="263.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2009</text>
+  <rect x="284" y="288.2" width="26" height="1.8" fill="#f97583" rx="2"><title>Architect: 1</title></rect>
+  <rect x="284" y="284.6" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="284" y="243.4" width="26" height="41.2" fill="#484f58" rx="2"><title>Other: 23</title></rect>
+  <text x="297.0" y="237.4" text-anchor="middle" fill="#8b949e" font-size="11">26</text>
+  <text x="297.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2010</text>
+  <rect x="318" y="288.2" width="26" height="1.8" fill="#f97583" rx="2"><title>Architect: 1</title></rect>
+  <rect x="318" y="284.6" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="318" y="191.4" width="26" height="93.2" fill="#484f58" rx="2"><title>Other: 52</title></rect>
+  <text x="331.0" y="185.4" text-anchor="middle" fill="#8b949e" font-size="11">55</text>
+  <text x="331.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2011</text>
+  <rect x="352" y="281.0" width="26" height="9.0" fill="#56d364" rx="2"><title>Producer: 5</title></rect>
+  <rect x="352" y="279.2" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="352" y="277.4" width="26" height="1.8" fill="#ffa657" rx="2"><title>Specialist: 1</title></rect>
+  <rect x="352" y="99.9" width="26" height="177.5" fill="#484f58" rx="2"><title>Other: 99</title></rect>
+  <text x="365.0" y="93.9" text-anchor="middle" fill="#8b949e" font-size="11">106</text>
+  <text x="365.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2012</text>
+  <rect x="386" y="286.4" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="386" y="282.8" width="26" height="3.6" fill="#d2a8ff" rx="2"><title>Cleaner: 2</title></rect>
+  <rect x="386" y="103.5" width="26" height="179.3" fill="#484f58" rx="2"><title>Other: 100</title></rect>
+  <text x="399.0" y="97.5" text-anchor="middle" fill="#8b949e" font-size="11">104</text>
+  <text x="399.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2013</text>
+  <rect x="420" y="286.4" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="420" y="282.8" width="26" height="3.6" fill="#d2a8ff" rx="2"><title>Cleaner: 2</title></rect>
+  <rect x="420" y="108.9" width="26" height="173.9" fill="#484f58" rx="2"><title>Other: 97</title></rect>
+  <text x="433.0" y="102.9" text-anchor="middle" fill="#8b949e" font-size="11">101</text>
+  <text x="433.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2014</text>
+  <rect x="454" y="112.5" width="26" height="177.5" fill="#484f58" rx="2"><title>Other: 99</title></rect>
+  <text x="467.0" y="106.5" text-anchor="middle" fill="#8b949e" font-size="11">99</text>
+  <text x="467.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2015</text>
+  <rect x="488" y="286.4" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="488" y="282.8" width="26" height="3.6" fill="#d2a8ff" rx="2"><title>Cleaner: 2</title></rect>
+  <rect x="488" y="94.6" width="26" height="188.3" fill="#484f58" rx="2"><title>Other: 105</title></rect>
+  <text x="501.0" y="88.6" text-anchor="middle" fill="#8b949e" font-size="11">109</text>
+  <text x="501.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2016</text>
+  <rect x="522" y="282.8" width="26" height="7.2" fill="#56d364" rx="2"><title>Producer: 4</title></rect>
+  <rect x="522" y="281.0" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="522" y="279.2" width="26" height="1.8" fill="#ffa657" rx="2"><title>Specialist: 1</title></rect>
+  <rect x="522" y="91.0" width="26" height="188.3" fill="#484f58" rx="2"><title>Other: 105</title></rect>
+  <text x="535.0" y="85.0" text-anchor="middle" fill="#8b949e" font-size="11">111</text>
+  <text x="535.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2017</text>
+  <rect x="556" y="284.6" width="26" height="5.4" fill="#56d364" rx="2"><title>Producer: 3</title></rect>
+  <rect x="556" y="282.8" width="26" height="1.8" fill="#ffa657" rx="2"><title>Specialist: 1</title></rect>
+  <rect x="556" y="30.0" width="26" height="252.8" fill="#484f58" rx="2"><title>Other: 141</title></rect>
+  <text x="569.0" y="24.0" text-anchor="middle" fill="#8b949e" font-size="11">145</text>
+  <text x="569.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2018</text>
+  <rect x="590" y="281.0" width="26" height="9.0" fill="#56d364" rx="2"><title>Producer: 5</title></rect>
+  <rect x="590" y="279.2" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="590" y="132.2" width="26" height="147.0" fill="#484f58" rx="2"><title>Other: 82</title></rect>
+  <text x="603.0" y="126.2" text-anchor="middle" fill="#8b949e" font-size="11">88</text>
+  <text x="603.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2019</text>
+  <rect x="624" y="286.4" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="624" y="284.6" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="624" y="282.8" width="26" height="1.8" fill="#ffa657" rx="2"><title>Specialist: 1</title></rect>
+  <rect x="624" y="126.8" width="26" height="156.0" fill="#484f58" rx="2"><title>Other: 87</title></rect>
+  <text x="637.0" y="120.8" text-anchor="middle" fill="#8b949e" font-size="11">91</text>
+  <text x="637.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2020</text>
+  <rect x="658" y="286.4" width="26" height="3.6" fill="#56d364" rx="2"><title>Producer: 2</title></rect>
+  <rect x="658" y="282.8" width="26" height="3.6" fill="#d2a8ff" rx="2"><title>Cleaner: 2</title></rect>
+  <rect x="658" y="207.5" width="26" height="75.3" fill="#484f58" rx="2"><title>Other: 42</title></rect>
+  <text x="671.0" y="201.5" text-anchor="middle" fill="#8b949e" font-size="11">46</text>
+  <text x="671.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2021</text>
+  <rect x="692" y="288.2" width="26" height="1.8" fill="#56d364" rx="2"><title>Producer: 1</title></rect>
+  <rect x="692" y="207.5" width="26" height="80.7" fill="#484f58" rx="2"><title>Other: 45</title></rect>
+  <text x="705.0" y="201.5" text-anchor="middle" fill="#8b949e" font-size="11">46</text>
+  <text x="705.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2022</text>
+  <rect x="726" y="288.2" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="726" y="229.0" width="26" height="59.2" fill="#484f58" rx="2"><title>Other: 33</title></rect>
+  <text x="739.0" y="223.0" text-anchor="middle" fill="#8b949e" font-size="11">34</text>
+  <text x="739.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2023</text>
+  <rect x="760" y="288.2" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="760" y="225.4" width="26" height="62.8" fill="#484f58" rx="2"><title>Other: 35</title></rect>
+  <text x="773.0" y="219.4" text-anchor="middle" fill="#8b949e" font-size="11">36</text>
+  <text x="773.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2024</text>
+  <rect x="794" y="288.2" width="26" height="1.8" fill="#d2a8ff" rx="2"><title>Cleaner: 1</title></rect>
+  <rect x="794" y="247.0" width="26" height="41.2" fill="#484f58" rx="2"><title>Other: 23</title></rect>
+  <text x="807.0" y="241.0" text-anchor="middle" fill="#8b949e" font-size="11">24</text>
+  <text x="807.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2025</text>
+  <rect x="828" y="288.2" width="26" height="1.8" fill="#f97583" rx="2"><title>Architect: 1</title></rect>
+  <rect x="828" y="286.4" width="26" height="1.8" fill="#ffa657" rx="2"><title>Specialist: 1</title></rect>
+  <rect x="828" y="273.9" width="26" height="12.6" fill="#484f58" rx="2"><title>Other: 7</title></rect>
+  <text x="841.0" y="267.9" text-anchor="middle" fill="#8b949e" font-size="11">9</text>
+  <text x="841.0" y="308" text-anchor="middle" fill="#8b949e" font-size="12" font-weight="600">2026</text>
+  <rect x="46" y="317" width="10" height="10" fill="#f97583" rx="2"/>
+  <text x="60" y="326" fill="#8b949e" font-size="11">Architect</text>
+  <rect x="139" y="317" width="10" height="10" fill="#79c0ff" rx="2"/>
+  <text x="153" y="326" fill="#8b949e" font-size="11">Anchor</text>
+  <rect x="211" y="317" width="10" height="10" fill="#56d364" rx="2"/>
+  <text x="225" y="326" fill="#8b949e" font-size="11">Producer</text>
+  <rect x="297" y="317" width="10" height="10" fill="#d2a8ff" rx="2"/>
+  <text x="311" y="326" fill="#8b949e" font-size="11">Cleaner</text>
+  <rect x="376" y="317" width="10" height="10" fill="#ffa657" rx="2"/>
+  <text x="390" y="326" fill="#8b949e" font-size="11">Specialist</text>
+  <rect x="476" y="317" width="10" height="10" fill="#484f58" rx="2"/>
+  <text x="490" y="326" fill="#8b949e" font-size="11">Other</text>
+</svg>
+    </div>
+  </div>
+
+  <!-- Section 2: Architects & Anchors -->
+  <div class="section">
+    <h2 class="section-title">Who Were the Architects & Anchors?</h2>
+    <p class="section-desc">Cells show gravity score. Blank = not in this role that period. This is the generational change view.</p>
+    
+        <h3 class="section-subtitle">Architects (structural leaders)</h3>
+        <div class="table-scroll">
+        <table class="role-table">
+          <thead><tr><th>Name</th><th>2003</th><th>2004</th><th>2005</th><th>2006</th><th>2007</th><th>2008</th><th>2009</th><th>2010</th><th>2011</th><th>2012</th><th>2013</th><th>2014</th><th>2015</th><th>2016</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr></thead>
+          <tbody><tr><td class="name-cell">Martin Odersky</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Martin Odersky — gravity 100, 175 commits">100</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Paul Phillips</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Paul Phillips — gravity 22, 758 commits">22</td><td class="cell-active" title="Paul Phillips — gravity 42, 768 commits">42</td><td class="cell-active" title="Paul Phillips — gravity 31, 1023 commits">31</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr><tr><td class="name-cell">Lukas Rytz</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-active" title="Lukas Rytz — gravity 73, 13 commits">73</td></tr></tbody>
+        </table>
+        </div>
+    
+        <h3 class="section-subtitle">Anchors (gravity holders)</h3>
+        <div class="table-scroll">
+        <table class="role-table">
+          <thead><tr><th>Name</th><th>2003</th><th>2004</th><th>2005</th><th>2006</th><th>2007</th><th>2008</th><th>2009</th><th>2010</th><th>2011</th><th>2012</th><th>2013</th><th>2014</th><th>2015</th><th>2016</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr></thead>
+          <tbody><tr><td class="name-cell">Martin Odersky</td><td class="cell-active" title="Martin Odersky — gravity 3, 220 commits">3</td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td><td class="cell-empty"></td></tr></tbody>
+        </table>
+        </div>
+  </div>
+
+  <!-- Section 3: Gravity Leadership Board -->
+  <div class="section">
+    <h2 class="section-title">Gravity Leadership Board</h2>
+    <p class="section-desc">Top 5 by gravity each period. <span style="color:#238636;font-weight:600">NEW</span> = just entered top 5. Departed names listed below.</p>
+    <div class="lb-grid">
+      <div class="lb-period"><div class="lb-period-label">2003</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#79c0ff">Martin Odersky</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#79c0ff;color:#79c0ff">Anchor</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Matthias Zenger</span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div></div><div class="lb-period"><div class="lb-period-label">2004</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Martin Odersky</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Matthias Zenger</span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Iulian Dragos <span class="badge-new">NEW</span></span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">sbucher <span class="badge-new">NEW</span></span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div></div><div class="lb-period"><div class="lb-period-label">2005</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#f97583">Martin Odersky</span><span class="lb-grav">100</span><span class="lb-role-tag" style="border-color:#f97583;color:#f97583">Architect</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Sean McDirmid <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#56d364">Gilles Dubochet <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#56d364;color:#56d364">Producer</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Iulian Dragos</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Lex Spoon <span class="badge-new">NEW</span></span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Matthias Zenger, sbucher</div></div><div class="lb-period"><div class="lb-period-label">2006</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#d2a8ff">Martin Odersky</span><span class="lb-grav">15</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Burak Emir <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">michelou <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Sean McDirmid</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Gilles Dubochet</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Iulian Dragos, Lex Spoon</div></div><div class="lb-period"><div class="lb-period-label">2007</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Martin Odersky</span><span class="lb-grav">16</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#ffa657">Sean McDirmid</span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#ffa657;color:#ffa657">Specialist</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Burak Emir</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Gilles Dubochet</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Lex Spoon <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: michelou</div></div><div class="lb-period"><div class="lb-period-label">2008</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Martin Odersky</span><span class="lb-grav">11</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Geoffrey Washburn <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Philipp Haller <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Iulian Dragos <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Lukas Rytz <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Burak Emir, Gilles Dubochet, Lex Spoon, Sean McDirmid</div></div><div class="lb-period"><div class="lb-period-label">2009</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#f97583">Paul Phillips <span class="badge-new">NEW</span></span><span class="lb-grav">22</span><span class="lb-role-tag" style="border-color:#f97583;color:#f97583">Architect</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Martin Odersky</span><span class="lb-grav">20</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Gilles Dubochet <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Antonio Cunei <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#d2a8ff">Philipp Haller</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-departed">Departed: Geoffrey Washburn, Iulian Dragos, Lukas Rytz</div></div><div class="lb-period"><div class="lb-period-label">2010</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#f97583">Paul Phillips</span><span class="lb-grav">42</span><span class="lb-role-tag" style="border-color:#f97583;color:#f97583">Architect</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Martin Odersky</span><span class="lb-grav">8</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Gilles Dubochet</span><span class="lb-grav">5</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#56d364">Antonio Cunei</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#56d364;color:#56d364">Producer</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Iulian Dragos <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Philipp Haller</div></div><div class="lb-period"><div class="lb-period-label">2011</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#f97583">Paul Phillips</span><span class="lb-grav">31</span><span class="lb-role-tag" style="border-color:#f97583;color:#f97583">Architect</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Martin Odersky</span><span class="lb-grav">25</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Aleksandar Prokopec <span class="badge-new">NEW</span></span><span class="lb-grav">10</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Philipp Haller <span class="badge-new">NEW</span></span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Adriaan Moors <span class="badge-new">NEW</span></span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Antonio Cunei, Gilles Dubochet, Iulian Dragos</div></div><div class="lb-period"><div class="lb-period-label">2012</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#d2a8ff">Paul Phillips</span><span class="lb-grav">18</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Eugene Burmako <span class="badge-new">NEW</span></span><span class="lb-grav">6</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Aleksandar Prokopec</span><span class="lb-grav">5</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Martin Odersky</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Adriaan Moors</span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Philipp Haller</div></div><div class="lb-period"><div class="lb-period-label">2013</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Paul Phillips</span><span class="lb-grav">18</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Den Shabalin <span class="badge-new">NEW</span></span><span class="lb-grav">11</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#d2a8ff">Jason Zaugg <span class="badge-new">NEW</span></span><span class="lb-grav">6</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#d2a8ff">Eugene Burmako</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Adriaan Moors</span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Aleksandar Prokopec, Martin Odersky</div></div><div class="lb-period"><div class="lb-period-label">2014</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Paul Phillips</span><span class="lb-grav">17</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Eugene Burmako</span><span class="lb-grav">14</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#d2a8ff">Lukas Rytz <span class="badge-new">NEW</span></span><span class="lb-grav">7</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Adriaan Moors</span><span class="lb-grav">5</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#d2a8ff">Jason Zaugg</span><span class="lb-grav">4</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-departed">Departed: Den Shabalin</div></div><div class="lb-period"><div class="lb-period-label">2015</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Simon Ochsenreither <span class="badge-new">NEW</span></span><span class="lb-grav">22</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Adriaan Moors</span><span class="lb-grav">6</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Gerard Basler <span class="badge-new">NEW</span></span><span class="lb-grav">4</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Jason Zaugg</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Rex Kerr <span class="badge-new">NEW</span></span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Eugene Burmako, Lukas Rytz, Paul Phillips</div></div><div class="lb-period"><div class="lb-period-label">2016</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#d2a8ff">Adriaan Moors</span><span class="lb-grav">9</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Jason Zaugg</span><span class="lb-grav">9</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#d2a8ff">Lukas Rytz <span class="badge-new">NEW</span></span><span class="lb-grav">4</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Stefan Zeiger <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Pap Lőrinc <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Gerard Basler, Rex Kerr, Simon Ochsenreither</div></div><div class="lb-period"><div class="lb-period-label">2017</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#d2a8ff">Julien Richard-Foy <span class="badge-new">NEW</span></span><span class="lb-grav">8</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#ffa657">Stefan Zeiger</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#ffa657;color:#ffa657">Specialist</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Jason Zaugg</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Marcelo Cenerino <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Ólafur Páll Geirsson <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Adriaan Moors, Lukas Rytz, Pap Lőrinc</div></div><div class="lb-period"><div class="lb-period-label">2018</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Jason Zaugg</span><span class="lb-grav">15</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Lukas Rytz <span class="badge-new">NEW</span></span><span class="lb-grav">4</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Adriaan Moors <span class="badge-new">NEW</span></span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Stefan Zeiger</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">exoego <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Julien Richard-Foy, Marcelo Cenerino, Ólafur Páll Geirsson</div></div><div class="lb-period"><div class="lb-period-label">2019</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#d2a8ff">Jason Zaugg</span><span class="lb-grav">12</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Adriaan Moors</span><span class="lb-grav">5</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Stefan Zeiger</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Lukas Rytz</span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Josh Lemer <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: exoego</div></div><div class="lb-period"><div class="lb-period-label">2020</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#ffa657">Jamie Thompson <span class="badge-new">NEW</span></span><span class="lb-grav">25</span><span class="lb-role-tag" style="border-color:#ffa657;color:#ffa657">Specialist</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Lukas Rytz</span><span class="lb-grav">10</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Jason Zaugg</span><span class="lb-grav">9</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#d2a8ff">Dale Wijnand <span class="badge-new">NEW</span></span><span class="lb-grav">4</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Seth Tisue <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Adriaan Moors, Josh Lemer, Stefan Zeiger</div></div><div class="lb-period"><div class="lb-period-label">2021</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Lukas Rytz</span><span class="lb-grav">9</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Jason Zaugg</span><span class="lb-grav">4</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#d2a8ff">Dale Wijnand</span><span class="lb-grav">4</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Adriaan Moors <span class="badge-new">NEW</span></span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#d2a8ff">Jamie Thompson</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-departed">Departed: Seth Tisue</div></div><div class="lb-period"><div class="lb-period-label">2022</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#484f58">Lukas Rytz</span><span class="lb-grav">7</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Dale Wijnand</span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Jason Zaugg</span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Jamie Thompson</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Som Snytt <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Adriaan Moors</div></div><div class="lb-period"><div class="lb-period-label">2023</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#d2a8ff">Lukas Rytz</span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">AminMal <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Som Snytt</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Jason Zaugg</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Jamie Thompson</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Dale Wijnand</div></div><div class="lb-period"><div class="lb-period-label">2024</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#d2a8ff">Lukas Rytz</span><span class="lb-grav">6</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Jamie Thompson</span><span class="lb-grav">2</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Som Snytt</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Samuel Chassot <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Seth Tisue <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: AminMal, Jason Zaugg</div></div><div class="lb-period"><div class="lb-period-label">2025</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#d2a8ff">Lukas Rytz</span><span class="lb-grav">36</span><span class="lb-role-tag" style="border-color:#d2a8ff;color:#d2a8ff">Cleaner</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#484f58">Jason Zaugg <span class="badge-new">NEW</span></span><span class="lb-grav">3</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Som Snytt</span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">Seth Tisue</span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Sébastien Doeraene <span class="badge-new">NEW</span></span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Jamie Thompson, Samuel Chassot</div></div><div class="lb-period"><div class="lb-period-label">2026</div><div class="lb-card"><span class="lb-rank">#1</span><span class="lb-name" style="color:#f97583">Lukas Rytz</span><span class="lb-grav">73</span><span class="lb-role-tag" style="border-color:#f97583;color:#f97583">Architect</span></div><div class="lb-card"><span class="lb-rank">#2</span><span class="lb-name" style="color:#ffa657">Chua Chee Seng <span class="badge-new">NEW</span></span><span class="lb-grav">1</span><span class="lb-role-tag" style="border-color:#ffa657;color:#ffa657">Specialist</span></div><div class="lb-card"><span class="lb-rank">#3</span><span class="lb-name" style="color:#484f58">Seth Tisue</span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#4</span><span class="lb-name" style="color:#484f58">bluelhf <span class="badge-new">NEW</span></span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-card"><span class="lb-rank">#5</span><span class="lb-name" style="color:#484f58">Som Snytt</span><span class="lb-grav">0</span><span class="lb-role-tag" style="border-color:#484f58;color:#484f58">Other</span></div><div class="lb-departed">Departed: Jason Zaugg, Sébastien Doeraene</div></div>
+    </div>
+  </div>
+
+  <!-- Section 4: Individual Trajectories -->
+  <div class="section">
+    <h2 class="section-title">Individual Trajectories</h2>
+    <p class="section-desc">Gravity over time for key figures (anyone ever in top 10). Dot color = role. Hover for details.</p>
+    <div class="spark-grid">
+      <div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#f97583">Martin Odersky</span><span class="spark-peak">peak 100</span></div><div class="spark-meta">2003–2017</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,34.9 13.1,34.9 24.3,4.0 35.4,31.3 46.5,31.0 57.7,32.5 68.8,29.5 79.9,33.3 91.0,28.0 102.2,34.9 113.3,36.0 124.4,35.7 135.6,36.0 146.7,35.8 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="34.9" r="3" fill="#79c0ff"><title>2003: 3 (Anchor)</title></circle>
+  <circle cx="13.1" cy="34.9" r="3" fill="#484f58"><title>2004: 3 (Other)</title></circle>
+  <circle cx="24.3" cy="4.0" r="3" fill="#f97583"><title>2005: 100 (Architect)</title></circle>
+  <circle cx="35.4" cy="31.3" r="3" fill="#d2a8ff"><title>2006: 15 (Cleaner)</title></circle>
+  <circle cx="46.5" cy="31.0" r="3" fill="#484f58"><title>2007: 16 (Other)</title></circle>
+  <circle cx="57.7" cy="32.5" r="3" fill="#484f58"><title>2008: 11 (Other)</title></circle>
+  <circle cx="68.8" cy="29.5" r="3" fill="#484f58"><title>2009: 20 (Other)</title></circle>
+  <circle cx="79.9" cy="33.3" r="3" fill="#484f58"><title>2010: 8 (Other)</title></circle>
+  <circle cx="91.0" cy="28.0" r="3" fill="#484f58"><title>2011: 25 (Other)</title></circle>
+  <circle cx="102.2" cy="34.9" r="3" fill="#484f58"><title>2012: 3 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="35.7" r="3" fill="#484f58"><title>2014: 1 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="35.8" r="3" fill="#484f58"><title>2016: 1 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#f97583">Lukas Rytz</span><span class="spark-peak">peak 73</span></div><div class="spark-meta">2008–2026</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,35.6 68.8,35.7 79.9,35.6 91.0,35.8 102.2,35.8 113.3,35.9 124.4,32.9 135.6,35.6 146.7,34.2 157.8,35.9 169.0,34.4 180.1,34.7 191.2,31.4 202.3,32.1 213.5,33.0 224.6,34.9 235.7,33.6 246.9,20.0 258.0,4.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="35.6" r="3" fill="#484f58"><title>2008: 1 (Other)</title></circle>
+  <circle cx="68.8" cy="35.7" r="3" fill="#484f58"><title>2009: 1 (Other)</title></circle>
+  <circle cx="79.9" cy="35.6" r="3" fill="#484f58"><title>2010: 1 (Other)</title></circle>
+  <circle cx="91.0" cy="35.8" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="35.8" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="35.9" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="32.9" r="3" fill="#d2a8ff"><title>2014: 7 (Cleaner)</title></circle>
+  <circle cx="135.6" cy="35.6" r="3" fill="#484f58"><title>2015: 1 (Other)</title></circle>
+  <circle cx="146.7" cy="34.2" r="3" fill="#d2a8ff"><title>2016: 4 (Cleaner)</title></circle>
+  <circle cx="157.8" cy="35.9" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="34.4" r="3" fill="#484f58"><title>2018: 4 (Other)</title></circle>
+  <circle cx="180.1" cy="34.7" r="3" fill="#484f58"><title>2019: 3 (Other)</title></circle>
+  <circle cx="191.2" cy="31.4" r="3" fill="#484f58"><title>2020: 10 (Other)</title></circle>
+  <circle cx="202.3" cy="32.1" r="3" fill="#484f58"><title>2021: 9 (Other)</title></circle>
+  <circle cx="213.5" cy="33.0" r="3" fill="#484f58"><title>2022: 7 (Other)</title></circle>
+  <circle cx="224.6" cy="34.9" r="3" fill="#d2a8ff"><title>2023: 2 (Cleaner)</title></circle>
+  <circle cx="235.7" cy="33.6" r="3" fill="#d2a8ff"><title>2024: 6 (Cleaner)</title></circle>
+  <circle cx="246.9" cy="20.0" r="3" fill="#d2a8ff"><title>2025: 36 (Cleaner)</title></circle>
+  <circle cx="258.0" cy="4.0" r="3" fill="#f97583"><title>2026: 73 (Architect)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#f97583">Paul Phillips</span><span class="spark-peak">peak 42</span></div><div class="spark-meta">2009–2014</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,19.3 79.9,4.0 91.0,12.1 102.2,21.9 113.3,22.5 124.4,23.1 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="19.3" r="3" fill="#f97583"><title>2009: 22 (Architect)</title></circle>
+  <circle cx="79.9" cy="4.0" r="3" fill="#f97583"><title>2010: 42 (Architect)</title></circle>
+  <circle cx="91.0" cy="12.1" r="3" fill="#f97583"><title>2011: 31 (Architect)</title></circle>
+  <circle cx="102.2" cy="21.9" r="3" fill="#d2a8ff"><title>2012: 18 (Cleaner)</title></circle>
+  <circle cx="113.3" cy="22.5" r="3" fill="#484f58"><title>2013: 18 (Other)</title></circle>
+  <circle cx="124.4" cy="23.1" r="3" fill="#484f58"><title>2014: 17 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#ffa657">Jamie Thompson</span><span class="spark-peak">peak 25</span></div><div class="spark-meta">2019–2024</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,35.9 191.2,4.0 202.3,34.2 213.5,34.3 224.6,35.0 235.7,33.6 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="35.9" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="4.0" r="3" fill="#ffa657"><title>2020: 25 (Specialist)</title></circle>
+  <circle cx="202.3" cy="34.2" r="3" fill="#d2a8ff"><title>2021: 1 (Cleaner)</title></circle>
+  <circle cx="213.5" cy="34.3" r="3" fill="#484f58"><title>2022: 1 (Other)</title></circle>
+  <circle cx="224.6" cy="35.0" r="3" fill="#484f58"><title>2023: 1 (Other)</title></circle>
+  <circle cx="235.7" cy="33.6" r="3" fill="#484f58"><title>2024: 2 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Simon Ochsenreither</span><span class="spark-peak">peak 22</span></div><div class="spark-meta">2011–2016</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,35.7 102.2,35.4 113.3,34.5 124.4,34.8 135.6,4.0 146.7,34.4 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="35.7" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="35.4" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="34.5" r="3" fill="#484f58"><title>2013: 1 (Other)</title></circle>
+  <circle cx="124.4" cy="34.8" r="3" fill="#484f58"><title>2014: 1 (Other)</title></circle>
+  <circle cx="135.6" cy="4.0" r="3" fill="#484f58"><title>2015: 22 (Other)</title></circle>
+  <circle cx="146.7" cy="34.4" r="3" fill="#484f58"><title>2016: 1 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Jason Zaugg</span><span class="spark-peak">peak 15</span></div><div class="spark-meta">2011–2025</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,35.8 102.2,31.3 113.3,22.3 124.4,27.5 135.6,29.0 146.7,16.8 157.8,33.9 169.0,4.0 180.1,11.5 191.2,16.4 202.3,26.8 213.5,32.6 224.6,34.1 235.7,36.0 246.9,29.8 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="35.8" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="31.3" r="3" fill="#484f58"><title>2012: 2 (Other)</title></circle>
+  <circle cx="113.3" cy="22.3" r="3" fill="#d2a8ff"><title>2013: 6 (Cleaner)</title></circle>
+  <circle cx="124.4" cy="27.5" r="3" fill="#d2a8ff"><title>2014: 4 (Cleaner)</title></circle>
+  <circle cx="135.6" cy="29.0" r="3" fill="#484f58"><title>2015: 3 (Other)</title></circle>
+  <circle cx="146.7" cy="16.8" r="3" fill="#484f58"><title>2016: 9 (Other)</title></circle>
+  <circle cx="157.8" cy="33.9" r="3" fill="#484f58"><title>2017: 1 (Other)</title></circle>
+  <circle cx="169.0" cy="4.0" r="3" fill="#484f58"><title>2018: 15 (Other)</title></circle>
+  <circle cx="180.1" cy="11.5" r="3" fill="#d2a8ff"><title>2019: 12 (Cleaner)</title></circle>
+  <circle cx="191.2" cy="16.4" r="3" fill="#484f58"><title>2020: 9 (Other)</title></circle>
+  <circle cx="202.3" cy="26.8" r="3" fill="#484f58"><title>2021: 4 (Other)</title></circle>
+  <circle cx="213.5" cy="32.6" r="3" fill="#484f58"><title>2022: 2 (Other)</title></circle>
+  <circle cx="224.6" cy="34.1" r="3" fill="#484f58"><title>2023: 1 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="29.8" r="3" fill="#484f58"><title>2025: 3 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Eugene Burmako</span><span class="spark-peak">peak 14</span></div><div class="spark-meta">2011–2015</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,35.1 102.2,21.4 113.3,28.7 124.4,4.0 135.6,34.4 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="35.1" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="21.4" r="3" fill="#484f58"><title>2012: 6 (Other)</title></circle>
+  <circle cx="113.3" cy="28.7" r="3" fill="#d2a8ff"><title>2013: 3 (Cleaner)</title></circle>
+  <circle cx="124.4" cy="4.0" r="3" fill="#484f58"><title>2014: 14 (Other)</title></circle>
+  <circle cx="135.6" cy="34.4" r="3" fill="#484f58"><title>2015: 1 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Den Shabalin</span><span class="spark-peak">peak 11</span></div><div class="spark-meta">2013–2013</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,4.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="4.0" r="3" fill="#484f58"><title>2013: 11 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Aleksandar Prokopec</span><span class="spark-peak">peak 10</span></div><div class="spark-meta">2011–2015</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,4.0 102.2,19.3 113.3,33.7 124.4,36.0 135.6,34.4 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="4.0" r="3" fill="#484f58"><title>2011: 10 (Other)</title></circle>
+  <circle cx="102.2" cy="19.3" r="3" fill="#484f58"><title>2012: 5 (Other)</title></circle>
+  <circle cx="113.3" cy="33.7" r="3" fill="#484f58"><title>2013: 1 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="34.4" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#d2a8ff">Adriaan Moors</span><span class="spark-peak">peak 9</span></div><div class="spark-meta">2007–2021</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,34.2 57.7,34.2 68.8,33.5 79.9,31.4 91.0,26.5 102.2,27.2 113.3,30.4 124.4,17.7 135.6,16.3 146.7,4.0 157.8,33.9 169.0,25.8 180.1,19.1 191.2,36.0 202.3,29.7 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="34.2" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="34.2" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="33.5" r="3" fill="#484f58"><title>2009: 1 (Other)</title></circle>
+  <circle cx="79.9" cy="31.4" r="3" fill="#484f58"><title>2010: 1 (Other)</title></circle>
+  <circle cx="91.0" cy="26.5" r="3" fill="#484f58"><title>2011: 3 (Other)</title></circle>
+  <circle cx="102.2" cy="27.2" r="3" fill="#484f58"><title>2012: 2 (Other)</title></circle>
+  <circle cx="113.3" cy="30.4" r="3" fill="#484f58"><title>2013: 2 (Other)</title></circle>
+  <circle cx="124.4" cy="17.7" r="3" fill="#484f58"><title>2014: 5 (Other)</title></circle>
+  <circle cx="135.6" cy="16.3" r="3" fill="#484f58"><title>2015: 6 (Other)</title></circle>
+  <circle cx="146.7" cy="4.0" r="3" fill="#d2a8ff"><title>2016: 9 (Cleaner)</title></circle>
+  <circle cx="157.8" cy="33.9" r="3" fill="#484f58"><title>2017: 1 (Other)</title></circle>
+  <circle cx="169.0" cy="25.8" r="3" fill="#484f58"><title>2018: 3 (Other)</title></circle>
+  <circle cx="180.1" cy="19.1" r="3" fill="#484f58"><title>2019: 5 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="29.7" r="3" fill="#484f58"><title>2021: 2 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#d2a8ff">Julien Richard-Foy</span><span class="spark-peak">peak 8</span></div><div class="spark-meta">2012–2023</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,35.6 113.3,36.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,4.0 169.0,35.6 180.1,34.1 191.2,33.3 202.3,36.0 213.5,36.0 224.6,34.5 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="35.6" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="4.0" r="3" fill="#d2a8ff"><title>2017: 8 (Cleaner)</title></circle>
+  <circle cx="169.0" cy="35.6" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="34.1" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="33.3" r="3" fill="#484f58"><title>2020: 1 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="34.5" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Gilles Dubochet</span><span class="spark-peak">peak 5</span></div><div class="spark-meta">2005–2011</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,32.2 35.4,32.2 46.5,31.5 57.7,31.5 68.8,21.3 79.9,4.0 91.0,29.6 102.2,36.0 113.3,36.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="32.2" r="3" fill="#56d364"><title>2005: 1 (Producer)</title></circle>
+  <circle cx="35.4" cy="32.2" r="3" fill="#484f58"><title>2006: 1 (Other)</title></circle>
+  <circle cx="46.5" cy="31.5" r="3" fill="#484f58"><title>2007: 1 (Other)</title></circle>
+  <circle cx="57.7" cy="31.5" r="3" fill="#484f58"><title>2008: 1 (Other)</title></circle>
+  <circle cx="68.8" cy="21.3" r="3" fill="#484f58"><title>2009: 2 (Other)</title></circle>
+  <circle cx="79.9" cy="4.0" r="3" fill="#484f58"><title>2010: 5 (Other)</title></circle>
+  <circle cx="91.0" cy="29.6" r="3" fill="#484f58"><title>2011: 1 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#d2a8ff">Dale Wijnand</span><span class="spark-peak">peak 4</span></div><div class="spark-meta">2016–2023</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,36.0 135.6,36.0 146.7,34.5 157.8,36.0 169.0,34.5 180.1,33.8 191.2,4.0 202.3,10.5 213.5,22.9 224.6,33.1 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="34.5" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="34.5" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="33.8" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="4.0" r="3" fill="#d2a8ff"><title>2020: 4 (Cleaner)</title></circle>
+  <circle cx="202.3" cy="10.5" r="3" fill="#d2a8ff"><title>2021: 4 (Cleaner)</title></circle>
+  <circle cx="213.5" cy="22.9" r="3" fill="#484f58"><title>2022: 2 (Other)</title></circle>
+  <circle cx="224.6" cy="33.1" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Gerard Basler</span><span class="spark-peak">peak 4</span></div><div class="spark-meta">2014–2015</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,30.5 135.6,4.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="30.5" r="3" fill="#484f58"><title>2014: 1 (Other)</title></circle>
+  <circle cx="135.6" cy="4.0" r="3" fill="#484f58"><title>2015: 4 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Stefan Zeiger</span><span class="spark-peak">peak 3</span></div><div class="spark-meta">2011–2024</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,31.3 102.2,36.0 113.3,36.0 124.4,34.1 135.6,33.2 146.7,20.9 157.8,24.7 169.0,9.6 180.1,4.0 191.2,21.9 202.3,36.0 213.5,36.0 224.6,33.2 235.7,33.2 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="31.3" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="34.1" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="33.2" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="20.9" r="3" fill="#484f58"><title>2016: 2 (Other)</title></circle>
+  <circle cx="157.8" cy="24.7" r="3" fill="#ffa657"><title>2017: 1 (Specialist)</title></circle>
+  <circle cx="169.0" cy="9.6" r="3" fill="#484f58"><title>2018: 3 (Other)</title></circle>
+  <circle cx="180.1" cy="4.0" r="3" fill="#484f58"><title>2019: 3 (Other)</title></circle>
+  <circle cx="191.2" cy="21.9" r="3" fill="#484f58"><title>2020: 2 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="33.2" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="33.2" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#56d364">Antonio Cunei</span><span class="spark-peak">peak 3</span></div><div class="spark-meta">2008–2013</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,30.2 68.8,21.5 79.9,4.0 91.0,24.4 102.2,36.0 113.3,35.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="30.2" r="3" fill="#d2a8ff"><title>2008: 1 (Cleaner)</title></circle>
+  <circle cx="68.8" cy="21.5" r="3" fill="#484f58"><title>2009: 2 (Other)</title></circle>
+  <circle cx="79.9" cy="4.0" r="3" fill="#56d364"><title>2010: 3 (Producer)</title></circle>
+  <circle cx="91.0" cy="24.4" r="3" fill="#56d364"><title>2011: 1 (Producer)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="35.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Philipp Haller</span><span class="spark-peak">peak 3</span></div><div class="spark-meta">2005–2014</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,34.0 35.4,30.0 46.5,32.0 57.7,23.0 68.8,23.0 79.9,26.0 91.0,4.0 102.2,20.0 113.3,29.0 124.4,30.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="34.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="30.0" r="3" fill="#484f58"><title>2006: 1 (Other)</title></circle>
+  <circle cx="46.5" cy="32.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="23.0" r="3" fill="#484f58"><title>2008: 1 (Other)</title></circle>
+  <circle cx="68.8" cy="23.0" r="3" fill="#d2a8ff"><title>2009: 1 (Cleaner)</title></circle>
+  <circle cx="79.9" cy="26.0" r="3" fill="#484f58"><title>2010: 1 (Other)</title></circle>
+  <circle cx="91.0" cy="4.0" r="3" fill="#484f58"><title>2011: 3 (Other)</title></circle>
+  <circle cx="102.2" cy="20.0" r="3" fill="#484f58"><title>2012: 2 (Other)</title></circle>
+  <circle cx="113.3" cy="29.0" r="3" fill="#484f58"><title>2013: 1 (Other)</title></circle>
+  <circle cx="124.4" cy="30.0" r="3" fill="#484f58"><title>2014: 1 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">mpociecha</span><span class="spark-peak">peak 3</span></div><div class="spark-meta">2014–2014</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,4.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="4.0" r="3" fill="#484f58"><title>2014: 3 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Rex Kerr</span><span class="spark-peak">peak 3</span></div><div class="spark-meta">2013–2019</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,32.4 124.4,13.5 135.6,4.0 146.7,31.3 157.8,34.8 169.0,33.6 180.1,34.8 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="32.4" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="13.5" r="3" fill="#484f58"><title>2014: 2 (Other)</title></circle>
+  <circle cx="135.6" cy="4.0" r="3" fill="#484f58"><title>2015: 3 (Other)</title></circle>
+  <circle cx="146.7" cy="31.3" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="34.8" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="33.6" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="34.8" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Heather Miller</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2011–2014</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,34.7 102.2,15.5 113.3,30.9 124.4,4.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="34.7" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="15.5" r="3" fill="#484f58"><title>2012: 2 (Other)</title></circle>
+  <circle cx="113.3" cy="30.9" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="4.0" r="3" fill="#484f58"><title>2014: 2 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Seth Tisue</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2015–2026</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,36.0 135.6,13.3 146.7,28.0 157.8,34.7 169.0,28.0 180.1,32.0 191.2,4.0 202.3,28.0 213.5,29.3 224.6,32.0 235.7,28.0 246.9,30.7 258.0,30.7" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="13.3" r="3" fill="#484f58"><title>2015: 2 (Other)</title></circle>
+  <circle cx="146.7" cy="28.0" r="3" fill="#484f58"><title>2016: 1 (Other)</title></circle>
+  <circle cx="157.8" cy="34.7" r="3" fill="#56d364"><title>2017: 0 (Producer)</title></circle>
+  <circle cx="169.0" cy="28.0" r="3" fill="#484f58"><title>2018: 1 (Other)</title></circle>
+  <circle cx="180.1" cy="32.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="4.0" r="3" fill="#484f58"><title>2020: 2 (Other)</title></circle>
+  <circle cx="202.3" cy="28.0" r="3" fill="#484f58"><title>2021: 1 (Other)</title></circle>
+  <circle cx="213.5" cy="29.3" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="32.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="28.0" r="3" fill="#484f58"><title>2024: 1 (Other)</title></circle>
+  <circle cx="246.9" cy="30.7" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="30.7" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Josh Suereth</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2011–2014</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,29.0 102.2,4.0 113.3,31.8 124.4,23.5 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="29.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="4.0" r="3" fill="#484f58"><title>2012: 2 (Other)</title></circle>
+  <circle cx="113.3" cy="31.8" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="23.5" r="3" fill="#484f58"><title>2014: 1 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Geoffrey Washburn</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2007–2009</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,33.1 57.7,4.0 68.8,30.2 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="33.1" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="4.0" r="3" fill="#484f58"><title>2008: 2 (Other)</title></circle>
+  <circle cx="68.8" cy="30.2" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Hubert Plociniczak</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2009–2013</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,29.9 79.9,31.4 91.0,25.3 102.2,4.0 113.3,31.4 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="29.9" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="31.4" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="25.3" r="3" fill="#484f58"><title>2011: 1 (Other)</title></circle>
+  <circle cx="102.2" cy="4.0" r="3" fill="#484f58"><title>2012: 2 (Other)</title></circle>
+  <circle cx="113.3" cy="31.4" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">Iulian Dragos</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2004–2016</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,28.0 24.3,26.4 35.4,29.6 46.5,29.6 57.7,16.8 68.8,26.4 79.9,4.0 91.0,28.0 102.2,20.0 113.3,29.6 124.4,23.2 135.6,36.0 146.7,32.8 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="28.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="26.4" r="3" fill="#484f58"><title>2005: 1 (Other)</title></circle>
+  <circle cx="35.4" cy="29.6" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="29.6" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="16.8" r="3" fill="#484f58"><title>2008: 1 (Other)</title></circle>
+  <circle cx="68.8" cy="26.4" r="3" fill="#484f58"><title>2009: 1 (Other)</title></circle>
+  <circle cx="79.9" cy="4.0" r="3" fill="#484f58"><title>2010: 2 (Other)</title></circle>
+  <circle cx="91.0" cy="28.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="20.0" r="3" fill="#484f58"><title>2012: 1 (Other)</title></circle>
+  <circle cx="113.3" cy="29.6" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="23.2" r="3" fill="#484f58"><title>2014: 1 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="32.8" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">NthPortal</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2017–2021</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,34.3 169.0,30.9 180.1,29.3 191.2,4.0 202.3,20.8 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="34.3" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="30.9" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="29.3" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="4.0" r="3" fill="#484f58"><title>2020: 2 (Other)</title></circle>
+  <circle cx="202.3" cy="20.8" r="3" fill="#484f58"><title>2021: 1 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">exoego</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2018–2019</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,4.0 180.1,32.2 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="4.0" r="3" fill="#484f58"><title>2018: 2 (Other)</title></circle>
+  <circle cx="180.1" cy="32.2" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#56d364">A. P. Marki</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2020–2020</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,4.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="4.0" r="3" fill="#56d364"><title>2020: 2 (Producer)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#484f58">James Iry</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2012–2013</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,36.0 35.4,36.0 46.5,36.0 57.7,36.0 68.8,36.0 79.9,36.0 91.0,36.0 102.2,27.5 113.3,4.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="36.0" r="3" fill="#484f58"><title>2005: 0 (Other)</title></circle>
+  <circle cx="35.4" cy="36.0" r="3" fill="#484f58"><title>2006: 0 (Other)</title></circle>
+  <circle cx="46.5" cy="36.0" r="3" fill="#484f58"><title>2007: 0 (Other)</title></circle>
+  <circle cx="57.7" cy="36.0" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="27.5" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="4.0" r="3" fill="#484f58"><title>2013: 2 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div><div class="spark-card"><div class="spark-header"><span class="spark-name" style="color:#ffa657">Sean McDirmid</span><span class="spark-peak">peak 2</span></div><div class="spark-meta">2005–2008</div><svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:40px">
+  <polyline points="2.0,36.0 13.1,36.0 24.3,21.1 35.4,23.2 46.5,4.0 57.7,25.3 68.8,36.0 79.9,36.0 91.0,36.0 102.2,36.0 113.3,36.0 124.4,36.0 135.6,36.0 146.7,36.0 157.8,36.0 169.0,36.0 180.1,36.0 191.2,36.0 202.3,36.0 213.5,36.0 224.6,36.0 235.7,36.0 246.9,36.0 258.0,36.0" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <circle cx="2.0" cy="36.0" r="3" fill="#484f58"><title>2003: 0 (Other)</title></circle>
+  <circle cx="13.1" cy="36.0" r="3" fill="#484f58"><title>2004: 0 (Other)</title></circle>
+  <circle cx="24.3" cy="21.1" r="3" fill="#484f58"><title>2005: 1 (Other)</title></circle>
+  <circle cx="35.4" cy="23.2" r="3" fill="#484f58"><title>2006: 1 (Other)</title></circle>
+  <circle cx="46.5" cy="4.0" r="3" fill="#ffa657"><title>2007: 2 (Specialist)</title></circle>
+  <circle cx="57.7" cy="25.3" r="3" fill="#484f58"><title>2008: 0 (Other)</title></circle>
+  <circle cx="68.8" cy="36.0" r="3" fill="#484f58"><title>2009: 0 (Other)</title></circle>
+  <circle cx="79.9" cy="36.0" r="3" fill="#484f58"><title>2010: 0 (Other)</title></circle>
+  <circle cx="91.0" cy="36.0" r="3" fill="#484f58"><title>2011: 0 (Other)</title></circle>
+  <circle cx="102.2" cy="36.0" r="3" fill="#484f58"><title>2012: 0 (Other)</title></circle>
+  <circle cx="113.3" cy="36.0" r="3" fill="#484f58"><title>2013: 0 (Other)</title></circle>
+  <circle cx="124.4" cy="36.0" r="3" fill="#484f58"><title>2014: 0 (Other)</title></circle>
+  <circle cx="135.6" cy="36.0" r="3" fill="#484f58"><title>2015: 0 (Other)</title></circle>
+  <circle cx="146.7" cy="36.0" r="3" fill="#484f58"><title>2016: 0 (Other)</title></circle>
+  <circle cx="157.8" cy="36.0" r="3" fill="#484f58"><title>2017: 0 (Other)</title></circle>
+  <circle cx="169.0" cy="36.0" r="3" fill="#484f58"><title>2018: 0 (Other)</title></circle>
+  <circle cx="180.1" cy="36.0" r="3" fill="#484f58"><title>2019: 0 (Other)</title></circle>
+  <circle cx="191.2" cy="36.0" r="3" fill="#484f58"><title>2020: 0 (Other)</title></circle>
+  <circle cx="202.3" cy="36.0" r="3" fill="#484f58"><title>2021: 0 (Other)</title></circle>
+  <circle cx="213.5" cy="36.0" r="3" fill="#484f58"><title>2022: 0 (Other)</title></circle>
+  <circle cx="224.6" cy="36.0" r="3" fill="#484f58"><title>2023: 0 (Other)</title></circle>
+  <circle cx="235.7" cy="36.0" r="3" fill="#484f58"><title>2024: 0 (Other)</title></circle>
+  <circle cx="246.9" cy="36.0" r="3" fill="#484f58"><title>2025: 0 (Other)</title></circle>
+  <circle cx="258.0" cy="36.0" r="3" fill="#484f58"><title>2026: 0 (Other)</title></circle>
+</svg></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
