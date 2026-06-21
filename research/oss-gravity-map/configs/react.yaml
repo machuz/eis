@@ -60,7 +60,8 @@ blame_extensions:
 aliases:
   "dan": "Dan Abramov"
   "gaearon": "Dan Abramov"
-  "sebmarkbage": "Sebastian Markbage"
+  "sebmarkbage": "Sebastian Markbåge"
+  "Sebastian Markbage": "Sebastian Markbåge"
   "acdlite": "Andrew Clark"
   "sophiebits": "Sophie Alpert"
   "Ben Alpert": "Sophie Alpert"
