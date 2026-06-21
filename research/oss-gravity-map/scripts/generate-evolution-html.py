@@ -103,6 +103,28 @@ def extract_data(data: dict):
         ancs.sort(key=lambda x: -x[1])
         anchors_per_period.append(ancs)
 
+    # --- producers per period ---
+    producers_per_period = []
+    for pi, plabel in enumerate(periods):
+        ps = []
+        for a in authors:
+            ap = a["periods"][pi]
+            if ap["role"] == "Producer":
+                ps.append((a["author"], ap["gravity"], ap["commits"]))
+        ps.sort(key=lambda x: -x[1])
+        producers_per_period.append(ps)
+
+    # --- cleaners per period ---
+    cleaners_per_period = []
+    for pi, plabel in enumerate(periods):
+        cs = []
+        for a in authors:
+            ap = a["periods"][pi]
+            if ap["role"] == "Cleaner":
+                cs.append((a["author"], ap["gravity"], ap["commits"]))
+        cs.sort(key=lambda x: -x[1])
+        cleaners_per_period.append(cs)
+
     # --- top 5 by gravity per period ---
     top5_per_period = []
     for pi, plabel in enumerate(periods):
@@ -149,13 +171,41 @@ def extract_data(data: dict):
             })
     key_figures.sort(key=lambda x: -x["peak"])
 
+    # --- structural-role tenure per author (generational handover heatmap) ---
+    # For everyone who EVER held a named structural role (not Producer/Other),
+    # record which role they held each period. Sorting by first appearance makes
+    # the baton-pass between generations read as a staircase.
+    structural = ("Architect", "Anchor", "Cleaner", "Specialist")
+    tenure = {}
+    for a in authors:
+        row, first, peak, held = [], None, 0.0, False
+        for pi in range(len(periods)):
+            ap = a["periods"][pi]
+            r = ap["role"] if ap["role"] in structural else None
+            if r:
+                held = True
+                if first is None:
+                    first = pi
+                peak = max(peak, ap["gravity"])
+                row.append({"role": r, "gravity": ap["gravity"]})
+            else:
+                row.append(None)
+        if held:
+            tenure[a["author"]] = {"row": row, "first": first, "peak": peak}
+    structural_tenure = sorted(
+        tenure.items(), key=lambda kv: (kv[1]["first"], -kv[1]["peak"])
+    )
+
     return {
         "periods": periods,
         "role_counts": role_counts,
         "architects_per_period": architects_per_period,
         "anchors_per_period": anchors_per_period,
+        "producers_per_period": producers_per_period,
+        "cleaners_per_period": cleaners_per_period,
         "top5_per_period": top5_per_period,
         "key_figures": key_figures,
+        "structural_tenure": structural_tenure,
     }
 
 
@@ -227,46 +277,62 @@ def generate_stacked_bar_svg(periods, role_counts, width=900, height=340):
     return '\n'.join(lines)
 
 
-def generate_role_heatmap_svg(periods, role_counts, width=900):
-    """Year x role heatmap. Each cell holds the count of engineers in that role
-    that year; the shade is normalized within each role's own row (relative to
-    that role's peak year) so a rare role (Architect: 0-2) and a common one
-    (Producer: tens) both reveal *when* they surface. The lifecycle reads down
-    each column and across each row: early Producers, later Cleaners/Anchors."""
-    roles = ["Architect", "Anchor", "Producer", "Cleaner", "Specialist"]
+def generate_handover_heatmap_svg(periods, structural_tenure, width=900, max_rows=24):
+    """Generational-handover heatmap: one row per engineer who ever held a named
+    structural role (Architect / Anchor / Cleaner / Specialist), columns are
+    years, each cell coloured by the role they held that year (blank if none).
+    Rows are ordered by first appearance, so the baton passing from one
+    generation to the next reads as a staircase down the page — and you can see
+    who held the Anchor/Architect seat in each era and who took it over."""
+    rows = structural_tenure[:max_rows]
     n = len(periods)
-    label_w = 92
-    pad = 20
-    cell_w = max(22, (width - label_w - pad) // n)
-    cell_h = 30
-    top = 56
-    height = top + len(roles) * cell_h + 34
+    label_w = 168
+    pad = 18
+    cell_w = max(18, (width - label_w - pad) // n)
+    cell_h = 20
+    top = 58
+    height = top + len(rows) * cell_h + 30
 
-    role_max = {r: max((rc.get(r, 0) for rc in role_counts), default=0) for r in roles}
+    # opacity scales with gravity against the whole panel's peak, with a floor
+    # so a low-gravity Cleaner seat is still legible.
+    gpeak = max((c["gravity"] for _, meta in rows for c in meta["row"] if c), default=1) or 1
 
     lines = [f'<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:{width}px">']
-    lines.append(f'<text x="{label_w}" y="22" fill="#f0f6fc" font-size="14" font-weight="600">Role Lifecycle &mdash; who the system leans on, year by year</text>')
-    lines.append(f'<text x="{label_w}" y="40" fill="#8b949e" font-size="11">Cell = engineers in that role that year &middot; shade relative to each role’s own peak</text>')
+    lines.append(f'<text x="12" y="22" fill="#f0f6fc" font-size="14" font-weight="600">Generational Handover &mdash; who held a structural seat, year by year</text>')
+    lines.append(f'<text x="12" y="40" fill="#8b949e" font-size="11">Each row is one engineer who ever held a named role · colour = the role they held that year · shade by gravity</text>')
 
-    for ri, role in enumerate(roles):
+    for ri, (name, meta) in enumerate(rows):
         ry = top + ri * cell_h
-        color = ROLE_COLORS[role]
-        lines.append(f'<text x="{label_w - 10}" y="{ry + cell_h/2 + 4:.0f}" text-anchor="end" fill="{color}" font-size="12" font-weight="600">{role}</text>')
-        rmax = role_max[role] or 1
-        for ci, rc in enumerate(role_counts):
+        nm = name if len(name) <= 24 else name[:23] + "…"
+        lines.append(f'<text x="{label_w - 8}" y="{ry + cell_h/2 + 4:.0f}" text-anchor="end" fill="#c9d1d9" font-size="11">{esc(nm)}</text>')
+        for ci, cell in enumerate(meta["row"]):
             cx = label_w + ci * cell_w
-            count = rc.get(role, 0)
-            op = 0.0 if count == 0 else 0.14 + 0.86 * (count / rmax)
-            lines.append(f'  <rect x="{cx}" y="{ry}" width="{cell_w-2}" height="{cell_h-2}" rx="3" fill="{color}" fill-opacity="{op:.2f}">'
-                         f'<title>{role} · {esc(str(periods[ci]))}: {count}</title></rect>')
-            if count > 0:
-                txt = "#0d1117" if op > 0.55 else "#c9d1d9"
-                lines.append(f'  <text x="{cx + (cell_w-2)/2:.0f}" y="{ry + cell_h/2 + 4:.0f}" text-anchor="middle" fill="{txt}" font-size="10">{count}</text>')
+            if cell is None:
+                lines.append(f'  <rect x="{cx}" y="{ry}" width="{cell_w-2}" height="{cell_h-2}" rx="2" fill="#161b22"/>')
+                continue
+            color = ROLE_COLORS.get(cell["role"], "#484f58")
+            op = 0.40 + 0.60 * (cell["gravity"] / gpeak)
+            lines.append(f'  <rect x="{cx}" y="{ry}" width="{cell_w-2}" height="{cell_h-2}" rx="2" fill="{color}" fill-opacity="{op:.2f}">'
+                         f'<title>{esc(name)} · {esc(str(periods[ci]))}: {cell["role"]} (gravity {cell["gravity"]:.0f})</title></rect>')
 
-    yl = top + len(roles) * cell_h + 16
+    # year labels
+    yl = top + len(rows) * cell_h + 14
+    step = max(1, n // 16)  # avoid label crowding on long histories
     for ci, p in enumerate(periods):
+        if ci % step != 0 and ci != n - 1:
+            continue
         cx = label_w + ci * cell_w + (cell_w - 2) / 2
         lines.append(f'  <text x="{cx:.0f}" y="{yl}" text-anchor="middle" fill="#8b949e" font-size="10">{esc(str(p))}</text>')
+
+    # legend
+    lx = 12
+    ly = height - 6
+    for role in ["Architect", "Anchor", "Cleaner", "Specialist"]:
+        color = ROLE_COLORS[role]
+        lines.append(f'  <rect x="{lx}" y="{ly - 9}" width="10" height="10" rx="2" fill="{color}"/>')
+        lines.append(f'  <text x="{lx + 14}" y="{ly}" fill="#8b949e" font-size="11">{role}</text>')
+        lx += len(role) * 7 + 28
+
     lines.append('</svg>')
     return '\n'.join(lines)
 
@@ -304,44 +370,34 @@ def generate_html(analytics, project_title="React"):
     role_counts = analytics["role_counts"]
     architects = analytics["architects_per_period"]
     anchors = analytics["anchors_per_period"]
+    producers = analytics["producers_per_period"]
+    cleaners = analytics["cleaners_per_period"]
     top5 = analytics["top5_per_period"]
     key_figures = analytics["key_figures"]
 
     bar_svg = generate_stacked_bar_svg(periods, role_counts)
-    heatmap_svg = generate_role_heatmap_svg(periods, role_counts)
+    heatmap_svg = generate_handover_heatmap_svg(periods, analytics["structural_tenure"])
 
-    # --- build architects table ---
-    all_architect_names = set()
-    for archs in architects:
-        for name, g, c in archs:
-            all_architect_names.add(name)
-    # sort by first appearance then peak gravity
-    def arch_sort_key(name):
-        first = len(periods)
-        peak = 0
-        for pi, archs in enumerate(architects):
-            for n, g, c in archs:
-                if n == name:
-                    first = min(first, pi)
-                    peak = max(peak, g)
-        return (first, -peak)
-    sorted_architect_names = sorted(all_architect_names, key=arch_sort_key)
+    # Order names so the generational handover reads top-to-bottom: pick the
+    # strongest holders by peak gravity (cap keeps populous roles legible), then
+    # sort the chosen names by first appearance so each new generation steps in
+    # below the one before.
+    def sorted_role_names(per_period, cap=None):
+        meta = {}  # name -> [first_period, peak_gravity]
+        for pi, entries in enumerate(per_period):
+            for n, g, c in entries:
+                m = meta.setdefault(n, [pi, 0.0])
+                m[0] = min(m[0], pi)
+                m[1] = max(m[1], g)
+        names = list(meta)
+        if cap is not None and len(names) > cap:
+            names = sorted(names, key=lambda n: -meta[n][1])[:cap]
+        return sorted(names, key=lambda n: (meta[n][0], -meta[n][1]))
 
-    # --- build anchors table ---
-    all_anchor_names = set()
-    for ancs in anchors:
-        for name, g, c in ancs:
-            all_anchor_names.add(name)
-    def anchor_sort_key(name):
-        first = len(periods)
-        peak = 0
-        for pi, ancs in enumerate(anchors):
-            for n, g, c in ancs:
-                if n == name:
-                    first = min(first, pi)
-                    peak = max(peak, g)
-        return (first, -peak)
-    sorted_anchor_names = sorted(all_anchor_names, key=anchor_sort_key)
+    sorted_architect_names = sorted_role_names(architects)
+    sorted_anchor_names = sorted_role_names(anchors)
+    sorted_producer_names = sorted_role_names(producers, cap=12)
+    sorted_cleaner_names = sorted_role_names(cleaners, cap=12)
 
     def role_table_html(title, role_name, sorted_names, per_period_data):
         rows = []
@@ -376,6 +432,12 @@ def generate_html(analytics, project_title="React"):
     anchors_html = role_table_html(
         "Anchors (gravity holders)",
         "Anchor", sorted_anchor_names, anchors)
+    producers_html = role_table_html(
+        "Producers (output engines) — top 12 by peak gravity",
+        "Producer", sorted_producer_names, producers)
+    cleaners_html = role_table_html(
+        "Cleaners (entropy fighters) — top 12 by peak gravity",
+        "Cleaner", sorted_cleaner_names, cleaners)
 
     # --- top 5 leaderboard ---
     leaderboard_rows = []
@@ -554,10 +616,10 @@ def generate_html(analytics, project_title="React"):
     </div>
   </div>
 
-  <!-- Section 1b: Role Lifecycle Heatmap -->
+  <!-- Section 1b: Generational Handover Heatmap -->
   <div class="section">
-    <h2 class="section-title">Role Lifecycle Heatmap</h2>
-    <p class="section-desc">The same role mix read as a heatmap — each cell is the engineers in that role that year, shaded against the role’s own peak. Watch how output-heavy <strong>Producers</strong> give way to <strong>Cleaners</strong> and <strong>Anchors</strong> as the codebase matures.</p>
+    <h2 class="section-title">Generational Handover</h2>
+    <p class="section-desc">Every engineer who ever held a named structural seat — <strong>Architect</strong>, <strong>Anchor</strong>, <strong>Cleaner</strong>, <strong>Specialist</strong> — as one row, year by year. Ordered by when they first appear, so the baton passing between generations reads as a staircase: watch a seat empty in one era and someone new take it up in the next.</p>
     <div class="chart-wrap">
       {heatmap_svg}
     </div>
@@ -565,10 +627,12 @@ def generate_html(analytics, project_title="React"):
 
   <!-- Section 2: Architects & Anchors -->
   <div class="section">
-    <h2 class="section-title">Who Were the Architects & Anchors?</h2>
-    <p class="section-desc">Cells show gravity score. Blank = not in this role that period. This is the generational change view.</p>
+    <h2 class="section-title">Who Held Each Role, Year by Year</h2>
+    <p class="section-desc">Each cell is that engineer's gravity in that year; blank = they did not hold the role then. Rows step in by first appearance, so you can read the handover from one generation to the next — who held the seat, and who took it over.</p>
     {architects_html}
     {anchors_html}
+    {producers_html}
+    {cleaners_html}
   </div>
 
   <!-- Section 3: Gravity Leadership Board -->

@@ -22,28 +22,28 @@
   <text x="616" y="325" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">30</text>
   <text x="728" y="325" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="10">40</text>
 
-  <!-- Go: 32.0 → width=358 -->
+  <!-- Go: 32.2 → width=361 -->
   <text x="270" y="103" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Go (Self-structured)</text>
-  <rect x="280" y="85" width="358" height="28" rx="4" fill="url(#td-go)" opacity="0.9"/>
-  <text x="646" y="104" fill="#42a5f5" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">32.0</text>
+  <rect x="280" y="85" width="361" height="28" rx="4" fill="url(#td-go)" opacity="0.9"/>
+  <text x="649" y="104" fill="#42a5f5" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">32.2</text>
 
-  <!-- Expressive: 27.7 → width=310 -->
-  <text x="270" y="150" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Expressive (Rust/Scala)</text>
-  <rect x="280" y="132" width="310" height="28" rx="4" fill="url(#td-exp)" opacity="0.9"/>
-  <text x="598" y="151" fill="#ab47bc" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">27.7</text>
+  <!-- Dynamic: 28.5 → width=319 -->
+  <text x="270" y="150" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Dynamic / Structural</text>
+  <rect x="280" y="132" width="319" height="28" rx="4" fill="url(#td-dyn)" opacity="0.9"/>
+  <text x="607" y="151" fill="#ffd700" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">28.5</text>
 
-  <!-- Dynamic: 27.4 → width=307 -->
-  <text x="270" y="197" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Dynamic / Structural</text>
-  <rect x="280" y="179" width="307" height="28" rx="4" fill="url(#td-dyn)" opacity="0.9"/>
-  <text x="595" y="198" fill="#ffd700" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">27.4</text>
+  <!-- Expressive: 27.5 → width=308 -->
+  <text x="270" y="197" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Expressive (Rust/Scala)</text>
+  <rect x="280" y="179" width="308" height="28" rx="4" fill="url(#td-exp)" opacity="0.9"/>
+  <text x="596" y="198" fill="#ab47bc" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">27.5</text>
 
-  <!-- Systems: 21.4 → width=240 -->
+  <!-- Systems: 24.1 → width=270 -->
   <text x="270" y="244" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Systems (C/C++)</text>
-  <rect x="280" y="226" width="240" height="28" rx="4" fill="url(#td-sys)" opacity="0.9"/>
-  <text x="528" y="245" fill="#66bb6a" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">21.4</text>
+  <rect x="280" y="226" width="270" height="28" rx="4" fill="url(#td-sys)" opacity="0.9"/>
+  <text x="558" y="245" fill="#66bb6a" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">24.1</text>
 
-  <!-- Framework-driven: 20.4 → width=228 -->
+  <!-- Framework-driven: 23.4 → width=262 -->
   <text x="270" y="291" text-anchor="end" fill="#f0f6fc" font-family="-apple-system,sans-serif" font-size="13" font-weight="500">Framework-driven</text>
-  <rect x="280" y="273" width="228" height="28" rx="4" fill="url(#td-fw)" opacity="0.9"/>
-  <text x="516" y="292" fill="#ef5350" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">20.4</text>
+  <rect x="280" y="273" width="262" height="28" rx="4" fill="url(#td-fw)" opacity="0.9"/>
+  <text x="550" y="292" fill="#ef5350" font-family="-apple-system,sans-serif" font-size="14" font-weight="700">23.4</text>
 </svg>

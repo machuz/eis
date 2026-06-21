@@ -30,7 +30,7 @@ This matters for what follows. **Gravity concentration is a relational reading, 
 
 ## Methodology
 
-- **29 repositories** analyzed with `eis analyze`, covering **54,475 engineers** total
+- **29 repositories** analyzed with `eis analyze`, covering **51,321 engineers** total
 - Repositories grouped into **5 families** by type system and structural culture
 - For each repo we read the **top contributors by Gravity** — population averages are diluted by thousands of low-activity contributors, so they tell us little
 - **Gravity Concentration** = share of total gravity held by the top 3 contributors (consistent with the per-universe figures in RESULTS.md)
@@ -55,11 +55,11 @@ These boundaries are a convenience for reading the data, not a claim that langua
 
 | Family | Repos | Avg Size | Top10 Design | Top10 Survival | Top10 Gravity | Gravity Concentration (top-3) |
 |---|---|---|---|---|---|---|
-| **Framework-driven** | 6 | 2,534 | 20.4 | 20.1 | 5.96 | **61.3%** |
-| **Dynamic / Structural** | 6 | 1,177 | 27.4 | 16.5 | 6.13 | **56.8%** |
-| **Expressive** | 5 | 2,135 | 27.7 | 19.0 | 5.71 | **54.3%** |
-| **Go (Self-structured)** | 7 | 2,086 | 32.0 | 20.1 | 5.03 | **48.7%** |
-| **Systems (C/C++)** | 5 | 1,386 | 21.4 | 24.0 | 1.75 | **19.5%** |
+| **Framework-driven** | 6 | 2,413 | 23.4 | 16.5 | 6.21 | **61.9%** |
+| **Dynamic / Structural** | 6 | 1,146 | 28.5 | 14.3 | 6.48 | **60.3%** |
+| **Expressive** | 5 | 1,967 | 27.5 | 15.1 | 5.74 | **54.9%** |
+| **Go (Self-structured)** | 7 | 1,962 | 32.2 | 15.3 | 4.94 | **50.1%** |
+| **Systems (C/C++)** | 5 | 1,280 | 24.1 | 9.7 | 3.35 | **30.0%** |
 
 ### Key Observations
 
@@ -69,30 +69,30 @@ These boundaries are a convenience for reading the data, not a claim that langua
 
 | Family | Gravity Concentration (top-3) |
 |---|---|
-| **Framework-driven** | 61.3% |
-| **Dynamic / Structural** | 56.8% |
-| **Expressive** | 54.3% |
-| **Go (Self-structured)** | 48.7% |
-| **Systems (C/C++)** | 19.5% |
+| **Framework-driven** | 61.9% |
+| **Dynamic / Structural** | 60.3% |
+| **Expressive** | 54.9% |
+| **Go (Self-structured)** | 50.1% |
+| **Systems (C/C++)** | 30.0% |
 
-The families do separate — Framework-driven concentrates the most (61.3%), Systems / C++ the least (19.5%), a ~3.1x spread — but the ordering is not the clean type-system story the hypothesis predicted. Expressive, Dynamic, and Go all land within a few points of each other in the middle. The single clean signal is at the bottom: Systems / C++ stands apart, where long-lived maintainers each hold real but non-dominant gravity and no small group monopolizes the load.
+The families do separate — Framework-driven concentrates the most (61.9%), Systems / C++ the least (30.0%), a ~2.1x spread — but the ordering is not the clean type-system story the hypothesis predicted. Dynamic, Expressive, and Go all land within a dozen points of each other in the middle. The single clean signal is at the bottom: Systems / C++ stands apart, where long-lived maintainers each hold real but non-dominant gravity and no small group monopolizes the load.
 
 More telling is what happens *inside* each family. The same language sits at both ends of the range:
 
-- **Rust** spans polars (79.8%, near-solo) to the rust compiler (24.6%, broadly shared)
-- **Go** spans esbuild (76.6%, one author) to kubernetes (26.2%, deeply distributed)
-- **Framework-driven** spans spring-boot (97.7%) and fastapi (94.5%) down to rails (9.4%)
-- **JavaScript** spans prettier (93.8%) down to react (27.4%)
+- **Rust** spans polars (78.4%, near-solo) to the rust compiler (27.6%, broadly shared)
+- **Go** spans esbuild (77.0%, one author) to kubernetes (27.5%, deeply distributed)
+- **Framework-driven** spans spring-boot (97.2%) and fastapi (94.5%) down to rails (9.8%)
+- **JavaScript** spans prettier (95.3%) down to react (31.4%)
 
-If language set the physics, polars and the rust compiler could not differ by 55 points while sharing a type system. What separates them is whether the surviving, contested structure runs through one or two people or through a standing bench. That is a governance fact, not a syntax fact. The honest reading is: **the gate measures who is still load-bearing, and being load-bearing is something a community arranges, not something a compiler decides.**
+If language set the physics, polars and the rust compiler could not differ by 50 points while sharing a type system. What separates them is whether the surviving, contested structure runs through one or two people or through a standing bench. That is a governance fact, not a syntax fact. The honest reading is: **the gate measures who is still load-bearing, and being load-bearing is something a community arranges, not something a compiler decides.**
 
-The old additive model once ranked Go most-concentrated; under the relational gate that reading does not survive. Go sits mid-pack (48.7%) because its many explicit-interface authors each hold genuine, non-dominant gravity.
+The old additive model once ranked Go most-concentrated; under the relational gate that reading does not survive. Go sits mid-pack (50.1%) because its many explicit-interface authors each hold genuine, non-dominant gravity.
 
 #### 2. Where structure lives outside code, the telescope reads dark
 
-The Framework-driven family carries low Top10 Design (20.4) for how much structure these projects clearly have. When Rails, Laravel, Spring, or Phoenix defines the routing, DI, middleware, and lifecycle, those decisions do not appear in any single engineer's `git blame`. The framework holds structure that no contributor's gravity can witness — EIS reads only gravity that lives in code, and gravity that lives in convention reads as Dark Matter.
+The Framework-driven family carries low Top10 Design (23.4) for how much structure these projects clearly have. When Rails, Laravel, Spring, or Phoenix defines the routing, DI, middleware, and lifecycle, those decisions do not appear in any single engineer's `git blame`. The framework holds structure that no contributor's gravity can witness — EIS reads only gravity that lives in code, and gravity that lives in convention reads as Dark Matter.
 
-But notice this does *not* mean frameworks flatten concentration. The opposite shows up: with the framework's own structure removed from view, what remains is often a single creator-architect's load, and that reads as high concentration (spring-boot 97.7, fastapi 94.5). The framework hides its own gravity; it does not hide the founder's.
+But notice this does *not* mean frameworks flatten concentration. The opposite shows up: with the framework's own structure removed from view, what remains is often a single creator-architect's load, and that reads as high concentration (spring-boot 97.2, fastapi 94.5). The framework hides its own gravity; it does not hide the founder's.
 
 #### 3. Design influence does not predict concentration
 
@@ -100,11 +100,11 @@ But notice this does *not* mean frameworks flatten concentration. The opposite s
 
 | Family | Top10 Design |
 |---|---|
-| **Go (Self-structured)** | 32.0 |
-| **Expressive** | 27.7 |
-| **Dynamic / Structural** | 27.4 |
-| **Systems (C/C++)** | 21.4 |
-| **Framework-driven** | 20.4 |
+| **Go (Self-structured)** | 32.2 |
+| **Dynamic / Structural** | 28.5 |
+| **Expressive** | 27.5 |
+| **Systems (C/C++)** | 24.1 |
+| **Framework-driven** | 23.4 |
 
 Go leads on Design because its architects write the interfaces, the routing, the middleware from scratch, all in code the telescope can see. Yet Go is only mid-pack on concentration — high Design that is *spread across many authors* does not pool into a few hands. Design measures how much structure people write; concentration measures whether the surviving structure leans on a few. The two come apart, and that gap is the whole point: a family can be design-heavy and still distributed.
 
@@ -118,26 +118,26 @@ Both are iconic framework-driven projects with legendary creator-architects, bot
 
 | Metric | Rails (Ruby) | Laravel (PHP) |
 |---|---|---|
-| Engineers | 6,402 | 4,400 |
-| **Top10 Design** | **44.4** | **11.3** |
-| Top10 Survival | 14.5 | 35.1 |
-| Top10 Gravity (avg) | 2.17 | 9.07 |
-| Gravity Concentration (top-3) | **9.4%** | **36.7%** |
+| Engineers | 6,056 | 4,149 |
+| **Top10 Design** | **57.0** | **12.0** |
+| Top10 Survival | 2.5 | 44.7 |
+| Top10 Gravity (avg) | 2.44 | 9.27 |
+| Gravity Concentration (top-3) | **9.8%** | **38.0%** |
 
 ### Rails: a standing bench
 
 | # | Engineer | Gravity | Design | Indispensability |
 |---|---|---|---|---|
 | 1 | David Heinemeier Hansson | 4.0 | 100 | 100 |
-| 2 | zzak | 3.5 | 1 | 29 |
-| 3 | Jean Boussier | 3.2 | 38 | 0 |
-| 4 | Rafael Mendonça França | 3.0 | 68 | 21 |
-| 5 | Matthew Draper | 1.9 | 13 | 0 |
-| 6 | Gannon McGibbon | 1.8 | 10 | 0 |
-| 7 | Xavier Noria | 1.3 | 40 | 0 |
-| 8 | Jeremy Kemper | 1.1 | 90 | 0 |
+| 2 | Jean Boussier | 3.8 | 49 | 0 |
+| 3 | Rafael Mendonça França | 3.6 | 90 | 21 |
+| 4 | zzak | 3.5 | 1 | 29 |
+| 5 | Matthew Draper | 2.7 | 24 | 0 |
+| 6 | Gannon McGibbon | 1.9 | 13 | 0 |
+| 7 | Xavier Noria | 1.5 | 49 | 0 |
+| 8 | Aaron Patterson | 1.4 | 97 | 29 |
 
-DHH still holds Design 100 and Indispensability 100 — the original structure is unmistakably his — yet his gravity (4.0) sits barely ahead of the next several names. The live load has fanned out: zzak, Jean Boussier, Rafael França all carry gravity within a point of the founder, on code that survives where others keep working. Deep design history is held by many (Jeremy Kemper 90, Rafael França 68, Xavier Noria 40). Rails reads as a project with several design authorities and a real succession in progress.
+DHH still holds Design 100 and Indispensability 100 — the original structure is unmistakably his — yet his gravity (4.0) sits barely ahead of the next several names. The live load has fanned out: Jean Boussier, Rafael França, zzak all carry gravity within a point of the founder, on code that survives where others keep working. Deep design history is held by many (Aaron Patterson 97, Jeremy Kemper 89, Rafael França 90, José Valim 52, Xavier Noria 49). Rails reads as a project with several design authorities and a real succession in progress.
 
 ### Laravel: a one-architect universe
 
@@ -145,12 +145,12 @@ DHH still holds Design 100 and Indispensability 100 — the original structure i
 |---|---|---|---|---|
 | 1 | Taylor Otwell | 65.1 | 100 | 100 |
 | 2 | Luke Kuzmish | 6.5 | 2 | 50 |
-| 3 | Mior Muhammad Zaki | 4.4 | 3 | 0 |
-| 4 | Patrick Carlo-Hickman | 4.3 | 0 | 0 |
-| 5 | Caleb White | 2.9 | 1 | 50 |
-| 6 | Andrew Brown | 1.8 | 2 | 0 |
-| 7 | Lucas Michot | 1.7 | 5 | 0 |
-| 8 | Günther Debrauwer | 1.5 | 0 | 0 |
+| 3 | Mior Muhammad Zaki | 4.7 | 4 | 0 |
+| 4 | Caleb White | 4.4 | 1 | 50 |
+| 5 | Nuno Maduro | 2.8 | 5 | 50 |
+| 6 | Patrick Carlo-Hickman | 2.6 | 0 | 0 |
+| 7 | Andrew Brown | 2.0 | 4 | 0 |
+| 8 | Lucas Michot | 1.8 | 5 | 0 |
 
 Taylor Otwell holds essentially all of it: gravity 65.1, an order of magnitude above the next name, with Design 100 and Indispensability 100. No one else clears Design 5. The framework's surviving architecture runs through one person, and the gate confirms it rather than softening it.
 
@@ -158,10 +158,10 @@ Taylor Otwell holds essentially all of it: gravity 65.1, an order of magnitude a
 
 Both sit in the Framework-driven family, yet:
 
-- **Rails** behaves like a self-structured project from the inside. Top10 Design 44.4 is higher than most Go projects; concentration 9.4% is the lowest in the whole sample. DHH created the structure, but the gate shows the load no longer pools in him.
-- **Laravel** behaves like a creator-centric kingdom. Concentration 36.7%, Otwell at 65.1 — efficient, coherent, and a single point of failure if that one person ever steps away.
+- **Rails** behaves like a self-structured project from the inside. Top10 Design 57.0 is higher than most Go projects; concentration 9.8% is the lowest in the whole sample. DHH created the structure, but the gate shows the load no longer pools in him.
+- **Laravel** behaves like a creator-centric kingdom. Concentration 38.0%, Otwell at 65.1 — efficient, coherent, and a single point of failure if that one person ever steps away.
 
-**Same framework pattern. Opposite governance physics.** The within-family gap here (9.4% vs 36.7%) is wider than most between-family gaps. Whatever decides concentration, it is not the framework label and it is not the language.
+**Same framework pattern. Opposite governance physics.** The within-family gap here (9.8% vs 38.0%) is wider than most between-family gaps. Whatever decides concentration, it is not the framework label and it is not the language.
 
 ---
 
@@ -171,35 +171,35 @@ Both sit in the Framework-driven family, yet:
 
 | Repository | Family | Language | Engineers | Top10 Design | Top10 Survival | Top10 Gravity | Grav Conc (top-3) |
 |---|---|---|---|---|---|---|---|
-| polars | Expressive | Rust | 692 | 35.4 | 33.6 | 9.60 | 79.8% |
-| swc | Expressive | Rust | 357 | 20.4 | 13.4 | 9.78 | 91.5% |
-| rust | Expressive | Rust | 7,873 | 35.0 | 23.9 | 3.91 | 24.6% |
-| scala | Expressive | Scala | 772 | 31.9 | 5.1 | 2.50 | 37.1% |
-| scala3 | Expressive | Scala 3 | 983 | 16.0 | 19.1 | 2.74 | 38.6% |
-| argo-cd | Go (Self-structured) | Go | 1,875 | 38.8 | 26.2 | 4.05 | 51.2% |
-| esbuild | Go (Self-structured) | Go | 124 | 10.1 | 10.1 | 1.65 | 76.6% |
-| grafana | Go (Self-structured) | Go/TS | 2,854 | 30.4 | 21.4 | 6.33 | 44.8% |
-| kubernetes | Go (Self-structured) | Go | 5,010 | 13.8 | 26.1 | 4.08 | 26.2% |
-| loki | Go (Self-structured) | Go | 1,307 | 32.4 | 7.8 | 3.67 | 25.9% |
-| prometheus | Go (Self-structured) | Go | 1,230 | 51.4 | 11.6 | 8.25 | 59.7% |
-| terraform | Go (Self-structured) | Go | 2,205 | 47.4 | 37.2 | 7.16 | 56.3% |
-| rails | Framework-driven | Ruby | 6,402 | 44.4 | 14.5 | 2.17 | 9.4% |
-| laravel | Framework-driven | PHP | 4,400 | 11.3 | 35.1 | 9.07 | 36.7% |
-| spring-boot | Framework-driven | Java | 1,476 | 27.4 | 31.2 | 10.88 | 97.7% |
-| nest | Framework-driven | TypeScript | 666 | 11.0 | 13.8 | 2.27 | 66.3% |
-| fastapi | Framework-driven | Python | 880 | 12.2 | 11.4 | 1.62 | 94.5% |
-| phoenix | Framework-driven | Elixir | 1,380 | 16.4 | 14.7 | 9.77 | 62.8% |
-| ClickHouse | Systems (C/C++) | C++ | 2,462 | 15.2 | 28.7 | 2.82 | 35.0% |
-| arrow | Systems (C/C++) | C++/Multi | 1,464 | 13.4 | 29.5 | 1.35 | 13.4% |
-| duckdb | Systems (C/C++) | C++ | 661 | 23.2 | 16.6 | 1.75 | 29.6% |
-| envoy | Systems (C/C++) | C++ | 1,442 | 40.9 | 15.8 | 1.67 | 7.6% |
-| redis | Systems (C/C++) | C | 900 | 14.2 | 29.7 | 1.17 | 12.0% |
-| eslint | Dynamic / Structural | JavaScript | 1,174 | 23.5 | 15.4 | 9.50 | 66.2% |
-| express | Dynamic / Structural | JavaScript | 389 | 14.2 | 7.2 | 1.27 | 60.0% |
-| prettier | Dynamic / Structural | JavaScript | 796 | 23.6 | 11.1 | 9.27 | 93.8% |
-| react | Dynamic / Structural | JavaScript | 1,991 | 25.3 | 24.2 | 2.17 | 27.4% |
-| superset | Dynamic / Structural | Python/TS | 1,469 | 44.8 | 25.1 | 4.96 | 42.1% |
-| vite | Dynamic / Structural | TypeScript | 1,241 | 33.1 | 15.9 | 9.62 | 51.9% |
+| polars | Expressive | Rust | 665 | 38.4 | 11.2 | 9.51 | 78.4% |
+| swc | Expressive | Rust | 349 | 17.8 | 16.9 | 9.76 | 92.0% |
+| rust | Expressive | Rust | 7,215 | 33.5 | 11.5 | 3.96 | 27.6% |
+| scala | Expressive | Scala | 709 | 31.4 | 10.0 | 2.74 | 37.3% |
+| scala3 | Expressive | Scala 3 | 895 | 16.6 | 26.1 | 2.75 | 38.9% |
+| argo-cd | Go (Self-structured) | Go | 1,832 | 35.4 | 19.1 | 3.88 | 50.9% |
+| esbuild | Go (Self-structured) | Go | 124 | 10.0 | 0.0 | 1.64 | 77.0% |
+| grafana | Go (Self-structured) | Go/TS | 2,715 | 25.8 | 20.5 | 5.98 | 45.1% |
+| kubernetes | Go (Self-structured) | Go | 4,510 | 15.4 | 16.2 | 4.23 | 27.5% |
+| loki | Go (Self-structured) | Go | 1,272 | 48.6 | 10.0 | 4.84 | 29.8% |
+| prometheus | Go (Self-structured) | Go | 1,159 | 43.1 | 14.0 | 6.84 | 64.4% |
+| terraform | Go (Self-structured) | Go | 2,121 | 47.4 | 27.2 | 7.16 | 56.2% |
+| rails | Framework-driven | Ruby | 6,056 | 57.0 | 2.5 | 2.44 | 9.8% |
+| laravel | Framework-driven | PHP | 4,149 | 12.0 | 44.7 | 9.27 | 38.0% |
+| spring-boot | Framework-driven | Java | 1,430 | 29.9 | 21.5 | 11.81 | 97.2% |
+| nest | Framework-driven | TypeScript | 638 | 10.6 | 20.3 | 2.27 | 68.1% |
+| fastapi | Framework-driven | Python | 861 | 11.5 | 0.0 | 1.62 | 94.5% |
+| phoenix | Framework-driven | Elixir | 1,343 | 19.2 | 10.0 | 9.85 | 63.5% |
+| ClickHouse | Systems (C/C++) | C++ | 2,189 | 29.0 | 11.1 | 3.41 | 33.9% |
+| arrow | Systems (C/C++) | C++/Multi | 1,369 | 18.5 | 10.2 | 1.44 | 14.8% |
+| duckdb | Systems (C/C++) | C++ | 618 | 16.5 | 17.3 | 8.97 | 83.5% |
+| envoy | Systems (C/C++) | C++ | 1,377 | 41.0 | 10.0 | 1.66 | 7.9% |
+| redis | Systems (C/C++) | C | 848 | 15.5 | 0.0 | 1.25 | 9.6% |
+| eslint | Dynamic / Structural | JavaScript | 1,153 | 24.1 | 18.6 | 9.53 | 66.8% |
+| express | Dynamic / Structural | JavaScript | 378 | 14.2 | 10.0 | 1.27 | 60.3% |
+| prettier | Dynamic / Structural | JavaScript | 782 | 16.4 | 19.1 | 9.20 | 95.3% |
+| react | Dynamic / Structural | JavaScript | 1,927 | 33.3 | 10.0 | 2.57 | 31.4% |
+| superset | Dynamic / Structural | Python/TS | 1,433 | 52.5 | 13.4 | 6.09 | 47.7% |
+| vite | Dynamic / Structural | TypeScript | 1,204 | 30.6 | 15.0 | 10.19 | 59.9% |
 ---
 
 ## Interpretation
@@ -210,7 +210,7 @@ Both sit in the Framework-driven family, yet:
 
 Reading the data straight, concentration does not sort cleanly by type system. It sorts by how a community arranges its load-bearing role. Three patterns recur, and they cut *across* language families:
 
-1. **Single-founder gravity** — one creator's surviving structure is what the system rests on, and no one else has come to contest it yet. swc (kdy1), prettier (fisker Cheung), spring-boot, fastapi, polars, laravel. These span Rust, JavaScript, Java, Python, PHP. The common thread is governance — a small core that no one else has built around — not the language.
+1. **Single-founder gravity** — one creator's surviving structure is what the system rests on, and no one else has come to contest it yet. swc (kdy1), prettier (fisker Cheung), vite (sapphi-red), spring-boot, fastapi, polars, laravel. These span Rust, JavaScript, TypeScript, Java, Python, PHP. The common thread is governance — a small core that no one else has built around — not the language.
 
 2. **Standing bench** — several authors hold contested, survived structure at once, with succession visibly underway. The rust compiler, kubernetes, rails, react, arrow. Again multiple languages; again the common thread is community shape.
 
@@ -251,15 +251,13 @@ Knowing which pattern a universe operates under may help reason about scaling, s
 
 The hypothesis that "the laws of physics are not uniform across code universes" holds — but the reason is not the one the language folklore would suggest.
 
-**Gravity concentration spans ~3.1x between Framework-driven projects (61.3%, most concentrated) and Systems / C++ (19.5%, most distributed).** Yet the family ordering is muddled in the middle, and the same language appears at both extremes: polars 79.8% beside the rust compiler 24.6%, esbuild 76.6% beside kubernetes 26.2%, prettier 93.8% beside react 27.4%. Language does not decide who a system leans on. **Governance does** — whether a single founder still holds the surviving, contested structure, or a standing bench has come to share it.
+**Gravity concentration spans ~2.1x between Framework-driven projects (61.9%, most concentrated) and Systems / C++ (30.0%, most distributed).** Yet the family ordering is muddled in the middle, and the same language appears at both extremes: polars 78.4% beside the rust compiler 27.6%, esbuild 77.0% beside kubernetes 27.5%, prettier 95.3% beside react 31.4%. Language does not decide who a system leans on. **Governance does** — whether a single founder still holds the surviving, contested structure, or a standing bench has come to share it.
 
-The Rails vs Laravel deep dive states it plainly. Same framework pattern, same era: Rails distributes (top-3 concentration 9.4%, DHH no longer leading its gravity), Laravel concentrates (36.7%, Otwell at 65.1, an order of magnitude clear). The gap between two projects in the same family is wider than the gap between most families.
+The Rails vs Laravel deep dive states it plainly. Same framework pattern, same era: Rails distributes (top-3 concentration 9.8%, DHH no longer leading its gravity), Laravel concentrates (38.0%, Otwell at 65.1, an order of magnitude clear). The gap between two projects in the same family is wider than the gap between most families.
 
 For years, debates about technology choices have been fought with experience and intuition. This data is a step toward reading the structural question — who a system actually rests on — from the light the commits leave behind.
 
 ---
 
 *Generated by [EIS (Engineering Impact Score)](https://github.com/machuz/eis) — OSS Gravity Map Project*
-*29 repositories, 54,475 engineers, observed through commit light.*
-</content>
-</invoke>
+*29 repositories, 51,321 engineers, observed through commit light.*

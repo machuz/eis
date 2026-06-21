@@ -37,17 +37,17 @@ where N = engineers in the repo, N_max = largest repo analyzed. This gives appro
 
 ## What We Found
 
-We pointed the Git Telescope at 29 of the most built-upon open-source projects — React, Kubernetes, Terraform, Redis, Rust, ClickHouse, and the rest — and read the structure left behind by 54,475 engineers.
+We pointed the Git Telescope at 29 of the most built-upon open-source projects — React, Kubernetes, Terraform, Redis, Rust, ClickHouse, and the rest — and read the structure left behind by 51,321 engineers.
 
 The question was never who commits the most. It was quieter: when thousands of people pass through a codebase over a decade, whose structure does the rest of the system end up leaning on — and does it still hold once others start pressing on it?
 
-Under the two honest gates — code that survives where *others* keep committing, and a foundation others actually build on — the names that rise are quiet ones once you see them. Jose Valim (Phoenix), Taylor Otwell (Laravel), Donny / kdy1 (swc), fisker Cheung (Prettier), Ritchie Vink (Polars), Josh Goldberg (ESLint): their gravity saturates their universe. Not because they are famous, and not because they were there first — being first earns nothing once your share erodes — but because the surviving shape of the system still rests on them while everyone else keeps editing around it.
+Under the two honest gates — code that survives where *others* keep committing, and a foundation others actually build on — the names that rise are quiet ones once you see them. sapphi-red (Vite), Jose Valim (Phoenix), fisker Cheung (Prettier), Taylor Otwell (Laravel), Josh Goldberg (ESLint), Donny / kdy1 (swc), Ritchie Vink (Polars): their gravity saturates their universe. Not because they are famous, and not because they were there first — being first earns nothing once your share erodes — but because the surviving shape of the system still rests on them while everyone else keeps editing around it.
 
 The gates also stay quiet where founding alone would have flattered. A foundation no one else still presses on reads as settled, not central: the telescope cannot see a structure no one is currently leaning on under load. Sebastian Markbåge sits at the top of React's gravity with the shape saturated — Indispensability 100, others plainly built on him (Catalysis 100) — yet his gravity reads a modest 10.8, because the Reconciler he laid down now sits largely undisturbed: robust survival near zero, no live pressure from others to witness. That is not a demotion. It is the instrument declining to confuse ownership, or a finished foundation, with gravity.
 
-And then there are the 351 engineers the map surfaces who never appear in a maintainer list — the **Hidden Architects**. They give no talks and hold no titles, yet the field lines run straight through their code: the part written years ago that the system still rests on today.
+And then there are the 355 engineers the map surfaces who never appear in a maintainer list — the **Hidden Architects**. They give no talks and hold no titles, yet the field lines run straight through their code: the part written years ago that the system still rests on today.
 
-Alongside them, 48 **Entropy Fighters** — high on both Debt Cleanup and robust survival — quietly hold back the second law in code that would otherwise drift.
+Alongside them, 50 **Entropy Fighters** — high on both Debt Cleanup and robust survival — quietly hold back the second law in code that would otherwise drift.
 
 This map is not a leaderboard. It leaves a question open: once the noise of activity is filtered out, what does a system actually lean on — and would anyone notice if that quietly left?
 
@@ -57,103 +57,103 @@ This map is not a leaderboard. It leaves a question open: once the noise of acti
 
 Each project is its own universe with independently normalized scores. These are the gravity leaders within their respective ecosystems.
 
-### rust (7,873 engineers)
+### rust (7,215 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Michael Goulet | 10.5 | 100 | 100 | 70 | Anchor | Balanced |
-| 2 | Nicholas Nethercote | 8.9 | 59 | 92 | 30 | — | Balanced |
-| 3 | Guillaume Gomez | 5.8 | 7 | 42 | 80 | — | — |
-| 4 | bjorn3 | 4.1 | 30 | 99 | 100 | — | Spread |
-| 5 | Ralf Jung | 3.1 | 63 | 26 | 40 | — | — |
+| 2 | Nicholas Nethercote | 9.7 | 70 | 92 | 30 | — | Balanced |
+| 3 | Guillaume Gomez | 5.7 | 7 | 42 | 80 | — | — |
+| 4 | bjorn3 | 4.1 | 21 | 99 | 100 | — | Spread |
+| 5 | Ralf Jung | 2.3 | 35 | 26 | 40 | — | — |
 
 *Entropy Fighters*: **Jonathan Brouwer** (debt=100, robust_surv=0), **Kyle Huey** (debt=50, robust_surv=0), **Chayim Refael Friedman** (debt=52, robust_surv=0)
 
-Gravity Concentration (top-3): 24.6% · Top-10 Overlap with GitHub: 40%
+Gravity Concentration (top-3): 27.6% · Top-10 Overlap with GitHub: 40%
 
 ---
 
-### rails (6,402 engineers)
+### rails (6,056 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | David Heinemeier Hansson | 4.0 | 100 | 38 | 100 | — | — |
-| 2 | zzak | 3.5 | 1 | 68 | 29 | — | Spread |
-| 3 | Jean Boussier | 3.2 | 38 | 59 | 0 | — | — |
-| 4 | Rafael Mendonça França | 3.0 | 68 | 100 | 21 | — | — |
-| 5 | Matthew Draper | 1.9 | 13 | 27 | 0 | — | — |
+| 2 | Jean Boussier | 3.8 | 49 | 59 | 0 | — | — |
+| 3 | Rafael Mendonça França | 3.6 | 90 | 100 | 21 | — | — |
+| 4 | zzak | 3.5 | 1 | 68 | 29 | — | Spread |
+| 5 | Matthew Draper | 2.7 | 24 | 27 | 0 | — | — |
 
 *Entropy Fighters*: **Mike Dalessio** (debt=92, robust_surv=0)
 
-Gravity Concentration (top-3): 9.4% · Top-10 Overlap with GitHub: 0%
+Gravity Concentration (top-3): 9.8% · Top-10 Overlap with GitHub: 0%
 
 ---
 
-### kubernetes (5,010 engineers)
+### kubernetes (4,510 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Tim Allclair | 15.6 | 1 | 23 | 50 | — | Balanced |
-| 2 | Davanum Srinivas | 12.4 | 2 | 49 | 75 | Producer | Balanced |
-| 3 | Patrick Ohly | 4.1 | 9 | 65 | 25 | Anchor | Balanced |
-| 4 | Jordan Liggitt | 2.0 | 9 | 40 | 75 | Producer | Rescue |
+| 1 | Tim Allclair | 16.3 | 3 | 23 | 50 | — | Balanced |
+| 2 | Davanum Srinivas | 13.0 | 5 | 49 | 75 | Producer | Balanced |
+| 3 | Patrick Ohly | 4.3 | 11 | 65 | 25 | Anchor | Balanced |
+| 4 | Jordan Liggitt | 2.1 | 14 | 40 | 75 | Producer | Rescue |
 | 5 | Chao Xu | 1.2 | 100 | 27 | 0 | Producer | Churn |
 
 *Entropy Fighters*: **Tim Allclair** (debt=70, robust_surv=100), **Dan Winship** (debt=79, robust_surv=0)
 
-Gravity Concentration (top-3): 26.2% · Top-10 Overlap with GitHub: 20%
+Gravity Concentration (top-3): 27.5% · Top-10 Overlap with GitHub: 20%
 
 ---
 
-### laravel (4,400 engineers)
+### laravel (4,149 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Taylor Otwell | 65.1 | 100 | 19 | 100 | — | Balanced |
-| 2 | Luke Kuzmish | 6.5 | 2 | 55 | 50 | — | — |
-| 3 | Mior Muhammad Zaki | 4.4 | 3 | 26 | 0 | Specialist | Balanced |
-| 4 | Patrick Carlo-Hickman | 4.3 | 0 | 33 | 0 | — | Balanced |
-| 5 | Caleb White | 2.9 | 1 | 39 | 50 | — | — |
+| 2 | Luke Kuzmish | 6.5 | 2 | 54 | 50 | — | — |
+| 3 | Mior Muhammad Zaki | 4.7 | 4 | 26 | 0 | Specialist | Balanced |
+| 4 | Caleb White | 4.4 | 1 | 39 | 50 | — | Balanced |
+| 5 | Nuno Maduro | 2.8 | 5 | 29 | 50 | — | — |
 
 *Entropy Fighters*: **Sander Muller** (debt=100, robust_surv=43)
 
-Gravity Concentration (top-3): 36.7% · Top-10 Overlap with GitHub: 0%
+Gravity Concentration (top-3): 38.0% · Top-10 Overlap with GitHub: 0%
 
 ---
 
-### grafana (2,854 engineers)
+### grafana (2,715 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Ashley Harrison | 30.3 | 26 | 82 | 100 | — | Balanced |
-| 2 | Ryan McKinley | 14.6 | 95 | 100 | 100 | — | Balanced |
-| 3 | Josh Hunt | 3.7 | 11 | 32 | 8 | — | — |
-| 4 | Todd Treece | 3.1 | 9 | 54 | 92 | — | Spread |
-| 5 | Hugo Häggmark | 2.7 | 28 | 38 | 67 | — | — |
+| 1 | Ashley Harrison | 28.2 | 16 | 82 | 100 | — | Balanced |
+| 2 | Ryan McKinley | 14.9 | 100 | 100 | 100 | — | Balanced |
+| 3 | Todd Treece | 3.3 | 16 | 54 | 92 | — | Spread |
+| 4 | Josh Hunt | 3.2 | 6 | 32 | 8 | — | — |
+| 5 | Hugo Häggmark | 2.3 | 16 | 38 | 67 | — | — |
 
 *Entropy Fighters*: **Gonzalo Trigueros Manzanas** (debt=50, robust_surv=0), **Erik Sundell** (debt=61, robust_surv=32)
 
-Gravity Concentration (top-3): 44.8% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 45.1% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### ClickHouse (2,462 engineers)
+### ClickHouse (2,189 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Alexey Milovidov | 12.2 | 100 | 25 | 100 | Anchor | Builder |
-| 2 | Michael Kolupaev | 4.4 | 10 | 17 | 7 | — | Balanced |
-| 3 | Raúl Marín | 2.5 | 7 | 100 | 0 | — | Spread |
-| 4 | kssenii | 1.8 | 12 | 14 | 17 | Producer | — |
-| 5 | Azat Khuzhin | 1.7 | 2 | 74 | 10 | — | Spread |
+| 2 | Michael Kolupaev | 5.5 | 17 | 17 | 6 | — | Balanced |
+| 3 | kssenii | 3.5 | 44 | 14 | 16 | Producer | — |
+| 4 | Raúl Marín | 2.9 | 17 | 100 | 0 | — | Spread |
+| 5 | Nikolai Kochetov | 2.4 | 40 | 33 | 0 | Anchor | — |
 
 *Entropy Fighters*: **Alexey Milovidov** (debt=93, robust_surv=0), **Blargian** (debt=50, robust_surv=0)
 
-Gravity Concentration (top-3): 35.0% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 33.9% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### terraform (2,205 engineers)
+### terraform (2,121 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
@@ -165,273 +165,275 @@ Gravity Concentration (top-3): 35.0% · Top-10 Overlap with GitHub: 50%
 
 *Entropy Fighters*: **Daniel Schmidt** (debt=73, robust_surv=0), **Sarah French** (debt=92, robust_surv=0)
 
-Gravity Concentration (top-3): 56.3% · Top-10 Overlap with GitHub: 40%
+Gravity Concentration (top-3): 56.2% · Top-10 Overlap with GitHub: 40%
 
 ---
 
-### react (1,991 engineers)
+### react (1,927 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Sebastian Markbåge | 10.8 | 38 | 100 | 100 | Anchor | Balanced |
-| 2 | Lauren Tan | 2.5 | 6 | 46 | 8 | — | Balanced |
-| 3 | Andrew Clark | 2.4 | 100 | 61 | 54 | Producer | Churn |
-| 4 | lauren | 1.4 | 55 | 31 | 8 | Producer | — |
-| 5 | Brian Vaughn | 1.0 | 15 | 59 | 69 | — | Spread |
+| 1 | Sebastian Markbåge | 9.9 | 24 | 100 | 100 | Anchor | Balanced |
+| 2 | Lauren Tan | 6.3 | 50 | 33 | 15 | Producer | Resilient |
+| 3 | Joe Savona | 2.9 | 100 | 20 | 4 | Producer | — |
+| 4 | Andrew Clark | 1.9 | 64 | 61 | 54 | Producer | Churn |
+| 5 | Sebastian "Sebbie" Silbermann | 0.9 | 0 | 84 | 19 | Cleaner | — |
 
-*Entropy Fighters*: **Sebastian "Sebbie" Silbermann** (debt=90, robust_surv=0), **Sebastian Markbåge** (debt=57, robust_surv=0), **Hendrik Liebau** (debt=50, robust_surv=0)
+*Entropy Fighters*: **Sebastian "Sebbie" Silbermann** (debt=91, robust_surv=0), **Hendrik Liebau** (debt=50, robust_surv=0)
 
-Gravity Concentration (top-3): 27.4% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 31.4% · Top-10 Overlap with GitHub: 60%
 
 ---
 
-### argo-cd (1,875 engineers)
+### argo-cd (1,832 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Alexander Matyushentsev | 14.7 | 70 | 25 | 100 | Producer | Churn |
+| 1 | Alexander Matyushentsev | 13.7 | 59 | 25 | 100 | Producer | Churn |
 | 2 | Michael Crenshaw | 11.5 | 100 | 54 | 62 | Architect | Balanced |
-| 3 | Blake Pettersson | 4.4 | 55 | 43 | 8 | Anchor | Balanced |
-| 4 | Jesse Suen | 3.2 | 17 | 26 | 23 | — | — |
+| 3 | Blake Pettersson | 4.3 | 53 | 43 | 8 | Anchor | Balanced |
+| 4 | Jesse Suen | 2.9 | 13 | 26 | 23 | — | — |
 | 5 | Matthieu MOREL | 1.8 | 4 | 100 | 0 | — | Spread |
 
 *Entropy Fighters*: **Peter Jiang** (debt=98, robust_surv=0)
 
-Gravity Concentration (top-3): 51.2% · Top-10 Overlap with GitHub: 60%
+Gravity Concentration (top-3): 50.9% · Top-10 Overlap with GitHub: 60%
 
 ---
 
-### spring-boot (1,476 engineers)
+### superset (1,433 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Phillip Webb | 44.3 | 100 | 35 | 27 | Architect | Balanced |
-| 2 | Moritz Halbritter | 42.2 | 13 | 100 | 100 | — | Balanced |
-| 3 | Andy Wilkinson | 20.2 | 77 | 66 | 62 | Cleaner | Balanced |
-| 4 | Stéphane Nicoll | 0.8 | 2 | 19 | 24 | — | — |
-| 5 | Stephane Nicoll | 0.4 | 34 | 6 | 4 | — | — |
-
-Gravity Concentration (top-3): 97.7% · Top-10 Overlap with GitHub: 70%
-
----
-
-### superset (1,469 engineers)
-
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
-|------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Evan Rusackas | 13.1 | 27 | 80 | 89 | Anchor | Balanced |
-| 2 | Maxime Beauchemin | 10.7 | 79 | 45 | 67 | Anchor | Balanced |
-| 3 | Joe Li | 8.6 | 3 | 30 | 44 | Specialist | Balanced |
-| 4 | Beto Dealmeida | 6.3 | 42 | 74 | 100 | — | Balanced |
-| 5 | Ville Brofeldt | 2.7 | 23 | 54 | 89 | — | Spread |
+| 1 | Evan Rusackas | 20.5 | 100 | 80 | 89 | Architect | Balanced |
+| 2 | Maxime Beauchemin | 11.4 | 89 | 45 | 67 | Anchor | Balanced |
+| 3 | Joe Li | 11.2 | 18 | 30 | 44 | Specialist | Balanced |
+| 4 | Beto Dealmeida | 5.6 | 25 | 74 | 100 | — | Spread |
+| 5 | Michael S. Molina | 4.2 | 84 | 56 | 33 | Producer | — |
 
 *Entropy Fighters*: **Amin Ghadersohi** (debt=98, robust_surv=0)
 
-Gravity Concentration (top-3): 42.1% · Top-10 Overlap with GitHub: 70%
+Gravity Concentration (top-3): 47.7% · Top-10 Overlap with GitHub: 70%
 
 ---
 
-### arrow (1,464 engineers)
+### spring-boot (1,430 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Sutou Kouhei | 3.6 | 1 | 96 | 100 | — | Spread |
-| 2 | Antoine Pitrou | 2.7 | 26 | 21 | 27 | Specialist | — |
-| 3 | Krisztián Szűcs | 2.4 | 4 | 23 | 18 | — | — |
-| 4 | Wes McKinney | 1.4 | 100 | 27 | 36 | — | — |
-| 5 | Adam Reeve | 0.8 | 1 | 100 | 18 | — | Spread |
+| 1 | Moritz Halbritter | 50.2 | 36 | 100 | 100 | — | Balanced |
+| 2 | Phillip Webb | 44.3 | 100 | 35 | 27 | Architect | Balanced |
+| 3 | Andy Wilkinson | 20.6 | 79 | 66 | 62 | Cleaner | Balanced |
+| 4 | Stephane Nicoll | 1.9 | 36 | 19 | 28 | — | — |
+| 5 | Brian Clozel | 0.4 | 19 | 7 | 2 | — | — |
 
-*Entropy Fighters*: **Alina (Xi) Li** (debt=50, robust_surv=0), **justing-bq** (debt=50, robust_surv=0), **Rossi Sun** (debt=50, robust_surv=0)
-
-Gravity Concentration (top-3): 13.4% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 97.2% · Top-10 Overlap with GitHub: 70%
 
 ---
 
-### envoy (1,442 engineers)
+### envoy (1,377 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | code | 4.0 | 68 | 65 | 100 | — | — |
 | 2 | Rohit Agrawal | 2.9 | 23 | 36 | 0 | Cleaner | Balanced |
-| 3 | alyssawilk | 1.7 | 65 | 85 | 33 | — | — |
+| 3 | alyssawilk | 1.7 | 65 | 84 | 33 | — | — |
 | 4 | Matt Klein | 1.5 | 100 | 64 | 25 | — | — |
 | 5 | Marcel | 1.3 | 0 | 14 | 17 | — | — |
 
 *Entropy Fighters*: **Rohit Agrawal** (debt=62, robust_surv=0), **Marcel** (debt=50, robust_surv=100), **code** (debt=53, robust_surv=0)
 
-Gravity Concentration (top-3): 7.6% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 7.9% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### phoenix (1,380 engineers)
+### arrow (1,369 engineers)
+
+| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+|------|--------|---------|--------|---------|---------|------|-------|
+| 1 | Sutou Kouhei | 3.7 | 4 | 96 | 100 | — | Spread |
+| 2 | Antoine Pitrou | 3.6 | 48 | 21 | 21 | Specialist | — |
+| 3 | Krisztián Szűcs | 2.1 | 3 | 23 | 14 | — | — |
+| 4 | Wes McKinney | 1.4 | 100 | 27 | 29 | — | — |
+| 5 | Adam Reeve | 0.8 | 2 | 100 | 14 | — | Spread |
+
+*Entropy Fighters*: **Alina (Xi) Li** (debt=50, robust_surv=0), **justing-bq** (debt=50, robust_surv=0), **Rossi Sun** (debt=50, robust_surv=0)
+
+Gravity Concentration (top-3): 14.8% · Top-10 Overlap with GitHub: 60%
+
+---
+
+### phoenix (1,343 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Jose Valim | 88.2 | 100 | 53 | 100 | Architect | Balanced |
-| 2 | Chris McCord | 3.9 | 59 | 87 | 0 | — | — |
-| 3 | Steffen Deusch | 2.9 | 3 | 100 | 0 | — | Balanced |
+| 2 | Chris McCord | 4.9 | 89 | 87 | 0 | — | — |
+| 3 | Steffen Deusch | 2.9 | 2 | 100 | 0 | — | Balanced |
 | 4 | Aaron Renner | 0.6 | 0 | 97 | 0 | — | Spread |
-| 5 | Leandro Cesquini Pereira | 0.5 | 0 | 93 | 0 | — | Spread |
+| 5 | Eksperimental | 0.4 | 0 | 75 | 0 | — | Spread |
 
-Gravity Concentration (top-3): 62.8% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 63.5% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### loki (1,307 engineers)
+### loki (1,272 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Sandeep Sukhani | 6.2 | 59 | 32 | 82 | Anchor | Balanced |
-| 2 | Robert Fratto | 5.6 | 4 | 98 | 36 | — | Spread |
-| 3 | Cyril Tovena | 5.5 | 100 | 50 | 54 | Producer | Churn |
-| 4 | Trevor Whitney | 4.3 | 22 | 89 | 64 | Producer | Spread |
-| 5 | Christian Haudum | 3.9 | 41 | 94 | 91 | — | — |
+| 1 | Robert Fratto | 12.1 | 100 | 98 | 36 | — | Balanced |
+| 2 | Sandeep Sukhani | 5.9 | 54 | 32 | 82 | Anchor | Balanced |
+| 3 | Cyril Tovena | 5.4 | 96 | 50 | 54 | Producer | Churn |
+| 4 | benclive | 5.1 | 38 | 59 | 18 | Anchor | — |
+| 5 | Trevor Whitney | 4.9 | 39 | 89 | 64 | Producer | Balanced |
 
-Gravity Concentration (top-3): 25.9% · Top-10 Overlap with GitHub: 70%
+Gravity Concentration (top-3): 29.8% · Top-10 Overlap with GitHub: 70%
 
 ---
 
-### vite (1,241 engineers)
+### vite (1,204 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | 翠 | 56.3 | 28 | 100 | 73 | Cleaner | Balanced |
-| 2 | patak | 12.6 | 100 | 38 | 18 | — | — |
-| 3 | 翠 / green | 12.1 | 45 | 54 | 100 | — | — |
-| 4 | sapphi-red | 5.7 | 16 | 26 | 0 | — | Balanced |
-| 5 | Bjorn Lu | 3.0 | 25 | 48 | 18 | — | — |
+| 1 | sapphi-red | 90.7 | 79 | 100 | 100 | Architect | Balanced |
+| 2 | patak | 5.3 | 100 | 41 | 10 | — | — |
+| 3 | Vladimir Sheremet | 1.3 | 8 | 37 | 10 | — | — |
+| 4 | Bjorn Lu | 1.2 | 24 | 52 | 10 | — | — |
+| 5 | Evan You | 1.1 | 64 | 28 | 10 | — | — |
 
-*Entropy Fighters*: **翠** (debt=94, robust_surv=100), **sapphi-red** (debt=79, robust_surv=46)
+*Entropy Fighters*: **sapphi-red** (debt=87, robust_surv=100), **Vladimir Sheremet** (debt=50, robust_surv=37)
 
-Gravity Concentration (top-3): 51.9% · Top-10 Overlap with GitHub: 70%
+Gravity Concentration (top-3): 59.9% · Top-10 Overlap with GitHub: 60%
 
 ---
 
-### prometheus (1,230 engineers)
+### prometheus (1,159 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Julien Pivotto | 31.7 | 14 | 30 | 90 | — | Balanced |
-| 2 | Bartlomiej Plotka | 21.5 | 46 | 21 | 100 | — | Balanced |
-| 3 | Julius Volz | 8.9 | 96 | 12 | 50 | — | — |
-| 4 | beorn7 | 7.1 | 63 | 33 | 30 | — | — |
-| 5 | bwplotka | 2.7 | 74 | 14 | 10 | — | — |
+| 1 | Julien Pivotto | 35.8 | 20 | 6 | 100 | Specialist | Balanced |
+| 2 | bwplotka | 12.3 | 100 | 28 | 100 | Cleaner | Balanced |
+| 3 | beorn7 | 6.1 | 56 | 36 | 25 | — | — |
+| 4 | Julius Volz | 5.9 | 73 | 12 | 42 | — | — |
+| 5 | Matthieu MOREL | 2.0 | 6 | 100 | 17 | — | Spread |
 
-Gravity Concentration (top-3): 59.7% · Top-10 Overlap with GitHub: 50%
+*Entropy Fighters*: **bwplotka** (debt=72, robust_surv=0)
+
+Gravity Concentration (top-3): 64.4% · Top-10 Overlap with GitHub: 40%
 
 ---
 
-### eslint (1,174 engineers)
+### eslint (1,153 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Josh Goldberg ✨ | 77.1 | 100 | 69 | 50 | Architect | Balanced |
-| 2 | Francesco Trotta | 6.9 | 10 | 73 | 0 | — | Spread |
-| 3 | Nicholas C. Zakas | 4.1 | 30 | 38 | 100 | — | — |
+| 2 | Francesco Trotta | 7.1 | 12 | 73 | 0 | — | Spread |
+| 3 | Nicholas C. Zakas | 4.3 | 36 | 38 | 100 | — | — |
 | 4 | Milos Djermanovic | 2.0 | 9 | 27 | 25 | — | — |
-| 5 | Toru Nagashima | 1.2 | 32 | 36 | 100 | — | — |
+| 5 | Toru Nagashima | 1.2 | 34 | 36 | 100 | — | — |
 
 *Entropy Fighters*: **Francesco Trotta** (debt=85, robust_surv=66)
 
-Gravity Concentration (top-3): 66.2% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 66.8% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### scala3 (983 engineers)
+### scala3 (895 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Li Haoyi | 7.2 | 0 | 48 | 0 | — | Balanced |
-| 2 | noti0na1 | 5.7 | 4 | 85 | 0 | — | Spread |
-| 3 | Jamie Thompson | 4.6 | 3 | 72 | 26 | — | Spread |
+| 2 | noti0na1 | 5.6 | 4 | 85 | 0 | — | Spread |
+| 3 | Jamie Thompson | 4.7 | 4 | 72 | 26 | — | Spread |
 | 4 | Martin Odersky | 3.2 | 100 | 100 | 38 | — | — |
-| 5 | Nicolas Stucki | 2.2 | 34 | 57 | 100 | — | Spread |
+| 5 | Nicolas Stucki | 2.3 | 39 | 57 | 100 | — | — |
 
 *Entropy Fighters*: **Li Haoyi** (debt=96, robust_surv=52), **Oliver Bračevac** (debt=96, robust_surv=44)
 
-Gravity Concentration (top-3): 38.6% · Top-10 Overlap with GitHub: 0%
+Gravity Concentration (top-3): 38.9% · Top-10 Overlap with GitHub: 0%
 
 ---
 
-### redis (900 engineers)
-
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
-|------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Salvatore Sanfilippo | 3.8 | 100 | 60 | 100 | — | — |
-| 2 | Moti Cohen | 1.6 | 7 | 30 | 0 | Cleaner | — |
-| 3 | Ozan Tezcan | 1.2 | 5 | 28 | 0 | Specialist | — |
-| 4 | debing.sun | 1.1 | 4 | 34 | 0 | — | — |
-| 5 | Oran Agra | 0.9 | 16 | 84 | 8 | — | Spread |
-
-*Entropy Fighters*: **Mincho Paskalev** (debt=53, robust_surv=0), **Slavomir Kaslev** (debt=85, robust_surv=0), **debing.sun** (debt=81, robust_surv=0)
-
-Gravity Concentration (top-3): 12.0% · Top-10 Overlap with GitHub: 40%
-
----
-
-### fastapi (880 engineers)
+### fastapi (861 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Sebastian Ramirez | 15.0 | 100 | 100 | 100 | — | Balanced |
 | 2 | Motov Yurii | 0.4 | 2 | 46 | 7 | Producer | — |
-| 3 | Mohammed | 0.1 | 9 | 5 | 0 | Producer | Churn |
+| 3 | Mohammed | 0.1 | 5 | 5 | 0 | Producer | Churn |
 | 4 | Charlie Marsh | 0.1 | 0 | 11 | 0 | — | — |
-| 5 | Nima Mashhadi M. Reza | 0.1 | 4 | 18 | 0 | — | — |
+| 5 | Ofek Lev | 0.1 | 0 | 9 | 0 | Producer | Churn |
 
 Gravity Concentration (top-3): 94.5% · Top-10 Overlap with GitHub: 20%
 
 ---
 
-### prettier (796 engineers)
+### redis (848 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | fisker Cheung | 86.7 | 100 | 100 | 56 | Architect | Balanced |
-| 2 | Konv Suu | 2.2 | 0 | 55 | 1 | — | Balanced |
-| 3 | Christopher Chedeau | 1.2 | 39 | 6 | 100 | — | — |
-| 4 | Sosuke Suzuki | 0.7 | 12 | 96 | 0 | — | Spread |
-| 5 | Ika | 0.5 | 32 | 30 | 3 | Producer | — |
+| 1 | Salvatore Sanfilippo | 3.8 | 100 | 60 | 100 | — | — |
+| 2 | Moti Cohen | 2.0 | 12 | 31 | 0 | Cleaner | Balanced |
+| 3 | Ozan Tezcan | 1.4 | 7 | 28 | 0 | Specialist | — |
+| 4 | debing.sun | 1.2 | 6 | 34 | 0 | — | — |
+| 5 | Oran Agra | 0.9 | 17 | 85 | 8 | — | Spread |
 
-*Entropy Fighters*: **Konv Suu** (debt=100, robust_surv=96), **fisker Cheung** (debt=54, robust_surv=100)
+*Entropy Fighters*: **Mincho Paskalev** (debt=53, robust_surv=0), **Slavomir Kaslev** (debt=85, robust_surv=0), **debing.sun** (debt=81, robust_surv=0)
 
-Gravity Concentration (top-3): 93.8% · Top-10 Overlap with GitHub: 40%
+Gravity Concentration (top-3): 9.6% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### scala (772 engineers)
+### prettier (782 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Martin Odersky | 8.9 | 76 | 29 | 60 | Architect | Balanced |
-| 2 | Lukas Rytz | 8.7 | 20 | 98 | 80 | — | Balanced |
-| 3 | Paul Phillips | 1.8 | 100 | 65 | 60 | — | — |
-| 4 | Adriaan Moors | 1.6 | 36 | 100 | 100 | — | Spread |
-| 5 | Jamie Thompson | 1.0 | 0 | 49 | 80 | — | — |
+| 1 | fisker Cheung | 87.1 | 100 | 100 | 57 | Architect | Balanced |
+| 2 | Konv Suu | 2.1 | 1 | 55 | 1 | — | Balanced |
+| 3 | Christopher Chedeau | 1.0 | 17 | 6 | 100 | — | — |
+| 4 | Sosuke Suzuki | 0.4 | 10 | 58 | 0 | — | Spread |
+| 5 | Alexander Kachkaev | 0.4 | 3 | 64 | 0 | — | Spread |
 
-*Entropy Fighters*: **Lukas Rytz** (debt=92, robust_surv=0)
+*Entropy Fighters*: **Konv Suu** (debt=100, robust_surv=90), **fisker Cheung** (debt=61, robust_surv=100)
 
-Gravity Concentration (top-3): 37.1% · Top-10 Overlap with GitHub: 0%
+Gravity Concentration (top-3): 95.3% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### polars (692 engineers)
+### scala (709 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Ritchie Vink | 68.4 | 90 | 73 | 100 | Anchor | Resilient |
+| 1 | Lukas Rytz | 9.7 | 36 | 98 | 80 | — | Balanced |
+| 2 | Martin Odersky | 7.9 | 62 | 29 | 60 | Architect | Balanced |
+| 3 | Som Snytt | 2.9 | 15 | 53 | 0 | Cleaner | Balanced |
+| 4 | Paul Phillips | 1.8 | 100 | 65 | 60 | — | — |
+| 5 | Adriaan Moors | 1.5 | 23 | 100 | 100 | — | Spread |
+
+*Entropy Fighters*: **Som Snytt** (debt=100, robust_surv=0), **Lukas Rytz** (debt=92, robust_surv=0)
+
+Gravity Concentration (top-3): 37.3% · Top-10 Overlap with GitHub: 0%
+
+---
+
+### polars (665 engineers)
+
+| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+|------|--------|---------|--------|---------|---------|------|-------|
+| 1 | Ritchie Vink | 65.3 | 81 | 73 | 100 | Anchor | Resilient |
 | 2 | Gijs Burghoorn | 9.3 | 100 | 58 | 8 | Anchor | Balanced |
-| 3 | Orson Peters | 7.6 | 61 | 100 | 16 | Cleaner | Balanced |
-| 4 | nameexhaustion | 6.8 | 69 | 61 | 5 | Cleaner | Balanced |
-| 5 | Stijn de Gooijer | 1.2 | 18 | 70 | 5 | — | Spread |
+| 3 | nameexhaustion | 8.4 | 94 | 61 | 5 | Cleaner | Balanced |
+| 4 | Orson Peters | 8.3 | 73 | 100 | 16 | Cleaner | Balanced |
+| 5 | Stijn de Gooijer | 1.1 | 15 | 70 | 5 | — | Spread |
 
 *Entropy Fighters*: **nameexhaustion** (debt=80, robust_surv=0), **Orson Peters** (debt=72, robust_surv=0)
 
-Gravity Concentration (top-3): 79.8% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 78.4% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### nest (666 engineers)
+### nest (638 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
@@ -439,31 +441,31 @@ Gravity Concentration (top-3): 79.8% · Top-10 Overlap with GitHub: 50%
 | 2 | mag123c | 1.0 | 0 | 42 | 0 | — | — |
 | 3 | Yuta Saito | 0.6 | 0 | 100 | 0 | — | Spread |
 | 4 | John Biundo | 0.5 | 0 | 82 | 4 | — | Spread |
-| 5 | Micael Levi L. Cavalcante | 0.4 | 0 | 51 | 6 | — | — |
+| 5 | Micael Levi (@micalevisk) | 0.5 | 3 | 52 | 6 | — | — |
 
 *Entropy Fighters*: **som14062005** (debt=50, robust_surv=100), **shash-hq** (debt=50, robust_surv=0), **Vasil Chomakov** (debt=50, robust_surv=33)
 
-Gravity Concentration (top-3): 66.3% · Top-10 Overlap with GitHub: 10%
+Gravity Concentration (top-3): 68.1% · Top-10 Overlap with GitHub: 0%
 
 ---
 
-### duckdb (661 engineers)
+### duckdb (618 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Mytherin | 3.9 | 10 | 24 | 4 | Cleaner | Balanced |
-| 2 | Mark Raasveldt | 3.2 | 100 | 98 | 100 | Producer | Churn |
-| 3 | taniabogatsch | 2.5 | 12 | 73 | 0 | — | Spread |
-| 4 | Pedro Holanda | 1.6 | 19 | 8 | 21 | Producer | — |
-| 5 | Laurens Kuiper | 1.5 | 20 | 100 | 43 | Producer | Churn |
+| 1 | Mark Raasveldt | 81.7 | 100 | 27 | 100 | Anchor | Builder |
+| 2 | taniabogatsch | 2.1 | 6 | 73 | 0 | Producer | Spread |
+| 3 | Laurens Kuiper | 1.1 | 12 | 100 | 34 | Producer | Churn |
+| 4 | Hannes Mühleisen | 0.8 | 5 | 36 | 63 | Producer | Churn |
+| 5 | Tishj | 0.8 | 20 | 61 | 6 | Producer | Churn |
 
-*Entropy Fighters*: **Mytherin** (debt=77, robust_surv=100)
+*Entropy Fighters*: **Mark Raasveldt** (debt=65, robust_surv=100)
 
-Gravity Concentration (top-3): 29.6% · Top-10 Overlap with GitHub: 50%
+Gravity Concentration (top-3): 83.5% · Top-10 Overlap with GitHub: 50%
 
 ---
 
-### express (389 engineers)
+### express (378 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
@@ -475,21 +477,23 @@ Gravity Concentration (top-3): 29.6% · Top-10 Overlap with GitHub: 50%
 
 *Entropy Fighters*: **Ishita Singh** (debt=50, robust_surv=0), **sukdev24** (debt=50, robust_surv=0)
 
-Gravity Concentration (top-3): 60.0% · Top-10 Overlap with GitHub: 40%
+Gravity Concentration (top-3): 60.3% · Top-10 Overlap with GitHub: 40%
 
 ---
 
-### swc (357 engineers)
+### swc (349 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Donny (kdy1) | 89.1 | 100 | 56 | 100 | Architect | Balanced |
-| 2 | quininer | 3.7 | 1 | 100 | 4 | — | Spread |
-| 3 | magic-akari | 1.4 | 32 | 65 | 4 | Producer | Churn |
-| 4 | bohan | 0.9 | 22 | 21 | 1 | — | — |
-| 5 | CPunisher | 0.7 | 24 | 11 | 1 | Producer | Churn |
+| 1 | Donny (kdy1) | 89.2 | 100 | 57 | 100 | Architect | Builder |
+| 2 | quininer | 3.8 | 1 | 100 | 4 | — | Spread |
+| 3 | magic-akari | 1.2 | 22 | 65 | 4 | Producer | Churn |
+| 4 | bohan | 0.7 | 16 | 21 | 1 | — | — |
+| 5 | CPunisher | 0.6 | 17 | 11 | 1 | Producer | Churn |
 
-Gravity Concentration (top-3): 91.5% · Top-10 Overlap with GitHub: 70%
+*Entropy Fighters*: **Donny (kdy1)** (debt=87, robust_surv=100)
+
+Gravity Concentration (top-3): 92.0% · Top-10 Overlap with GitHub: 70%
 
 ---
 
@@ -498,14 +502,14 @@ Gravity Concentration (top-3): 91.5% · Top-10 Overlap with GitHub: 70%
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Evan Wallace | 15.0 | 100 | 100 | 100 | Cleaner | Balanced |
-| 2 | John Gozde | 0.2 | 1 | 26 | 0 | Producer | Churn |
-| 3 | Chris Casola | 0.2 | 0 | 31 | 0 | — | — |
-| 4 | zhoujiaweii | 0.2 | 0 | 38 | 0 | — | — |
-| 5 | Day | 0.2 | 0 | 37 | 0 | — | — |
+| 2 | Chris Casola | 0.2 | 0 | 31 | 0 | — | — |
+| 3 | zhoujiaweii | 0.2 | 0 | 38 | 0 | — | — |
+| 4 | Day | 0.2 | 0 | 37 | 0 | — | — |
+| 5 | Luke Sheard | 0.2 | 0 | 28 | 0 | — | — |
 
 *Entropy Fighters*: **Evan Wallace** (debt=54, robust_surv=0)
 
-Gravity Concentration (top-3): 76.6% · Top-10 Overlap with GitHub: 20%
+Gravity Concentration (top-3): 77.0% · Top-10 Overlap with GitHub: 20%
 
 ---
 
@@ -515,69 +519,69 @@ Gravity Concentration (top-3): 76.6% · Top-10 Overlap with GitHub: 20%
 
 | Rank | Engineer | Project | Universe | Gravity (local) | Adjusted | Role | Status |
 |------|----------|---------|----------|-----------------|----------|------|--------|
-| 1 | Jose Valim | phoenix | 1,380 | 88.2 | 71.1 | Architect | Maintainer |
-| 2 | fisker Cheung | prettier | 796 | 86.7 | 64.6 | Architect | Maintainer |
-| 3 | Taylor Otwell | laravel | 4,400 | 65.1 | 60.9 | — | **Hidden** |
-| 4 | Josh Goldberg ✨ | eslint | 1,174 | 77.1 | 60.7 | Architect | **Hidden** |
-| 5 | Donny (kdy1) | swc | 357 | 89.1 | 58.4 | Architect | Maintainer |
-| 6 | Ritchie Vink | polars | 692 | 68.4 | 49.9 | Anchor | Maintainer |
-| 7 | 翠 | vite | 1,241 | 56.3 | 44.7 | Cleaner | Maintainer |
-| 8 | Phillip Webb | spring-boot | 1,476 | 44.3 | 36.0 | Architect | Maintainer |
-| 9 | Moritz Halbritter | spring-boot | 1,476 | 42.2 | 34.3 | — | Maintainer |
-| 10 | Ashley Harrison | grafana | 2,854 | 30.3 | 26.9 | — | Maintainer |
-| 11 | Julien Pivotto | prometheus | 1,230 | 31.7 | 25.1 | — | **Hidden** |
-| 12 | Liam Cervante | terraform | 2,205 | 27.1 | 23.3 | Architect | **Hidden** |
-| 13 | Bartlomiej Plotka | prometheus | 1,230 | 21.5 | 17.1 | — | Maintainer |
-| 14 | Andy Wilkinson | spring-boot | 1,476 | 20.2 | 16.4 | Cleaner | Maintainer |
-| 15 | Tim Allclair | kubernetes | 5,010 | 15.6 | 14.8 | — | **Hidden** |
-| 16 | Kamil Myśliwiec | nest | 666 | 18.9 | 13.7 | Specialist | **Hidden** |
-| 17 | Ryan McKinley | grafana | 2,854 | 14.6 | 12.9 | — | Maintainer |
-| 18 | Alexander Matyushentsev | argo-cd | 1,875 | 14.7 | 12.3 | Producer | Maintainer |
-| 19 | Davanum Srinivas | kubernetes | 5,010 | 12.4 | 11.8 | Producer | **Hidden** |
-| 20 | Sebastian Ramirez | fastapi | 880 | 15.0 | 11.3 | — | Maintainer |
-| 21 | Evan Rusackas | superset | 1,469 | 13.1 | 10.6 | Anchor | Maintainer |
-| 22 | Alexey Milovidov | ClickHouse | 2,462 | 12.2 | 10.6 | Anchor | Maintainer |
-| 23 | Michael Goulet | rust | 7,873 | 10.5 | 10.5 | Anchor | Maintainer |
-| 24 | patak | vite | 1,241 | 12.6 | 10.0 | — | Maintainer |
-| 25 | Michael Crenshaw | argo-cd | 1,875 | 11.5 | 9.7 | Architect | Maintainer |
-| 26 | 翠 / green | vite | 1,241 | 12.1 | 9.6 | — | **Hidden** |
-| 27 | Sebastian Markbåge | react | 1,991 | 10.8 | 9.1 | Anchor | Known |
-| 28 | Nicholas Nethercote | rust | 7,873 | 8.9 | 8.9 | — | **Hidden** |
-| 29 | Samsondeen | terraform | 2,205 | 10.2 | 8.8 | — | **Hidden** |
-| 30 | Maxime Beauchemin | superset | 1,469 | 10.7 | 8.7 | Anchor | Maintainer |
-| 31 | Evan Wallace | esbuild | 124 | 15.0 | 8.1 | Cleaner | Maintainer |
-| 32 | Daniel Schmidt | terraform | 2,205 | 8.9 | 7.6 | Cleaner | Maintainer |
-| 33 | Julius Volz | prometheus | 1,230 | 8.9 | 7.1 | — | Maintainer |
-| 34 | Joe Li | superset | 1,469 | 8.6 | 7.0 | Specialist | **Hidden** |
-| 35 | Gijs Burghoorn | polars | 692 | 9.3 | 6.8 | Anchor | Maintainer |
-| 36 | Martin Atkins | terraform | 2,205 | 7.9 | 6.8 | Producer | Known |
-| 37 | Martin Odersky | scala | 772 | 8.9 | 6.6 | Architect | **Hidden** |
-| 38 | Lukas Rytz | scala | 772 | 8.7 | 6.4 | — | **Hidden** |
-| 39 | Luke Kuzmish | laravel | 4,400 | 6.5 | 6.1 | — | **Hidden** |
-| 40 | Guillaume Gomez | rust | 7,873 | 5.8 | 5.8 | — | Maintainer |
-| 41 | beorn7 | prometheus | 1,230 | 7.1 | 5.6 | — | **Hidden** |
-| 42 | Orson Peters | polars | 692 | 7.6 | 5.5 | Cleaner | Maintainer |
-| 43 | Li Haoyi | scala3 | 983 | 7.2 | 5.5 | — | **Hidden** |
-| 44 | Douglas Christopher Wilson | express | 389 | 8.3 | 5.5 | — | Maintainer |
-| 45 | Francesco Trotta | eslint | 1,174 | 6.9 | 5.4 | — | Maintainer |
-| 46 | Beto Dealmeida | superset | 1,469 | 6.3 | 5.1 | — | Maintainer |
-| 47 | Sandeep Sukhani | loki | 1,307 | 6.2 | 5.0 | Anchor | Maintainer |
-| 48 | nameexhaustion | polars | 692 | 6.8 | 5.0 | Cleaner | Maintainer |
-| 49 | sapphi-red | vite | 1,241 | 5.7 | 4.5 | — | **Hidden** |
-| 50 | Robert Fratto | loki | 1,307 | 5.6 | 4.5 | — | **Hidden** |
+| 1 | sapphi-red | vite | 1,204 | 90.7 | 72.4 | Architect | Maintainer |
+| 2 | Jose Valim | phoenix | 1,343 | 88.2 | 71.5 | Architect | Maintainer |
+| 3 | fisker Cheung | prettier | 782 | 87.1 | 65.3 | Architect | Maintainer |
+| 4 | Josh Goldberg ✨ | eslint | 1,153 | 77.1 | 61.2 | Architect | **Hidden** |
+| 5 | Taylor Otwell | laravel | 4,149 | 65.1 | 61.0 | — | **Hidden** |
+| 6 | Mark Raasveldt | duckdb | 618 | 81.7 | 59.1 | Anchor | **Hidden** |
+| 7 | Donny (kdy1) | swc | 349 | 89.2 | 58.8 | Architect | Maintainer |
+| 8 | Ritchie Vink | polars | 665 | 65.3 | 47.8 | Anchor | Maintainer |
+| 9 | Moritz Halbritter | spring-boot | 1,430 | 50.2 | 41.1 | — | Maintainer |
+| 10 | Phillip Webb | spring-boot | 1,430 | 44.3 | 36.2 | Architect | Maintainer |
+| 11 | Julien Pivotto | prometheus | 1,159 | 35.8 | 28.4 | Specialist | **Hidden** |
+| 12 | Ashley Harrison | grafana | 2,715 | 28.2 | 25.1 | — | Maintainer |
+| 13 | Liam Cervante | terraform | 2,121 | 27.1 | 23.4 | Architect | **Hidden** |
+| 14 | Andy Wilkinson | spring-boot | 1,430 | 20.6 | 16.8 | Cleaner | Maintainer |
+| 15 | Evan Rusackas | superset | 1,433 | 20.5 | 16.8 | Architect | Maintainer |
+| 16 | Tim Allclair | kubernetes | 4,510 | 16.3 | 15.4 | — | **Hidden** |
+| 17 | Kamil Myśliwiec | nest | 638 | 18.9 | 13.7 | Specialist | **Hidden** |
+| 18 | Ryan McKinley | grafana | 2,715 | 14.9 | 13.3 | — | Maintainer |
+| 19 | Davanum Srinivas | kubernetes | 4,510 | 13.0 | 12.3 | Producer | **Hidden** |
+| 20 | Alexander Matyushentsev | argo-cd | 1,832 | 13.7 | 11.6 | Producer | Maintainer |
+| 21 | Sebastian Ramirez | fastapi | 861 | 15.0 | 11.4 | — | Maintainer |
+| 22 | Alexey Milovidov | ClickHouse | 2,189 | 12.2 | 10.6 | Anchor | Maintainer |
+| 23 | Michael Goulet | rust | 7,215 | 10.5 | 10.5 | Anchor | Maintainer |
+| 24 | bwplotka | prometheus | 1,159 | 12.3 | 9.8 | Cleaner | **Hidden** |
+| 25 | Robert Fratto | loki | 1,272 | 12.1 | 9.7 | — | **Hidden** |
+| 26 | Michael Crenshaw | argo-cd | 1,832 | 11.5 | 9.7 | Architect | Maintainer |
+| 27 | Nicholas Nethercote | rust | 7,215 | 9.7 | 9.7 | — | **Hidden** |
+| 28 | Maxime Beauchemin | superset | 1,433 | 11.4 | 9.3 | Anchor | Maintainer |
+| 29 | Joe Li | superset | 1,433 | 11.2 | 9.2 | Specialist | **Hidden** |
+| 30 | Samsondeen | terraform | 2,121 | 10.2 | 8.8 | — | **Hidden** |
+| 31 | Sebastian Markbåge | react | 1,927 | 9.9 | 8.4 | Anchor | Known |
+| 32 | Evan Wallace | esbuild | 124 | 15.0 | 8.1 | Cleaner | Maintainer |
+| 33 | Daniel Schmidt | terraform | 2,121 | 8.9 | 7.7 | Cleaner | Maintainer |
+| 34 | Lukas Rytz | scala | 709 | 9.7 | 7.2 | — | **Hidden** |
+| 35 | Martin Atkins | terraform | 2,121 | 7.9 | 6.8 | Producer | Known |
+| 36 | Gijs Burghoorn | polars | 665 | 9.3 | 6.8 | Anchor | Maintainer |
+| 37 | nameexhaustion | polars | 665 | 8.4 | 6.1 | Cleaner | Maintainer |
+| 38 | Luke Kuzmish | laravel | 4,149 | 6.5 | 6.1 | — | **Hidden** |
+| 39 | Orson Peters | polars | 665 | 8.3 | 6.1 | Cleaner | Maintainer |
+| 40 | Martin Odersky | scala | 709 | 7.9 | 5.8 | Architect | **Hidden** |
+| 41 | Guillaume Gomez | rust | 7,215 | 5.7 | 5.7 | — | Maintainer |
+| 42 | Francesco Trotta | eslint | 1,153 | 7.1 | 5.6 | — | Maintainer |
+| 43 | Douglas Christopher Wilson | express | 378 | 8.3 | 5.5 | — | Maintainer |
+| 44 | Li Haoyi | scala3 | 895 | 7.2 | 5.5 | — | **Hidden** |
+| 45 | Lauren Tan | react | 1,927 | 6.3 | 5.4 | Producer | Maintainer |
+| 46 | beorn7 | prometheus | 1,159 | 6.1 | 4.8 | — | **Hidden** |
+| 47 | Michael Kolupaev | ClickHouse | 2,189 | 5.5 | 4.8 | — | **Hidden** |
+| 48 | Sandeep Sukhani | loki | 1,272 | 5.9 | 4.7 | Anchor | Maintainer |
+| 49 | Julius Volz | prometheus | 1,159 | 5.9 | 4.7 | — | Maintainer |
+| 50 | Beto Dealmeida | superset | 1,433 | 5.6 | 4.6 | — | Maintainer |
 
 ---
 
 ## Aggregate Validation Metrics
 
-- **Avg Top-10 Overlap**: 40.7%
-- **Avg Architect Recall (Tier 1)**: 68.3%
-- **Avg Spearman ρ**: 0.445
-- **Avg Gravity Concentration**: 48.9%
+- **Avg Top-10 Overlap**: 41.0%
+- **Avg Architect Recall (Tier 1)**: 64.2%
+- **Avg Spearman ρ**: 0.442
+- **Avg Gravity Concentration**: 52.0%
 - **Projects analyzed**: 29
-- **Total engineers**: 54,475
-- **Hidden architects found**: 351
-- **Entropy fighters found**: 48
-- **Largest universe**: 7,873 engineers
+- **Total engineers**: 51,321
+- **Hidden architects found**: 355
+- **Entropy fighters found**: 50
+- **Largest universe**: 7,215 engineers
 - **Smallest universe**: 124 engineers
 
