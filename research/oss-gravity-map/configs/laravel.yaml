@@ -19,6 +19,8 @@ exclude_file_patterns:
   - "node_modules/**"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "src/Illuminate/**/*.php"
   # Core framework
   - "src/Illuminate/Foundation/*.php"
   - "src/Illuminate/Container/*.php"

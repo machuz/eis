@@ -19,6 +19,17 @@ exclude_file_patterns:
   - "node_modules/**"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "activestorage/lib/active_storage/**/*.rb"
+  - "actiontext/lib/action_text/**/*.rb"
+  - "actionmailbox/lib/action_mailbox/**/*.rb"
+  - "activerecord/lib/active_record/connection_adapters/**/*.rb"
+  - "activerecord/lib/active_record/associations/**/*.rb"
+  - "activerecord/lib/active_record/attribute_methods/**/*.rb"
+  - "actionpack/lib/action_controller/metal/**/*.rb"
+  - "actionpack/lib/action_dispatch/middleware/**/*.rb"
+  - "actionpack/lib/action_dispatch/http/**/*.rb"
+  - "actioncable/lib/action_cable/**/*.rb"
   # Core framework
   - "activerecord/lib/active_record/*.rb"
   - "activerecord/lib/active_record/connection_adapters/*.rb"

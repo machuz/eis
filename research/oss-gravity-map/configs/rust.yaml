@@ -32,6 +32,10 @@ exclude_file_patterns:
   - "src/test/**"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "compiler/rustc_*/src/**/*.rs"
+  - "library/alloc/src/**/*.rs"
+  - "library/proc_macro/src/**/*.rs"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

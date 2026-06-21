@@ -55,6 +55,8 @@ blame_extensions:
   - "*.tsx"
 
 aliases:
+  "翠 / green": "sapphi-red"
+  "翠": "sapphi-red"
   "yyx990803": "Evan You"
 
 exclude_authors:

@@ -32,6 +32,10 @@ exclude_file_patterns:
   - "*Tests.java"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "core/spring-boot/src/main/**/*.java"
+  - "core/spring-boot-autoconfigure/src/main/**/*.java"
+  - "module/*/src/main/**/*.java"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"
@@ -54,6 +58,7 @@ blame_extensions:
   - "*.java"
 
 aliases:
+  "Stéphane Nicoll": "Stephane Nicoll"
   "philwebb": "Phillip Webb"
   "wilkinsona": "Andy Wilkinson"
   "snicoll": "Stephane Nicoll"

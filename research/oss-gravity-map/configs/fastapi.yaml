@@ -30,6 +30,8 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "fastapi/**/*.py"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"
