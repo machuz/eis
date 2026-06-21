@@ -1,10 +1,44 @@
 package metric
 
 import (
+	"math"
 	"sort"
 
 	"github.com/machuz/eis/v2/internal/git"
 )
+
+// SubstantialAuthorLines is the minimum surviving-blame footprint for an author
+// to count as a "substantial" contributor when deciding whether the robust/
+// dormant pressure split is meaningful (see PressureThreshold).
+const SubstantialAuthorLines = 1000
+
+// PressureThreshold returns the change-pressure cutoff that the robust/dormant
+// survival split compares against. It returns +Inf — forcing every surviving
+// line into dormant — when the repo is solo-dominated, because "others'
+// pressure" cannot be observed without at least two substantial authors.
+//
+// "Substantial" is an ABSOLUTE footprint (>= minLines surviving blame lines),
+// deliberately NOT a share of the repo. The earlier share-based gate (>=2
+// authors each owning >=10% of all blame) conflated two opposite situations:
+// a solo-dominated repo (one author owns nearly everything) AND a healthy,
+// highly distributed repo where ownership is spread so thin that no single
+// author reaches 10% (React, Kubernetes, Rust, Rails). Both failed the gate,
+// so robust survival was zeroed for everyone in large collaborative repos,
+// collapsing survGate, Gravity, and Architect detection. Counting authors by
+// absolute footprint passes distributed repos while still excluding true
+// solo projects.
+func PressureThreshold(pressure ChangePressure, blameByAuthor map[string]int, minLines int) float64 {
+	substantial := 0
+	for _, count := range blameByAuthor {
+		if count >= minLines {
+			substantial++
+		}
+	}
+	if substantial < 2 {
+		return math.Inf(1)
+	}
+	return pressure.MedianPressure()
+}
 
 // ChangePressure maps module path → pressure value (commits / blame lines).
 type ChangePressure map[string]float64

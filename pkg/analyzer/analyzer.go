@@ -5,7 +5,6 @@ package analyzer
 import (
 	"context"
 	"fmt"
-	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -327,21 +326,12 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			for mod, p := range repoPressure {
 				acc.changePressure[repoName+"/"+mod] = p
 			}
+			// blameLines authors are already alias-resolved in place above.
 			blameByAuthor := make(map[string]int)
 			for _, bl := range blameLines {
-				blameByAuthor[cfg.ResolveAuthor(bl.Author)]++
+				blameByAuthor[bl.Author]++
 			}
-			minShare := float64(len(blameLines)) * 0.10
-			substantial := 0
-			for _, count := range blameByAuthor {
-				if float64(count) >= minShare && count >= 1000 {
-					substantial++
-				}
-			}
-			threshold := repoPressure.MedianPressure()
-			if substantial < 2 {
-				threshold = math.Inf(1)
-			}
+			threshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
 			sr := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, start, repoPressure, threshold, moduleResolver, repoOthers)
 			repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant = sr.Decayed, sr.Raw, sr.Robust, sr.Dormant

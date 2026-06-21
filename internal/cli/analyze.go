@@ -4,7 +4,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"math"
 	"os"
 	"path/filepath"
 	"sort"
@@ -624,24 +623,17 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				acc.modulePressureCounts[mod] = n + 1
 			}
 
-			// Need at least 2 authors with ≥10% AND ≥1000 blame lines for
-			// pressure split to be meaningful. This filters out solo-dominated
-			// repos while allowing smaller multi-person repos to have pressure.
+			// Need at least 2 substantial authors for the pressure split to be
+			// meaningful; otherwise everything becomes dormant. See
+			// metric.PressureThreshold for why this is an absolute footprint and
+			// not a share of the repo.
+			// blameLines authors are already alias-resolved in place above, so
+			// count on bl.Author directly (matches the survival maps' keys).
 			blameByAuthor := make(map[string]int)
 			for _, bl := range blameLines {
-				blameByAuthor[cfg.ResolveAuthor(bl.Author)]++
+				blameByAuthor[bl.Author]++
 			}
-			minShare := float64(len(blameLines)) * 0.10
-			substantialAuthors := 0
-			for _, count := range blameByAuthor {
-				if float64(count) >= minShare && count >= 1000 {
-					substantialAuthors++
-				}
-			}
-			pressureThreshold := repoPressure.MedianPressure()
-			if substantialAuthors < 2 {
-				pressureThreshold = math.Inf(1) // everything becomes dormant
-			}
+			pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
 			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
 			repoSurvDecayed = survResult.Decayed
