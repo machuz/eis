@@ -227,6 +227,50 @@ def generate_stacked_bar_svg(periods, role_counts, width=900, height=340):
     return '\n'.join(lines)
 
 
+def generate_role_heatmap_svg(periods, role_counts, width=900):
+    """Year x role heatmap. Each cell holds the count of engineers in that role
+    that year; the shade is normalized within each role's own row (relative to
+    that role's peak year) so a rare role (Architect: 0-2) and a common one
+    (Producer: tens) both reveal *when* they surface. The lifecycle reads down
+    each column and across each row: early Producers, later Cleaners/Anchors."""
+    roles = ["Architect", "Anchor", "Producer", "Cleaner", "Specialist"]
+    n = len(periods)
+    label_w = 92
+    pad = 20
+    cell_w = max(22, (width - label_w - pad) // n)
+    cell_h = 30
+    top = 56
+    height = top + len(roles) * cell_h + 34
+
+    role_max = {r: max((rc.get(r, 0) for rc in role_counts), default=0) for r in roles}
+
+    lines = [f'<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:{width}px">']
+    lines.append(f'<text x="{label_w}" y="22" fill="#f0f6fc" font-size="14" font-weight="600">Role Lifecycle &mdash; who the system leans on, year by year</text>')
+    lines.append(f'<text x="{label_w}" y="40" fill="#8b949e" font-size="11">Cell = engineers in that role that year &middot; shade relative to each role’s own peak</text>')
+
+    for ri, role in enumerate(roles):
+        ry = top + ri * cell_h
+        color = ROLE_COLORS[role]
+        lines.append(f'<text x="{label_w - 10}" y="{ry + cell_h/2 + 4:.0f}" text-anchor="end" fill="{color}" font-size="12" font-weight="600">{role}</text>')
+        rmax = role_max[role] or 1
+        for ci, rc in enumerate(role_counts):
+            cx = label_w + ci * cell_w
+            count = rc.get(role, 0)
+            op = 0.0 if count == 0 else 0.14 + 0.86 * (count / rmax)
+            lines.append(f'  <rect x="{cx}" y="{ry}" width="{cell_w-2}" height="{cell_h-2}" rx="3" fill="{color}" fill-opacity="{op:.2f}">'
+                         f'<title>{role} · {esc(str(periods[ci]))}: {count}</title></rect>')
+            if count > 0:
+                txt = "#0d1117" if op > 0.55 else "#c9d1d9"
+                lines.append(f'  <text x="{cx + (cell_w-2)/2:.0f}" y="{ry + cell_h/2 + 4:.0f}" text-anchor="middle" fill="{txt}" font-size="10">{count}</text>')
+
+    yl = top + len(roles) * cell_h + 16
+    for ci, p in enumerate(periods):
+        cx = label_w + ci * cell_w + (cell_w - 2) / 2
+        lines.append(f'  <text x="{cx:.0f}" y="{yl}" text-anchor="middle" fill="#8b949e" font-size="10">{esc(str(p))}</text>')
+    lines.append('</svg>')
+    return '\n'.join(lines)
+
+
 def generate_sparkline_svg(trajectory, w=260, h=40):
     """Small gravity sparkline for a key figure."""
     gravities = [t["gravity"] for t in trajectory]
@@ -264,6 +308,7 @@ def generate_html(analytics, project_title="React"):
     key_figures = analytics["key_figures"]
 
     bar_svg = generate_stacked_bar_svg(periods, role_counts)
+    heatmap_svg = generate_role_heatmap_svg(periods, role_counts)
 
     # --- build architects table ---
     all_architect_names = set()
@@ -506,6 +551,15 @@ def generate_html(analytics, project_title="React"):
     <p class="section-desc">Active engineers per role in each period. Shows how the team's role balance evolved.</p>
     <div class="chart-wrap">
       {bar_svg}
+    </div>
+  </div>
+
+  <!-- Section 1b: Role Lifecycle Heatmap -->
+  <div class="section">
+    <h2 class="section-title">Role Lifecycle Heatmap</h2>
+    <p class="section-desc">The same role mix read as a heatmap — each cell is the engineers in that role that year, shaded against the role’s own peak. Watch how output-heavy <strong>Producers</strong> give way to <strong>Cleaners</strong> and <strong>Anchors</strong> as the codebase matures.</p>
+    <div class="chart-wrap">
+      {heatmap_svg}
     </div>
   </div>
 
