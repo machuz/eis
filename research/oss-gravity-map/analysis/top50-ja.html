@@ -93,6 +93,9 @@
   .proj-kubernetes{background:#326ce5;color:#e0ecff}
   .proj-grafana{background:#ff6600;color:#fff3e0}
   .proj-react{background:#61dafb;color:#1a1a1a}
+  .proj-laravel{background:#ff2d20;color:#fff0ee}
+  .proj-scala{background:#c22d40;color:#ffe6ea}
+  .proj-scala3{background:#c22d40;color:#ffe6ea}
 
   /* Role badge */
   .role-badge{
@@ -156,40 +159,39 @@
 
 <header class="fade-in">
   <h1>OSS Gravity Map <span>&mdash;</span> Top 50 エンジニア</h1>
-  <div class="subtitle">29プロジェクト・55,851人のエンジニアをEISで観測</div>
+  <div class="subtitle">29プロジェクト・54,476人のエンジニアをEISで読み取る</div>
 </header>
 
 <div class="narrative fade-in delay-1">
-  <p>Git望遠鏡を、世界で最も影響力のある29のオープンソースプロジェクト &mdash; React、Kubernetes、Terraform、Redis、Rust、ClickHouse、その他23 &mdash; に向け、55,851人のエンジニアを観測した。</p>
-  <p>最初にデータが示したのは、いま各宇宙を支えているのが誰か。Jose Valim（Phoenix）、Donny/kdy1（swc）、Evan You（Vite）、Ritchie Vink（Polars）、Alexey Milovidov（ClickHouse）、Taylor Otwell（Laravel）。これらの名前はプロジェクトの重力で首位に立つ &mdash; が、そのほとんどがスケールを<em>振り切らない</em>ことに注意してほしい。ここでの重力は厳格な連言ゲートだ：<strong>他人の圧力下で</strong>なおコードが生き残り、かつ他者がその上に築いている場所にのみ、構造を認める。年月をかけて書き換えられた創設者や、誰も触れない静かな隅で働く者は、どれほど有名でも床へ減衰する。だからリーダーボードの数値は控えめで、だからこそ上位に名前があることの意味は以前より重い。</p>
-  <p>より示唆的なのは、このゲートが有名人に対して何をするか。<strong>OSSで最も称えられた名前のいくつかは、もはや自分が始めたコードの重力の中心ではない。</strong> Rustが最も明快な例だ。Graydon Hoareが言語を始め、Niko Matsakisがborrow checker &mdash; その概念的背骨 &mdash; を設計した。しかしこのゲートの下で、今日のRustの重力首位はどちらでもない。10年にわたり他者が基盤を書き換え拡張した結果、彼らの行はもはや荷重を担っていない。担っているのは現役の load-bearer（Nicholas Nethercote、Ralf Jung、Michael Goulet）だ。望遠鏡は創設者を軽んじているのではない &mdash; <em>構造的依存が移動した</em>と正直に報告している。重力は最初に書いた功績ではなく、今もそこにあるコードを追う。Reactはより穏やかな同じ物語だ：Sebastian Markb&aring;geは今もReactの重力で首位だが、わずか9.4 &mdash; 高いCatalysis（他者が彼の上に築く）に対し、churnを生き延びる自身のコードは少ない。</p>
-  <p>同じゲートの反対側が、浮かび上がる<strong>250人のHidden Architects（隠れたアーキテクト）</strong>だ。カンファレンスで登壇しない。フォロワーも多くない。公式メンテナーリストにすら載っていない人も多い。しかし重力場の線を辿ると、そこにいる &mdash; 他者が活発に働く場所で彼らのコードが今も生き残り、他者が今もその上に築いている。Mark Raasveldt（DuckDB）やJosh Goldberg（eslint）は、はるかに有名なエンジニアを上回る構造的重力を持つ。ゲートは最初に来た者を報いない。システムが今も寄りかかっているコードが誰のものかを報告する。</p>
-  <p>そして<strong>Entropy Fighters</strong>がいる &mdash; 29プロジェクトにまたがる38人のエンジニアで、Debt CleanupとSurvivalの両方で強いシグナルを示す。毎朝起きて、コードの世界で熱力学第二法則と戦うことを選ぶ人々だ。彼らがいなければ、あらゆるプロジェクトはいずれ自重で崩壊する。</p>
-  <p>重力が移っていった創設者たちへ：それは降格ではない &mdash; あなたの設計をシステムが深く吸収しきり、今は他者がそれを担っているということだ。今日それを支える隠れた人々へ：<strong>あなたの貢献の質量は今まで見えなかった。しかし感じられなかったわけではない。</strong> あなたの今も生きるコードの上に築くすべての開発者は、あなたが荷重を担い続ける構造に、生産性の一部を負っている。</p>
-  <p>この地図は、あなたのためのものだ。</p>
+  <p>Git望遠鏡を、最も上に築かれてきた29のオープンソースプロジェクト &mdash; React、Kubernetes、Terraform、Redis、Rust、ClickHouse、その他 &mdash; に向け、54,476人のエンジニアが残した構造を読み取った。</p>
+  <p>問いは、誰が最も多くコミットするか、ではなかった。もっと静かな問いだ。10年のあいだ何千人もが一つのコードベースを通り過ぎたとき、残りのシステムは結局、誰の構造に寄りかかっているのか &mdash; そしてそれは、他者がその上に圧をかけ始めても、なお保つのだろうか。</p>
+  <p>2つの正直なゲート &mdash; <strong>他者がコミットし続ける場所で生き残るコード</strong>と、他者が実際にその上に築く基盤 &mdash; をくぐると、浮かび上がるのは見えてしまえば静かな名前たちだ。Jose Valim（Phoenix）、Taylor Otwell（Laravel）、Donny / kdy1（swc）、fisker Cheung（Prettier）、Ritchie Vink（Polars）、Josh Goldberg（ESLint）。彼らの重力は自分の宇宙を満たす。有名だからでも、最初にそこにいたからでもない &mdash; <em>シェアが侵食されれば、最初に来たことは何も生まない</em> &mdash; 周りの全員が編集し続けるなかで、システムの生き残った構造が今も彼らに乗っているからだ。</p>
+  <p>ゲートは、創設だけでは持ち上げてしまうような場所でも沈黙する。誰も争わないモジュールを持つ創設者は、中心ではなく静かに読み取られる。誰も寄りかからない影響は、望遠鏡には見えない。<strong>Sebastian Markb&aring;geはReactの重力で首位に立つ。しかしデータは彼をCleanerと読む</strong> &mdash; 新しい面を加えるより、構造を保つことに多くのエネルギーが向いている。これは降格ではない。所有を重力と取り違えることを、計器が拒んでいるのだ。</p>
+  <p>そして、メンテナーリストに一度も現れない<strong>352人のHidden Architects（隠れたアーキテクト）</strong>を地図は浮かび上がらせる。登壇もせず、肩書きも持たない。それでも重力場の線は彼らのコードを真っ直ぐ貫く &mdash; 何年も前に書かれ、システムが今も乗っている部分だ。Taylor Otwell（Laravel）とJosh Goldberg（ESLint）は、我々の突合では公的なメンテナー名簿に載らないが、場のまさに頂点近くにいる。</p>
+  <p>その傍らに、<strong>48人のEntropy Fighters</strong> &mdash; Debt Cleanupとrobust survivalの両方で高く &mdash; 放っておけば漂い出すコードのなかで、静かに第二法則を押し戻している。</p>
+  <p>これはリーダーボードではない。ひとつの問いを開いたまま残す。活動のノイズを濾し取ったとき、システムは実際に何に寄りかかっているのか &mdash; そして、それが静かに去ったら、誰か気づくのだろうか。</p>
 </div>
 
 <div class="narrative fade-in delay-1" style="border-color:#f0883e44; margin-bottom:32px;">
-  <p><strong>このランキングの方法論 &mdash; そして主張しないこと。</strong></p>
-  <p>エンジニアは<strong>Gravity</strong>でランク付けされる。構造的な<em>shape</em>（0.45&middot;Design + 0.25&middot;Breadth + 0.30&middot;Indispensability）を、2つの必要なゲートに通す：<code>catGate = 0.15 + 0.85&middot;Catalysis/100</code> と <code>survGate = 0.15 + 0.85&middot;RobustSurvival/100</code>。つまり <code>Gravity = catGate &times; survGate &times; shape</code>。両ゲートは必要条件だ：静かな隅でしか生き残らない（他者の圧力がない）コード、または誰も上に築かないコードは、床へ崩れる。ローカルGravityは<em>各リポジトリ内での相対シグナル</em>。この表は宇宙横断の<strong>adjusted</strong> gravity（<code>ln(宇宙サイズ)/ln(最大)</code>でスケール）でランク付けしている。</p>
-  <p>PhoenixでのJose Valimのローカル重力85と、ClickHouseでのAlexey Milovidovの15.5は、<strong>異なる宇宙からの観測</strong>だ &mdash; Phoenixは約1,400人、ClickHouseは約2,600人のコントリビューターを持ち、より大きく書き換えの多いコードベースほどゲートを越えるのは難しい。これが<strong>Engineering Relativity</strong>だ：同じエンジニアが異なるコードベースで異なる重力を生む。</p>
-  <p>ゲートが連言である以上、高い数値は容易には得られない：他者の圧力下で耐久するコードと、他者が拡張する基盤を、<em>同時に</em>要求する。このランキングが捉えるのは<em>宇宙が今も構造的に寄りかかっているコードが誰のものか</em>であり、最も多く出荷した人でも、最初に来た人でもない。</p>
-  <p>各銀河で最も明るい星をマッピングしていると考えてほしい。銀河の大きさは異なるが、どの銀河でも重力場を形作る星は観測できる。</p>
+  <p><strong>このランキングの読み方 &mdash; そして主張しないこと。</strong></p>
+  <p>Gravityは<em>関係的</em>なシグナルであり、名声や創設の指標ではない。構造的な<em>shape</em>（0.45&middot;Design + 0.25&middot;Breadth + 0.30&middot;Indispensability）から始まり、2つの必要なゲートを通す：<code>catGate = 0.15 + 0.85&middot;Catalysis/100</code> と <code>survGate = 0.15 + 0.85&middot;RobustSurvival/100</code>。つまり <code>Gravity = catGate &times; survGate &times; shape</code>。両ゲートは必要条件だ。RobustSurvivalは、<em>自分以外の</em>作者がコミットし続けるモジュールで残った行だけを数える &mdash; 死んだ隅や自己churnのコードは資格を持たない。Catalysisは、他者があなたの生き残った基盤の上に築いたかを問う。静かな隅でしか生き残らないコード、誰も拡張しないコードは、誰が書いたものであれ床へ崩れる。</p>
+  <p>ローカルGravityは各リポジトリ<em>内</em>での相対シグナルだ。この表は宇宙横断の<strong>adjusted</strong> gravity（<code>ln(宇宙サイズ)/ln(最大)</code>でスケール）でランク付けし、より大きく書き換えの多いエコシステムで保たれた構造に相応の重みを与える。PhoenixでのJose Valimのローカル88.2と、ClickHouseでのAlexey Milovidovの12.2は、<strong>異なる宇宙からの観測</strong>であり、より大きなコードベースほどゲートを越えるのは難しい。これが<strong>Engineering Relativity</strong>だ：同じエンジニアが、異なるコードベースで異なる重力として読み取られる。</p>
+  <p>ゲートが連言である以上、高い数値は容易には得られない：他者の圧力下で耐久するコードと、他者が拡張する基盤を、<em>同時に</em>問う。このランキングが捉えるのは<em>宇宙が今も構造的に寄りかかっているコードが誰のものか</em>であり、最も多く出荷した人でも、最初に来た人でもない。</p>
 </div>
 
 <div class="table-wrap fade-in delay-2" id="ranking"></div>
 
 <div class="summary fade-in delay-3">
   <div class="stat-card">
-    <div class="stat-num accent-blue">55,851</div>
+    <div class="stat-num accent-blue">54,476</div>
     <div class="stat-label">観測エンジニア数</div>
   </div>
   <div class="stat-card">
-    <div class="stat-num accent-red">250</div>
+    <div class="stat-num accent-red">352</div>
     <div class="stat-label">発見されたHidden Architects</div>
   </div>
   <div class="stat-card">
-    <div class="stat-num accent-green">38</div>
+    <div class="stat-num accent-green">48</div>
     <div class="stat-label">Entropy Fighters</div>
   </div>
   <div class="stat-card">
@@ -204,56 +206,56 @@
 
 <script>
 const data = [
-  {"author": "Jose Valim", "repo": "phoenix", "gravity": 85, "total": 74.9, "role": "Architect", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Donny (kdy1)", "repo": "swc", "gravity": 100, "total": 87.3, "role": "Architect", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Phillip Webb", "repo": "spring-boot", "gravity": 63.6, "total": 69, "role": "Architect", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "\u7fe0", "repo": "vite", "gravity": 62.8, "total": 74.7, "role": "Cleaner", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Ritchie Vink", "repo": "polars", "gravity": 56.6, "total": 77, "role": "Producer", "style": "Builder", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Mytherin", "repo": "duckdb", "gravity": 35.8, "total": 63, "role": "Anchor", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Alexander Matyushentsev", "repo": "argo-cd", "gravity": 17.9, "total": 43.9, "role": "Producer", "style": "Churn", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Alexey Milovidov", "repo": "ClickHouse", "gravity": 15.5, "total": 77.2, "role": "Architect", "style": "Builder", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Ryan McKinley", "repo": "grafana", "gravity": 14.9, "total": 40.2, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Sebastian Ramirez", "repo": "fastapi", "gravity": 15, "total": 44.3, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Josh Goldberg \u2728", "repo": "eslint", "gravity": 14.3, "total": 55, "role": "Architect", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Moritz Halbritter", "repo": "spring-boot", "gravity": 13, "total": 35.4, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Salvatore Sanfilippo", "repo": "redis", "gravity": 13.7, "total": 40.2, "role": "\u2014", "style": "Balanced", "is_known_architect": true, "is_maintainer": true},
-  {"author": "Taylor Otwell", "repo": "laravel", "gravity": 10.8, "total": 29.1, "role": "\u2014", "style": "\u2014", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Michael Crenshaw", "repo": "argo-cd", "gravity": 11.7, "total": 58.1, "role": "Anchor", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Kamil My\u015bliwiec", "repo": "nest", "gravity": 12.6, "total": 35.1, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Liam Cervante", "repo": "terraform", "gravity": 10.7, "total": 29.5, "role": "\u2014", "style": "\u2014", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Laurens Kuiper", "repo": "duckdb", "gravity": 11.3, "total": 35.5, "role": "Producer", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Evan Wallace", "repo": "esbuild", "gravity": 15, "total": 50.5, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "fisker Cheung", "repo": "prettier", "gravity": 10.7, "total": 44, "role": "Cleaner", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Sebastian Markb\u00e5ge", "repo": "react", "gravity": 9.4, "total": 40, "role": "\u2014", "style": "Balanced", "is_known_architect": true, "is_maintainer": false},
-  {"author": "James Bardin", "repo": "terraform", "gravity": 9.1, "total": 58, "role": "Anchor", "style": "Builder", "is_known_architect": true, "is_maintainer": true},
-  {"author": "code", "repo": "envoy", "gravity": 9.3, "total": 37.6, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Nicholas Nethercote", "repo": "rust", "gravity": 7.5, "total": 27.3, "role": "\u2014", "style": "\u2014", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Daniel Schmidt", "repo": "terraform", "gravity": 8.6, "total": 30.8, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Lucas Michot", "repo": "laravel", "gravity": 7.5, "total": 32.3, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Orson Peters", "repo": "polars", "gravity": 9.2, "total": 47, "role": "Cleaner", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Andy Wilkinson", "repo": "spring-boot", "gravity": 8, "total": 31.4, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Ashley Harrison", "repo": "grafana", "gravity": 6.9, "total": 32.4, "role": "Anchor", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Evan Rusackas", "repo": "superset", "gravity": 7.2, "total": 46.9, "role": "Anchor", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Radek Simko", "repo": "terraform", "gravity": 6.8, "total": 35.1, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "patak", "repo": "vite", "gravity": 7.3, "total": 20, "role": "\u2014", "style": "\u2014", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Gijs Burghoorn", "repo": "polars", "gravity": 7.9, "total": 33.7, "role": "Anchor", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "\u7fe0 / green", "repo": "vite", "gravity": 7, "total": 21.5, "role": "\u2014", "style": "\u2014", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Trevor Whitney", "repo": "loki", "gravity": 6.5, "total": 27.3, "role": "\u2014", "style": "Spread", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Jean Boussier", "repo": "rails", "gravity": 5.3, "total": 39.1, "role": "Cleaner", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Samsondeen", "repo": "terraform", "gravity": 5.8, "total": 34.7, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "nameexhaustion", "repo": "polars", "gravity": 6.7, "total": 42.1, "role": "Cleaner", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Rohit Agrawal", "repo": "envoy", "gravity": 5.9, "total": 36.1, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Maxime Beauchemin", "repo": "superset", "gravity": 5.8, "total": 26.8, "role": "Producer", "style": "\u2014", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Julien Pivotto", "repo": "prometheus", "gravity": 5.7, "total": 38.2, "role": "Cleaner", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Martin Atkins", "repo": "terraform", "gravity": 5.3, "total": 38.8, "role": "Producer", "style": "Churn", "is_known_architect": true, "is_maintainer": true},
-  {"author": "Sarah French", "repo": "terraform", "gravity": 5.2, "total": 39.2, "role": "Cleaner", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Christian Haudum", "repo": "loki", "gravity": 5.3, "total": 39.6, "role": "\u2014", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Blake Pettersson", "repo": "argo-cd", "gravity": 5, "total": 52.5, "role": "Anchor", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Patrick Ohly", "repo": "kubernetes", "gravity": 4.4, "total": 32.5, "role": "Anchor", "style": "Balanced", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Cyril Tovena", "repo": "loki", "gravity": 5.1, "total": 26, "role": "Producer", "style": "Churn", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Beto Dealmeida", "repo": "superset", "gravity": 4.9, "total": 26.9, "role": "\u2014", "style": "\u2014", "is_known_architect": false, "is_maintainer": true},
-  {"author": "Lukas Rytz", "repo": "scala", "gravity": 5.4, "total": 42.7, "role": "Cleaner", "style": "Balanced", "is_known_architect": false, "is_maintainer": false},
-  {"author": "Michael Goulet", "repo": "rust", "gravity": 3.8, "total": 24.4, "role": "Producer", "style": "\u2014", "is_known_architect": false, "is_maintainer": true}
+  {"author": "Jose Valim", "repo": "phoenix", "gravity": 71.1, "total": 88.2, "role": "Architect", "is_known_architect": false, "is_maintainer": true},
+  {"author": "fisker Cheung", "repo": "prettier", "gravity": 64.6, "total": 86.7, "role": "Architect", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Taylor Otwell", "repo": "laravel", "gravity": 60.9, "total": 65.1, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Josh Goldberg \u2728", "repo": "eslint", "gravity": 60.7, "total": 77.1, "role": "Architect", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Donny (kdy1)", "repo": "swc", "gravity": 58.4, "total": 89.1, "role": "Architect", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Ritchie Vink", "repo": "polars", "gravity": 49.9, "total": 68.4, "role": "Anchor", "is_known_architect": false, "is_maintainer": true},
+  {"author": "\u7fe0", "repo": "vite", "gravity": 44.7, "total": 56.3, "role": "Cleaner", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Phillip Webb", "repo": "spring-boot", "gravity": 36.0, "total": 44.3, "role": "Architect", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Moritz Halbritter", "repo": "spring-boot", "gravity": 34.3, "total": 42.2, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Ashley Harrison", "repo": "grafana", "gravity": 26.9, "total": 30.3, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Julien Pivotto", "repo": "prometheus", "gravity": 25.1, "total": 31.7, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Liam Cervante", "repo": "terraform", "gravity": 23.3, "total": 27.1, "role": "Architect", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Bartlomiej Plotka", "repo": "prometheus", "gravity": 17.1, "total": 21.5, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Andy Wilkinson", "repo": "spring-boot", "gravity": 16.4, "total": 20.2, "role": "Cleaner", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Tim Allclair", "repo": "kubernetes", "gravity": 14.8, "total": 15.6, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Kamil My\u015bliwiec", "repo": "nest", "gravity": 13.7, "total": 18.9, "role": "Specialist", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Ryan McKinley", "repo": "grafana", "gravity": 12.9, "total": 14.6, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Alexander Matyushentsev", "repo": "argo-cd", "gravity": 12.3, "total": 14.7, "role": "Producer", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Davanum Srinivas", "repo": "kubernetes", "gravity": 11.8, "total": 12.4, "role": "Producer", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Sebastian Ramirez", "repo": "fastapi", "gravity": 11.3, "total": 15.0, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Evan Rusackas", "repo": "superset", "gravity": 10.6, "total": 13.1, "role": "Anchor", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Alexey Milovidov", "repo": "ClickHouse", "gravity": 10.6, "total": 12.2, "role": "Anchor", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Michael Goulet", "repo": "rust", "gravity": 10.5, "total": 10.5, "role": "Anchor", "is_known_architect": false, "is_maintainer": true},
+  {"author": "patak", "repo": "vite", "gravity": 10.0, "total": 12.6, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Michael Crenshaw", "repo": "argo-cd", "gravity": 9.7, "total": 11.5, "role": "Architect", "is_known_architect": false, "is_maintainer": true},
+  {"author": "\u7fe0 / green", "repo": "vite", "gravity": 9.6, "total": 12.1, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Sebastian Markb\u00e5ge", "repo": "react", "gravity": 9.0, "total": 10.6, "role": "Cleaner", "is_known_architect": true, "is_maintainer": false},
+  {"author": "Nicholas Nethercote", "repo": "rust", "gravity": 8.9, "total": 8.9, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Samsondeen", "repo": "terraform", "gravity": 8.8, "total": 10.2, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Maxime Beauchemin", "repo": "superset", "gravity": 8.7, "total": 10.7, "role": "Anchor", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Evan Wallace", "repo": "esbuild", "gravity": 8.1, "total": 15.0, "role": "Cleaner", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Daniel Schmidt", "repo": "terraform", "gravity": 7.6, "total": 8.9, "role": "Cleaner", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Julius Volz", "repo": "prometheus", "gravity": 7.1, "total": 8.9, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Joe Li", "repo": "superset", "gravity": 7.0, "total": 8.6, "role": "Specialist", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Gijs Burghoorn", "repo": "polars", "gravity": 6.8, "total": 9.3, "role": "Anchor", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Martin Atkins", "repo": "terraform", "gravity": 6.8, "total": 7.9, "role": "Producer", "is_known_architect": true, "is_maintainer": false},
+  {"author": "Martin Odersky", "repo": "scala", "gravity": 6.6, "total": 8.9, "role": "Architect", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Lukas Rytz", "repo": "scala", "gravity": 6.4, "total": 8.7, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Luke Kuzmish", "repo": "laravel", "gravity": 6.1, "total": 6.5, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Guillaume Gomez", "repo": "rust", "gravity": 5.8, "total": 5.8, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "beorn7", "repo": "prometheus", "gravity": 5.6, "total": 7.1, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Orson Peters", "repo": "polars", "gravity": 5.5, "total": 7.6, "role": "Cleaner", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Li Haoyi", "repo": "scala3", "gravity": 5.5, "total": 7.2, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Douglas Christopher Wilson", "repo": "express", "gravity": 5.5, "total": 8.3, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Francesco Trotta", "repo": "eslint", "gravity": 5.4, "total": 6.9, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Beto Dealmeida", "repo": "superset", "gravity": 5.1, "total": 6.3, "role": "\u2014", "is_known_architect": false, "is_maintainer": true},
+  {"author": "Sandeep Sukhani", "repo": "loki", "gravity": 5.0, "total": 6.2, "role": "Anchor", "is_known_architect": false, "is_maintainer": true},
+  {"author": "nameexhaustion", "repo": "polars", "gravity": 5.0, "total": 6.8, "role": "Cleaner", "is_known_architect": false, "is_maintainer": true},
+  {"author": "sapphi-red", "repo": "vite", "gravity": 4.5, "total": 5.7, "role": "\u2014", "is_known_architect": false, "is_maintainer": false},
+  {"author": "Robert Fratto", "repo": "loki", "gravity": 4.5, "total": 5.6, "role": "\u2014", "is_known_architect": false, "is_maintainer": false}
 ];
 
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
@@ -273,16 +275,17 @@ function statusBadge(d){
 }
 
 function barColor(g){
-  if(g>=90)return '#f0883e';
-  if(g>=75)return '#58a6ff';
-  if(g>=60)return '#3fb950';
+  if(g>=60)return '#f0883e';
+  if(g>=40)return '#58a6ff';
+  if(g>=20)return '#3fb950';
   return '#8b949e';
 }
 
 const wrap=document.getElementById('ranking');
+const maxG=Math.max(...data.map(d=>d.gravity));
 data.forEach((d,i)=>{
   const rank=i+1;
-  const pct=Math.min(d.gravity,100);
+  const pct=Math.min(100*d.gravity/maxG,100);
   const c=document.createElement('div');
   c.className='card';
   c.style.animationDelay=(0.02*i)+'s';
@@ -301,7 +304,7 @@ data.forEach((d,i)=>{
         '<div class="gravity-label">'+d.gravity.toFixed(1)+'</div>'+
         '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+barColor(d.gravity)+'"></div></div>'+
       '</div>'+
-      '<div class="total-impact">Impact: '+d.total.toFixed(1)+'</div>'+
+      '<div class="total-impact">ローカル重力: '+d.total.toFixed(1)+'</div>'+
     '</div>';
   wrap.appendChild(c);
 });

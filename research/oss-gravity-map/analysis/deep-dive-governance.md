@@ -1,20 +1,20 @@
 # Deep Dive: Three Governance Models — Rails, Laravel, esbuild
 
-*Same metric. Three completely different governance physics.*
+*Same relational metric. Three different things for a system to lean on.*
 
 ---
 
 ## Overview
 
-These three projects represent three extremes of how structural authority distributes in open-source software:
+These three projects sit at three extremes of where structural influence settles in open-source software. Gravity here is relational — a structural shape passed through two gates: did the code survive *under others' pressure* (survGate), and did others build on the surviving foundation (catGate). A system leans on someone only when both gates stay open.
 
 | Project | Category | Engineers | Gravity Conc. | Top10 Design | Governance |
 |---|---|---|---|---|---|
-| **Rails** | Framework-driven (Ruby) | 6,474 | **5.9%** | **43.1** | Multi-architect civilization |
-| **Laravel** | Framework-driven (PHP) | 4,470 | 20.6% | 17.6 | Creator's kingdom |
-| **esbuild** | Go (Self-structured) | 126 | **77.0%** | 10.0 | One-person universe |
+| **Rails** | Framework (Ruby) | 6,402 | **9.4%** | **44.4** | Multi-architect civilization |
+| **Laravel** | Framework (PHP) | 4,400 | 36.7% | 11.3 | Creator's kingdom |
+| **esbuild** | Bundler (Go) | 124 | **76.6%** | 10.1 | One-person universe |
 
-Gravity Concentration ranges from **5.9% (Rails) to 77.0% (esbuild)** — a ~13x difference (and swc, at 92.6%, is higher still). The same scoring system, the same formula, reveals fundamentally different civilizations.
+Gravity Concentration runs from **9.4% (Rails) to 76.6% (esbuild)** — roughly an 8x gap (and swc, at 91.5%, is denser still). The same instrument, the same two gates, and three civilizations come apart. The question underneath each is the same: once the noise of activity is filtered out, whom does the structure actually lean on?
 
 ---
 
@@ -26,56 +26,56 @@ Gravity Concentration ranges from **5.9% (Rails) to 77.0% (esbuild)** — a ~13x
 
 | Metric | Value |
 |---|---|
-| Engineers | 6,474 |
-| Gravity Concentration | **5.9%** (lowest of all 29 repos) |
-| Top10 Design | **43.1** (higher than most Go projects) |
-| Top10 Gravity (avg) | 1.8 |
-| Top10 Survival (avg) | 39.1 |
-| Architects with Design > 40 | **4 people** |
+| Engineers | 6,402 |
+| Gravity Concentration | **9.4%** (lowest of all 29 repos) |
+| Top10 Design | **44.4** (higher than most single-architect projects) |
+| Top10 Gravity (avg) | 2.2 |
+| Top10 Survival (avg) | 14.5 |
+| Authors with Design > 40 | **5 people** |
 
 ### Top 10 Gravity Ranking
 
-| # | Engineer | Gravity | Design | Indispensability | Survival | State |
-|---|---|---|---|---|---|---|
-| 1 | Jean Boussier | 5.3 | 39.1 | 0.0 | 81.0 | Growing |
-| 2 | David Heinemeier Hansson | 2.9 | 100.0 | 100.0 | 6.9 | Silent |
-| 3 | Rafael Mendonça França | 2.1 | 69.0 | 18.8 | 100.0 | Fragile |
-| 4 | Gannon McGibbon | 1.5 | 9.8 | 0.0 | 30.9 | Active |
-| 5 | Matthew Draper | 1.2 | 13.7 | 0.0 | 73.2 | Fragile |
-| 6 | Jeremy Kemper | 1.2 | 90.5 | 0.0 | 0.0 | Silent |
-| 7 | Aaron Patterson | 1.2 | 67.3 | 56.3 | 1.5 | Silent |
-| 8 | Sean Doyle | 1.0 | 1.0 | 0.0 | 50.9 | — |
-| 9 | Xavier Noria | 1.0 | 39.6 | 0.0 | 9.9 | Silent |
-| 10 | zzak | 0.9 | 0.6 | 37.5 | 37.1 | — |
+| # | Engineer | Gravity | Design | Indisp. | Catalysis | RobustSurv | State |
+|---|---|---|---|---|---|---|---|
+| 1 | David Heinemeier Hansson | 4.0 | 100 | 100 | 19.3 | 0 | Silent |
+| 2 | zzak | 3.5 | 0.6 | 28.6 | 26.1 | 25.3 | Silent |
+| 3 | Jean Boussier | 3.2 | 37.6 | 0 | 61.7 | 0 | Growing |
+| 4 | Rafael Mendonça França | 3.0 | 68.4 | 21.4 | 19.7 | 0 | Silent |
+| 5 | Matthew Draper | 1.9 | 12.7 | 0 | 100 | 0 | Growing |
+| 6 | Gannon McGibbon | 1.8 | 9.8 | 0 | 44.5 | 0 | Silent |
+| 7 | Xavier Noria | 1.3 | 39.6 | 0 | 26.5 | 0 | Silent |
+| 8 | Jeremy Kemper | 1.1 | 90.5 | 0 | 0 | 0 | Silent |
+| 9 | Aaron Patterson | 1.1 | 67.3 | 28.6 | 2.4 | 0 | Silent |
+| 10 | Eileen Uchitelle | 0.8 | 17.6 | 14.3 | 14.7 | 0 | Silent |
 
 ### Design Authority Distribution
 
 ```
 DHH             ████████████████████████████████████████████████████████  100.0
-Jeremy Kemper   █████████████████████████████████████████████████         89.0
-Rafael Franca   ██████████████████████████████████████                    68.4
-Aaron Patterson ██████████████████████████████                            54.0
-Xavier Noria    █████████████████████████                                 45.8
-Jose Valim      ██████████████████████                                    39.4
-Joshua Peek     ████████████████████                                      36.6
-R. Kamizono     ██████████████████                                        33.6
-Pratik Naik     █████████████████                                         31.1
+Jeremy Kemper   ██████████████████████████████████████████████████        90.5
+Rafael França   ██████████████████████████████████████                    68.4
+Aaron Patterson █████████████████████████████████████                     67.3
+José Valim      ███████████████████████                                   41.9
+Xavier Noria    ██████████████████████                                    39.6
+Jean Boussier   █████████████████████                                     37.6
+Joshua Peek     ████████████████████                                      36.8
+R. Kamizono     ██████████████████                                        33.9
                 ─────────────────────────── Design > 35 threshold ────────
 ```
 
-**6 people exceed Design 35.** This is extraordinary for a framework-driven project.
+**8 people exceed Design 35; 5 exceed 40.** That is unusual for a framework whose user-facing API has a single signature.
 
 ### Analysis
 
-Rails has evolved from a creator-centric kingdom into a **multi-architect civilization**.
+Rails reads less like a creator's kingdom and more like a **multi-architect civilization**.
 
-DHH created the gravitational center and still holds Design 100, Indispensability 100. But under the hardened gate his decades-old code no longer carries the live load: **DHH sits at Gravity 2.9, while Jean Boussier leads at 5.3** as the author whose code survives where others actively work. Jeremy Kemper (Design 90.5), Rafael França (69.0), and Aaron Patterson (67.3) still carry deep design history.
+DHH set the gravitational center and still holds Design 100 and Indispensability 100. Yet none of the top names carry surviving code where *others* keep pressing — every author in the top ten reads RobustSurvival 0, so survGate stays near its floor for all of them. What separates them is whose foundation others still build on: DHH leads at Gravity 4.0 not because his decades-old design persists under live load, but because his catGate (Catalysis 19.3) and his shape together edge past the field. Behind him the scores compress — zzak 3.5, Jean Boussier 3.2, Rafael França 3.0 — and the gap to the leader is small.
 
-Top10 Design averaging **43.1** is higher than most Go projects, which are supposed to concentrate design authority. Rails is "framework-driven" in its user-facing API, but internally it functions more like a self-structured project with distributed governance.
+Top10 Design averaging **44.4** sits above most projects that are supposed to concentrate design authority. The design history is spread thin: Jeremy Kemper (90.5), Rafael França (68.4), Aaron Patterson (67.3), José Valim (41.9), Xavier Noria (39.6) all carry deep architectural reach, and none of them lead.
 
-The Gravity Concentration of **5.9%** is the lowest of all 29 repos — below Kubernetes (8.4%) and the Rust compiler (16.4%). No single person's departure, not even the creator's, would collapse the structure.
+The Gravity Concentration of **9.4%** is the lowest of all 29 repos — below Kubernetes (26.2%) and the Rust compiler (24.6%). The instrument reads no single person the system leans on more than the rest. The structure does not tilt toward anyone, not even the creator.
 
-**Rails has achieved architect succession at scale.** This is the gold standard for open-source governance.
+What that looks like, if one wanted a name for it, is architect succession that already happened — the gravity never settled on one chair.
 
 ---
 
@@ -87,58 +87,58 @@ The Gravity Concentration of **5.9%** is the lowest of all 29 repos — below Ku
 
 | Metric | Value |
 |---|---|
-| Engineers | 4,470 |
-| Gravity Concentration | 20.6% |
-| Top10 Design | **17.6** (lower than Rails 43.1) |
-| Top10 Gravity (avg) | 2.6 |
-| Top10 Survival (avg) | 43.1 |
-| Design Authority | **Taylor Otwell alone** |
+| Engineers | 4,400 |
+| Gravity Concentration | 36.7% |
+| Top10 Design | **11.3** (far below Rails 44.4) |
+| Top10 Gravity (avg) | 9.1 |
+| Otwell's lead margin | **65.1 vs 6.5** (10x the #2) |
+| Authors with Design > 40 | **2 people** |
 
 ### Top 10 Gravity Ranking
 
-| # | Engineer | Gravity | Design | Indispensability | Survival | Commits |
-|---|---|---|---|---|---|---|
-| 1 | Taylor Otwell | 10.8 | 100.0 | 100.0 | 52.0 | 9,844 |
-| 2 | Lucas Michot | 7.5 | 4.9 | 75.0 | 66.3 | 743 |
-| 3 | Graham Campbell | 2.9 | 60.6 | 0.0 | 28.5 | 1,246 |
-| 4 | Luke Kuzmish | 1.3 | 1.7 | 50.0 | 42.9 | 176 |
-| 5 | Jack Bayliss | 0.8 | 1.1 | 0.0 | 77.5 | 163 |
-| 6 | Caleb White | 0.8 | 0.7 | 50.0 | 10.0 | 60 |
-| 7 | Tim MacDonald | 0.6 | 3.3 | 0.0 | 100.0 | 211 |
-| 8 | Jesper Noordsij | 0.5 | 0.4 | 0.0 | 13.5 | 75 |
-| 9 | Mior Muhammad Zaki | 0.4 | 2.8 | 0.0 | 40.7 | 427 |
-| 10 | Michaël De Boey | 0.4 | 0.0 | 0.0 | 0.0 | 7 |
+| # | Engineer | Gravity | Design | Indisp. | Catalysis | RobustSurv | State |
+|---|---|---|---|---|---|---|---|
+| 1 | Taylor Otwell | 65.1 | 100 | 100 | 100 | 78.4 | Growing |
+| 2 | Luke Kuzmish | 6.5 | 1.5 | 50 | 25.4 | 53.9 | — |
+| 3 | Mior Muhammad Zaki | 4.4 | 2.7 | 0 | 60.3 | 84.3 | Fragile |
+| 4 | Patrick Carlo-Hickman | 4.3 | 0.1 | 0 | 42.5 | 100 | — |
+| 5 | Caleb White | 2.9 | 0.7 | 50 | 23.8 | 20.9 | — |
+| 6 | Andrew Brown | 1.8 | 2.0 | 0 | 21.3 | 46.2 | Silent |
+| 7 | Lucas Michot | 1.7 | 4.8 | 0 | 11.7 | 12.6 | Silent |
+| 8 | Günther Debrauwer | 1.5 | 0.4 | 0 | 24.3 | 19.6 | — |
+| 9 | Ahmed Alaa | 1.3 | 0.1 | 0 | 26.1 | 15.4 | — |
+| 10 | Iman | 1.2 | 0.3 | 25 | 13.3 | 28.1 | Silent |
 
 ### Design Monopoly
 
 ```
 Taylor Otwell      ████████████████████████████████████████████████████████  100.0
-Graham Campbell    ███████████████████████████████████                        63.1
+Graham Campbell    ██████████████████████████████████                         60.8
                    ─────────────────────── gap ──────────────────────────────
-Lucas Michot       ██                                                          3.5
-Tim MacDonald      █                                                           2.6
-Luke Kuzmish       █                                                           1.3
-Caleb White        █                                                           1.0
-Kay W.             ▏                                                           0.1
-Nuno Maduro        ▏                                                           0.2
+Joseph Silber      ████                                                        6.7
+Dries Vints        ███                                                         5.1
+Lucas Michot       ██                                                          4.8
+Mohamed Said       ██                                                          3.6
+Tim MacDonald      █                                                           2.9
+Mior M. Zaki       █                                                           2.7
 Others             ▏                                                           0.0
 ```
 
-**Taylor Otwell holds all the Design.** Only Graham Campbell (60.6) has any comparable architectural reach. Everyone else: Design < 5.
+**Taylor Otwell holds nearly all the Design.** Only Graham Campbell (60.8) has any comparable architectural reach. Everyone else falls below Design 7.
 
 ### Analysis
 
-Laravel is a **creator-centric kingdom** — efficient, but with a single point of structural authority.
+Laravel reads as a **creator's kingdom** — and here both gates open for one person.
 
-Taylor Otwell holds Design 100 and Indispensability 100 — the only author with either — for a leading Gravity of 10.8 across 9,844 commits. Even his gravity stays modest because the strict gate demands code surviving under *others'* pressure, and in a one-architect kingdom there is little of that. The structural decisions all flow through one person.
+Taylor Otwell is the only author with Catalysis 100 *and* RobustSurvival 78.4: others build on his foundation, and his code persists in modules where others keep committing. Both gates stay wide open, his shape (Design 100, Indispensability 100) is saturated, and the product is a Gravity of **65.1** — about ten times the #2, Luke Kuzmish at 6.5. The system leans on him along every axis the instrument can read.
 
-This isn't necessarily a problem. A single architect's consistent vision means less churn — **efficiency through centralization**.
+This is not, in itself, a fault. A single architect's consistent reading means less churn — coherence through one hand.
 
-But it creates a bus factor of 1 for structural authority. Compare to Rails: same framework-driven category, but Rails distributes Design across its top contributors (Top10 Design avg **43.1**, 4 authors above 40) vs Laravel's **17.6** (only 2).
+But the structure rests on one chair. Compare Rails: same framework category, yet Rails spreads design history across its top contributors (Top10 Design avg **44.4**, 5 authors above 40) while Laravel's averages **11.3** with only 2 — and no one near the leader. Where Rails reads no one the system tilts toward, Laravel reads exactly one.
 
-**Same framework pattern. Opposite governance physics.**
+Same framework pattern. Opposite governance physics.
 
-The interesting question is not "which is better" but "what produced this difference?" Rails is 20+ years old with intentional architect succession. Laravel is younger with a creator who is still the primary architect. Time may tell whether Laravel follows the Rails path toward distributed governance, or maintains its centralized model.
+The open question is not which is better but what produced the difference. Rails is twenty-some years deep, and its gravity never settled on a single name. Laravel is younger, and its creator is still the one the structure leans on. Whether the field lines stay this concentrated, or spread the way Rails did, is something only the next decade can read.
 
 ---
 
@@ -148,50 +148,50 @@ The interesting question is not "which is better" but "what produced this differ
 
 | Metric | Value |
 |---|---|
-| Engineers | 126 |
-| Gravity Concentration | **77.0%** (swc 92.6% is higher) |
-| Top10 Design | 10.0 |
-| Evan Wallace | Design/Indisp/Survival **100**, Gravity **15.0** |
-| #2 contributor — all axes | Design 0, Indispensability 0, Survival 0 |
+| Engineers | 124 |
+| Gravity Concentration | **76.6%** (swc 91.5% is higher) |
+| Top10 Design | 10.1 |
+| Evan Wallace | Design/Breadth/Indisp **100**, RobustSurvival **0**, Gravity **15.0** |
+| #2 contributor — all shape axes | Design 0, Indispensability 0, RobustSurvival 0 |
 
 ### The Singularity
 
 ```
-Evan Wallace:    Gravity 15.0 | Design 100 | Indispensability 100 | Survival 100
+Evan Wallace:    Gravity 15.0 | Design 100 | Indisp 100 | RobustSurv 0
                  ════════════════════════════════════════════════════════════════
 
-Everyone else:   Gravity ~0.2 | Design 0 | Indispensability 0 | Survival 0
+Everyone else:   Gravity ~0.2 | Design 0 | Indisp 0 | RobustSurv 0
                  (no other contributor has any Design or Indispensability)
 ```
 
-Every contributor other than Evan Wallace scores **zero Design, zero Indispensability, zero Survival** — their gravity rounds to ~0.2. None of their code became structural.
+Every contributor other than Evan Wallace reads **zero Design, zero Indispensability, zero RobustSurvival** — their gravity rounds to ~0.2. None of their code became structural.
 
-### Where esbuild's 77% Sits
+### Where esbuild's 76.6% Sits
 
 | Project | Gravity Concentration |
 |---|---|
-| swc | 92.6% |
-| **esbuild** | **77.0%** |
-| express | 56.4% |
-| vite | 50.6% |
-| react | 45.3% |
-| rust | 16.4% |
-| kubernetes | 8.4% |
-| rails | 5.9% |
+| swc | 91.5% |
+| **esbuild** | **76.6%** |
+| express | 60.0% |
+| vite | 51.9% |
+| react | 27.1% |
+| kubernetes | 26.2% |
+| rust | 24.6% |
+| rails | 9.4% |
 
-esbuild's concentration is **~9x higher than Kubernetes** and **~13x higher than Rails**. It is not the single most concentrated project (swc edges it out), but it is the purest one-person universe.
+esbuild's concentration is **~3x Kubernetes** and **~8x Rails**. It is not the single densest project (swc edges it out), but it is the purest one-person universe.
 
 ### Analysis
 
-esbuild proves that a single brilliant architect can build an entire universe alone.
+esbuild is what a single architect's universe reads like when no one else is inside it.
 
-Evan Wallace created esbuild as a demonstration that JavaScript bundling could be 10-100x faster. He wrote 4,243 commits with Design, Indispensability and Survival all at 100 — for a Gravity of 15.0 (the strict gate holds the absolute down because, in a one-person project, no one else builds on or pressures the code). The result is a focused, fast, correct tool — precisely because one person controls every structural decision.
+Evan Wallace wrote esbuild as a demonstration that JavaScript bundling could run an order of magnitude faster, across 4,202 commits, with Design, Breadth and Indispensability all at 100. And yet the gravity stops at **15.0** — not because the shape is small, but because the survGate sits at its floor. Robust survival counts only code that lasts in modules where *others* commit, and in a solo project there are no others pressing on the code. RobustSurvival reads **0**, survGate collapses to 0.15, and the relational gates decline to mint the influence that the raw shape alone might suggest. The instrument is doing exactly what it should: it cannot see a structure leaning on someone when no one else is standing on it.
 
-This is the **extreme end of the architect-centric model** — a gravitational singularity. In physics, singularities are points where normal laws break down. The same is true here: esbuild's governance model doesn't scale, doesn't succession-plan, and doesn't need to. It's a finished artifact, not an evolving ecosystem.
+This is the **far end of the single-architect model** — a singularity. In physics, singularities are where the ordinary laws stop applying, and the reading is similar here: esbuild does not distribute, does not succession-plan, and has no reason to. It is a finished artifact, not an evolving ecosystem.
 
-The other contributors provided patches and fixes, but none of their code became structural. Design 0 and Indispensability 0 mean none of it shaped the architecture or became depended upon.
+The other contributors sent patches and fixes, but none of it became structural. Design 0 and Indispensability 0 mean none of it shaped the architecture or became leaned on.
 
-**A singularity is powerful, but it cannot be succession-planned.**
+A singularity is complete in itself — and that completeness is exactly why no one else can inherit it.
 
 ---
 
@@ -201,24 +201,24 @@ The other contributors provided patches and fixes, but none of their code became
 
 | Dimension | Rails | Laravel | esbuild |
 |---|---|---|---|
-| **Governance** | Multi-architect democracy | Benevolent monarchy | Singularity |
-| **Design Distribution** | 4 architects > 40 | 1 architect (+ 1 deputy) | 1 architect, period |
-| **Bus Factor** | High (distributed) | Low (1) | Zero |
-| **Efficiency** | Lower (more rewriting) | Higher (consistent vision) | Maximum (no coordination) |
-| **Succession** | Proven | Untested | N/A |
-| **Gravity Concentration** | 5.9% | 20.6% | 77.0% |
-| **Top10 Design** | 43.1 | 17.6 | ~10 |
-| **Scalability** | Proven at 6,474 | Proven at 4,470 | Limited to 1 |
+| **Governance** | Multi-architect civilization | Creator's kingdom | Singularity |
+| **Design Distribution** | 5 authors > 40 | 1 architect (+ 1 deputy) | 1 architect, period |
+| **Who the system leans on** | No one in particular | Otwell, every axis | Wallace, but unleant-on |
+| **Both gates open for the leader** | No (RobustSurv 0) | Yes (Cat 100, RobustSurv 78.4) | No (RobustSurv 0) |
+| **Leader's Gravity** | 4.0 (margin to #2: 0.5) | 65.1 (10x the #2) | 15.0 (held by survGate floor) |
+| **Gravity Concentration** | 9.4% | 36.7% | 76.6% |
+| **Top10 Design** | 44.4 | 11.3 | 10.1 |
+| **Engineers observed** | 6,402 | 4,400 | 124 |
 
 ### Key Insight
 
-These three projects exist on a spectrum from **maximum distribution** (Rails) to **maximum concentration** (esbuild). Neither extreme is inherently better — each is adapted to its context:
+The same metric, applied to three projects, reads three relationships between a system and the people inside it. Gravity is relational: it only registers where the structure observably leans on someone — code that survives under others' pressure, a foundation others build on.
 
-- **Rails** needs distributed governance because it's a living ecosystem with 6,474 contributors spanning 20+ years
-- **Laravel** thrives under centralized governance because Taylor Otwell's consistent vision minimizes churn
-- **esbuild** works as a singularity because it's a focused tool, not an evolving framework
+- **Rails** tilts toward no one. The top scores compress (4.0, 3.5, 3.2), no leader carries surviving code under live load, and the lowest concentration of all 29 repos (9.4%) reads a system that would not collapse with any single departure.
+- **Laravel** leans on Taylor Otwell along every axis at once — the rare case where both gates open for one person, putting his gravity ten times above the next name. Coherent, and resting on one chair.
+- **esbuild** is shaped entirely by one person, and the instrument still declines to call it gravity, because no one else stands on the code. Robust survival is zero, the survGate sits at its floor, and the singularity stays uninheritable by construction.
 
-The question is not "which model is best" but **"which model matches your project's lifecycle stage, scale, and goals?"**
+The question worth holding is not which model is best, but a quieter one the map keeps open: once activity is filtered out, what does a system actually lean on — and would anyone notice if that quietly left?
 
 ---
 
