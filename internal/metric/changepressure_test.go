@@ -80,3 +80,41 @@ func TestOthersPressure_NilSafe(t *testing.T) {
 		t.Errorf("nil OthersPressure must return 0, got %v", got)
 	}
 }
+
+// TestPressureThreshold gates the robust/dormant split on the number of
+// SUBSTANTIAL authors (absolute footprint), not on ownership share. The crucial
+// case is the distributed repo: many authors, none owning even 10% of the repo,
+// must still get a real (non-Inf) threshold — the old share-based gate zeroed
+// robust survival for everyone in large collaborative repos.
+func TestPressureThreshold(t *testing.T) {
+	pressure := ChangePressure{"a": 1, "b": 2, "c": 3} // median 2
+
+	t.Run("solo-dominated → Inf (all dormant)", func(t *testing.T) {
+		blame := map[string]int{"solo": 50000, "minor": 50} // only 1 substantial
+		if got := PressureThreshold(pressure, blame, SubstantialAuthorLines); !math.IsInf(got, 1) {
+			t.Errorf("solo-dominated repo must yield +Inf, got %v", got)
+		}
+	})
+
+	t.Run("two substantial authors → median", func(t *testing.T) {
+		blame := map[string]int{"alice": 5000, "bob": 3000, "drive-by": 10}
+		if got := PressureThreshold(pressure, blame, SubstantialAuthorLines); got != 2 {
+			t.Errorf("two substantial authors must yield median (2), got %v", got)
+		}
+	})
+
+	t.Run("distributed repo, nobody owns 10% → median (regression)", func(t *testing.T) {
+		// 200 authors each with 1500 surviving lines: total 300k, so each owns
+		// 0.5% — far below the old 10% bar — yet the split must be meaningful.
+		blame := make(map[string]int, 200)
+		for i := 0; i < 200; i++ {
+			blame[string(rune('a'+i%26))+string(rune('0'+i/26))] = 1500
+		}
+		if got := PressureThreshold(pressure, blame, SubstantialAuthorLines); math.IsInf(got, 1) {
+			t.Fatalf("distributed repo must NOT be gated to Inf; got Inf")
+		}
+		if got := PressureThreshold(pressure, blame, SubstantialAuthorLines); got != 2 {
+			t.Errorf("distributed repo must yield median (2), got %v", got)
+		}
+	})
+}

@@ -6,7 +6,6 @@ package timeline
 import (
 	"context"
 	"fmt"
-	"math"
 	"os"
 	"path/filepath"
 	"sort"
@@ -586,17 +585,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					for _, bl := range blameLines {
 						blameByAuthor[cfg.ResolveAuthor(bl.Author)]++
 					}
-					minShare := float64(len(blameLines)) * 0.10
-					substantialAuthors := 0
-					for _, count := range blameByAuthor {
-						if float64(count) >= minShare && count >= 1000 {
-							substantialAuthors++
-						}
-					}
-					pressureThreshold := repoPressure.MedianPressure()
-					if substantialAuthors < 2 {
-						pressureThreshold = math.Inf(1)
-					}
+					pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 					periodOthers := metric.CalcOthersPressure(periodCommits, blameLines, moduleResolver)
 					survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, window.End, repoPressure, pressureThreshold, moduleResolver, periodOthers)
 					mergeMap(acc.raw.Survival, survResult.Decayed)
