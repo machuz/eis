@@ -44,6 +44,28 @@ func TestBuildIdentityMap_CrossEmailSameNameUnifies(t *testing.T) {
 	}
 }
 
+func TestBuildIdentityMap_SkipsSharedEmails(t *testing.T) {
+	// Distinct people committing through GitHub's web UI share web-flow@github.com;
+	// they must NOT be merged. A real per-user noreply with name variants must.
+	commits := []Commit{
+		{Author: "Alice", Email: "web-flow@github.com"},
+		{Author: "Bob", Email: "web-flow@github.com"},
+		{Author: "Carol", Email: "web-flow@github.com"},
+		{Author: "realhandle", Email: "real@users.noreply.github.com"},
+		{Author: "Real Name", Email: "real@users.noreply.github.com"},
+		{Author: "Real Name", Email: "real@users.noreply.github.com"},
+	}
+	m := BuildIdentityMap(commits)
+	for _, n := range []string{"Alice", "Bob", "Carol"} {
+		if _, ok := m[n]; ok {
+			t.Errorf("%s merged via shared web-flow email — must be skipped", n)
+		}
+	}
+	if m["realhandle"] != "Real Name" {
+		t.Errorf("per-user noreply variant should still merge: realhandle -> %q", m["realhandle"])
+	}
+}
+
 func TestBuildIdentityMap_IgnoresEmptyEmail(t *testing.T) {
 	commits := []Commit{
 		{Author: "A", Email: ""},

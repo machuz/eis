@@ -27,7 +27,7 @@ func BuildIdentityMap(commits []Commit) map[string]string {
 	for _, c := range commits {
 		email := strings.ToLower(strings.TrimSpace(c.Email))
 		name := c.Author
-		if email == "" || name == "" {
+		if email == "" || name == "" || isSharedEmail(email) {
 			continue
 		}
 		if emailNames[email] == nil {
@@ -56,6 +56,37 @@ func BuildIdentityMap(commits []Commit) map[string]string {
 		}
 	}
 	return out
+}
+
+// sharedEmails are addresses used by MANY distinct people, so grouping names
+// under them would merge unrelated engineers. Note: a per-user GitHub noreply
+// (e.g. "user@users.noreply.github.com" or "1234+user@users.noreply.github.com")
+// is NOT shared — it identifies one account, and collapsing its name variants is
+// exactly the intent — so only the generic, account-less addresses are excluded.
+var sharedEmails = map[string]bool{
+	"web-flow@github.com":          true, // GitHub web-UI commits, authored by anyone
+	"noreply@github.com":           true,
+	"actions@github.com":           true,
+	"github-actions@github.com":    true,
+	"githubactions@github.com":     true,
+	"41898282+github-actions[bot]@users.noreply.github.com": true,
+}
+
+// isSharedEmail reports whether an email is a shared/automation address that must
+// not anchor identity merges. A guard against the per-name-count heuristic's
+// failure mode: real prolific contributors legitimately commit under many name
+// spellings from one personal email (e.g. swc's kdy1 uses 5), so a low
+// name-count cutoff would wrongly split them; an explicit address denylist
+// targets only the genuinely-shared addresses instead.
+func isSharedEmail(email string) bool {
+	if sharedEmails[email] {
+		return true
+	}
+	// "noreply@" with no user part, or no "@" at all, can't identify a person.
+	if !strings.Contains(email, "@") {
+		return true
+	}
+	return false
 }
 
 // pickTop returns the key with the highest count; ties break toward the
