@@ -197,7 +197,7 @@ Both sit in the Framework-driven family, yet:
 | eslint | Dynamic / Structural | JavaScript | 1,174 | 23.5 | 15.4 | 9.50 | 66.2% |
 | express | Dynamic / Structural | JavaScript | 389 | 14.2 | 7.2 | 1.27 | 60.0% |
 | prettier | Dynamic / Structural | JavaScript | 796 | 23.6 | 11.1 | 9.27 | 93.8% |
-| react | Dynamic / Structural | JavaScript | 1,992 | 25.3 | 24.2 | 2.17 | 27.4% |
+| react | Dynamic / Structural | JavaScript | 1,991 | 25.3 | 24.2 | 2.17 | 27.4% |
 | superset | Dynamic / Structural | Python/TS | 1,469 | 44.8 | 25.1 | 4.96 | 42.1% |
 | vite | Dynamic / Structural | TypeScript | 1,241 | 33.1 | 15.9 | 9.62 | 51.9% |
 ---
