@@ -7,11 +7,11 @@
         {
           "rank": 1,
           "member": "Evan Wallace",
-          "active": true,
-          "commits": 4243,
-          "lines_added": 324446,
-          "lines_deleted": 166266,
-          "production": 21,
+          "active": false,
+          "commits": 4202,
+          "lines_added": 322061,
+          "lines_deleted": 164585,
+          "production": 21.6,
           "catalysis": 100,
           "survival": 100,
           "robust_survival": 0,
@@ -20,12 +20,12 @@
           "untested_survival": 100,
           "design": 100,
           "breadth": 100,
-          "debt_cleanup": 40.3,
+          "debt_cleanup": 53.7,
           "indispensability": 100,
           "gravity": 15,
-          "impact": 50.5,
-          "role": "—",
-          "role_confidence": 0,
+          "impact": 52.7,
+          "role": "Cleaner",
+          "role_confidence": 0.1,
           "style": "Balanced",
           "style_confidence": 0.3,
           "state": "Fragile",
@@ -33,33 +33,6 @@
         },
         {
           "rank": 2,
-          "member": "2767mr",
-          "active": false,
-          "commits": 1,
-          "lines_added": 119,
-          "lines_deleted": 2,
-          "production": 12.1,
-          "catalysis": 0,
-          "survival": 0.3,
-          "robust_survival": 0,
-          "dormant_survival": 0.3,
-          "tested_survival": 0,
-          "untested_survival": 0.3,
-          "design": 0,
-          "breadth": 9.2,
-          "debt_cleanup": 97.7,
-          "indispensability": 0,
-          "gravity": 0.1,
-          "impact": 16.8,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 3,
           "member": "Jan Olaf Martin",
           "active": false,
           "commits": 1,
@@ -73,11 +46,38 @@
           "tested_survival": 0,
           "untested_survival": 0.1,
           "design": 0,
-          "breadth": 9.2,
-          "debt_cleanup": 99.4,
+          "breadth": 9.8,
+          "debt_cleanup": 100,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 16.2,
+          "impact": 16.4,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 3,
+          "member": "BPJEnnova",
+          "active": false,
+          "commits": 1,
+          "lines_added": 29,
+          "lines_deleted": 0,
+          "production": 2.9,
+          "catalysis": 0,
+          "survival": 0.3,
+          "robust_survival": 0,
+          "dormant_survival": 0.3,
+          "tested_survival": 0,
+          "untested_survival": 0.3,
+          "design": 0,
+          "breadth": 9.8,
+          "debt_cleanup": 98.8,
+          "indispensability": 0,
+          "gravity": 0.1,
+          "impact": 16.1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -100,11 +100,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
-          "debt_cleanup": 99.9,
+          "breadth": 9.8,
+          "debt_cleanup": 100,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 15.9,
+          "impact": 16,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -114,33 +114,6 @@
         },
         {
           "rank": 5,
-          "member": "BPJEnnova",
-          "active": false,
-          "commits": 1,
-          "lines_added": 29,
-          "lines_deleted": 0,
-          "production": 2.9,
-          "catalysis": 0,
-          "survival": 0.3,
-          "robust_survival": 0,
-          "dormant_survival": 0.3,
-          "tested_survival": 0,
-          "untested_survival": 0.3,
-          "design": 0,
-          "breadth": 9.2,
-          "debt_cleanup": 97.9,
-          "indispensability": 0,
-          "gravity": 0.1,
-          "impact": 15.9,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 6,
           "member": "Cheng Liangyu",
           "active": false,
           "commits": 1,
@@ -148,21 +121,48 @@
           "lines_deleted": 196,
           "production": 46.6,
           "catalysis": 0,
-          "survival": 1.1,
+          "survival": 1.3,
           "robust_survival": 0,
-          "dormant_survival": 1.1,
+          "dormant_survival": 1.3,
           "tested_survival": 0,
-          "untested_survival": 1.1,
+          "untested_survival": 1.3,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 13.1,
+          "impact": 13.2,
           "role": "Producer",
           "role_confidence": 0.64,
           "style": "Churn",
           "style_confidence": 0.92,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 6,
+          "member": "hqzing",
+          "active": false,
+          "commits": 2,
+          "lines_added": 67,
+          "lines_deleted": 29,
+          "production": 9.6,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 97.3,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 12.4,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
           "state": "—",
           "state_confidence": 0
         },
@@ -182,7 +182,7 @@
           "untested_survival": 0,
           "design": 0,
           "breadth": 0,
-          "debt_cleanup": 99.6,
+          "debt_cleanup": 100,
           "indispensability": 0,
           "gravity": 0,
           "impact": 12,
@@ -195,33 +195,6 @@
         },
         {
           "rank": 8,
-          "member": "Day",
-          "active": false,
-          "commits": 1,
-          "lines_added": 14,
-          "lines_deleted": 26,
-          "production": 4,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 34.7,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0.2,
-          "impact": 11.4,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 9,
           "member": "John Gozde",
           "active": false,
           "commits": 1,
@@ -235,11 +208,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0.6,
-          "breadth": 24.2,
+          "breadth": 25.7,
           "debt_cleanup": 0,
           "indispensability": 0,
-          "gravity": 0.1,
-          "impact": 10,
+          "gravity": 0.2,
+          "impact": 10.2,
           "role": "Producer",
           "role_confidence": 0.64,
           "style": "Churn",
@@ -248,7 +221,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 10,
+          "rank": 9,
           "member": "Jamal Carvalho",
           "active": false,
           "commits": 1,
@@ -262,11 +235,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0.1,
-          "breadth": 16.1,
+          "breadth": 17.1,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 9.5,
+          "impact": 9.6,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -275,34 +248,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 11,
-          "member": "José Valim",
-          "active": false,
-          "commits": 1,
-          "lines_added": 20,
-          "lines_deleted": 4,
-          "production": 2.4,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 9.2,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0.1,
-          "impact": 8.7,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 12,
+          "rank": 10,
           "member": "Huáng Jùnliàng",
           "active": false,
           "commits": 1,
@@ -316,11 +262,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.6,
+          "impact": 8.7,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -329,7 +275,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 13,
+          "rank": 11,
           "member": "Rémi Alvergnat",
           "active": false,
           "commits": 1,
@@ -343,7 +289,7 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
@@ -356,7 +302,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 14,
+          "rank": 12,
           "member": "timse",
           "active": false,
           "commits": 1,
@@ -370,7 +316,7 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
@@ -383,7 +329,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 15,
+          "rank": 13,
           "member": "Erik Jan de Wit",
           "active": false,
           "commits": 1,
@@ -397,11 +343,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.5,
+          "impact": 8.6,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -410,7 +356,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 16,
+          "rank": 14,
           "member": "y-yagi",
           "active": false,
           "commits": 1,
@@ -424,11 +370,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.4,
+          "impact": 8.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -437,7 +383,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 17,
+          "rank": 15,
           "member": "cui",
           "active": false,
           "commits": 1,
@@ -451,11 +397,11 @@
           "tested_survival": 0,
           "untested_survival": 0.1,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.4,
+          "impact": 8.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -464,7 +410,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 18,
+          "rank": 16,
           "member": "jinjingroad",
           "active": false,
           "commits": 1,
@@ -478,11 +424,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.4,
+          "impact": 8.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -491,7 +437,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 19,
+          "rank": 17,
           "member": "Benjamin Muskalla",
           "active": false,
           "commits": 1,
@@ -505,11 +451,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.4,
+          "impact": 8.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -518,7 +464,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 20,
+          "rank": 18,
           "member": "Yue JIN",
           "active": false,
           "commits": 1,
@@ -532,11 +478,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.4,
+          "impact": 8.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -545,7 +491,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 21,
+          "rank": 19,
           "member": "Georges Varouchas",
           "active": false,
           "commits": 1,
@@ -559,11 +505,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.4,
+          "impact": 8.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -572,34 +518,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 22,
-          "member": "Tommaso De Rossi",
-          "active": false,
-          "commits": 4,
-          "lines_added": 16,
-          "lines_deleted": 20,
-          "production": 0,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 9.2,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0.1,
-          "impact": 8.4,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 23,
+          "rank": 20,
           "member": "Jarred Sumner",
           "active": false,
           "commits": 2,
@@ -613,11 +532,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 50,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 8.4,
+          "impact": 8.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -626,7 +545,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 24,
+          "rank": 21,
           "member": "kikuchan",
           "active": false,
           "commits": 1,
@@ -653,7 +572,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 25,
+          "rank": 22,
           "member": "Salvatore Previti",
           "active": false,
           "commits": 1,
@@ -680,34 +599,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 26,
-          "member": "hqzing",
-          "active": false,
-          "commits": 2,
-          "lines_added": 67,
-          "lines_deleted": 29,
-          "production": 9.6,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6.8,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 27,
+          "rank": 23,
           "member": "ArrayZoneYour",
           "active": false,
           "commits": 1,
@@ -734,7 +626,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 28,
+          "rank": 24,
           "member": "FM",
           "active": false,
           "commits": 1,
@@ -761,7 +653,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 29,
+          "rank": 25,
           "member": "John Doe",
           "active": false,
           "commits": 2,
@@ -788,7 +680,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 30,
+          "rank": 26,
           "member": "Trung Lê",
           "active": false,
           "commits": 1,
@@ -815,7 +707,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 31,
+          "rank": 27,
           "member": "Greg Troxel",
           "active": false,
           "commits": 1,
@@ -842,7 +734,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 32,
+          "rank": 28,
           "member": "Urjeet Patel",
           "active": false,
           "commits": 1,
@@ -869,7 +761,34 @@
           "state_confidence": 0
         },
         {
-          "rank": 33,
+          "rank": 29,
+          "member": "Ian McKenzie",
+          "active": false,
+          "commits": 1,
+          "lines_added": 34,
+          "lines_deleted": 1,
+          "production": 3.5,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6.3,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 30,
           "member": "Hayden Young",
           "active": false,
           "commits": 1,
@@ -896,7 +815,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 34,
+          "rank": 31,
           "member": "Shahid",
           "active": false,
           "commits": 1,
@@ -923,7 +842,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 35,
+          "rank": 32,
           "member": "Caleb Eby",
           "active": false,
           "commits": 1,
@@ -950,7 +869,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 36,
+          "rank": 33,
           "member": "Dominik Hassler",
           "active": false,
           "commits": 1,
@@ -977,7 +896,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 37,
+          "rank": 34,
           "member": "Luke Edwards",
           "active": false,
           "commits": 1,
@@ -1004,7 +923,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 38,
+          "rank": 35,
           "member": "Frazer Smith",
           "active": false,
           "commits": 1,
@@ -1031,7 +950,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 39,
+          "rank": 36,
           "member": "Jonas",
           "active": false,
           "commits": 1,
@@ -1058,7 +977,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 40,
+          "rank": 37,
           "member": "kzc",
           "active": false,
           "commits": 1,
@@ -1085,7 +1004,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 41,
+          "rank": 38,
           "member": "Piotr Krawiec",
           "active": false,
           "commits": 1,
@@ -1112,7 +1031,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 42,
+          "rank": 39,
           "member": "Michael Kuryshev",
           "active": false,
           "commits": 1,
@@ -1139,7 +1058,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 43,
+          "rank": 40,
           "member": "dmitrage",
           "active": false,
           "commits": 1,
@@ -1166,7 +1085,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 44,
+          "rank": 41,
           "member": "Kirill Romanov",
           "active": false,
           "commits": 1,
@@ -1193,7 +1112,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 45,
+          "rank": 42,
           "member": "David Zukowski",
           "active": false,
           "commits": 1,
@@ -1220,7 +1139,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 46,
+          "rank": 43,
           "member": "Rongjian Zhang",
           "active": false,
           "commits": 1,
@@ -1247,7 +1166,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 47,
+          "rank": 44,
           "member": "Daniel Martí",
           "active": false,
           "commits": 1,
@@ -1274,34 +1193,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 48,
-          "member": "Sam Chen",
-          "active": false,
-          "commits": 1,
-          "lines_added": 3,
-          "lines_deleted": 3,
-          "production": 0.6,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 49,
+          "rank": 45,
           "member": "ryota kise",
           "active": false,
           "commits": 1,
@@ -1328,13 +1220,13 @@
           "state_confidence": 0
         },
         {
-          "rank": 50,
-          "member": "CHEN Yuan",
+          "rank": 46,
+          "member": "Sam Chen",
           "active": false,
           "commits": 1,
-          "lines_added": 5,
-          "lines_deleted": 0,
-          "production": 0.5,
+          "lines_added": 3,
+          "lines_deleted": 3,
+          "production": 0.6,
           "catalysis": 0,
           "survival": 0,
           "robust_survival": 0,
@@ -1355,7 +1247,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 51,
+          "rank": 47,
           "member": "Sushain Cherivirala",
           "active": false,
           "commits": 1,
@@ -1382,13 +1274,13 @@
           "state_confidence": 0
         },
         {
-          "rank": 52,
-          "member": "shcca",
+          "rank": 48,
+          "member": "CHEN Yuan",
           "active": false,
           "commits": 1,
-          "lines_added": 2,
-          "lines_deleted": 2,
-          "production": 0.4,
+          "lines_added": 5,
+          "lines_deleted": 0,
+          "production": 0.5,
           "catalysis": 0,
           "survival": 0,
           "robust_survival": 0,
@@ -1409,61 +1301,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 53,
-          "member": "Alexander von Weiss",
-          "active": false,
-          "commits": 1,
-          "lines_added": 3,
-          "lines_deleted": 1,
-          "production": 0.4,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 54,
-          "member": "Abirdcfly",
-          "active": false,
-          "commits": 1,
-          "lines_added": 2,
-          "lines_deleted": 2,
-          "production": 0.4,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 55,
+          "rank": 49,
           "member": "Nathan Keynes",
           "active": false,
           "commits": 1,
@@ -1490,7 +1328,61 @@
           "state_confidence": 0
         },
         {
-          "rank": 56,
+          "rank": 50,
+          "member": "Abirdcfly",
+          "active": false,
+          "commits": 1,
+          "lines_added": 2,
+          "lines_deleted": 2,
+          "production": 0.4,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 51,
+          "member": "Alexander von Weiss",
+          "active": false,
+          "commits": 1,
+          "lines_added": 3,
+          "lines_deleted": 1,
+          "production": 0.4,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 52,
           "member": "Dan Rosén",
           "active": false,
           "commits": 1,
@@ -1517,7 +1409,34 @@
           "state_confidence": 0
         },
         {
-          "rank": 57,
+          "rank": 53,
+          "member": "shcca",
+          "active": false,
+          "commits": 1,
+          "lines_added": 2,
+          "lines_deleted": 2,
+          "production": 0.4,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 54,
           "member": "IU",
           "active": false,
           "commits": 2,
@@ -1544,7 +1463,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 58,
+          "rank": 55,
           "member": "awkj",
           "active": false,
           "commits": 1,
@@ -1571,61 +1490,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 59,
-          "member": "Felipe Chierice",
-          "active": false,
-          "commits": 1,
-          "lines_added": 2,
-          "lines_deleted": 1,
-          "production": 0.3,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 60,
-          "member": "Jian Yu",
-          "active": false,
-          "commits": 1,
-          "lines_added": 2,
-          "lines_deleted": 1,
-          "production": 0.3,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 61,
+          "rank": 56,
           "member": "Evan You",
           "active": false,
           "commits": 1,
@@ -1652,7 +1517,61 @@
           "state_confidence": 0
         },
         {
-          "rank": 62,
+          "rank": 57,
+          "member": "Jian Yu",
+          "active": false,
+          "commits": 1,
+          "lines_added": 2,
+          "lines_deleted": 1,
+          "production": 0.3,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 58,
+          "member": "Felipe Chierice",
+          "active": false,
+          "commits": 1,
+          "lines_added": 2,
+          "lines_deleted": 1,
+          "production": 0.3,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 59,
           "member": "ycjcl868",
           "active": false,
           "commits": 1,
@@ -1679,7 +1598,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 63,
+          "rank": 60,
           "member": "Victor Korzunin",
           "active": false,
           "commits": 2,
@@ -1706,7 +1625,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 64,
+          "rank": 61,
           "member": "Richard Davey",
           "active": false,
           "commits": 1,
@@ -1733,8 +1652,8 @@
           "state_confidence": 0
         },
         {
-          "rank": 65,
-          "member": "hardfist",
+          "rank": 62,
+          "member": "ym-project",
           "active": false,
           "commits": 1,
           "lines_added": 1,
@@ -1760,142 +1679,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 66,
-          "member": "Mohammed Salman",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 1,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 67,
-          "member": "咲奈Sakina",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 1,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 68,
-          "member": "Fredrik Anfinsen",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 1,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 69,
-          "member": "bl-ue",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 1,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 70,
-          "member": "Matt Mc",
-          "active": false,
-          "commits": 1,
-          "lines_added": 2,
-          "lines_deleted": 0,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 71,
+          "rank": 63,
           "member": "Hiroki Osame",
           "active": false,
           "commits": 1,
@@ -1922,8 +1706,224 @@
           "state_confidence": 0
         },
         {
+          "rank": 64,
+          "member": "Matt Mc",
+          "active": false,
+          "commits": 1,
+          "lines_added": 2,
+          "lines_deleted": 0,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 65,
+          "member": "咲奈Sakina",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 1,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 66,
+          "member": "AnnatarHe",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 1,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 67,
+          "member": "Bo-Yi Wu",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 1,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 68,
+          "member": "Mathieu Dutour",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 1,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 69,
+          "member": "Nils Helmig",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 1,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 70,
+          "member": "bl-ue",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 1,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 71,
+          "member": "Mohammed Salman",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 1,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
           "rank": 72,
-          "member": "ym-project",
+          "member": "hardfist",
           "active": false,
           "commits": 1,
           "lines_added": 1,
@@ -1977,7 +1977,7 @@
         },
         {
           "rank": 74,
-          "member": "Mathieu Dutour",
+          "member": "Fredrik Anfinsen",
           "active": false,
           "commits": 1,
           "lines_added": 1,
@@ -2004,87 +2004,6 @@
         },
         {
           "rank": 75,
-          "member": "Nils Helmig",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 1,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 76,
-          "member": "AnnatarHe",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 1,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 77,
-          "member": "Bo-Yi Wu",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 1,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 78,
           "member": "Luca Casonato",
           "active": false,
           "commits": 2,
@@ -2111,7 +2030,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 79,
+          "rank": 76,
           "member": "Piggy",
           "active": false,
           "commits": 2,
@@ -2138,34 +2057,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 80,
-          "member": "Abhishek Shende",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 0,
-          "production": 0.1,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 81,
+          "rank": 77,
           "member": "BlueGreenMagick",
           "active": false,
           "commits": 1,
@@ -2192,7 +2084,34 @@
           "state_confidence": 0
         },
         {
-          "rank": 82,
+          "rank": 78,
+          "member": "Abhishek Shende",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 0,
+          "production": 0.1,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 79,
           "member": "第二扩展",
           "active": false,
           "commits": 1,
@@ -2219,7 +2138,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 83,
+          "rank": 80,
           "member": "Guy Bedford",
           "active": false,
           "commits": 1,
@@ -2246,7 +2165,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 84,
+          "rank": 81,
           "member": "Alex",
           "active": false,
           "commits": 2,
@@ -2273,61 +2192,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 85,
-          "member": "Zuckjet",
-          "active": false,
-          "commits": 2,
-          "lines_added": 0,
-          "lines_deleted": 0,
-          "production": 0,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 86,
-          "member": "criciss",
-          "active": true,
-          "commits": 1,
-          "lines_added": 0,
-          "lines_deleted": 0,
-          "production": 0,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "Active",
-          "state_confidence": 0.8
-        },
-        {
-          "rank": 87,
+          "rank": 82,
           "member": "Lucas Garron",
           "active": false,
           "commits": 1,
@@ -2354,142 +2219,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 88,
-          "member": "Brandon Bloom",
-          "active": false,
-          "commits": 1,
-          "lines_added": 0,
-          "lines_deleted": 0,
-          "production": 0,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 89,
-          "member": "Ikko Ashimine",
-          "active": false,
-          "commits": 1,
-          "lines_added": 0,
-          "lines_deleted": 0,
-          "production": 0,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 90,
-          "member": "Okyn",
-          "active": false,
-          "commits": 1,
-          "lines_added": 0,
-          "lines_deleted": 0,
-          "production": 0,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 91,
-          "member": "Vadim",
-          "active": false,
-          "commits": 1,
-          "lines_added": 0,
-          "lines_deleted": 0,
-          "production": 0,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 92,
-          "member": "mseele",
-          "active": false,
-          "commits": 1,
-          "lines_added": 0,
-          "lines_deleted": 0,
-          "production": 0,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 50,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 6,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 93,
+          "rank": 83,
           "member": "cuibuwei",
           "active": false,
           "commits": 1,
@@ -2516,7 +2246,169 @@
           "state_confidence": 0
         },
         {
-          "rank": 94,
+          "rank": 84,
+          "member": "Brandon Bloom",
+          "active": false,
+          "commits": 1,
+          "lines_added": 0,
+          "lines_deleted": 0,
+          "production": 0,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 85,
+          "member": "Ikko Ashimine",
+          "active": false,
+          "commits": 1,
+          "lines_added": 0,
+          "lines_deleted": 0,
+          "production": 0,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 86,
+          "member": "Zuckjet",
+          "active": false,
+          "commits": 2,
+          "lines_added": 0,
+          "lines_deleted": 0,
+          "production": 0,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 87,
+          "member": "mseele",
+          "active": false,
+          "commits": 1,
+          "lines_added": 0,
+          "lines_deleted": 0,
+          "production": 0,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 88,
+          "member": "Vadim",
+          "active": false,
+          "commits": 1,
+          "lines_added": 0,
+          "lines_deleted": 0,
+          "production": 0,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 89,
+          "member": "Okyn",
+          "active": false,
+          "commits": 1,
+          "lines_added": 0,
+          "lines_deleted": 0,
+          "production": 0,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 0,
+          "debt_cleanup": 50,
+          "indispensability": 0,
+          "gravity": 0,
+          "impact": 6,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 90,
           "member": "Chris Casola",
           "active": false,
           "commits": 1,
@@ -2530,11 +2422,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0.2,
-          "breadth": 29.6,
+          "breadth": 31.4,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.2,
-          "impact": 4.6,
+          "impact": 4.8,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2543,7 +2435,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 95,
+          "rank": 91,
           "member": "zhoujiaweii",
           "active": false,
           "commits": 1,
@@ -2551,17 +2443,17 @@
           "lines_deleted": 15,
           "production": 3.4,
           "catalysis": 0,
-          "survival": 0.5,
+          "survival": 0.6,
           "robust_survival": 0,
-          "dormant_survival": 0.5,
+          "dormant_survival": 0.6,
           "tested_survival": 0,
-          "untested_survival": 0.5,
+          "untested_survival": 0.6,
           "design": 0,
-          "breadth": 36.2,
+          "breadth": 38.4,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.2,
-          "impact": 4,
+          "impact": 4.2,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2570,7 +2462,34 @@
           "state_confidence": 0
         },
         {
-          "rank": 96,
+          "rank": 92,
+          "member": "Day",
+          "active": false,
+          "commits": 1,
+          "lines_added": 14,
+          "lines_deleted": 26,
+          "production": 4,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 36.9,
+          "debt_cleanup": 0,
+          "indispensability": 0,
+          "gravity": 0.2,
+          "impact": 4.1,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 93,
           "member": "Luke Sheard",
           "active": false,
           "commits": 1,
@@ -2584,11 +2503,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0.1,
-          "breadth": 26.5,
+          "breadth": 28.1,
           "debt_cleanup": 0,
           "indispensability": 0,
-          "gravity": 0.1,
-          "impact": 3.4,
+          "gravity": 0.2,
+          "impact": 3.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2597,7 +2516,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 97,
+          "rank": 94,
           "member": "Ryan Tsao",
           "active": false,
           "commits": 16,
@@ -2611,11 +2530,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 32.4,
+          "breadth": 34.4,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.2,
-          "impact": 3.2,
+          "impact": 3.4,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2624,7 +2543,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 98,
+          "rank": 95,
           "member": "Fedor Indutny",
           "active": false,
           "commits": 1,
@@ -2638,11 +2557,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 12.6,
+          "breadth": 13.4,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 2.8,
+          "impact": 2.9,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2651,7 +2570,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 99,
+          "rank": 96,
           "member": "David Yamnitsky",
           "active": false,
           "commits": 2,
@@ -2665,11 +2584,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 22.4,
+          "breadth": 23.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 2.4,
+          "impact": 2.5,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2678,7 +2597,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 100,
+          "rank": 97,
           "member": "翠 / green",
           "active": false,
           "commits": 6,
@@ -2692,11 +2611,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 21.3,
+          "breadth": 22.6,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 2.1,
+          "impact": 2.3,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2705,7 +2624,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 101,
+          "rank": 98,
           "member": "Grzegorz Rozdzialik",
           "active": false,
           "commits": 2,
@@ -2719,11 +2638,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0.1,
-          "breadth": 18.4,
+          "breadth": 19.5,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 1.8,
+          "impact": 2,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2732,7 +2651,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 102,
+          "rank": 99,
           "member": "magic-akari",
           "active": false,
           "commits": 9,
@@ -2746,11 +2665,11 @@
           "tested_survival": 0,
           "untested_survival": 0.1,
           "design": 0,
-          "breadth": 18.2,
+          "breadth": 19.3,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 1.8,
+          "impact": 1.9,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2759,7 +2678,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 103,
+          "rank": 100,
           "member": "Ade Viankakrisna Fadlil",
           "active": false,
           "commits": 6,
@@ -2773,7 +2692,7 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 12.9,
+          "breadth": 13.7,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
@@ -2786,7 +2705,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 104,
+          "rank": 101,
           "member": "S. Brent Faulkner",
           "active": false,
           "commits": 2,
@@ -2800,11 +2719,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 16.2,
+          "breadth": 17.2,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 1.6,
+          "impact": 1.7,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2813,7 +2732,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 105,
+          "rank": 102,
           "member": "Ethan Smith",
           "active": false,
           "commits": 1,
@@ -2827,7 +2746,7 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
@@ -2840,7 +2759,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 106,
+          "rank": 103,
           "member": "Hiroshi Ogawa",
           "active": false,
           "commits": 1,
@@ -2854,7 +2773,7 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
@@ -2867,7 +2786,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 107,
+          "rank": 104,
           "member": "Weilin Shi",
           "active": false,
           "commits": 1,
@@ -2881,7 +2800,7 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
@@ -2894,7 +2813,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 108,
+          "rank": 105,
           "member": "Rui",
           "active": false,
           "commits": 1,
@@ -2908,7 +2827,34 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
+          "debt_cleanup": 0,
+          "indispensability": 0,
+          "gravity": 0.1,
+          "impact": 1.3,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 106,
+          "member": "José Valim",
+          "active": false,
+          "commits": 1,
+          "lines_added": 20,
+          "lines_deleted": 4,
+          "production": 2.4,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
@@ -2921,7 +2867,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 109,
+          "rank": 107,
           "member": "Nicolas Peugnet",
           "active": false,
           "commits": 1,
@@ -2935,11 +2881,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0.1,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 1.1,
+          "impact": 1.2,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2948,7 +2894,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 110,
+          "rank": 108,
           "member": "Valentin Deleplace",
           "active": false,
           "commits": 1,
@@ -2962,11 +2908,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 1,
+          "impact": 1.1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -2975,7 +2921,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 111,
+          "rank": 109,
           "member": "Nevkontakte",
           "active": false,
           "commits": 1,
@@ -2989,11 +2935,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 0.9,
+          "impact": 1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -3002,34 +2948,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 112,
-          "member": "Kid",
-          "active": false,
-          "commits": 1,
-          "lines_added": 1,
-          "lines_deleted": 1,
-          "production": 0.2,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 9.2,
-          "debt_cleanup": 0,
-          "indispensability": 0,
-          "gravity": 0.1,
-          "impact": 0.9,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 113,
+          "rank": 110,
           "member": "Justin Ridgewell",
           "active": false,
           "commits": 7,
@@ -3043,11 +2962,11 @@
           "tested_survival": 0,
           "untested_survival": 0.1,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 0.9,
+          "impact": 1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -3056,7 +2975,34 @@
           "state_confidence": 0
         },
         {
-          "rank": 114,
+          "rank": 111,
+          "member": "Kid",
+          "active": false,
+          "commits": 1,
+          "lines_added": 1,
+          "lines_deleted": 1,
+          "production": 0.2,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 9.8,
+          "debt_cleanup": 0,
+          "indispensability": 0,
+          "gravity": 0.1,
+          "impact": 1,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 112,
           "member": "Pig Fang",
           "active": false,
           "commits": 6,
@@ -3070,11 +3016,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 0.9,
+          "impact": 1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -3083,7 +3029,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 115,
+          "rank": 113,
           "member": "Liu Bowen",
           "active": false,
           "commits": 3,
@@ -3097,11 +3043,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 0.9,
+          "impact": 1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -3110,7 +3056,34 @@
           "state_confidence": 0
         },
         {
-          "rank": 116,
+          "rank": 114,
+          "member": "Tommaso De Rossi",
+          "active": false,
+          "commits": 4,
+          "lines_added": 16,
+          "lines_deleted": 20,
+          "production": 0,
+          "catalysis": 0,
+          "survival": 0,
+          "robust_survival": 0,
+          "dormant_survival": 0,
+          "tested_survival": 0,
+          "untested_survival": 0,
+          "design": 0,
+          "breadth": 9.8,
+          "debt_cleanup": 0,
+          "indispensability": 0,
+          "gravity": 0.1,
+          "impact": 1,
+          "role": "—",
+          "role_confidence": 0,
+          "style": "—",
+          "style_confidence": 0,
+          "state": "—",
+          "state_confidence": 0
+        },
+        {
+          "rank": 115,
           "member": "一丝",
           "active": false,
           "commits": 4,
@@ -3124,11 +3097,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 0.9,
+          "impact": 1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -3137,7 +3110,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 117,
+          "rank": 116,
           "member": "Eelco Lempsink",
           "active": false,
           "commits": 2,
@@ -3151,11 +3124,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 0.9,
+          "impact": 1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -3164,7 +3137,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 118,
+          "rank": 117,
           "member": "Joe Schafer",
           "active": false,
           "commits": 2,
@@ -3178,11 +3151,11 @@
           "tested_survival": 0,
           "untested_survival": 0,
           "design": 0,
-          "breadth": 9.2,
+          "breadth": 9.8,
           "debt_cleanup": 0,
           "indispensability": 0,
           "gravity": 0.1,
-          "impact": 0.9,
+          "impact": 1,
           "role": "—",
           "role_confidence": 0,
           "style": "—",
@@ -3191,7 +3164,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 119,
+          "rank": 118,
           "member": "beyond_1234",
           "active": false,
           "commits": 1,
@@ -3218,7 +3191,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 120,
+          "rank": 119,
           "member": "Gusted",
           "active": false,
           "commits": 1,
@@ -3245,7 +3218,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 121,
+          "rank": 120,
           "member": "Huon Wilson",
           "active": false,
           "commits": 1,
@@ -3272,34 +3245,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 122,
-          "member": "Ian McKenzie",
-          "active": false,
-          "commits": 1,
-          "lines_added": 34,
-          "lines_deleted": 1,
-          "production": 3.5,
-          "catalysis": 0,
-          "survival": 0,
-          "robust_survival": 0,
-          "dormant_survival": 0,
-          "tested_survival": 0,
-          "untested_survival": 0,
-          "design": 0,
-          "breadth": 0,
-          "debt_cleanup": 0,
-          "indispensability": 0,
-          "gravity": 0,
-          "impact": 0.3,
-          "role": "—",
-          "role_confidence": 0,
-          "style": "—",
-          "style_confidence": 0,
-          "state": "—",
-          "state_confidence": 0
-        },
-        {
-          "rank": 123,
+          "rank": 121,
           "member": "Remco Haszing",
           "active": false,
           "commits": 1,
@@ -3326,7 +3272,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 124,
+          "rank": 122,
           "member": "Krzysztof Karol",
           "active": false,
           "commits": 1,
@@ -3353,7 +3299,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 125,
+          "rank": 123,
           "member": "Mike Cook",
           "active": false,
           "commits": 4,
@@ -3380,7 +3326,7 @@
           "state_confidence": 0
         },
         {
-          "rank": 126,
+          "rank": 124,
           "member": "susiwen8",
           "active": false,
           "commits": 2,
@@ -3411,21 +3357,28 @@
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "src/esbuild",
+          "module": "internal/js_lexer",
           "owner": "Evan Wallace",
-          "share": 100
+          "share": 99.6
         },
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/parser",
+          "module": "internal/compat",
           "owner": "Evan Wallace",
-          "share": 100
+          "share": 98.8
         },
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/fs",
+          "module": "internal/helpers",
+          "owner": "Evan Wallace",
+          "share": 99.8
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/logger",
           "owner": "Evan Wallace",
           "share": 99.5
         },
@@ -3439,23 +3392,23 @@
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/cache",
+          "module": "internal/sourcemap",
           "owner": "Evan Wallace",
           "share": 100
         },
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/logging",
+          "module": "src/esbuild",
           "owner": "Evan Wallace",
           "share": 100
         },
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/printer",
+          "module": "internal/bundler",
           "owner": "Evan Wallace",
-          "share": 100
+          "share": 98.7
         },
         {
           "repo": "",
@@ -3467,9 +3420,58 @@
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/config",
+          "module": "internal/ast",
           "owner": "Evan Wallace",
-          "share": 98
+          "share": 99.1
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/cli_helpers",
+          "owner": "Evan Wallace",
+          "share": 100
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/parser",
+          "owner": "Evan Wallace",
+          "share": 100
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/linker",
+          "owner": "Evan Wallace",
+          "share": 97.6
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/resolver",
+          "owner": "Evan Wallace",
+          "share": 99.1
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "pkg/api",
+          "owner": "Evan Wallace",
+          "share": 98.9
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/cache",
+          "owner": "Evan Wallace",
+          "share": 100
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/fs",
+          "owner": "Evan Wallace",
+          "share": 99.5
         },
         {
           "repo": "",
@@ -3495,30 +3497,9 @@
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "pkg/api",
+          "module": "internal/css_ast",
           "owner": "Evan Wallace",
-          "share": 98.9
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/ast",
-          "owner": "Evan Wallace",
-          "share": 99.1
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/compat",
-          "owner": "Evan Wallace",
-          "share": 98.8
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/css_parser",
-          "owner": "Evan Wallace",
-          "share": 96.5
+          "share": 99.6
         },
         {
           "repo": "",
@@ -3530,16 +3511,44 @@
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/linker",
+          "module": "internal/graph",
           "owner": "Evan Wallace",
-          "share": 97.6
+          "share": 100
         },
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/helpers",
+          "module": "internal/printer",
           "owner": "Evan Wallace",
-          "share": 99.8
+          "share": 100
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "cmd/esbuild",
+          "owner": "Evan Wallace",
+          "share": 98.2
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/config",
+          "owner": "Evan Wallace",
+          "share": 98
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/css_parser",
+          "owner": "Evan Wallace",
+          "share": 96.5
+        },
+        {
+          "repo": "",
+          "level": "CRITICAL",
+          "module": "internal/runtime",
+          "owner": "Evan Wallace",
+          "share": 99
         },
         {
           "repo": "",
@@ -3551,65 +3560,9 @@
         {
           "repo": "",
           "level": "CRITICAL",
-          "module": "internal/runtime",
-          "owner": "Evan Wallace",
-          "share": 98.1
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/sourcemap",
+          "module": "internal/logging",
           "owner": "Evan Wallace",
           "share": 100
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/cli_helpers",
-          "owner": "Evan Wallace",
-          "share": 100
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/css_ast",
-          "owner": "Evan Wallace",
-          "share": 99.6
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/bundler",
-          "owner": "Evan Wallace",
-          "share": 98.7
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/resolver",
-          "owner": "Evan Wallace",
-          "share": 99.1
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/graph",
-          "owner": "Evan Wallace",
-          "share": 100
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/js_lexer",
-          "owner": "Evan Wallace",
-          "share": 99.6
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "internal/logger",
-          "owner": "Evan Wallace",
-          "share": 99.5
         },
         {
           "repo": "",
@@ -3617,13 +3570,6 @@
           "module": "pkg/cli",
           "owner": "Evan Wallace",
           "share": 96.8
-        },
-        {
-          "repo": "",
-          "level": "CRITICAL",
-          "module": "cmd/esbuild",
-          "owner": "Evan Wallace",
-          "share": 98.2
         }
       ],
       "total_files": 117,
@@ -3747,7 +3693,7 @@
             {
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-wasm",
-              "cochange_count": 491,
+              "cochange_count": 486,
               "coupling": 0.85
             },
             {
@@ -3889,18 +3835,6 @@
               "coupling": 0.74
             },
             {
-              "module_a": "npm/esbuild-freebsd-arm64",
-              "module_b": "npm/esbuild-linux-mips64le",
-              "cochange_count": 208,
-              "coupling": 0.73
-            },
-            {
-              "module_a": "npm/esbuild-freebsd-arm64",
-              "module_b": "npm/esbuild-linux-64",
-              "cochange_count": 281,
-              "coupling": 0.73
-            },
-            {
               "module_a": "npm/esbuild-darwin-64",
               "module_b": "npm/esbuild-wasm",
               "cochange_count": 382,
@@ -3913,15 +3847,27 @@
               "coupling": 0.73
             },
             {
-              "module_a": "npm/esbuild-freebsd-arm64",
+              "module_a": "npm/esbuild-wasm",
               "module_b": "npm/esbuild-windows-64",
+              "cochange_count": 381,
+              "coupling": 0.73
+            },
+            {
+              "module_a": "npm/esbuild-freebsd-arm64",
+              "module_b": "npm/esbuild-linux-mips64le",
+              "cochange_count": 208,
+              "coupling": 0.73
+            },
+            {
+              "module_a": "npm/esbuild-freebsd-arm64",
+              "module_b": "npm/esbuild-linux-64",
               "cochange_count": 281,
               "coupling": 0.73
             },
             {
-              "module_a": "npm/esbuild-wasm",
+              "module_a": "npm/esbuild-freebsd-arm64",
               "module_b": "npm/esbuild-windows-64",
-              "cochange_count": 381,
+              "cochange_count": 281,
               "coupling": 0.73
             },
             {
@@ -4021,27 +3967,27 @@
               "coupling": 0.69
             },
             {
-              "module_a": "npm/esbuild-linux-s390x",
-              "module_b": "npm/esbuild-sunos-64",
-              "cochange_count": 68,
-              "coupling": 0.67
-            },
-            {
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-windows-64",
               "cochange_count": 374,
-              "coupling": 0.67
+              "coupling": 0.68
             },
             {
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-linux-64",
               "cochange_count": 373,
-              "coupling": 0.67
+              "coupling": 0.68
             },
             {
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-darwin-64",
               "cochange_count": 373,
+              "coupling": 0.68
+            },
+            {
+              "module_a": "npm/esbuild-linux-s390x",
+              "module_b": "npm/esbuild-sunos-64",
+              "cochange_count": 68,
               "coupling": 0.67
             },
             {
@@ -4114,7 +4060,7 @@
               "module_a": "npm/esbuild-linux-arm64",
               "module_b": "npm/esbuild-wasm",
               "cochange_count": 318,
-              "coupling": 0.6
+              "coupling": 0.61
             },
             {
               "module_a": "npm/esbuild-darwin-arm64",
@@ -4129,15 +4075,21 @@
               "coupling": 0.6
             },
             {
-              "module_a": "cmd/esbuild",
+              "module_a": "npm/esbuild-linux-ppc64le",
               "module_b": "npm/esbuild-wasm",
-              "cochange_count": 441,
+              "cochange_count": 312,
               "coupling": 0.6
             },
             {
               "module_a": "npm/esbuild-darwin-arm64",
               "module_b": "npm/esbuild-freebsd-arm64",
               "cochange_count": 170,
+              "coupling": 0.6
+            },
+            {
+              "module_a": "cmd/esbuild",
+              "module_b": "npm/esbuild-wasm",
+              "cochange_count": 436,
               "coupling": 0.6
             },
             {
@@ -4155,19 +4107,19 @@
             {
               "module_a": "cmd/esbuild",
               "module_b": "npm/esbuild",
-              "cochange_count": 448,
-              "coupling": 0.59
-            },
-            {
-              "module_a": "npm/esbuild-linux-ppc64le",
-              "module_b": "npm/esbuild-wasm",
-              "cochange_count": 312,
+              "cochange_count": 443,
               "coupling": 0.59
             },
             {
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-linux-arm64",
               "cochange_count": 320,
+              "coupling": 0.59
+            },
+            {
+              "module_a": "npm/esbuild",
+              "module_b": "npm/esbuild-linux-ppc64le",
+              "cochange_count": 314,
               "coupling": 0.58
             },
             {
@@ -4175,12 +4127,6 @@
               "module_b": "npm/esbuild-sunos-64",
               "cochange_count": 99,
               "coupling": 0.58
-            },
-            {
-              "module_a": "npm/esbuild",
-              "module_b": "npm/esbuild-linux-ppc64le",
-              "cochange_count": 314,
-              "coupling": 0.57
             },
             {
               "module_a": "npm/esbuild-android-arm64",
@@ -4258,7 +4204,7 @@
               "module_a": "npm/esbuild-freebsd-64",
               "module_b": "npm/esbuild-wasm",
               "cochange_count": 276,
-              "coupling": 0.52
+              "coupling": 0.53
             },
             {
               "module_a": "npm/esbuild-darwin-arm64",
@@ -4273,21 +4219,27 @@
               "coupling": 0.52
             },
             {
+              "module_a": "npm/esbuild",
+              "module_b": "npm/esbuild-freebsd-arm64",
+              "cochange_count": 281,
+              "coupling": 0.52
+            },
+            {
+              "module_a": "npm/esbuild",
+              "module_b": "npm/esbuild-freebsd-64",
+              "cochange_count": 279,
+              "coupling": 0.52
+            },
+            {
               "module_a": "npm/esbuild-linux-s390x",
               "module_b": "npm/esbuild-openbsd-64",
               "cochange_count": 68,
               "coupling": 0.52
             },
             {
-              "module_a": "npm/esbuild",
-              "module_b": "npm/esbuild-freebsd-arm64",
-              "cochange_count": 281,
-              "coupling": 0.51
-            },
-            {
-              "module_a": "npm/esbuild",
-              "module_b": "npm/esbuild-freebsd-64",
-              "cochange_count": 279,
+              "module_a": "npm/esbuild-linux-32",
+              "module_b": "npm/esbuild-wasm",
+              "cochange_count": 265,
               "coupling": 0.51
             },
             {
@@ -4309,9 +4261,9 @@
               "coupling": 0.51
             },
             {
-              "module_a": "npm/esbuild-linux-32",
-              "module_b": "npm/esbuild-wasm",
-              "cochange_count": 265,
+              "module_a": "npm/esbuild-wasm",
+              "module_b": "npm/esbuild-windows-32",
+              "cochange_count": 263,
               "coupling": 0.5
             },
             {
@@ -4327,28 +4279,10 @@
               "coupling": 0.5
             },
             {
-              "module_a": "npm/esbuild-wasm",
-              "module_b": "npm/esbuild-windows-32",
-              "cochange_count": 263,
-              "coupling": 0.5
-            },
-            {
               "module_a": "npm/esbuild-android-64",
               "module_b": "npm/esbuild-sunos-64",
               "cochange_count": 51,
               "coupling": 0.5
-            },
-            {
-              "module_a": "npm/esbuild-darwin-arm64",
-              "module_b": "npm/esbuild-netbsd-64",
-              "cochange_count": 85,
-              "coupling": 0.49
-            },
-            {
-              "module_a": "npm/esbuild-linux-mips64le",
-              "module_b": "npm/esbuild-windows-arm64",
-              "cochange_count": 103,
-              "coupling": 0.49
             },
             {
               "module_a": "npm/esbuild",
@@ -4357,10 +4291,22 @@
               "coupling": 0.49
             },
             {
+              "module_a": "npm/esbuild-darwin-arm64",
+              "module_b": "npm/esbuild-netbsd-64",
+              "cochange_count": 85,
+              "coupling": 0.49
+            },
+            {
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-windows-32",
               "cochange_count": 265,
-              "coupling": 0.48
+              "coupling": 0.49
+            },
+            {
+              "module_a": "npm/esbuild-linux-mips64le",
+              "module_b": "npm/esbuild-windows-arm64",
+              "cochange_count": 103,
+              "coupling": 0.49
             },
             {
               "module_a": "npm/esbuild-openbsd-64",
@@ -4384,7 +4330,7 @@
               "module_a": "cmd/esbuild",
               "module_b": "npm/esbuild-linux-arm64",
               "cochange_count": 315,
-              "coupling": 0.47
+              "coupling": 0.48
             },
             {
               "module_a": "npm/esbuild-android-64",
@@ -4399,22 +4345,16 @@
               "coupling": 0.47
             },
             {
-              "module_a": "npm/esbuild-android-arm64",
-              "module_b": "npm/esbuild-linux-arm64",
-              "cochange_count": 152,
-              "coupling": 0.47
-            },
-            {
               "module_a": "cmd/esbuild",
               "module_b": "npm/esbuild-linux-ppc64le",
               "cochange_count": 309,
               "coupling": 0.47
             },
             {
-              "module_a": "npm/esbuild-freebsd-64",
-              "module_b": "npm/esbuild-openbsd-64",
-              "cochange_count": 130,
-              "coupling": 0.46
+              "module_a": "npm/esbuild-android-arm64",
+              "module_b": "npm/esbuild-linux-arm64",
+              "cochange_count": 152,
+              "coupling": 0.47
             },
             {
               "module_a": "cmd/esbuild",
@@ -4432,6 +4372,12 @@
               "module_a": "cmd/esbuild",
               "module_b": "npm/esbuild-darwin-64",
               "cochange_count": 328,
+              "coupling": 0.46
+            },
+            {
+              "module_a": "npm/esbuild-freebsd-64",
+              "module_b": "npm/esbuild-openbsd-64",
+              "cochange_count": 130,
               "coupling": 0.46
             },
             {
@@ -4474,7 +4420,7 @@
               "module_a": "cmd/esbuild",
               "module_b": "npm/esbuild-freebsd-arm64",
               "cochange_count": 275,
-              "coupling": 0.41
+              "coupling": 0.42
             },
             {
               "module_a": "cmd/esbuild",
@@ -4507,32 +4453,20 @@
               "coupling": 0.4
             },
             {
-              "module_a": "npm/esbuild-darwin-arm64",
-              "module_b": "npm/esbuild-linux-s390x",
-              "cochange_count": 68,
-              "coupling": 0.4
-            },
-            {
               "module_a": "cmd/esbuild",
               "module_b": "npm/esbuild-linux-32",
               "cochange_count": 262,
               "coupling": 0.4
             },
             {
+              "module_a": "npm/esbuild-darwin-arm64",
+              "module_b": "npm/esbuild-linux-s390x",
+              "cochange_count": 68,
+              "coupling": 0.4
+            },
+            {
               "module_a": "npm/esbuild-android-arm64",
               "module_b": "npm/esbuild-linux-64",
-              "cochange_count": 152,
-              "coupling": 0.39
-            },
-            {
-              "module_a": "npm/esbuild-android-arm64",
-              "module_b": "npm/esbuild-windows-64",
-              "cochange_count": 152,
-              "coupling": 0.39
-            },
-            {
-              "module_a": "npm/esbuild-android-arm64",
-              "module_b": "npm/esbuild-darwin-64",
               "cochange_count": 152,
               "coupling": 0.39
             },
@@ -4549,6 +4483,18 @@
               "coupling": 0.39
             },
             {
+              "module_a": "npm/esbuild-android-arm64",
+              "module_b": "npm/esbuild-windows-64",
+              "cochange_count": 152,
+              "coupling": 0.39
+            },
+            {
+              "module_a": "npm/esbuild-android-arm64",
+              "module_b": "npm/esbuild-darwin-64",
+              "cochange_count": 152,
+              "coupling": 0.39
+            },
+            {
               "module_a": "npm/esbuild-windows-32",
               "module_b": "npm/esbuild-windows-arm64",
               "cochange_count": 104,
@@ -4561,16 +4507,22 @@
               "coupling": 0.38
             },
             {
+              "module_a": "npm/esbuild",
+              "module_b": "npm/esbuild-linux-mips64le",
+              "cochange_count": 206,
+              "coupling": 0.38
+            },
+            {
               "module_a": "npm/esbuild-linux-32",
               "module_b": "npm/esbuild-windows-arm64",
               "cochange_count": 103,
               "coupling": 0.38
             },
             {
-              "module_a": "npm/esbuild",
-              "module_b": "npm/esbuild-linux-mips64le",
-              "cochange_count": 206,
-              "coupling": 0.38
+              "module_a": "npm/esbuild-linux-arm",
+              "module_b": "npm/esbuild-wasm",
+              "cochange_count": 192,
+              "coupling": 0.37
             },
             {
               "module_a": "npm/esbuild-sunos-64",
@@ -4582,12 +4534,6 @@
               "module_a": "npm/esbuild-linux-32",
               "module_b": "npm/esbuild-sunos-64",
               "cochange_count": 99,
-              "coupling": 0.37
-            },
-            {
-              "module_a": "npm/esbuild-linux-arm",
-              "module_b": "npm/esbuild-wasm",
-              "cochange_count": 192,
               "coupling": 0.37
             },
             {
@@ -4606,7 +4552,7 @@
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-linux-arm",
               "cochange_count": 193,
-              "coupling": 0.35
+              "coupling": 0.36
             },
             {
               "module_a": "npm/esbuild-freebsd-64",
@@ -4717,15 +4663,21 @@
               "coupling": 0.31
             },
             {
-              "module_a": "pkg/api",
-              "module_b": "pkg/cli",
-              "cochange_count": 110,
-              "coupling": 0.31
-            },
-            {
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-darwin-arm64",
               "cochange_count": 168,
+              "coupling": 0.31
+            },
+            {
+              "module_a": "pkg/api",
+              "module_b": "pkg/cli",
+              "cochange_count": 109,
+              "coupling": 0.31
+            },
+            {
+              "module_a": "cmd/esbuild",
+              "module_b": "npm/esbuild-linux-mips64le",
+              "cochange_count": 202,
               "coupling": 0.31
             },
             {
@@ -4735,19 +4687,7 @@
               "coupling": 0.31
             },
             {
-              "module_a": "cmd/esbuild",
-              "module_b": "npm/esbuild-linux-mips64le",
-              "cochange_count": 202,
-              "coupling": 0.3
-            },
-            {
               "module_a": "npm/esbuild-freebsd-64",
-              "module_b": "npm/esbuild-netbsd-64",
-              "cochange_count": 85,
-              "coupling": 0.3
-            },
-            {
-              "module_a": "npm/esbuild-freebsd-arm64",
               "module_b": "npm/esbuild-netbsd-64",
               "cochange_count": 85,
               "coupling": 0.3
@@ -4759,9 +4699,21 @@
               "coupling": 0.3
             },
             {
+              "module_a": "npm/esbuild-freebsd-arm64",
+              "module_b": "npm/esbuild-netbsd-64",
+              "cochange_count": 85,
+              "coupling": 0.3
+            },
+            {
               "module_a": "npm/esbuild-android-64",
               "module_b": "npm/esbuild-darwin-arm64",
               "cochange_count": 51,
+              "coupling": 0.29
+            },
+            {
+              "module_a": "compat-table",
+              "module_b": "compat-table/src",
+              "cochange_count": 17,
               "coupling": 0.29
             },
             {
@@ -4774,24 +4726,18 @@
               "module_a": "npm/esbuild-android-arm64",
               "module_b": "npm/esbuild-wasm",
               "cochange_count": 149,
-              "coupling": 0.28
+              "coupling": 0.29
             },
             {
-              "module_a": "compat-table",
-              "module_b": "compat-table/src",
-              "cochange_count": 17,
+              "module_a": "npm/esbuild",
+              "module_b": "npm/esbuild-android-arm64",
+              "cochange_count": 150,
               "coupling": 0.28
             },
             {
               "module_a": "npm/esbuild-linux-arm",
               "module_b": "npm/esbuild-linux-riscv64",
               "cochange_count": 54,
-              "coupling": 0.27
-            },
-            {
-              "module_a": "npm/esbuild",
-              "module_b": "npm/esbuild-android-arm64",
-              "cochange_count": 150,
               "coupling": 0.27
             },
             {
@@ -4831,6 +4777,12 @@
               "coupling": 0.26
             },
             {
+              "module_a": "compat-table/src",
+              "module_b": "internal/compat",
+              "cochange_count": 35,
+              "coupling": 0.26
+            },
+            {
               "module_a": "npm/esbuild-linux-64",
               "module_b": "npm/esbuild-sunos-64",
               "cochange_count": 99,
@@ -4861,18 +4813,6 @@
               "coupling": 0.26
             },
             {
-              "module_a": "compat-table/src",
-              "module_b": "internal/compat",
-              "cochange_count": 35,
-              "coupling": 0.26
-            },
-            {
-              "module_a": "npm/@esbuild",
-              "module_b": "npm/esbuild-wasm",
-              "cochange_count": 135,
-              "coupling": 0.25
-            },
-            {
               "module_a": "npm/esbuild-linux-s390x",
               "module_b": "npm/esbuild-windows-32",
               "cochange_count": 68,
@@ -4885,16 +4825,22 @@
               "coupling": 0.25
             },
             {
-              "module_a": "npm/@esbuild",
-              "module_b": "npm/esbuild",
-              "cochange_count": 139,
-              "coupling": 0.25
-            },
-            {
               "module_a": "cmd/esbuild",
               "module_b": "npm/esbuild-darwin-arm64",
               "cochange_count": 164,
               "coupling": 0.25
+            },
+            {
+              "module_a": "npm/@esbuild",
+              "module_b": "npm/esbuild-wasm",
+              "cochange_count": 130,
+              "coupling": 0.25
+            },
+            {
+              "module_a": "npm/@esbuild",
+              "module_b": "npm/esbuild",
+              "cochange_count": 134,
+              "coupling": 0.24
             },
             {
               "module_a": "npm/esbuild-openbsd-64",
@@ -4923,14 +4869,14 @@
             {
               "module_a": ".",
               "module_b": "cmd/esbuild",
-              "cochange_count": 562,
+              "cochange_count": 557,
               "coupling": 0.24
             },
             {
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-openbsd-64",
               "cochange_count": 128,
-              "coupling": 0.23
+              "coupling": 0.24
             },
             {
               "module_a": "internal/js_ast",
@@ -4941,7 +4887,7 @@
             {
               "module_a": ".",
               "module_b": "npm/esbuild",
-              "cochange_count": 516,
+              "cochange_count": 510,
               "coupling": 0.22
             },
             {
@@ -4963,6 +4909,12 @@
               "coupling": 0.22
             },
             {
+              "module_a": ".",
+              "module_b": "npm/esbuild-wasm",
+              "cochange_count": 500,
+              "coupling": 0.22
+            },
+            {
               "module_a": "npm/esbuild-darwin-64",
               "module_b": "npm/esbuild-netbsd-64",
               "cochange_count": 85,
@@ -4970,14 +4922,8 @@
             },
             {
               "module_a": ".",
-              "module_b": "npm/esbuild-wasm",
-              "cochange_count": 505,
-              "coupling": 0.22
-            },
-            {
-              "module_a": ".",
               "module_b": "scripts",
-              "cochange_count": 578,
+              "cochange_count": 569,
               "coupling": 0.22
             },
             {
@@ -5019,13 +4965,13 @@
             {
               "module_a": "cmd/esbuild",
               "module_b": "npm/@esbuild",
-              "cochange_count": 133,
-              "coupling": 0.2
+              "cochange_count": 128,
+              "coupling": 0.19
             },
             {
-              "module_a": "compat-table",
-              "module_b": "internal/compat",
-              "cochange_count": 26,
+              "module_a": "npm/esbuild-wasm",
+              "module_b": "npm/esbuild-windows-arm64",
+              "cochange_count": 100,
               "coupling": 0.19
             },
             {
@@ -5038,24 +4984,6 @@
               "module_a": "npm/esbuild-freebsd-arm64",
               "module_b": "npm/esbuild-linux-riscv64",
               "cochange_count": 54,
-              "coupling": 0.19
-            },
-            {
-              "module_a": "npm/esbuild-wasm",
-              "module_b": "npm/esbuild-windows-arm64",
-              "cochange_count": 100,
-              "coupling": 0.19
-            },
-            {
-              "module_a": "npm/esbuild-android-64",
-              "module_b": "npm/esbuild-windows-32",
-              "cochange_count": 51,
-              "coupling": 0.19
-            },
-            {
-              "module_a": "npm/esbuild-android-64",
-              "module_b": "npm/esbuild-linux-32",
-              "cochange_count": 51,
               "coupling": 0.19
             },
             {
@@ -5077,6 +5005,24 @@
               "coupling": 0.19
             },
             {
+              "module_a": "npm/esbuild-android-64",
+              "module_b": "npm/esbuild-windows-32",
+              "cochange_count": 51,
+              "coupling": 0.19
+            },
+            {
+              "module_a": "npm/esbuild-android-64",
+              "module_b": "npm/esbuild-linux-32",
+              "cochange_count": 51,
+              "coupling": 0.19
+            },
+            {
+              "module_a": "compat-table",
+              "module_b": "internal/compat",
+              "cochange_count": 25,
+              "coupling": 0.19
+            },
+            {
               "module_a": "npm/esbuild-sunos-64",
               "module_b": "npm/esbuild-wasm",
               "cochange_count": 96,
@@ -5089,12 +5035,6 @@
               "coupling": 0.18
             },
             {
-              "module_a": "npm/esbuild-android-64",
-              "module_b": "npm/esbuild-freebsd-64",
-              "cochange_count": 51,
-              "coupling": 0.18
-            },
-            {
               "module_a": "internal/bundler",
               "module_b": "scripts",
               "cochange_count": 287,
@@ -5102,14 +5042,8 @@
             },
             {
               "module_a": "npm/esbuild-android-64",
-              "module_b": "npm/esbuild-freebsd-arm64",
+              "module_b": "npm/esbuild-freebsd-64",
               "cochange_count": 51,
-              "coupling": 0.18
-            },
-            {
-              "module_a": ".",
-              "module_b": "internal/js_parser",
-              "cochange_count": 480,
               "coupling": 0.18
             },
             {
@@ -5121,7 +5055,19 @@
             {
               "module_a": ".",
               "module_b": "internal/bundler",
-              "cochange_count": 489,
+              "cochange_count": 488,
+              "coupling": 0.18
+            },
+            {
+              "module_a": "npm/esbuild-android-64",
+              "module_b": "npm/esbuild-freebsd-arm64",
+              "cochange_count": 51,
+              "coupling": 0.18
+            },
+            {
+              "module_a": ".",
+              "module_b": "internal/js_parser",
+              "cochange_count": 474,
               "coupling": 0.18
             },
             {
@@ -5155,6 +5101,18 @@
               "coupling": 0.17
             },
             {
+              "module_a": ".",
+              "module_b": "npm/esbuild-windows-64",
+              "cochange_count": 379,
+              "coupling": 0.17
+            },
+            {
+              "module_a": ".",
+              "module_b": "npm/esbuild-darwin-64",
+              "cochange_count": 379,
+              "coupling": 0.17
+            },
+            {
               "module_a": "npm/esbuild-linux-arm64",
               "module_b": "npm/esbuild-linux-riscv64",
               "cochange_count": 54,
@@ -5162,21 +5120,9 @@
             },
             {
               "module_a": ".",
-              "module_b": "npm/esbuild-windows-64",
-              "cochange_count": 379,
-              "coupling": 0.16
-            },
-            {
-              "module_a": ".",
-              "module_b": "npm/esbuild-darwin-64",
-              "cochange_count": 379,
-              "coupling": 0.16
-            },
-            {
-              "module_a": ".",
               "module_b": "npm/esbuild-linux-64",
               "cochange_count": 378,
-              "coupling": 0.16
+              "coupling": 0.17
             },
             {
               "module_a": "lib",
@@ -5211,7 +5157,7 @@
             {
               "module_a": "pkg/api",
               "module_b": "scripts",
-              "cochange_count": 162,
+              "cochange_count": 161,
               "coupling": 0.15
             },
             {
@@ -5221,9 +5167,15 @@
               "coupling": 0.15
             },
             {
-              "module_a": "internal/resolver",
-              "module_b": "pkg/api",
-              "cochange_count": 77,
+              "module_a": "cmd/esbuild",
+              "module_b": "npm/esbuild-sunos-64",
+              "cochange_count": 93,
+              "coupling": 0.14
+            },
+            {
+              "module_a": ".",
+              "module_b": "npm/esbuild-linux-arm64",
+              "cochange_count": 320,
               "coupling": 0.14
             },
             {
@@ -5233,15 +5185,15 @@
               "coupling": 0.14
             },
             {
-              "module_a": "cmd/esbuild",
-              "module_b": "npm/esbuild-sunos-64",
-              "cochange_count": 93,
-              "coupling": 0.14
-            },
-            {
               "module_a": "npm/esbuild-linux-64",
               "module_b": "npm/esbuild-linux-riscv64",
               "cochange_count": 54,
+              "coupling": 0.14
+            },
+            {
+              "module_a": "internal/resolver",
+              "module_b": "pkg/api",
+              "cochange_count": 76,
               "coupling": 0.14
             },
             {
@@ -5257,9 +5209,9 @@
               "coupling": 0.14
             },
             {
-              "module_a": ".",
-              "module_b": "npm/esbuild-linux-arm64",
-              "cochange_count": 320,
+              "module_a": "npm/@esbuild",
+              "module_b": "npm/esbuild-android-64",
+              "cochange_count": 24,
               "coupling": 0.14
             },
             {
@@ -5269,9 +5221,9 @@
               "coupling": 0.14
             },
             {
-              "module_a": "npm/@esbuild",
-              "module_b": "npm/esbuild-android-64",
-              "cochange_count": 24,
+              "module_a": "internal/bundler_tests",
+              "module_b": "internal/linker",
+              "cochange_count": 37,
               "coupling": 0.13
             },
             {
@@ -5281,15 +5233,15 @@
               "coupling": 0.13
             },
             {
-              "module_a": "internal/bundler_tests",
-              "module_b": "internal/linker",
-              "cochange_count": 38,
-              "coupling": 0.13
-            },
-            {
               "module_a": "internal/parser",
               "module_b": "internal/printer",
               "cochange_count": 36,
+              "coupling": 0.13
+            },
+            {
+              "module_a": "npm/@esbuild",
+              "module_b": "npm/esbuild-linux-riscv64",
+              "cochange_count": 23,
               "coupling": 0.13
             },
             {
@@ -5319,25 +5271,13 @@
             {
               "module_a": "internal/js_parser",
               "module_b": "scripts",
-              "cochange_count": 208,
-              "coupling": 0.13
-            },
-            {
-              "module_a": "lib/deno",
-              "module_b": "lib/npm",
-              "cochange_count": 12,
+              "cochange_count": 207,
               "coupling": 0.13
             },
             {
               "module_a": "npm/esbuild-linux-s390x",
               "module_b": "npm/esbuild-wasm",
               "cochange_count": 67,
-              "coupling": 0.13
-            },
-            {
-              "module_a": "npm/@esbuild",
-              "module_b": "npm/esbuild-linux-riscv64",
-              "cochange_count": 23,
               "coupling": 0.13
             },
             {
@@ -5356,36 +5296,30 @@
               "module_a": "npm/esbuild",
               "module_b": "npm/esbuild-linux-s390x",
               "cochange_count": 68,
-              "coupling": 0.12
+              "coupling": 0.13
             },
             {
               "module_a": "cmd/esbuild",
               "module_b": "npm/esbuild-netbsd-64",
               "cochange_count": 82,
-              "coupling": 0.12
+              "coupling": 0.13
             },
             {
               "module_a": "lib/shared",
               "module_b": "pkg/api",
               "cochange_count": 48,
-              "coupling": 0.12
+              "coupling": 0.13
             },
             {
               "module_a": "lib/shared",
               "module_b": "pkg/cli",
               "cochange_count": 28,
-              "coupling": 0.12
+              "coupling": 0.13
             },
             {
               "module_a": ".",
               "module_b": "npm/esbuild-freebsd-arm64",
               "cochange_count": 281,
-              "coupling": 0.12
-            },
-            {
-              "module_a": "internal/config",
-              "module_b": "internal/resolver",
-              "cochange_count": 49,
               "coupling": 0.12
             },
             {
@@ -5395,21 +5329,21 @@
               "coupling": 0.12
             },
             {
-              "module_a": "internal/css_lexer",
-              "module_b": "internal/css_parser",
-              "cochange_count": 31,
-              "coupling": 0.12
-            },
-            {
-              "module_a": "internal/js_parser",
-              "module_b": "internal/js_printer",
-              "cochange_count": 115,
-              "coupling": 0.12
-            },
-            {
               "module_a": "npm/@esbuild",
               "module_b": "npm/esbuild-linux-s390x",
               "cochange_count": 23,
+              "coupling": 0.12
+            },
+            {
+              "module_a": "internal/config",
+              "module_b": "internal/resolver",
+              "cochange_count": 49,
+              "coupling": 0.12
+            },
+            {
+              "module_a": "internal/css_lexer",
+              "module_b": "internal/css_parser",
+              "cochange_count": 31,
               "coupling": 0.12
             },
             {
@@ -5419,10 +5353,22 @@
               "coupling": 0.12
             },
             {
+              "module_a": "internal/js_parser",
+              "module_b": "internal/js_printer",
+              "cochange_count": 113,
+              "coupling": 0.12
+            },
+            {
               "module_a": ".",
               "module_b": "npm/esbuild-windows-32",
               "cochange_count": 266,
               "coupling": 0.12
+            },
+            {
+              "module_a": "lib/deno",
+              "module_b": "lib/npm",
+              "cochange_count": 10,
+              "coupling": 0.11
             },
             {
               "module_a": "internal/logger",
@@ -5443,6 +5389,12 @@
               "coupling": 0.11
             },
             {
+              "module_a": "npm/@esbuild",
+              "module_b": "npm/esbuild-windows-arm64",
+              "cochange_count": 24,
+              "coupling": 0.11
+            },
+            {
               "module_a": "internal/lexer",
               "module_b": "internal/parser",
               "cochange_count": 27,
@@ -5455,39 +5407,33 @@
               "coupling": 0.11
             },
             {
+              "module_a": "npm/@esbuild",
+              "module_b": "npm/esbuild-netbsd-64",
+              "cochange_count": 22,
+              "coupling": 0.11
+            },
+            {
               "module_a": "cmd/esbuild",
               "module_b": "pkg/cli",
               "cochange_count": 76,
               "coupling": 0.11
             },
             {
-              "module_a": "npm/@esbuild",
-              "module_b": "npm/esbuild-windows-arm64",
-              "cochange_count": 24,
-              "coupling": 0.1
-            },
-            {
               "module_a": "internal/config",
               "module_b": "lib",
               "cochange_count": 33,
-              "coupling": 0.1
-            },
-            {
-              "module_a": "npm/@esbuild",
-              "module_b": "npm/esbuild-netbsd-64",
-              "cochange_count": 22,
-              "coupling": 0.1
-            },
-            {
-              "module_a": "internal/css_lexer",
-              "module_b": "internal/js_lexer",
-              "cochange_count": 11,
-              "coupling": 0.1
+              "coupling": 0.11
             },
             {
               "module_a": "npm/@esbuild",
               "module_b": "npm/esbuild-sunos-64",
               "cochange_count": 23,
+              "coupling": 0.11
+            },
+            {
+              "module_a": "internal/css_lexer",
+              "module_b": "internal/js_lexer",
+              "cochange_count": 11,
               "coupling": 0.1
             },
             {
@@ -5497,9 +5443,9 @@
               "coupling": 0.1
             },
             {
-              "module_a": "internal/bundler_tests",
-              "module_b": "internal/js_parser",
-              "cochange_count": 103,
+              "module_a": "npm/esbuild",
+              "module_b": "npm/esbuild-linux-riscv64",
+              "cochange_count": 54,
               "coupling": 0.1
             }
           ]
@@ -5507,8 +5453,8 @@
       ],
       "ownership": [
         {
-          "module": "internal/renamer",
-          "total_lines": 463,
+          "module": "internal/logging",
+          "total_lines": 206,
           "author_count": 1,
           "top_author": "Evan Wallace",
           "top_share": 1,
@@ -5525,15 +5471,6 @@
           "level": "SOLE_OWNER"
         },
         {
-          "module": "internal/lexer",
-          "total_lines": 267,
-          "author_count": 1,
-          "top_author": "Evan Wallace",
-          "top_share": 1,
-          "entropy": 0,
-          "level": "SOLE_OWNER"
-        },
-        {
           "module": "internal/sourcemap",
           "total_lines": 579,
           "author_count": 1,
@@ -5543,53 +5480,8 @@
           "level": "SOLE_OWNER"
         },
         {
-          "module": "internal/css_printer",
-          "total_lines": 1098,
-          "author_count": 1,
-          "top_author": "Evan Wallace",
-          "top_share": 1,
-          "entropy": 0,
-          "level": "SOLE_OWNER"
-        },
-        {
-          "module": "src/esbuild",
-          "total_lines": 5345,
-          "author_count": 1,
-          "top_author": "Evan Wallace",
-          "top_share": 1,
-          "entropy": 0,
-          "level": "SOLE_OWNER"
-        },
-        {
           "module": "internal/printer",
-          "total_lines": 337,
-          "author_count": 1,
-          "top_author": "Evan Wallace",
-          "top_share": 1,
-          "entropy": 0,
-          "level": "SOLE_OWNER"
-        },
-        {
-          "module": "internal/cache",
-          "total_lines": 246,
-          "author_count": 1,
-          "top_author": "Evan Wallace",
-          "top_share": 1,
-          "entropy": 0,
-          "level": "SOLE_OWNER"
-        },
-        {
-          "module": "internal/logging",
-          "total_lines": 206,
-          "author_count": 1,
-          "top_author": "Evan Wallace",
-          "top_share": 1,
-          "entropy": 0,
-          "level": "SOLE_OWNER"
-        },
-        {
-          "module": "internal/parser",
-          "total_lines": 2955,
+          "total_lines": 341,
           "author_count": 1,
           "top_author": "Evan Wallace",
           "top_share": 1,
@@ -5606,6 +5498,15 @@
           "level": "SOLE_OWNER"
         },
         {
+          "module": "internal/renamer",
+          "total_lines": 463,
+          "author_count": 1,
+          "top_author": "Evan Wallace",
+          "top_share": 1,
+          "entropy": 0,
+          "level": "SOLE_OWNER"
+        },
+        {
           "module": "internal/graph",
           "total_lines": 385,
           "author_count": 1,
@@ -5615,8 +5516,53 @@
           "level": "SOLE_OWNER"
         },
         {
+          "module": "src/esbuild",
+          "total_lines": 5345,
+          "author_count": 1,
+          "top_author": "Evan Wallace",
+          "top_share": 1,
+          "entropy": 0,
+          "level": "SOLE_OWNER"
+        },
+        {
+          "module": "internal/parser",
+          "total_lines": 2956,
+          "author_count": 1,
+          "top_author": "Evan Wallace",
+          "top_share": 1,
+          "entropy": 0,
+          "level": "SOLE_OWNER"
+        },
+        {
+          "module": "internal/cache",
+          "total_lines": 246,
+          "author_count": 1,
+          "top_author": "Evan Wallace",
+          "top_share": 1,
+          "entropy": 0,
+          "level": "SOLE_OWNER"
+        },
+        {
+          "module": "internal/lexer",
+          "total_lines": 267,
+          "author_count": 1,
+          "top_author": "Evan Wallace",
+          "top_share": 1,
+          "entropy": 0,
+          "level": "SOLE_OWNER"
+        },
+        {
+          "module": "internal/css_printer",
+          "total_lines": 1098,
+          "author_count": 1,
+          "top_author": "Evan Wallace",
+          "top_share": 1,
+          "entropy": 0,
+          "level": "SOLE_OWNER"
+        },
+        {
           "module": "internal/js_printer",
-          "total_lines": 2801,
+          "total_lines": 2797,
           "author_count": 3,
           "top_author": "Evan Wallace",
           "top_share": 1,
@@ -5696,8 +5642,17 @@
           "level": "CONCENTRATED"
         },
         {
+          "module": "internal/runtime",
+          "total_lines": 402,
+          "author_count": 2,
+          "top_author": "Evan Wallace",
+          "top_share": 0.99,
+          "entropy": 0.08,
+          "level": "CONCENTRATED"
+        },
+        {
           "module": "pkg/api",
-          "total_lines": 3597,
+          "total_lines": 3588,
           "author_count": 11,
           "top_author": "Evan Wallace",
           "top_share": 0.99,
@@ -5706,16 +5661,16 @@
         },
         {
           "module": "internal/compat",
-          "total_lines": 1298,
+          "total_lines": 1294,
           "author_count": 5,
           "top_author": "Evan Wallace",
           "top_share": 0.99,
-          "entropy": 0.11,
+          "entropy": 0.12,
           "level": "CONCENTRATED"
         },
         {
           "module": "internal/bundler",
-          "total_lines": 6509,
+          "total_lines": 6506,
           "author_count": 12,
           "top_author": "Evan Wallace",
           "top_share": 0.99,
@@ -5729,15 +5684,6 @@
           "top_author": "Evan Wallace",
           "top_share": 0.98,
           "entropy": 0.16,
-          "level": "CONCENTRATED"
-        },
-        {
-          "module": "internal/runtime",
-          "total_lines": 431,
-          "author_count": 3,
-          "top_author": "Evan Wallace",
-          "top_share": 0.98,
-          "entropy": 0.15,
           "level": "CONCENTRATED"
         },
         {
@@ -5760,7 +5706,7 @@
         },
         {
           "module": "pkg/cli",
-          "total_lines": 1510,
+          "total_lines": 1509,
           "author_count": 11,
           "top_author": "Evan Wallace",
           "top_share": 0.97,
@@ -5778,7 +5724,7 @@
         },
         {
           "module": "internal/js_parser",
-          "total_lines": 13913,
+          "total_lines": 13879,
           "author_count": 11,
           "top_author": "Evan Wallace",
           "top_share": 0.96,
@@ -5793,13 +5739,13 @@
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 0,
-          "change_pressure": 2293,
-          "avg_coupling": 0.05,
+          "change_pressure": 2263,
+          "avg_coupling": 0.06,
           "max_coupling": 0.24,
           "coupling_pair_count": 74,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 2293,
+          "module_commits": 2263,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -5816,13 +5762,13 @@
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 1.4,
-          "change_pressure": 933,
+          "change_pressure": 921,
           "avg_coupling": 0.03,
           "max_coupling": 0.22,
           "coupling_pair_count": 66,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 933,
+          "module_commits": 921,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -5835,22 +5781,22 @@
         },
         {
           "module": "npm/esbuild",
-          "boundary_integrity": 75.4,
+          "boundary_integrity": 75.2,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 2.7,
-          "change_pressure": 545,
+          "change_pressure": 539,
           "avg_coupling": 0.25,
           "max_coupling": 0.85,
           "coupling_pair_count": 39,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 545,
+          "module_commits": 539,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
           "coupling": "Independent",
-          "coupling_confidence": 0.89,
+          "coupling_confidence": 0.88,
           "vitality": "—",
           "vitality_confidence": 0,
           "ownership": "—",
@@ -5858,17 +5804,17 @@
         },
         {
           "module": "npm/esbuild-wasm",
-          "boundary_integrity": 75.2,
+          "boundary_integrity": 75,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 4.1,
-          "change_pressure": 521,
+          "change_pressure": 516,
           "avg_coupling": 0.25,
           "max_coupling": 0.85,
           "coupling_pair_count": 40,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 521,
+          "module_commits": 516,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -5881,7 +5827,7 @@
         },
         {
           "module": "npm/esbuild-darwin-64",
-          "boundary_integrity": 61.3,
+          "boundary_integrity": 61.2,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 5.4,
@@ -5904,7 +5850,7 @@
         },
         {
           "module": "npm/esbuild-windows-64",
-          "boundary_integrity": 59.9,
+          "boundary_integrity": 59.8,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 6.8,
@@ -5927,7 +5873,7 @@
         },
         {
           "module": "npm/esbuild-linux-64",
-          "boundary_integrity": 58.5,
+          "boundary_integrity": 58.4,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 8.1,
@@ -5942,7 +5888,7 @@
           "top_author_share": 0,
           "owner_active": false,
           "coupling": "Linked",
-          "coupling_confidence": 0.79,
+          "coupling_confidence": 0.8,
           "vitality": "—",
           "vitality_confidence": 0,
           "ownership": "—",
@@ -5950,7 +5896,7 @@
         },
         {
           "module": "npm/esbuild-linux-arm64",
-          "boundary_integrity": 52.8,
+          "boundary_integrity": 52.7,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 9.5,
@@ -5996,7 +5942,7 @@
         },
         {
           "module": "npm/esbuild-freebsd-arm64",
-          "boundary_integrity": 53.3,
+          "boundary_integrity": 53.2,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 12.2,
@@ -6019,7 +5965,7 @@
         },
         {
           "module": "npm/esbuild-freebsd-64",
-          "boundary_integrity": 53.3,
+          "boundary_integrity": 53.2,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 13.5,
@@ -6042,7 +5988,7 @@
         },
         {
           "module": "npm/esbuild-linux-32",
-          "boundary_integrity": 51.6,
+          "boundary_integrity": 51.5,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 14.9,
@@ -6092,13 +6038,13 @@
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 17.6,
-          "change_pressure": 251,
+          "change_pressure": 243,
           "avg_coupling": 0.04,
           "max_coupling": 0.13,
           "coupling_pair_count": 30,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 251,
+          "module_commits": 243,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -6111,7 +6057,7 @@
         },
         {
           "module": "npm/esbuild-linux-mips64le",
-          "boundary_integrity": 55.6,
+          "boundary_integrity": 55.5,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 18.9,
@@ -6157,17 +6103,17 @@
         },
         {
           "module": "lib",
-          "boundary_integrity": 97.5,
+          "boundary_integrity": 97.6,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 21.6,
-          "change_pressure": 193,
+          "change_pressure": 191,
           "avg_coupling": 0.02,
           "max_coupling": 0.16,
           "coupling_pair_count": 38,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 193,
+          "module_commits": 191,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -6180,7 +6126,7 @@
         },
         {
           "module": "npm/esbuild-darwin-arm64",
-          "boundary_integrity": 59.1,
+          "boundary_integrity": 59,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 23,
@@ -6230,13 +6176,13 @@
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 25.7,
-          "change_pressure": 148,
-          "avg_coupling": 0.08,
+          "change_pressure": 142,
+          "avg_coupling": 0.09,
           "max_coupling": 0.25,
           "coupling_pair_count": 28,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 148,
+          "module_commits": 142,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -6249,7 +6195,7 @@
         },
         {
           "module": "npm/esbuild-openbsd-64",
-          "boundary_integrity": 58.2,
+          "boundary_integrity": 58.1,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 27,
@@ -6276,13 +6222,13 @@
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 28.4,
-          "change_pressure": 119,
+          "change_pressure": 115,
           "avg_coupling": 0.01,
           "max_coupling": 0.03,
           "coupling_pair_count": 22,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 119,
+          "module_commits": 115,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -6299,13 +6245,13 @@
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 29.7,
-          "change_pressure": 112,
+          "change_pressure": 110,
           "avg_coupling": 0.03,
-          "max_coupling": 0.12,
+          "max_coupling": 0.13,
           "coupling_pair_count": 33,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 112,
+          "module_commits": 110,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -6318,7 +6264,7 @@
         },
         {
           "module": "npm/esbuild-windows-arm64",
-          "boundary_integrity": 62.9,
+          "boundary_integrity": 62.8,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 31.1,
@@ -6387,17 +6333,17 @@
         },
         {
           "module": "lib/npm",
-          "boundary_integrity": 98.2,
+          "boundary_integrity": 98.3,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 35.1,
-          "change_pressure": 75,
+          "change_pressure": 71,
           "avg_coupling": 0.02,
-          "max_coupling": 0.13,
+          "max_coupling": 0.11,
           "coupling_pair_count": 35,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 75,
+          "module_commits": 71,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -6433,7 +6379,7 @@
         },
         {
           "module": "npm/esbuild-linux-riscv64",
-          "boundary_integrity": 72.5,
+          "boundary_integrity": 72.4,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 37.8,
@@ -6456,7 +6402,7 @@
         },
         {
           "module": "npm/esbuild-android-64",
-          "boundary_integrity": 75.1,
+          "boundary_integrity": 75,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 39.2,
@@ -6485,7 +6431,7 @@
           "stability": 40.5,
           "change_pressure": 44,
           "avg_coupling": 0.04,
-          "max_coupling": 0.28,
+          "max_coupling": 0.29,
           "coupling_pair_count": 20,
           "author_count": 0,
           "blame_lines": 0,
@@ -6506,13 +6452,13 @@
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 41.9,
-          "change_pressure": 33,
+          "change_pressure": 32,
           "avg_coupling": 0.05,
-          "max_coupling": 0.28,
+          "max_coupling": 0.29,
           "coupling_pair_count": 10,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 33,
+          "module_commits": 32,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -6525,17 +6471,17 @@
         },
         {
           "module": "lib/deno",
-          "boundary_integrity": 98,
+          "boundary_integrity": 98.1,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 43.2,
-          "change_pressure": 30,
+          "change_pressure": 28,
           "avg_coupling": 0.02,
-          "max_coupling": 0.13,
+          "max_coupling": 0.11,
           "coupling_pair_count": 17,
           "author_count": 0,
           "blame_lines": 0,
-          "module_commits": 30,
+          "module_commits": 28,
           "ownership_level": "",
           "top_author_share": 0,
           "owner_active": false,
@@ -6662,34 +6608,11 @@
           "ownership_confidence": 0
         },
         {
-          "module": "require/webpack5",
-          "boundary_integrity": 87,
+          "module": "require/yarnpnp",
+          "boundary_integrity": 99.3,
           "change_absorption": 0,
           "knowledge_distribution": 0,
           "stability": 51.4,
-          "change_pressure": 5,
-          "avg_coupling": 0.13,
-          "max_coupling": 0.25,
-          "coupling_pair_count": 5,
-          "author_count": 0,
-          "blame_lines": 0,
-          "module_commits": 5,
-          "ownership_level": "",
-          "top_author_share": 0,
-          "owner_active": false,
-          "coupling": "Independent",
-          "coupling_confidence": 1,
-          "vitality": "—",
-          "vitality_confidence": 0,
-          "ownership": "—",
-          "ownership_confidence": 0
-        },
-        {
-          "module": "require/yarnpnp",
-          "boundary_integrity": 99.4,
-          "change_absorption": 0,
-          "knowledge_distribution": 0,
-          "stability": 52.7,
           "change_pressure": 5,
           "avg_coupling": 0.01,
           "max_coupling": 0.02,
@@ -6709,6 +6632,29 @@
         },
         {
           "module": "require/rollup",
+          "boundary_integrity": 87,
+          "change_absorption": 0,
+          "knowledge_distribution": 0,
+          "stability": 52.7,
+          "change_pressure": 5,
+          "avg_coupling": 0.13,
+          "max_coupling": 0.25,
+          "coupling_pair_count": 5,
+          "author_count": 0,
+          "blame_lines": 0,
+          "module_commits": 5,
+          "ownership_level": "",
+          "top_author_share": 0,
+          "owner_active": false,
+          "coupling": "Independent",
+          "coupling_confidence": 1,
+          "vitality": "—",
+          "vitality_confidence": 0,
+          "ownership": "—",
+          "ownership_confidence": 0
+        },
+        {
+          "module": "require/webpack5",
           "boundary_integrity": 87,
           "change_absorption": 0,
           "knowledge_distribution": 0,
@@ -6801,25 +6747,25 @@
         },
         {
           "module": "cmd/esbuild",
-          "boundary_integrity": 86.4,
+          "boundary_integrity": 86.3,
           "change_absorption": 0.4,
           "knowledge_distribution": 21.7,
           "stability": 59.5,
-          "change_pressure": 0.4,
+          "change_pressure": 0.39,
           "avg_coupling": 0.14,
           "max_coupling": 0.6,
           "coupling_pair_count": 61,
           "author_count": 6,
           "blame_lines": 1649,
-          "module_commits": 656,
+          "module_commits": 651,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.98,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Warming",
           "vitality_confidence": 0.51,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -6837,35 +6783,35 @@
           "module_commits": 131,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.99,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Warming",
           "vitality_confidence": 0.49,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
           "module": "internal/runtime",
           "boundary_integrity": 97.5,
-          "change_absorption": 7.3,
-          "knowledge_distribution": 21.6,
+          "change_absorption": 0.5,
+          "knowledge_distribution": 21.5,
           "stability": 62.2,
-          "change_pressure": 0.22,
-          "avg_coupling": 0.02,
+          "change_pressure": 0.23,
+          "avg_coupling": 0.03,
           "max_coupling": 0.08,
           "coupling_pair_count": 29,
-          "author_count": 3,
-          "blame_lines": 431,
-          "module_commits": 96,
+          "author_count": 2,
+          "blame_lines": 402,
+          "module_commits": 92,
           "ownership_level": "CONCENTRATED",
-          "top_author_share": 0.98,
-          "owner_active": true,
+          "top_author_share": 0.99,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Warming",
           "vitality_confidence": 0.48,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -6879,16 +6825,16 @@
           "max_coupling": 0.17,
           "coupling_pair_count": 19,
           "author_count": 1,
-          "blame_lines": 337,
+          "blame_lines": 341,
           "module_commits": 65,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Warming",
           "vitality_confidence": 0.46,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -6906,18 +6852,18 @@
           "module_commits": 7,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.62,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
           "module": "internal/bundler",
           "boundary_integrity": 95.9,
-          "change_absorption": 1,
+          "change_absorption": 0.9,
           "knowledge_distribution": 21.6,
           "stability": 66.2,
           "change_pressure": 0.15,
@@ -6925,16 +6871,16 @@
           "max_coupling": 0.18,
           "coupling_pair_count": 45,
           "author_count": 12,
-          "blame_lines": 6509,
-          "module_commits": 962,
+          "blame_lines": 6506,
+          "module_commits": 961,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.99,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.66,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -6952,12 +6898,12 @@
           "module_commits": 37,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.69,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -6975,12 +6921,12 @@
           "module_commits": 49,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.72,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -6998,18 +6944,18 @@
           "module_commits": 155,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.98,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.76,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.94
         },
         {
           "module": "internal/compat",
           "boundary_integrity": 96.6,
-          "change_absorption": 2.3,
+          "change_absorption": 1.9,
           "knowledge_distribution": 21.5,
           "stability": 71.6,
           "change_pressure": 0.1,
@@ -7017,16 +6963,16 @@
           "max_coupling": 0.26,
           "coupling_pair_count": 30,
           "author_count": 5,
-          "blame_lines": 1298,
-          "module_commits": 128,
+          "blame_lines": 1294,
+          "module_commits": 127,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.99,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.79,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7044,12 +6990,12 @@
           "module_commits": 20,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.82,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7063,22 +7009,22 @@
           "max_coupling": 0.31,
           "coupling_pair_count": 42,
           "author_count": 11,
-          "blame_lines": 1510,
-          "module_commits": 143,
+          "blame_lines": 1509,
+          "module_commits": 142,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.97,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.86,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.94
         },
         {
           "module": "pkg/api",
           "boundary_integrity": 94.8,
-          "change_absorption": 0.9,
+          "change_absorption": 0.6,
           "knowledge_distribution": 21.5,
           "stability": 75.7,
           "change_pressure": 0.09,
@@ -7086,22 +7032,22 @@
           "max_coupling": 0.31,
           "coupling_pair_count": 44,
           "author_count": 11,
-          "blame_lines": 3597,
-          "module_commits": 325,
+          "blame_lines": 3588,
+          "module_commits": 322,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.99,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.89,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
           "module": "internal/css_printer",
           "boundary_integrity": 96.2,
-          "change_absorption": 4.9,
+          "change_absorption": 4.8,
           "knowledge_distribution": 6.3,
           "stability": 77,
           "change_pressure": 0.08,
@@ -7113,12 +7059,12 @@
           "module_commits": 93,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.93,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7132,16 +7078,16 @@
           "max_coupling": 0.26,
           "coupling_pair_count": 23,
           "author_count": 1,
-          "blame_lines": 2955,
+          "blame_lines": 2956,
           "module_commits": 243,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.96,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7159,12 +7105,12 @@
           "module_commits": 222,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 0.99,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7179,21 +7125,21 @@
           "coupling_pair_count": 51,
           "author_count": 8,
           "blame_lines": 3987,
-          "module_commits": 297,
+          "module_commits": 296,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.99,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
           "module": "internal/js_printer",
           "boundary_integrity": 96.1,
-          "change_absorption": 1.1,
+          "change_absorption": 0.6,
           "knowledge_distribution": 21.3,
           "stability": 82.4,
           "change_pressure": 0.07,
@@ -7201,16 +7147,16 @@
           "max_coupling": 0.23,
           "coupling_pair_count": 32,
           "author_count": 3,
-          "blame_lines": 2801,
-          "module_commits": 201,
+          "blame_lines": 2797,
+          "module_commits": 198,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7228,18 +7174,18 @@
           "module_commits": 117,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
           "module": "internal/js_parser",
           "boundary_integrity": 95.5,
-          "change_absorption": 1.6,
+          "change_absorption": 1.3,
           "knowledge_distribution": 22.1,
           "stability": 85.1,
           "change_pressure": 0.06,
@@ -7247,21 +7193,21 @@
           "max_coupling": 0.19,
           "coupling_pair_count": 32,
           "author_count": 11,
-          "blame_lines": 13913,
-          "module_commits": 882,
+          "blame_lines": 13879,
+          "module_commits": 874,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.96,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.94
         },
         {
           "module": "src/esbuild",
-          "boundary_integrity": 96,
+          "boundary_integrity": 95.9,
           "change_absorption": 0,
           "knowledge_distribution": 6.3,
           "stability": 86.5,
@@ -7274,43 +7220,20 @@
           "module_commits": 320,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
-        },
-        {
-          "module": "internal/linker",
-          "boundary_integrity": 97,
-          "change_absorption": 3.3,
-          "knowledge_distribution": 21.7,
-          "stability": 87.8,
-          "change_pressure": 0.06,
-          "avg_coupling": 0.03,
-          "max_coupling": 0.13,
-          "coupling_pair_count": 28,
-          "author_count": 4,
-          "blame_lines": 1249,
-          "module_commits": 73,
-          "ownership_level": "CONCENTRATED",
-          "top_author_share": 0.98,
-          "owner_active": true,
-          "coupling": "Independent",
-          "coupling_confidence": 1,
-          "vitality": "Stable",
-          "vitality_confidence": 1,
-          "ownership": "Concentrated",
-          "ownership_confidence": 0.94
         },
         {
           "module": "internal/renamer",
           "boundary_integrity": 97.9,
           "change_absorption": 0,
           "knowledge_distribution": 6.3,
-          "stability": 89.2,
+          "stability": 87.8,
           "change_pressure": 0.06,
           "avg_coupling": 0.02,
           "max_coupling": 0.08,
@@ -7320,13 +7243,36 @@
           "module_commits": 27,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
+        },
+        {
+          "module": "internal/linker",
+          "boundary_integrity": 96.9,
+          "change_absorption": 3.3,
+          "knowledge_distribution": 21.7,
+          "stability": 89.2,
+          "change_pressure": 0.06,
+          "avg_coupling": 0.03,
+          "max_coupling": 0.13,
+          "coupling_pair_count": 27,
+          "author_count": 4,
+          "blame_lines": 1249,
+          "module_commits": 71,
+          "ownership_level": "CONCENTRATED",
+          "top_author_share": 0.98,
+          "owner_active": false,
+          "coupling": "Independent",
+          "coupling_confidence": 1,
+          "vitality": "Stable",
+          "vitality_confidence": 1,
+          "ownership": "Orphaned",
+          "ownership_confidence": 0.94
         },
         {
           "module": "internal/cache",
@@ -7343,12 +7289,12 @@
           "module_commits": 12,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7366,18 +7312,18 @@
           "module_commits": 42,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
           "module": "internal/css_ast",
           "boundary_integrity": 95.3,
-          "change_absorption": 4.6,
+          "change_absorption": 4.5,
           "knowledge_distribution": 21.3,
           "stability": 93.2,
           "change_pressure": 0.05,
@@ -7389,12 +7335,12 @@
           "module_commits": 91,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7412,12 +7358,12 @@
           "module_commits": 43,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7435,17 +7381,17 @@
           "module_commits": 69,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
           "module": "internal/css_parser",
-          "boundary_integrity": 95.8,
+          "boundary_integrity": 95.7,
           "change_absorption": 2.1,
           "knowledge_distribution": 21.9,
           "stability": 97.3,
@@ -7458,35 +7404,35 @@
           "module_commits": 246,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 0.96,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.94
         },
         {
           "module": "internal/js_lexer",
-          "boundary_integrity": 96.7,
+          "boundary_integrity": 96.6,
           "change_absorption": 0,
           "knowledge_distribution": 21.4,
           "stability": 98.6,
           "change_pressure": 0.03,
           "avg_coupling": 0.03,
           "max_coupling": 0.1,
-          "coupling_pair_count": 30,
+          "coupling_pair_count": 29,
           "author_count": 3,
           "blame_lines": 2484,
-          "module_commits": 76,
+          "module_commits": 75,
           "ownership_level": "CONCENTRATED",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         },
         {
@@ -7504,12 +7450,12 @@
           "module_commits": 14,
           "ownership_level": "SOLE_OWNER",
           "top_author_share": 1,
-          "owner_active": true,
+          "owner_active": false,
           "coupling": "Independent",
           "coupling_confidence": 1,
           "vitality": "Stable",
           "vitality_confidence": 1,
-          "ownership": "Concentrated",
+          "ownership": "Orphaned",
           "ownership_confidence": 0.95
         }
       ]
