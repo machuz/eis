@@ -37,15 +37,15 @@ where N = engineers in the repo, N_max = largest repo analyzed. This gives appro
 
 ## What We Found
 
-We pointed the Git Telescope at 29 of the most built-upon open-source projects — React, Kubernetes, Terraform, Redis, Rust, ClickHouse, and the rest — and read the structure left behind by 54,476 engineers.
+We pointed the Git Telescope at 29 of the most built-upon open-source projects — React, Kubernetes, Terraform, Redis, Rust, ClickHouse, and the rest — and read the structure left behind by 54,475 engineers.
 
 The question was never who commits the most. It was quieter: when thousands of people pass through a codebase over a decade, whose structure does the rest of the system end up leaning on — and does it still hold once others start pressing on it?
 
 Under the two honest gates — code that survives where *others* keep committing, and a foundation others actually build on — the names that rise are quiet ones once you see them. Jose Valim (Phoenix), Taylor Otwell (Laravel), Donny / kdy1 (swc), fisker Cheung (Prettier), Ritchie Vink (Polars), Josh Goldberg (ESLint): their gravity saturates their universe. Not because they are famous, and not because they were there first — being first earns nothing once your share erodes — but because the surviving shape of the system still rests on them while everyone else keeps editing around it.
 
-The gates also stay silent where founding alone would have flattered. A founder whose modules no one else contests reads as quiet, not central: the telescope cannot see influence that no one leans on. Sebastian Markbåge sits at the top of React's gravity, yet the data calls him a Cleaner — more of his energy holds the structure intact than adds new surface. That is not a demotion. It is the instrument declining to confuse ownership with gravity.
+The gates also stay quiet where founding alone would have flattered. A foundation no one else still presses on reads as settled, not central: the telescope cannot see a structure no one is currently leaning on under load. Sebastian Markbåge sits at the top of React's gravity with the shape saturated — Indispensability 100, others plainly built on him (Catalysis 100) — yet his gravity reads a modest 10.8, because the Reconciler he laid down now sits largely undisturbed: robust survival near zero, no live pressure from others to witness. That is not a demotion. It is the instrument declining to confuse ownership, or a finished foundation, with gravity.
 
-And then there are the 352 engineers the map surfaces who never appear in a maintainer list — the **Hidden Architects**. They give no talks and hold no titles, yet the field lines run straight through their code: the part written years ago that the system still rests on today.
+And then there are the 351 engineers the map surfaces who never appear in a maintainer list — the **Hidden Architects**. They give no talks and hold no titles, yet the field lines run straight through their code: the part written years ago that the system still rests on today.
 
 Alongside them, 48 **Entropy Fighters** — high on both Debt Cleanup and robust survival — quietly hold back the second law in code that would otherwise drift.
 
@@ -169,11 +169,11 @@ Gravity Concentration (top-3): 56.3% · Top-10 Overlap with GitHub: 40%
 
 ---
 
-### react (1,992 engineers)
+### react (1,991 engineers)
 
 | Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
-| 1 | Sebastian Markbåge | 10.6 | 34 | 100 | 100 | Cleaner | Balanced |
+| 1 | Sebastian Markbåge | 10.8 | 38 | 100 | 100 | Anchor | Balanced |
 | 2 | Lauren Tan | 2.5 | 6 | 46 | 8 | — | Balanced |
 | 3 | Andrew Clark | 2.4 | 100 | 61 | 54 | Producer | Churn |
 | 4 | lauren | 1.4 | 55 | 31 | 8 | Producer | — |
@@ -181,7 +181,7 @@ Gravity Concentration (top-3): 56.3% · Top-10 Overlap with GitHub: 40%
 
 *Entropy Fighters*: **Sebastian "Sebbie" Silbermann** (debt=90, robust_surv=0), **Sebastian Markbåge** (debt=57, robust_surv=0), **Hendrik Liebau** (debt=50, robust_surv=0)
 
-Gravity Concentration (top-3): 27.1% · Top-10 Overlap with GitHub: 40%
+Gravity Concentration (top-3): 27.4% · Top-10 Overlap with GitHub: 50%
 
 ---
 
@@ -541,7 +541,7 @@ Gravity Concentration (top-3): 76.6% · Top-10 Overlap with GitHub: 20%
 | 24 | patak | vite | 1,241 | 12.6 | 10.0 | — | Maintainer |
 | 25 | Michael Crenshaw | argo-cd | 1,875 | 11.5 | 9.7 | Architect | Maintainer |
 | 26 | 翠 / green | vite | 1,241 | 12.1 | 9.6 | — | **Hidden** |
-| 27 | Sebastian Markbåge | react | 1,992 | 10.6 | 9.0 | Cleaner | Known |
+| 27 | Sebastian Markbåge | react | 1,991 | 10.8 | 9.1 | Anchor | Known |
 | 28 | Nicholas Nethercote | rust | 7,873 | 8.9 | 8.9 | — | **Hidden** |
 | 29 | Samsondeen | terraform | 2,205 | 10.2 | 8.8 | — | **Hidden** |
 | 30 | Maxime Beauchemin | superset | 1,469 | 10.7 | 8.7 | Anchor | Maintainer |
@@ -570,13 +570,13 @@ Gravity Concentration (top-3): 76.6% · Top-10 Overlap with GitHub: 20%
 
 ## Aggregate Validation Metrics
 
-- **Avg Top-10 Overlap**: 40.3%
+- **Avg Top-10 Overlap**: 40.7%
 - **Avg Architect Recall (Tier 1)**: 68.3%
-- **Avg Spearman ρ**: 0.440
+- **Avg Spearman ρ**: 0.445
 - **Avg Gravity Concentration**: 48.9%
 - **Projects analyzed**: 29
-- **Total engineers**: 54,476
-- **Hidden architects found**: 352
+- **Total engineers**: 54,475
+- **Hidden architects found**: 351
 - **Entropy fighters found**: 48
 - **Largest universe**: 7,873 engineers
 - **Smallest universe**: 124 engineers

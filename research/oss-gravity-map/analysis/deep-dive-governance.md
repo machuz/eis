@@ -174,7 +174,7 @@ Every contributor other than Evan Wallace reads **zero Design, zero Indispensabi
 | **esbuild** | **76.6%** |
 | express | 60.0% |
 | vite | 51.9% |
-| react | 27.1% |
+| react | 27.4% |
 | kubernetes | 26.2% |
 | rust | 24.6% |
 | rails | 9.4% |
