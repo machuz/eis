@@ -581,9 +581,10 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 						acc.changePressure[key] = p
 					}
 
+					// blameLines authors are already alias-resolved in place above.
 					blameByAuthor := make(map[string]int)
 					for _, bl := range blameLines {
-						blameByAuthor[cfg.ResolveAuthor(bl.Author)]++
+						blameByAuthor[bl.Author]++
 					}
 					pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 					periodOthers := metric.CalcOthersPressure(periodCommits, blameLines, moduleResolver)

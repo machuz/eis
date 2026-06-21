@@ -627,9 +627,11 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			// meaningful; otherwise everything becomes dormant. See
 			// metric.PressureThreshold for why this is an absolute footprint and
 			// not a share of the repo.
+			// blameLines authors are already alias-resolved in place above, so
+			// count on bl.Author directly (matches the survival maps' keys).
 			blameByAuthor := make(map[string]int)
 			for _, bl := range blameLines {
-				blameByAuthor[cfg.ResolveAuthor(bl.Author)]++
+				blameByAuthor[bl.Author]++
 			}
 			pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
