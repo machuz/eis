@@ -260,6 +260,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		domain  domain.Domain
 		commits []git.Commit
 		merges  []git.Commit
+		idmap   map[string]string // email-derived identity map, for per-period blame
 	}
 
 	var repos []repoInfo
@@ -302,6 +303,10 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				cacheStore.Set(logCacheKey, commits)
 			}
 		}
+		// Collapse split identities (one person, several names under one email)
+		// before alias resolution; reused to remap per-period blame authors.
+		idmap := git.BuildIdentityMap(commits)
+		git.CanonicalizeAuthors(commits, nil, idmap)
 		commits = filterCommits(commits, cfg)
 		commits = filterFileStats(commits, cfg.ExcludeFilePatterns)
 
@@ -323,6 +328,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			domain:  repoDomain,
 			commits: commits,
 			merges:  mergeCommits,
+			idmap:   idmap,
 		})
 	}
 
@@ -552,7 +558,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					}
 				}
 
-				// Apply aliases
+				// Collapse split identities, then apply aliases
+				git.CanonicalizeAuthors(nil, blameLines, repo.idmap)
 				for i := range blameLines {
 					blameLines[i].Author = cfg.ResolveAuthor(blameLines[i].Author)
 				}
