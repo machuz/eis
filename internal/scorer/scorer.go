@@ -38,6 +38,14 @@ type Result struct {
 	StyleConf        float64 // Style confidence (0.0-1.0)
 	State            string  // State axis: lifecycle phase (Active, Growing, Former, Silent, Fragile, —)
 	StateConf        float64 // State confidence (0.0-1.0)
+
+	// LastActiveDate is the author's most recent commit date (HEAD-derived).
+	// It is the single clock-relative input the State/RecentlyActive classifier
+	// needs and the only such input not already derivable from the other Result
+	// fields. Persisting it lets a stored Result be re-classified against a later
+	// reference time without re-reading git — see ReclassifyState. Zero value
+	// (time.Time{}) means the author's last-commit date was unavailable.
+	LastActiveDate time.Time
 }
 
 // gravityScore composes Gravity — how much the system's STRUCTURE depends on
@@ -170,8 +178,9 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 
 		// Determine if author has been active in last 6 months
 		recentlyActive := false
-		if lastDate, ok := authorLastDate[author]; ok {
-			recentlyActive = refTime.Sub(lastDate).Hours()/24 <= float64(cfg.ActiveDays)
+		lastActiveDate := authorLastDate[author] // zero time.Time if absent
+		if !lastActiveDate.IsZero() {
+			recentlyActive = refTime.Sub(lastActiveDate).Hours()/24 <= float64(cfg.ActiveDays)
 		}
 
 		r := Result{
@@ -196,6 +205,7 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 			LinesAdded:       raw.LinesAdded[author],
 			LinesDeleted:     raw.LinesDeleted[author],
 			RecentlyActive:   recentlyActive,
+			LastActiveDate:   lastActiveDate,
 		}
 
 		// When robust/dormant data is available, split survival weight 80/20.
