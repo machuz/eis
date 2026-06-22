@@ -33,7 +33,7 @@ Gravity Concentration runs from **9.8% (Rails) to 77.0% (esbuild)** — roughly 
 | Top10 Survival (avg) | 2.5 |
 | Authors with Design > 40 | **9 people** |
 
-### Top 10 Gravity Ranking
+### Top 10 by Gravity
 
 | # | Engineer | Gravity | Design | Indisp. | Catalysis | RobustSurv | State |
 |---|---|---|---|---|---|---|---|
@@ -95,7 +95,7 @@ What that looks like, if one wanted a name for it, is architect succession that 
 | Otwell's lead margin | **65.1 vs 6.5** (10x the #2) |
 | Authors with Design > 40 | **2 people** |
 
-### Top 10 Gravity Ranking
+### Top 10 by Gravity
 
 | # | Engineer | Gravity | Design | Indisp. | Catalysis | RobustSurv | State |
 |---|---|---|---|---|---|---|---|

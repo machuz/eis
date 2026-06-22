@@ -25,7 +25,7 @@ Gravity  = catGate × survGate × shape
 
 Gravity scores are **normalized per-repository** (per-universe). A Gravity of 100 in Express (391 engineers) is not directly comparable to a Gravity of 77 in Kubernetes (5,217 engineers).
 
-For cross-universe ranking, we apply a **universe-size adjustment**:
+For cross-universe comparison, we apply a **universe-size adjustment**:
 
 ```
 Adjusted Gravity = Gravity × ln(N) / ln(N_max)
@@ -59,7 +59,7 @@ Each project is its own universe with independently normalized scores. These are
 
 ### rust (7,215 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Michael Goulet | 10.5 | 100 | 100 | 70 | Anchor | Balanced |
 | 2 | Nicholas Nethercote | 9.7 | 70 | 92 | 30 | — | Balanced |
@@ -75,7 +75,7 @@ Gravity Concentration (top-3): 27.6% · Top-10 Overlap with GitHub: 40%
 
 ### rails (6,056 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | David Heinemeier Hansson | 4.0 | 100 | 38 | 100 | — | — |
 | 2 | Jean Boussier | 3.8 | 49 | 59 | 0 | — | — |
@@ -91,7 +91,7 @@ Gravity Concentration (top-3): 9.8% · Top-10 Overlap with GitHub: 0%
 
 ### kubernetes (4,510 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Tim Allclair | 16.3 | 3 | 23 | 50 | — | Balanced |
 | 2 | Davanum Srinivas | 13.0 | 5 | 49 | 75 | Producer | Balanced |
@@ -107,7 +107,7 @@ Gravity Concentration (top-3): 27.5% · Top-10 Overlap with GitHub: 20%
 
 ### laravel (4,149 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Taylor Otwell | 65.1 | 100 | 19 | 100 | — | Balanced |
 | 2 | Luke Kuzmish | 6.5 | 2 | 54 | 50 | — | — |
@@ -123,7 +123,7 @@ Gravity Concentration (top-3): 38.0% · Top-10 Overlap with GitHub: 0%
 
 ### grafana (2,715 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Ashley Harrison | 28.2 | 16 | 82 | 100 | — | Balanced |
 | 2 | Ryan McKinley | 14.9 | 100 | 100 | 100 | — | Balanced |
@@ -139,7 +139,7 @@ Gravity Concentration (top-3): 45.1% · Top-10 Overlap with GitHub: 50%
 
 ### ClickHouse (2,189 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Alexey Milovidov | 12.2 | 100 | 25 | 100 | Anchor | Builder |
 | 2 | Michael Kolupaev | 5.5 | 17 | 17 | 6 | — | Balanced |
@@ -155,7 +155,7 @@ Gravity Concentration (top-3): 33.9% · Top-10 Overlap with GitHub: 50%
 
 ### terraform (2,121 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Liam Cervante | 27.1 | 59 | 54 | 1 | Architect | Balanced |
 | 2 | Samsondeen | 10.2 | 10 | 100 | 0 | — | Spread |
@@ -171,7 +171,7 @@ Gravity Concentration (top-3): 56.2% · Top-10 Overlap with GitHub: 40%
 
 ### react (1,927 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Sebastian Markbåge | 9.9 | 24 | 100 | 100 | Anchor | Balanced |
 | 2 | Lauren Tan | 6.3 | 50 | 33 | 15 | Producer | Resilient |
@@ -187,7 +187,7 @@ Gravity Concentration (top-3): 31.4% · Top-10 Overlap with GitHub: 60%
 
 ### argo-cd (1,832 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Alexander Matyushentsev | 13.7 | 59 | 25 | 100 | Producer | Churn |
 | 2 | Michael Crenshaw | 11.5 | 100 | 54 | 62 | Architect | Balanced |
@@ -203,7 +203,7 @@ Gravity Concentration (top-3): 50.9% · Top-10 Overlap with GitHub: 60%
 
 ### superset (1,433 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Evan Rusackas | 20.5 | 100 | 80 | 89 | Architect | Balanced |
 | 2 | Maxime Beauchemin | 11.4 | 89 | 45 | 67 | Anchor | Balanced |
@@ -219,7 +219,7 @@ Gravity Concentration (top-3): 47.7% · Top-10 Overlap with GitHub: 70%
 
 ### spring-boot (1,430 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Moritz Halbritter | 50.2 | 36 | 100 | 100 | — | Balanced |
 | 2 | Phillip Webb | 44.3 | 100 | 35 | 27 | Architect | Balanced |
@@ -233,7 +233,7 @@ Gravity Concentration (top-3): 97.2% · Top-10 Overlap with GitHub: 70%
 
 ### envoy (1,377 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | code | 4.0 | 68 | 65 | 100 | — | — |
 | 2 | Rohit Agrawal | 2.9 | 23 | 36 | 0 | Cleaner | Balanced |
@@ -249,7 +249,7 @@ Gravity Concentration (top-3): 7.9% · Top-10 Overlap with GitHub: 50%
 
 ### arrow (1,369 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Sutou Kouhei | 3.7 | 4 | 96 | 100 | — | Spread |
 | 2 | Antoine Pitrou | 3.6 | 48 | 21 | 21 | Specialist | — |
@@ -265,7 +265,7 @@ Gravity Concentration (top-3): 14.8% · Top-10 Overlap with GitHub: 60%
 
 ### phoenix (1,343 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Jose Valim | 88.2 | 100 | 53 | 100 | Architect | Balanced |
 | 2 | Chris McCord | 4.9 | 89 | 87 | 0 | — | — |
@@ -279,7 +279,7 @@ Gravity Concentration (top-3): 63.5% · Top-10 Overlap with GitHub: 50%
 
 ### loki (1,272 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Robert Fratto | 12.1 | 100 | 98 | 36 | — | Balanced |
 | 2 | Sandeep Sukhani | 5.9 | 54 | 32 | 82 | Anchor | Balanced |
@@ -293,7 +293,7 @@ Gravity Concentration (top-3): 29.8% · Top-10 Overlap with GitHub: 70%
 
 ### vite (1,204 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | sapphi-red | 90.7 | 79 | 100 | 100 | Architect | Balanced |
 | 2 | patak | 5.3 | 100 | 41 | 10 | — | — |
@@ -309,7 +309,7 @@ Gravity Concentration (top-3): 59.9% · Top-10 Overlap with GitHub: 60%
 
 ### prometheus (1,159 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Julien Pivotto | 35.8 | 20 | 6 | 100 | Specialist | Balanced |
 | 2 | bwplotka | 12.3 | 100 | 28 | 100 | Cleaner | Balanced |
@@ -325,7 +325,7 @@ Gravity Concentration (top-3): 64.4% · Top-10 Overlap with GitHub: 40%
 
 ### eslint (1,153 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Josh Goldberg ✨ | 77.1 | 100 | 69 | 50 | Architect | Balanced |
 | 2 | Francesco Trotta | 7.1 | 12 | 73 | 0 | — | Spread |
@@ -341,7 +341,7 @@ Gravity Concentration (top-3): 66.8% · Top-10 Overlap with GitHub: 50%
 
 ### scala3 (895 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Li Haoyi | 7.2 | 0 | 48 | 0 | — | Balanced |
 | 2 | noti0na1 | 5.6 | 4 | 85 | 0 | — | Spread |
@@ -357,7 +357,7 @@ Gravity Concentration (top-3): 38.9% · Top-10 Overlap with GitHub: 0%
 
 ### fastapi (861 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Sebastian Ramirez | 15.0 | 100 | 100 | 100 | — | Balanced |
 | 2 | Motov Yurii | 0.4 | 2 | 46 | 7 | Producer | — |
@@ -371,7 +371,7 @@ Gravity Concentration (top-3): 94.5% · Top-10 Overlap with GitHub: 20%
 
 ### redis (848 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Salvatore Sanfilippo | 3.8 | 100 | 60 | 100 | — | — |
 | 2 | Moti Cohen | 2.0 | 12 | 31 | 0 | Cleaner | Balanced |
@@ -387,7 +387,7 @@ Gravity Concentration (top-3): 9.6% · Top-10 Overlap with GitHub: 50%
 
 ### prettier (782 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | fisker Cheung | 87.1 | 100 | 100 | 57 | Architect | Balanced |
 | 2 | Konv Suu | 2.1 | 1 | 55 | 1 | — | Balanced |
@@ -403,7 +403,7 @@ Gravity Concentration (top-3): 95.3% · Top-10 Overlap with GitHub: 50%
 
 ### scala (709 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Lukas Rytz | 9.7 | 36 | 98 | 80 | — | Balanced |
 | 2 | Martin Odersky | 7.9 | 62 | 29 | 60 | Architect | Balanced |
@@ -419,7 +419,7 @@ Gravity Concentration (top-3): 37.3% · Top-10 Overlap with GitHub: 0%
 
 ### polars (665 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Ritchie Vink | 65.3 | 81 | 73 | 100 | Anchor | Resilient |
 | 2 | Gijs Burghoorn | 9.3 | 100 | 58 | 8 | Anchor | Balanced |
@@ -435,7 +435,7 @@ Gravity Concentration (top-3): 78.4% · Top-10 Overlap with GitHub: 50%
 
 ### nest (638 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Kamil Myśliwiec | 18.9 | 100 | 32 | 100 | Specialist | Balanced |
 | 2 | mag123c | 1.0 | 0 | 42 | 0 | — | — |
@@ -451,7 +451,7 @@ Gravity Concentration (top-3): 68.1% · Top-10 Overlap with GitHub: 0%
 
 ### duckdb (618 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Mark Raasveldt | 81.7 | 100 | 27 | 100 | Anchor | Builder |
 | 2 | taniabogatsch | 2.1 | 6 | 73 | 0 | Producer | Spread |
@@ -467,7 +467,7 @@ Gravity Concentration (top-3): 83.5% · Top-10 Overlap with GitHub: 50%
 
 ### express (378 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Douglas Christopher Wilson | 8.3 | 36 | 9 | 47 | — | Balanced |
 | 2 | TJ Holowaychuk | 1.8 | 100 | 20 | 100 | — | — |
@@ -483,7 +483,7 @@ Gravity Concentration (top-3): 60.3% · Top-10 Overlap with GitHub: 40%
 
 ### swc (349 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Donny (kdy1) | 89.2 | 100 | 57 | 100 | Architect | Builder |
 | 2 | quininer | 3.8 | 1 | 100 | 4 | — | Spread |
@@ -499,7 +499,7 @@ Gravity Concentration (top-3): 92.0% · Top-10 Overlap with GitHub: 70%
 
 ### esbuild (124 engineers)
 
-| Rank | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
+| # | Author | Gravity | Design | Breadth | Indisp. | Role | Style |
 |------|--------|---------|--------|---------|---------|------|-------|
 | 1 | Evan Wallace | 15.0 | 100 | 100 | 100 | Cleaner | Balanced |
 | 2 | Chris Casola | 0.2 | 0 | 31 | 0 | — | — |
