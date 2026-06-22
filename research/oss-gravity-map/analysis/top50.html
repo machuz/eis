@@ -153,9 +153,16 @@
     .bar-track{width:100%;max-width:180px}
     .name{font-size:.95rem}
   }
+.lang-switch{position:absolute;top:18px;right:20px;font-size:.82em;z-index:50}
+.lang-switch a{color:#8b949e;text-decoration:none;padding:2px 4px}
+.lang-switch a.active{color:#58a6ff;font-weight:700}
+.lang-switch a:hover{color:#c9d1d9}
+.lang-switch .sep{color:#30363d;margin:0 2px}
 </style>
 </head>
 <body>
+<div class="lang-switch"><a href="top50.html" class="active">EN</a><span class="sep">·</span><a href="top50-ja.html">日本語</a></div>
+
 
 <header class="fade-in">
   <h1>OSS Gravity Map <span>&mdash;</span> Top 50 Engineers</h1>
@@ -166,7 +173,7 @@
   <p>We pointed the Git Telescope at 29 of the most built-upon open-source projects &mdash; React, Kubernetes, Terraform, Redis, Rust, ClickHouse, and the rest &mdash; and read the structure left behind by 51,321 engineers.</p>
   <p>The question was never who commits the most. It was quieter: when thousands of people pass through a codebase over a decade, whose structure does the rest of the system end up leaning on &mdash; and does it still hold once others start pressing on it?</p>
   <p>Under the two honest gates &mdash; code that <strong>survives where others keep committing</strong>, and a foundation others actually build on &mdash; the names that rise are quiet ones once you see them. sapphi-red (Vite), Jose Valim (Phoenix), fisker Cheung (Prettier), Taylor Otwell (Laravel), Josh Goldberg (ESLint), Donny / kdy1 (swc), Ritchie Vink (Polars): their gravity saturates their universe. Not because they are famous, and not because they were there first &mdash; <em>being first earns nothing once your share erodes</em> &mdash; but because the surviving shape of the system still rests on them while everyone else keeps editing around it.</p>
-  <p>The gates also stay quiet where founding alone would have flattered. A foundation no one else still presses on reads as settled, not central: the telescope cannot see a structure no one is currently leaning on under load. <strong>Sebastian Markb&aring;ge sits at the top of React's gravity with the shape saturated</strong> &mdash; Indispensability 100, others plainly built on him (Catalysis 100) &mdash; yet his gravity reads a modest 10.8, because the Reconciler he laid down now sits largely undisturbed: robust survival near zero, no live pressure from others to witness. That is not a demotion. It is the instrument declining to confuse ownership, or a finished foundation, with gravity.</p>
+  <p>The gates also stay quiet where founding alone would have flattered. A foundation no one else still presses on reads as settled, not central: the telescope cannot see a structure no one is currently leaning on under load. <strong>Sebastian Markb&aring;ge sits at the top of React's gravity with the shape saturated</strong> &mdash; Indispensability 100, others plainly built on him (Catalysis 100) &mdash; yet his gravity reads a modest 9.9, because the Reconciler he laid down now sits largely undisturbed: robust survival near zero, no live pressure from others to witness. That is not a demotion. It is the instrument declining to confuse ownership, or a finished foundation, with gravity.</p>
   <p>And then there are the <strong>355 hidden Architects</strong> the map surfaces who never appear in a maintainer list. They give no talks and hold no titles, yet the field lines run straight through their code: the part written years ago that the system still rests on today. Taylor Otwell (Laravel) and Josh Goldberg (ESLint) clear no public maintainer roster in our cross-check, yet sit near the very top of the field.</p>
   <p>Alongside them, <strong>50 Entropy Fighters</strong> &mdash; high on both Debt Cleanup and robust survival &mdash; quietly hold back the second law in code that would otherwise drift.</p>
   <p>This map is not a leaderboard. It leaves a question open: once the noise of activity is filtered out, what does a system actually lean on &mdash; and would anyone notice if that quietly left?</p>

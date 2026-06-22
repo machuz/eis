@@ -67,6 +67,66 @@ def normalize_role(r: str) -> str:
     return "Other"
 
 
+# ---------------------------------------------------------------------------
+# i18n — EIS taxonomy words (Architect/Anchor/gravity/peak/NEW) stay in English
+# for consistency with the rest of the OSS Gravity Map pages; only descriptive
+# prose is localized.
+# ---------------------------------------------------------------------------
+
+STRINGS = {
+    "en": {
+        "html_lang": "en",
+        "title_suffix": "Generational Evolution",
+        "subtitle": "How structural gravity transferred across {n} years",
+        "lang_label": "日本語",
+        "hm_title": "Generational Handover &mdash; who held a structural seat, year by year",
+        "hm_sub": "Each row is one engineer who ever held a named role · colour = the role they held that year · shade by gravity",
+        "tbl_name": "Name",
+        "departed": "Departed: ",
+        "spark_peak": "peak {v}",
+        "t_architects": "Architects (structural leaders)",
+        "t_anchors": "Anchors (gravity holders)",
+        "t_producers": "Producers (output engines) — top 12 by peak gravity",
+        "t_cleaners": "Cleaners (entropy fighters) — top 12 by peak gravity",
+        "s1_title": "Role Composition Timeline",
+        "s1_desc": "Active engineers per role in each period. Shows how the team's role balance evolved.",
+        "s2_title": "Generational Handover",
+        "s2_desc": "Every engineer who ever held a named structural seat — <strong>Architect</strong>, <strong>Anchor</strong>, <strong>Cleaner</strong>, <strong>Specialist</strong> — as one row, year by year. Ordered by when they first appear, so the baton passing between generations reads as a staircase: watch a seat empty in one era and someone new take it up in the next.",
+        "s3_title": "Who Held Each Role, Year by Year",
+        "s3_desc": "Each cell is that engineer's gravity in that year; blank = they did not hold the role then. Rows step in by first appearance, so you can read the handover from one generation to the next — who held the seat, and who took it over.",
+        "s4_title": "Gravity Leadership Board",
+        "s4_desc": 'Top 5 by gravity each period. <span style="color:#238636;font-weight:600">NEW</span> = just entered top 5. Departed names listed below.',
+        "s5_title": "Individual Trajectories",
+        "s5_desc": "Gravity over time for key figures (anyone ever in top 10). Dot color = role. Hover for details.",
+    },
+    "ja": {
+        "html_lang": "ja",
+        "title_suffix": "世代的進化",
+        "subtitle": "構造的な重力が{n}年でどう移り変わったか",
+        "lang_label": "EN",
+        "hm_title": "世代交代 &mdash; 誰が構造的な席を、年ごとに担ったか",
+        "hm_sub": "各行は名前付きロールを一度でも担ったエンジニア・色＝その年のロール・濃淡＝gravity",
+        "tbl_name": "名前",
+        "departed": "離脱: ",
+        "spark_peak": "peak {v}",
+        "t_architects": "Architect（構造リーダー）",
+        "t_anchors": "Anchor（gravity の保持者）",
+        "t_producers": "Producer（出力エンジン）— peak gravity 上位12",
+        "t_cleaners": "Cleaner（entropy と戦う者）— peak gravity 上位12",
+        "s1_title": "ロール構成の時系列",
+        "s1_desc": "各期間のロール別アクティブエンジニア数。チームのロールバランスがどう移り変わったかを示す。",
+        "s2_title": "世代交代",
+        "s2_desc": "名前付きの構造的な席 — <strong>Architect</strong>・<strong>Anchor</strong>・<strong>Cleaner</strong>・<strong>Specialist</strong> — を一度でも持った全エンジニアを1行ずつ、年ごとに並べる。初出順に並ぶので、世代から世代へのバトンパスが階段状に読める。ある時代に席が空き、次の時代に新しい人がそれを引き継ぐ様子が見える。",
+        "s3_title": "誰がどのロールを、年ごとに担ったか",
+        "s3_desc": "各セルはその年のそのエンジニアの gravity。空欄＝その年はそのロールを担っていない。行は初出順に並ぶので、世代から次の世代への引き継ぎが読める — 誰が席を持ち、誰が引き継いだか。",
+        "s4_title": "Gravity リーダーボード",
+        "s4_desc": '各期間の gravity 上位5。<span style="color:#238636;font-weight:600">NEW</span> ＝上位5に新規参入。離脱者は下に記載。',
+        "s5_title": "個人の軌跡",
+        "s5_desc": "主要人物（一度でも上位10入り）の gravity の推移。点の色＝ロール。ホバーで詳細。",
+    },
+}
+
+
 def extract_data(data: dict):
     periods = [p["label"] for p in data["periods"]]
     authors = data["authors"]
@@ -277,7 +337,7 @@ def generate_stacked_bar_svg(periods, role_counts, width=900, height=340):
     return '\n'.join(lines)
 
 
-def generate_handover_heatmap_svg(periods, structural_tenure, width=900, max_rows=24):
+def generate_handover_heatmap_svg(periods, structural_tenure, width=900, max_rows=24, lang="en"):
     """Generational-handover heatmap: one row per engineer who ever held a named
     structural role (Architect / Anchor / Cleaner / Specialist), columns are
     years, each cell coloured by the role they held that year (blank if none).
@@ -297,9 +357,10 @@ def generate_handover_heatmap_svg(periods, structural_tenure, width=900, max_row
     # so a low-gravity Cleaner seat is still legible.
     gpeak = max((c["gravity"] for _, meta in rows for c in meta["row"] if c), default=1) or 1
 
+    S = STRINGS[lang]
     lines = [f'<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:{width}px">']
-    lines.append(f'<text x="12" y="22" fill="#f0f6fc" font-size="14" font-weight="600">Generational Handover &mdash; who held a structural seat, year by year</text>')
-    lines.append(f'<text x="12" y="40" fill="#8b949e" font-size="11">Each row is one engineer who ever held a named role · colour = the role they held that year · shade by gravity</text>')
+    lines.append(f'<text x="12" y="22" fill="#f0f6fc" font-size="14" font-weight="600">{S["hm_title"]}</text>')
+    lines.append(f'<text x="12" y="40" fill="#8b949e" font-size="11">{S["hm_sub"]}</text>')
 
     for ri, (name, meta) in enumerate(rows):
         ry = top + ri * cell_h
@@ -365,7 +426,8 @@ def generate_sparkline_svg(trajectory, w=260, h=40):
     return '\n'.join(svg)
 
 
-def generate_html(analytics, project_title="React"):
+def generate_html(analytics, project_title="React", lang="en", en_href="", ja_href=""):
+    S = STRINGS[lang]
     periods = analytics["periods"]
     role_counts = analytics["role_counts"]
     architects = analytics["architects_per_period"]
@@ -376,7 +438,22 @@ def generate_html(analytics, project_title="React"):
     key_figures = analytics["key_figures"]
 
     bar_svg = generate_stacked_bar_svg(periods, role_counts)
-    heatmap_svg = generate_handover_heatmap_svg(periods, analytics["structural_tenure"])
+    heatmap_svg = generate_handover_heatmap_svg(periods, analytics["structural_tenure"], lang=lang)
+
+    # language toggle (rendered only when both counterpart hrefs are known)
+    if en_href and ja_href:
+        def _link(href, label, active):
+            cls = ' class="active"' if active else ''
+            return f'<a href="{esc(href)}"{cls}>{label}</a>'
+        lang_switch = (
+            '<div class="lang-switch">'
+            + _link(en_href, "EN", lang == "en")
+            + '<span class="sep">·</span>'
+            + _link(ja_href, "日本語", lang == "ja")
+            + '</div>'
+        )
+    else:
+        lang_switch = ""
 
     # Order names so the generational handover reads top-to-bottom: pick the
     # strongest holders by peak gravity (cap keeps populous roles legible), then
@@ -421,22 +498,22 @@ def generate_html(analytics, project_title="React"):
         <h3 class="section-subtitle">{esc(title)}</h3>
         <div class="table-scroll">
         <table class="role-table">
-          <thead><tr><th>Name</th>{header_cells}</tr></thead>
+          <thead><tr><th>{esc(S["tbl_name"])}</th>{header_cells}</tr></thead>
           <tbody>{"".join(rows)}</tbody>
         </table>
         </div>'''
 
     architects_html = role_table_html(
-        "Architects (structural leaders)",
+        S["t_architects"],
         "Architect", sorted_architect_names, architects)
     anchors_html = role_table_html(
-        "Anchors (gravity holders)",
+        S["t_anchors"],
         "Anchor", sorted_anchor_names, anchors)
     producers_html = role_table_html(
-        "Producers (output engines) — top 12 by peak gravity",
+        S["t_producers"],
         "Producer", sorted_producer_names, producers)
     cleaners_html = role_table_html(
-        "Cleaners (entropy fighters) — top 12 by peak gravity",
+        S["t_cleaners"],
         "Cleaner", sorted_cleaner_names, cleaners)
 
     # --- top 5 leaderboard ---
@@ -465,7 +542,7 @@ def generate_html(analytics, project_title="React"):
         departed = ""
         if gone_names and pi > 0:
             dep_list = ", ".join(sorted(gone_names))
-            departed = f'<div class="lb-departed">Departed: {esc(dep_list)}</div>'
+            departed = f'<div class="lb-departed">{esc(S["departed"])}{esc(dep_list)}</div>'
 
         leaderboard_rows.append(
             f'<div class="lb-period">'
@@ -493,7 +570,7 @@ def generate_html(analytics, project_title="React"):
             f'<div class="spark-card">'
             f'<div class="spark-header">'
             f'<span class="spark-name" style="color:{role_color}">{esc(kf["name"])}</span>'
-            f'<span class="spark-peak">peak {fmt_gravity(kf["peak"])}</span>'
+            f'<span class="spark-peak">{S["spark_peak"].format(v=fmt_gravity(kf["peak"]))}</span>'
             f'</div>'
             f'<div class="spark-meta">{first_year}–{last_year}</div>'
             f'{spark_svg}'
@@ -501,11 +578,11 @@ def generate_html(analytics, project_title="React"):
         )
 
     return f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="{S["html_lang"]}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{esc(project_title)} — Generational Evolution</title>
+<title>{esc(project_title)} — {esc(S["title_suffix"])}</title>
 <style>
   *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
   body{{
@@ -596,21 +673,31 @@ def generate_html(analytics, project_title="React"):
   .spark-name{{font-weight:600;font-size:.95rem}}
   .spark-peak{{font-size:.75rem;color:#8b949e;font-variant-numeric:tabular-nums}}
   .spark-meta{{font-size:.72rem;color:#484f58;margin:2px 0 8px}}
+
+  /* Language switch */
+  .lang-switch{{
+    position:absolute;top:18px;right:20px;font-size:.82rem;
+  }}
+  .lang-switch a{{color:#8b949e;text-decoration:none;padding:2px 4px}}
+  .lang-switch a.active{{color:#58a6ff;font-weight:700}}
+  .lang-switch a:hover{{color:#c9d1d9}}
+  .lang-switch .sep{{color:#30363d;margin:0 2px}}
 </style>
 </head>
 <body>
 
+{lang_switch}
 <header>
-  <h1><span>{esc(project_title)}</span> — Generational Evolution</h1>
-  <p class="subtitle">How structural gravity transferred across {len(periods)} years</p>
+  <h1><span>{esc(project_title)}</span> — {esc(S["title_suffix"])}</h1>
+  <p class="subtitle">{esc(S["subtitle"].format(n=len(periods)))}</p>
 </header>
 
 <div class="container">
 
   <!-- Section 1: Role Composition -->
   <div class="section">
-    <h2 class="section-title">Role Composition Timeline</h2>
-    <p class="section-desc">Active engineers per role in each period. Shows how the team's role balance evolved.</p>
+    <h2 class="section-title">{esc(S["s1_title"])}</h2>
+    <p class="section-desc">{S["s1_desc"]}</p>
     <div class="chart-wrap">
       {bar_svg}
     </div>
@@ -618,8 +705,8 @@ def generate_html(analytics, project_title="React"):
 
   <!-- Section 1b: Generational Handover Heatmap -->
   <div class="section">
-    <h2 class="section-title">Generational Handover</h2>
-    <p class="section-desc">Every engineer who ever held a named structural seat — <strong>Architect</strong>, <strong>Anchor</strong>, <strong>Cleaner</strong>, <strong>Specialist</strong> — as one row, year by year. Ordered by when they first appear, so the baton passing between generations reads as a staircase: watch a seat empty in one era and someone new take it up in the next.</p>
+    <h2 class="section-title">{esc(S["s2_title"])}</h2>
+    <p class="section-desc">{S["s2_desc"]}</p>
     <div class="chart-wrap">
       {heatmap_svg}
     </div>
@@ -627,8 +714,8 @@ def generate_html(analytics, project_title="React"):
 
   <!-- Section 2: Architects & Anchors -->
   <div class="section">
-    <h2 class="section-title">Who Held Each Role, Year by Year</h2>
-    <p class="section-desc">Each cell is that engineer's gravity in that year; blank = they did not hold the role then. Rows step in by first appearance, so you can read the handover from one generation to the next — who held the seat, and who took it over.</p>
+    <h2 class="section-title">{esc(S["s3_title"])}</h2>
+    <p class="section-desc">{S["s3_desc"]}</p>
     {architects_html}
     {anchors_html}
     {producers_html}
@@ -637,8 +724,8 @@ def generate_html(analytics, project_title="React"):
 
   <!-- Section 3: Gravity Leadership Board -->
   <div class="section">
-    <h2 class="section-title">Gravity Leadership Board</h2>
-    <p class="section-desc">Top 5 by gravity each period. <span style="color:#238636;font-weight:600">NEW</span> = just entered top 5. Departed names listed below.</p>
+    <h2 class="section-title">{esc(S["s4_title"])}</h2>
+    <p class="section-desc">{S["s4_desc"]}</p>
     <div class="lb-grid">
       {"".join(leaderboard_rows)}
     </div>
@@ -646,8 +733,8 @@ def generate_html(analytics, project_title="React"):
 
   <!-- Section 4: Individual Trajectories -->
   <div class="section">
-    <h2 class="section-title">Individual Trajectories</h2>
-    <p class="section-desc">Gravity over time for key figures (anyone ever in top 10). Dot color = role. Hover for details.</p>
+    <h2 class="section-title">{esc(S["s5_title"])}</h2>
+    <p class="section-desc">{S["s5_desc"]}</p>
     <div class="spark-grid">
       {"".join(sparkline_cards)}
     </div>
@@ -675,6 +762,24 @@ def main():
         idx = sys.argv.index("--title")
         if idx + 1 < len(sys.argv):
             title = sys.argv[idx + 1]
+    lang = "en"
+    if "--lang" in sys.argv:
+        idx = sys.argv.index("--lang")
+        if idx + 1 < len(sys.argv):
+            lang = sys.argv[idx + 1]
+    if lang not in STRINGS:
+        print(f"Unknown --lang '{lang}'; use one of {list(STRINGS)}")
+        sys.exit(1)
+
+    # counterpart hrefs for the language toggle, derived from the output basename:
+    # foo.html <-> foo-ja.html (same directory, relative link)
+    base = os.path.basename(output_path)
+    if base.endswith("-ja.html"):
+        en_base, ja_base = base[:-8] + ".html", base
+    elif base.endswith(".html"):
+        en_base, ja_base = base, base[:-5] + "-ja.html"
+    else:
+        en_base = ja_base = base
 
     print(f"Loading {json_path}...")
     data = load_timeline(json_path)
@@ -684,8 +789,9 @@ def main():
     analytics = extract_data(data)
     print(f"  Key figures: {len(analytics['key_figures'])}")
 
-    print(f"Generating HTML -> {output_path}")
-    html_content = generate_html(analytics, project_title=title)
+    print(f"Generating HTML ({lang}) -> {output_path}")
+    html_content = generate_html(analytics, project_title=title, lang=lang,
+                                 en_href=en_base, ja_href=ja_base)
 
     os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
