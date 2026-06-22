@@ -1,9 +1,45 @@
 package scorer
 
+import (
+	"time"
+
+	"github.com/machuz/eis/v2/internal/config"
+)
+
 // AxisMatch holds a classification label and its confidence score (0.0-1.0).
 type AxisMatch struct {
 	Name       string
 	Confidence float64
+}
+
+// ReclassifyState recomputes ONLY the clock-relative outputs of a stored Result
+// against a new reference time — RecentlyActive, State, StateConf — from
+// r.LastActiveDate and the (HEAD-fixed) signal fields already in r. Every other
+// field of r is returned unchanged.
+//
+// This is the cheap, git-free half of the hybrid observation cadence: the heavy
+// clone+blame layer produces and stores a full Result per author; this function
+// lets the daily refresh advance the two outputs that move with the calendar
+// (an author crossing the active_days threshold into Former/Silent) without
+// re-reading git. RecentlyActive and State are the only daily-moving outputs;
+// Role and Style are HEAD-derived and pass through untouched.
+//
+// It is pure and deterministic: refTime is explicit (no time.Now()), and an
+// identical (r, cfg, refTime) always yields identical output. cfg supplies
+// ActiveDays so the threshold matches the heavy layer's; passing the full Result
+// rather than a handful of scalars keeps callers robust to classifier internals
+// reaching for additional stored signals.
+func ReclassifyState(r Result, cfg *config.Config, refTime time.Time) Result {
+	recentlyActive := false
+	if !r.LastActiveDate.IsZero() {
+		recentlyActive = refTime.Sub(r.LastActiveDate).Hours()/24 <= float64(cfg.ActiveDays)
+	}
+	r.RecentlyActive = recentlyActive
+
+	state := classifyState(r)
+	r.State = state.Name
+	r.StateConf = state.Confidence
+	return r
 }
 
 // classifyTopology returns 3-axis classification: Role, Style, State.
