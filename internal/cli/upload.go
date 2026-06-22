@@ -71,7 +71,7 @@ type uploadRequest struct {
 // for GitHub Enterprise / no-clone customers: the SaaS stores these as
 // upload-sourced observations (not git-reproducible server-side; credibility is
 // gauged by the Trust Signal).
-func uploadResults(ctx context.Context, domainResults []DomainResults, repoPath, token string) error {
+func uploadResults(ctx context.Context, domainResults []DomainResults, repoPath, token string, analysisTime time.Time) error {
 	if token == "" {
 		return fmt.Errorf("upload requires a token: pass --token or set EIS_TOKEN (create one in Settings → API tokens)")
 	}
@@ -88,7 +88,13 @@ func uploadResults(ctx context.Context, domainResults []DomainResults, repoPath,
 	if err != nil {
 		return fmt.Errorf("resolve HEAD author date (%s): %w", repoPath, err)
 	}
-	analysisTime := time.Now().UTC()
+	// analysisTime is the W-02 envelope clock the scores were actually computed
+	// against (threaded in from RunAnalyzePipeline), NOT a fresh time.Now():
+	// the recorded analysis_time MUST equal the decay/classification reference,
+	// or the observation drifts run-to-run for the same git_sha.
+	if analysisTime.IsZero() {
+		analysisTime = time.Now().UTC()
+	}
 
 	for _, dr := range domainResults {
 		req := uploadRequest{

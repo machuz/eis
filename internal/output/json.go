@@ -5,13 +5,20 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"time"
 
 	"github.com/machuz/eis/v2/internal/metric"
 	"github.com/machuz/eis/v2/internal/scorer"
 )
 
 type jsonOutput struct {
-	Domains []jsonDomain `json:"domains"`
+	// AnalysisTime is the W-02 envelope clock the scores were computed against
+	// (the single decay/classification reference), RFC3339. Recording it lets a
+	// file-based consumer capture and replay the exact reference, so the same
+	// git_sha reproduces byte-identically. omitempty keeps the envelope shape
+	// unchanged when unset (non-breaking for existing SaaS parsers).
+	AnalysisTime string       `json:"analysis_time,omitempty"`
+	Domains      []jsonDomain `json:"domains"`
 }
 
 type jsonDomain struct {
@@ -128,6 +135,16 @@ type JSONWriter struct {
 
 func NewJSONWriter() *JSONWriter {
 	return &JSONWriter{}
+}
+
+// SetAnalysisTime stamps the W-02 envelope clock (the decay/classification
+// reference the scores were computed against) into the JSON envelope as
+// RFC3339. Zero time leaves it unset (field omitted).
+func (w *JSONWriter) SetAnalysisTime(t time.Time) {
+	if t.IsZero() {
+		return
+	}
+	w.output.AnalysisTime = t.UTC().Format(time.RFC3339)
 }
 
 func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []scorer.Result, risks []metric.ModuleRisk) {

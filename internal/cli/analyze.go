@@ -38,6 +38,13 @@ type AnalyzeOptions struct {
 	NoCache        bool
 	PerRepo        bool
 	FastLog        bool // skip `git log -p` comment filtering (numstat-only) for speed
+
+	// AnalysisTime is the W-02 envelope clock: the single wall-clock reference
+	// against which time-decay (survival/catalysis) and lifecycle classification
+	// (State/RecentlyActive) are computed. Pin it to make a run reproducible —
+	// the same (git_sha, AnalysisTime) MUST always produce the same scores.
+	// Zero value means "use time.Now().UTC()" (the normal interactive default).
+	AnalysisTime time.Time
 }
 
 // DomainResults holds scored results for a single domain.
@@ -169,24 +176,26 @@ func runAnalyze(args []string) error {
 		FastLog:        *fastLog,
 	}
 
-	domainResults, cfg, err := RunAnalyzePipeline(opts, pathArgs)
+	domainResults, cfg, analysisTime, err := RunAnalyzePipeline(opts, pathArgs)
 	if err != nil {
 		return err
 	}
 
-	if err := outputAnalyzeResults(domainResults, cfg, opts.Format); err != nil {
+	if err := outputAnalyzeResults(domainResults, cfg, opts.Format, analysisTime); err != nil {
 		return err
 	}
 
 	if *upload {
 		// Resolve the analyzed repo from the first path arg (default ".") — the
 		// HEAD sha there stamps the observation lineage. Upload status goes to
-		// stderr so it never pollutes --format=json stdout.
+		// stderr so it never pollutes --format=json stdout. analysisTime is the
+		// SAME envelope clock the scores were computed against — the upload
+		// envelope records it verbatim (W-02), never a fresh time.Now().
 		repoPath := "."
 		if len(pathArgs) > 0 {
 			repoPath = pathArgs[0]
 		}
-		if err := uploadResults(context.Background(), domainResults, repoPath, *token); err != nil {
+		if err := uploadResults(context.Background(), domainResults, repoPath, *token, analysisTime); err != nil {
 			return fmt.Errorf("upload: %w", err)
 		}
 		fmt.Fprintln(os.Stderr, "✦ signals uploaded to the observatory")
@@ -195,10 +204,14 @@ func runAnalyze(args []string) error {
 	return nil
 }
 
-func outputAnalyzeResults(domainResults []DomainResults, cfg *config.Config, format string) error {
+func outputAnalyzeResults(domainResults []DomainResults, cfg *config.Config, format string, analysisTime time.Time) error {
 	var jsonWriter *output.JSONWriter
 	if format == "json" {
+		// Stamp the W-02 envelope clock into the JSON envelope so a file-based
+		// consumer can capture/replay the exact decay/classification reference
+		// the scores were computed against (additive field; shape unchanged).
 		jsonWriter = output.NewJSONWriter()
+		jsonWriter.SetAnalysisTime(analysisTime)
 	}
 
 	csvHeaderWritten := false
@@ -251,9 +264,13 @@ func outputAnalyzeResults(domainResults []DomainResults, cfg *config.Config, for
 	return nil
 }
 
-// RunAnalyzePipeline runs the full analysis pipeline and returns per-domain results.
-// This is the shared core used by both `eis analyze` and `eis team`.
-func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *config.Config, error) {
+// RunAnalyzePipeline runs the full analysis pipeline and returns per-domain
+// results plus the W-02 envelope clock (analysisTime) the scores were actually
+// computed against — so callers (upload, JSON output) can record/replay the
+// exact decay/classification reference rather than re-stamping a fresh
+// time.Now() that would not match the scores. This is the shared core used by
+// both `eis analyze` and `eis team`.
+func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *config.Config, time.Time, error) {
 	repoPaths := paths
 	if len(repoPaths) == 0 {
 		repoPaths = []string{"."}
@@ -263,7 +280,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 	for i, p := range repoPaths {
 		abs, err := filepath.Abs(p)
 		if err != nil {
-			return nil, nil, fmt.Errorf("resolve path %s: %w", p, err)
+			return nil, nil, time.Time{}, fmt.Errorf("resolve path %s: %w", p, err)
 		}
 		repoPaths[i] = abs
 	}
@@ -274,12 +291,12 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		for _, root := range repoPaths {
 			repos, err := findGitRepos(root, opts.MaxDepth)
 			if err != nil {
-				return nil, nil, fmt.Errorf("scan %s: %w", root, err)
+				return nil, nil, time.Time{}, fmt.Errorf("scan %s: %w", root, err)
 			}
 			discovered = append(discovered, repos...)
 		}
 		if len(discovered) == 0 {
-			return nil, nil, fmt.Errorf("no git repos found under %v (depth=%d)", repoPaths, opts.MaxDepth)
+			return nil, nil, time.Time{}, fmt.Errorf("no git repos found under %v (depth=%d)", repoPaths, opts.MaxDepth)
 		}
 		repoPaths = discovered
 		fmt.Fprintf(os.Stderr, "Found %d git repos\n\n", len(repoPaths))
@@ -288,7 +305,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 	// Load config
 	cfg, err := config.Load(opts.ConfigPath, opts.ExplicitConfig)
 	if err != nil {
-		return nil, nil, fmt.Errorf("load config: %w", err)
+		return nil, nil, time.Time{}, fmt.Errorf("load config: %w", err)
 	}
 	if opts.FastLog {
 		off := false
@@ -314,7 +331,20 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 	}
 
 	ctx := context.Background()
-	start := time.Now()
+
+	// analysisTime is the W-02 envelope clock: the SINGLE decay/classification
+	// reference threaded through every score-affecting computation below
+	// (survival, catalysis, module survival, and scorer.ScoreAt). Pinning it
+	// (opts.AnalysisTime) makes the run reproducible — same (git_sha,
+	// analysisTime) ⇒ same scores. It is deliberately distinct from `start`,
+	// which is ONLY a perf timer for duration logging and must never reach a
+	// score. See pkg/timeline/run.go for the reference threading (window.End).
+	analysisTime := opts.AnalysisTime
+	if analysisTime.IsZero() {
+		analysisTime = time.Now().UTC()
+	}
+
+	start := time.Now() // perf timer only — NOT a decay/classification reference
 	workers := opts.Workers
 	if workers == 0 {
 		workers = 4
@@ -432,7 +462,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			commits, err = git.ParseLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled())
 			spin.Stop()
 			if err != nil {
-				return nil, nil, fmt.Errorf("parse log %s: %w", repoName, err)
+				return nil, nil, time.Time{}, fmt.Errorf("parse log %s: %w", repoName, err)
 			}
 			if headHash != "" {
 				cacheStore.Set(logCacheKey, commits)
@@ -643,7 +673,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 			pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
-			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
+			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvRobust = survResult.Robust
@@ -659,7 +689,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		} else {
 			// Classic mode: no pressure split, but still apply the tested-weighting
 			// so comment-era repos still benefit from gaming resistance.
-			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, start, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
+			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, analysisTime, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvTested = survResult.Tested
@@ -676,8 +706,8 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 
 		// Catalysis: surviving mass of others' work on files this author
 		// originated. Needs the commit history (originator per file) and the
-		// blame lines (surviving mass). Same decay reference (start) as Survival.
-		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.Tau, start)
+		// blame lines (surviving mass). Same decay reference (analysisTime) as Survival.
+		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.Tau, analysisTime)
 		mergeMap(acc.raw.Catalysis, catalysis)
 
 		// Step 3: Debt cleanup
@@ -719,7 +749,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		acc.ownership = append(acc.ownership, ownership...)
 
 		// Module Science Phase 2: Per-module survival rate
-		repoModSurv := metric.CalcModuleSurvival(blameLines, cfg.Tau, start, moduleResolver)
+		repoModSurv := metric.CalcModuleSurvival(blameLines, cfg.Tau, analysisTime, moduleResolver)
 		for mod, surv := range repoModSurv {
 			if existing, ok := acc.moduleSurvival[mod]; ok {
 				acc.moduleSurvival[mod] = (existing + surv) / 2
@@ -729,7 +759,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 
 		// Per-(module, author) surviving gravity for Breadth (Hill number).
-		repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.Tau, start, moduleResolver)
+		repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.Tau, analysisTime, moduleResolver)
 		for mod, authors := range repoMSBA {
 			dst := acc.authorModuleSurvival[mod]
 			if dst == nil {
@@ -841,8 +871,10 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			acc.raw.Production[author] = total / days
 		}
 
-		// Score and rank
-		scored := scorer.Score(acc.raw, cfg, acc.authorLastDate)
+		// Score and rank. ScoreAt (not Score) so State/RecentlyActive classify
+		// against the same W-02 envelope clock the decay metrics used — never a
+		// fresh time.Now().
+		scored := scorer.ScoreAt(acc.raw, cfg, acc.authorLastDate, analysisTime)
 
 		// Filter out excluded authors and ghost entries (0 commits, 0 total)
 		var filtered []scorer.Result
@@ -918,7 +950,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				for author := range ra.acc.raw.TotalCommits {
 					ra.acc.raw.Breadth[author] = 1
 				}
-				scored := scorer.Score(ra.acc.raw, cfg, ra.authorLastDate)
+				scored := scorer.ScoreAt(ra.acc.raw, cfg, ra.authorLastDate, analysisTime)
 				var repoFiltered []scorer.Result
 				for _, r := range scored {
 					if !cfg.IsExcludedAuthor(r.Author) {
@@ -943,7 +975,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		color.New(color.FgHiBlack).Printf("Completed in %s (%d repos total)\n", elapsed.Round(time.Second), totalAnalyzed)
 	}
 
-	return results, cfg, nil
+	return results, cfg, analysisTime, nil
 }
 
 // resolveRepoDomain determines the domain for a repo.
