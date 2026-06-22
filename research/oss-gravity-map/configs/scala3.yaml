@@ -28,6 +28,8 @@ exclude_file_patterns:
   - "tests/**"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "compiler/src/dotty/tools/dotc/**/*.scala"
   # Compiler core
   - "compiler/src/dotty/tools/dotc/*.scala"
   - "compiler/src/dotty/tools/dotc/core/*.scala"

@@ -32,6 +32,18 @@ exclude_file_patterns:
   - "**/gtest*"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "src/Interpreters/**/*.cpp"
+  - "src/Storages/**/*.cpp"
+  - "src/Processors/**/*.cpp"
+  - "src/Parsers/**/*.cpp"
+  - "src/Core/**/*.cpp"
+  - "src/Functions/**/*.cpp"
+  - "src/AggregateFunctions/**/*.cpp"
+  - "src/Analyzer/**/*.cpp"
+  - "src/IO/**/*.cpp"
+  - "src/Coordination/**/*.cpp"
+  - "src/Disks/**/*.cpp"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

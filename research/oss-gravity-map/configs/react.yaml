@@ -49,6 +49,11 @@ architecture_patterns:
   - "packages/react-reconciler/src/*.js"
   - "packages/scheduler/src/*.js"
   - "packages/shared/*.js"
+  # React Compiler (React Forget) — a major structural component; its core
+  # compiler passes (HIR, ReactiveScopes, Inference, Optimization, Validation,
+  # SSA, …) live here. __tests__/fixtures are already excluded above.
+  - "compiler/packages/babel-plugin-react-compiler/src/**/*.ts"
+  - "compiler/packages/react-compiler-runtime/src/**/*.ts"
 
 blame_extensions:
   - "*.js"
@@ -58,6 +63,8 @@ blame_extensions:
   - "*.tsx"
 
 aliases:
+  "josephsavona": "Joe Savona"
+  "Joseph Savona": "Joe Savona"
   "dan": "Dan Abramov"
   "gaearon": "Dan Abramov"
   "sebmarkbage": "Sebastian Markbåge"
@@ -66,6 +73,11 @@ aliases:
   "sophiebits": "Sophie Alpert"
   "Ben Alpert": "Sophie Alpert"
   "jordwalke": "Jordan Walke"
+  "lauren": "Lauren Tan"
+  "poteto": "Lauren Tan"
+  "kassens": "Jan Kassens"
+  "jorge-cab": "Jorge Cabiedes"
+  "Jorge Cabiedes Acosta": "Jorge Cabiedes"
 
 exclude_authors:
   - "github-actions[bot]"

@@ -31,6 +31,13 @@ exclude_file_patterns:
   - "*.spec.ts"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "packages/core/**/*.ts"
+  - "packages/common/**/*.ts"
+  - "packages/microservices/**/*.ts"
+  - "packages/websockets/**/*.ts"
+  - "packages/platform-express/**/*.ts"
+  - "packages/platform-fastify/**/*.ts"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"
@@ -55,6 +62,8 @@ blame_extensions:
   - "*.tsx"
 
 aliases:
+  "Kamil Mysliwiec": "Kamil Myśliwiec"
+  "kamil.mysliwiec": "Kamil Myśliwiec"
   "kamilmysliwiec": "Kamil Mysliwiec"
 
 exclude_authors:

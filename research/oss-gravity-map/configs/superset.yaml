@@ -30,6 +30,11 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "superset-frontend/src/dashboard/**/*.tsx"
+  - "superset-frontend/src/explore/**/*.ts"
+  - "superset-frontend/src/explore/**/*.tsx"
+  - "superset-frontend/src/components/**/*.tsx"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

@@ -30,6 +30,8 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "crates/swc_ecma_minifier/src/**/*.rs"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"
@@ -55,6 +57,7 @@ blame_extensions:
   - "*.rs"
 
 aliases:
+  "강동윤 (Donny)": "Donny (kdy1)"
   "강동윤": "Donny (kdy1)"
   "Donny/강동윤": "Donny (kdy1)"
   "kdy1": "Donny (kdy1)"

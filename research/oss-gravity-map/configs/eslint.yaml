@@ -30,6 +30,10 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "lib/eslint/*.js"
+  - "lib/languages/**/*.js"
+  - "lib/cli-engine/*.js"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

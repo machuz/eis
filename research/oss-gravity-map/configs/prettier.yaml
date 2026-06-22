@@ -30,6 +30,14 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "src/language-*/print/**/*.js"
+  - "src/language-*/parse/**/*.js"
+  - "src/language-*/embed/**/*.js"
+  - "src/language-*/printers.js"
+  - "src/language-*/parsers.js"
+  - "src/document/**/*.js"
+  - "src/main/**/*.js"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

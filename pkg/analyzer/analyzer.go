@@ -212,6 +212,10 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				cacheStore.Set(logCacheKey, commits)
 			}
 		}
+		// Collapse split identities (one person under several names sharing an
+		// email) before alias resolution; reused to remap blame authors by name.
+		idmap := git.BuildIdentityMap(commits)
+		git.CanonicalizeAuthors(commits, nil, idmap)
 		commits = filterCommits(commits, cfg)
 		commits = filterFileStats(commits, cfg.ExcludeFilePatterns)
 
@@ -311,6 +315,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				cacheStore.Set(blameCacheKey, blameLines)
 			}
 		}
+		git.CanonicalizeAuthors(nil, blameLines, idmap)
 		for i := range blameLines {
 			blameLines[i].Author = cfg.ResolveAuthor(blameLines[i].Author)
 		}

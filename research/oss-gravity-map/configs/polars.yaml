@@ -30,6 +30,9 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "crates/polars-stream/src/**/*.rs"
+  - "crates/polars-ops/src/**/*.rs"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

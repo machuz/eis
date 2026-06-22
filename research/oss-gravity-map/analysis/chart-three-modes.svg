@@ -23,8 +23,8 @@
     <line x1="0" y1="0" x2="52" y2="28" stroke="#ef5350" stroke-width="1" opacity="0.25"/>
   </g>
   <text x="133" y="248" text-anchor="middle" fill="#ef5350" font-family="-apple-system,sans-serif" font-size="14" font-weight="600">Single-founder gravity</text>
-  <text x="133" y="266" text-anchor="middle" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="11">swc, prettier, spring-boot, fastapi</text>
-  <text x="133" y="283" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="11">Concentration: 77–98%</text>
+  <text x="133" y="266" text-anchor="middle" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="11">spring-boot, prettier, fastapi, swc, polars</text>
+  <text x="133" y="283" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="11">Concentration: 77–97%</text>
 
   <!-- Mode 2: Standing bench -->
   <g transform="translate(400,165)">
@@ -45,8 +45,8 @@
     <line x1="-20" y1="22" x2="20" y2="22" stroke="#ab47bc" stroke-width="1" opacity="0.2"/>
   </g>
   <text x="400" y="248" text-anchor="middle" fill="#ab47bc" font-family="-apple-system,sans-serif" font-size="14" font-weight="600">Standing bench</text>
-  <text x="400" y="266" text-anchor="middle" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="11">rails, kubernetes, rust, react</text>
-  <text x="400" y="283" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="11">Concentration: 9–27%</text>
+  <text x="400" y="266" text-anchor="middle" fill="#8b949e" font-family="-apple-system,sans-serif" font-size="11">rails, redis, envoy, kubernetes, rust</text>
+  <text x="400" y="283" text-anchor="middle" fill="#484f58" font-family="-apple-system,sans-serif" font-size="11">Concentration: 8–34%</text>
 
   <!-- Mode 3: Framework-as-architect -->
   <g transform="translate(667,165)">

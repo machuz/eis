@@ -30,6 +30,19 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "internal/js_parser/*.go"
+  - "internal/js_ast/*.go"
+  - "internal/css_parser/*.go"
+  - "internal/css_ast/*.go"
+  - "internal/ast/*.go"
+  - "internal/linker/*.go"
+  - "internal/bundler/*.go"
+  - "internal/resolver/*.go"
+  - "internal/graph/*.go"
+  - "internal/config/*.go"
+  - "pkg/cli/*.go"
+  - "cmd/esbuild/*.go"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

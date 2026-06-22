@@ -25,6 +25,11 @@ exclude_file_patterns:
   - "**/partest/**"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "src/compiler/scala/tools/nsc/**/*.scala"
+  - "src/compiler/scala/tools/tasty/**/*.scala"
+  - "src/reflect/scala/reflect/**/*.scala"
+  - "src/library/scala/**/*.scala"
   # Compiler core
   - "src/compiler/scala/tools/nsc/*.scala"
   - "src/compiler/scala/tools/nsc/typechecker/*.scala"

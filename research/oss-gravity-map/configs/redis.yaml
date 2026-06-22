@@ -30,6 +30,23 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "src/t_*.c"
+  - "src/db.c"
+  - "src/config.c"
+  - "src/object.c"
+  - "src/cluster_legacy.c"
+  - "src/kvstore.c"
+  - "src/acl.c"
+  - "src/functions.c"
+  - "src/function_lua.c"
+  - "src/eval.c"
+  - "src/script.c"
+  - "src/script_lua.c"
+  - "src/expire.c"
+  - "src/defrag.c"
+  - "src/multi.c"
+  - "src/pubsub.c"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

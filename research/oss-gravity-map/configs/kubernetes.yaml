@@ -33,6 +33,16 @@ exclude_file_patterns:
   - "hack/**"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "pkg/kubelet/**/*.go"
+  - "pkg/apis/**/*.go"
+  - "pkg/volume/**/*.go"
+  - "cmd/**/app/**/*.go"
+  - "plugin/pkg/**/*.go"
+  - "staging/src/k8s.io/pod-security-admission/**/*.go"
+  - "staging/src/k8s.io/apiextensions-apiserver/**/*.go"
+  - "staging/src/k8s.io/kube-aggregator/**/*.go"
+  - "staging/src/k8s.io/component-base/**/*.go"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

@@ -30,6 +30,10 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "applicationset/**/*.go"
+  - "pkg/apis/**/*.go"
+  - "cmd/**/*.go"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"

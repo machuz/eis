@@ -28,6 +28,7 @@ var parallelLogMinCommits = 4000
 type Commit struct {
 	Hash      string
 	Author    string
+	Email     string
 	Date      time.Time
 	Subject   string
 	IsMerge   bool
@@ -51,7 +52,7 @@ type FileStat struct {
 func logArgs(commentFilter bool, extra ...string) []string {
 	args := []string{
 		"log", "--all", "--no-merges", "--no-color",
-		"--format=COMMIT:%H|%an|%ai|%s",
+		"--format=COMMIT:%H|%an|%ae|%ai|%s",
 		"--numstat",
 	}
 	if commentFilter {
@@ -205,17 +206,18 @@ func parseLogStream(r io.Reader) ([]Commit, error) {
 			if current != nil {
 				commits = append(commits, *current)
 			}
-			parts := strings.SplitN(line[7:], "|", 4)
-			if len(parts) < 4 {
+			parts := strings.SplitN(line[7:], "|", 5)
+			if len(parts) < 5 {
 				current = nil
 				continue
 			}
-			date, _ := time.Parse("2006-01-02 15:04:05 -0700", parts[2])
+			date, _ := time.Parse("2006-01-02 15:04:05 -0700", parts[3])
 			current = &Commit{
 				Hash:    parts[0],
 				Author:  parts[1],
+				Email:   parts[2],
 				Date:    date,
-				Subject: parts[3],
+				Subject: parts[4],
 			}
 			continue
 		}
@@ -413,7 +415,7 @@ func parseLogChunk(ctx context.Context, repoPath string, shas []string, commentF
 	defer cancel()
 	args := []string{
 		"log", "--no-walk=unsorted", "--no-merges", "--no-color",
-		"--format=COMMIT:%H|%an|%ai|%s",
+		"--format=COMMIT:%H|%an|%ae|%ai|%s",
 		"--numstat",
 	}
 	if commentFilter {
@@ -503,7 +505,7 @@ func resolveRenamePath(p string) string {
 func ParseMergeCommits(ctx context.Context, repoPath string) ([]Commit, error) {
 	lines, err := RunLines(ctx, repoPath,
 		"log", "--all", "--merges",
-		"--format=COMMIT:%H|%an|%ai|%s",
+		"--format=COMMIT:%H|%an|%ae|%ai|%s",
 	)
 	if err != nil {
 		return nil, err
@@ -514,16 +516,17 @@ func ParseMergeCommits(ctx context.Context, repoPath string) ([]Commit, error) {
 		if !strings.HasPrefix(line, "COMMIT:") {
 			continue
 		}
-		parts := strings.SplitN(line[7:], "|", 4)
-		if len(parts) < 4 {
+		parts := strings.SplitN(line[7:], "|", 5)
+		if len(parts) < 5 {
 			continue
 		}
-		date, _ := time.Parse("2006-01-02 15:04:05 -0700", parts[2])
+		date, _ := time.Parse("2006-01-02 15:04:05 -0700", parts[3])
 		commits = append(commits, Commit{
 			Hash:    parts[0],
 			Author:  parts[1],
+			Email:   parts[2],
 			Date:    date,
-			Subject: parts[3],
+			Subject: parts[4],
 			IsMerge: true,
 		})
 	}

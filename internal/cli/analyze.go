@@ -439,6 +439,12 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		}
 
+		// Collapse split identities (one person, several display names under one
+		// email) before alias resolution and aggregation. Built from raw commits
+		// (which carry author email); reused below to remap blame authors by name.
+		idmap := git.BuildIdentityMap(commits)
+		git.CanonicalizeAuthors(commits, nil, idmap)
+
 		// Apply author aliases, filter excluded authors, and strip excluded file patterns
 		commits = filterCommits(commits, cfg)
 		commits = filterFileStats(commits, cfg.ExcludeFilePatterns)
@@ -587,7 +593,9 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		}
 
-		// Apply aliases to blame lines
+		// Collapse split identities on blame authors (by name, via the commit
+		// email map), then apply config aliases — same order as the commit path.
+		git.CanonicalizeAuthors(nil, blameLines, idmap)
 		for i := range blameLines {
 			blameLines[i].Author = cfg.ResolveAuthor(blameLines[i].Author)
 		}

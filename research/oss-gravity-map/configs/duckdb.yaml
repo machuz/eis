@@ -30,6 +30,13 @@ exclude_file_patterns:
   - "*.pb.h"
 
 architecture_patterns:
+  # --- audit fix: broaden coverage (** subtrees / impl / new subsystems) ---
+  - "src/common/**/*.cpp"
+  - "src/main/**/*.cpp"
+  - "src/function/**/*.cpp"
+  - "src/transaction/**/*.cpp"
+  - "src/parallel/**/*.cpp"
+  - "extension/**/*.cpp"
   - "*/types/*"
   - "*/core/*"
   - "*/internal/*"
