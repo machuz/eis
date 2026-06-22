@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dan Abramov — Gravity Profile | OSS Gravity Map by EIS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+h2{color:#f0f6fc;font-size:1.3em;margin:36px 0 14px;border-bottom:1px solid #30363d;padding-bottom:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75em;font-weight:600;color:#fff}
+.hero{border-radius:16px;padding:40px;margin-bottom:24px;position:relative}
+.hero-name{font-size:2.6em;font-weight:800;color:#f0f6fc;margin-bottom:6px}
+.hero-tagline{font-size:1.1em;font-weight:600;margin-bottom:14px}
+.hero-desc{color:#c9d1d9;font-size:.95em;line-height:1.75;max-width:760px}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.note{background:#161b22;border:1px solid #30363d;border-left:3px solid #58a6ff;border-radius:4px;padding:12px 16px;margin:0 0 24px;color:#8b949e;font-size:.88em;line-height:1.6}
+.big-stats{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.big-stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:18px 24px;text-align:center;flex:1;min-width:120px}
+.big-num{font-size:2em;font-weight:800}.big-label{color:#8b949e;font-size:.78em;margin-top:4px}
+.timeline-chart{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin:14px 0;overflow-x:auto}
+.tl-callout{background:rgba(88,166,255,.08);border:1px solid #30363d;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:.92em;line-height:1.6;color:#c9d1d9}
+.timeline-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:.8em}
+.timeline-table th{padding:7px 8px;border-bottom:2px solid #30363d;color:#8b949e;font-weight:600;text-align:center;white-space:nowrap}
+.timeline-table td{padding:7px 8px;border-bottom:1px solid #21262d;text-align:center}
+.cols{display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:center;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin:14px 0}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.ctx-row{display:flex;align-items:center;gap:12px;padding:5px 8px;border-radius:6px}
+.ctx-name{width:200px;flex-shrink:0;font-size:.9em;color:#c9d1d9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctx-track{position:relative;flex:1;height:18px;background:#21262d;border-radius:9px;overflow:hidden}
+.ctx-fill{height:100%;border-radius:9px}
+.ctx-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.75em;font-weight:700;color:#f0f6fc}
+.insight{background:rgba(88,166,255,.06);border-left:3px solid #58a6ff;border-radius:4px;padding:16px 20px;margin:20px 0;font-size:.95em;line-height:1.75}
+.insight strong{color:#f0f6fc}
+.method{color:#8b949e;font-size:.9em;line-height:1.8}.method p{margin-top:8px}.method strong{color:#c9d1d9}
+.footer{margin-top:48px;padding-top:16px;border-top:1px solid #30363d;color:#484f58;font-size:.8em;text-align:center}
+.footer a{color:#58a6ff;text-decoration:none}
+.lang-switch{position:absolute;top:18px;right:20px;font-size:.82em;z-index:50}
+.lang-switch a{color:#8b949e;text-decoration:none;padding:2px 4px}.lang-switch a.active{color:#58a6ff;font-weight:700}
+.lang-switch a:hover{color:#c9d1d9}.lang-switch .sep{color:#30363d;margin:0 2px}
+.hero{background:linear-gradient(135deg,#61dafb22 0%,#0d1117 70%);border:2px solid #61dafb}
+.hero-tagline{color:#61dafb}
+</style>
+</head>
+<body>
+<div class="lang-switch"><a href="react-abramov.html">EN</a><span class="sep">·</span><a href="react-abramov-ja.html" class="active">日本語</a></div>
+<div class="container">
+<div class="hero">
+  <div class="hero-name">Dan Abramov</div>
+  <div class="hero-tagline">有名であることと、荷重を負うことは違う</div>
+  <div class="hero-desc">Dan Abramov はフロントエンド界で最も知られた名前の一人だ — Redux、React 公式ドキュメント、長年の発信。react 本体でも多作で息の長い存在である。それでも、いまの Gravity は低い。最も影響を残した仕事の多くが、react コアの構造そのものより、API の形・ドキュメント・啓発だったからだ。timeline は 2018 年前後に Cleaner として確かなピークを持ち、その後フェードしていく弧を描く。Gravity は構造的な荷重の現在形の観測であって、知名度や影響力の尺度ではない。</div>
+  <div class="hero-badges">
+    <span class="badge" style="background:#61dafb;color:#000">facebook/react</span>
+    <span class="badge" style="background:#30363d">Gravity 0.8</span>
+    <span class="badge" style="background:#30363d">Design 11.8</span>
+    
+    <span class="badge" style="background:#30363d">Fragile</span>
+  </div>
+</div>
+<div class="note"><strong style="color:#c9d1d9">対象範囲:</strong> このプロファイルは <code>facebook/react</code> へのコミットのみを測定する。より広いエコシステム(他リポジトリ・ライブラリ・ツール)への貢献は、この測定の範囲外である。</div>
+<div class="big-stats"><div class="big-stat"><div class="big-num" style="color:#61dafb">0.8</div><div class="big-label">Gravity</div></div><div class="big-stat"><div class="big-num" style="color:#ffd700">11.8</div><div class="big-label">Design</div></div><div class="big-stat"><div class="big-num" style="color:#79c0ff">61.5</div><div class="big-label">Indispensability</div></div><div class="big-stat"><div class="big-num" style="color:#56d364">1,925</div><div class="big-label">コミット</div></div><div class="big-stat"><div class="big-num" style="color:#8b949e">2014–2025</div><div class="big-label">活動期間</div></div></div>
+<h2>貢献の Timeline</h2><p style="color:#8b949e;font-size:.9em;margin-bottom:12px">プロジェクト史を通じた期間ごとのシグナル。Gravity・Catalysis・Debt Cleanup は 0〜100 軸、コミットはバー(量)。</p><div class="timeline-chart"><div class="tl-callout">弧を読む: Gravity は <strong>2018 に 46</strong> でピークを打ち、いまの <strong>0.8</strong> へと落ち着く — 固定ラベルではなく、現在形の観測だ。</div><svg width="900" height="340" viewBox="0 0 900 340">
+<rect width="900" height="340" fill="#161b22" rx="8"/>
+<line x1="50" y1="30" x2="880" y2="30" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="30" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">100</text>
+<line x1="50" y1="95" x2="880" y2="95" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="95" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">75</text>
+<line x1="50" y1="160" x2="880" y2="160" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="160" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">50</text>
+<line x1="50" y1="225" x2="880" y2="225" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="225" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">25</text>
+<line x1="50" y1="290" x2="880" y2="290" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="290" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">0</text>
+<text x="50.0" y="330" fill="#484f58" font-size="10" text-anchor="middle">2014</text>
+<text x="125.5" y="330" fill="#484f58" font-size="10" text-anchor="middle">2015</text>
+<text x="200.9" y="330" fill="#484f58" font-size="10" text-anchor="middle">2016</text>
+<text x="276.4" y="330" fill="#484f58" font-size="10" text-anchor="middle">2017</text>
+<text x="351.8" y="330" fill="#484f58" font-size="10" text-anchor="middle">2018</text>
+<text x="427.3" y="330" fill="#484f58" font-size="10" text-anchor="middle">2019</text>
+<text x="502.7" y="330" fill="#484f58" font-size="10" text-anchor="middle">2020</text>
+<text x="578.2" y="330" fill="#484f58" font-size="10" text-anchor="middle">2021</text>
+<text x="653.6" y="330" fill="#484f58" font-size="10" text-anchor="middle">2022</text>
+<text x="729.1" y="330" fill="#484f58" font-size="10" text-anchor="middle">2023</text>
+<text x="804.5" y="330" fill="#484f58" font-size="10" text-anchor="middle">2024</text>
+<text x="880.0" y="330" fill="#484f58" font-size="10" text-anchor="middle">2025</text>
+<rect x="42.0" y="289.6" width="16" height="0.4" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="50.0" y="285.6" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">3</text>
+<rect x="117.5" y="272.4" width="16" height="17.6" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="125.5" y="268.4" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">118</text>
+<rect x="192.9" y="228.9" width="16" height="61.1" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="200.9" y="224.9" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">409</text>
+<rect x="268.4" y="212.0" width="16" height="78.0" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="276.4" y="208.0" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">522</text>
+<rect x="343.8" y="222.6" width="16" height="67.4" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="351.8" y="218.6" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">451</text>
+<rect x="419.3" y="265.3" width="16" height="24.7" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="427.3" y="261.3" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">165</text>
+<rect x="494.7" y="265.6" width="16" height="24.4" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="502.7" y="261.6" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">163</text>
+<rect x="570.2" y="280.3" width="16" height="9.7" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="578.2" y="276.3" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">65</text>
+<rect x="645.6" y="288.4" width="16" height="1.6" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="653.6" y="284.4" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">11</text>
+<rect x="721.1" y="286.1" width="16" height="3.9" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="729.1" y="282.1" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">26</text>
+<rect x="796.5" y="288.8" width="16" height="1.2" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="804.5" y="284.8" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">8</text>
+<rect x="872.0" y="289.4" width="16" height="0.6" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="880.0" y="285.4" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">4</text>
+<path d="M 50.0 289.7 L 125.5 289.5 L 200.9 286.9 L 276.4 266.9 L 351.8 170.4 L 427.3 192.0 L 502.7 228.1 L 578.2 256.7 L 653.6 287.9 L 729.1 286.6 L 804.5 288.4 L 880.0 288.7" fill="none" stroke="#ffd700" stroke-width="2" stroke-opacity="0.85"/>
+<circle cx="50.0" cy="289.7" r="3.2" fill="#ffd700"><title>2014 gravity: 0.1</title></circle>
+<circle cx="125.5" cy="289.5" r="3.2" fill="#ffd700"><title>2015 gravity: 0.2</title></circle>
+<circle cx="200.9" cy="286.9" r="3.2" fill="#ffd700"><title>2016 gravity: 1.2</title></circle>
+<circle cx="276.4" cy="266.9" r="3.2" fill="#ffd700"><title>2017 gravity: 8.9</title></circle>
+<circle cx="351.8" cy="170.4" r="3.2" fill="#ffd700"><title>2018 gravity: 46</title></circle>
+<circle cx="427.3" cy="192.0" r="3.2" fill="#ffd700"><title>2019 gravity: 37.7</title></circle>
+<circle cx="502.7" cy="228.1" r="3.2" fill="#ffd700"><title>2020 gravity: 23.8</title></circle>
+<circle cx="578.2" cy="256.7" r="3.2" fill="#ffd700"><title>2021 gravity: 12.8</title></circle>
+<circle cx="653.6" cy="287.9" r="3.2" fill="#ffd700"><title>2022 gravity: 0.8</title></circle>
+<circle cx="729.1" cy="286.6" r="3.2" fill="#ffd700"><title>2023 gravity: 1.3</title></circle>
+<circle cx="804.5" cy="288.4" r="3.2" fill="#ffd700"><title>2024 gravity: 0.6</title></circle>
+<circle cx="880.0" cy="288.7" r="3.2" fill="#ffd700"><title>2025 gravity: 0.5</title></circle>
+<path d="M 50.0 289.5 L 125.5 285.8 L 200.9 210.2 L 276.4 30.0 L 351.8 40.4 L 427.3 30.0 L 502.7 30.0 L 578.2 183.9 L 653.6 283.2 L 729.1 272.8 L 804.5 290.0 L 880.0 289.2" fill="none" stroke="#00e676" stroke-width="2" stroke-opacity="0.85"/>
+<circle cx="50.0" cy="289.5" r="3.2" fill="#00e676"><title>2014 catalysis: 0.2</title></circle>
+<circle cx="125.5" cy="285.8" r="3.2" fill="#00e676"><title>2015 catalysis: 1.6</title></circle>
+<circle cx="200.9" cy="210.2" r="3.2" fill="#00e676"><title>2016 catalysis: 30.7</title></circle>
+<circle cx="276.4" cy="30.0" r="3.2" fill="#00e676"><title>2017 catalysis: 100</title></circle>
+<circle cx="351.8" cy="40.4" r="3.2" fill="#00e676"><title>2018 catalysis: 96</title></circle>
+<circle cx="427.3" cy="30.0" r="3.2" fill="#00e676"><title>2019 catalysis: 100</title></circle>
+<circle cx="502.7" cy="30.0" r="3.2" fill="#00e676"><title>2020 catalysis: 100</title></circle>
+<circle cx="578.2" cy="183.9" r="3.2" fill="#00e676"><title>2021 catalysis: 40.8</title></circle>
+<circle cx="653.6" cy="283.2" r="3.2" fill="#00e676"><title>2022 catalysis: 2.6</title></circle>
+<circle cx="729.1" cy="272.8" r="3.2" fill="#00e676"><title>2023 catalysis: 6.6</title></circle>
+<circle cx="804.5" cy="290.0" r="3.2" fill="#00e676"><title>2024 catalysis: 0</title></circle>
+<circle cx="880.0" cy="289.2" r="3.2" fill="#00e676"><title>2025 catalysis: 0.3</title></circle>
+<path d="M 50.0 160.0 L 125.5 121.5 L 200.9 148.8 L 276.4 51.1 L 351.8 63.0 L 427.3 146.2 L 502.7 214.6 L 578.2 76.0 L 653.6 36.0 L 729.1 290.0 L 804.5 274.9 L 880.0 40.9" fill="none" stroke="#ab47bc" stroke-width="2" stroke-opacity="0.85"/>
+<circle cx="50.0" cy="160.0" r="3.2" fill="#ab47bc"><title>2014 debt: 50</title></circle>
+<circle cx="125.5" cy="121.5" r="3.2" fill="#ab47bc"><title>2015 debt: 64.8</title></circle>
+<circle cx="200.9" cy="148.8" r="3.2" fill="#ab47bc"><title>2016 debt: 54.3</title></circle>
+<circle cx="276.4" cy="51.1" r="3.2" fill="#ab47bc"><title>2017 debt: 91.9</title></circle>
+<circle cx="351.8" cy="63.0" r="3.2" fill="#ab47bc"><title>2018 debt: 87.3</title></circle>
+<circle cx="427.3" cy="146.2" r="3.2" fill="#ab47bc"><title>2019 debt: 55.3</title></circle>
+<circle cx="502.7" cy="214.6" r="3.2" fill="#ab47bc"><title>2020 debt: 29</title></circle>
+<circle cx="578.2" cy="76.0" r="3.2" fill="#ab47bc"><title>2021 debt: 82.3</title></circle>
+<circle cx="653.6" cy="36.0" r="3.2" fill="#ab47bc"><title>2022 debt: 97.7</title></circle>
+<circle cx="729.1" cy="290.0" r="3.2" fill="#ab47bc"><title>2023 debt: 0</title></circle>
+<circle cx="804.5" cy="274.9" r="3.2" fill="#ab47bc"><title>2024 debt: 5.8</title></circle>
+<circle cx="880.0" cy="40.9" r="3.2" fill="#ab47bc"><title>2025 debt: 95.8</title></circle>
+<rect x="60" y="35" width="12" height="3" fill="#42a5f5" rx="1"/>
+<text x="76" y="40" fill="#42a5f5" font-size="10" dominant-baseline="middle">Commits</text>
+<rect x="60" y="51" width="12" height="3" fill="#ffd700" rx="1"/>
+<text x="76" y="56" fill="#ffd700" font-size="10" dominant-baseline="middle">Gravity</text>
+<rect x="60" y="67" width="12" height="3" fill="#00e676" rx="1"/>
+<text x="76" y="72" fill="#00e676" font-size="10" dominant-baseline="middle">Catalysis</text>
+<rect x="60" y="83" width="12" height="3" fill="#ab47bc" rx="1"/>
+<text x="76" y="88" fill="#ab47bc" font-size="10" dominant-baseline="middle">Debt Cleanup</text>
+</svg><table class="timeline-table"><thead><tr><th>Metric</th><th>2014</th><th>2015</th><th>2016</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr></thead><tbody><tr><td style="text-align:left;color:#8b949e;font-weight:600">Commits</td><td>3</td><td>118</td><td>409</td><td>522</td><td>451</td><td>165</td><td>163</td><td>65</td><td>11</td><td>26</td><td>8</td><td>4</td></tr><tr><td style="text-align:left;color:#8b949e;font-weight:600">Gravity</td><td>0.1</td><td>0.2</td><td>1.2</td><td>8.9</td><td>46</td><td>37.7</td><td>23.8</td><td>12.8</td><td>0.8</td><td>1.3</td><td>0.6</td><td>0.5</td></tr><tr><td style="text-align:left;color:#8b949e;font-weight:600">Catalysis</td><td>0.2</td><td>1.6</td><td>30.7</td><td>100</td><td>96</td><td>100</td><td>100</td><td>40.8</td><td>2.6</td><td>6.6</td><td>0</td><td>0.3</td></tr><tr><td style="text-align:left;color:#8b949e;font-weight:600">Debt Cleanup</td><td>50</td><td>64.8</td><td>54.3</td><td>91.9</td><td>87.3</td><td>55.3</td><td>29</td><td>82.3</td><td>97.7</td><td>0</td><td>5.8</td><td>95.8</td></tr></tbody></table></div>
+<div class="cols">
+  <div style="display:flex;justify-content:center"><svg width="220" height="220" viewBox="0 0 220 220">
+<polygon points="110.0,90.0 127.3,100.0 127.3,120.0 110.0,130.0 92.7,120.0 92.7,100.0" fill="none" stroke="#30363d" stroke-width="0.5"/>
+<polygon points="110.0,70.0 144.6,90.0 144.6,130.0 110.0,150.0 75.4,130.0 75.4,90.0" fill="none" stroke="#30363d" stroke-width="0.5"/>
+<polygon points="110.0,50.0 162.0,80.0 162.0,140.0 110.0,170.0 58.0,140.0 58.0,80.0" fill="none" stroke="#30363d" stroke-width="0.5"/>
+<polygon points="110.0,30.0 179.3,70.0 179.3,150.0 110.0,190.0 40.7,150.0 40.7,70.0" fill="none" stroke="#30363d" stroke-width="0.5"/>
+<line x1="110" y1="110" x2="110.0" y2="30.0" stroke="#30363d" stroke-width="0.5"/>
+<text x="110.0" y="14.0" fill="#8b949e" font-size="9" text-anchor="middle" dominant-baseline="middle">Design</text>
+<line x1="110" y1="110" x2="179.3" y2="70.0" stroke="#30363d" stroke-width="0.5"/>
+<text x="193.1" y="62.0" fill="#8b949e" font-size="9" text-anchor="start" dominant-baseline="middle">Indisp.</text>
+<line x1="110" y1="110" x2="179.3" y2="150.0" stroke="#30363d" stroke-width="0.5"/>
+<text x="193.1" y="158.0" fill="#8b949e" font-size="9" text-anchor="start" dominant-baseline="middle">Catalysis</text>
+<line x1="110" y1="110" x2="110.0" y2="190.0" stroke="#30363d" stroke-width="0.5"/>
+<text x="110.0" y="206.0" fill="#8b949e" font-size="9" text-anchor="middle" dominant-baseline="middle">RobustSurv</text>
+<line x1="110" y1="110" x2="40.7" y2="150.0" stroke="#30363d" stroke-width="0.5"/>
+<text x="26.9" y="158.0" fill="#8b949e" font-size="9" text-anchor="end" dominant-baseline="middle">Breadth</text>
+<line x1="110" y1="110" x2="40.7" y2="70.0" stroke="#30363d" stroke-width="0.5"/>
+<text x="26.9" y="62.0" fill="#8b949e" font-size="9" text-anchor="end" dominant-baseline="middle">Debt</text>
+<polygon points="110.0,100.6 152.6,85.4 110.1,110.1 110.0,110.0 81.2,126.6 43.6,71.7" fill="#61dafb33" stroke="#61dafb" stroke-width="2"/>
+</svg></div>
+  <div>
+    <h3 style="color:#f0f6fc;margin-bottom:6px;font-size:1.05em">Gravity がどこに宿るか</h3>
+    <p style="color:#8b949e;font-size:.85em;margin-bottom:12px">このエンジニアを、プロジェクトで最も Gravity の高い貢献者と並べて見る。競争ではなく、場として。</p>
+    <div class="ctx-row"><div class="ctx-name">Sebastian Markbåge</div><div class="ctx-track"><div class="ctx-fill" style="width:100.0%;background:#42a5f5"></div><span class="ctx-val">9.9</span></div></div>
+<div class="ctx-row"><div class="ctx-name">Lauren Tan</div><div class="ctx-track"><div class="ctx-fill" style="width:63.6%;background:#42a5f5"></div><span class="ctx-val">6.3</span></div></div>
+<div class="ctx-row"><div class="ctx-name">Joe Savona</div><div class="ctx-track"><div class="ctx-fill" style="width:29.3%;background:#42a5f5"></div><span class="ctx-val">2.9</span></div></div>
+<div class="ctx-row"><div class="ctx-name">Andrew Clark</div><div class="ctx-track"><div class="ctx-fill" style="width:19.2%;background:#42a5f5"></div><span class="ctx-val">1.9</span></div></div>
+<div class="ctx-row"><div class="ctx-name">Sebastian &quot;Sebbie&quot; Silbermann</div><div class="ctx-track"><div class="ctx-fill" style="width:9.1%;background:#42a5f5"></div><span class="ctx-val">0.9</span></div></div>
+<div class="ctx-row"><div class="ctx-name">Brian Vaughn</div><div class="ctx-track"><div class="ctx-fill" style="width:9.1%;background:#42a5f5"></div><span class="ctx-val">0.9</span></div></div>
+<div class="ctx-row" style="background:rgba(88,166,255,.10)"><div class="ctx-name" style="color:#f0f6fc;font-weight:700">Dan Abramov ★</div><div class="ctx-track"><div class="ctx-fill" style="width:8.1%;background:#61dafb"></div><span class="ctx-val">0.8</span></div></div>
+<div class="ctx-row"><div class="ctx-name">Jan Kassens</div><div class="ctx-track"><div class="ctx-fill" style="width:8.1%;background:#42a5f5"></div><span class="ctx-val">0.8</span></div></div>
+  </div>
+</div>
+<h2>Methodology</h2>
+<div class="method"><p><strong>Gravity</strong> = catGate(Catalysis) × survGate(RobustSurvival) × shape(0.45·Design + 0.25·Breadth + 0.30·Indispensability)。他者が上に築く、耐久的で荷重を負う構造の指標 — コミット数ではない。</p><p><strong>Gravity は現在形の観測だ。</strong>その時々の関係を映す。同じ針が、生きた荷重が他へ移るにつれ、創設者をほぼ最大のピークから数ポイントへと動かす。いまの低い数値は永続的な評価ではない。</p><p><strong>Catalysis / RobustSurvival</strong> が二つのゲートだ。RobustSurvival は、<em>他者</em>がコミットし続けるモジュールで残った行だけを数える。Catalysis は、他者がその生き残った基盤の上に築いたかを問う。どちらかが 0 に近ければ積は崩れる — 所有や創設だけでは Gravity は鋳造できない。</p></div>
+<div class="insight">これは地図の中で最も分かりやすい較正例だ。React の物語と深く結びついた世界的に著名なエンジニアが、いまは低い Gravity として読み取られる — この指標がただ一つの狭い問いを立てるからだ：他者が能動的に圧をかけ続けるなか、生き残った構造はいまも誰のコードに寄りかかっているか。Abramov のピークは本物で、timeline はそれを記録している。いま荷重は別の場所にある。それは影響力を貶めない — ただ Gravity が測っているものではない、というだけだ。</div>
+<div class="footer">
+  Generated by <a href="https://github.com/machuz/eis">EIS (Engineering Impact Signal)</a> — OSS Gravity Map Project<br>
+  facebook/react &middot; 1,927 engineers observed
+</div>
+</div>
+</body>
+</html>
