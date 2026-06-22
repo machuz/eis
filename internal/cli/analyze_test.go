@@ -626,12 +626,12 @@ func TestAnalyzeJSONOutput_PureStdout(t *testing.T) {
 	}
 
 	stdout, stderr := captureStd(t, func() {
-		results, cfg, err := RunAnalyzePipeline(opts, []string{dir})
+		results, cfg, analysisTime, err := RunAnalyzePipeline(opts, []string{dir})
 		if err != nil {
 			t.Errorf("pipeline: %v", err)
 			return
 		}
-		if err := outputAnalyzeResults(results, cfg, "json"); err != nil {
+		if err := outputAnalyzeResults(results, cfg, "json", analysisTime); err != nil {
 			t.Errorf("output: %v", err)
 		}
 	})

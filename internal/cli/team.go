@@ -51,7 +51,7 @@ func runTeam(args []string) error {
 	}
 
 	// Run the shared analysis pipeline
-	domainResults, cfg, err := RunAnalyzePipeline(opts, pathArgs)
+	domainResults, cfg, _, err := RunAnalyzePipeline(opts, pathArgs)
 	if err != nil {
 		return err
 	}

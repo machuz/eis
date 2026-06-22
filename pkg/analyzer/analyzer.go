@@ -29,6 +29,14 @@ type Options struct {
 	PerRepo      bool
 	CacheEnabled bool
 	CacheDir     string // custom cache dir (empty = default ~/.eis/cache)
+
+	// AnalysisTime is the W-02 envelope clock: the single decay/classification
+	// reference threaded into every score-affecting computation (survival,
+	// catalysis, module survival, scorer.ScoreAt). Pin it for reproducibility —
+	// same (git_sha, AnalysisTime) ⇒ same scores. Zero value defaults to
+	// time.Now().UTC(), preserving prior behavior for existing callers. This
+	// mirrors the analyze CLI and timeline so the three pipelines cannot drift.
+	AnalysisTime time.Time
 }
 
 // DomainResults holds scored results for a single domain.
@@ -88,7 +96,18 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 	}
 
 	ctx := context.Background()
-	start := time.Now()
+
+	// analysisTime is the W-02 envelope clock — the SINGLE decay/classification
+	// reference threaded through every score below (survival, catalysis, module
+	// survival, scorer.ScoreAt). Pin it for reproducibility; defaults to now.
+	// (This library twin has no perf timer, so there is no separate `start`.)
+	// See the analyze CLI and pkg/timeline/run.go (window.End) for the same
+	// threading — keeping the three pipelines in lockstep is a W-02 invariant.
+	analysisTime := opts.AnalysisTime
+	if analysisTime.IsZero() {
+		analysisTime = time.Now().UTC()
+	}
+
 	workers := opts.Workers
 	if workers == 0 {
 		workers = 4
@@ -338,14 +357,14 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			}
 			threshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
-			sr := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, start, repoPressure, threshold, moduleResolver, repoOthers)
+			sr := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, analysisTime, repoPressure, threshold, moduleResolver, repoOthers)
 			repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant = sr.Decayed, sr.Raw, sr.Robust, sr.Dormant
 			mergeMap(acc.raw.Survival, repoSurvDecayed)
 			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
 			mergeMap(acc.raw.RobustSurvival, repoSurvRobust)
 			mergeMap(acc.raw.DormantSurvival, repoSurvDormant)
 		} else {
-			sr := metric.CalcSurvival(blameLines, cfg.Tau, start)
+			sr := metric.CalcSurvival(blameLines, cfg.Tau, analysisTime)
 			repoSurvDecayed, repoSurvRaw = sr.Decayed, sr.Raw
 			mergeMap(acc.raw.Survival, repoSurvDecayed)
 			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
@@ -356,7 +375,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 
 		// Catalysis: surviving mass of others' work on files this author
 		// originated (commit history → file origin; blame → surviving mass).
-		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.Tau, start)
+		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.Tau, analysisTime)
 		mergeMap(acc.raw.Catalysis, catalysis)
 		acc.risks = append(acc.risks, risks...)
 
@@ -430,7 +449,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// ownership, module survival) so the fold is honored uniformly.
 		domainFold := metric.ComputeModuleFold(acc.allCommits, domainResolver, cfg.ModuleLivenessMinMonths)
 		domainResolver = domainResolver.WithFold(domainFold)
-		moduleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(acc.allBlameLines, cfg.Tau, start, domainResolver)
+		moduleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(acc.allBlameLines, cfg.Tau, analysisTime, domainResolver)
 		breadth := metric.ComputeBreadth(moduleSurvivalByAuthor)
 		for author, b := range breadth {
 			acc.raw.Breadth[author] = b
@@ -443,7 +462,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			}
 			acc.raw.Production[author] = total / days
 		}
-		scored := scorer.Score(acc.raw, cfg, acc.authorLastDate)
+		scored := scorer.ScoreAt(acc.raw, cfg, acc.authorLastDate, analysisTime)
 		var filtered []scorer.Result
 		for _, r := range scored {
 			if !cfg.IsExcludedAuthor(r.Author) {
@@ -460,7 +479,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// Breadth computation above (same resolver, same inputs).
 		cochange := metric.CalcCochange(acc.allCommits, domainResolver)
 		ownership := metric.CalcOwnershipFragmentation(acc.allBlameLines, domainResolver)
-		moduleSurvival := metric.CalcModuleSurvival(acc.allBlameLines, cfg.Tau, start, domainResolver)
+		moduleSurvival := metric.CalcModuleSurvival(acc.allBlameLines, cfg.Tau, analysisTime, domainResolver)
 
 		dr := DomainResults{
 			Domain: d, Results: filtered, Risks: acc.risks, RepoCount: acc.repoCount,
@@ -484,12 +503,12 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				// holds gravity in WITHIN this repo (Hill number over this
 				// repo's per-module gravity), using this repo's resolver so
 				// RepoOverrides apply. Reused for the RepoResult below.
-				repoModuleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(ra.blameLines, cfg.Tau, start, ra.resolver)
+				repoModuleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(ra.blameLines, cfg.Tau, analysisTime, ra.resolver)
 				repoBreadth := metric.ComputeBreadth(repoModuleSurvivalByAuthor)
 				for a := range ra.acc.raw.TotalCommits {
 					ra.acc.raw.Breadth[a] = repoBreadth[a]
 				}
-				s := scorer.Score(ra.acc.raw, cfg, ra.authorLastDate)
+				s := scorer.ScoreAt(ra.acc.raw, cfg, ra.authorLastDate, analysisTime)
 				var rf []scorer.Result
 				for _, r := range s {
 					if !cfg.IsExcludedAuthor(r.Author) {
@@ -501,7 +520,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					// (which honors RepoOverrides).
 					repoCochange := metric.CalcCochange(ra.commits, ra.resolver)
 					repoOwnership := metric.CalcOwnershipFragmentation(ra.blameLines, ra.resolver)
-					repoModuleSurvival := metric.CalcModuleSurvival(ra.blameLines, cfg.Tau, start, ra.resolver)
+					repoModuleSurvival := metric.CalcModuleSurvival(ra.blameLines, cfg.Tau, analysisTime, ra.resolver)
 					dr.PerRepo = append(dr.PerRepo, RepoResult{
 						RepoName: ra.repoName, Domain: ra.domain, Results: rf,
 						Cochange: repoCochange, Ownership: repoOwnership, ModuleSurvival: repoModuleSurvival,

@@ -229,6 +229,10 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		periods = 0 // all history
 	}
 
+	// now drives ONLY default-window/period selection (which time windows to
+	// analyze) — it is an INPUT, not a decay/classification reference. Each
+	// period scores against its own window.End (see CalcSurvival*/ScoreAt
+	// below), so wall-clock here never leaks into a score (W-02).
 	now := time.Now()
 	windows := BuildPeriods(spanMonths, spanDays, periods, sinceDate, now)
 	if len(windows) == 0 {
