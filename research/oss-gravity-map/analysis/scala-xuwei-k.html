@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>xuwei-k — Scala Gravity Profile | OSS Gravity Map by EIS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+h1{color:#f0f6fc;font-size:2.2em;margin-bottom:4px}
+h2{color:#f0f6fc;font-size:1.3em;margin:36px 0 16px;border-bottom:1px solid #30363d;padding-bottom:8px}
+.subtitle{color:#8b949e;font-size:1em;margin-bottom:28px;line-height:1.6}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75em;font-weight:600;color:#fff}
+.hero{background:linear-gradient(135deg,#1a1f35 0%,#0d1117 100%);border:2px solid #42a5f5;border-radius:16px;padding:40px;margin-bottom:36px;position:relative}
+.hero-glow{position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:18px;background:linear-gradient(135deg,rgba(66,165,245,.15),rgba(171,71,188,.1));z-index:0;pointer-events:none}
+.hero-content{position:relative;z-index:1}
+.hero-name{font-size:2.8em;font-weight:800;color:#f0f6fc;margin-bottom:8px}
+.hero-tagline{font-size:1.15em;color:#ab47bc;font-weight:600;margin-bottom:4px}
+.hero-desc{color:#8b949e;font-size:.95em;line-height:1.7;margin-bottom:20px;max-width:700px}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap}
+.big-stats{display:flex;gap:20px;flex-wrap:wrap;margin:20px 0}
+.big-stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px 28px;text-align:center}
+.big-num{font-size:2.2em;font-weight:800}
+.big-label{color:#8b949e;font-size:.8em;margin-top:4px}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+@media(max-width:768px){.dual{grid-template-columns:1fr}}
+.profile-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px}
+.profile-card h3{color:#f0f6fc;font-size:1.1em;margin-bottom:16px}
+.profile-card .repo-tag{color:#8b949e;font-size:.85em}
+.profile-radar{display:flex;justify-content:center;margin-bottom:16px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #21262d;font-size:.9em}
+.stat-label{color:#8b949e}.stat-value{color:#f0f6fc;font-weight:600}
+.stat-value.hl{color:#ffd700}
+.compare-section{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-bottom:24px}
+.compare-row{display:flex;align-items:center;margin-bottom:12px}
+.compare-label{width:100px;color:#8b949e;font-size:.85em;flex-shrink:0}
+.compare-bars{flex:1;display:flex;flex-direction:column;gap:4px}
+.compare-track{position:relative;height:18px;background:#21262d;border-radius:9px;overflow:hidden}
+.compare-fill{height:100%;border-radius:9px}
+.compare-fill.s2{background:#ff9800}.compare-fill.s3{background:#42a5f5}
+.compare-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.75em;font-weight:700;color:#f0f6fc}
+.compare-legend{display:flex;gap:16px;margin-bottom:16px;font-size:.85em}
+.compare-legend span{display:flex;align-items:center;gap:6px}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+.timeline-chart{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin:20px 0;overflow-x:auto}
+.timeline-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:.85em}
+.timeline-table th{padding:8px 10px;border-bottom:2px solid #30363d;color:#8b949e;font-weight:600;text-align:center}
+.timeline-table td{padding:8px 10px;border-bottom:1px solid #21262d;text-align:center}
+.timeline-table tr:hover{background:rgba(66,165,245,.05)}
+.td-active{background:rgba(0,230,118,.08)}
+.td-peak{background:rgba(255,215,0,.1);font-weight:700}
+.insight{background:rgba(171,71,188,.08);border-left:3px solid #ab47bc;border-radius:4px;padding:16px 20px;margin:20px 0;font-size:.95em;line-height:1.7}
+.insight strong{color:#f0f6fc}
+.rank-table{width:100%;border-collapse:collapse}
+.rank-table th{text-align:left;padding:10px 12px;border-bottom:2px solid #30363d;color:#8b949e;font-size:.8em;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.rank-table td{padding:10px 12px;border-bottom:1px solid #21262d}
+.rank-table tr:hover{background:#161b22}
+.rank-table tr.hl{background:rgba(66,165,245,.12)}
+.rank-num{color:#8b949e;font-weight:700}.member-name{font-weight:600;color:#f0f6fc}
+.gravity-bar{position:relative;height:20px;background:#21262d;border-radius:10px;min-width:120px;overflow:hidden}
+.gravity-fill{height:100%;border-radius:10px}
+.gravity-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.8em;font-weight:700;color:#f0f6fc}
+.commits-num{color:#8b949e;font-variant-numeric:tabular-nums}
+.footer{margin-top:48px;padding-top:16px;border-top:1px solid #30363d;color:#484f58;font-size:.8em;text-align:center}
+.footer a{color:#58a6ff;text-decoration:none}
+.lang-switch{position:absolute;top:18px;right:20px;font-size:.82em;z-index:50}
+.lang-switch a{color:#8b949e;text-decoration:none;padding:2px 4px}
+.lang-switch a.active{color:#58a6ff;font-weight:700}
+.lang-switch a:hover{color:#c9d1d9}
+.lang-switch .sep{color:#30363d;margin:0 2px}
+</style>
+</head>
+<body>
+<div class="lang-switch"><a href="scala-xuwei-k.html" class="active">EN</a><span class="sep">·</span><a href="scala-xuwei-k-ja.html">日本語</a></div>
+<div class="container">
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-name">xuwei-k</div>
+    <div class="hero-tagline">The Debt Cleaner of Scala</div>
+    <div class="hero-desc">
+      A contributor who has quietly kept both Scala 2 and Scala 3 in good repair over many years.<br>
+      A prolific contributor — 461 commits across 10 years. And yet under relational gravity, his <strong>Gravity reads 0.0 in both Scala 2 and Scala 3</strong>.<br>
+      No one builds on his surviving code (Catalysis 0), and his code does not endure under others' editing pressure (RobustSurvival 0). This is not a denial of contribution. It only means gravity observes one thing — relational structural dependence.<br>
+      The signal that remains is <strong>Debt Cleanup</strong> (100 in Scala 2). Perhaps his work is best read not as gravity, but as the signal of maintenance.
+    </div>
+    <div class="hero-badges">
+      <span class="badge" style="background:#ff9800">Scala 2: Impact Top 2.7% (#19 / 709)</span>
+      <span class="badge" style="background:#78909c">Scala 3: Impact #453 / 895</span>
+      <span class="badge" style="background:#42a5f5">Gravity 0.0 ×2</span>
+      <span class="badge" style="background:#ffd700">Debt Cleanup 100</span>
+      <span class="badge" style="background:#ab47bc">Maintenance, not gravity</span>
+      <span class="badge" style="background:#42a5f5">10 Years of Contribution</span>
+    </div>
+  </div>
+</div>
+<div class="big-stats">
+  <div class="big-stat"><div class="big-num" style="color:#ff9800">#19 / 709</div><div class="big-label">Scala 2 Impact Rank (top 2.7%)</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#ffd700">100</div><div class="big-label">Debt Cleanup (Scala 2)</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#42a5f5">0.0</div><div class="big-label">Gravity (Both)</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#42a5f5">461</div><div class="big-label">Total Commits</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#00e676">10 yrs</div><div class="big-label">Contribution Span</div></div>
+</div>
+<h2>📈 10-Year Contribution Timeline (Scala 2)</h2>
+<div class="timeline-chart">
+<svg width="900" height="340" viewBox="0 0 900 340">
+<rect width="900" height="340" fill="#161b22" rx="8"/>
+<line x1="50" y1="30" x2="880" y2="30" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="30" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">100</text>
+<line x1="50" y1="95" x2="880" y2="95" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="95" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">75</text>
+<line x1="50" y1="160" x2="880" y2="160" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="160" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">50</text>
+<line x1="50" y1="225" x2="880" y2="225" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="225" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">25</text>
+<line x1="50" y1="290" x2="880" y2="290" stroke="#21262d" stroke-width="1"/>
+<text x="42" y="290" fill="#484f58" font-size="10" text-anchor="end" dominant-baseline="middle">0</text>
+<text x="50" y="330" fill="#484f58" font-size="10" text-anchor="middle">2016</text>
+<text x="142" y="330" fill="#484f58" font-size="10" text-anchor="middle">2017</text>
+<text x="234" y="330" fill="#484f58" font-size="10" text-anchor="middle">2018</text>
+<text x="327" y="330" fill="#484f58" font-size="10" text-anchor="middle">2019</text>
+<text x="419" y="330" fill="#484f58" font-size="10" text-anchor="middle">2020</text>
+<text x="511" y="330" fill="#484f58" font-size="10" text-anchor="middle">2021</text>
+<text x="603" y="330" fill="#484f58" font-size="10" text-anchor="middle">2022</text>
+<text x="696" y="330" fill="#484f58" font-size="10" text-anchor="middle">2023</text>
+<text x="788" y="330" fill="#484f58" font-size="10" text-anchor="middle">2024</text>
+<text x="880" y="330" fill="#484f58" font-size="10" text-anchor="middle">2025</text>
+<path d="M 50.0 279.8 L 142.2 283.9 L 234.4 30.0 L 326.7 277.8 L 511.1 288.0 L 695.6 288.0 L 787.8 288.0 L 880.0 283.9" fill="none" stroke="#42a5f5" stroke-width="2" stroke-opacity="0.8"/>
+<circle cx="50.0" cy="279.8" r="4" fill="#42a5f5" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="142.2" cy="283.9" r="4" fill="#42a5f5" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="234.4" cy="30.0" r="4" fill="#42a5f5" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="326.7" cy="277.8" r="4" fill="#42a5f5" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="511.1" cy="288.0" r="4" fill="#42a5f5" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="695.6" cy="288.0" r="4" fill="#42a5f5" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="787.8" cy="288.0" r="4" fill="#42a5f5" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="880.0" cy="283.9" r="4" fill="#42a5f5" stroke="#161b22" stroke-width="1.5"/>
+<path d="M 50.0 212.0 L 142.2 211.7 L 234.4 203.2 L 326.7 211.7 L 511.1 290.0 L 695.6 290.0 L 787.8 290.0 L 880.0 212.0" fill="none" stroke="#ffd700" stroke-width="2" stroke-opacity="0.8"/>
+<circle cx="50.0" cy="212.0" r="4" fill="#ffd700" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="142.2" cy="211.7" r="4" fill="#ffd700" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="234.4" cy="203.2" r="4" fill="#ffd700" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="326.7" cy="211.7" r="4" fill="#ffd700" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="511.1" cy="290.0" r="4" fill="#ffd700" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="695.6" cy="290.0" r="4" fill="#ffd700" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="787.8" cy="290.0" r="4" fill="#ffd700" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="880.0" cy="212.0" r="4" fill="#ffd700" stroke="#161b22" stroke-width="1.5"/>
+<path d="M 50.0 30.0 L 142.2 203.4 L 234.4 121.5 L 326.7 160.0 L 511.1 290.0 L 695.6 30.0 L 787.8 290.0 L 880.0 290.0" fill="none" stroke="#00e676" stroke-width="2" stroke-opacity="0.8"/>
+<circle cx="50.0" cy="30.0" r="4" fill="#00e676" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="142.2" cy="203.4" r="4" fill="#00e676" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="234.4" cy="121.5" r="4" fill="#00e676" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="326.7" cy="160.0" r="4" fill="#00e676" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="511.1" cy="290.0" r="4" fill="#00e676" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="695.6" cy="30.0" r="4" fill="#00e676" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="787.8" cy="290.0" r="4" fill="#00e676" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="880.0" cy="290.0" r="4" fill="#00e676" stroke="#161b22" stroke-width="1.5"/>
+<path d="M 50.0 160.0 L 142.2 160.0 L 234.4 160.0 L 326.7 160.0 L 511.1 30.0 L 695.6 160.0 L 787.8 30.0 L 880.0 30.0" fill="none" stroke="#ab47bc" stroke-width="2" stroke-opacity="0.8"/>
+<circle cx="50.0" cy="160.0" r="4" fill="#ab47bc" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="142.2" cy="160.0" r="4" fill="#ab47bc" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="234.4" cy="160.0" r="4" fill="#ab47bc" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="326.7" cy="160.0" r="4" fill="#ab47bc" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="511.1" cy="30.0" r="4" fill="#ab47bc" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="695.6" cy="160.0" r="4" fill="#ab47bc" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="787.8" cy="30.0" r="4" fill="#ab47bc" stroke="#161b22" stroke-width="1.5"/>
+<circle cx="880.0" cy="30.0" r="4" fill="#ab47bc" stroke="#161b22" stroke-width="1.5"/>
+<rect x="42" y="287" width="16" height="3" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="50" y="281" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">5</text>
+<rect x="134" y="288" width="16" height="2" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="142" y="282" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">3</text>
+<rect x="226" y="212" width="16" height="78" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="234" y="206" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">128</text>
+<rect x="319" y="286" width="16" height="4" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="327" y="280" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">6</text>
+<rect x="503" y="288" width="16" height="2" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="511" y="282" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">1</text>
+<rect x="688" y="288" width="16" height="2" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="696" y="282" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">1</text>
+<rect x="780" y="288" width="16" height="2" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="788" y="282" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">1</text>
+<rect x="872" y="288" width="16" height="2" fill="#42a5f5" fill-opacity="0.15" rx="2"/>
+<text x="880" y="282" fill="#42a5f5" font-size="9" text-anchor="middle" fill-opacity="0.7">3</text>
+<rect x="60" y="35" width="12" height="3" fill="#42a5f5" rx="1"/>
+<text x="76" y="40" fill="#42a5f5" font-size="10" dominant-baseline="middle">Commits</text>
+<rect x="60" y="51" width="12" height="3" fill="#ffd700" rx="1"/>
+<text x="76" y="56" fill="#ffd700" font-size="10" dominant-baseline="middle">Gravity</text>
+<rect x="60" y="67" width="12" height="3" fill="#00e676" rx="1"/>
+<text x="76" y="72" fill="#00e676" font-size="10" dominant-baseline="middle">Quality (legacy)</text>
+<rect x="60" y="83" width="12" height="3" fill="#ab47bc" rx="1"/>
+<text x="76" y="88" fill="#ab47bc" font-size="10" dominant-baseline="middle">Debt Cleanup</text>
+</svg>
+<table class="timeline-table"><thead><tr><th>Period</th><th>2016</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr></thead><tbody>
+<tr><td style="text-align:left;color:#8b949e;font-weight:600">Commits</td><td>5</td><td>3</td><td class="td-peak">128</td><td>6</td><td style="color:#30363d">—</td><td>1</td><td style="color:#30363d">—</td><td>1</td><td>1</td><td>3</td></tr>
+<tr><td style="text-align:left;color:#8b949e;font-weight:600">Gravity</td><td>30</td><td>30.1</td><td>33.4</td><td>30.1</td><td style="color:#30363d">—</td><td>0</td><td style="color:#30363d">—</td><td>0</td><td>0</td><td>30</td></tr>
+<tr><td style="text-align:left;color:#8b949e;font-weight:600">Quality (legacy)</td><td>100</td><td>33.3</td><td>64.8</td><td>50</td><td style="color:#30363d">—</td><td>0</td><td style="color:#30363d">—</td><td>100</td><td>0</td><td>0</td></tr>
+<tr><td style="text-align:left;color:#8b949e;font-weight:600">Breadth</td><td>100</td><td>100</td><td>100</td><td>100</td><td style="color:#30363d">—</td><td>0</td><td style="color:#30363d">—</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td style="text-align:left;color:#8b949e;font-weight:600">Debt Cleanup</td><td>50</td><td>50</td><td>50</td><td>50</td><td style="color:#30363d">—</td><td class="td-peak" style="color:#ffd700">100</td><td style="color:#30363d">—</td><td>50</td><td class="td-peak" style="color:#ffd700">100</td><td class="td-peak" style="color:#ffd700">100</td></tr>
+<tr><td style="text-align:left;color:#8b949e;font-weight:600">Design</td><td>0.1</td><td>0.2</td><td>11.2</td><td>0.5</td><td style="color:#30363d">—</td><td>0</td><td style="color:#30363d">—</td><td>0</td><td>0</td><td>0.1</td></tr>
+<tr><td style="text-align:left;color:#8b949e;font-weight:600">State</td><td><span class="badge" style="background:#42a5f5">Growing</span></td><td><span class="badge" style="background:#00e676">Active</span></td><td><span class="badge" style="background:#00e676">Active</span></td><td><span class="badge" style="background:#00e676">Active</span></td><td style="color:#30363d">—</td><td><span class="badge" style="background:#00e676">Active</span></td><td style="color:#30363d">—</td><td><span class="badge" style="background:#42a5f5">Growing</span></td><td><span class="badge" style="background:#00e676">Active</span></td><td><span class="badge" style="background:#00e676">Active</span></td></tr>
+</tbody></table>
+</div>
+
+<div class="insight">
+  <strong>Ten years of trajectory — the activity was real. And still the relational-gravity needle does not move.</strong><br>
+  He has contributed to Scala 2 since 2016, with a <strong>128-commit peak in 2018</strong>. The Gravity / legacy-Quality lines above are traces of the scoring of that time; as the commit line shows, he was unmistakably active.<br><br>
+  But re-read under relational gravity, xuwei-k's final gravity settles at <strong>0.0 in both Scala 2 and Scala 3</strong> — because no one builds on his surviving code, and the code does not endure under others' editing pressure.<br><br>
+  The signal that keeps standing is <strong>Debt Cleanup</strong> (100 in Scala 2). This is not a "quality over quantity" story. <strong>It is a different axis being observed</strong> — should the gravity of structure that others build upon and that survives under their pressure, and the maintenance work of quietly clearing others' debt, not be seen as two distinct things? Gravity 0 is not a denial of diligence; it is simply the observation that relational dependence is not there.
+</div>
+<h2>📊 Scala 2 vs Scala 3 Profile</h2>
+<div class="dual">
+<div class="profile-card">
+  <h3>🔶 Scala 2 <span class="repo-tag">scala/scala</span></h3>
+  <div class="profile-radar"><svg width="200" height="200" viewBox="0 0 200 200">
+<polygon points="100.0,82.0 115.6,91.0 115.6,109.0 100.0,118.0 84.4,109.0 84.4,91.0" fill="none" stroke="#444" stroke-width="0.5"/>
+<polygon points="100.0,64.0 131.2,82.0 131.2,118.0 100.0,136.0 68.8,118.0 68.8,82.0" fill="none" stroke="#444" stroke-width="0.5"/>
+<polygon points="100.0,46.0 146.8,73.0 146.8,127.0 100.0,154.0 53.2,127.0 53.2,73.0" fill="none" stroke="#444" stroke-width="0.5"/>
+<polygon points="100.0,28.0 162.4,64.0 162.4,136.0 100.0,172.0 37.6,136.0 37.6,64.0" fill="none" stroke="#444" stroke-width="0.5"/>
+<line x1="100" y1="100" x2="100.0" y2="28.0" stroke="#555" stroke-width="0.5"/>
+<text x="100.0" y="10.0" fill="#aaa" font-size="9" text-anchor="middle" dominant-baseline="middle">Production</text>
+<line x1="100" y1="100" x2="162.4" y2="64.0" stroke="#555" stroke-width="0.5"/>
+<text x="177.9" y="55.0" fill="#aaa" font-size="9" text-anchor="start" dominant-baseline="middle">Catalysis</text>
+<line x1="100" y1="100" x2="162.4" y2="136.0" stroke="#555" stroke-width="0.5"/>
+<text x="177.9" y="145.0" fill="#aaa" font-size="9" text-anchor="start" dominant-baseline="middle">Survival</text>
+<line x1="100" y1="100" x2="100.0" y2="172.0" stroke="#555" stroke-width="0.5"/>
+<text x="100.0" y="190.0" fill="#aaa" font-size="9" text-anchor="middle" dominant-baseline="middle">Design</text>
+<line x1="100" y1="100" x2="37.6" y2="136.0" stroke="#555" stroke-width="0.5"/>
+<text x="22.1" y="145.0" fill="#aaa" font-size="9" text-anchor="end" dominant-baseline="middle">Breadth</text>
+<line x1="100" y1="100" x2="37.6" y2="64.0" stroke="#555" stroke-width="0.5"/>
+<text x="22.1" y="55.0" fill="#aaa" font-size="9" text-anchor="end" dominant-baseline="middle">Debt Clean</text>
+<polygon points="100.0,99.9 100.0,100.0 100.0,100.0 100.0,100.8 100.0,100.0 37.6,64.0" fill="#ff980033" stroke="#ff9800" stroke-width="2"/>
+<circle cx="100.0" cy="99.9" r="3" fill="#ff9800"/>
+<circle cx="100.0" cy="100.0" r="3" fill="#ff9800"/>
+<circle cx="100.0" cy="100.0" r="3" fill="#ff9800"/>
+<circle cx="100.0" cy="100.8" r="3" fill="#ff9800"/>
+<circle cx="100.0" cy="100.0" r="3" fill="#ff9800"/>
+<circle cx="37.6" cy="64.0" r="3" fill="#ff9800"/>
+</svg></div>
+  <div class="stat-grid">
+    <div class="stat-item"><span class="stat-label">Impact Rank</span><span class="stat-value">#19 / 709</span></div>
+    <div class="stat-item"><span class="stat-label">Top</span><span class="stat-value hl">2.7%</span></div>
+    <div class="stat-item"><span class="stat-label">Gravity</span><span class="stat-value">0.0</span></div>
+    <div class="stat-item"><span class="stat-label">Commits</span><span class="stat-value">182</span></div>
+    <div class="stat-item"><span class="stat-label">Catalysis</span><span class="stat-value">0.0</span></div>
+    <div class="stat-item"><span class="stat-label">Debt Cleanup</span><span class="stat-value hl">100.0</span></div>
+    <div class="stat-item"><span class="stat-label">RobustSurvival</span><span class="stat-value">0.0</span></div>
+    <div class="stat-item"><span class="stat-label">Design</span><span class="stat-value">0.8</span></div>
+  </div>
+</div>
+<div class="profile-card">
+  <h3>🔷 Scala 3 <span class="repo-tag">scala/scala3</span></h3>
+  <div class="profile-radar"><svg width="200" height="200" viewBox="0 0 200 200">
+<polygon points="100.0,82.0 115.6,91.0 115.6,109.0 100.0,118.0 84.4,109.0 84.4,91.0" fill="none" stroke="#444" stroke-width="0.5"/>
+<polygon points="100.0,64.0 131.2,82.0 131.2,118.0 100.0,136.0 68.8,118.0 68.8,82.0" fill="none" stroke="#444" stroke-width="0.5"/>
+<polygon points="100.0,46.0 146.8,73.0 146.8,127.0 100.0,154.0 53.2,127.0 53.2,73.0" fill="none" stroke="#444" stroke-width="0.5"/>
+<polygon points="100.0,28.0 162.4,64.0 162.4,136.0 100.0,172.0 37.6,136.0 37.6,64.0" fill="none" stroke="#444" stroke-width="0.5"/>
+<line x1="100" y1="100" x2="100.0" y2="28.0" stroke="#555" stroke-width="0.5"/>
+<text x="100.0" y="10.0" fill="#aaa" font-size="9" text-anchor="middle" dominant-baseline="middle">Production</text>
+<line x1="100" y1="100" x2="162.4" y2="64.0" stroke="#555" stroke-width="0.5"/>
+<text x="177.9" y="55.0" fill="#aaa" font-size="9" text-anchor="start" dominant-baseline="middle">Catalysis</text>
+<line x1="100" y1="100" x2="162.4" y2="136.0" stroke="#555" stroke-width="0.5"/>
+<text x="177.9" y="145.0" fill="#aaa" font-size="9" text-anchor="start" dominant-baseline="middle">Survival</text>
+<line x1="100" y1="100" x2="100.0" y2="172.0" stroke="#555" stroke-width="0.5"/>
+<text x="100.0" y="190.0" fill="#aaa" font-size="9" text-anchor="middle" dominant-baseline="middle">Design</text>
+<line x1="100" y1="100" x2="37.6" y2="136.0" stroke="#555" stroke-width="0.5"/>
+<text x="22.1" y="145.0" fill="#aaa" font-size="9" text-anchor="end" dominant-baseline="middle">Breadth</text>
+<line x1="100" y1="100" x2="37.6" y2="64.0" stroke="#555" stroke-width="0.5"/>
+<text x="22.1" y="55.0" fill="#aaa" font-size="9" text-anchor="end" dominant-baseline="middle">Debt Clean</text>
+<polygon points="100.0,99.9 100.0,100.0 100.0,100.0 100.0,100.6 100.0,100.0 68.8,82.0" fill="#42a5f533" stroke="#42a5f5" stroke-width="2"/>
+<circle cx="100.0" cy="99.9" r="3" fill="#42a5f5"/>
+<circle cx="100.0" cy="100.0" r="3" fill="#42a5f5"/>
+<circle cx="100.0" cy="100.0" r="3" fill="#42a5f5"/>
+<circle cx="100.0" cy="100.6" r="3" fill="#42a5f5"/>
+<circle cx="100.0" cy="100.0" r="3" fill="#42a5f5"/>
+<circle cx="68.8" cy="82.0" r="3" fill="#42a5f5"/>
+</svg></div>
+  <div class="stat-grid">
+    <div class="stat-item"><span class="stat-label">Impact Rank</span><span class="stat-value">#453 / 895</span></div>
+    <div class="stat-item"><span class="stat-label">Top</span><span class="stat-value hl">50.6%</span></div>
+    <div class="stat-item"><span class="stat-label">Gravity</span><span class="stat-value">0.0</span></div>
+    <div class="stat-item"><span class="stat-label">Commits</span><span class="stat-value">279</span></div>
+    <div class="stat-item"><span class="stat-label">Catalysis</span><span class="stat-value">0.0</span></div>
+    <div class="stat-item"><span class="stat-label">Debt Cleanup</span><span class="stat-value">50.0</span></div>
+    <div class="stat-item"><span class="stat-label">RobustSurvival</span><span class="stat-value">0.0</span></div>
+    <div class="stat-item"><span class="stat-label">Design</span><span class="stat-value">0.8</span></div>
+  </div>
+</div>
+</div>
+<div class="compare-section">
+<h3 style="color:#f0f6fc;margin-bottom:12px">Metric Comparison</h3>
+<div class="compare-legend">
+  <span><span class="legend-dot" style="background:#ff9800"></span> Scala 2</span>
+  <span><span class="legend-dot" style="background:#42a5f5"></span> Scala 3</span>
+</div>
+<div class="compare-row">
+  <div class="compare-label">Production</div>
+  <div class="compare-bars">
+    <div class="compare-track"><div class="compare-fill s2" style="width:0.1%"></div><span class="compare-val">0.1</span></div>
+    <div class="compare-track"><div class="compare-fill s3" style="width:0.1%"></div><span class="compare-val">0.1</span></div>
+  </div>
+</div>
+<div class="compare-row">
+  <div class="compare-label">Catalysis</div>
+  <div class="compare-bars">
+    <div class="compare-track"><div class="compare-fill s2" style="width:0%"></div><span class="compare-val">0.0</span></div>
+    <div class="compare-track"><div class="compare-fill s3" style="width:0%"></div><span class="compare-val">0.0</span></div>
+  </div>
+</div>
+<div class="compare-row">
+  <div class="compare-label">Design</div>
+  <div class="compare-bars">
+    <div class="compare-track"><div class="compare-fill s2" style="width:0.8%"></div><span class="compare-val">0.8</span></div>
+    <div class="compare-track"><div class="compare-fill s3" style="width:0.8%"></div><span class="compare-val">0.8</span></div>
+  </div>
+</div>
+<div class="compare-row">
+  <div class="compare-label">Breadth</div>
+  <div class="compare-bars">
+    <div class="compare-track"><div class="compare-fill s2" style="width:0%"></div><span class="compare-val">0.0</span></div>
+    <div class="compare-track"><div class="compare-fill s3" style="width:0%"></div><span class="compare-val">0.0</span></div>
+  </div>
+</div>
+<div class="compare-row">
+  <div class="compare-label">Debt Cleanup</div>
+  <div class="compare-bars">
+    <div class="compare-track"><div class="compare-fill s2" style="width:100%"></div><span class="compare-val">100.0</span></div>
+    <div class="compare-track"><div class="compare-fill s3" style="width:50%"></div><span class="compare-val">50.0</span></div>
+  </div>
+</div>
+<div class="compare-row">
+  <div class="compare-label">Gravity</div>
+  <div class="compare-bars">
+    <div class="compare-track"><div class="compare-fill s2" style="width:0%"></div><span class="compare-val">0.0</span></div>
+    <div class="compare-track"><div class="compare-fill s3" style="width:0%"></div><span class="compare-val">0.0</span></div>
+  </div>
+</div>
+</div>
+<h2>🔶 Scala 2 — Gravity Ranking</h2>
+<table class="rank-table"><thead><tr><th>#</th><th>Engineer</th><th>Gravity</th><th>Design</th><th>Indispensability</th><th>State</th><th>Commits</th></tr></thead><tbody>
+<tr><td class="rank-num">1</td><td class="member-name">Lukas Rytz</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:100.0%;background:#ffd700"></div><span class="gravity-val">9.7</span></div></td><td>36.3</td><td>80.0</td><td><span class="badge" style="background:#ff5252">Fragile</span></td><td class="commits-num">1,807</td></tr>
+<tr><td class="rank-num">2</td><td class="member-name">Martin Odersky</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:81.4%;background:#ff9800"></div><span class="gravity-val">7.9</span></div></td><td>61.5</td><td>60.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">2,188</td></tr>
+<tr><td class="rank-num">3</td><td class="member-name">Som Snytt</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:29.9%;background:#42a5f5"></div><span class="gravity-val">2.9</span></div></td><td>15.1</td><td>0.0</td><td><span class="badge" style="background:#42a5f5">Growing</span></td><td class="commits-num">1,664</td></tr>
+<tr><td class="rank-num">4</td><td class="member-name">Paul Phillips</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:18.6%;background:#42a5f5"></div><span class="gravity-val">1.8</span></div></td><td>100.0</td><td>60.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">3,549</td></tr>
+<tr><td class="rank-num">5</td><td class="member-name">Adriaan Moors</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:15.5%;background:#42a5f5"></div><span class="gravity-val">1.5</span></div></td><td>23.3</td><td>100.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">1,287</td></tr>
+<tr><td class="rank-num">6</td><td class="member-name">Jamie Thompson</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:11.3%;background:#42a5f5"></div><span class="gravity-val">1.1</span></div></td><td>11.2</td><td>80.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">380</td></tr>
+<tr><td class="rank-num">7</td><td class="member-name">Jason Zaugg</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:8.2%;background:#42a5f5"></div><span class="gravity-val">0.8</span></div></td><td>25.6</td><td>60.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">2,243</td></tr>
+<tr><td class="rank-num">8</td><td class="member-name">Julien Richard-Foy</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:6.2%;background:#42a5f5"></div><span class="gravity-val">0.6</span></div></td><td>0.5</td><td>20.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">410</td></tr>
+<tr><td class="rank-num">9</td><td class="member-name">Antonio Cunei</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:6.2%;background:#42a5f5"></div><span class="gravity-val">0.6</span></div></td><td>39.6</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">349</td></tr>
+<tr><td class="rank-num">10</td><td class="member-name">Seth Tisue</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:5.2%;background:#42a5f5"></div><span class="gravity-val">0.5</span></div></td><td>0.4</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">599</td></tr>
+<tr><td class="rank-num">11</td><td class="member-name">Sean McDirmid</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:5.2%;background:#42a5f5"></div><span class="gravity-val">0.5</span></div></td><td>10.7</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">236</td></tr>
+<tr><td class="rank-num">12</td><td class="member-name">Harrison Houghton</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:4.1%;background:#42a5f5"></div><span class="gravity-val">0.4</span></div></td><td>1.3</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">138</td></tr>
+<tr><td class="rank-num">13</td><td class="member-name">Simon Ochsenreither</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:4.1%;background:#42a5f5"></div><span class="gravity-val">0.4</span></div></td><td>7.8</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">196</td></tr>
+<tr><td class="rank-num">14</td><td class="member-name">Burak Emir</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:4.1%;background:#42a5f5"></div><span class="gravity-val">0.4</span></div></td><td>10.1</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">501</td></tr>
+<tr><td class="rank-num">15</td><td class="member-name">Eugene Burmako</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:4.1%;background:#42a5f5"></div><span class="gravity-val">0.4</span></div></td><td>16.8</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">751</td></tr>
+<tr><td class="rank-num">16</td><td class="member-name">jvican</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:4.1%;background:#42a5f5"></div><span class="gravity-val">0.4</span></div></td><td>0.6</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">70</td></tr>
+<tr><td class="rank-num">17</td><td class="member-name">NthPortal</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:4.1%;background:#42a5f5"></div><span class="gravity-val">0.4</span></div></td><td>3.0</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">149</td></tr>
+<tr><td class="rank-num">18</td><td class="member-name">Stefan Zeiger</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:4.1%;background:#42a5f5"></div><span class="gravity-val">0.4</span></div></td><td>8.1</td><td>20.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">282</td></tr>
+<tr><td class="rank-num">19</td><td class="member-name">Diego Alonso</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>1.2</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">139</td></tr>
+<tr><td class="rank-num">20</td><td class="member-name">mkeskells</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>4.2</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">143</td></tr>
+<tr><td class="rank-num">21</td><td class="member-name">michelou</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>30.5</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">1,866</td></tr>
+<tr><td class="rank-num">22</td><td class="member-name">Janek Bogucki</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>0.2</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">95</td></tr>
+<tr><td class="rank-num">23</td><td class="member-name">Denys Shabalin</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>0.5</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">58</td></tr>
+<tr><td class="rank-num">24</td><td class="member-name">Vlad Ureche</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>3.5</td><td>0.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">107</td></tr>
+<tr><td class="rank-num">25</td><td class="member-name">Matthew de Detrich</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>0.2</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">13</td></tr>
+<tr><td class="rank-num">26</td><td class="member-name">Josh Suereth</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>0.2</td><td>20.0</td><td><span class="badge" style="background:#78909c">Silent</span></td><td class="commits-num">199</td></tr>
+<tr><td class="rank-num">27</td><td class="member-name">Donna Malayeri</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>0.4</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">54</td></tr>
+<tr><td class="rank-num">28</td><td class="member-name">Eugene Vigdorchik</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:3.1%;background:#42a5f5"></div><span class="gravity-val">0.3</span></div></td><td>1.2</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">85</td></tr>
+<tr><td class="rank-num">29</td><td class="member-name">friendseeker</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:2.1%;background:#42a5f5"></div><span class="gravity-val">0.2</span></div></td><td>0.0</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">9</td></tr>
+<tr><td class="rank-num">30</td><td class="member-name">Michael Steindorfer</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:2.1%;background:#42a5f5"></div><span class="gravity-val">0.2</span></div></td><td>0.0</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">1</td></tr>
+<tr><td colspan="7" style="text-align:center;color:#484f58;padding:4px">&#183;&#183;&#183;</td></tr>
+<tr class="hl"><td class="rank-num">203</td><td class="member-name">xuwei-k &#9733;</td><td><div class="gravity-bar"><div class="gravity-fill" style="width:0.0%;background:#42a5f5"></div><span class="gravity-val">0.0</span></div></td><td>0.8</td><td>0.0</td><td><span class="badge" style="background:#616161">&#8212;</span></td><td class="commits-num">182</td></tr>
+</tbody></table>
+
+<h2>📐 Methodology</h2>
+<div style="color:#8b949e;font-size:.9em;line-height:1.8">
+<p><strong>Gravity</strong> = catGate(Catalysis) × survGate(RobustSurvival) × shape(0.45·Design + 0.25·Breadth + 0.30·Indispensability)</p>
+<p>A measure of structural influence. It measures not the number of commits, but how deeply code is woven into the architecture.</p>
+<p style="margin-top:8px"><strong>Debt Cleanup</strong> — contribution to removing technical debt: deleting deprecated APIs, fixing compiler warnings, tidying away unnecessary code. 100 is the top score.</p>
+<p style="margin-top:8px"><strong>Catalysis / RobustSurvival</strong> — the two gates gravity passes through. Did others build on the surviving code (Catalysis), and did the code endure under others' editing pressure (RobustSurvival)? xuwei-k is 0 on both, so whatever stands in the shape, the product is 0. This is the heart of relational gravity — gravity observes neither "founding the design" nor "volume of commits", but the structural relationship with others itself.</p>
+<p style="margin-top:8px"><strong>Why Gravity 0</strong> — even with many commits, if the code written does not survive under others' pressure (RobustSurvival 0) and no one builds on it (Catalysis 0), relational structural dependence is not there. In fact 510 of 709 in Scala 2, and 766 of 895 in Scala 3, sit at gravity 0. Gravity measures relationship, not volume of activity — perhaps xuwei-k's work is best read through the Impact and Debt Cleanup signals.</p>
+</div>
+
+<div class="footer">
+  Generated by <a href="https://github.com/machuz/eis">EIS (Engineering Impact Signal)</a> — OSS Gravity Map Project<br>
+  Scala 2 (scala/scala): 709 engineers · Scala 3 (scala/scala3): 895 engineers · EIS v2.13.1
+</div>
+</div>
+</body>
+</html>
