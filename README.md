@@ -19,9 +19,8 @@
 <p align="right">
   <a href="docs/whitepaper.md"><img src="https://img.shields.io/badge/Whitepaper-EN-504945" alt="Whitepaper EN"></a>
   <a href="docs/whitepaper-ja.md"><img src="https://img.shields.io/badge/Whitepaper-JA-504945" alt="Whitepaper JA"></a>
-  <a href="https://github.com/sponsors/machuz"><img src="https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github" alt="Sponsor"></a>
-  <br>
   <a href="https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c"><img src="https://img.shields.io/badge/dev.to-Read%20Article-0A0A0A?logo=devdotto&logoColor=white" alt="dev.to"></a>
+  <a href="https://github.com/sponsors/machuz"><img src="https://img.shields.io/badge/Sponsor-❤-ea4aaa?logo=github" alt="Sponsor"></a>
 </p>
 
 **Engineering Impact Signal** (EIS, pronounced *"ace"*)
