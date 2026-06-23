@@ -1009,9 +1009,13 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 </head>
 <body>
 
-<!-- Generative brand aurora — WebGL fragment shader (violet). Behind all content
-     (z-index:-1) on the void <html> base; the faint starfield rides on top. -->
-<canvas id="cosmic-bg" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;"></canvas>
+<!-- LAYER 1 — 宇宙/ガス: generative WebGL aurora (violet), dimmed (opacity) so the
+     Library reads as a quiet "galaxy of knowledge", not a bright fog. z-index:-2. -->
+<canvas id="cosmic-bg" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;opacity:0.58;"></canvas>
+<!-- LAYER 2 — scrim: separates the gas from the content. Light at the hero top,
+     deepening toward the body so long-form reading sits on near-void (Palantir/
+     Obsidian-dark, reading-first). z-index:-1, above the gas, below content. -->
+<div aria-hidden="true" style="position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(to bottom, color-mix(in srgb, var(--bg-void) 28%, transparent) 0%, color-mix(in srgb, var(--bg-void) 64%, transparent) 44%, color-mix(in srgb, var(--bg-void) 86%, transparent) 100%);"></div>
 <div class="starfield"></div>
 
 <!-- Page TOC (right-sticky scrollspy) -->
@@ -1949,7 +1953,7 @@ document.addEventListener('keydown', (e) => {
 <script>
   initCosmicBackdrop(
     document.getElementById("cosmic-bg"),
-    ["#a188ed", "#7c5ce0", "#5e44b5", "#3f2d85", "#141b2d"]
+    ["#6a52c0", "#4c3a96", "#33266e", "#1e1748", "#0d1120"]
   );
 </script>
 </body>
