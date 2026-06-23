@@ -4,19 +4,17 @@
 
 <p align="center">
   <a href="https://orbitlens.io">
-    <img src="https://api.orbitlens.io/card/machuz/orbit" alt="EIS Orbit" height="120">
+    <img src="https://api.orbitlens.io/card/machuz/orbit" alt="EIS Orbit" height="160">
   </a>
   &nbsp;
   <a href="https://orbitlens.io">
-    <img src="https://api.orbitlens.io/card/machuz/team" alt="EIS Observatory" height="120">
-  </a>
-  <br>
-  <a href="https://orbitlens.io">
-    <img src="https://api.orbitlens.io/badge/machuz/team" alt="EIS Aggregate">
+    <img src="https://api.orbitlens.io/card/machuz/team" alt="EIS Observatory" height="160">
   </a>
 </p>
 
 <p align="right">
+  <a href="https://orbitlens.io"><img src="https://api.orbitlens.io/badge/machuz/team" alt="EIS Aggregate"></a>
+  &nbsp;
   <a href="docs/whitepaper.md"><img src="https://img.shields.io/badge/Whitepaper-EN-504945" alt="Whitepaper EN"></a>
   <a href="docs/whitepaper-ja.md"><img src="https://img.shields.io/badge/Whitepaper-JA-504945" alt="Whitepaper JA"></a>
   <a href="https://dev.to/machuz/measuring-engineering-impact-from-git-history-alone-f6c"><img src="https://img.shields.io/badge/dev.to-Read%20Article-0A0A0A?logo=devdotto&logoColor=white" alt="dev.to"></a>
