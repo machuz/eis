@@ -4,11 +4,11 @@
 
 <p align="center">
   <a href="https://orbitlens.io">
-    <img src="https://api.orbitlens.io/card/machuz/orbit" alt="EIS Orbit" height="200">
+    <img src="https://api.orbitlens.io/card/machuz/orbit" alt="EIS Orbit" width="70%">
   </a>
-  &nbsp;
+  <br>
   <a href="https://orbitlens.io">
-    <img src="https://api.orbitlens.io/card/machuz/team" alt="EIS Observatory" height="200">
+    <img src="https://api.orbitlens.io/card/machuz/team" alt="EIS Observatory" width="70%">
   </a>
 </p>
 
