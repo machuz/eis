@@ -8,13 +8,13 @@
 
 [OrbitLens Ace](https://ace.orbitlens.io) は、OSSの git 望遠鏡である EIS の上に立つ天文台だ。望遠鏡が観測する。7軸、3軸トポロジー、JSON として。天文台は、その観測を、目に見える構造として読み返す。
 
-これは見て回る記事だ。以下の各画面は、**公開OSSリポジトリ**を観測している様子で見せている。映っている構造は、誰でも読めるコードのものだ。それぞれについて、問いはひとつだけ。*何が観えるようになるのか。*
+これは見て回る記事だ。以下の各画面は Ace の実際の銀河で、組織名と私的なモジュール名は伏せてある。構造は本物で、識別子だけぼかしている。それぞれについて、問いはひとつだけ。*何が観えるようになるのか。*
 
 ---
 
 ## 観測所ダッシュボード —— 7軸を一望する
 
-![観測所ダッシュボード — 7軸シグナル（公開OSSリポの観測例）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-observatory.png?v=1)
+![観測所ダッシュボード — 7軸シグナル（識別子は伏せています）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-observatory.png?v=1)
 
 ダッシュボードは、光が最初に落ちる場所だ。観測されたすべてのエンジニアが、同じ7軸の上に並ぶ。Production、Catalysis、Survival、Design、Breadth、Debt Cleanup、Indispensability。貢献の「量」だけでなく、その「かたち」が一目で見える。
 
@@ -24,7 +24,7 @@
 
 ## Star Detail —— レーダー、インサイト、構造的サマリー
 
-![Star Detail — レーダー + 構造的サマリー（公開OSSリポの観測例）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-star-detail.png?v=1)
+![Star Detail — レーダー + 構造的サマリー（識別子は伏せています）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-star-detail.png?v=1)
 
 望遠鏡を一つの星に向けると、7軸がレーダーに開く。その周りに、エンジニアのトポロジー分類（Role・Style・State）と、散文で書かれた **Structural Summary** が並ぶ。
 
@@ -36,7 +36,7 @@
 
 ## モジュールトポロジー + 崩壊リスク —— 構造のどこが壊れかけているか
 
-![モジュールトポロジー — 崩壊リスクとバスファクター（公開OSSリポの観測例）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-module-topology.png?v=1)
+![モジュールトポロジー — 崩壊リスクとバスファクター（識別子は伏せています）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-module-topology.png?v=1)
 
 望遠鏡は人だけでなく、人が存在する空間も観測する。すべてのモジュールが3つの軸の上に乗る。Coupling（境界品質）、Vitality（変更圧×生存力）、Ownership（知識分布）。
 
@@ -48,7 +48,7 @@ Ace は危険な組み合わせを読む。変更圧が高いのにコードが�
 
 ## 組織年表 —— コードベースが何をくぐってきたか
 
-![組織年表 — 時系列の構造的イベント（公開OSSリポの観測例）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
+![組織年表 — 時系列の構造的イベント（識別子は伏せています）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
 
 組織年表は Ace の芯であり、意図して**得点表ではない**。構造的なイベントを時間軸に沿って記録する。コードベースが生き延びたマイグレーション、ある subsystem を形作って去ったアーキテクト、オーナーが変わって Fragile になったモジュール。
 
@@ -58,13 +58,12 @@ Ace は危険な組み合わせを読む。変更圧が高いのにコードが�
 
 ### Slack コネクタ —— `:orbitlens_chronicle:` リアクション
 
-![Slack コネクタ — 年表リアクション（公開OSSリポの観測例）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-slack-connector.png?v=1)
+![Slack コネクタ — 年表リアクション（識別子は伏せています）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-slack-connector.png?v=1)
 
 Ace だけが書く年表は、チームが実際に抱えている記録より薄くなる。だから年表にはコネクタがある。Slack のメッセージに `:orbitlens_chronicle:` でリアクションすると、その瞬間が時間軸の上に置かれる。つらいマイグレーションがついに着地した日、あるスレッドが決着させた判断。git は構造を記録する。コネクタは、git の届かない dark matter にチームが注釈を入れることを許す。
 
 ### 週次ダイジェスト —— コードベースを、週に一度
 
-![週次ダイジェスト — その週の構造的イベント（公開OSSリポの観測例）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-digest.png?v=1)
 
 週に一度、Ace は直近の観測を読み、その週の構造的イベントを年表に置く。Fragile に踏み込んだモジュール、静かになったオーナー、ずれた生存比率。活動報告ではない。構造の中で何が変わったかの記録だ。
 
@@ -74,7 +73,7 @@ Ace だけが書く年表は、チームが実際に抱えている記録より�
 
 ## Ambient —— コードベースを、常に視界に
 
-![Ambient モード — 常時表示（公開OSSリポの観測例）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-ambient.png?v=1)
+![Ambient モード — 常時表示（識別子は伏せています）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-ambient.png?v=1)
 
 Ambient は、画面に立ち上げっぱなしにした天文台だ。朝会のための、あるいはオフィスの壁のための常時表示。構造を静かに視界に保つ。圧のかかっているモジュール、最近の年表エントリ、チームの重力場のかたち。調べるために開くダッシュボードではなく、ふと目をやって方向感覚を保つための空だ。
 
@@ -84,7 +83,7 @@ Ambient は、画面に立ち上げっぱなしにした天文台だ。朝会の
 
 ## Gravity Certificate —— 旅をする痕跡
 
-![Gravity Certificate — 構造的インパクトの可搬な記録（公開OSSリポの観測例）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-certificate.png?v=1)
+![Gravity Certificate — 構造的インパクトの可搬な記録（識別子は伏せています）](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-certificate.png?v=1)
 
 エンジニアの構造的インパクトは、コードベースの git 履歴の中に住む。そしてその人が去っても、そこに残り続ける。Gravity Certificate は、その観測を本人とともに旅させる。抱えていた重力、所有していたモジュール、形作ったアーキテクチャの記録を、履歴書で主張するのではなく git から観測したものとして。
 

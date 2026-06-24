@@ -13,13 +13,13 @@ cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/
 
 [OrbitLens Ace](https://ace.orbitlens.io) is the observatory built on top of EIS, the open-source git telescope. The telescope observes — 7 axes, 3 topology dimensions, printed as JSON. The observatory reads that observation back as structure you can see.
 
-This is a tour. Each screen below is shown observing a **public open-source repository**, so the structure on display belongs to code anyone can read. For each one, the only question is: *what becomes observable?*
+This is a tour. Each screen below is a live galaxy in Ace, with the organization name and private module names redacted: the structure is real, the identifiers are blurred. For each one, the only question is: *what becomes observable?*
 
 ---
 
 ## The Observatory Dashboard — 7 axes at a glance
 
-![Observatory dashboard — 7-axis signals (public OSS repo)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-observatory.png?v=1)
+![Observatory dashboard — 7-axis signals (identifiers redacted)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-observatory.png?v=1)
 
 The dashboard is where the light lands first. Every observed engineer sits on the same 7 axes — Production, Catalysis, Survival, Design, Breadth, Debt Cleanup, Indispensability — so the shape of a contribution becomes visible at a glance, not just how much of it there was.
 
@@ -29,7 +29,7 @@ The dashboard is where the light lands first. Every observed engineer sits on th
 
 ## Star Detail — the radar, the insight, the structural summary
 
-![Star Detail — radar + structural summary (public OSS repo)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-star-detail.png?v=1)
+![Star Detail — radar + structural summary (identifiers redacted)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-star-detail.png?v=1)
 
 Focus the telescope on a single star and the 7 axes open into a radar. Around it sit the engineer's topology classification — Role, Style, State — and a **Structural Summary** written in prose.
 
@@ -41,7 +41,7 @@ The summary is what to dwell on. Numbers without context invite misreading: a lo
 
 ## Module Topology + Collapse Risk — where the structure is breaking
 
-![Module topology — collapse risk and bus factor (public OSS repo)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-module-topology.png?v=1)
+![Module topology — collapse risk and bus factor (identifiers redacted)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-module-topology.png?v=1)
 
 The telescope observes more than people — it observes the space they inhabit. Every module sits on three axes: Coupling (boundary quality), Vitality (change pressure × survival), and Ownership (knowledge distribution).
 
@@ -53,7 +53,7 @@ Ace reads the dangerous combinations. A module under high change pressure whose 
 
 ## The Organizational Chronicle — what the codebase lived through
 
-![Organizational chronicle — structural events over time (public OSS repo)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
+![Organizational chronicle — structural events over time (identifiers redacted)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
 
 The Chronicle is the heart of Ace, and it is deliberately **not a scoreboard.** It records structural events along a timeline: a migration the codebase survived, an architect who shaped a subsystem and moved on, a module that turned Fragile after an ownership change.
 
@@ -63,13 +63,12 @@ What it records is what the codebase has been through, not how good each person 
 
 ### Slack connector — the `:orbitlens_chronicle:` reaction
 
-![Slack connector — chronicle reaction (public OSS repo)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-slack-connector.png?v=1)
+![Slack connector — chronicle reaction (identifiers redacted)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-slack-connector.png?v=1)
 
 A chronicle that only Ace writes would be a thinner record than the one a team actually carries. So the Chronicle has a connector: react to a Slack message with `:orbitlens_chronicle:` and that moment is placed onto the timeline — the day a hard migration finally landed, the decision a thread settled. Git records the structure. The connector lets a team annotate the dark matter git can't reach.
 
 ### Weekly digest — the codebase, once a week
 
-![Weekly digest — structural events of the week (public OSS repo)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-digest.png?v=1)
 
 Once a week, Ace reads the recent observation and places the structural events of the week into the chronicle: a module that crossed into Fragile, an owner who went quiet, a survival ratio that shifted. It isn't an activity report. It's a record of what changed in the structure.
 
@@ -79,7 +78,7 @@ Once a week, Ace reads the recent observation and places the structural events o
 
 ## Ambient — the codebase, always in view
 
-![Ambient mode — standing display (public OSS repo)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-ambient.png?v=1)
+![Ambient mode — standing display (identifiers redacted)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-ambient.png?v=1)
 
 Ambient is the observatory left running on a screen — a standing display for a stand-up or an office wall. It keeps the structure quietly in view: the modules under pressure, the recent chronicle entries, the shape of the team's gravity field. It isn't a dashboard you open to investigate. It's a sky you glance at and stay oriented by.
 
@@ -89,7 +88,7 @@ Ambient is the observatory left running on a screen — a standing display for a
 
 ## Gravity Certificate — a trace that travels
 
-![Gravity Certificate — portable record of structural impact (public OSS repo)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-certificate.png?v=1)
+![Gravity Certificate — portable record of structural impact (identifiers redacted)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-certificate.png?v=1)
 
 An engineer's structural impact lives in a codebase's git history, and stays there when they move on. The Gravity Certificate lets that observation travel with the person: a record of the gravity they held, the modules they owned, the architecture they shaped, observed from git rather than asserted on a résumé.
 
