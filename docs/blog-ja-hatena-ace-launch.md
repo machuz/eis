@@ -8,7 +8,7 @@
 
 ## 何が起きたか
 
-2年間、[EIS（Engineering Impact Signal）](https://github.com/machuz/eis)は望遠鏡だった。`git log` と `git blame` を読み、7軸と3軸トポロジーでエンジニアリングを観測し、結果を JSON で出すOSSのCLI。外部API不要、AIトークン不要。git の地層にすでに刻まれているものを、ただ読む。
+[EIS（Engineering Impact Signal）](https://github.com/machuz/eis)は望遠鏡だ。`git log` と `git blame` を読み、7軸と3軸トポロジーでエンジニアリングを観測し、結果を JSON で出すOSSのCLI。外部API不要、AIトークン不要。git の地層にすでに刻まれているものを、ただ読む。
 
 望遠鏡は宇宙を観測する。けれど、届いた光そのものは、何を観ているのかまでは教えてくれない。
 

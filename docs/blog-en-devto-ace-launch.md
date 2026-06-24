@@ -13,7 +13,7 @@ cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/
 
 ## What Just Happened
 
-For two years, [EIS (Engineering Impact Signal)](https://github.com/machuz/eis) has been a telescope. An open-source CLI that reads `git log` and `git blame`, observes engineering across 7 axes and 3 topology dimensions, and prints the result as JSON. No external APIs. No AI tokens. Just the strata already recorded in git.
+[EIS (Engineering Impact Signal)](https://github.com/machuz/eis) is a telescope — an open-source CLI that reads `git log` and `git blame`, observes engineering across 7 axes and 3 topology dimensions, and prints the result as JSON. No external APIs. No AI tokens. Just the strata already recorded in git.
 
 A telescope observes the universe. But raw light, by itself, doesn't tell you what you're looking at.
 
