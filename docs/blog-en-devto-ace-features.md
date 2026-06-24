@@ -115,6 +115,6 @@ Or open the observatory: [ace.orbitlens.io](https://ace.orbitlens.io)
 
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)
 
-**GitHub**: [eis](https://github.com/machuz/eis) · **Observatory**: [ace.orbitlens.io](https://ace.orbitlens.io)
+**GitHub**: [eis](https://github.com/machuz/eis) · **Observatory**: [ace.orbitlens.io](https://ace.orbitlens.io) · **Library**: [library.orbitlens.io](https://library.orbitlens.io)
 
-If this was useful: [Sponsor on GitHub](https://github.com/sponsors/machuz)
+The telescope is free and open source — forever. If this was useful: [Sponsor on GitHub](https://github.com/sponsors/machuz)

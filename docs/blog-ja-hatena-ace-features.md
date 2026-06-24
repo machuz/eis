@@ -110,4 +110,6 @@ brew install machuz/tap/eis
 
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)
 
-**GitHub**: [eis](https://github.com/machuz/eis) · **天文台**: [ace.orbitlens.io](https://ace.orbitlens.io)
+**GitHub**: [eis](https://github.com/machuz/eis) · **天文台**: [ace.orbitlens.io](https://ace.orbitlens.io) · **Library**: [library.orbitlens.io](https://library.orbitlens.io)
+
+望遠鏡は無料で、オープンソース —— ずっと。

@@ -81,7 +81,23 @@ No account, no integration. Point it at any repository and read the signals your
 
 Connect a GitHub account, and Ace runs the observation continuously, then reads it for you — structural summary, Conway verification, collapse risk, and the chronicle.
 
-Pricing comes in three plans — **Free**, **Pro**, and **Nova** — covering a single repository up to a full organization. Pricing may shift as the product settles, so the current numbers live on the [pricing page](https://ace.orbitlens.io) rather than here.
+---
+
+## The Telescope Is Free. Forever.
+
+EIS — the telescope — is and stays completely free and open source. No seat limits, no trial clock, no "open core" with the load-bearing parts behind a wall. The whole methodology sits in the [whitepaper](https://github.com/machuz/eis/blob/main/docs/whitepaper.md), and the binary is one `brew install` away. An open telescope is the point: anyone can aim it at their own code and read the signals without asking us for anything.
+
+That's deliberate. The aim isn't to charge for the idea — it's for the idea to spread: that engineering can be observed from git, that survival outlasts activity, that the quiet structural work should stop being invisible. An idea behind a paywall doesn't travel far.
+
+The observatory — Ace, the SaaS — is what carries a price, because running observation continuously and reading it back is real infrastructure. It's priced to be reachable, not to gate:
+
+- **Free** — $0. A solo developer, or a team up to five. Public repos unlimited, a few private, six months of history.
+- **Pro** — $7/mo. One developer, full history, the complete Gravity Certificate.
+- **Nova** — $39/mo base (eight seats included) + $18/seat beyond — for a private organization that wants the org-level reading: Conway verification, collapse risk, per-member ownership.
+
+For contrast: most engineering-analytics platforms price per developer — commonly in the $15–50 per-developer-per-month range, often gated behind "contact sales." Ace's organization tier is a flat base for the first eight seats, and the engine beneath it is free. We'd rather more teams observe their codebase than fewer teams pay more to.
+
+And the Gravity Certificate — the trace that travels with a person — is always free to mint and verify, on any plan. Proving your own work shouldn't cost anything.
 
 ---
 
@@ -95,9 +111,20 @@ The light was always there in git. Now there's an instrument that reads it.
 
 ---
 
+## A Note on Measuring People — and a Request
+
+There's a failure mode we sit with constantly. The moment engineering gets measured from above — from the altitude of management, an organization surveying its people the way a state surveys citizens — the felt sense of the people on the ground tends to flatten. A number arrives, and the texture of what someone actually did gets lost underneath it.
+
+We're trying to build the opposite of that, and we're not certain we've managed it. Signals are signals, not verdicts. The things git can't see — mentoring, the design argument that never became a commit, the calm someone holds during an incident — stay unmeasured, and we'd rather say so out loud than pretend otherwise (the dark matter the telescope knows it can't reach). A low signal isn't a small contribution; often it's a signal about the organization, not the person.
+
+But "we try" isn't "we solved it." Measuring people is dangerous even with good intent, and we don't think we've found how to do it without ever diminishing the frontline's own sense of its work. So this is a real request: if you read your own signals, or your team's, and something feels off — flattened, unfair, missing the thing that actually mattered — tell us. That gap is exactly where the instrument has to get better.
+
+---
+
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — the telescope, fully open source.
 **Observatory**: [ace.orbitlens.io](https://ace.orbitlens.io)
+**Library**: [library.orbitlens.io](https://library.orbitlens.io) — the theory and the shelf behind EIS (Git Archaeology, whitepaper).
 
 If this was useful: [Sponsor on GitHub](https://github.com/sponsors/machuz)
