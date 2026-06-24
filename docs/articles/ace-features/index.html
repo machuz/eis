@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function() {
+    if (location.hostname === 'machuz.github.io' && location.pathname.startsWith('/eis/docs/')) {
+      var newPath = location.pathname.replace('/eis/docs/', '/');
+      location.replace('https://library.orbitlens.io' + newPath + location.search + location.hash);
+    }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>OrbitLens Ace の中を歩く — 天文台を一画面ずつ — OrbitLens Library</title>
+<meta name="description" content="OrbitLens Ace を一画面ずつ見て回る —— 観測所ダッシュボード、Star Detail、崩壊リスク付きモジュールトポロジー、Slack コネクタ付きの組織年表、Ambient、Gravity Certificate。各画面を「何が観えるか」で読む。">
+<link rel="icon" type="image/png" href="../../images/orbitlens-royal-purple-shadow.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/reader.css?v=21">
+<style>
+  .reader-layout { grid-template-columns: minmax(0, 1fr); max-width: 820px; }
+  .inline-toc { display: none !important; }
+  @media (min-width: 1221px) { .reader-layout { grid-template-columns: minmax(0, 1fr); } }
+  .chapter-content figure { margin: 2rem 0; }
+  .chapter-content figure img { width: 100%; border-radius: 8px; display: block; }
+  .chapter-content figure figcaption { font-size: 0.85rem; color: var(--dim); margin-top: 0.5rem; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="starfield"></div>
+
+<nav class="orbit-bar">
+  <a href="../../" class="crumb-logo" style="display:inline-flex;align-items:center;gap:10px;">
+    <img src="../../images/orbitlens-royal-purple-shadow.png" alt="" style="width:22px;height:22px">
+    <span class="crumb-brand">ORBITLENS</span>
+  </a>
+  <span class="crumb-sep">/</span>
+  <a href="../../" class="crumb-scope">LIBRARY</a>
+  <span class="crumb-sep">/</span>
+  <span class="crumb-book">OrbitLens Ace の中を歩く</span>
+  <span class="orbit-spacer"></span>
+  <div class="orbit-tools">
+    <a class="orbit-tool" href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-features.md" target="_blank" rel="noopener">EN ↗</a>
+  </div>
+  <div class="progress-bar" id="progress-bar"></div>
+</nav>
+
+<div class="reader-layout">
+  <main class="reader-main">
+    <div class="chapter-bar">
+      <div class="ch-info">
+        <strong>ARTICLE</strong>
+        <span>Standalone / 機能紹介</span>
+      </div>
+      <a href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-features.md" target="_blank" rel="noopener" class="en-link">EN 原文 · dev.to ↗</a>
+    </div>
+
+    <article class="chapter-content">
+      <h1>OrbitLens Ace の中を歩く —— 天文台を一画面ずつ</h1>
+
+      <p><em>どの画面も、たった一つの問いに答える —— ここでは、何が観えるようになるのか。</em></p>
+
+      <hr>
+
+      <p><a href="https://ace.orbitlens.io" target="_blank" rel="noopener">OrbitLens Ace</a> は、OSSの git 望遠鏡である EIS の上に立つ天文台だ。望遠鏡が観測する —— 7軸、3軸トポロジー、JSON として。天文台は、その観測を、目に見える構造として読み返す。</p>
+
+      <p>これは見て回る記事だ。以下の各画面は、<strong>公開OSSリポジトリ</strong>を観測している様子で見せている。映っている構造は、誰でも読めるコードのものだ。それぞれについて、問いはひとつだけ —— <em>何が観えるようになるのか。</em></p>
+
+      <hr>
+
+      <h2>観測所ダッシュボード —— 7軸を一望する</h2>
+
+      <figure>
+        <img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-observatory.png?v=1" alt="観測所ダッシュボード — 7軸シグナル（公開OSSリポの観測例）">
+        <figcaption>観測所ダッシュボード — 7軸シグナル（公開OSSリポの観測例）</figcaption>
+      </figure>
+
+      <p>ダッシュボードは、光が最初に落ちる場所だ。観測されたすべてのエンジニアが、同じ7軸の上に並ぶ —— Production・Catalysis・Survival・Design・Breadth・Debt Cleanup・Indispensability。貢献の「量」だけでなく、その「かたち」が一目で見える。</p>
+
+      <p><strong>何が観えるか:</strong> 構造を形作った人と、量を生産した人の違いだ。1,890コミットで Survival がほぼゼロのエンジニアは、コミットグラフでは忙しく見えて、ここでは静かに見える。82コミットでも Design が天井に張りつくエンジニアは、際立って見える。コミット数が均してしまう違いを、軸が保ち続ける。</p>
+
+      <hr>
+
+      <h2>Star Detail —— レーダー、インサイト、構造的サマリー</h2>
+
+      <figure>
+        <img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-star-detail.png?v=1" alt="Star Detail — レーダー + 構造的サマリー（公開OSSリポの観測例）">
+        <figcaption>Star Detail — レーダー + 構造的サマリー（公開OSSリポの観測例）</figcaption>
+      </figure>
+
+      <p>望遠鏡を一つの星に向けると、7軸がレーダーに開く。その周りに、エンジニアのトポロジー分類 —— Role・Style・State —— と、散文で書かれた <strong>Structural Summary</strong> が並ぶ。</p>
+
+      <p>立ち止まる価値があるのはサマリーだ。コンテキストのない数字は誤読を招く。Survival が低いのは設計が弱いからかもしれないし、レガシーコードを書き換えている最中だからかもしれない。サマリーはシグナルの場を丸ごと読み、実際に何が立っているかを描く。光が言葉になる。</p>
+
+      <p><strong>何が観えるか:</strong> 「この人がどれだけ優秀か」ではなく、<em>このコード宇宙にどんな痕跡を残したか</em>だ。整合性を守る Cleaner は、量を生産する Producer とは違って読める。レーダーは、その違いを一つの数字に潰さず、そのまま見せる。</p>
+
+      <hr>
+
+      <h2>モジュールトポロジー + 崩壊リスク —— 構造のどこが壊れかけているか</h2>
+
+      <figure>
+        <img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-module-topology.png?v=1" alt="モジュールトポロジー — 崩壊リスクとバスファクター（公開OSSリポの観測例）">
+        <figcaption>モジュールトポロジー — 崩壊リスクとバスファクター（公開OSSリポの観測例）</figcaption>
+      </figure>
+
+      <p>望遠鏡は人だけでなく、人が存在する空間も観測する。すべてのモジュールが3つの軸の上に乗る —— Coupling（境界品質）、Vitality（変更圧×生存力）、Ownership（知識分布）。</p>
+
+      <p>Ace は危険な組み合わせを読む。変更圧が高いのにコードが生き残らないモジュールは、構造的な時限爆弾だ。誰も触らないから残っているだけのモジュールは <strong>Fragile</strong> な要塞だ —— 誰かが変えなければならない日まではきれいに見える。オーナーが去ったモジュールは <strong>Orphaned</strong> —— バスファクターがすでにゼロになっている。</p>
+
+      <p><strong>何が観えるか:</strong> システムのどこが壊れかけているか、それが危機になる前に。「このエンジニアが弱い」ではなく、「このモジュールはバスファクターが1で、それを抱えていた人はもういない」だ。</p>
+
+      <hr>
+
+      <h2>組織年表 —— コードベースが何をくぐってきたか</h2>
+
+      <figure>
+        <img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1" alt="組織年表 — 時系列の構造的イベント（公開OSSリポの観測例）">
+        <figcaption>組織年表 — 時系列の構造的イベント（公開OSSリポの観測例）</figcaption>
+      </figure>
+
+      <p>組織年表は Ace の芯であり、意図して<strong>得点表ではない</strong>。構造的なイベントを時間軸に沿って記録する —— コードベースが生き延びたマイグレーション、ある subsystem を形作って去ったアーキテクト、オーナーが変わって Fragile になったモジュール。</p>
+
+      <p>記録するのは、コードベースが何をくぐってきたかであって、各人がどれだけ優秀かではない。この区別こそが全体の眼目だ。得点表は人がゲームの仕方を覚えるもので、年表はチームが愛着を持つものだ。スコアは、近くで観たければそこにある。けれどそれは手に取るレンズであって、決して見出しにはならない。</p>
+
+      <p><strong>何が観えるか:</strong> チーム自身の歴史が、見覚えを持てるくらいはっきりと書かれている。<em>評価ではなく観測。</em></p>
+
+      <h3>Slack コネクタ —— <code>:orbitlens_chronicle:</code> リアクション</h3>
+
+      <figure>
+        <img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-slack-connector.png?v=1" alt="Slack コネクタ — 年表リアクション（公開OSSリポの観測例）">
+        <figcaption>Slack コネクタ — 年表リアクション（公開OSSリポの観測例）</figcaption>
+      </figure>
+
+      <p>Ace だけが書く年表は、チームが実際に抱えている記録より薄くなる。だから年表にはコネクタがある。Slack のメッセージに <code>:orbitlens_chronicle:</code> でリアクションすると、その瞬間が時間軸の上に置かれる —— つらいマイグレーションがついに着地した日、あるスレッドが決着させた判断。git は構造を記録する。コネクタは、git の届かない dark matter にチームが注釈を入れることを許す。</p>
+
+      <h3>週次ダイジェスト —— コードベースを、週に一度</h3>
+
+      <figure>
+        <img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-digest.png?v=1" alt="週次ダイジェスト — その週の構造的イベント（公開OSSリポの観測例）">
+        <figcaption>週次ダイジェスト — その週の構造的イベント（公開OSSリポの観測例）</figcaption>
+      </figure>
+
+      <p>週に一度、Ace は直近の観測を読み、その週の構造的イベントを年表に置く —— Fragile に踏み込んだモジュール、静かになったオーナー、ずれた生存比率。活動報告ではない。構造の中で何が変わったかの記録だ。</p>
+
+      <p><strong>何が観えるか:</strong> コードベースのゆっくりした地殻変動を、チームが実際に頭に入れておけるリズムで。</p>
+
+      <hr>
+
+      <h2>Ambient —— コードベースを、常に視界に</h2>
+
+      <figure>
+        <img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-ambient.png?v=1" alt="Ambient モード — 常時表示（公開OSSリポの観測例）">
+        <figcaption>Ambient モード — 常時表示（公開OSSリポの観測例）</figcaption>
+      </figure>
+
+      <p>Ambient は、画面に立ち上げっぱなしにした天文台だ —— 朝会のための、あるいはオフィスの壁のための常時表示。構造を静かに視界に保つ。圧のかかっているモジュール、最近の年表エントリ、チームの重力場のかたち。調べるために開くダッシュボードではなく、ふと目をやって方向感覚を保つための空だ。</p>
+
+      <p><strong>何が観えるか:</strong> 四半期に一度監査するものではなく、チームが隣で暮らす構造として。</p>
+
+      <hr>
+
+      <h2>Gravity Certificate —— 旅をする痕跡</h2>
+
+      <figure>
+        <img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-certificate.png?v=1" alt="Gravity Certificate — 構造的インパクトの可搬な記録（公開OSSリポの観測例）">
+        <figcaption>Gravity Certificate — 構造的インパクトの可搬な記録（公開OSSリポの観測例）</figcaption>
+      </figure>
+
+      <p>エンジニアの構造的インパクトは、コードベースの git 履歴の中に住む —— そしてその人が去っても、そこに残る。Gravity Certificate は、その観測を本人とともに旅させる。抱えていた重力、所有していたモジュール、形作ったアーキテクチャの記録を、履歴書で主張するのではなく git から観測したものとして。</p>
+
+      <p>これは慎重に設計してある。<em>コードが示すもの</em>の記録であり、一つの宇宙から観測したものだ —— エンジニアリング能力の普遍的なランキングではない。一つのコードベースでの高い重力はローカルな観測にすぎない。証明書はまさにそう言うし、それ以上は言わない。</p>
+
+      <p><strong>何が観えるか:</strong> ふだん見えないままになる、静かな構造の仕事だ —— システムを支えていて、コミット数のリーダーボードには決して載らない種類の仕事。</p>
+
+      <hr>
+
+      <h2>全体の弧</h2>
+
+      <p>望遠鏡が観測する。天文台が読む。ダッシュボードから証明書まで、貫く線は変わらない —— <strong>評価ではなく観測</strong>。Ace はチームに、自分のコードベースが何をくぐってきたか、そして構造がどこで撓んでいるかを見せる。そしてスコアをレンズへと格下げする。記録が、ゲームの仕方を覚えるものではなく、チームが観たくなるものであり続けるように。</p>
+
+      <p>自分で望遠鏡を向ける:</p>
+
+      <pre><code>brew install machuz/tap/eis</code></pre>
+
+      <p>あるいは天文台を開く: <a href="https://ace.orbitlens.io" target="_blank" rel="noopener">ace.orbitlens.io</a></p>
+
+      <hr>
+
+      <p><strong>GitHub:</strong> <a href="https://github.com/machuz/eis" target="_blank" rel="noopener">eis</a> · <strong>天文台:</strong> <a href="https://ace.orbitlens.io" target="_blank" rel="noopener">ace.orbitlens.io</a></p>
+    </article>
+
+    <div class="book-footer">
+      <div class="quote">どの画面も、何が観えるかを問う。</div>
+      <div class="foot-links">
+        <a href="../../">Library</a>
+        <a href="../ace-launch/">OrbitLens Ace を公開する</a>
+        <a href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-features.md" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="firewall">
+  <div class="firewall-msg">
+    <svg class="firewall-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="3" y="7" width="10" height="7" rx="1"/>
+      <path d="M5 7V5a3 3 0 016 0v2"/>
+    </svg>
+    <span class="firewall-tag">Firewall</span>
+    <strong>観測であって、評価ではない。</strong>
+    <span>個人の点数はこの層から漏らさない。</span>
+  </div>
+  <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--dim)">T-30 · UX-12</span>
+</div>
+
+<script>
+(function(){
+  const progressBar = document.getElementById('progress-bar');
+  let raf = null;
+  function upd() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const d = document.documentElement;
+      const pct = (window.scrollY / (d.scrollHeight - d.clientHeight)) * 100;
+      progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+    });
+  }
+  window.addEventListener('scroll', upd, { passive: true });
+})();
+</script>
+
+</body>
+</html>
