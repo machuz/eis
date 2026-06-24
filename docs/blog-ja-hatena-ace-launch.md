@@ -2,7 +2,7 @@
 
 ![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ace-launch.png?v=1)
 
-*望遠鏡は観測する。しかし観測は、読まれるのを待っている。*
+*望遠鏡は観測する。観測が意味を持つのは、読まれたときだ。*
 
 ---
 

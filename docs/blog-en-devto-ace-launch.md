@@ -7,7 +7,7 @@ tags: opensource, saas, productivity, git
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-launch.png?v=1
 ---
 
-*A telescope observes. But observation waits to be read.*
+*A telescope observes. The observation means something only once it is read.*
 
 ---
 
