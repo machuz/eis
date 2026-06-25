@@ -134,6 +134,7 @@ h1 .accent{color:#58a6ff}
 <!-- TOC -->
 <div class="toc">
   <div class="toc-title">Contents</div>
+  <a href="#what-this-is">測るもの・測らないもの</a>
   <a href="#intro">1. EISとは何か</a>
   <a href="#cross-language">2. 言語横断分析 — 物理法則は一様ではない</a>
   <a class="sub" href="#gravity-concentration">重力集中度</a>
@@ -143,6 +144,17 @@ h1 .accent{color:#58a6ff}
   <a href="#react">5. React — 10年の世代交代</a>
   <a href="#validity">6. EISの妥当性 — 感覚とデータは一致するか</a>
   <a href="#conclusion">7. 結論</a>
+</div>
+
+<!-- 測っているもの / いないもの — 最初に読む注記 -->
+<div class="card" id="what-this-is" style="border-color:#d79921;border-left:4px solid #d79921;margin-bottom:28px">
+  <h2 class="section-title" style="margin-top:0;font-size:1.1em">この分析が「測るもの」と「測らないもの」</h2>
+  <ul style="margin:12px 0 0;padding-left:20px;line-height:1.85;color:#bdae93;font-size:.92em">
+    <li><strong style="color:#f0f6fc">望遠鏡であって、スコアボードではない。</strong>測るのは構造的な生存と所有の集中であって、価値・努力・能力・人間の優劣ではない。</li>
+    <li><strong style="color:#f0f6fc">生存が高いことは、設計上あいまいだ。</strong>コードは、変更の圧に耐える設計だから残ることもあれば、誰も触れないから残ることもある。EIS はこれを robust（堅牢）と dormant（休眠）の生存に分けるが、その区別はシグナルであって判定ではない。</li>
+    <li><strong style="color:#f0f6fc">読むのは git のメタデータだけ。</strong>著者・時刻・ファイル単位の編集分布のみ。コードの中身・ロジック・意図には触れない。大規模なリファクタ、リネーム、vendored コードは帰属を歪めうる。</li>
+    <li><strong style="color:#f0f6fc">stack-ranking や報酬査定のための道具ではない。</strong>人を一つの数字に還元することは、これが抗うために設計された、まさにその誤用だ。妥当性の分析は §6 を参照。手法への批判は歓迎する。</li>
+  </ul>
 </div>
 
 <!-- ========================================= -->
