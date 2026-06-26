@@ -3,7 +3,10 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
+      # Semver release tags only (vX.Y.Z). Excludes moving major aliases like
+      # `v2` (used by `uses: machuz/eis@v2`) so re-pointing them doesn't trigger
+      # a goreleaser run that fails on the non-semver tag.
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 permissions:
   contents: write
