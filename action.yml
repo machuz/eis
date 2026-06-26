@@ -1,0 +1,116 @@
+name: "EIS — Upload Signals"
+description: "Analyze this repo's git history and upload only the signals (code never leaves the runner) to the OrbitLens observatory."
+branding:
+  icon: "upload-cloud"
+  color: "yellow"
+
+inputs:
+  token:
+    description: "OrbitLens Ace API token (Bearer). Create one in Ace → Settings → API tokens and store it as a repo secret."
+    required: true
+  api-url:
+    description: "Observatory base URL. Override for staging or a self-hosted observatory."
+    required: false
+    default: "https://api.orbitlens.io"
+  version:
+    description: "EIS release to use (e.g. v2.16.0). 'latest' resolves the newest stable release."
+    required: false
+    default: "latest"
+  working-directory:
+    description: "Directory of the git repo to analyze."
+    required: false
+    default: "."
+  args:
+    description: "Extra flags appended to `eis analyze` (e.g. --recursive, --config eis.yaml)."
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Guard against shallow clone
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -euo pipefail
+        if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
+          echo "::error::EIS reads the full git log/blame history, but this checkout is shallow." >&2
+          echo "::error::Set 'fetch-depth: 0' on actions/checkout so the entire history is available." >&2
+          exit 1
+        fi
+
+    - name: Install EIS
+      shell: bash
+      env:
+        EIS_VERSION: ${{ inputs.version }}
+        # Used only to lift the unauthenticated GitHub API rate limit when resolving 'latest'.
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        repo="machuz/eis"
+
+        # Detect runner OS (goreleaser uses lowercase linux/darwin).
+        case "$(uname -s)" in
+          Linux)  os="linux" ;;
+          Darwin) os="darwin" ;;
+          *) echo "::error::Unsupported runner OS: $(uname -s)" >&2; exit 1 ;;
+        esac
+
+        # Detect arch (goreleaser uses amd64/arm64).
+        case "$(uname -m)" in
+          x86_64|amd64)  arch="amd64" ;;
+          aarch64|arm64) arch="arm64" ;;
+          *) echo "::error::Unsupported runner arch: $(uname -m)" >&2; exit 1 ;;
+        esac
+
+        # Resolve the release tag.
+        tag="${EIS_VERSION}"
+        if [ "${tag}" = "latest" ] || [ -z "${tag}" ]; then
+          tag="$(curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            ${GH_TOKEN:+-H "Authorization: Bearer ${GH_TOKEN}"} \
+            "https://api.github.com/repos/${repo}/releases/latest" \
+            | grep -m1 '"tag_name"' | cut -d'"' -f4)"
+        fi
+        if [ -z "${tag}" ]; then
+          echo "::error::Could not resolve an EIS release tag." >&2
+          exit 1
+        fi
+        echo "Using EIS ${tag} (${os}/${arch})"
+
+        asset="eis_${os}_${arch}.tar.gz"
+        base="https://github.com/${repo}/releases/download/${tag}"
+        workdir="$(mktemp -d)"
+
+        curl -fsSL -o "${workdir}/${asset}" "${base}/${asset}"
+        curl -fsSL -o "${workdir}/checksums.txt" "${base}/checksums.txt"
+
+        # Verify the downloaded archive against the published checksums
+        # (sha256sum on Linux, shasum on macOS runners).
+        if command -v sha256sum >/dev/null 2>&1; then
+          ( cd "${workdir}" && grep " ${asset}\$" checksums.txt | sha256sum -c - )
+        else
+          ( cd "${workdir}" && grep " ${asset}\$" checksums.txt | shasum -a 256 -c - )
+        fi
+
+        tar -xzf "${workdir}/${asset}" -C "${workdir}"
+        install_dir="${HOME}/.eis/bin"
+        mkdir -p "${install_dir}"
+        mv "${workdir}/eis" "${install_dir}/eis"
+        chmod +x "${install_dir}/eis"
+        echo "${install_dir}" >> "${GITHUB_PATH}"
+
+    - name: Analyze and upload signals
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        ACE_API_URL: ${{ inputs.api-url }}
+        EIS_TOKEN: ${{ inputs.token }}
+        EIS_ARGS: ${{ inputs.args }}
+      run: |
+        set -euo pipefail
+        # Keep the token out of any echoed command line or log.
+        echo "::add-mask::${EIS_TOKEN}"
+        # Token is passed via EIS_TOKEN env (never on the command line).
+        # shellcheck disable=SC2086
+        eis analyze --upload ${EIS_ARGS}
