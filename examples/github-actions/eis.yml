@@ -1,0 +1,29 @@
+# Example: run EIS in GitHub Actions and upload signals to the OrbitLens observatory.
+#
+# Copy this file to .github/workflows/eis.yml in your repo. It analyzes the
+# repo's git history on the runner and uploads only the resulting signals —
+# your source code never leaves the runner. Ideal for GitHub Enterprise or any
+# environment that does not allow cloning repos to an external service.
+#
+# Setup:
+#   1. Create an API token in OrbitLens Ace → Settings → API tokens.
+#   2. Save it as a repository secret named ACE_API_TOKEN.
+#   3. Keep fetch-depth: 0 — EIS reads the full git log/blame history.
+name: EIS
+on:
+  push:
+    branches: [main]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history — EIS reads git log/blame
+      - uses: machuz/eis@v2
+        with:
+          token: ${{ secrets.ACE_API_TOKEN }}
+          # api-url: https://api.orbitlens.io   # default; set for staging/self-host
+          # version: v2.16.0                    # default: latest stable release
+          # args: --recursive                   # extra flags for `eis analyze`

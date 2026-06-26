@@ -118,6 +118,41 @@ eis team --recursive ~/workspace
 eis team --format json --recursive ~/workspace
 ```
 
+## GitHub Actions
+
+Run EIS in CI and upload the signals to the OrbitLens observatory. The repo is
+analyzed on the runner and **only the signals are sent — your source code never
+leaves the runner.** This is the path for GitHub Enterprise or any environment
+that does not allow cloning repos to an external service.
+
+```yaml
+# .github/workflows/eis.yml
+name: EIS
+on: { push: { branches: [main] } }
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }   # full history — EIS reads git log/blame
+      - uses: machuz/eis@v2
+        with:
+          token: ${{ secrets.ACE_API_TOKEN }}
+          # api-url: https://api.orbitlens.io   # default; set for staging/self-host
+```
+
+- **`token` (required)** — create one in OrbitLens Ace → **Settings → API tokens**
+  and store it as the repo secret `ACE_API_TOKEN`.
+- **`fetch-depth: 0` is required** — a shallow clone has no history, so EIS
+  cannot read `git log`/`git blame`. The action fails fast if the checkout is
+  shallow.
+- Other inputs: `api-url` (default `https://api.orbitlens.io`; override for
+  staging or self-host), `version` (default: latest stable release),
+  `working-directory` (default `.`), and `args` (extra flags for `eis analyze`).
+
+A full example workflow lives at
+[`examples/github-actions/eis.yml`](examples/github-actions/eis.yml).
+
 ## How This Differs from Existing Metrics
 
 | Framework | What it measures | Signal source | Individual? | Key limitation |

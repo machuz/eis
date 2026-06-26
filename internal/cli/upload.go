@@ -15,12 +15,11 @@ import (
 )
 
 // defaultUploadURL is the observatory the CLI uploads signals to. The URL is
-// fixed (users never type it); ACE_API_URL overrides it for staging only. This
-// is the dedicated per-service public API host (ALB-direct), named as a sibling
-// of the frontend (ace-api.orbitlens.io ↔ ace.orbitlens.io) rather than a
-// generic api. host — true/ideal get true-api./ideal-api. The contract stays
-// off the frontend's ace.orbitlens.io/api/* path and stable across FE changes.
-const defaultUploadURL = "https://ace-api.orbitlens.io"
+// fixed (users never type it); ACE_API_URL overrides it for staging or a
+// self-hosted observatory. The retired ace-api.orbitlens.io host never resolved
+// in prod — the live public API is api.orbitlens.io (ALB-direct), kept off the
+// frontend's app path so the upload contract stays stable across FE changes.
+const defaultUploadURL = "https://api.orbitlens.io"
 
 // uploadMemberSignal mirrors the SaaS UploadMemberSignal contract
 // (services/ace/backend/app/usecase/signal_upload.go). The json tags are the

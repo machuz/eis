@@ -82,6 +82,15 @@ func TestPostUpload_SendsBearerAndJSON(t *testing.T) {
 	}
 }
 
+// defaultUploadURL must point at the live prod observatory. The retired
+// ace-api.orbitlens.io host never resolved in prod, so an upload with no
+// ACE_API_URL override silently failed — guard the value so it can't regress.
+func TestDefaultUploadURL_IsLiveProdHost(t *testing.T) {
+	if defaultUploadURL != "https://api.orbitlens.io" {
+		t.Fatalf("defaultUploadURL = %q, want https://api.orbitlens.io", defaultUploadURL)
+	}
+}
+
 func TestPostUpload_SurfacesServerError(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
