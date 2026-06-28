@@ -75,13 +75,13 @@ Read these as the structure git was hiding, not as a feature list.
 
 **The Organizational Chronicle. The heart of it.** Not a scoreboard. It doesn't rank engineers. It records what the codebase has lived through: the migrations it survived, the architect who shaped a subsystem and moved on, the module that turned fragile after an ownership change.
 
-A scoreboard teaches people to game it. A chronicle is something a team grows attached to. We're after the second. The score is still there if you want to look closer, but it's a lens you pick up, never the headline.
+A scoreboard teaches people to game it. A chronicle is something a team grows attached to. We're after the second. The signal is still there if you want to look closer, but it's a lens you pick up, never the headline.
 
 ---
 
 ## Two doors, one universe
 
-**The telescope (open source):**
+**The telescope (open source) is completely free.** It runs locally by design: no account, no login, no integration. `brew install`, point it at a repo.
 
 ```bash
 brew install machuz/tap/eis
@@ -89,9 +89,9 @@ cd your-repo
 eis analyze .
 ```
 
-No account, no integration. Point it at any repo and read the signals yourself.
+**The observatory (SaaS) is a few clicks.** Open [ace.orbitlens.io](https://ace.orbitlens.io), log in with GitHub, pick the repos you want to watch. From there Ace runs the observation continuously and renders it in your browser: structural summary, Conway check, collapse risk, the chronicle. No CLI to learn.
 
-**The observatory (SaaS):** [ace.orbitlens.io](https://ace.orbitlens.io). Connect a GitHub account and Ace runs the observation continuously, then reads it back for you.
+Point the lens at your own organization, at your personal repos, at an open-source project you're curious about. Public repos are unlimited, so reading the gravity map of a well-known OSS codebase is worth a look on its own.
 
 EIS, the telescope, stays free and open source forever. No seat limits, no trial clock, no open core with the load-bearing parts behind a wall. We don't want to charge for the idea. We want it to travel, and an idea behind a paywall doesn't get far.
 
