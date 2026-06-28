@@ -79,13 +79,15 @@ A scoreboard teaches people to game it. A chronicle is something a team grows at
 
 To keep this concrete, here is one result from pointing the telescope at a public OSS codebase.
 
-Read the gravity of React (1,927 engineers passed through it) and the top name is [Sebastian Markbåge](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution.html). Indispensability 100, Catalysis 100: the structural shape is saturated, everyone else built on top of him. And yet his Gravity reads a modest 9.9.
+In React (1,927 engineers passed through it), the top of the all-time gravity is Sebastian Markbåge. Indispensability 100, Catalysis 100: the structural shape is saturated, everyone else built on top of him.
 
-The reason is on the survival side. The Reconciler he laid down now sits undisturbed: robust survival (code that lasts where *others* are still actively committing) is near zero. The telescope sees no live gravity in a foundation that has gone quiet. That isn't a demotion. It's the instrument declining to confuse ownership, or a finished foundation, with gravity.
+Open the timeline and the depth shows. From 2013 he held React's structural seats again and again — Specialist in 2016, Producer in 2022, Architect and the year's #1 in 2023 (gravity 89), Anchor in 2025. He moved between roles but stayed near the structural center for a decade, and anchors several modules. The Reconciler he laid down is still load-bearing in React today.
 
-A leaderboard leaves the famous and the first sitting at the top. EIS doesn't. In that same React, the gravity top-10 overlaps the GitHub maintainer list by only 60%. The rest are people without the title, whose code the system still rests on.
+And yet his all-time Gravity reads a modest 9.9. That's because EIS's all-time survival decays with time. The foundation he laid has gone quiet — no one is actively pressing on it now (robust survival near zero) — so the all-time view, which measures the gravity that is *live right now*, reads him soft. That isn't a demotion. It's the instrument declining to confuse a finished foundation with live gravity, and his decade is right there in the timeline.
 
-The whole picture, 29 OSS projects and 51,321 engineers read through the same telescope, is in the [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html).
+A leaderboard parks the famous and the first at the top forever. EIS doesn't — but open the timeline and who held the structure, and when, is preserved in full. In that same React, the all-time top-10 overlaps the GitHub maintainer list by only 60%. The rest are people without the title, whose code the system still rests on.
+
+The whole picture — 29 OSS projects, 51,321 engineers, the same telescope — is in the [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html), and React's generational handover is in [React: A Generational Evolution](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution.html).
 
 ---
 
