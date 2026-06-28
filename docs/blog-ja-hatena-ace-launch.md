@@ -83,6 +83,8 @@ React（延べ1,927人が通過）の通期の重力でトップに立つのは 
 
 それでも通期の Gravity は 9.9 と控えめに出る。EIS の通期の生存は時間減衰するからだ。完成して静まった土台に、いま他人が現役で圧をかけてはいない（robust survival ≒0）。だから「今まさに揺れている重力」を測る通期では、静かに映る。これは降格ではない。望遠鏡が、出来上がった土台を「現役の重力」と取り違えないだけだ。彼の十年は、軌跡の方にちゃんと残っている。
 
+もう一つの正直な読み方もある。通期を「今まさに揺れている重力」ではなく「生涯に残した構造」として測るなら――生存のゲートを robust survival から素の survival に替えた lifetime gravity――同じ Markbåge は通期トップ近く（約74）へ戻る。今まさに圧がかかっているか、と、何が残ったか。別々の問いに別々の答えがあるだけだ。EIS にはこの第二の重力を versioned で加えてある。
+
 リーダーボードなら、有名で先行した人が永久に一位に居座る。EIS はそうしない。だが軌跡を開けば、誰がどの時代に構造を支えたかは消えずに見える。同じ React で、通期トップ10の顔ぶれは GitHub の maintainer 一覧と6割しか重ならない。残りは、肩書きを持たないまま、システムが今も寄りかかっている人たちだ。
 
 29 の OSS・延べ51,321人を読んだ全体像は [OSS グラビティマップ](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-ja.html) に、React の世代交代は [React 世代的進化](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution-ja.html) にまとめてある。
