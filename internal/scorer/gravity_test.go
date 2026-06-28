@@ -98,3 +98,53 @@ func TestGravityScore_RequiresBoth(t *testing.T) {
 		t.Fatalf("both gates open must dominate either alone: both=%v survOnly=%v catOnly=%v", gBoth, gSurv, gCat)
 	}
 }
+
+// TestLifetimeGravity_ShapeWeights pins the indispensability-leaned shape. With
+// both gates open (Catalysis = Survival = 100) lifetime == shape.
+func TestLifetimeGravity_ShapeWeights(t *testing.T) {
+	open := func(field string, v float64) Result {
+		r := Result{Catalysis: 100, Survival: 100}
+		switch field {
+		case "design":
+			r.Design = v
+		case "breadth":
+			r.Breadth = v
+		case "indisp":
+			r.Indispensability = v
+		}
+		return r
+	}
+	for _, c := range []struct {
+		f    string
+		want float64
+	}{{"design", 35}, {"breadth", 20}, {"indisp", 45}} {
+		if got := lifetimeGravityScore(open(c.f, 100)); !approx(got, c.want) {
+			t.Errorf("%s alone: lifetime = %v, want %v", c.f, got, c.want)
+		}
+	}
+}
+
+// TestLifetimeGravity_SettledFoundationStands is the whole point: a foundation
+// that everyone built on and that still STANDS, but which no one currently
+// presses on (RobustSurvival → 0 while Survival stays high), reads quiet on
+// Gravity yet high on LifetimeGravity. The React/Markbåge case in miniature.
+func TestLifetimeGravity_SettledFoundationStands(t *testing.T) {
+	markbage := Result{Catalysis: 100, Survival: 100, RobustSurvival: 0, Design: 24, Breadth: 100, Indispensability: 100}
+	if g := gravityScore(markbage); g >= 12 {
+		t.Fatalf("live Gravity should read quiet for a settled foundation, got %v", g)
+	}
+	if l := lifetimeGravityScore(markbage); l <= 60 {
+		t.Fatalf("LifetimeGravity should surface the durable foundation, got %v", l)
+	}
+}
+
+// TestLifetimeGravity_SelfChurnStillGated: dropping to raw Survival must NOT
+// re-open the self-churn hole — a dead corner the author alone keeps alive has
+// high Survival but no one builds on it (low Catalysis), so catGate keeps
+// LifetimeGravity near the floor.
+func TestLifetimeGravity_SelfChurnStillGated(t *testing.T) {
+	selfChurn := Result{Catalysis: 5, Survival: 100, RobustSurvival: 0, Design: 100, Breadth: 100, Indispensability: 100}
+	if l := lifetimeGravityScore(selfChurn); l >= 25 {
+		t.Fatalf("self-churn (high survival, no catalysis) must stay gated, got %v", l)
+	}
+}

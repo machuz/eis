@@ -27,6 +27,7 @@ type Result struct {
 	DebtCleanup      float64
 	Indispensability float64
 	Gravity          float64 // structural influence: catGate(Catalysis) × survGate(RobustSurvival) × shape(Design, Breadth, Indispensability)
+	LifetimeGravity  float64 // durable footprint: catGate(Catalysis) × survGate(Survival) × shapeᵢ(Indispensability-weighted). The "通期/all-time" twin of Gravity — see lifetimeGravityScore.
 	Impact           float64
 	TotalCommits     int
 	LinesAdded       int
@@ -98,6 +99,42 @@ func gravityScore(r Result) float64 {
 	shape := r.Design*0.45 + r.Breadth*0.25 + r.Indispensability*0.30
 	catGate := gravityCatFloor + (1-gravityCatFloor)*(r.Catalysis/100)
 	survGate := gravitySurvFloor + (1-gravitySurvFloor)*(r.RobustSurvival/100)
+	return catGate * survGate * shape
+}
+
+// lifetimeGravityScore composes LifetimeGravity — the durable structural
+// FOOTPRINT, the "通期 / all-time" twin of Gravity. Same conjunctive shape, with
+// two deliberate differences:
+//
+//	shape    = 0.35·Design + 0.20·Breadth + 0.45·Indispensability
+//	catGate  = gravityCatFloor  + (1-gravityCatFloor) ·(Catalysis/100)
+//	survGate = gravitySurvFloor + (1-gravitySurvFloor)·(Survival/100)   // raw survival, NOT robust
+//	lifetime = catGate · survGate · shape
+//
+// Why the survival gate is total Survival, not RobustSurvival: Gravity asks
+// "whose structure is the system leaning on *right now*", so it gates on survival
+// under OTHERS' live pressure — a finished foundation no one currently presses on
+// reads quiet (React's Reconciler: Indispensability 100, Catalysis 100, yet
+// Gravity 9.9 because robust survival went to 0). LifetimeGravity asks the other
+// honest question — "what lasting structure did this person leave" — so it credits
+// code that still STANDS regardless of whether others are editing it now.
+//
+// The gameability guard does NOT weaken: catGate (Catalysis — others built on
+// your surviving foundation) stays, so a self-churned dead corner, which raw
+// survival alone would reward, is still gated to the floor. Empirically, on the
+// 29-repo OSS map, the self-churn profile (raw survival ≥ 60, catalysis < 20)
+// tops out at a lifetime gravity of ~5; the settled founders (Markbåge/React,
+// Ramírez/FastAPI, Wallace/esbuild) rise to where intuition expects. The shape
+// leans on Indispensability so "the system still leans on you" dominates a
+// lifetime reading over mere broad-and-surviving output. See
+// research/oss-gravity-map/analysis/lifetime-footprint-experiment.md.
+//
+// Additive: this never feeds Gravity, Impact, or topology — Gravity stays the
+// live signal, LifetimeGravity is the all-time companion (the 通期/軌跡 split).
+func lifetimeGravityScore(r Result) float64 {
+	shape := r.Design*0.35 + r.Breadth*0.20 + r.Indispensability*0.45
+	catGate := gravityCatFloor + (1-gravityCatFloor)*(r.Catalysis/100)
+	survGate := gravitySurvFloor + (1-gravitySurvFloor)*(r.Survival/100)
 	return catGate * survGate * shape
 }
 
@@ -254,6 +291,7 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 		}
 
 		r.Gravity = gravityScore(r)
+		r.LifetimeGravity = lifetimeGravityScore(r)
 
 		role, style, state := classifyTopology(r)
 		r.Role = role.Name
