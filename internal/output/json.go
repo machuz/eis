@@ -65,6 +65,7 @@ type jsonMember struct {
 	DebtCleanup      float64 `json:"debt_cleanup"`
 	Indispensability float64 `json:"indispensability"`
 	Gravity          float64 `json:"gravity"`
+	LifetimeGravity  float64 `json:"lifetime_gravity"`
 	Impact           float64 `json:"impact"`
 	Role             string  `json:"role"`
 	RoleConf         float64 `json:"role_confidence"`
@@ -173,6 +174,7 @@ func (w *JSONWriter) AddDomain(domainName string, repoCount int, results []score
 			DebtCleanup:      round1(r.DebtCleanup),
 			Indispensability: round1(r.Indispensability),
 			Gravity:          round1(r.Gravity),
+			LifetimeGravity:  round1(r.LifetimeGravity),
 			Impact:           round1(r.Impact),
 			Role:             r.Role,
 			RoleConf:         r.RoleConf,
@@ -309,6 +311,7 @@ func (w *JSONWriter) AddPerRepo(domainName, repoName string, results []scorer.Re
 					DebtCleanup:      round1(r.DebtCleanup),
 					Indispensability: round1(r.Indispensability),
 					Gravity:          round1(r.Gravity),
+					LifetimeGravity:  round1(r.LifetimeGravity),
 					Impact:           round1(r.Impact),
 					Role:             r.Role,
 					RoleConf:         r.RoleConf,
