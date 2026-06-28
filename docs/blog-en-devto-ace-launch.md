@@ -32,23 +32,19 @@ Survival is not. Whether your code outlives you isn't something you can fake ove
 
 ## AI made activity meaningless
 
-This is the part that bites right now.
-
 The speed of writing code left human hands. Ask a model and a thousand lines arrive in minutes. Commit counts and lines changed no longer measure how much a person moved; they measure how much a tool moved. Activity metrics were always shaky. AI finished them off.
 
-So what's left? What survives. Of the thousand lines AI just produced, the share that gets rewritten next week has a survival of zero. Only the code still standing in six months is doing structural work. When generation becomes infinitely cheap, the scarce thing isn't output. It's what stays.
+What's left is what survives. Of the thousand lines AI just produced, the share that gets rewritten next week has a survival of zero. Only the code still standing in six months is doing structural work. When generation becomes infinitely cheap, the scarce thing isn't output. It's what stays.
 
 And survival can't be gamed, not even by AI, because time isn't the only thing that decides it. Whether a piece of code lasts is settled by the ecosystem it lands in: whether the next person builds on it or tears it out. The other developers' hands give the answer. So it isn't an absolute ruler. It shifts by environment. A conservative team might keep mediocre-but-bug-free code untouched; an aggressive one might throw the same code out by next month. Survival is a relative signal, valid only inside that particular context.
 
 But that is exactly why you can't fake it. It isn't self-reported and it isn't volume; it's the accumulated choices of everyone around you. And someone whose code survives across many different contexts is probably someone who can genuinely design. A lucky fit to one environment's habits doesn't explain that.
 
-One more thing. Observation is the opposite of generation. The more the world fills with AI-written code, the more valuable an instrument that just reads the facts already cut into the ground. EIS uses no model. It doesn't infer, so it can't hallucinate. It reads what git already wrote down. In an age of generation, it stays an instrument of observation.
+Observation is also the opposite of generation. The more the world fills with AI-written code, the more valuable an instrument that just reads the facts already cut into the ground. EIS uses no model. It doesn't infer, so it can't hallucinate. It reads what git already wrote down. In an age of generation, it stays an instrument of observation.
 
 ---
 
 ## But read it wrong and it breaks
-
-This is where it goes wrong.
 
 The moment you read the survival signal from above and put a number next to a name, it becomes a scoreboard. And a scoreboard always distorts what it measures. People start optimizing the number, and the texture of the work flattens underneath it. Engineering metrics die right here, turned into ranking and pressure.
 
