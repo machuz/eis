@@ -33,17 +33,22 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MAPPING_FILE = REPO_ROOT / "docs" / ".blog-mapping.json"
 INDEX_FILE = REPO_ROOT / "docs" / "index.html"
+ARTICLES_DIR = REPO_ROOT / "docs" / "articles"
 
 SRC_RE = re.compile(r'data-devto-src="([^"]+)"')
 HREF_RE = re.compile(r'href="[^"]*"')
 
 
-def main() -> int:
-    check_only = "--check" in sys.argv[1:]
+def target_files() -> list[Path]:
+    """The Library landing page plus any self-hosted article page that carries a
+    ``data-devto-src`` link (e.g. the per-article EN → dev.to header links)."""
+    return [INDEX_FILE, *sorted(ARTICLES_DIR.glob("*/index.html"))]
 
-    mapping = json.loads(MAPPING_FILE.read_text())
-    lines = INDEX_FILE.read_text().splitlines(keepends=True)
 
+def sync_file(path: Path, mapping: dict, check_only: bool) -> tuple[list[str], list[str]]:
+    """Rewrite dev.to hrefs in one file. Returns (changed, missing) descriptions."""
+    lines = path.read_text().splitlines(keepends=True)
+    rel = path.relative_to(REPO_ROOT)
     changed: list[str] = []
     missing: list[str] = []
 
@@ -54,12 +59,29 @@ def main() -> int:
         src = m.group(1)
         url = (mapping.get(src) or {}).get("devto_url")
         if not url:
-            missing.append(src)
+            missing.append(f"{rel}: {src}")
             continue
         new_line, n = HREF_RE.subn(f'href="{url}"', line, count=1)
         if n and new_line != line:
             lines[i] = new_line
-            changed.append(f"{src} -> {url}")
+            changed.append(f"{rel}: {src} -> {url}")
+
+    if changed and not check_only:
+        path.write_text("".join(lines))
+    return changed, missing
+
+
+def main() -> int:
+    check_only = "--check" in sys.argv[1:]
+
+    mapping = json.loads(MAPPING_FILE.read_text())
+
+    changed: list[str] = []
+    missing: list[str] = []
+    for path in target_files():
+        c, m = sync_file(path, mapping, check_only)
+        changed.extend(c)
+        missing.extend(m)
 
     for src in missing:
         print(f"WARN: no devto_url in mapping for {src} (not published yet?)")
@@ -74,7 +96,6 @@ def main() -> int:
             print(f"  {c}")
         return 1
 
-    INDEX_FILE.write_text("".join(lines))
     print(f"Updated {len(changed)} Library link(s):")
     for c in changed:
         print(f"  {c}")

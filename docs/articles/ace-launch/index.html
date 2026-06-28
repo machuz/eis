@@ -40,7 +40,7 @@
   <span class="crumb-book">OrbitLens Ace を公開する</span>
   <span class="orbit-spacer"></span>
   <div class="orbit-tools">
-    <a class="orbit-tool" href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-launch.md" target="_blank" rel="noopener">EN ↗</a>
+    <a class="orbit-tool" href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-launch.md" target="_blank" rel="noopener" data-devto-src="blog-en-devto-ace-launch.md">EN ↗</a>
   </div>
   <div class="progress-bar" id="progress-bar"></div>
 </nav>
@@ -52,7 +52,7 @@
         <strong>ARTICLE</strong>
         <span>Standalone / リリース</span>
       </div>
-      <a href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-launch.md" target="_blank" rel="noopener" class="en-link">EN 原文 · dev.to ↗</a>
+      <a href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-launch.md" target="_blank" rel="noopener" class="en-link" data-devto-src="blog-en-devto-ace-launch.md">EN 原文 · dev.to ↗</a>
     </div>
 
     <article class="chapter-content">
@@ -224,7 +224,8 @@ eis analyze .</code></pre>
     raf = requestAnimationFrame(() => {
       raf = null;
       const d = document.documentElement;
-      const pct = (window.scrollY / (d.scrollHeight - d.clientHeight)) * 100;
+      const limit = d.scrollHeight - d.clientHeight;
+      const pct = limit > 0 ? (window.scrollY / limit) * 100 : 0;
       progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
     });
   }
