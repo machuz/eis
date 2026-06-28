@@ -13,8 +13,29 @@ import (
 	"github.com/machuz/eis/v2/internal/git"
 )
 
+// Epoch versions the on-disk cache CONTENT — the gob-encoded shapes below
+// (git.BlameLine, git.Commit, …) and the blame/log parsing that fills them.
+// Bump it whenever a change would make a cache entry written by an older
+// build decode into DIFFERENT values: a struct field added / removed /
+// reordered, or a change to the parser that produces the blame/log lines.
+//
+// It is deliberately DECOUPLED from the release version. A patch or minor
+// that does not touch the shapes below or the blame/log parsing leaves Epoch
+// alone, so a downstream consumer that PERSISTS this cache across versions
+// (e.g. ace's S3 blame cache, which folds Epoch into its object namespace)
+// stays warm across the bump instead of going cold on every release.
+//
+// The converse is the load-bearing rule: even a patch MUST bump Epoch if it
+// changes cached output. Leaving it stale would let an older entry be decoded
+// as if it were the new shape — silently serving corrupt values. Relying on
+// semver alone cannot guarantee that, which is why this is an explicit knob.
+const Epoch = 1
+
 func init() {
-	// Register types for gob encoding
+	// Register types for gob encoding.
+	// NOTE: changing any registered shape here (or the parser that fills it)
+	// requires bumping Epoch above — otherwise a persistent downstream cache
+	// will decode a stale entry into the new shape and serve corrupt values.
 	gob.Register([]git.BlameLine{})
 	gob.Register([]git.Commit{})
 	gob.Register([]string{})
