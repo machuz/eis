@@ -75,6 +75,20 @@ A scoreboard teaches people to game it. A chronicle is something a team grows at
 
 ---
 
+## A worked example: point the telescope at React
+
+To keep this concrete, here is one result from pointing the telescope at a public OSS codebase.
+
+Read the gravity of React (1,927 engineers passed through it) and the top name is [Sebastian Markbåge](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution.html). Indispensability 100, Catalysis 100: the structural shape is saturated, everyone else built on top of him. And yet his Gravity reads a modest 9.9.
+
+The reason is on the survival side. The Reconciler he laid down now sits undisturbed: robust survival (code that lasts where *others* are still actively committing) is near zero. The telescope sees no live gravity in a foundation that has gone quiet. That isn't a demotion. It's the instrument declining to confuse ownership, or a finished foundation, with gravity.
+
+A leaderboard leaves the famous and the first sitting at the top. EIS doesn't. In that same React, the gravity top-10 overlaps the GitHub maintainer list by only 60%. The rest are people without the title, whose code the system still rests on.
+
+The whole picture, 29 OSS projects and 51,321 engineers read through the same telescope, is in the [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html).
+
+---
+
 ## Two doors, one universe
 
 **The telescope (open source) is completely free.** It runs locally by design: no account, no login, no integration. `brew install`, point it at a repo.
@@ -109,6 +123,7 @@ Measuring people is dangerous even with good intent, and we haven't found how to
 
 **GitHub**: [eis](https://github.com/machuz/eis) — the telescope, fully open source.
 **Observatory**: [ace.orbitlens.io](https://ace.orbitlens.io)
+**Research**: [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html) — 29 OSS projects read through the same telescope.
 **Library**: [library.orbitlens.io](https://library.orbitlens.io) — the theory and the shelf behind EIS (Git Archaeology, whitepaper).
 
 If this was useful: [Sponsor on GitHub](https://github.com/sponsors/machuz)

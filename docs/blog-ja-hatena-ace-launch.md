@@ -73,6 +73,20 @@
 
 ---
 
+## 実例：React に望遠鏡を向ける
+
+抽象論で終わらせたくない。公開 OSS に実際に向けた結果を一つ出す。
+
+React のコードベース（延べ1,927人のエンジニアが通過）の重力を読むと、トップに立つのは [Sebastian Markbåge](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution-ja.html) だ。Indispensability 100、Catalysis 100。構造の形は飽和し、他の全員が彼の上に築いている。それでも Gravity は 9.9 と控えめに出る。
+
+理由は survival の側にある。彼が敷いた Reconciler は、いまや揺らされていない。robust survival（他人が現役で手を入れている場所での生存）がほぼゼロだ。完成して静まった土台に、望遠鏡は現役の重力を見ない。これは降格ではなく、所有や「出来上がった基礎」を重力と取り違えないという、計器の節度だ。
+
+リーダーボードなら、有名で先行した人が一位に居座る。EIS はそうしない。同じ React で、重力トップ10の顔ぶれは GitHub の maintainer 一覧と6割しか重ならない。残りは、肩書きを持たないまま、システムが今も寄りかかっている人たちだ。
+
+29 の OSS・延べ51,321人を同じ望遠鏡で読んだ全体像は、[OSS グラビティマップ](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-ja.html)にまとめてある。
+
+---
+
 ## 入口は二つ、宇宙はひとつ
 
 **望遠鏡（OSS）は、完全に無料で使える。** ローカルで完結する設計で、アカウントもログインも連携もいらない。`brew install` して、リポに向けるだけ。
@@ -107,4 +121,5 @@ EIS（望遠鏡）はずっと無料の OSS だ。席制限もトライアル期
 
 **GitHub**: [eis](https://github.com/machuz/eis) — 望遠鏡。完全にオープンソース。
 **天文台**: [ace.orbitlens.io](https://ace.orbitlens.io)
+**Research**: [OSS グラビティマップ](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-ja.html) — 29 の OSS を同じ望遠鏡で読んだ全体像。
 **Library**: [library.orbitlens.io](https://library.orbitlens.io) — EIS の理論と書架（Git考古学・ホワイトペーパー）。
