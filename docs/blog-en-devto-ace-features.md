@@ -117,6 +117,6 @@ Point the lens at your own organization, at your personal repos, at an open-sour
 
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)
 
-**GitHub**: [eis](https://github.com/machuz/eis) · **Observatory**: [ace.orbitlens.io](https://ace.orbitlens.io) · **Research**: [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html) · **Library**: [library.orbitlens.io](https://library.orbitlens.io)
+**GitHub**: [eis](https://github.com/machuz/eis) · **Observatory**: [ace.orbitlens.io](https://ace.orbitlens.io) · **Library**: [library.orbitlens.io](https://library.orbitlens.io)
 
 The telescope is free and open source, forever. If this was useful: [Sponsor on GitHub](https://github.com/sponsors/machuz)

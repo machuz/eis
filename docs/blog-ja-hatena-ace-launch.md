@@ -87,7 +87,6 @@ React（延べ1,927人が通過）の通期の重力でトップに立つのは 
 
 リーダーボードなら、有名で先行した人が永久に一位に居座る。EIS はそうしない。だが軌跡を開けば、誰がどの時代に構造を支えたかは消えずに見える。同じ React で、通期トップ10の顔ぶれは GitHub の maintainer 一覧と6割しか重ならない。残りは、肩書きを持たないまま、システムが今も寄りかかっている人たちだ。
 
-29 の OSS・延べ51,321人を読んだ全体像は [OSS グラビティマップ](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-ja.html) に、React の世代交代は [React 世代的進化](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution-ja.html) にまとめてある。
 
 ---
 
@@ -137,5 +136,4 @@ EIS（望遠鏡）はずっと無料の OSS だ。席制限もトライアル期
 
 **GitHub**: [eis](https://github.com/machuz/eis) — 望遠鏡。完全にオープンソース。
 **天文台**: [ace.orbitlens.io](https://ace.orbitlens.io)
-**Research**: [OSS グラビティマップ](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-ja.html) — 29 の OSS を同じ望遠鏡で読んだ全体像。
 **Library**: [library.orbitlens.io](https://library.orbitlens.io) — EIS の理論と書架（Git考古学・ホワイトペーパー）。
