@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Three layers of the OrbitLens Library — Interior, Structure, Trace">
+  <defs>
+    <linearGradient id="lvl3" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#22163a"/>
+      <stop offset="1" stop-color="#181029"/>
+    </linearGradient>
+    <linearGradient id="lvl2" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#1b1c38"/>
+      <stop offset="1" stop-color="#141628"/>
+    </linearGradient>
+    <linearGradient id="lvl1" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#16202f"/>
+      <stop offset="1" stop-color="#0f1824"/>
+    </linearGradient>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#a188ed"/>
+    </marker>
+  </defs>
+
+  <style>
+    .ttl { font: 600 17px 'Inter Tight','Inter','Zen Kaku Gothic New',sans-serif; fill:#f2e4c0; letter-spacing:-0.2px }
+    .sub { font: 500 13px 'Inter','Zen Kaku Gothic New',sans-serif; fill:#a188ed }
+    .ter { font: 400 12px 'Inter','Zen Kaku Gothic New',sans-serif; fill:#8e8775 }
+    .lbl { font: 500 10px 'JetBrains Mono',monospace; fill:#a188ed; letter-spacing:2px; text-transform:uppercase }
+    .cap { font: 500 10px 'JetBrains Mono',monospace; fill:#7c5ce0; letter-spacing:2px }
+    .flow{ font: 500 9px 'JetBrains Mono',monospace; fill:#928374; letter-spacing:1.5px; text-transform:uppercase }
+  </style>
+
+  <!-- L3 INTERIOR — top -->
+  <g transform="translate(80 50)">
+    <rect x="0" y="0" width="800" height="120" rx="10" fill="url(#lvl3)" stroke="#3c2d70" stroke-width="1.2"/>
+    <rect x="0" y="0" width="4" height="120" fill="#a188ed"/>
+    <text class="lbl" x="24" y="28">L1 · Interior</text>
+    <text class="cap" x="720" y="28" text-anchor="end">Book 1</text>
+    <text class="ttl" x="24" y="60">Psychological OS</text>
+    <text class="sub" x="24" y="84">the operating principle of the individual</text>
+    <text class="ter" x="24" y="106">heat · attachment · vector · purity · scope</text>
+  </g>
+
+  <!-- arrow Interior → Structure -->
+  <g>
+    <line x1="480" y1="180" x2="480" y2="210" stroke="#7c5ce0" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text class="flow" x="492" y="200">translation</text>
+  </g>
+
+  <!-- L2 STRUCTURE — middle -->
+  <g transform="translate(80 215)">
+    <rect x="0" y="0" width="800" height="120" rx="10" fill="url(#lvl2)" stroke="#3c2d70" stroke-width="1.2"/>
+    <rect x="0" y="0" width="4" height="120" fill="#a188ed"/>
+    <text class="lbl" x="24" y="28">L2 · Structure</text>
+    <text class="cap" x="720" y="28" text-anchor="end">Book 2</text>
+    <text class="ttl" x="24" y="60">Structure-Driven Organization</text>
+    <text class="sub" x="24" y="84">the outer physics of the organization</text>
+    <text class="ter" x="24" y="106">layers · converter · preservation · controlled chaos</text>
+  </g>
+
+  <!-- arrow Structure → Trace -->
+  <g>
+    <line x1="480" y1="345" x2="480" y2="375" stroke="#7c5ce0" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text class="flow" x="492" y="365">settles as</text>
+  </g>
+
+  <!-- L1 TRACE — bottom -->
+  <g transform="translate(80 380)">
+    <rect x="0" y="0" width="800" height="120" rx="10" fill="url(#lvl1)" stroke="#3c2d70" stroke-width="1.2"/>
+    <rect x="0" y="0" width="4" height="120" fill="#a188ed"/>
+    <text class="lbl" x="24" y="28">L3 · Strata</text>
+    <text class="cap" x="720" y="28" text-anchor="end">Book 3</text>
+    <text class="ttl" x="24" y="60">Git Archaeology</text>
+    <text class="sub" x="24" y="84">the implementation of observation</text>
+    <text class="ter" x="24" y="106">git log · git blame · survival · seven axes · gravity</text>
+  </g>
+
+  <!-- return loop: Trace observes Structure + Interior -->
+  <g>
+    <path d="M 880 440 Q 925 440 925 280 Q 925 110 880 110" fill="none" stroke="#7c5ce0" stroke-width="1.2" stroke-dasharray="3 4" marker-end="url(#ar)" opacity="0.85"/>
+    <text class="flow" x="940" y="275" transform="rotate(90 940 275)" text-anchor="middle">observation</text>
+  </g>
+</svg>

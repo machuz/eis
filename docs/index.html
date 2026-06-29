@@ -565,11 +565,15 @@ a:hover { color: var(--text-strong); }
   line-height: 1.25;
 }
 .vocab-card .ja-title {
+  display: none;
   font-size: 13px;
   color: var(--purple-bright);
   margin-bottom: 14px;
   font-weight: 500;
 }
+/* The Japanese term is a JA-only gloss under the English card title; show it
+   only in Japanese so the EN view stays English. */
+body.ja .vocab-card .ja-title { display: block; }
 .vocab-card .definition {
   font-size: 14px;
   color: var(--text);
@@ -786,6 +790,13 @@ section { padding: 80px 0; position: relative; scroll-margin-top: 80px; }
   max-width: 960px;
 }
 .triad-figure img { display: block; width: 100%; height: auto; }
+/* The diagram ships as language-specific SVGs (Japanese text is baked into the
+   art, so it can't be toggled in-place). `.triad-figure img` (0,1,1) would
+   otherwise outweigh the generic `[data-lang="ja"]` (0,1,0) hide rule and show
+   both, so the per-language show/hide is restated at matching specificity. */
+.triad-figure img[data-lang="ja"] { display: none; }
+body.ja .triad-figure img[data-lang="ja"] { display: block; }
+body.ja .triad-figure img[data-lang="en"] { display: none; }
 
 /* ===== Mini cards (whitepapers) ===== */
 .mini-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -1047,8 +1058,8 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     <a href="https://lp.orbitlens.io" class="crumb-action" target="_blank" rel="noopener"><span data-lang-inline="en">Product</span><span data-lang-inline="ja">プロダクト</span></a>
     <a href="https://docs.orbitlens.io/apis" class="crumb-action" target="_blank" rel="noopener"><span data-lang-inline="en">API</span><span data-lang-inline="ja">API</span></a>
     <div class="lang-tabs" id="lang-tabs" data-active="en">
-      <button class="lang-tab" data-tab-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
-      <button class="lang-tab" data-tab-lang="ja" onclick="setLang('ja')" aria-label="日本語">JA</button>
+      <button class="lang-tab" data-tab-lang="en" onclick="setLang('en', true)" aria-label="English">EN</button>
+      <button class="lang-tab" data-tab-lang="ja" onclick="setLang('ja', true)" aria-label="日本語">JA</button>
       <span class="lang-pill" aria-hidden="true"></span>
     </div>
     <a href="https://github.com/machuz/eis" class="crumb-icon" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
@@ -1133,7 +1144,8 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 <!-- System map — triad diagram elevated to near first view -->
 <section id="system-map" class="system-map">
   <figure class="triad-figure">
-    <img src="./images/library-triad.svg" alt="Three layers of the OrbitLens Library — Psychological OS (L3 Interior) translates heat into Structure-Driven Organization (L2), which settles as traces observed by Git Archaeology (L1).">
+    <img data-lang="en" src="./images/library-triad-en.svg" alt="Three layers of the OrbitLens Library — Psychological OS (L3 Interior) translates heat into Structure-Driven Organization (L2), which settles as traces observed by Git Archaeology (L1).">
+    <img data-lang="ja" src="./images/library-triad.svg" alt="Three layers of the OrbitLens Library — Psychological OS (L3 Interior) translates heat into Structure-Driven Organization (L2), which settles as traces observed by Git Archaeology (L1).">
   </figure>
 </section>
 
@@ -1287,7 +1299,8 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     </p>
 
     <figure class="triad-figure">
-      <img src="./images/library-boundary.svg" alt="Boundary Conditions — the OrbitLens Library inner cosmos (Psychological OS, Structure-Driven Organization, Git Archaeology) under pressure from the outer cosmos: market, capital, labor, and chance.">
+      <img data-lang="en" src="./images/library-boundary-en.svg" alt="Boundary Conditions — the OrbitLens Library inner cosmos (Psychological OS, Structure-Driven Organization, Git Archaeology) under pressure from the outer cosmos: market, capital, labor, and chance.">
+      <img data-lang="ja" src="./images/library-boundary.svg" alt="Boundary Conditions — the OrbitLens Library inner cosmos (Psychological OS, Structure-Driven Organization, Git Archaeology) under pressure from the outer cosmos: market, capital, labor, and chance.">
     </figure>
   </div>
 </section>
@@ -1305,7 +1318,7 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     </div>
     <div class="section-head">
       <div class="section-label">Reading Log</div>
-      <div class="section-count">読書ログ</div>
+      <div class="section-count"><span data-lang-inline="en">manga · thought books</span><span data-lang-inline="ja">漫画と思想書</span></div>
     </div>
     <p class="section-lede" data-lang="en">
       Manga and thought books, read not as a fan but as structure — psychological-OS and organizational-OS sample cases. Body and concept, checked against each other on the same desk. (Japanese.)
@@ -1736,7 +1749,27 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 </div>
 
 <script>
-function setLang(lang) {
+// Language preference is shared across every orbitlens.io subdomain (library,
+// corp, lp, ...) via a cookie scoped to `.orbitlens.io`. localStorage is kept
+// too for backward compatibility, but it is per-origin so it can't carry the
+// choice across a subdomain hop (e.g. library -> corp) — only the cookie can.
+function readLangCookie() {
+  const m = document.cookie.match(/(?:^|;\s*)lang=(ja|en)\b/);
+  return m ? m[1] : null;
+}
+function writeLangCookie(lang) {
+  const base = 'lang=' + lang + ';path=/;max-age=31536000;samesite=lax';
+  // Scope to the apex so all subdomains share it; on localhost/previews a domain
+  // mismatch makes the browser drop the cookie, so fall back to a bare cookie.
+  document.cookie = location.hostname.endsWith('orbitlens.io')
+    ? base + ';domain=.orbitlens.io'
+    : base;
+}
+// `persist` is true only for an explicit user toggle. The init call leaves it
+// falsy so an auto-detected default never writes the shared cookie — otherwise
+// a non-JA browser visiting the library would silently override corp's JA
+// default on the next subdomain hop.
+function setLang(lang, persist) {
   const tabs = document.getElementById('lang-tabs');
   const prev = tabs ? tabs.dataset.active : null;
   if (tabs && prev !== lang) {
@@ -1748,15 +1781,17 @@ function setLang(lang) {
   }
   document.body.classList.toggle('ja', lang === 'ja');
   localStorage.setItem('orbit-lang', lang);
+  if (persist) writeLangCookie(lang);
   document.documentElement.lang = lang;
   if (window.__refreshCrumbSection) window.__refreshCrumbSection();
 }
-// Priority: URL ?lang=xx > localStorage > browser language > 'en'
+// Priority: URL ?lang=xx > cross-subdomain cookie > localStorage > browser > 'en'
 const urlLangParam = new URLSearchParams(window.location.search).get('lang');
 const urlLang = (urlLangParam === 'ja' || urlLangParam === 'en') ? urlLangParam : null;
+const cookieLang = readLangCookie();
 const savedLang = localStorage.getItem('orbit-lang');
 const browserLang = (navigator.language && navigator.language.startsWith('ja')) ? 'ja' : 'en';
-const initialLang = urlLang || savedLang || browserLang;
+const initialLang = urlLang || cookieLang || savedLang || browserLang;
 // Initialize container state without animation on first paint
 const _langTabs = document.getElementById('lang-tabs');
 if (_langTabs) _langTabs.dataset.active = initialLang;
