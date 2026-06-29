@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function() {
+    if (location.hostname === 'machuz.github.io' && location.pathname.startsWith('/eis/docs/')) {
+      var newPath = location.pathname.replace('/eis/docs/', '/');
+      location.replace('https://library.orbitlens.io' + newPath + location.search + location.hash);
+    }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>OrbitLens のビジョン — 観測から継承へ — OrbitLens Library</title>
+<meta name="description" content="観測は機能ではなく能力だ。機能はコピーされ、能力はカテゴリを作る。観測で何が見えるかは、どんな意思決定ができるかに変わる——採用、離職の予防、知識の継承、開発速度。そして本質は継承にある。ACE が観測し、TRUE が市場へ開示して継承し、IDEAL が次の軌道を設計する。予測ではなく、観測と継承の文化。">
+<link rel="icon" type="image/png" href="../../images/orbitlens-royal-purple-shadow.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/reader.css?v=21">
+<style>
+  .reader-layout { grid-template-columns: minmax(0, 1fr); max-width: 820px; }
+  .inline-toc { display: none !important; }
+  @media (min-width: 1221px) { .reader-layout { grid-template-columns: minmax(0, 1fr); } }
+  .orbit-circle { display:flex; flex-wrap:wrap; gap:10px; margin:1.4em 0; }
+  .orbit-circle .step {
+    flex:1 1 180px; border:1px solid var(--line, #3c3836); border-radius:10px;
+    padding:14px 16px; background:rgba(255,255,255,0.015);
+  }
+  .orbit-circle .step .tag {
+    font-family: var(--mono); font-size:11px; letter-spacing:1.5px;
+    text-transform:uppercase; color: var(--accent, #d79921); display:block; margin-bottom:6px;
+  }
+  .orbit-circle .step .body { font-size:14px; line-height:1.5; color: var(--ink, #d5c4a1); }
+</style>
+</head>
+<body>
+
+<div class="starfield"></div>
+
+<nav class="orbit-bar">
+  <a href="../../" class="crumb-logo" style="display:inline-flex;align-items:center;gap:10px;">
+    <img src="../../images/orbitlens-royal-purple-shadow.png" alt="" style="width:22px;height:22px">
+    <span class="crumb-brand">ORBITLENS</span>
+  </a>
+  <span class="crumb-sep">/</span>
+  <a href="../../" class="crumb-scope">LIBRARY</a>
+  <span class="crumb-sep">/</span>
+  <span class="crumb-book">OrbitLens のビジョン</span>
+  <span class="orbit-spacer"></span>
+  <div class="progress-bar" id="progress-bar"></div>
+</nav>
+
+<div class="reader-layout">
+  <main class="reader-main">
+    <div class="chapter-bar">
+      <div class="ch-info">
+        <strong>VISION</strong>
+        <span>観測から継承へ / From Observation to Succession</span>
+      </div>
+    </div>
+
+    <article class="chapter-content">
+      <h1>OrbitLens のビジョン — 観測から継承へ</h1>
+
+      <p><em>The OrbitLens Vision — From Observation to Succession.</em></p>
+
+      <hr>
+
+      <h2>観測は、機能ではなく能力だ</h2>
+
+      <p>ダッシュボードは機能だ。アラートも、グラフも、スコアも機能だ。機能はコピーされる。誰かが作れば、翌四半期には三社が同じものを出す。機能の競争は、最後には価格と営業の競争になる。</p>
+
+      <p>観測は、そことは別の層にある。git に刻まれた事実を、推論もモデルも介さずに読み、何が生き残り、誰の手に構造が寄りかかっているかを返す——これは一個の機能ではなく、一つの<strong>能力</strong>だ。能力はコピーされない。能力は、それまで言葉にできなかった問いに名前を与える。そして名前のついた問いは、カテゴリになる。機能は市場の中で競い、能力は市場そのものの形を変える。OrbitLens が作っているのは、後者だ。</p>
+
+      <hr>
+
+      <h2>観測で何が見えるか → どんな意思決定ができるか</h2>
+
+      <p>観測そのものは目的ではない。観測の価値は、それが変える意思決定の側にある。何が見えると、何が決められるようになるのか。</p>
+
+      <ul>
+        <li><strong>採用。</strong> 活動量ではなく、いくつもの現場で生き残ったコードを書いた人が見える。肩書きではなく、構造を支えた事実で人を読む。</li>
+        <li><strong>離職の予防。</strong> 「この人が抜けたら、このサブシステムは誰も分からない」——その崩壊リスクは、事故になる前から git 履歴に書いてある。バスファクター1が見えれば、手当てができる。</li>
+        <li><strong>知識の継承。</strong> 去った人が何を分かっていたかを、コードの構造として読める状態に保つ。次の人が、謎ではなく構造を受け継ぐ。</li>
+        <li><strong>開発速度。</strong> 組織図と実態のズレ（コンウェイ検証）が見えれば、知識がどこへ移ったか、どのチームが実際に書いているかが分かる。配置を実態に合わせれば、摩擦が減る。</li>
+      </ul>
+
+      <p>見えることは、決められることに変わる。観測は、より良い意思決定の前提であって、意思決定そのものを肩代わりはしない。判断は人が下す。</p>
+
+      <hr>
+
+      <h2>本質は、継承だ</h2>
+
+      <p>人は辞める。組織は組み変わる。ツールは1000行の値段を変える。それでも最後まで残らなければならないのは、ここにいた人が分かっていたことだ。守るのは人ではない——人は去っていくし、去っていい。守るのは知識だ。観測は、その知識を去ったあとも読める状態に保つためにある。観測は、継承のためにある。</p>
+
+      <p>だから OrbitLens は、観測で終わらない。観測を継承につなぎ、継承を次の設計につなぐ。三つのサービスは、その一つの円を回している。</p>
+
+      <div class="orbit-circle">
+        <div class="step">
+          <span class="tag">ACE · 観測</span>
+          <span class="body">git に刻まれた構造を観測する。何が生き残り、誰に寄りかかっているか。組織が今いる場所を、事実として読む。</span>
+        </div>
+        <div class="step">
+          <span class="tag">TRUE · 継承</span>
+          <span class="body">観測を市場へ開示し、人とともに持ち運べる記録（Gravity Certificate）にする。組織を越えて、知識と信頼を継承する。</span>
+        </div>
+        <div class="step">
+          <span class="tag">IDEAL · 設計</span>
+          <span class="body">観測された現在地から、安定した次の軌道を設計する。成長経路と最適な配置を。未来を当てるのではなく、選べる航路を描く。</span>
+        </div>
+        <div class="step">
+          <span class="tag">→ 実行 · 新しい履歴</span>
+          <span class="body">設計は実行され、新しいコミットになる。新しい履歴が刻まれ、円はふたたび ACE の観測へ戻る。</span>
+        </div>
+      </div>
+
+      <p>観測する → 継承する → 設計する → 実行する → また観測する。この円が閉じているあいだ、組織は学び続ける。一度の介入で終わらず、N週後に再び観測して効果を測り、次の設計につなぐ。学習がループとして閉じていることが、組織が賢くなり続ける条件だ。</p>
+
+      <hr>
+
+      <h2>これは、予測ではない</h2>
+
+      <p>はっきりさせておきたい。これは未来を予測する装置ではない。組織の「デジタルツイン」を作って、起きることを当てにいくものでもない。EIS の核心は一貫している——<strong>観測であって、生成ではない</strong>。git にもう書いてあることを読むだけで、推論しないので、ハルシネーションも起きない。</p>
+
+      <p>IDEAL が描くのは予言ではなく、設計だ。地図が天気を予報しないのと同じで、現在地を正確に観測したうえで、選べる航路を引く。どの航路を取るかは、人が決める。予測は判断を奪うが、観測は判断の前提を整えるだけだ。OrbitLens は前者を作らない。</p>
+
+      <hr>
+
+      <h2>観測と継承という文化</h2>
+
+      <p>順位づける指標は、対象が抜けた瞬間に忘れられる。記録する年表は、次のオーナーが最初に読むものになる。OrbitLens が残したいのは、得点表ではなく、組織が自分の来歴を読み、次の人へ手渡していく習慣だ。</p>
+
+      <p>機能はコピーされる。能力はカテゴリを作る。そのカテゴリの名前は、観測と継承という文化だ。</p>
+
+      <hr>
+
+      <p><strong>観測する:</strong> <a href="../ace-launch/">OrbitLens Ace を公開する</a> — 望遠鏡と天文台。<br>
+      <strong>望遠鏡:</strong> <a href="https://github.com/machuz/eis" target="_blank" rel="noopener">eis</a> — 完全にオープンソース。<br>
+      <strong>天文台:</strong> <a href="https://ace.orbitlens.io" target="_blank" rel="noopener">ace.orbitlens.io</a><br>
+      <strong>Library:</strong> <a href="../../">library.orbitlens.io</a> — EIS の理論と書架。</p>
+    </article>
+
+    <div class="book-footer">
+      <div class="quote">観測の文化とは、継承の文化のことだ。</div>
+      <div class="foot-links">
+        <a href="../../">Library</a>
+        <a href="../ace-launch/">OrbitLens Ace を公開する</a>
+        <a href="https://github.com/machuz/eis" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="firewall">
+  <div class="firewall-msg">
+    <svg class="firewall-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="3" y="7" width="10" height="7" rx="1"/>
+      <path d="M5 7V5a3 3 0 016 0v2"/>
+    </svg>
+    <span class="firewall-tag">Firewall</span>
+    <strong>観測であって、予測ではない。</strong>
+    <span>現在地を読むためにある。未来を当てるためではない。</span>
+  </div>
+  <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--dim)">VISION · 観測 → 継承</span>
+</div>
+
+<script>
+(function(){
+  const progressBar = document.getElementById('progress-bar');
+  let raf = null;
+  function upd() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const d = document.documentElement;
+      const limit = d.scrollHeight - d.clientHeight;
+      const pct = limit > 0 ? (window.scrollY / limit) * 100 : 0;
+      progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+    });
+  }
+  window.addEventListener('scroll', upd, { passive: true });
+})();
+</script>
+
+</body>
+</html>

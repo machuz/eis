@@ -123,6 +123,18 @@ Measuring people is dangerous even with good intent, and we haven't found how to
 
 ---
 
+## Why we observe at all
+
+Read this from one end and a single thread runs through it. People leave. Organizations reshape. Tools change what a thousand lines cost. The one thing that has to outlast all of it is what the people who were here understood — and almost none of that lives in anyone's head. It lives in the code, but only while someone can still read what the code remembers.
+
+That is what observation is for. Not to score the people who are here, but to keep what they knew legible after they're gone, so the next person inherits structure instead of a mystery. We don't protect people — people move on, and they should. We protect knowledge. A signal that ranks is forgotten the moment its subject leaves; a chronicle that records is the first thing the next owner reads.
+
+So the soul of this isn't measurement. It's observation in the service of succession. **A culture of observation is a culture of succession.**
+
+→ The wider arc — observation, understanding, succession, the design of the next orbit — is the [OrbitLens Vision](https://library.orbitlens.io/articles/vision/).
+
+---
+
 ![EIS — the Git Telescope](https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-full.png)
 
 **GitHub**: [eis](https://github.com/machuz/eis) — the telescope, fully open source.
