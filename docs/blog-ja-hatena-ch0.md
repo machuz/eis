@@ -206,9 +206,7 @@ EISが観測しているのは**構造の物理法則**であって、良し悪�
 
 ### Top 50：OSS宇宙で最も明るい星たち
 
-29プロジェクト全体から、**Gravity（構造的影響力）による上位50人の影響度分布**を図にした。
-
-> [OSS Gravity Map — Top 50 Engineers](https://machuz.github.io/eis/research/oss-gravity-map/analysis/top50.html)
+29プロジェクト全体から、**Gravity（構造的影響力）による上位50人の影響度分布**を観測した。
 
 Salvatore Sanfilippo（Redis）、Alexey Milovidov（ClickHouse）、Ritchie Vink（Polars）——彼らの重力はスケールを振り切る。しかしより注目すべき発見は、**世界が名前を知らない440人のエンジニア**だった。カンファレンスで登壇しない。Twitterのフォロワーも多くない。しかしコードベースの重力場を辿ると、そこにいた——静かにアーキテクチャを支え続けていた。彼らを**Hidden Architects（隠れたアーキテクト）**と呼ぶ。
 
@@ -217,8 +215,6 @@ Salvatore Sanfilippo（Redis）、Alexey Milovidov（ClickHouse）、Ritchie Vin
 ただし、歪みはGravityの構成によってある程度軽減される。3つの軸——モジュール所有率、設計関与率、横断性——はいずれも**比率ベースのシグナル**であり、絶対量ではない。50モジュールのプロジェクトで80%を持つことと500モジュールのプロジェクトで80%を持つことは、同じIndispensabilityシグナルとして記録される。このランキングが捉えているのは*自分の宇宙の重力場を形作った人*であり、「最も大きな宇宙で働いた人」ではない。
 
 各銀河で最も明るい星をマッピングしていると考えてほしい。銀河の大きさは異なるが、どの銀河でも重力場を形作る星は観測できる。
-
-> 詳細な分析結果：[OSS Gravity Map](https://machuz.github.io/eis/research/oss-gravity-map/analysis/oss-gravity-map-ja.html)
 
 ---
 
