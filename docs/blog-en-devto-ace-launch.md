@@ -91,7 +91,6 @@ There is another honest way to read all-time. Measure it not as "the gravity liv
 
 A leaderboard parks the famous and the first at the top forever. EIS doesn't — but open the timeline and who held the structure, and when, is preserved in full. In that same React, the all-time top-10 overlaps the GitHub maintainer list by only 60%. The rest are people without the title, whose code the system still rests on.
 
-The whole picture — 29 OSS projects, 51,321 engineers, the same telescope — is in the [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html), and React's generational handover is in [React: A Generational Evolution](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution.html).
 
 ---
 
@@ -141,7 +140,6 @@ So the soul of this isn't measurement. It's observation in the service of succes
 
 **GitHub**: [eis](https://github.com/machuz/eis) — the telescope, fully open source.
 **Observatory**: [ace.orbitlens.io](https://ace.orbitlens.io)
-**Research**: [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html) — 29 OSS projects read through the same telescope.
 **Library**: [library.orbitlens.io](https://library.orbitlens.io) — the theory and the shelf behind EIS (Git Archaeology, whitepaper).
 
 If this was useful: [Sponsor on GitHub](https://github.com/sponsors/machuz)

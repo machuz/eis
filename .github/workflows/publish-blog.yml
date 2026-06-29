@@ -26,9 +26,12 @@ on:
           - hatena-delete
           - set-draft
           - set-published
+          - devto-list
+          - devto-unpublish
+          - devto-publish
         default: 'init'
       file:
-        description: 'publish-file/set-draft/set-published: md path(s). hatena-delete: edit id(s). Space-separated.'
+        description: 'publish-file/set-draft/set-published: md path(s). hatena-delete/devto-*: id(s). Space-separated.'
         required: false
         default: ''
       published:
@@ -115,6 +118,25 @@ jobs:
           else
             python scripts/publish-blog.py --set-published ${{ inputs.file }}
           fi
+
+      - name: List dev.to articles
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'devto-list'
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: python scripts/publish-blog.py --devto-list
+
+      - name: Unpublish dev.to articles
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'devto-unpublish'
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        # inputs.file holds one or more space-separated dev.to article ids.
+        run: python scripts/publish-blog.py --devto-unpublish ${{ inputs.file }}
+
+      - name: Re-publish dev.to articles
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'devto-publish'
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: python scripts/publish-blog.py --devto-publish ${{ inputs.file }}
 
       - name: Publish all blog posts
         if: github.event_name == 'workflow_dispatch' && inputs.action == 'publish-all'
