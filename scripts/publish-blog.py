@@ -149,10 +149,15 @@ def devto_list_all():
 
 
 def devto_set_published(article_id: str, published: bool) -> dict:
-    """Publish or unpublish an existing dev.to article by id (no body change).
+    """Publish (draft -> live) an existing dev.to article by id (no body change).
 
-    dev.to offers no DELETE; published=false unpublishes (the de-dup tool).
+    NOTE: dev.to has no DELETE endpoint, and its API IGNORES published=false on an
+    already-published article (verified: the post stays live). Unpublishing or
+    deleting therefore has to be done by hand in the dev.to dashboard. published=true
+    (draft -> live) does work, which is what the 7/1 launch uses.
     """
+    if not published:
+        print("  WARN: dev.to ignores published=false on a live post; unpublish in the dashboard.", file=sys.stderr)
     url = f"https://dev.to/api/articles/{article_id}"
     data = json.dumps({"article": {"published": published}}).encode()
     req = urllib.request.Request(url, data=data, headers=devto_headers(), method="PUT")
