@@ -1,15 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="540" height="200" viewBox="0 0 540 200">
-  <defs>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
-      text { font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace; }
-    </style>
-  </defs>
-
-  <!-- transparent background -->
-
-  <!-- OrbitLens Ace gold orbit-ring mark (the open telescope) -->
-  <svg x="18" y="18" width="164" height="164" viewBox="48 6 340 340">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420">
+  <rect width="1000" height="420" fill="#1d2021"/>
+  <circle cx="22" cy="20" r="7" fill="#fb4934"/>
+  <circle cx="47" cy="20" r="7" fill="#fabd2f"/>
+  <circle cx="72" cy="20" r="7" fill="#b8bb26"/>
+  <text x="45" y="373" fill="#7c6f64" font-size="15" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="229" lengthAdjust="spacingAndGlyphs" xml:space="preserve">$ brew install machuz/tap/eis</text>
+  <text x="331" y="373" fill="#fe8019" font-size="15" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="141" lengthAdjust="spacingAndGlyphs" xml:space="preserve">&#8594; ace.orbitlens.io</text>
+  <text x="500" y="25" fill="#7c6f64" font-size="14" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="middle" textLength="235.20000000000002" lengthAdjust="spacingAndGlyphs" xml:space="preserve">OrbitLens Ace &#8212; Launch</text>
+  <text x="44" y="92" fill="#928374" font-size="17" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="350" lengthAdjust="spacingAndGlyphs" xml:space="preserve">// the telescope now has an observatory</text>
+  <text x="44" y="150" fill="#fabd2f" font-size="46" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="334" lengthAdjust="spacingAndGlyphs" xml:space="preserve">OrbitLens Ace</text>
+  <text x="44" y="196" fill="#83a598" font-size="20" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="347" lengthAdjust="spacingAndGlyphs" xml:space="preserve">Observe with the open telescope.</text>
+  <text x="44" y="224" fill="#83a598" font-size="20" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="336" lengthAdjust="spacingAndGlyphs" xml:space="preserve">Interpret with the observatory.</text>
+  <text x="44" y="275" fill="#d3869b" font-size="15" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="182" lengthAdjust="spacingAndGlyphs" xml:space="preserve">What becomes observable</text>
+  <text x="45" y="305" fill="#7c6f64" font-size="15" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="397" lengthAdjust="spacingAndGlyphs" xml:space="preserve">$ structural summary &#183; conway &#183; collapse risk</text>
+  <text x="45" y="329" fill="#7c6f64" font-size="15" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-weight="normal" text-anchor="start" textLength="397" lengthAdjust="spacingAndGlyphs" xml:space="preserve">$ organizational chronicle &#8212; a record, not a score</text>
+  <svg x="698" y="118" width="228" height="228" viewBox="48 6 340 340">
 
 <defs><mask id="ctr-hole" maskUnits="userSpaceOnUse" x="48" y="6" width="340" height="340">
 <rect x="48" y="6" width="340" height="340" fill="white"/>
@@ -659,10 +663,4 @@
 />
 </g>
   </svg>
-
-  <!-- Text lockup -->
-  <text x="230" y="105" fill="#ebdbb2" font-size="64" font-weight="700" letter-spacing="8">EIS</text>
-  <text x="232" y="135" fill="#928374" font-size="16">the Git Telescope</text>
-  <text x="232" y="162" fill="#665c54" font-size="11">Engineering Impact Signal</text>
-  <text x="232" y="180" fill="#504945" font-size="9" font-style="italic">It doesn't measure activity. It measures gravity.</text>
 </svg>
