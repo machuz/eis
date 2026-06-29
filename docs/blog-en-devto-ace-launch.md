@@ -2,7 +2,7 @@
 title: "When AI writes a thousand lines a minute, which code actually holds? (Launching OrbitLens Ace)"
 series: "OrbitLens Ace"
 published: true
-description: "Git keeps two records. Everyone reads activity (commits, PRs, lines); almost nobody reads what survived. Once AI makes code infinite, the surviving layer is the only signal left that means anything. EIS reads it; OrbitLens Ace interprets it into a chronicle, not a scoreboard."
+description: "Git keeps two records. Everyone reads activity (commits, PRs, lines); almost nobody reads what survived. Once AI makes code infinite, the surviving layer is the only signal left that means anything. EIS reads it; OrbitLens Ace interprets it into a chronicle, not a scoreboard. Observation isn't a feature but a capability, and its soul is succession: knowledge that outlives the people who wrote it."
 tags: opensource, ai, git, saas
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-launch.png?v=1
 ---
@@ -17,6 +17,8 @@ One everyone reads: the commit log, PR counts, lines changed. Activity. Who move
 One almost nobody reads: whether a line of code is still standing six months later, and who its blame finally resolves to. That one is structure.
 
 Management usually watches the first and gets blindsided by the second. "If she leaves, nobody understands that subsystem." That collapse was written in the second record the whole time. We just weren't reading it.
+
+And reading that second record isn't a feature — it's a capability. Key-person detection is a feature; any dashboard can bolt one on, and a rival ships the same thing next quarter. Observation is the layer beneath: read what survived once, and a dozen of those features fall out of a single signal. Features get copied. A capability creates a category.
 
 ---
 
@@ -72,6 +74,14 @@ Read these as the structure git was hiding, not as a feature list.
 **The Organizational Chronicle. The heart of it.** Not a scoreboard. It doesn't rank engineers. It records what the codebase has lived through: the migrations it survived, the architect who shaped a subsystem and moved on, the module that turned fragile after an ownership change.
 
 A scoreboard teaches people to game it. A chronicle is something a team grows attached to. We're after the second. The signal is still there if you want to look closer, but it's a lens you pick up, never the headline.
+
+---
+
+## What observation is for
+
+Step back from the screens and ask what they're for. A CTO doesn't buy a topology diagram; they buy knowledge that survives the people who wrote it. The same surviving layer that names a key-person concentration also shows where knowledge is succeeding to its next owner — or isn't — where attrition would blindside you, what the review culture actually looks like, whether a hiring signal is fact or instinct. Different screens, one capability: knowledge that outlasts a resignation, attrition that doesn't ambush you, onboarding and hiring decided on the record instead of on gut.
+
+And under all of it sits one thing. People leave. Organizations reorganize. Code gets rewritten. What an organization is trying to carry through all of that isn't people — you can't keep people — it's the knowledge they held. That is what EIS and Ace exist to protect, and it has a name: succession. Observation isn't here to score the people who are present; it's here so that what they know outlives their staying. A culture of observation is a culture of succession.
 
 ---
 
