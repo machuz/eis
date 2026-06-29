@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSS Gravity Map — コードの宇宙に物理法則は存在するか</title>
+<meta name="description" content="29リポジトリ・51,321人のエンジニアを関係的な重力で読む。システムが寄りかかる構造は、言語ファミリーごとに系統的に異なる。">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans',sans-serif;line-height:1.7;padding:0 16px 80px}
+::selection{background:#388bfd44;color:#fff}
+.container{max-width:960px;margin:0 auto}
+
+/* Hero */
+header{max-width:960px;margin:0 auto;padding:60px 0 12px;text-align:center}
+h1{font-size:clamp(1.5rem,4vw,2.4rem);font-weight:800;color:#f0f6fc;letter-spacing:-.02em;margin-bottom:8px}
+h1 .accent{color:#58a6ff}
+.subtitle{font-size:clamp(.85rem,1.8vw,1.05rem);color:#8b949e;margin-bottom:0}
+.hero-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+.badge{display:inline-block;padding:3px 12px;font-size:.75em;font-weight:600;color:#fff}
+
+/* Sections */
+.section{margin-top:56px}
+.section-title{font-size:1.35rem;font-weight:700;color:#f0f6fc;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #21262d}
+.section-desc{font-size:.9rem;color:#8b949e;margin-bottom:20px}
+.section-subtitle{font-size:1.05rem;font-weight:600;color:#c9d1d9;margin:28px 0 12px}
+
+/* Stats row */
+.big-stats{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}
+.big-stat{background:#161b22;border:1px solid #30363d;padding:20px 24px;text-align:center;flex:1;min-width:130px}
+.big-num{font-size:2em;font-weight:800}
+.big-label{color:#8b949e;font-size:.78em;margin-top:4px}
+
+/* Cards */
+.card{background:#161b22;border:1px solid #30363d;padding:24px;margin:20px 0}
+.card-title{font-size:1.1em;font-weight:700;color:#f0f6fc;margin-bottom:12px}
+
+/* Tables */
+.data-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.data-table th{text-align:left;padding:10px 12px;border-bottom:2px solid #30363d;color:#8b949e;font-weight:600;font-size:.8em;text-transform:uppercase;letter-spacing:.5px}
+.data-table td{padding:10px 12px;border-bottom:1px solid #21262d}
+.data-table tr:hover{background:#161b22}
+.data-table tr.hl{background:rgba(88,166,255,.06)}
+.right{text-align:right}
+
+/* Bars */
+.bar-row{display:flex;align-items:center;gap:12px;margin:8px 0}
+.bar-label{width:160px;font-size:.85em;color:#c9d1d9;text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:22px;background:#21262d;position:relative;overflow:hidden}
+.bar-fill{height:100%}
+.bar-val{font-size:.8em;font-weight:700;color:#f0f6fc;margin-left:8px;min-width:48px}
+
+/* Insight box */
+.insight{background:rgba(88,166,255,.06);border-left:3px solid #58a6ff;padding:16px 20px;margin:20px 0;font-size:.93em;line-height:1.8}
+.insight strong{color:#f0f6fc}
+.insight.gold{background:rgba(245,194,17,.06);border-left-color:#f5c211}
+.insight.red{background:rgba(204,0,0,.06);border-left-color:#cc0000}
+.insight.green{background:rgba(35,134,54,.06);border-left-color:#238636}
+
+/* Comparison grid */
+.cmp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0}
+.cmp-card{background:#161b22;border:1px solid #30363d;padding:20px;position:relative;overflow:hidden}
+.cmp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.cmp-card.rails::before{background:#cc0000}
+.cmp-card.laravel::before{background:#ff2d20}
+.cmp-card.esbuild::before{background:#f5c211}
+.cmp-card.react::before{background:#61dafb}
+.cmp-card.scala::before{background:#8b5cf6}
+.cmp-name{font-size:1.2em;font-weight:800;color:#f0f6fc;margin-bottom:4px}
+.cmp-tag{font-size:.75em;color:#8b949e;margin-bottom:12px}
+.cmp-row{display:flex;justify-content:space-between;padding:4px 0;font-size:.85em}
+.cmp-row .label{color:#8b949e}.cmp-row .val{font-weight:700;color:#f0f6fc}
+
+/* Timeline */
+.timeline{position:relative;padding-left:32px;margin:20px 0}
+.timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:#30363d}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-item::before{content:'';position:absolute;left:-25px;top:6px;width:10px;height:10px;border:2px solid #58a6ff;background:#0d1117}
+.tl-item.gold::before{border-color:#f5c211}
+.tl-item.red::before{border-color:#f85149}
+.tl-year{font-size:.8em;color:#58a6ff;font-weight:600;margin-bottom:2px}
+.tl-item.gold .tl-year{color:#f5c211}
+.tl-content{font-size:.9em;color:#c9d1d9}
+.tl-content strong{color:#f0f6fc}
+
+/* Gravity bar */
+.gravity-bar{position:relative;height:20px;background:#21262d;min-width:100px;overflow:hidden}
+.gravity-fill{height:100%}
+.gravity-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.8em;font-weight:700;color:#f0f6fc}
+
+/* TOC */
+.toc{background:#161b22;border:1px solid #30363d;padding:20px 28px;margin:32px 0}
+.toc-title{font-size:1em;font-weight:700;color:#f0f6fc;margin-bottom:12px}
+.toc a{color:#58a6ff;text-decoration:none;font-size:.9em;display:block;padding:4px 0}
+.toc a:hover{text-decoration:underline}
+.toc .sub{padding-left:16px;font-size:.85em}
+
+/* Footer */
+.footer{margin-top:56px;padding-top:16px;border-top:1px solid #30363d;color:#484f58;font-size:.8em;text-align:center}
+.footer a{color:#58a6ff;text-decoration:none}
+
+/* Responsive */
+@media(max-width:640px){
+  .bar-label{width:100px;font-size:.75em}
+  .big-stat{min-width:100px;padding:14px}
+  .big-num{font-size:1.4em}
+  .cmp-grid{grid-template-columns:1fr}
+}
+.lang-switch{position:absolute;top:18px;right:20px;font-size:.82em;z-index:50}
+.lang-switch a{color:#8b949e;text-decoration:none;padding:2px 4px}
+.lang-switch a.active{color:#58a6ff;font-weight:700}
+.lang-switch a:hover{color:#c9d1d9}
+.lang-switch .sep{color:#30363d;margin:0 2px}
+</style>
+</head>
+<body>
+<div class="lang-switch"><a href="oss-gravity-map-en.html">EN</a><span class="sep">·</span><a href="oss-gravity-map-ja.html" class="active">日本語</a></div>
+
+
+<header>
+  <h1>OSS <span class="accent">Gravity Map</span></h1>
+  <p class="subtitle">コードの宇宙に物理法則は存在するか</p>
+  <p class="subtitle" style="margin-top:4px;font-size:.85em">29リポジトリ・51,321人のエンジニア・5つの言語ファミリーを横断分析</p>
+  <div class="hero-badges">
+    <span class="badge" style="background:#238636">29 Repos</span>
+    <span class="badge" style="background:#1f6feb">51,321 Engineers</span>
+    <span class="badge" style="background:#8b5cf6">5 Categories</span>
+    <span class="badge" style="background:#da3633">2.1x Gravity Gap</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <a href="#intro">1. EISとは何か</a>
+  <a href="#cross-language">2. 言語横断分析 — 物理法則は一様ではない</a>
+  <a class="sub" href="#gravity-concentration">重力集中度</a>
+  <a class="sub" href="#three-modes">3つの構造権威モード</a>
+  <a href="#findings">3. そのほかに観えたこと</a>
+  <a href="#consent">名前について</a>
+  <a href="#repos">観測した29リポジトリ</a>
+</div>
+
+<!-- ========================================= -->
+<!-- 1. EISとは何か -->
+<!-- ========================================= -->
+<div class="section" id="intro">
+  <h2 class="section-title">1. EISとは何か</h2>
+  <p class="section-desc">
+    EIS (Engineering Impact Signal) は、<code>git log</code> と <code>git blame</code> のデータだけから、エンジニアがコードベースに残した構造のかたちを読むCLIツールです。<strong style="color:#c9d1d9">Gravity</strong> はその関係的な読み — 構造のかたちを2つの正直なゲートに通したもので、生き残ったコードだけでも、catalysis だけでも、それを成り立たせることはできない。
+  </p>
+
+  <div class="card" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82em;color:#c9d1d9;line-height:1.9;border-color:#3c3836;background:#1d2021">
+    <div><span style="color:#83a598">shape</span>&nbsp;&nbsp;&nbsp;= 0.45&middot;Design + 0.25&middot;Breadth + 0.30&middot;Indispensability</div>
+    <div><span style="color:#fabd2f">catGate</span>&nbsp;= 0.15 + 0.85&middot;(Catalysis / 100)</div>
+    <div><span style="color:#fb4934">survGate</span> = 0.15 + 0.85&middot;(RobustSurvival / 100)</div>
+    <div style="margin-top:6px;color:#ebdbb2;font-weight:700"><span style="color:#ebdbb2">Gravity</span>&nbsp;&nbsp;= catGate &times; survGate &times; shape</div>
+  </div>
+
+  <p style="font-size:.9em;color:#8b949e;margin-top:12px">
+    重力を「出力の合計」ではなく<em>関係的</em>なものにしているのは、この2つのゲートだ：
+  </p>
+  <ul style="font-size:.9em;color:#8b949e;margin:8px 0 0 20px;line-height:1.8">
+    <li><strong style="color:#fb4934">survGate (Robust Survival)</strong> — そのコードは<em>他者の圧力の下で</em>生き残ったか。Robust survival は、<em>あなた以外</em>の著者が能動的にコミットしているモジュールで生き延びた行だけを数える。誰も触らない隅のコードや、自分で書き換え続けたコードは数に入らない。</li>
+    <li><strong style="color:#fabd2f">catGate (Catalysis)</strong> — 他者があなたの生き残った土台の上に積んだか。一人の著者では必ずゼロになる唯一の軸であり、だからこそ構造が誰かに観測可能なかたちで寄りかかっていることの証になる。</li>
+  </ul>
+
+  <!-- Gravity formula diagram — cosmic theme -->
+  <div class="card" style="padding:0;overflow:hidden;border-color:#3c3836">
+    <svg width="100%" height="420" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid meet" style="display:block">
+      <defs>
+        <radialGradient id="grav-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fabd2f" stop-opacity="0.2"/>
+          <stop offset="60%" stop-color="#d79921" stop-opacity="0.05"/>
+          <stop offset="100%" stop-color="#282828" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="indisp-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fabd2f" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#fabd2f" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="breadth-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#83a598" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#83a598" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="design-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fb4934" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#fb4934" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Background -->
+      <rect width="800" height="420" fill="#1d2021"/>
+
+      <!-- Subtle star field -->
+      <circle cx="50" cy="30" r="1" fill="#ebdbb2" opacity="0.3"/>
+      <circle cx="150" cy="80" r="1.2" fill="#ebdbb2" opacity="0.25"/>
+      <circle cx="680" cy="45" r="1" fill="#ebdbb2" opacity="0.35"/>
+      <circle cx="750" cy="120" r="0.8" fill="#ebdbb2" opacity="0.2"/>
+      <circle cx="30" cy="380" r="1" fill="#ebdbb2" opacity="0.25"/>
+      <circle cx="770" cy="350" r="1.2" fill="#ebdbb2" opacity="0.3"/>
+      <circle cx="620" cy="400" r="0.8" fill="#ebdbb2" opacity="0.2"/>
+      <circle cx="100" cy="200" r="1" fill="#ebdbb2" opacity="0.15"/>
+      <circle cx="700" cy="220" r="1" fill="#ebdbb2" opacity="0.2"/>
+
+      <!-- Central Gravity core -->
+      <circle cx="400" cy="100" r="70" fill="url(#grav-glow)"/>
+      <circle cx="400" cy="100" r="36" fill="#282828" stroke="#d79921" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="400" cy="100" r="18" fill="#fabd2f" opacity="0.12"/>
+      <circle cx="400" cy="100" r="6" fill="#ebdbb2" opacity="0.9"/>
+      <text x="400" y="60" text-anchor="middle" fill="#ebdbb2" font-size="18" font-weight="800" font-family="-apple-system,sans-serif" letter-spacing="2">GRAVITY</text>
+      <text x="400" y="150" text-anchor="middle" fill="#a89984" font-size="11" font-family="-apple-system,sans-serif">shape — survival と catalysis のゲートを通したかたち</text>
+
+      <!-- Connection lines (gravity rays) -->
+      <line x1="320" y1="130" x2="180" y2="250" stroke="#fabd2f" stroke-width="0.8" opacity="0.2"/>
+      <line x1="400" y1="140" x2="400" y2="250" stroke="#83a598" stroke-width="0.8" opacity="0.2"/>
+      <line x1="480" y1="130" x2="620" y2="250" stroke="#fb4934" stroke-width="0.8" opacity="0.2"/>
+
+      <!-- Expansion wavefronts from center -->
+      <circle cx="400" cy="100" r="50" fill="none" stroke="#d79921" stroke-width="0.5" opacity="0.1"/>
+
+      <!-- === Indispensability (left) === -->
+      <circle cx="160" cy="300" r="55" fill="url(#indisp-glow)"/>
+      <circle cx="160" cy="300" r="30" fill="#282828" stroke="#fabd2f" stroke-width="1.2" opacity="0.7"/>
+      <circle cx="160" cy="300" r="4" fill="#fabd2f" opacity="0.8"/>
+      <text x="160" y="264" text-anchor="middle" fill="#fabd2f" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">Indispensability</text>
+      <text x="160" y="350" text-anchor="middle" fill="#a89984" font-size="10" font-family="-apple-system,sans-serif">&times; 0.30</text>
+
+      <!-- Indispensability: person icon (占有率) -->
+      <circle cx="145" cy="293" r="5" fill="none" stroke="#fabd2f" stroke-width="1" opacity="0.6"/>
+      <line x1="145" y1="299" x2="145" y2="310" stroke="#fabd2f" stroke-width="1" opacity="0.6"/>
+      <circle cx="165" cy="293" r="5" fill="none" stroke="#665c54" stroke-width="1" opacity="0.3"/>
+      <circle cx="175" cy="300" r="4" fill="none" stroke="#665c54" stroke-width="1" opacity="0.2"/>
+
+      <!-- Indispensability description -->
+      <text x="160" y="372" text-anchor="middle" fill="#bdae93" font-size="9.5" font-family="-apple-system,sans-serif">そのコードを書いた人が</text>
+      <text x="160" y="386" text-anchor="middle" fill="#bdae93" font-size="9.5" font-family="-apple-system,sans-serif">他にいない度合い</text>
+
+      <!-- === Breadth (center) === -->
+      <circle cx="400" cy="300" r="55" fill="url(#breadth-glow)"/>
+      <circle cx="400" cy="300" r="30" fill="#282828" stroke="#83a598" stroke-width="1.2" opacity="0.7"/>
+      <circle cx="400" cy="300" r="4" fill="#83a598" opacity="0.8"/>
+      <text x="400" y="264" text-anchor="middle" fill="#83a598" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">Breadth</text>
+      <text x="400" y="350" text-anchor="middle" fill="#a89984" font-size="10" font-family="-apple-system,sans-serif">&times; 0.25</text>
+
+      <!-- Breadth: scatter dots (広くタッチ) -->
+      <circle cx="385" cy="290" r="2.5" fill="#83a598" opacity="0.5"/>
+      <circle cx="400" cy="295" r="2.5" fill="#83a598" opacity="0.5"/>
+      <circle cx="415" cy="288" r="2.5" fill="#83a598" opacity="0.5"/>
+      <circle cx="393" cy="305" r="2.5" fill="#83a598" opacity="0.5"/>
+      <circle cx="408" cy="308" r="2.5" fill="#83a598" opacity="0.5"/>
+
+      <!-- Breadth description -->
+      <text x="400" y="372" text-anchor="middle" fill="#bdae93" font-size="9.5" font-family="-apple-system,sans-serif">コードベース全体に</text>
+      <text x="400" y="386" text-anchor="middle" fill="#bdae93" font-size="9.5" font-family="-apple-system,sans-serif">どれだけ広くタッチしたか</text>
+
+      <!-- === Design (right) === -->
+      <circle cx="640" cy="300" r="55" fill="url(#design-glow)"/>
+      <circle cx="640" cy="300" r="30" fill="#282828" stroke="#fb4934" stroke-width="1.2" opacity="0.7"/>
+      <circle cx="640" cy="300" r="4" fill="#fb4934" opacity="0.8"/>
+      <text x="640" y="264" text-anchor="middle" fill="#fb4934" font-size="13" font-weight="700" font-family="-apple-system,sans-serif">Design</text>
+      <text x="640" y="350" text-anchor="middle" fill="#a89984" font-size="10" font-family="-apple-system,sans-serif">&times; 0.45</text>
+
+      <!-- Design: structure icon (基盤ファイル) -->
+      <rect x="628" y="288" width="24" height="16" fill="none" stroke="#fb4934" stroke-width="1" opacity="0.5"/>
+      <line x1="635" y1="288" x2="635" y2="304" stroke="#fb4934" stroke-width="0.7" opacity="0.3"/>
+      <line x1="645" y1="288" x2="645" y2="304" stroke="#fb4934" stroke-width="0.7" opacity="0.3"/>
+
+      <!-- Design description -->
+      <text x="640" y="372" text-anchor="middle" fill="#bdae93" font-size="9.5" font-family="-apple-system,sans-serif">設計上の基盤となるファイルに</text>
+      <text x="640" y="386" text-anchor="middle" fill="#bdae93" font-size="9.5" font-family="-apple-system,sans-serif">どれだけ深く関わったか</text>
+
+      <!-- Constellation lines between 3 components -->
+      <line x1="190" y1="300" x2="370" y2="300" stroke="#504945" stroke-width="0.6" opacity="0.2"/>
+      <line x1="430" y1="300" x2="610" y2="300" stroke="#504945" stroke-width="0.6" opacity="0.2"/>
+
+      <!-- Data source label -->
+      <text x="400" y="412" text-anchor="middle" fill="#665c54" font-size="10" font-family="-apple-system,sans-serif">データソース: git log + git blame のみ</text>
+    </svg>
+  </div>
+
+  <p style="font-size:.9em;color:#8b949e;margin-top:16px">
+    言語横断の比較には <strong style="color:#f0f6fc">Gravity Concentration</strong> を使う — ある宇宙の全 Gravity のうち、上位3名がどれだけの割合を保持するか。高い値は権力としては読めない。むしろ、構造がごく少数の荷重を担う名前に観測可能なかたちで寄りかかっている、と読める。
+  </p>
+</div>
+
+<!-- ========================================= -->
+<!-- 2. 言語横断分析 -->
+<!-- ========================================= -->
+<div class="section" id="cross-language">
+  <h2 class="section-title">2. 言語横断分析 — 物理法則は一様ではない</h2>
+  <p class="section-desc">
+    異なる言語は異なる「物理法則」を生む。型システムの表現力、フレームワーク文化、そしてアーキテクチャの集中度。<br>
+    29のOSSリポジトリを5つのカテゴリに分類し、構造権威の分布を比較しました。
+  </p>
+
+  <div class="big-stats">
+    <div class="big-stat"><div class="big-num" style="color:#58a6ff">29</div><div class="big-label">リポジトリ</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#f5c211">51,321</div><div class="big-label">エンジニア</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#da3633">2.1x</div><div class="big-label">重力集中度の差</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#8b5cf6">5</div><div class="big-label">カテゴリ</div></div>
+  </div>
+
+  <!-- Category table -->
+  <table class="data-table">
+    <thead><tr><th>カテゴリ</th><th>特徴</th><th>言語</th><th>リポ数</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:#8b5cf6">Expressive</strong></td><td>豊かな型システム、ADT、パターンマッチ、トレイト</td><td>Rust, Scala</td><td>5</td></tr>
+      <tr><td><strong style="color:#58a6ff">Go (Self-structured)</strong></td><td>静的型付け、反フレームワーク文化、明示的インターフェース</td><td>Go</td><td>7</td></tr>
+      <tr><td><strong style="color:#da3633">Framework-driven</strong></td><td>構造をフレームワークに委譲、CoC</td><td>Ruby, PHP, Java, Python, TS, Elixir</td><td>6</td></tr>
+      <tr><td><strong style="color:#8b949e">Systems (C/C++)</strong></td><td>手動メモリ管理、テンプレート</td><td>C, C++</td><td>5</td></tr>
+      <tr><td><strong style="color:#f5c211">Dynamic / Structural</strong></td><td>動的型付け、自己構造化</td><td>JavaScript, TypeScript, Python</td><td>6</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Gravity Concentration -->
+  <h3 class="section-subtitle" id="gravity-concentration">重力集中度（Gravity Concentration）</h3>
+  <p style="font-size:.88em;color:#8b949e;margin-bottom:16px">カテゴリ別に、ある宇宙の全 Gravity のうち上位3名が占める割合の平均。高い値ほど、構造がごく少数の荷重を担う名前に寄りかかっている、と読める。</p>
+
+  <div class="card">
+    <div class="bar-row">
+      <div class="bar-label">Framework-driven</div>
+      <div class="bar-track"><div class="bar-fill" style="width:95%;background:linear-gradient(90deg,#b91c1c,#da3633)"></div></div>
+      <div class="bar-val" style="color:#da3633">61.9%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Dynamic / Structural</div>
+      <div class="bar-track"><div class="bar-fill" style="width:92%;background:linear-gradient(90deg,#c49000,#f5c211)"></div></div>
+      <div class="bar-val" style="color:#f5c211">60.3%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Expressive</div>
+      <div class="bar-track"><div class="bar-fill" style="width:84%;background:linear-gradient(90deg,#6d28d9,#8b5cf6)"></div></div>
+      <div class="bar-val" style="color:#8b5cf6">54.9%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Go (Self-structured)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:77%;background:linear-gradient(90deg,#1f6feb,#58a6ff)"></div></div>
+      <div class="bar-val" style="color:#58a6ff">50.1%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">Systems (C/C++)</div>
+      <div class="bar-track"><div class="bar-fill" style="width:46%;background:linear-gradient(90deg,#484f58,#8b949e)"></div></div>
+      <div class="bar-val" style="color:#8b949e">30.0%</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>2つのゲートで読むと、Framework-driven が最も少ない名前に寄りかかり、Systems (C/C++) が最も多くに分散する。</strong><br>
+    重力は、コードが他者の圧力の下で生き残り<em>かつ</em>他者がその上に築いた場所にしか刻まれない。だからカテゴリの集中度は、少数の creator-architect がいまも荷重を担う役を保っているかを読み取る。Framework カテゴリの内部は振れ幅が広い — 場が誰にも傾かない Rails (9.8%) から、構造のほぼ全体が一人二人を通る Spring Boot・FastAPI (97.2%、94.5%) まで。<br>
+    Systems (C/C++) や Go は多数の長命なメンテナに荷重が散らばり、ごく小さな集団がそれを抱え込むことはない。Dynamic・Expressive・Go は中位で互いに十数ポイント以内に収まり、唯一はっきり離れた信号は最下部の Systems / C++ だ。<strong>集中度は、構造がいまも誰に寄りかかっているかを追い、どの言語が先に書かれたかは追わない — 他者が圧をかけなくなれば、最初であったことは何も生まない。</strong>
+  </div>
+
+  <!-- Three Modes -->
+  <h3 class="section-subtitle" id="three-modes">3つの構造権威モード</h3>
+
+  <p style="font-size:.88em;color:#8b949e;margin-bottom:16px">29の宇宙を通して、<em>生き残った構造がどこに寄りかかることになるか</em>に3つのパターンが繰り返し現れる。モードは言語だけで決まるのではない — 活動のノイズを濾し取ったあとに2つのゲートが読み取るものだ。</p>
+
+  <div class="cmp-grid">
+    <div class="card" style="border-color:#58a6ff">
+      <div class="card-title" style="color:#58a6ff">Architect-built（Go）</div>
+      <p style="font-size:.88em;color:#8b949e">構造は明示的なインターフェースを通して、人が一から組み上げる。複数の長命なメンテナがそれぞれ実在するが非支配的な重力を持ち、荷重が分け合われるため集中度は中位（50.1%）。Terraform、Kubernetes、Prometheus がこう読める。</p>
+      <div style="text-align:center;margin-top:16px">
+        <svg width="120" height="80" viewBox="0 0 120 80">
+          <circle cx="60" cy="40" r="30" fill="#1f6feb" opacity="0.4"/>
+          <circle cx="60" cy="40" r="15" fill="#58a6ff" opacity="0.8"/>
+          <circle cx="20" cy="20" r="4" fill="#484f58"/><circle cx="100" cy="60" r="4" fill="#484f58"/>
+          <circle cx="95" cy="20" r="4" fill="#484f58"/><circle cx="25" cy="65" r="4" fill="#484f58"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card" style="border-color:#8b5cf6">
+      <div class="card-title" style="color:#8b5cf6">Type-distributed（言語コンパイラ）</div>
+      <p style="font-size:.88em;color:#8b949e">言語コンパイラそのものでは、構造が型に埋め込まれ、荷重が多くの手に散らばる — Rust 27.6%、Scala 37.3%、Scala 3 38.9%。システムが傾く単一の名前はなく、設計史は型機構をかたちづくる全員を通る。</p>
+      <div style="text-align:center;margin-top:16px">
+        <svg width="120" height="80" viewBox="0 0 120 80">
+          <circle cx="30" cy="25" r="10" fill="#8b5cf6" opacity="0.6"/>
+          <circle cx="60" cy="55" r="10" fill="#8b5cf6" opacity="0.6"/>
+          <circle cx="90" cy="25" r="10" fill="#8b5cf6" opacity="0.6"/>
+          <circle cx="45" cy="45" r="8" fill="#6d28d9" opacity="0.5"/>
+          <circle cx="75" cy="45" r="8" fill="#6d28d9" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card" style="border-color:#da3633">
+      <div class="card-title" style="color:#da3633">Framework-funneled（Rails &harr; Spring Boot）</div>
+      <p style="font-size:.88em;color:#8b949e">構造がフレームワークに吸収されると、カテゴリ内部の振れ幅は最も広くなる — 場が誰にも傾かない Rails (9.8%) から、ほぼ一点に荷重がかかる Spring Boot (97.2%) まで。カテゴリとしては最も少ない名前に寄りかかる（61.9%）。</p>
+      <div style="text-align:center;margin-top:16px">
+        <svg width="120" height="80" viewBox="0 0 120 80">
+          <rect x="15" y="10" width="90" height="60" fill="#da3633" opacity="0.15" stroke="#da3633" stroke-width="1"/>
+          <circle cx="40" cy="35" r="6" fill="#da3633" opacity="0.5"/>
+          <circle cx="60" cy="50" r="6" fill="#da3633" opacity="0.5"/>
+          <circle cx="80" cy="35" r="6" fill="#da3633" opacity="0.5"/>
+          <text x="60" y="20" text-anchor="middle" fill="#da3633" font-size="7" font-weight="600">Framework</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================= -->
+<!-- 3. そのほかに観えたこと（匿名） -->
+<!-- ========================================= -->
+<div class="section" id="findings">
+  <h2 class="section-title">3. そのほかに観えたこと</h2>
+  <p class="section-desc">
+    言語ファミリーの差のほかにも、構造の物理は repository ごとに違う顔を見せた。いずれも<strong>個人を名指しせず</strong>、構造として観測している。
+  </p>
+  <ul style="line-height:1.95;color:#c9d1d9;max-width:780px;margin:1.4em auto;padding-left:1.2em;">
+    <li><strong>単独メンテナの宇宙</strong>：作者ひとりが全軸を占める project（esbuild 型）は重力集中度90%超。一人で全体を把握できるスケールでは、それが最適解になり得る。「悪い設計」ではなく、構造の一形態だ。</li>
+    <li><strong>同カテゴリ・逆の物理</strong>：同じ Framework-driven でも、20年かけて設計権限を6人のアーキテクトに分散させた文明（Rails 型）と、作者ひとりに集中する王国（Laravel 型）は Design の分布が正反対だった。</li>
+    <li><strong>重力 ≠ コミット量</strong>：わずか82コミットで Gravity 60（2,010人中Top 3）に上がったエンジニアがいる一方、1,890コミットで Gravity 51 のエンジニアもいた。重力はコミットの量ではなく、アーキテクチャへの関与の質で決まる。</li>
+    <li><strong>世代交代は時系列でしか見えない</strong>：ある大規模 UI ライブラリでは10年で5世代のアーキテクトが入れ替わった。8年間中心ではなかった Cleaner が、書き換えの波で「消えなかったコードの比率」が相対的に上がり、ついに重力の極点になった——スナップショットには映らない物語だ。</li>
+    <li><strong>Hidden Architects</strong>：上位の重力を持ちながら、カンファレンスにも SNS にも現れない440人のエンジニアがいた。重力場を辿ると、静かにアーキテクチャを支えていた。世界が名前を知らないだけだ。</li>
+  </ul>
+</div>
+
+<!-- ========================================= -->
+<!-- 名前について（同意モデル） -->
+<!-- ========================================= -->
+<div class="section" id="consent">
+  <h2 class="section-title">名前について</h2>
+  <p class="section-desc">
+    このマップは<strong>既定で匿名</strong>だ。役割と構造は観測しても、本人の同意なく個人を名指しでランクづけはしない——EIS の開示ファイアウォールの原則をそのまま適用している。<br><br>
+    重力は<strong>本人のもの</strong>だ。だから各プロフィールは、いずれ<strong>本人が GitHub アカウントで Claim</strong>したときに初めて実名で公開できるようにする。観測される側が、自分の重力を持ち運ぶか、見せるか、伏せるかを選ぶ。それが OrbitLens の設計だ。
+  </p>
+</div>
+
+<!-- ========================================= -->
+<!-- 観測した29リポジトリ -->
+<!-- ========================================= -->
+<div class="section" id="repos">
+  <h2 class="section-title">観測した29リポジトリ</h2>
+  <p class="section-desc" style="font-family:monospace;font-size:.95em;line-height:2.1;color:#8b949e;max-width:780px;margin:1.4em auto;">
+    argo-cd · arrow · ClickHouse · duckdb · envoy · esbuild · eslint · express · fastapi · grafana · kubernetes · laravel · loki · nest · phoenix · polars · prettier · prometheus · rails · react · redis · rust · scala · scala3 · spring-boot · superset · swc · terraform · vite
+  </p>
+</div>
+
+<!-- ========================================= -->
+<div class="footer">
+  Generated by <a href="https://github.com/machuz/eis">EIS (Engineering Impact Signal)</a><br>
+  OSS Gravity Map Project &middot; 29 repositories &middot; 51,321 engineers<br>
+  Gravity = catGate(Catalysis) &times; survGate(RobustSurvival) &times; shape(0.45&middot;Design + 0.25&middot;Breadth + 0.30&middot;Indispensability)
+</div>
+
+</div>
+</body>
+</html>
