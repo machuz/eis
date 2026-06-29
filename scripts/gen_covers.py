@@ -10,6 +10,7 @@ is font-independent (rsvg falls back to a system monospace).
 import os
 import re
 import subprocess
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -83,11 +84,18 @@ def cover(topbar, comment, title, l1, l2, heading, d1, d2):
 
 
 def render(svg_path, png_path, dims=(1000, 420)):
-    subprocess.run(
-        ["/opt/homebrew/bin/rsvg-convert", "-w", str(dims[0]), "-h", str(dims[1]),
-         svg_path, "-o", png_path],
-        check=True,
-    )
+    try:
+        subprocess.run(
+            ["rsvg-convert", "-w", str(dims[0]), "-h", str(dims[1]),
+             svg_path, "-o", png_path],
+            check=True,
+        )
+    except FileNotFoundError:
+        sys.stderr.write(
+            "error: rsvg-convert not found on PATH. Install librsvg "
+            "(e.g. `brew install librsvg` or `apt-get install librsvg2-bin`).\n"
+        )
+        sys.exit(1)
 
 
 # per-cover measured widths are passed explicitly below
@@ -108,6 +116,7 @@ def build(name, **kw):
     with open(svg_path, "w", encoding="utf-8") as f:
         f.write(svg)
     for sub in ("png", "hatena"):
+        os.makedirs(os.path.join(BLOG, sub), exist_ok=True)
         render(svg_path, os.path.join(BLOG, sub, f"cover-ace-{name}.png"))
     print("wrote", svg_path)
 

@@ -169,6 +169,7 @@
 <script>
 (function(){
   const progressBar = document.getElementById('progress-bar');
+  if (!progressBar) return;
   let raf = null;
   function upd() {
     if (raf) return;
