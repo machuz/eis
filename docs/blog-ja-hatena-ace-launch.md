@@ -1,6 +1,6 @@
 # AIが1000行を1分で吐く時代に、本当に効くコードはどれか。OrbitLens Ace を公開しました
 
-![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ace-launch.png?v=1)
+![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ace-launch.png?v=2)
 
 *AIは無限にコードを書ける。残せるかどうかは、別の話だ。*
 
