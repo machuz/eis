@@ -89,6 +89,12 @@ And yet his all-time Gravity reads a modest 9.9. That's because EIS's all-time s
 
 There is another honest way to read all-time. Measure it not as "the gravity live right now" but as "the lasting structure left behind" — swap the survival gate from robust survival to raw survival (lifetime gravity) — and the same Markbåge climbs back near the top (~74). Is the system leaning on you right now, versus what did you leave that still stands: two questions, two answers. EIS now carries this second gravity as a versioned, additive companion.
 
+There's a kind of gravity the live number can't fully catch: the foundation the next generation rebuilt on top of. Andrew Clark's work is that kind. He worked on huge parts of React's modern internals — hooks, concurrent features, Suspense. Much of it was later built over by what came after, and because EIS reads surviving structure, a foundation that's been built upon reads quiet. But that quiet is the point. **Being rewritten isn't failure** — it often means the work became the foundation the next generation stands on.
+
+And the timeline doesn't forget. It still records who held the architect's seat, season by season; the lines can be overwritten, but the record that you carried the structure is not. Every architect is rewritten in the end — and when it happens, the chronicle remembers that you held the seat.
+
+And in Ace you don't choose between the two — you read the same person in both, one toggle apart: the all-time footprint (the structure they left) and the trajectory (the seasons they carried it). For Clark, both are there at once — the foundation that's been built upon, and every season he held the architect's seat. Pull the telescope back for the whole, lean in for one era — the same universe at two focal lengths.
+
 A leaderboard parks the famous and the first at the top forever. EIS doesn't — but open the timeline and who held the structure, and when, is preserved in full. In that same React, the all-time top-10 overlaps the GitHub maintainer list by only 60%. The rest are people without the title, whose code the system still rests on.
 
 
