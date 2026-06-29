@@ -89,6 +89,10 @@ And yet his all-time Gravity reads a modest 9.9. That's because EIS's all-time s
 
 There is another honest way to read all-time. Measure it not as "the gravity live right now" but as "the lasting structure left behind" — swap the survival gate from robust survival to raw survival (lifetime gravity) — and the same Markbåge climbs back near the top (~74). Is the system leaning on you right now, versus what did you leave that still stands: two questions, two answers. EIS now carries this second gravity as a versioned, additive companion.
 
+And most of us are not Markbåge — we are Andrew Clark. He wrote huge parts of React: hooks, concurrent mode, Suspense. Yet his lifetime gravity sinks to about 2, because most of his code was overwritten by the rewrites that followed (survival ≈ 3). That isn't failure. His reconciler was the scaffold those rewrites stood on. **To be rewritten is to become foundation.**
+
+And the timeline does not forget. In his peak years Clark held the architect's seat at gravity 68, then 77. The lines were overwritten; the record that he carried the structure those years was not. Every architect is overwritten in the end — and when it happens, the chronicle remembers that you held the seat.
+
 A leaderboard parks the famous and the first at the top forever. EIS doesn't — but open the timeline and who held the structure, and when, is preserved in full. In that same React, the all-time top-10 overlaps the GitHub maintainer list by only 60%. The rest are people without the title, whose code the system still rests on.
 
 The whole picture — 29 OSS projects, 51,321 engineers, the same telescope — is in the [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html), and React's generational handover is in [React: A Generational Evolution](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution.html).

@@ -87,6 +87,10 @@ React（延べ1,927人が通過）の通期の重力でトップに立つのは 
 
 もう一つの正直な読み方もある。通期を「今まさに揺れている重力」ではなく「生涯に残した構造」として測るなら――生存のゲートを robust survival から素の survival に替えた lifetime gravity――同じ Markbåge は通期トップ近く（約74）へ戻る。今まさに圧がかかっているか、と、何が残ったか。別々の問いに別々の答えがあるだけだ。EIS にはこの第二の重力を versioned で加えてある。
 
+そして大半の人は、Markbåge ではなく Andrew Clark だ。Hooks も Concurrent Mode も Suspense も書いた React の中心人物。それでも生涯重力は約2に沈む――彼のコードの多くは、その後の内部の書き換えで上書きされたからだ（survival ≒3）。だがそれは失敗ではない。彼の reconciler は、次の書き換えがその上に立つための足場だった。**書き直されることは、土台になることだ。**
+
+しかも軌跡は、それを忘れない。Clark は全盛期、gravity 68、77 とアーキテクトの席に座っていた。行は上書きされても、「あの年、彼が構造を担った」という記録は上書きされない。すべてのアーキテクトはいつか上書きされる。そのとき年表は、あなたが席に座っていたことを覚えている。
+
 リーダーボードなら、有名で先行した人が永久に一位に居座る。EIS はそうしない。だが軌跡を開けば、誰がどの時代に構造を支えたかは消えずに見える。同じ React で、通期トップ10の顔ぶれは GitHub の maintainer 一覧と6割しか重ならない。残りは、肩書きを持たないまま、システムが今も寄りかかっている人たちだ。
 
 29 の OSS・延べ51,321人を読んだ全体像は [OSS グラビティマップ](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-ja.html) に、React の世代交代は [React 世代的進化](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution-ja.html) にまとめてある。
