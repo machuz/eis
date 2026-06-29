@@ -93,6 +93,8 @@ Most of us are not Markbåge — and durable impact isn't only about whose code 
 
 And the timeline doesn't forget. It still records who held the architect's seat, season by season; the lines can be overwritten, but the record that you carried the structure is not. Every architect is rewritten in the end — and when it happens, the chronicle remembers that you held the seat.
 
+And in Ace you don't choose between the two. You read the same person in both — the all-time standing (the structure they left) and the trajectory (when they carried it) — one toggle apart, neither erasing the other. Markbåge stands as a foundation all-time and shows his 2023 peak in the timeline; Clark reads quiet all-time yet keeps every season he held the seat. Pull the telescope back for the whole, lean in for one era — the same universe at two focal lengths.
+
 A leaderboard parks the famous and the first at the top forever. EIS doesn't — but open the timeline and who held the structure, and when, is preserved in full. In that same React, the all-time top-10 overlaps the GitHub maintainer list by only 60%. The rest are people without the title, whose code the system still rests on.
 
 The whole picture — 29 OSS projects, 51,321 engineers, the same telescope — is in the [OSS Gravity Map](https://library.orbitlens.io/research/oss-gravity-map/analysis/oss-gravity-map-en.html), and React's generational handover is in [React: A Generational Evolution](https://library.orbitlens.io/research/oss-gravity-map/analysis/react-evolution.html).
