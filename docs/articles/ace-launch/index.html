@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function() {
+    if (location.hostname === 'machuz.github.io' && location.pathname.startsWith('/eis/docs/')) {
+      var newPath = location.pathname.replace('/eis/docs/', '/');
+      location.replace('https://library.orbitlens.io' + newPath + location.search + location.hash);
+    }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>AIが1000行を1分で吐く時代に、本当に効くコードはどれか — OrbitLens Ace を公開 — OrbitLens Library</title>
+<meta name="description" content="git には記録が二つある。みんなが読む活動量（コミット・PR・行数）と、ほとんど誰も読まない『何が生き残ったか』。AIがコードを無限にする時代、意味を持つのは生き残った構造の層だけだ。EIS がそれを観測し、OrbitLens Ace が得点表ではなく組織年表として読む。">
+<link rel="icon" type="image/png" href="../../images/orbitlens-royal-purple-shadow.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/reader.css?v=21">
+<style>
+  .reader-layout { grid-template-columns: minmax(0, 1fr); max-width: 820px; }
+  .inline-toc { display: none !important; }
+  @media (min-width: 1221px) { .reader-layout { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+
+<div class="starfield"></div>
+
+<nav class="orbit-bar">
+  <a href="../../" class="crumb-logo" style="display:inline-flex;align-items:center;gap:10px;">
+    <img src="../../images/orbitlens-royal-purple-shadow.png" alt="" style="width:22px;height:22px">
+    <span class="crumb-brand">ORBITLENS</span>
+  </a>
+  <span class="crumb-sep">/</span>
+  <a href="../../" class="crumb-scope">LIBRARY</a>
+  <span class="crumb-sep">/</span>
+  <span class="crumb-book">OrbitLens Ace を公開する</span>
+  <span class="orbit-spacer"></span>
+  <div class="orbit-tools">
+    <a class="orbit-tool" href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-launch.md" target="_blank" rel="noopener" data-devto-src="blog-en-devto-ace-launch.md">EN ↗</a>
+  </div>
+  <div class="progress-bar" id="progress-bar"></div>
+</nav>
+
+<div class="reader-layout">
+  <main class="reader-main">
+    <div class="chapter-bar">
+      <div class="ch-info">
+        <strong>ARTICLE</strong>
+        <span>Standalone / リリース</span>
+      </div>
+      <a href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-launch.md" target="_blank" rel="noopener" class="en-link" data-devto-src="blog-en-devto-ace-launch.md">EN 原文 · dev.to ↗</a>
+    </div>
+
+    <article class="chapter-content">
+      <h1>AIが1000行を1分で吐く時代に、本当に効くコードはどれか</h1>
+
+      <p><em>AIは無限にコードを書ける。残せるかどうかは、別の話だ。</em></p>
+
+      <hr>
+
+      <p>どのリポジトリにも、記録が二つ眠っている。</p>
+
+      <p>ひとつはみんなが読む方。コミットログ、PR数、変更行数。要するに活動量、誰がよく動いたか。もうひとつは、ほとんど誰も読まない方。半年後もそのコードが残っているか。<code>git blame</code> が結局誰に当たるか。こちらが構造だ。</p>
+
+      <p>マネジメントはたいてい前者を見て、後者に足をすくわれる。「あの人が抜けたら、あのサブシステムは誰も分からない」。その崩壊は、ずっと後者の記録に書いてあった。読んでいなかっただけだ。</p>
+
+      <hr>
+
+      <h2>なぜ「生き残ったコード」なのか</h2>
+
+      <p>活動は盛れる。コミットは分割できるし、lockfile で数千行は出る。詰めれば PR 数は増える。忙しさは、いくらでも演出できる。</p>
+
+      <p>生き残りはそうはいかない。コードが著者より長く残ったかどうかは、時間が経たないと分からない。一晩では盛れない。タイポ修正もアーキテクチャ変更も「1 PR」だが、半年後に立っているコードは嘘をつけない。</p>
+
+      <p><a href="https://github.com/machuz/eis" target="_blank" rel="noopener">EIS</a> は、その層を読む OSS の CLI だ。<code>git log</code> と <code>git blame</code> だけで7軸と3つのトポロジーを観測し、JSON に吐く。外部APIもAIトークンも要らない。<code>brew install</code> して <code>eis</code> を叩くだけ。式は全部<a href="https://github.com/machuz/eis/blob/main/docs/whitepaper.md" target="_blank" rel="noopener">ホワイトペーパー</a>に出してあり、中身は丸見えだ。</p>
+
+      <hr>
+
+      <h2>AIが、活動量を完全に無意味にした</h2>
+
+      <p>これが効いてくるのは、ここからだ。</p>
+
+      <p>コードを書く速度が、人の手を離れた。AIに頼めば1000行が数分で出てくる。コミット数も変更行数も、もう「その人が動いた量」ではなく「ツールが動いた量」を映している。活動量という指標は前から怪しかった。AIがそれを、完全に無意味にした。</p>
+
+      <p>残るのは、生き残ったコードだ。AIが吐いた1000行のうち、来週には書き直される分の survival はゼロ。半年経っても立っているコードだけが、構造として効いている。生成が無限に安くなった世界で、希少なのは出力の量ではなく、残る方だ。</p>
+
+      <p>しかも生き残りは、AIをもってしても盛れない。時間だけで決まっていないからだ。</p>
+
+      <p>あるコードが残るかどうかは、それが置かれた生態系で決まる。次の人が土台にして書き進めるのか、邪魔だと思って書き直すのか。周りの開発者の手が、答えを出す。だから絶対的な物差しではない。現場ごとに変わる。保守的な環境なら、多少いまいちでもバグを産まないコードをそのまま残すかもしれないし、攻めるチームなら同じものを来月には捨てているかもしれない。生き残りは、その現場の中でだけ効く相対的な指標だ。</p>
+
+      <p>そして、残るコードは何を解決するために、何を作るか、どういう構造で作るか。これらに熱量を持って向き合った履歴の蓄積として現れる。</p>
+
+      <p>ただ、だからこそ盛れない。自己申告でも書いた量でもなく、周りが使い続けたかどうかという、他人の選択の積み重ねだからだ。そして、いくつもの違う現場で残るコードを書ける人は、おそらく本当に設計を考えられる人だ。ひとつの環境の癖にたまたま合っただけ、では説明がつかない。</p>
+
+      <p>観測は、生成のちょうど逆でもある。世の中がAI生成であふれるほど、地面に刻まれた事実をそのまま読む道具の価値は上がる。EIS はモデルを使わない。推論しないので、ハルシネーションも起きない。git にもう書いてあることを読むだけ。生成の時代に、観測に徹する。それが立ち位置だ。</p>
+
+      <hr>
+
+      <h2>ただし、読み方を間違えると壊れる</h2>
+
+      <p>生き残りシグナルを上から読み、名前の横に数字を置いた瞬間、それは得点表になる。そして得点表は、測ったものを必ず歪める。人は数字を最適化しはじめ、現場の手触りは数字の下に潰れる。エンジニアリング指標が「順位づけと詰め」に化けて死ぬのは、いつもこの瞬間だ。</p>
+
+      <p>問いは「git から構造を読めるか」ではない。「読めるとして、評価に堕とさずに読めるか」だ。観測する装置だけでは足りない。どう読むかが、それが助けになるか害になるかを分ける。</p>
+
+      <p>これが、EIS と Ace を分けている理由だ。</p>
+
+      <ul>
+        <li><strong>EIS（望遠鏡）は観測する。</strong> git を読んでシグナルを返すだけ。推薦も予測も評価もしない。事実に徹する。</li>
+        <li><strong>Ace（天文台）は観測を読む。</strong> ただし順位ではなく、年表に読む。</li>
+      </ul>
+
+      <p>観測する道具が意味まで決めはじめると、どこからが事実でどこからが意見か分からなくなる。望遠鏡を事実に徹させ、解釈は天文台に引き受けさせる。両方を信じられるのは、そこに境界を引いているからだ。</p>
+
+      <hr>
+
+      <h2>天文台が読むもの</h2>
+
+      <p>機能の一覧ではなく、git が隠していた構造の話として読んでほしい。</p>
+
+      <p><strong>Structural Summary。数字を、文章に。</strong> 「Survival 23」だけでは、設計が弱いのかレガシーを書き換え中なのか分からない。Ace はシグナル全体を読み、いま何が立って何が崩れかけているかを文章で説明する。</p>
+
+      <p><strong>コンウェイの法則チェック。組織図 vs 実態。</strong> 人のトポロジーとモジュールのトポロジーを並べ、ズレを見せる。「このサービスはAチーム担当」のはずが、実は書いていない。知識が、組織図の気づかないどこかへ移っていた。</p>
+
+      <p><strong>崩壊リスク。事故になる前に。</strong> 誰も触らないから残っているだけのモジュール。オーナーが辞めて宙に浮いたモジュール。バスファクター1。リスクは最初から git 履歴の中にあった。Ace は、それが事故になる前に表に出す。</p>
+
+      <p><strong>組織年表（Chronicle）。この製品の心臓だ。</strong> 得点表ではない。エンジニアを順位づけない。代わりに、このコードベースが何をくぐってきたかを記録する。乗り越えたマイグレーション、ある subsystem を作って去ったアーキテクト、オーナーが変わって脆くなったモジュール。</p>
+
+      <p>得点表は、人がゲームの仕方を覚える。年表は、チームが愛着を持つ。狙うのは後者だ。シグナルは見ようと思えば見られるが、見出しではなく、近くで確かめるときに手に取るレンズに留めてある。</p>
+
+      <hr>
+
+      <h2>実例：React に望遠鏡を向ける</h2>
+
+      <p>抽象論で終わらせたくない。公開 OSS に実際に向けた結果を一つ出す。</p>
+
+      <p>React（延べ1,927人が通過）の通期の重力でトップに立つのは Sebastian Markbåge だ。Indispensability 100、Catalysis 100。構造の形は飽和し、他の全員が彼の上に築いている。</p>
+
+      <p>軌跡を開くと、その厚みが見える。彼は 2013 年から繰り返し React の構造的な席に座ってきた。2016 年は Specialist、2022 年は Producer、2023 年には Architect としてその年の一位（gravity 89）、2025 年は Anchor。役を移しながら、十年あいだ構造の中心近くに居続けた人だ。いくつものモジュールのアンカーでもある。彼が敷いた Reconciler は、今も React の土台として息づいている。</p>
+
+      <p>それでも通期の Gravity は 9.9 と控えめに出る。EIS の通期の生存は時間減衰するからだ。完成して静まった土台に、いま他人が現役で圧をかけてはいない（robust survival ≒0）。だから「今まさに揺れている重力」を測る通期では、静かに映る。これは降格ではない。望遠鏡が、出来上がった土台を「現役の重力」と取り違えないだけだ。彼の十年は、軌跡の方にちゃんと残っている。</p>
+
+      <p>もう一つの正直な読み方もある。通期を「今まさに揺れている重力」ではなく「生涯に残した構造」として測るなら――生存のゲートを robust survival から素の survival に替えた lifetime gravity――同じ Markbåge は通期トップ近く（約74）へ戻る。今まさに圧がかかっているか、と、何が残ったか。別々の問いに別々の答えがあるだけだ。EIS にはこの第二の重力を versioned で加えてある。</p>
+
+      <p>リーダーボードなら、有名で先行した人が永久に一位に居座る。EIS はそうしない。だが軌跡を開けば、誰がどの時代に構造を支えたかは消えずに見える。同じ React で、通期トップ10の顔ぶれは GitHub の maintainer 一覧と6割しか重ならない。残りは、肩書きを持たないまま、システムが今も寄りかかっている人たちだ。</p>
+
+
+      <hr>
+
+      <h2>入口は二つ、宇宙はひとつ</h2>
+
+      <p><strong>望遠鏡（OSS）は、完全に無料で使える。</strong> ローカルで完結する設計で、アカウントもログインも連携もいらない。<code>brew install</code> して、リポに向けるだけ。</p>
+
+      <pre><code>brew install machuz/tap/eis
+cd your-repo
+eis analyze .</code></pre>
+
+      <p><strong>天文台（SaaS）は、数クリックで始まる。</strong> <a href="https://ace.orbitlens.io" target="_blank" rel="noopener">ace.orbitlens.io</a> を開き、GitHub でログインし、観たいリポジトリを選ぶ。あとは Ace が観測を回し続け、構造的サマリーもコンウェイ検証も崩壊リスクも年表も、ブラウザの中で読めるように可視化する。CLI を覚える必要はない。</p>
+
+      <p>自分の組織に、個人のリポジトリに、気になっている OSS に、レンズを当ててみてほしい。公開リポは無制限なので、有名な OSS の重力地図を覗くだけでも、何か見えてくる。</p>
+
+      <p>EIS（望遠鏡）はずっと無料の OSS だ。席制限もトライアル期限も、肝心なところだけ有料のオープンコアもない。アイデアに課金したいのではなく、広がってほしい。壁の向こうに置けば、遠くまでは行かない。</p>
+
+      <p>値段がつくのは Ace の方だ。観測を回し続けて読み返すのは、れっきとしたインフラだからだ。それでも壁ではなく、手の届く値段にしてある。</p>
+
+      <ul>
+        <li><strong>Free</strong> $0。〜5人、公開リポ無制限、履歴6ヶ月。</li>
+        <li><strong>Pro</strong> $7/月。個人、全期間、フルの Gravity Certificate。</li>
+        <li><strong>Nova</strong> $39/月（8席込）＋ $18/席。組織レベルの読みが要る非公開チーム向け。</li>
+      </ul>
+
+      <p>この種の分析 SaaS が「開発者ひとり月 $15〜50、しかも contact sales の向こう」が相場なのに対し、Ace は8席までフラットで、その下のエンジンは無料だ。持ち運べる Gravity Certificate は、どのプランでも作成も検証もずっと無料。自分の仕事を証明するのに、金はかからない。</p>
+
+      <hr>
+
+      <h2>最後に、正直なところ</h2>
+
+      <p>エンジニアリングを上から測った瞬間、現場の肌感覚は平らに潰れがちだ。数字が来ると、その人が実際にやったことの手触りが、その下に隠れてしまう。</p>
+
+      <p>その逆を作りたい。だが、できているとは言い切れない。シグナルはシグナルであって、判定ではない。git に映らないものは測らないし、測れないとはっきり言う。メンタリング。コミットにならなかった設計の議論。障害のとき、誰かが保っていた落ち着き。これが望遠鏡の届かない dark matter だ。低いシグナルは「貢献が小さい」のではなく、組織についてのシグナルであることが多い。</p>
+
+      <p>人を測るのは、善意でも危うい。現場の感覚を一度も貶さずに測る方法を、まだ見つけられていない。だからこれは、本当の頼みだ。自分のを、チームのを見て、「なんか違う」「平らにされた」「大事だったやつが抜けている」と感じたら、教えてほしい。そのズレている所こそ、次に直す場所だ。</p>
+
+      <hr>
+
+      <h2>なぜ観測するのか</h2>
+
+      <p>ここまでを端から読むと、一本の糸が通っている。人は辞める。組織は組み変わる。ツールは1000行の値段を変える。それでも最後まで残らなければならないのは、ここにいた人が分かっていたことだ。そしてその大半は、誰の頭の中にも残らない。コードの中に残る――誰かがまだ、コードの覚えていることを読めるあいだだけ。</p>
+
+      <p>観測は、そのためにある。いる人を採点するためではなく、その人が去ったあとも、分かっていたことを読める状態に保つためだ。次の人が、謎ではなく構造を受け継げるように。守るのは人ではない。人は去っていくし、去っていい。守るのは知識だ。順位づける指標は、対象が抜けた瞬間に忘れられる。記録する年表は、次のオーナーが最初に読むものになる。</p>
+
+      <p>だからこの製品の魂は、計測ではない。継承のための観測だ。<strong>観測の文化とは、継承の文化のことだ。</strong></p>
+
+      <p>→ ここから先の弧――観測し、理解し、継承し、次の軌道を設計する――は <a href="../vision/">OrbitLens のビジョン</a> に。</p>
+
+      <hr>
+
+      <p><strong>GitHub:</strong> <a href="https://github.com/machuz/eis" target="_blank" rel="noopener">eis</a> — 望遠鏡。完全にオープンソース。<br>
+      <strong>天文台:</strong> <a href="https://ace.orbitlens.io" target="_blank" rel="noopener">ace.orbitlens.io</a><br>
+      <strong>Library:</strong> <a href="https://library.orbitlens.io" target="_blank" rel="noopener">library.orbitlens.io</a> — EIS の理論と書架（Git考古学・ホワイトペーパー）。</p>
+    </article>
+
+    <div class="book-footer">
+      <div class="quote">観測は、解釈を待っている。</div>
+      <div class="foot-links">
+        <a href="../../">Library</a>
+        <a href="../../git-archaeology/">git 考古学 本編</a>
+        <a href="https://github.com/machuz/eis/blob/main/docs/blog-en-devto-ace-launch.md" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="firewall">
+  <div class="firewall-msg">
+    <svg class="firewall-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="3" y="7" width="10" height="7" rx="1"/>
+      <path d="M5 7V5a3 3 0 016 0v2"/>
+    </svg>
+    <span class="firewall-tag">Firewall</span>
+    <strong>観測であって、評価ではない。</strong>
+    <span>個人の点数はこの層から漏らさない。</span>
+  </div>
+  <span style="font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--dim)">T-30 · UX-12</span>
+</div>
+
+<script>
+(function(){
+  const progressBar = document.getElementById('progress-bar');
+  let raf = null;
+  function upd() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const d = document.documentElement;
+      const limit = d.scrollHeight - d.clientHeight;
+      const pct = limit > 0 ? (window.scrollY / limit) * 100 : 0;
+      progressBar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+    });
+  }
+  window.addEventListener('scroll', upd, { passive: true });
+})();
+</script>
+
+</body>
+</html>
