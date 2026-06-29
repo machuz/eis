@@ -4,7 +4,7 @@ series: "OrbitLens Ace"
 published: true
 description: "Git keeps two records. Everyone reads activity (commits, PRs, lines); almost nobody reads what survived. Once AI makes code infinite, the surviving layer is the only signal left that means anything. EIS reads it; OrbitLens Ace interprets it into a chronicle, not a scoreboard."
 tags: opensource, ai, git, saas
-cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-launch.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-launch.png?v=2
 ---
 
 *AI can write infinite code. Whether it lasts is a different question.*
@@ -37,6 +37,8 @@ The speed of writing code left human hands. Ask a model and a thousand lines arr
 What's left is what survives. Of the thousand lines AI just produced, the share that gets rewritten next week has a survival of zero. Only the code still standing in six months is doing structural work. When generation becomes infinitely cheap, the scarce thing isn't output. It's what stays.
 
 And survival can't be gamed, not even by AI, because time isn't the only thing that decides it. Whether a piece of code lasts is settled by the ecosystem it lands in: whether the next person builds on it or tears it out. The other developers' hands give the answer. So it isn't an absolute ruler. It shifts by environment. A conservative team might keep mediocre-but-bug-free code untouched; an aggressive one might throw the same code out by next month. Survival is a relative signal, valid only inside that particular context.
+
+And the code that survives surfaces as accumulated history: what it set out to solve, what got built, in what structure — a record of having faced those questions with real heat.
 
 But that is exactly why you can't fake it. It isn't self-reported and it isn't volume; it's the accumulated choices of everyone around you. And someone whose code survives across many different contexts is probably someone who can genuinely design. A lucky fit to one environment's habits doesn't explain that.
 
