@@ -12,6 +12,11 @@ Usage:
     # Initialize mapping by fetching existing article IDs
     python scripts/publish-blog.py --init
 
+    # dev.to maintenance (dev.to has no delete API; unpublish to de-dup)
+    python scripts/publish-blog.py --devto-list                      # dump articles (id/state/title)
+    python scripts/publish-blog.py --devto-unpublish <id> [...]      # unpublish (published=false)
+    python scripts/publish-blog.py --devto-publish <id> [...]        # re-publish (published=true)
+
     # Hatena maintenance
     python scripts/publish-blog.py --hatena-list                     # dump entries (title/id/url)
     python scripts/publish-blog.py --hatena-delete <edit_id> [...]   # delete entries by edit id
@@ -119,6 +124,60 @@ def devto_fetch_articles():
     req = urllib.request.Request(url, headers=devto_headers())
     with urllib.request.urlopen(req) as resp:
         return json.loads(resp.read())
+
+
+def devto_list_all():
+    """Fetch every article (published + drafts) so ids/state can be inspected.
+
+    dev.to has no delete endpoint, so de-duping is done by unpublishing
+    (published=false), which moves an article into this list as a draft.
+    """
+    out = []
+    for status in ("published", "unpublished"):
+        url = f"https://dev.to/api/articles/me/{status}?per_page=100"
+        req = urllib.request.Request(url, headers=devto_headers())
+        with urllib.request.urlopen(req) as resp:
+            for a in json.loads(resp.read()):
+                out.append({
+                    "id": a["id"],
+                    "state": status,
+                    "published_at": (a.get("published_at") or "")[:10],
+                    "title": a["title"],
+                    "url": a.get("url", ""),
+                })
+    return out
+
+
+def devto_set_published(article_id: str, published: bool) -> dict:
+    """Publish (draft -> live) an existing dev.to article by id (no body change).
+
+    NOTE: dev.to has no DELETE endpoint, and its API IGNORES published=false on an
+    already-published article (verified: the post stays live). Unpublishing or
+    deleting therefore has to be done by hand in the dev.to dashboard. published=true
+    (draft -> live) does work, which is what the 7/1 launch uses.
+    """
+    if not published:
+        print("  WARN: dev.to ignores published=false on a live post; unpublish in the dashboard.", file=sys.stderr)
+    url = f"https://dev.to/api/articles/{article_id}"
+    data = json.dumps({"article": {"published": published}}).encode()
+    req = urllib.request.Request(url, data=data, headers=devto_headers(), method="PUT")
+    action = "Publishing" if published else "Unpublishing"
+    print(f"  {action} dev.to article {article_id}...")
+    for attempt in range(6):
+        try:
+            with urllib.request.urlopen(req) as resp:
+                result = json.loads(resp.read())
+                print(f"  OK: published={result.get('published')} {result.get('url')}")
+                return result
+        except urllib.error.HTTPError as e:
+            if (e.code == 429 or 500 <= e.code < 600) and attempt < 5:
+                wait = int(e.headers.get("Retry-After", 0) or 0) or 2 ** (attempt + 1)
+                print(f"  {e.code}; retry in {wait}s")
+                time.sleep(wait)
+                req = urllib.request.Request(url, data=data, headers=devto_headers(), method="PUT")
+                continue
+            print(f"  ERROR ({e.code}): {e.read().decode()}", file=sys.stderr)
+            raise
 
 
 # --- Hatena Blog ---
@@ -455,6 +514,16 @@ def main():
 
     if args[0] == "--init":
         init_mapping()
+        return
+
+    if args[0] == "--devto-list":
+        print(json.dumps(devto_list_all(), indent=2, ensure_ascii=False))
+        return
+
+    if args[0] in ("--devto-unpublish", "--devto-publish"):
+        published = args[0] == "--devto-publish"
+        for article_id in args[1:]:
+            devto_set_published(article_id, published)
         return
 
     if args[0] == "--hatena-list":
