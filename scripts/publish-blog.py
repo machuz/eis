@@ -12,6 +12,12 @@ Usage:
     # Initialize mapping by fetching existing article IDs
     python scripts/publish-blog.py --init
 
+    # Hatena maintenance
+    python scripts/publish-blog.py --hatena-list                     # dump entries (title/id/url)
+    python scripts/publish-blog.py --hatena-delete <edit_id> [...]   # delete entries by edit id
+    python scripts/publish-blog.py --set-draft <file> [...]          # withdraw entry to draft
+    python scripts/publish-blog.py --set-published <file> [...] [--published 2026-07-01T09:00:00+09:00]
+
 Environment variables:
     DEVTO_API_KEY       - dev.to API key
     HATENA_USER_ID      - Hatena user ID (e.g. ma2k8)
@@ -134,12 +140,19 @@ def hatena_base_url():
     return f"https://blog.hatena.ne.jp/{user_id}/{blog_id}/atom/entry"
 
 
-def hatena_build_xml(title: str, body: str, categories: list[str] = None, draft: bool = False) -> bytes:
-    """Build AtomPub XML for Hatena Blog."""
+def hatena_build_xml(title: str, body: str, categories: list[str] = None, draft: bool = False, published: str = None) -> bytes:
+    """Build AtomPub XML for Hatena Blog.
+
+    published: optional RFC3339 datetime (e.g. "2026-07-01T09:00:00+09:00"). When
+    set, Hatena dates the entry at that time; a future value schedules it (予約投稿).
+    """
     entry = ET.Element("entry", xmlns=ATOM_NS)
     entry.set("xmlns:app", APP_NS)
 
     ET.SubElement(entry, "title").text = title
+
+    if published:
+        ET.SubElement(entry, "published").text = published
 
     content = ET.SubElement(entry, "content", type="text/x-markdown")
     content.text = body
@@ -184,14 +197,18 @@ def hatena_categories_for(filename: str) -> list[str]:
     return ["git考古学", "engineering-impact-score", "エンジニアリング"]
 
 
-def hatena_publish(filepath: Path, mapping: dict) -> dict:
-    """Publish or update a Hatena Blog entry."""
+def hatena_publish(filepath: Path, mapping: dict, draft: bool = False, published: str = None) -> dict:
+    """Publish or update a Hatena Blog entry.
+
+    draft=True withdraws the entry to a draft (下書き); draft=False (re)publishes it.
+    published optionally pins the entry's publish datetime (see hatena_build_xml).
+    """
     title, body = hatena_parse_title_and_body(filepath)
     filename = filepath.name
     entry_id = mapping.get(filename, {}).get("hatena_id")
 
     categories = hatena_categories_for(filename)
-    xml_data = hatena_build_xml(title, body, categories=categories)
+    xml_data = hatena_build_xml(title, body, categories=categories, draft=draft, published=published)
 
     headers = {
         "Authorization": hatena_auth_header(),
@@ -261,6 +278,20 @@ def hatena_fetch_entries():
         url = next_link.get("href") if next_link is not None else None
 
     return entries
+
+
+def hatena_delete(entry_id: str) -> None:
+    """Delete a Hatena Blog entry by its AtomPub edit id."""
+    headers = {"Authorization": hatena_auth_header()}
+    url = f"{hatena_base_url()}/{entry_id}"
+    req = urllib.request.Request(url, headers=headers, method="DELETE")
+    print(f"  Deleting Hatena entry {entry_id}...")
+    try:
+        with urllib.request.urlopen(req) as resp:
+            print(f"  OK: HTTP {resp.status}")
+    except urllib.error.HTTPError as e:
+        print(f"  ERROR ({e.code}): {e.read().decode()}", file=sys.stderr)
+        raise
 
 
 # --- File detection ---
@@ -394,6 +425,27 @@ def publish_file(filepath: Path):
     save_mapping(mapping)
 
 
+def set_hatena_state(filepath: Path, draft: bool, published: str = None):
+    """Re-PUT an existing Hatena entry to toggle its draft state (withdraw/republish).
+
+    Requires the file to already be in the mapping (an existing hatena_id); refuses
+    to create a new entry, so it can never accidentally duplicate a post.
+    """
+    mapping = load_mapping()
+    filename = filepath.name
+    if detect_platform(filepath) != "hatena":
+        print(f"  {filename} is not a Hatena target; skipping", file=sys.stderr)
+        return
+    if not mapping.get(filename, {}).get("hatena_id"):
+        print(f"  No hatena_id mapped for {filename}; refusing to create a new entry", file=sys.stderr)
+        sys.exit(1)
+    state = "draft (withdraw)" if draft else "published"
+    print(f"Setting {filename} to {state}...")
+    result = hatena_publish(filepath, mapping, draft=draft, published=published)
+    mapping[filename].update(result)
+    save_mapping(mapping)
+
+
 def main():
     args = sys.argv[1:]
 
@@ -403,6 +455,42 @@ def main():
 
     if args[0] == "--init":
         init_mapping()
+        return
+
+    if args[0] == "--hatena-list":
+        # Dump every Hatena entry (title/id/url) so edit-ids can be discovered.
+        entries = hatena_fetch_entries()
+        print(json.dumps(entries, indent=2, ensure_ascii=False))
+        print(f"\n{len(entries)} entries.")
+        return
+
+    if args[0] == "--hatena-delete":
+        # Delete one or more Hatena entries by AtomPub edit id.
+        for entry_id in args[1:]:
+            hatena_delete(entry_id)
+        return
+
+    if args[0] in ("--set-draft", "--set-published"):
+        # Withdraw to / republish from draft. Remaining args are blog md paths.
+        draft = args[0] == "--set-draft"
+        published = None
+        rest = args[1:]
+        # Optional "--published <RFC3339>" pins the publish datetime on republish.
+        if "--published" in rest:
+            i = rest.index("--published")
+            published = rest[i + 1]
+            rest = rest[:i] + rest[i + 2:]
+        for arg in rest:
+            filepath = Path(arg)
+            if not filepath.is_absolute():
+                filepath = Path.cwd() / filepath
+            if not filepath.exists():
+                print(f"File not found: {filepath}", file=sys.stderr)
+                continue
+            try:
+                set_hatena_state(filepath, draft=draft, published=published)
+            except Exception as e:
+                print(f"Failed to set state for {filepath.name}: {e}", file=sys.stderr)
         return
 
     if args[0] == "--changed":

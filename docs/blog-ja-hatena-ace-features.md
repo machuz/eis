@@ -1,6 +1,6 @@
 # OrbitLens Ace の中を歩く。天文台を、一画面ずつ
 
-![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ace-features.png?v=1)
+![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ace-features.png?v=2)
 
 *どの画面も、たった一つの問いに答える。ここでは何が観えるようになるのか。*
 

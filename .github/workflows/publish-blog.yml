@@ -22,9 +22,17 @@ on:
           - publish-file
           - reorder-structure-series
           - recreate-structure-ch6-onwards
+          - hatena-list
+          - hatena-delete
+          - set-draft
+          - set-published
         default: 'init'
       file:
-        description: 'File path (only for publish-file, e.g. docs/blog-en-devto-ch8.md)'
+        description: 'publish-file/set-draft/set-published: md path(s). hatena-delete: edit id(s). Space-separated.'
+        required: false
+        default: ''
+      published:
+        description: 'set-published only: optional RFC3339 datetime (e.g. 2026-07-01T09:00:00+09:00)'
         required: false
         default: ''
 
@@ -69,6 +77,44 @@ jobs:
           HATENA_BLOG_ID: ${{ secrets.HATENA_BLOG_ID }}
           HATENA_API_KEY: ${{ secrets.HATENA_API_KEY }}
         run: python scripts/publish-blog.py "${{ inputs.file }}"
+
+      - name: List Hatena entries
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'hatena-list'
+        env:
+          HATENA_USER_ID: ${{ secrets.HATENA_USER_ID }}
+          HATENA_BLOG_ID: ${{ secrets.HATENA_BLOG_ID }}
+          HATENA_API_KEY: ${{ secrets.HATENA_API_KEY }}
+        run: python scripts/publish-blog.py --hatena-list
+
+      - name: Delete Hatena entries
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'hatena-delete'
+        env:
+          HATENA_USER_ID: ${{ secrets.HATENA_USER_ID }}
+          HATENA_BLOG_ID: ${{ secrets.HATENA_BLOG_ID }}
+          HATENA_API_KEY: ${{ secrets.HATENA_API_KEY }}
+        # inputs.file holds one or more space-separated AtomPub edit ids.
+        run: python scripts/publish-blog.py --hatena-delete ${{ inputs.file }}
+
+      - name: Withdraw Hatena entries to draft
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'set-draft'
+        env:
+          HATENA_USER_ID: ${{ secrets.HATENA_USER_ID }}
+          HATENA_BLOG_ID: ${{ secrets.HATENA_BLOG_ID }}
+          HATENA_API_KEY: ${{ secrets.HATENA_API_KEY }}
+        run: python scripts/publish-blog.py --set-draft ${{ inputs.file }}
+
+      - name: Republish Hatena entries from draft
+        if: github.event_name == 'workflow_dispatch' && inputs.action == 'set-published'
+        env:
+          HATENA_USER_ID: ${{ secrets.HATENA_USER_ID }}
+          HATENA_BLOG_ID: ${{ secrets.HATENA_BLOG_ID }}
+          HATENA_API_KEY: ${{ secrets.HATENA_API_KEY }}
+        run: |
+          if [ -n "${{ inputs.published }}" ]; then
+            python scripts/publish-blog.py --set-published ${{ inputs.file }} --published "${{ inputs.published }}"
+          else
+            python scripts/publish-blog.py --set-published ${{ inputs.file }}
+          fi
 
       - name: Publish all blog posts
         if: github.event_name == 'workflow_dispatch' && inputs.action == 'publish-all'
