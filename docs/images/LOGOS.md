@@ -22,16 +22,19 @@ one identity for the other.
 
 The full taxonomy lives in the orbit repo's `README.md` → Logos. All OrbitLens
 marks are the orbital-ring **lens** motif (the radar frame is retired). Previews
-are copied into `docs/images/marks/`.
+are copied into `docs/images/marks/`. The 3 product marks are **2-Color Phase
+Blur (Type B)** with a **transparent centre** (they read on light *and* dark);
+they are made by recoloring `docs/images/company_logo_base.svg` **without
+touching the shape** — see the orbit repo's `docs/images/PRODUCT-LOGOS.md`.
 
 | Preview | Role | Colorway | Source (orbit repo) |
 |:---:|---|---|---|
 | <img src="marks/company.png" width="56"> | OrbitLens company mark | **Obsidian Scholar** — navy `#0B1020` / gold `#D8A24A` / slate `#40556F` | `site/logo-orbitlens-mark.svg` |
-| <img src="marks/ace.png" width="56"> | Ace product mark | **Amber on Charcoal** (`#e8a020`) — Type B | `lp/logo-ace.svg` → copied here as `logo-ace-mark.svg` |
-| <img src="marks/true.png" width="56"> | True product mark | **Teal on Charcoal** (`#2ec4b6`) — Type B | `lp/logo-true.svg` |
-| <img src="marks/ideal.png" width="56"> | Ideal product mark | **Royal Purple on Charcoal** (`#9d5ce0`) — Type B | `lp/logo-ideal.svg` |
+| <img src="marks/ace.png" width="56"> | Ace product mark | **Amber** (`#e8a020`) — Type B / transparent centre | `lp/logo-ace.svg` → copied here as `logo-ace-mark.svg` |
+| <img src="marks/true.png" width="56"> | True product mark | **Teal** (`#2ec4b6`) — Type B / transparent centre | `lp/logo-true.svg` |
+| <img src="marks/ideal.png" width="56"> | Ideal product mark | **Royal Purple** (`#9d5ce0`) — Type B / transparent centre | `lp/logo-ideal.svg` |
 
-- `logo-ace-mark.svg` — the **Ace** product mark (Amber on Charcoal, a copy of the canonical `lp/logo-ace.svg` in the orbit repo). Used on Ace blog covers.
+- `logo-ace-mark.svg` — the **Ace** product mark (Amber, a copy of the canonical `lp/logo-ace.svg` in the orbit repo). Used on Ace blog covers.
 - `orbitlens-royal-purple-shadow.png` — the legacy OrbitLens brand icon still used as this library's favicon and nav/breadcrumb lockups. The **canonical company mark is now Obsidian Scholar** (`marks/company.png`); refresh this asset when convenient.
 
 ## Wordmark
