@@ -1,0 +1,60 @@
+name: Action Smoke
+
+# Exercises action.yml end-to-end on a runner WITHOUT a token or network upload
+# (upload: false). This covers the parts of the action that have no other test:
+# the OS/arch detection + checksum-verified install, the shallow-clone guard, and
+# the `eis analyze` invocation. The real upload path needs a live token +
+# observatory and stays out of scope here.
+on:
+  pull_request:
+    paths:
+      - "action.yml"
+      - ".github/workflows/action-smoke.yml"
+  push:
+    branches: [main]
+    paths:
+      - "action.yml"
+      - ".github/workflows/action-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze-only:
+    name: Dry-run analyze via the action
+    # Both runner OSes so the action's linux/darwin + amd64/arm64 install branch
+    # and checksum verification are both exercised.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history — the action requires it
+      - name: Run the action (no upload)
+        uses: ./
+        with:
+          upload: false
+
+  shallow-guard:
+    name: Shallow checkout is rejected
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        # default fetch-depth: 1 → shallow, so the guard must fail the action
+      - name: Run the action on a shallow checkout
+        id: shallow
+        continue-on-error: true
+        uses: ./
+        with:
+          upload: false
+      - name: Assert the action failed
+        run: |
+          if [ "${{ steps.shallow.outcome }}" != "failure" ]; then
+            echo "::error::The action must fail on a shallow checkout, but it succeeded." >&2
+            exit 1
+          fi
+          echo "Shallow-clone guard correctly failed the action."
