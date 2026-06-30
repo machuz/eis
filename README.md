@@ -151,6 +151,10 @@ jobs:
   `working-directory` (default `.`), `args` (extra flags for `eis analyze`), and
   `upload` (default `true`; set to `false` for a dry run that analyzes only — no
   token or network needed).
+- **`eis.yaml` config** — an `eis.yaml` in the `working-directory` (the repo root
+  by default) is picked up automatically; no input needed. For a custom path,
+  pass `args: --config path/to/eis.yaml`. See [Configuration](#configuration) for
+  the file's options.
 
 A full example workflow lives at
 [`examples/github-actions/eis.yml`](examples/github-actions/eis.yml).
