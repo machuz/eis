@@ -68,10 +68,15 @@ runs:
           *) echo "::error::Unsupported runner arch: $(uname -m)" >&2; exit 1 ;;
         esac
 
+        # Transient network/5xx errors (and GitHub maintenance windows) are common
+        # on release downloads, so every curl retries rather than failing the run.
+        CURL_RETRY="--retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 10"
+
         # Resolve the release tag.
         tag="${EIS_VERSION}"
         if [ "${tag}" = "latest" ] || [ -z "${tag}" ]; then
-          tag="$(curl -fsSL \
+          # shellcheck disable=SC2086
+          tag="$(curl -fsSL ${CURL_RETRY} \
             -H "Accept: application/vnd.github+json" \
             ${GH_TOKEN:+-H "Authorization: Bearer ${GH_TOKEN}"} \
             "https://api.github.com/repos/${repo}/releases/latest" \
@@ -87,8 +92,10 @@ runs:
         base="https://github.com/${repo}/releases/download/${tag}"
         workdir="$(mktemp -d)"
 
-        curl -fsSL -o "${workdir}/${asset}" "${base}/${asset}"
-        curl -fsSL -o "${workdir}/checksums.txt" "${base}/checksums.txt"
+        # shellcheck disable=SC2086
+        curl -fsSL ${CURL_RETRY} -o "${workdir}/${asset}" "${base}/${asset}"
+        # shellcheck disable=SC2086
+        curl -fsSL ${CURL_RETRY} -o "${workdir}/checksums.txt" "${base}/checksums.txt"
 
         # Verify the downloaded archive against the published checksums
         # (sha256sum on Linux, shasum on macOS runners).
