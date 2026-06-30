@@ -47,8 +47,10 @@ jobs:
 
       - name: Run ingest
         env:
-          # Privileged research-ingest bearer (NOT a per-account eis_ key).
-          RESEARCH_INGEST_TOKEN: ${{ secrets.RESEARCH_INGEST_TOKEN }}
+          # Privileged research-ingest bearer (NOT a per-account eis_ key). stg
+          # and prod have distinct tokens; pick by the chosen api_base so a prod
+          # run never authenticates with the stg token (and vice versa).
+          RESEARCH_INGEST_TOKEN: ${{ inputs.api_base == 'https://api.orbitlens.io' && secrets.RESEARCH_INGEST_TOKEN_PROD || secrets.RESEARCH_INGEST_TOKEN_STG }}
           # Lets the email→id fallback hit the Commits API for non-noreply authors.
           GITHUB_TOKEN: ${{ github.token }}
           API_BASE: ${{ inputs.api_base }}
