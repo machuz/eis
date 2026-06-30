@@ -1,7 +1,7 @@
 ---
 title: "When AI writes a thousand lines a minute, which code actually holds? (Launching OrbitLens Ace)"
 series: "OrbitLens Ace"
-published: true
+published: false
 description: "Git keeps two records. Everyone reads activity (commits, PRs, lines); almost nobody reads what survived. Once AI makes code infinite, the surviving layer is the only signal left that means anything. EIS reads it; OrbitLens Ace interprets it into a chronicle, not a scoreboard."
 tags: opensource, ai, git, saas
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-launch.png?v=2
