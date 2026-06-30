@@ -157,7 +157,11 @@ jobs:
   the file's options.
 
 A full example workflow lives at
-[`examples/github-actions/eis.yml`](examples/github-actions/eis.yml).
+[`examples/github-actions/eis.yml`](examples/github-actions/eis.yml). To
+re-observe on a cadence instead of on push — survival is time-decayed, so this
+keeps the observatory current even in quiet weeks — see
+[`examples/github-actions/eis-scheduled.yml`](examples/github-actions/eis-scheduled.yml)
+(`on: schedule`, UTC cron).
 
 ## How This Differs from Existing Metrics
 
