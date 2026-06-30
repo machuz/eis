@@ -7,7 +7,7 @@ SCRIPTS := scripts
 DATA := data
 ANALYSIS := analysis
 
-.PHONY: all clone analyze ground-truth report clean
+.PHONY: all clone analyze ground-truth report ingest clean
 
 # Full pipeline
 all: clone ground-truth analyze report
@@ -42,6 +42,13 @@ single:
 	@echo "Analyzing $(REPO)..."
 	@eis analyze --format json $(DATA)/repos/$(REPO) > $(DATA)/results/$(REPO).json
 	@echo "Done. Results: $(DATA)/results/$(REPO).json"
+
+# Publish an EIS research run to the OrbitLens research store (one repo at a
+# time, disk-bounded). Reads ingest-repos.yaml; resolves git authors to GitHub
+# ids; POSTs to $API_BASE (default stg). Env: RESEARCH_INGEST_TOKEN (required),
+# GITHUB_TOKEN (recommended), API_BASE, RUN_ID, ONLY, DRY_RUN. See run-ingest.sh.
+ingest:
+	@bash $(SCRIPTS)/run-ingest.sh
 
 # Clean generated data (keeps cloned repos)
 clean:

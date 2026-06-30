@@ -6,8 +6,13 @@ branding:
 
 inputs:
   token:
-    description: "OrbitLens Ace API token (Bearer). Create one in Ace → Settings → API tokens and store it as a repo secret."
-    required: true
+    description: "OrbitLens Ace API token (Bearer). Required unless upload is false. Create one in Ace → Settings → API tokens and store it as a repo secret."
+    required: false
+    default: ""
+  upload:
+    description: "Upload the signals to the observatory. Set to 'false' for a dry run that analyzes only (no token or network needed) — e.g. to smoke-test the action."
+    required: false
+    default: "true"
   api-url:
     description: "Observatory base URL. Override for staging or a self-hosted observatory."
     required: false
@@ -63,10 +68,15 @@ runs:
           *) echo "::error::Unsupported runner arch: $(uname -m)" >&2; exit 1 ;;
         esac
 
+        # Transient network/5xx errors (and GitHub maintenance windows) are common
+        # on release downloads, so every curl retries rather than failing the run.
+        CURL_RETRY="--retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 10"
+
         # Resolve the release tag.
         tag="${EIS_VERSION}"
         if [ "${tag}" = "latest" ] || [ -z "${tag}" ]; then
-          tag="$(curl -fsSL \
+          # shellcheck disable=SC2086
+          tag="$(curl -fsSL ${CURL_RETRY} \
             -H "Accept: application/vnd.github+json" \
             ${GH_TOKEN:+-H "Authorization: Bearer ${GH_TOKEN}"} \
             "https://api.github.com/repos/${repo}/releases/latest" \
@@ -82,8 +92,10 @@ runs:
         base="https://github.com/${repo}/releases/download/${tag}"
         workdir="$(mktemp -d)"
 
-        curl -fsSL -o "${workdir}/${asset}" "${base}/${asset}"
-        curl -fsSL -o "${workdir}/checksums.txt" "${base}/checksums.txt"
+        # shellcheck disable=SC2086
+        curl -fsSL ${CURL_RETRY} -o "${workdir}/${asset}" "${base}/${asset}"
+        # shellcheck disable=SC2086
+        curl -fsSL ${CURL_RETRY} -o "${workdir}/checksums.txt" "${base}/checksums.txt"
 
         # Verify the downloaded archive against the published checksums
         # (sha256sum on Linux, shasum on macOS runners).
@@ -107,10 +119,22 @@ runs:
         ACE_API_URL: ${{ inputs.api-url }}
         EIS_TOKEN: ${{ inputs.token }}
         EIS_ARGS: ${{ inputs.args }}
+        EIS_UPLOAD: ${{ inputs.upload }}
       run: |
         set -euo pipefail
-        # Keep the token out of any echoed command line or log.
-        echo "::add-mask::${EIS_TOKEN}"
-        # Token is passed via EIS_TOKEN env (never on the command line).
-        # shellcheck disable=SC2086
-        eis analyze --upload ${EIS_ARGS}
+        if [ "${EIS_UPLOAD}" = "false" ]; then
+          # Dry run: analyze only, never contact the observatory (no token needed).
+          # Used by the action smoke test to exercise install + analyze on a runner.
+          # shellcheck disable=SC2086
+          eis analyze ${EIS_ARGS}
+        else
+          if [ -z "${EIS_TOKEN}" ]; then
+            echo "::error::'token' is required to upload signals. Set it to an OrbitLens Ace API token, or pass 'upload: false' for a dry run." >&2
+            exit 1
+          fi
+          # Keep the token out of any echoed command line or log.
+          echo "::add-mask::${EIS_TOKEN}"
+          # Token is passed via EIS_TOKEN env (never on the command line).
+          # shellcheck disable=SC2086
+          eis analyze --upload ${EIS_ARGS}
+        fi

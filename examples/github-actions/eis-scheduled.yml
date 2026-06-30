@@ -1,0 +1,42 @@
+# Example: run EIS on a SCHEDULE (not just on push) and upload signals to the
+# OrbitLens observatory.
+#
+# Why schedule it: EIS survival/gravity is time-decayed, so re-observing on a
+# fixed cadence captures decay even in weeks with no new commits — the
+# observatory stays current without anyone pushing. Pairs well with low-traffic
+# or archived repos.
+#
+# Copy this file to .github/workflows/eis-scheduled.yml in your repo.
+#
+# Setup:
+#   1. Create an API token in OrbitLens Ace → Settings → API tokens.
+#   2. Save it as a repository secret named ACE_API_TOKEN.
+#   3. Keep fetch-depth: 0 — EIS reads the full git log/blame history.
+#
+# Schedule gotchas (GitHub, not EIS):
+#   - cron is always UTC. The line below is 06:00 UTC = 15:00 JST.
+#   - Minimum interval is 5 minutes, and the run time is best-effort — GitHub
+#     may delay or drop a tick under load, so don't rely on an exact minute.
+#   - Only the schedule in the DEFAULT branch's workflow file runs.
+#   - GitHub auto-DISABLES scheduled workflows after 60 days with no repo
+#     activity (commits). workflow_dispatch below lets you re-run / wake it by
+#     hand from the Actions tab.
+name: EIS (scheduled)
+on:
+  schedule:
+    - cron: "0 6 * * 1" # every Monday 06:00 UTC (15:00 JST)
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history — EIS reads git log/blame
+      - uses: machuz/eis@v2
+        with:
+          token: ${{ secrets.ACE_API_TOKEN }}
+          # api-url: https://api.orbitlens.io   # default; set for staging/self-host
+          # version: v2.16.0                    # default: latest stable release
+          # args: --recursive                   # extra flags for `eis analyze`

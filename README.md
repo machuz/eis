@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/logo-full.svg?v=4" alt="EIS — the Git Telescope" width="420">
+  <img src="docs/images/logo-full.svg?v=5" alt="EIS — the Git Telescope" width="420">
 </p>
 
 <p align="center">
@@ -141,17 +141,27 @@ jobs:
           # api-url: https://api.orbitlens.io   # default; set for staging/self-host
 ```
 
-- **`token` (required)** — create one in OrbitLens Ace → **Settings → API tokens**
-  and store it as the repo secret `ACE_API_TOKEN`.
+- **`token`** — required to upload (the default). Create one in OrbitLens Ace →
+  **Settings → API tokens** and store it as the repo secret `ACE_API_TOKEN`.
 - **`fetch-depth: 0` is required** — a shallow clone has no history, so EIS
   cannot read `git log`/`git blame`. The action fails fast if the checkout is
   shallow.
 - Other inputs: `api-url` (default `https://api.orbitlens.io`; override for
   staging or self-host), `version` (default: latest stable release),
-  `working-directory` (default `.`), and `args` (extra flags for `eis analyze`).
+  `working-directory` (default `.`), `args` (extra flags for `eis analyze`), and
+  `upload` (default `true`; set to `false` for a dry run that analyzes only — no
+  token or network needed).
+- **`eis.yaml` config** — an `eis.yaml` in the `working-directory` (the repo root
+  by default) is picked up automatically; no input needed. For a custom path,
+  pass `args: --config path/to/eis.yaml`. See [Configuration](#configuration) for
+  the file's options.
 
 A full example workflow lives at
-[`examples/github-actions/eis.yml`](examples/github-actions/eis.yml).
+[`examples/github-actions/eis.yml`](examples/github-actions/eis.yml). To
+re-observe on a cadence instead of on push — survival is time-decayed, so this
+keeps the observatory current even in quiet weeks — see
+[`examples/github-actions/eis-scheduled.yml`](examples/github-actions/eis-scheduled.yml)
+(`on: schedule`, UTC cron).
 
 ## How This Differs from Existing Metrics
 
