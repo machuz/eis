@@ -1,10 +1,10 @@
 ---
 title: "Inside OrbitLens Ace: A Tour of the Observatory"
 series: "OrbitLens Ace"
-published: false
+published: true
 description: "A screen-by-screen tour of OrbitLens Ace: the observatory dashboard, Star Detail, module topology with collapse risk, the organizational chronicle with its Slack connector, Ambient mode, and the Gravity Certificate. Each screen framed by one question: what becomes observable?"
 tags: opensource, ai, git, saas
-cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-features.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-features.png?v=2
 ---
 
 *Every screen answers one question: what becomes observable here?*

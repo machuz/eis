@@ -1,10 +1,10 @@
 ---
 title: "When AI writes a thousand lines a minute, which code actually holds? (Launching OrbitLens Ace)"
 series: "OrbitLens Ace"
-published: false
+published: true
 description: "Git keeps two records. Everyone reads activity (commits, PRs, lines); almost nobody reads what survived. Once AI makes code infinite, the surviving layer is the only signal left that means anything. EIS reads it; OrbitLens Ace interprets it into a chronicle, not a scoreboard."
 tags: opensource, ai, git, saas
-cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-launch.png?v=1
+cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-launch.png?v=2
 ---
 
 *AI can write infinite code. Whether it lasts is a different question.*
@@ -37,6 +37,8 @@ The speed of writing code left human hands. Ask a model and a thousand lines arr
 What's left is what survives. Of the thousand lines AI just produced, the share that gets rewritten next week has a survival of zero. Only the code still standing in six months is doing structural work. When generation becomes infinitely cheap, the scarce thing isn't output. It's what stays.
 
 And survival can't be gamed, not even by AI, because time isn't the only thing that decides it. Whether a piece of code lasts is settled by the ecosystem it lands in: whether the next person builds on it or tears it out. The other developers' hands give the answer. So it isn't an absolute ruler. It shifts by environment. A conservative team might keep mediocre-but-bug-free code untouched; an aggressive one might throw the same code out by next month. Survival is a relative signal, valid only inside that particular context.
+
+And the code that survives surfaces as accumulated history: what it set out to solve, what got built, in what structure — a record of having faced those questions with real heat.
 
 But that is exactly why you can't fake it. It isn't self-reported and it isn't volume; it's the accumulated choices of everyone around you. And someone whose code survives across many different contexts is probably someone who can genuinely design. A lucky fit to one environment's habits doesn't explain that.
 
@@ -86,6 +88,12 @@ Open the timeline and the depth shows. From 2013 he held React's structural seat
 And yet his all-time Gravity reads a modest 9.9. That's because EIS's all-time survival decays with time. The foundation he laid has gone quiet — no one is actively pressing on it now (robust survival near zero) — so the all-time view, which measures the gravity that is *live right now*, reads him soft. That isn't a demotion. It's the instrument declining to confuse a finished foundation with live gravity, and his decade is right there in the timeline.
 
 There is another honest way to read all-time. Measure it not as "the gravity live right now" but as "the lasting structure left behind" — swap the survival gate from robust survival to raw survival (lifetime gravity) — and the same Markbåge climbs back near the top (~74). Is the system leaning on you right now, versus what did you leave that still stands: two questions, two answers. EIS now carries this second gravity as a versioned, additive companion.
+
+There's a kind of gravity the live number can't fully catch: the foundation the next generation rebuilt on top of. Andrew Clark's work is that kind. He worked on huge parts of React's modern internals — hooks, concurrent features, Suspense. Much of it was later built over by what came after, and because EIS reads surviving structure, a foundation that's been built upon reads quiet. But that quiet is the point. **Being rewritten isn't failure** — it often means the work became the foundation the next generation stands on.
+
+And the timeline doesn't forget. It still records who held the architect's seat, season by season; the lines can be overwritten, but the record that you carried the structure is not. Every architect is rewritten in the end — and when it happens, the chronicle remembers that you held the seat.
+
+And in Ace you don't choose between the two — you read the same person in both, one toggle apart: the all-time footprint (the structure they left) and the trajectory (the seasons they carried it). For Clark, both are there at once — the foundation that's been built upon, and every season he held the architect's seat. Pull the telescope back for the whole, lean in for one era — the same universe at two focal lengths.
 
 A leaderboard parks the famous and the first at the top forever. EIS doesn't — but open the timeline and who held the structure, and when, is preserved in full. In that same React, the all-time top-10 overlaps the GitHub maintainer list by only 60%. The rest are people without the title, whose code the system still rests on.
 
