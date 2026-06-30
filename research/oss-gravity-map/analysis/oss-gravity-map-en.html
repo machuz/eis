@@ -139,6 +139,7 @@ h1 .accent{color:#58a6ff}
   <a class="sub" href="#gravity-concentration">Gravity Concentration</a>
   <a class="sub" href="#three-modes">Three Structural Authority Modes</a>
   <a href="#findings">3. What Else We Saw</a>
+  <a href="#live-map">Live ranking</a>
   <a href="#consent">On names</a>
   <a href="#repos">The 29 repositories</a>
 </div>
@@ -415,6 +416,65 @@ h1 .accent{color:#58a6ff}
     <li><strong>Hidden Architects</strong>: 440 engineers carried top-tier gravity while appearing at no conference and on no timeline. Trace the gravity field and there they were, quietly holding the architecture together. The world simply doesn't know their names.</li>
   </ul>
 </div>
+
+<!-- ========================================= -->
+<!-- Live ranking (DB-backed, server-side consent) -->
+<!-- ========================================= -->
+<div class="section" id="live-map">
+  <h2 class="section-title">Live ranking</h2>
+  <p class="section-desc">
+    Observed gravity, as a living ranking. <strong>Everyone is anonymous (Member-N) by default</strong> — only the gravity shows. A real name appears only when the person <strong>claims it with their GitHub account</strong>. The disclosure decision is made entirely server-side, and the GitHub identity of anyone who has not claimed never reaches your browser.
+  </p>
+  <div id="oss-map-list" style="max-width:780px;margin:1.4em auto;color:#c9d1d9">Loading…</div>
+  <div style="text-align:center;margin-top:14px">
+    <button id="oss-map-more" style="display:none;padding:9px 20px;background:#161b22;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;cursor:pointer;font-size:.9em">Load more</button>
+  </div>
+</div>
+<script>
+(function () {
+  var API = 'https://api.orbitlens.io/oss/map';
+  var page = 0;
+  var listEl = document.getElementById('oss-map-list');
+  var moreEl = document.getElementById('oss-map-more');
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function row(e) {
+    var who = e.named
+      ? '<a href="https://github.com/' + esc(e.login) + '" style="color:#58a6ff;text-decoration:none;font-weight:600">' + esc(e.login) + '</a>'
+      : '<span style="color:#8b949e">' + esc(e.label) + '</span>';
+    var role = e.role ? '<span style="color:#8b949e;font-size:.85em;margin-left:8px">' + esc(e.role) + '</span>' : '';
+    return '<div style="display:flex;align-items:center;gap:12px;padding:8px 4px;border-bottom:1px solid #21262d">' +
+      '<span style="color:#8b949e;width:48px;flex-shrink:0;font-variant-numeric:tabular-nums">#' + esc(e.rank) + '</span>' +
+      '<span style="flex:1;min-width:0">' + who + role + '</span>' +
+      '<span style="color:#f0f6fc;font-weight:700;font-variant-numeric:tabular-nums">' + Math.round(e.gravity) + '</span>' +
+      '</div>';
+  }
+  function render(data) {
+    var entries = (data && data.entries) || [];
+    if (page === 0 && entries.length === 0) {
+      listEl.innerHTML = '<p style="color:#8b949e;text-align:center;padding:24px">No participants yet. When an observed engineer claims their gravity, their name appears here.</p>';
+      moreEl.style.display = 'none';
+      return;
+    }
+    var html = entries.map(row).join('');
+    if (page === 0) listEl.innerHTML = html; else listEl.insertAdjacentHTML('beforeend', html);
+    moreEl.style.display = (data && data.has_more) ? '' : 'none';
+  }
+  function load() {
+    fetch(API + '?page=' + page)
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(render)
+      .catch(function () {
+        if (page === 0) listEl.innerHTML = '<p style="color:#8b949e;text-align:center;padding:24px">The live ranking is coming soon.</p>';
+      });
+  }
+  moreEl.addEventListener('click', function () { page++; load(); });
+  load();
+})();
+</script>
 
 <!-- ========================================= -->
 <!-- On names (consent model) -->

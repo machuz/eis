@@ -139,6 +139,7 @@ h1 .accent{color:#58a6ff}
   <a class="sub" href="#gravity-concentration">重力集中度</a>
   <a class="sub" href="#three-modes">3つの構造権威モード</a>
   <a href="#findings">3. そのほかに観えたこと</a>
+  <a href="#live-map">ライブ・ランキング</a>
   <a href="#consent">名前について</a>
   <a href="#repos">観測した29リポジトリ</a>
 </div>
@@ -415,6 +416,65 @@ h1 .accent{color:#58a6ff}
     <li><strong>Hidden Architects</strong>：上位の重力を持ちながら、カンファレンスにも SNS にも現れない440人のエンジニアがいた。重力場を辿ると、静かにアーキテクチャを支えていた。世界が名前を知らないだけだ。</li>
   </ul>
 </div>
+
+<!-- ========================================= -->
+<!-- ライブ・ランキング（DB駆動・サーバ側consent） -->
+<!-- ========================================= -->
+<div class="section" id="live-map">
+  <h2 class="section-title">ライブ・ランキング</h2>
+  <p class="section-desc">
+    観測された重力を、生きたランキングとして。<strong>既定では全員が匿名（Member-N）</strong>で、重力だけが見える。実名が現れるのは、本人が <strong>GitHub アカウントで Claim</strong>したときだけ——開示の判定はすべてサーバ側で行われ、Claim していない人の GitHub アイデンティティは決してブラウザに渡らない。
+  </p>
+  <div id="oss-map-list" style="max-width:780px;margin:1.4em auto;color:#c9d1d9">読み込み中…</div>
+  <div style="text-align:center;margin-top:14px">
+    <button id="oss-map-more" style="display:none;padding:9px 20px;background:#161b22;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;cursor:pointer;font-size:.9em">さらに表示</button>
+  </div>
+</div>
+<script>
+(function () {
+  var API = 'https://api.orbitlens.io/oss/map';
+  var page = 0;
+  var listEl = document.getElementById('oss-map-list');
+  var moreEl = document.getElementById('oss-map-more');
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function row(e) {
+    var who = e.named
+      ? '<a href="https://github.com/' + esc(e.login) + '" style="color:#58a6ff;text-decoration:none;font-weight:600">' + esc(e.login) + '</a>'
+      : '<span style="color:#8b949e">' + esc(e.label) + '</span>';
+    var role = e.role ? '<span style="color:#8b949e;font-size:.85em;margin-left:8px">' + esc(e.role) + '</span>' : '';
+    return '<div style="display:flex;align-items:center;gap:12px;padding:8px 4px;border-bottom:1px solid #21262d">' +
+      '<span style="color:#8b949e;width:48px;flex-shrink:0;font-variant-numeric:tabular-nums">#' + esc(e.rank) + '</span>' +
+      '<span style="flex:1;min-width:0">' + who + role + '</span>' +
+      '<span style="color:#f0f6fc;font-weight:700;font-variant-numeric:tabular-nums">' + Math.round(e.gravity) + '</span>' +
+      '</div>';
+  }
+  function render(data) {
+    var entries = (data && data.entries) || [];
+    if (page === 0 && entries.length === 0) {
+      listEl.innerHTML = '<p style="color:#8b949e;text-align:center;padding:24px">まだ参加者がいません。観測された本人が Claim すると、ここに実名が現れます。</p>';
+      moreEl.style.display = 'none';
+      return;
+    }
+    var html = entries.map(row).join('');
+    if (page === 0) listEl.innerHTML = html; else listEl.insertAdjacentHTML('beforeend', html);
+    moreEl.style.display = (data && data.has_more) ? '' : 'none';
+  }
+  function load() {
+    fetch(API + '?page=' + page)
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(render)
+      .catch(function () {
+        if (page === 0) listEl.innerHTML = '<p style="color:#8b949e;text-align:center;padding:24px">ライブ・ランキングは間もなく公開されます。</p>';
+      });
+  }
+  moreEl.addEventListener('click', function () { page++; load(); });
+  load();
+})();
+</script>
 
 <!-- ========================================= -->
 <!-- 名前について（同意モデル） -->
