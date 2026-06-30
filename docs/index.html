@@ -565,11 +565,15 @@ a:hover { color: var(--text-strong); }
   line-height: 1.25;
 }
 .vocab-card .ja-title {
+  display: none;
   font-size: 13px;
   color: var(--purple-bright);
   margin-bottom: 14px;
   font-weight: 500;
 }
+/* The Japanese term is a JA-only gloss under the English card title; show it
+   only in Japanese so the EN view stays English. */
+body.ja .vocab-card .ja-title { display: block; }
 .vocab-card .definition {
   font-size: 14px;
   color: var(--text);
@@ -786,6 +790,13 @@ section { padding: 80px 0; position: relative; scroll-margin-top: 80px; }
   max-width: 960px;
 }
 .triad-figure img { display: block; width: 100%; height: auto; }
+/* The diagram ships as language-specific SVGs (Japanese text is baked into the
+   art, so it can't be toggled in-place). `.triad-figure img` (0,1,1) would
+   otherwise outweigh the generic `[data-lang="ja"]` (0,1,0) hide rule and show
+   both, so the per-language show/hide is restated at matching specificity. */
+.triad-figure img[data-lang="ja"] { display: none; }
+body.ja .triad-figure img[data-lang="ja"] { display: block; }
+body.ja .triad-figure img[data-lang="en"] { display: none; }
 
 /* ===== Mini cards (whitepapers) ===== */
 .mini-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -1014,6 +1025,7 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     <li><a href="#books" data-spy="books"><span data-lang-inline="en">The Library</span><span data-lang-inline="ja">ライブラリ</span></a></li>
     <li><a href="#reading-log" data-spy="reading-log"><span data-lang-inline="en">Reading Log</span><span data-lang-inline="ja">読書ログ</span></a></li>
     <li><a href="#whitepapers" data-spy="whitepapers"><span data-lang-inline="en">Whitepapers</span><span data-lang-inline="ja">ホワイトペーパー</span></a></li>
+    <li><a href="#research" data-spy="research"><span data-lang-inline="en">Research</span><span data-lang-inline="ja">リサーチ</span></a></li>
     <li><a href="#articles" data-spy="articles"><span data-lang-inline="en">Articles</span><span data-lang-inline="ja">記事</span></a></li>
     <li><a href="#tools" data-spy="tools"><span data-lang-inline="en">Tools</span><span data-lang-inline="ja">ツール</span></a></li>
   </ol>
@@ -1046,8 +1058,8 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     <a href="https://lp.orbitlens.io" class="crumb-action" target="_blank" rel="noopener"><span data-lang-inline="en">Product</span><span data-lang-inline="ja">プロダクト</span></a>
     <a href="https://docs.orbitlens.io/apis" class="crumb-action" target="_blank" rel="noopener"><span data-lang-inline="en">API</span><span data-lang-inline="ja">API</span></a>
     <div class="lang-tabs" id="lang-tabs" data-active="en">
-      <button class="lang-tab" data-tab-lang="en" onclick="setLang('en')" aria-label="English">EN</button>
-      <button class="lang-tab" data-tab-lang="ja" onclick="setLang('ja')" aria-label="日本語">JA</button>
+      <button class="lang-tab" data-tab-lang="en" onclick="setLang('en', true)" aria-label="English">EN</button>
+      <button class="lang-tab" data-tab-lang="ja" onclick="setLang('ja', true)" aria-label="日本語">JA</button>
       <span class="lang-pill" aria-hidden="true"></span>
     </div>
     <a href="https://github.com/machuz/eis" class="crumb-icon" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
@@ -1132,7 +1144,8 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 <!-- System map — triad diagram elevated to near first view -->
 <section id="system-map" class="system-map">
   <figure class="triad-figure">
-    <img src="./images/library-triad.svg" alt="Three layers of the OrbitLens Library — Psychological OS (L3 Interior) translates heat into Structure-Driven Organization (L2), which settles as traces observed by Git Archaeology (L1).">
+    <img data-lang="en" src="./images/library-triad-en.svg" alt="Three layers of the OrbitLens Library — Psychological OS (L3 Interior) translates heat into Structure-Driven Organization (L2), which settles as traces observed by Git Archaeology (L1).">
+    <img data-lang="ja" src="./images/library-triad.svg" alt="Three layers of the OrbitLens Library — Psychological OS (L3 Interior) translates heat into Structure-Driven Organization (L2), which settles as traces observed by Git Archaeology (L1).">
   </figure>
 </section>
 
@@ -1286,7 +1299,8 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     </p>
 
     <figure class="triad-figure">
-      <img src="./images/library-boundary.svg" alt="Boundary Conditions — the OrbitLens Library inner cosmos (Psychological OS, Structure-Driven Organization, Git Archaeology) under pressure from the outer cosmos: market, capital, labor, and chance.">
+      <img data-lang="en" src="./images/library-boundary-en.svg" alt="Boundary Conditions — the OrbitLens Library inner cosmos (Psychological OS, Structure-Driven Organization, Git Archaeology) under pressure from the outer cosmos: market, capital, labor, and chance.">
+      <img data-lang="ja" src="./images/library-boundary.svg" alt="Boundary Conditions — the OrbitLens Library inner cosmos (Psychological OS, Structure-Driven Organization, Git Archaeology) under pressure from the outer cosmos: market, capital, labor, and chance.">
     </figure>
   </div>
 </section>
@@ -1304,7 +1318,7 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     </div>
     <div class="section-head">
       <div class="section-label">Reading Log</div>
-      <div class="section-count">読書ログ</div>
+      <div class="section-count"><span data-lang-inline="en">manga · thought books</span><span data-lang-inline="ja">漫画と思想書</span></div>
     </div>
     <p class="section-lede" data-lang="en">
       Manga and thought books, read not as a fan but as structure — psychological-OS and organizational-OS sample cases. Body and concept, checked against each other on the same desk. (Japanese.)
@@ -1480,7 +1494,7 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
     </div>
 
     <p class="section-lede" data-lang="en" style="margin-top:32px">
-      → <a href="./reading-log/">All entries</a>
+      → <a href="https://dev.to/machuz/series/39912" target="_blank" rel="noopener">All entries on DEV</a>
     </p>
     <p class="section-lede" data-lang="ja" style="margin-top:32px">
       → <a href="./reading-log/">読書ログの目次へ</a>
@@ -1524,6 +1538,51 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
         <div class="mini-label">ホワイトペーパー</div>
         <div class="mini-title">Engineering Impact Signal</div>
         <div class="mini-desc">エンジニアリングの重力を測る望遠鏡 —— 7軸観測、3軸エンジニアトポロジー、ゲーム耐性で信号の純度を保つ。</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Research -->
+<section id="research">
+  <div class="container">
+    <div class="compass-divider">
+      <span class="line"></span>
+      <svg viewBox="0 0 22 22" fill="none">
+        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="0.6"/>
+        <circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="0.5"/>
+        <circle cx="11" cy="11" r="1.2" fill="currentColor"/>
+        <line x1="11" y1="1" x2="11" y2="4" stroke="currentColor" stroke-width="0.5"/>
+        <line x1="11" y1="18" x2="11" y2="21" stroke="currentColor" stroke-width="0.5"/>
+        <line x1="1" y1="11" x2="4" y2="11" stroke="currentColor" stroke-width="0.5"/>
+        <line x1="18" y1="11" x2="21" y2="11" stroke="currentColor" stroke-width="0.5"/>
+      </svg>
+      <span class="line"></span>
+    </div>
+    <div class="section-head">
+      <div class="section-label">Research</div>
+      <div class="section-count">29 repos · 55,343 engineers</div>
+    </div>
+    <p class="section-lede" data-lang="en">
+      Field observations with EIS. The OSS Gravity Map charts how engineering gravity distributes across language ecosystems — anonymous by default, never a named ranking.
+    </p>
+    <p class="section-lede" data-lang="ja">
+      EIS による観測結果。OSS Gravity Map は、言語エコシステムごとにエンジニアリングの重力がどう分布するかを観測する。既定で匿名で、名指しのランキングはしない。
+    </p>
+
+    <div class="mini-grid">
+      <a href="https://machuz.github.io/eis/research/oss-gravity-map/analysis/oss-gravity-map-en.html" class="mini" data-lang="en">
+        <div class="mini-arrow">→</div>
+        <div class="mini-label">OSS Gravity Map</div>
+        <div class="mini-title">Do Physical Laws Exist in the Universe of Code?</div>
+        <div class="mini-desc">Structural analysis across 29 repositories and 55,343 engineers. Gravity follows different laws depending on language family.</div>
+      </a>
+      <a href="https://machuz.github.io/eis/research/oss-gravity-map/analysis/oss-gravity-map-ja.html" class="mini" data-lang="ja">
+        <div class="mini-arrow">→</div>
+        <div class="mini-label">OSS Gravity Map</div>
+        <div class="mini-title">コードの宇宙に物理法則は存在するか</div>
+        <div class="mini-desc">29リポジトリ・55,343エンジニアの構造分析。言語ファミリーごとに重力の法則が体系的に異なることを観測した。</div>
       </a>
     </div>
   </div>
@@ -1726,7 +1785,27 @@ body.ja .book-btn[data-lang="ja"] { display: inline-flex; }
 </div>
 
 <script>
-function setLang(lang) {
+// Language preference is shared across every orbitlens.io subdomain (library,
+// corp, lp, ...) via a cookie scoped to `.orbitlens.io`. localStorage is kept
+// too for backward compatibility, but it is per-origin so it can't carry the
+// choice across a subdomain hop (e.g. library -> corp) — only the cookie can.
+function readLangCookie() {
+  const m = document.cookie.match(/(?:^|;\s*)lang=(ja|en)\b/);
+  return m ? m[1] : null;
+}
+function writeLangCookie(lang) {
+  const base = 'lang=' + lang + ';path=/;max-age=31536000;samesite=lax';
+  // Scope to the apex so all subdomains share it; on localhost/previews a domain
+  // mismatch makes the browser drop the cookie, so fall back to a bare cookie.
+  document.cookie = location.hostname.endsWith('orbitlens.io')
+    ? base + ';domain=.orbitlens.io'
+    : base;
+}
+// `persist` is true only for an explicit user toggle. The init call leaves it
+// falsy so an auto-detected default never writes the shared cookie — otherwise
+// a non-JA browser visiting the library would silently override corp's JA
+// default on the next subdomain hop.
+function setLang(lang, persist) {
   const tabs = document.getElementById('lang-tabs');
   const prev = tabs ? tabs.dataset.active : null;
   if (tabs && prev !== lang) {
@@ -1738,15 +1817,17 @@ function setLang(lang) {
   }
   document.body.classList.toggle('ja', lang === 'ja');
   localStorage.setItem('orbit-lang', lang);
+  if (persist) writeLangCookie(lang);
   document.documentElement.lang = lang;
   if (window.__refreshCrumbSection) window.__refreshCrumbSection();
 }
-// Priority: URL ?lang=xx > localStorage > browser language > 'en'
+// Priority: URL ?lang=xx > cross-subdomain cookie > localStorage > browser > 'en'
 const urlLangParam = new URLSearchParams(window.location.search).get('lang');
 const urlLang = (urlLangParam === 'ja' || urlLangParam === 'en') ? urlLangParam : null;
+const cookieLang = readLangCookie();
 const savedLang = localStorage.getItem('orbit-lang');
 const browserLang = (navigator.language && navigator.language.startsWith('ja')) ? 'ja' : 'en';
-const initialLang = urlLang || savedLang || browserLang;
+const initialLang = urlLang || cookieLang || savedLang || browserLang;
 // Initialize container state without animation on first paint
 const _langTabs = document.getElementById('lang-tabs');
 if (_langTabs) _langTabs.dataset.active = initialLang;
