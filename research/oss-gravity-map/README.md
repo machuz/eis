@@ -60,6 +60,29 @@ make analyze        # Run EIS on all repos
 make report         # Generate RESULTS.md
 ```
 
+## Publishing to OrbitLens (the live map)
+
+`make ingest` observes the target repos and POSTs one EIS research run to the
+OrbitLens research store (`POST /oss/research/ingest`), which backs the live OSS
+Gravity Map. It resolves each git author to their GitHub **numeric id** — the
+join key the map and the Claim flow need — preferring the id embedded in a
+GitHub noreply email and falling back to the Commits API; emails are resolved in
+memory and never written anywhere. Authors it can't resolve are dropped (the
+store drops `ex_github_id == 0`). Unclaimed authors render as `Member-N` until
+they claim their entry, so nothing is named without consent.
+
+```bash
+export RESEARCH_INGEST_TOKEN=...   # privileged ingest bearer (NOT a per-account eis_ key)
+export GITHUB_TOKEN=$(gh auth token)  # enables the email→id fallback
+API_BASE=https://api.stg.orbitlens.io make ingest      # default: stg
+ONLY=react,vite DRY_RUN=1 make ingest                  # one-off, assemble + print, no POST
+```
+
+It clones, analyzes, and ingests **one repo at a time**, deleting each clone
+before the next, so the ~50GB dataset never lands all at once (CI-friendly). The
+`OSS research ingest` GitHub Actions workflow (`workflow_dispatch`) runs the same
+script with the token from a repo secret. See `scripts/run-ingest.sh`.
+
 ## Architecture Configs (PR Welcome)
 
 Each repository has a dedicated `configs/<repo>.yaml` defining **architecture patterns** — the files EIS treats as structurally significant.

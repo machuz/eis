@@ -1,0 +1,59 @@
+name: "OSS research ingest"
+
+# Observe the research target repos and POST one EIS research run to the
+# OrbitLens research store (POST /oss/research/ingest). Manual for now
+# (workflow_dispatch) so each run is deliberate and targeted; promote to a
+# schedule once the prod data path is proven.
+#
+# Disk: scripts/run-ingest.sh clones + analyzes ONE repo at a time and deletes
+# it before the next, so the ~50GB dataset never lands all at once.
+on:
+  workflow_dispatch:
+    inputs:
+      api_base:
+        description: "Ingest API base URL"
+        type: choice
+        default: "https://api.stg.orbitlens.io"
+        options:
+          - "https://api.stg.orbitlens.io"
+          - "https://api.orbitlens.io"
+      only:
+        description: "Comma-separated manifest dirs (blank = all 25)"
+        type: string
+        default: ""
+      max_commit_pages:
+        description: "GitHub Commits-API pages for the email→id fallback"
+        type: string
+        default: "10"
+      dry_run:
+        description: "Assemble + log but do not POST"
+        type: boolean
+        default: false
+
+concurrency:
+  group: oss-research-ingest
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Run ingest
+        env:
+          # Privileged research-ingest bearer (NOT a per-account eis_ key).
+          RESEARCH_INGEST_TOKEN: ${{ secrets.RESEARCH_INGEST_TOKEN }}
+          # Lets the email→id fallback hit the Commits API for non-noreply authors.
+          GITHUB_TOKEN: ${{ github.token }}
+          API_BASE: ${{ inputs.api_base }}
+          ONLY: ${{ inputs.only }}
+          MAX_COMMIT_PAGES: ${{ inputs.max_commit_pages }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+          RUN_ID: "ingest-${{ github.run_id }}"
+        run: ./research/oss-gravity-map/scripts/run-ingest.sh

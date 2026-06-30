@@ -1,0 +1,36 @@
+# Source of truth for the OSS research INGEST pipeline.
+#
+# Lists the cloned repos that get observed and POSTed to the OrbitLens research
+# store (POST /oss/research/ingest). For each:
+#   dir             clone directory name = basename of the repo = the stem of the
+#                   eis analysis JSON (data/results/<dir>.json). Keep in sync with
+#                   scripts/clone-repos.sh.
+#   full_name       owner/repo, stored verbatim as research_repos.full_name.
+#   language_family the primary language family used to group the map. One token,
+#                   lowercase; multi-language repos collapse to their primary.
+repos:
+  - { dir: react,       full_name: facebook/react,            language_family: javascript }
+  - { dir: kubernetes,  full_name: kubernetes/kubernetes,     language_family: go }
+  - { dir: terraform,   full_name: hashicorp/terraform,       language_family: go }
+  - { dir: redis,       full_name: redis/redis,               language_family: c }
+  - { dir: rust,        full_name: rust-lang/rust,            language_family: rust }
+  - { dir: prometheus,  full_name: prometheus/prometheus,     language_family: go }
+  - { dir: grafana,     full_name: grafana/grafana,           language_family: go }
+  - { dir: loki,        full_name: grafana/loki,              language_family: go }
+  - { dir: argo-cd,     full_name: argoproj/argo-cd,          language_family: go }
+  - { dir: envoy,       full_name: envoyproxy/envoy,          language_family: cpp }
+  - { dir: fastapi,     full_name: fastapi/fastapi,           language_family: python }
+  - { dir: nest,        full_name: nestjs/nest,               language_family: typescript }
+  - { dir: spring-boot, full_name: spring-projects/spring-boot, language_family: java }
+  - { dir: express,     full_name: expressjs/express,         language_family: javascript }
+  - { dir: phoenix,     full_name: phoenixframework/phoenix,  language_family: elixir }
+  - { dir: esbuild,     full_name: evanw/esbuild,             language_family: go }
+  - { dir: swc,         full_name: swc-project/swc,           language_family: rust }
+  - { dir: vite,        full_name: vitejs/vite,               language_family: typescript }
+  - { dir: prettier,    full_name: prettier/prettier,         language_family: javascript }
+  - { dir: eslint,      full_name: eslint/eslint,             language_family: javascript }
+  - { dir: duckdb,      full_name: duckdb/duckdb,             language_family: cpp }
+  - { dir: ClickHouse,  full_name: ClickHouse/ClickHouse,     language_family: cpp }
+  - { dir: arrow,       full_name: apache/arrow,              language_family: cpp }
+  - { dir: polars,      full_name: pola-rs/polars,            language_family: rust }
+  - { dir: superset,    full_name: apache/superset,           language_family: python }
