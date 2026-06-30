@@ -425,6 +425,11 @@ h1 .accent{color:#58a6ff}
   <p class="section-desc">
     観測された重力を、生きたランキングとして。<strong>既定では全員が匿名（Member-N）</strong>で、重力だけが見える。実名が現れるのは、本人が <strong>GitHub アカウントで Claim</strong>したときだけ——開示の判定はすべてサーバ側で行われ、Claim していない人の GitHub アイデンティティは決してブラウザに渡らない。
   </p>
+  <div style="max-width:780px;margin:1.2em auto 0">
+    <select id="oss-map-repo" style="background:#161b22;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;padding:7px 10px;font-size:.9em">
+      <option value="">すべてのリポジトリ</option>
+    </select>
+  </div>
   <div id="oss-map-list" style="max-width:780px;margin:1.4em auto;color:#c9d1d9">読み込み中…</div>
   <div style="text-align:center;margin-top:14px">
     <button id="oss-map-more" style="display:none;padding:9px 20px;background:#161b22;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;cursor:pointer;font-size:.9em">さらに表示</button>
@@ -432,10 +437,12 @@ h1 .accent{color:#58a6ff}
 </div>
 <script>
 (function () {
-  var API = 'https://api.orbitlens.io/oss/map';
+  var BASE = 'https://api.orbitlens.io';
   var page = 0;
+  var repo = '';
   var listEl = document.getElementById('oss-map-list');
   var moreEl = document.getElementById('oss-map-more');
+  var repoEl = document.getElementById('oss-map-repo');
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -464,14 +471,30 @@ h1 .accent{color:#58a6ff}
     moreEl.style.display = (data && data.has_more) ? '' : 'none';
   }
   function load() {
-    fetch(API + '?page=' + page)
+    var url = BASE + '/oss/map?page=' + page + (repo ? '&repo=' + encodeURIComponent(repo) : '');
+    fetch(url)
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(render)
       .catch(function () {
         if (page === 0) listEl.innerHTML = '<p style="color:#8b949e;text-align:center;padding:24px">ライブ・ランキングは間もなく公開されます。</p>';
       });
   }
+  function loadRepos() {
+    fetch(BASE + '/oss/repos')
+      .then(function (r) { return r.ok ? r.json() : { repos: [] }; })
+      .then(function (data) {
+        (data.repos || []).forEach(function (r) {
+          var o = document.createElement('option');
+          o.value = r.full_name;
+          o.textContent = r.full_name;
+          repoEl.appendChild(o);
+        });
+      })
+      .catch(function () {});
+  }
+  repoEl.addEventListener('change', function () { repo = repoEl.value; page = 0; listEl.innerHTML = '読み込み中…'; load(); });
   moreEl.addEventListener('click', function () { page++; load(); });
+  loadRepos();
   load();
 })();
 </script>
