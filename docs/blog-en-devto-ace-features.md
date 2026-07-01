@@ -57,7 +57,7 @@ Ace reads the dangerous combinations. A module under high change pressure whose 
 
 ![Organizational chronicle: structural events over time (identifiers redacted)](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
 
-The Chronicle is the heart of Ace, and it is deliberately **not a scoreboard.** It records structural events along a timeline: a migration the codebase survived, an architect who shaped a subsystem and moved on, a module that turned Fragile after an ownership change.
+The Chronicle is deliberately **not a scoreboard.** It records structural events along a timeline: a migration the codebase survived, an architect who shaped a subsystem and moved on, a module that turned Fragile after an ownership change.
 
 What it records is what the codebase has been through, not how good each person is. People learn to game a scoreboard. A team grows attached to a chronicle. The signal is still there if you want to look closer, but it's a lens you pick up, never the headline.
 

@@ -61,6 +61,10 @@
 
 観測する道具が意味まで決めはじめると、どこからが事実でどこからが意見か分からなくなる。望遠鏡を事実に徹させ、解釈は天文台に引き受けさせる。両方を信じられるのは、そこに境界を引いているからだ。
 
+![EIS と Ace の関係](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/diagram-eis-ace.png?v=1)
+
+*望遠鏡が観測し、天文台が読む。境界は、そこに引いてある。*
+
 ---
 
 ## 天文台が読むもの
@@ -81,7 +85,7 @@
 
 *Conway Check & Collapse Risk — 組織図と実態のずれを並べ、事故になる前に、宙に浮いた知識を見つける。*
 
-**組織年表（Chronicle）。この製品の心臓だ。** 得点表ではない。エンジニアを順位づけない。代わりに、このコードベースが何をくぐってきたかを記録する。乗り越えたマイグレーション、ある subsystem を作って去ったアーキテクト、オーナーが変わって脆くなったモジュール。
+**組織年表（Chronicle）。順位ではなく、時間を。** 得点表ではない。エンジニアを順位づけない。代わりに、このコードベースが何をくぐってきたかを記録する。乗り越えたマイグレーション、ある subsystem を作って去ったアーキテクト、オーナーが変わって脆くなったモジュール。
 
 ![Chronicle](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
 
@@ -132,11 +136,19 @@ eis analyze .
 
 **天文台（SaaS）は、数クリックで始まる。** [ace.orbitlens.io](https://ace.orbitlens.io) を開き、GitHub でログインし、観たいリポジトリを選ぶ。あとは Ace が観測を回し続け、構造的サマリーもコンウェイ検証も崩壊リスクも年表も、ブラウザの中で読めるように可視化する。CLI を覚える必要はない。
 
+![OSS CLI と Ace UI](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/diagram-cli-ui.png?v=1)
+
+*入口は二つ。同じ宇宙を、コマンドラインからも、ブラウザからも。*
+
 自分の組織に、個人のリポジトリに、気になっている OSS に、レンズを当ててみてほしい。公開リポは無制限なので、有名な OSS の重力地図を覗くだけでも、何か見えてくる。
 
 EIS（望遠鏡）はずっと無料の OSS だ。席制限もトライアル期限も、肝心なところだけ有料のオープンコアもない。アイデアに課金したいのではなく、広がってほしい。壁の向こうに置けば、遠くまでは行かない。
 
 値段がつくのは Ace の方だ。観測を回し続けて読み返すのは、れっきとしたインフラだからだ。それでも壁ではなく、手の届く値段にしてある。**Free** $0（〜5人、公開リポ無制限、履歴6ヶ月）、**Pro** $7/月（個人、全期間、フルの Gravity Certificate）、**Nova** $39/月（8席込）＋ $18/席（組織レベルの読みが要る非公開チーム向け）。この種の分析 SaaS が「開発者ひとり月 $15〜50、しかも contact sales の向こう」が相場なのに対し、Ace は8席までフラットで、その下のエンジンは無料だ。持ち運べる Gravity Certificate は、どのプランでも作成も検証もずっと無料。自分の仕事を証明するのに、金はかからない。
+
+![料金プラン](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-pricing.png?v=1)
+
+*Free から Nova まで。下のエンジンは無料、読み返す天文台だけに値がつく。*
 
 ---
 

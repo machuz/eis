@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace">
+  <rect width="1000" height="480" fill="#1d2021"/>
+  <circle cx="22" cy="20" r="7" fill="#fb4934"/>
+  <circle cx="47" cy="20" r="7" fill="#fabd2f"/>
+  <circle cx="72" cy="20" r="7" fill="#b8bb26"/>
+  <text x="500" y="25" fill="#7c6f64" font-size="14" text-anchor="middle">// git history &#8594; telescope &#8594; observatory</text>
+
+  <text x="500" y="82" fill="#928374" font-size="20" text-anchor="middle">git history</text>
+  <text x="500" y="116" fill="#7c6f64" font-size="24" text-anchor="middle">&#8595;</text>
+
+  <rect x="250" y="132" width="500" height="104" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <text x="500" y="166" fill="#fabd2f" font-size="23" text-anchor="middle">EIS &#8212; the telescope</text>
+  <text x="500" y="196" fill="#928374" font-size="15" text-anchor="middle">observes: 7-axis signals &#183; 3-axis topology</text>
+  <text x="500" y="220" fill="#928374" font-size="15" text-anchor="middle">no model &#183; no inference &#183; just the facts</text>
+
+  <text x="500" y="266" fill="#fe8019" font-size="15" text-anchor="middle">&#8595;  signals / JSON</text>
+
+  <rect x="220" y="284" width="560" height="128" rx="10" fill="#282828" stroke="#fabd2f" stroke-width="1.5"/>
+  <text x="500" y="318" fill="#fabd2f" font-size="23" text-anchor="middle">OrbitLens Ace &#8212; the observatory</text>
+  <text x="500" y="348" fill="#83a598" font-size="15" text-anchor="middle">interprets the observation, doesn't re-score it</text>
+  <text x="500" y="376" fill="#83a598" font-size="15" text-anchor="middle">structural summary &#183; Conway check</text>
+  <text x="500" y="398" fill="#83a598" font-size="15" text-anchor="middle">collapse risk &#183; chronicle</text>
+
+  <text x="500" y="448" fill="#7c6f64" font-size="14" text-anchor="middle">the telescope observes. the observatory reads.</text>
+</svg>
