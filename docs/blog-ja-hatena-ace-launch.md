@@ -1,5 +1,9 @@
 # AIが1000行を1分で吐く時代に、本当に効くコードはどれか。OrbitLens Ace を公開しました
 
+<a href="https://ace.orbitlens.io"><img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-ace-mark.png?v=1" alt="OrbitLens Ace" width="72"></a>
+
+**[OrbitLens Ace → ace.orbitlens.io](https://ace.orbitlens.io)**
+
 ![Cover](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/hatena/cover-ace-launch.png?v=2)
 
 *AIは無限にコードを書ける。残せるかどうかは、別の話だ。*

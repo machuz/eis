@@ -7,6 +7,10 @@ tags: opensource, ai, git, saas
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/cover-ace-launch.png?v=2
 ---
 
+<a href="https://ace.orbitlens.io"><img src="https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-ace-mark.png?v=1" alt="OrbitLens Ace" width="72"></a>
+
+**[OrbitLens Ace → ace.orbitlens.io](https://ace.orbitlens.io)**
+
 *AI can write infinite code. Whether it lasts is a different question.*
 
 ---
