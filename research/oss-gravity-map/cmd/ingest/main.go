@@ -44,6 +44,9 @@ import (
 
 type ingestObservation struct {
 	ExGitHubID int64 `json:"ex_github_id"`
+	// Login is the resolved GitHub login, stored server-side in research_authors so
+	// a claimed author can be named. Sent on the cumulative row only.
+	Login string `json:"login,omitempty"`
 	// Period "" / "cumulative" = the HEAD standing; "YYYY" = a timeline window
 	// (oss-public-claim.md S4). LifetimeGravity is carried on the cumulative row.
 	Period           string  `json:"period,omitempty"`
@@ -202,9 +205,10 @@ func main() {
 				dropped++
 				continue
 			}
-			// The cumulative (HEAD) standing carries lifetime_gravity.
+			// The cumulative (HEAD) standing carries lifetime_gravity + the login.
 			obs = append(obs, ingestObservation{
 				ExGitHubID:       ra.ID,
+				Login:            ra.Login,
 				Period:           "cumulative",
 				Gravity:          mem.Gravity,
 				LifetimeGravity:  mem.LifetimeGravity,
