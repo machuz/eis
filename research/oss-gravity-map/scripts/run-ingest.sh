@@ -27,7 +27,10 @@ REPO_ROOT="$(cd "$PROJECT_DIR/../.." && pwd)"
 API_BASE="${API_BASE:-https://api.stg.orbitlens.io}"
 RUN_ID="${RUN_ID:-ingest-$(date -u +%Y%m%d)}"
 MAX_COMMIT_PAGES="${MAX_COMMIT_PAGES:-10}"
-TIMELINE_SPAN="${TIMELINE_SPAN:-1y}"   # timeline window span (3m/6m/1y); 1y keeps row counts sane
+TIMELINE_SPAN="${TIMELINE_SPAN:-1y}"       # timeline window span (3m/6m/1y); 1y keeps row counts sane
+TIMELINE_PERIODS="${TIMELINE_PERIODS:-8}"  # windows to score. 0 = full history, but a per-period blame on a
+                                           # giant repo makes that hours per repo (react etc timed out). 8×1y
+                                           # bounds the cost to the recent, meaningful trajectory.
 ONLY="${ONLY:-}"
 DRY_RUN="${DRY_RUN:-0}"
 
@@ -84,7 +87,7 @@ for row in "${DIRS[@]}"; do
   # failure just leaves the cumulative standing (the ingest tool treats a missing
   # timeline file as optional).
   # shellcheck disable=SC2086
-  "$EIS_BIN" timeline $cfg_flag --format json --span "$TIMELINE_SPAN" --periods 0 "$DATA_REPOS/$dir" \
+  "$EIS_BIN" timeline $cfg_flag --format json --span "$TIMELINE_SPAN" --periods "$TIMELINE_PERIODS" "$DATA_REPOS/$dir" \
     2>/dev/null | sed '/^Analyzing:/d; /^Loaded /d; /^SKIP:/d' > "$DATA_RESULTS/$dir-timeline.json" || true
 
   ingest_flags=(--manifest "$MANIFEST" --results-dir "$DATA_RESULTS" \
