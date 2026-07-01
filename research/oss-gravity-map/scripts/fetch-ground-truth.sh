@@ -30,7 +30,7 @@ if ! gh auth status &> /dev/null; then
 fi
 
 REPOS=(
-  "facebook/react"
+  "react/react"
   "kubernetes/kubernetes"
   "hashicorp/terraform"
   "redis/redis"

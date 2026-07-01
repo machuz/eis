@@ -15,7 +15,7 @@
 
 tier1:
   - name: react
-    repo: facebook/react
+    repo: react/react
     language: JavaScript
     why: "Architecture authors well-known (Jordan Walke, Dan Abramov, Sebastian Markbage)"
     known_architects:
