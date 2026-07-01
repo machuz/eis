@@ -400,20 +400,284 @@ h1 .accent{color:#58a6ff}
 </div>
 
 <!-- ========================================= -->
-<!-- 3. そのほかに観えたこと（匿名） -->
+<!-- 3. Rails vs Laravel -->
 <!-- ========================================= -->
-<div class="section" id="findings">
-  <h2 class="section-title">3. そのほかに観えたこと</h2>
+<div class="section" id="rails-laravel">
+  <h2 class="section-title">3. Rails vs Laravel — 同じカテゴリ、逆の物理</h2>
   <p class="section-desc">
-    言語ファミリーの差のほかにも、構造の物理は repository ごとに違う顔を見せた。いずれも<strong>個人を名指しせず</strong>、構造として観測している。
+    どちらも「Framework-driven」カテゴリ。伝説的な作者を持つ人気フレームワーク。<br>
+    しかしGravityの物理法則は<strong>完全に逆</strong>です。
   </p>
-  <ul style="line-height:1.95;color:#c9d1d9;max-width:780px;margin:1.4em auto;padding-left:1.2em;">
-    <li><strong>単独メンテナの宇宙</strong>：作者ひとりが全軸を占める project（esbuild 型）は重力集中度90%超。一人で全体を把握できるスケールでは、それが最適解になり得る。「悪い設計」ではなく、構造の一形態だ。</li>
-    <li><strong>同カテゴリ・逆の物理</strong>：同じ Framework-driven でも、20年かけて設計権限を6人のアーキテクトに分散させた文明（Rails 型）と、作者ひとりに集中する王国（Laravel 型）は Design の分布が正反対だった。</li>
-    <li><strong>重力 ≠ コミット量</strong>：わずか82コミットで Gravity 60（2,010人中Top 3）に上がったエンジニアがいる一方、1,890コミットで Gravity 51 のエンジニアもいた。重力はコミットの量ではなく、アーキテクチャへの関与の質で決まる。</li>
-    <li><strong>世代交代は時系列でしか見えない</strong>：ある大規模 UI ライブラリでは10年で5世代のアーキテクトが入れ替わった。8年間中心ではなかった Cleaner が、書き換えの波で「消えなかったコードの比率」が相対的に上がり、ついに重力の極点になった——スナップショットには映らない物語だ。</li>
-    <li><strong>Hidden Architects</strong>：上位の重力を持ちながら、カンファレンスにも SNS にも現れない440人のエンジニアがいた。重力場を辿ると、静かにアーキテクチャを支えていた。世界が名前を知らないだけだ。</li>
-  </ul>
+
+  <div class="cmp-grid">
+    <div class="cmp-card rails">
+      <div class="cmp-name" style="color:#cc0000">Rails</div>
+      <div class="cmp-tag">マルチアーキテクト文明</div>
+      <div class="cmp-row"><span class="label">Engineers</span><span class="val">6,056</span></div>
+      <div class="cmp-row"><span class="label">Top10 Design（平均）</span><span class="val" style="color:#cc0000">57.0</span></div>
+      <div class="cmp-row"><span class="label">リーダーの Gravity</span><span class="val">4.0</span></div>
+      <div class="cmp-row"><span class="label">Gravity Conc. (top-3)</span><span class="val">9.8%</span></div>
+      <div class="cmp-row"><span class="label">Design > 40</span><span class="val" style="color:#cc0000">9人</span></div>
+    </div>
+    <div class="cmp-card laravel">
+      <div class="cmp-name" style="color:#ff2d20">Laravel</div>
+      <div class="cmp-tag">創造者の王国</div>
+      <div class="cmp-row"><span class="label">Engineers</span><span class="val">4,149</span></div>
+      <div class="cmp-row"><span class="label">Top10 Design（平均）</span><span class="val" style="color:#ff2d20">12.0</span></div>
+      <div class="cmp-row"><span class="label">リーダーの Gravity</span><span class="val">65.1</span></div>
+      <div class="cmp-row"><span class="label">Gravity Conc. (top-3)</span><span class="val">38.0%</span></div>
+      <div class="cmp-row"><span class="label">Design > 40</span><span class="val" style="color:#ff2d20">2人</span></div>
+    </div>
+  </div>
+
+  <!-- Design Authority Distribution -->
+  <h3 class="section-subtitle">Design権威の分布</h3>
+
+  <div class="card">
+    <div class="card-title" style="color:#cc0000">Rails — 35超が10人、40超が9人</div>
+    <div class="bar-row"><div class="bar-label">#1</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#cc0000"></div></div><div class="bar-val">100.0</div></div>
+    <div class="bar-row"><div class="bar-label">#2</div><div class="bar-track"><div class="bar-fill" style="width:96.8%;background:#cc0000;opacity:.9"></div></div><div class="bar-val">96.8</div></div>
+    <div class="bar-row"><div class="bar-label">#3</div><div class="bar-track"><div class="bar-fill" style="width:89.5%;background:#cc0000;opacity:.82"></div></div><div class="bar-val">89.5</div></div>
+    <div class="bar-row"><div class="bar-label">#4</div><div class="bar-track"><div class="bar-fill" style="width:89.2%;background:#cc0000;opacity:.78"></div></div><div class="bar-val">89.2</div></div>
+    <div class="bar-row"><div class="bar-label">#5</div><div class="bar-track"><div class="bar-fill" style="width:58.8%;background:#cc0000;opacity:.6"></div></div><div class="bar-val">58.8</div></div>
+    <div class="bar-row"><div class="bar-label">#6</div><div class="bar-track"><div class="bar-fill" style="width:58.7%;background:#cc0000;opacity:.56"></div></div><div class="bar-val">58.7</div></div>
+    <div class="bar-row"><div class="bar-label">#7</div><div class="bar-track"><div class="bar-fill" style="width:51.7%;background:#cc0000;opacity:.5"></div></div><div class="bar-val">51.7</div></div>
+    <div class="bar-row"><div class="bar-label">#8</div><div class="bar-track"><div class="bar-fill" style="width:49.1%;background:#cc0000;opacity:.46"></div></div><div class="bar-val">49.1</div></div>
+    <div class="bar-row"><div class="bar-label">#9</div><div class="bar-track"><div class="bar-fill" style="width:48.6%;background:#cc0000;opacity:.44"></div></div><div class="bar-val">48.6</div></div>
+    <div style="text-align:center;color:#484f58;font-size:.75em;margin:8px 0">── Design 40 閾値 ──</div>
+    <div class="bar-row"><div class="bar-label">#10</div><div class="bar-track"><div class="bar-fill" style="width:39.0%;background:#cc0000;opacity:.4"></div></div><div class="bar-val" style="color:#8b949e">39.0</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:#ff2d20">Laravel — 単独著者の独占</div>
+    <div class="bar-row"><div class="bar-label">#1</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#ff2d20"></div></div><div class="bar-val">100.0</div></div>
+    <div class="bar-row"><div class="bar-label">#2</div><div class="bar-track"><div class="bar-fill" style="width:46.4%;background:#ff6f00;opacity:.7"></div></div><div class="bar-val">46.4</div></div>
+    <div style="border-top:1px dashed #30363d;margin:12px 0;padding-top:4px;text-align:center;color:#484f58;font-size:.75em">── 他の全Top10コントリビュータ: Design &lt; 7 ──</div>
+    <div class="bar-row"><div class="bar-label">#3</div><div class="bar-track"><div class="bar-fill" style="width:6.3%;background:#42a5f5;opacity:.4"></div></div><div class="bar-val" style="color:#8b949e">6.3</div></div>
+    <div class="bar-row"><div class="bar-label">#4</div><div class="bar-track"><div class="bar-fill" style="width:4.9%;background:#42a5f5;opacity:.4"></div></div><div class="bar-val" style="color:#8b949e">4.9</div></div>
+  </div>
+
+  <div class="insight red">
+    <strong>同じFramework-drivenカテゴリ。逆のガバナンス物理。</strong><br><br>
+    Rails は<strong>マルチアーキテクト文明</strong>として読める。10人の著者が Design 35超、9人が40超を抱える — 上位10名のうち9名が Design 40超を抱え（最上位は96.8）、しかも誰一人として首位ではない。首位の著者が重力の中心を置いたが、上位の重力スコアは圧縮され（4.0, 3.8, 3.6）、top-3 は全体のわずか9.8%しか保持しない — 29の宇宙すべての中で最も低い。場は特定の誰にも傾かない。<br><br>
+    Laravel は<strong>創造者の王国</strong>として読める — 2つのゲートが一人のために同時に開く稀な例だ。単独著者が Catalysis 100 <em>と</em> RobustSurvival 78.4 を同時に持つ唯一の著者である：他者が彼の土台の上に積み、彼のコードは他者が触り続けるモジュールで生き延びる。その重力は65.1、次の著者（6.5）のおよそ10倍に着地する。一貫していて、そして一脚の椅子に寄りかかっている。<br><br>
+    問いはどちらが優れているかではなく、<strong>何がその差を生んだのか</strong> — そして Laravel の場の線が、20年かけて Rails が分散したように広がっていくのか、それともこのまま集中したままなのか、だ。
+  </div>
+</div>
+
+<!-- ========================================= -->
+<!-- 4. esbuild -->
+<!-- ========================================= -->
+<div class="section" id="esbuild">
+  <h2 class="section-title">4. esbuild — 一人の宇宙（重力特異点）</h2>
+  <p class="section-desc">
+    124人のコントリビュータが通り過ぎるが、<strong>一人が top-3 構造重力の77.0%を保持</strong>する &mdash; そして生き残った構造が寄りかかる唯一の著者である。
+  </p>
+
+  <div class="big-stats">
+    <div class="big-stat"><div class="big-num" style="color:#f5c211">77.0%</div><div class="big-label">重力集中度 (top-3)</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#f5c211">100</div><div class="big-label">単独著者の Design / Breadth / Indisp</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#8b949e">4,202</div><div class="big-label">単独著者のコミット数</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#da3633">0</div><div class="big-label">単独著者の Robust Survival</div></div>
+  </div>
+
+  <!-- Singularity visualization -->
+  <div class="card" style="text-align:center;border-color:#f5c211">
+    <svg width="100%" height="240" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid meet">
+      <rect width="600" height="240" fill="#161b22"/>
+      <circle cx="250" cy="120" r="90" fill="#f5c211" opacity="0.1"/>
+      <circle cx="250" cy="120" r="65" fill="#f5c211" opacity="0.2"/>
+      <circle cx="250" cy="120" r="40" fill="#f5c211" opacity="0.4"/>
+      <text x="250" y="115" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="800" font-family="-apple-system,sans-serif">単独著者</text>
+      <text x="250" y="135" text-anchor="middle" fill="#f5c211" font-size="11" font-family="-apple-system,sans-serif">Gravity 15.0 | Design 100 | Indisp 100 | RobustSurv 0</text>
+      <circle cx="420" cy="60" r="4" fill="#42a5f5" opacity="0.5"/>
+      <circle cx="440" cy="100" r="3" fill="#42a5f5" opacity="0.4"/>
+      <circle cx="430" cy="150" r="4" fill="#42a5f5" opacity="0.5"/>
+      <circle cx="410" cy="190" r="3" fill="#42a5f5" opacity="0.4"/>
+      <circle cx="80" cy="70" r="4" fill="#42a5f5" opacity="0.5"/>
+      <circle cx="70" cy="120" r="3" fill="#42a5f5" opacity="0.4"/>
+      <circle cx="80" cy="170" r="4" fill="#42a5f5" opacity="0.5"/>
+      <text x="480" y="105" fill="#42a5f5" font-size="10" font-family="-apple-system,sans-serif" opacity="0.7">123人の他コントリビュータ</text>
+      <text x="480" y="120" fill="#42a5f5" font-size="10" font-family="-apple-system,sans-serif" opacity="0.7">全員 Design: 0, Indisp: 0</text>
+      <text x="300" y="225" text-anchor="middle" fill="#484f58" font-size="10" font-family="-apple-system,sans-serif">金色の領域 = 全プロジェクト重力の77.0% (top-3)</text>
+    </svg>
+  </div>
+
+  <!-- Comparison -->
+  <h3 class="section-subtitle">esbuild の 77.0% はどこに位置するか</h3>
+  <div class="card">
+    <div class="bar-row"><div class="bar-label">swc</div><div class="bar-track"><div class="bar-fill" style="width:92.0%;background:#8b5cf6;opacity:.6"></div></div><div class="bar-val">92.0%</div></div>
+    <div class="bar-row" style="color:#f5c211;font-weight:700"><div class="bar-label" style="color:#f5c211;font-weight:700">esbuild</div><div class="bar-track"><div class="bar-fill" style="width:77.0%;background:#f5c211"></div></div><div class="bar-val" style="color:#f5c211">77.0%</div></div>
+    <div class="bar-row"><div class="bar-label">express</div><div class="bar-track"><div class="bar-fill" style="width:60.3%;background:#f5c211;opacity:.5"></div></div><div class="bar-val">60.3%</div></div>
+    <div class="bar-row"><div class="bar-label">vite</div><div class="bar-track"><div class="bar-fill" style="width:59.9%;background:#f5c211;opacity:.4"></div></div><div class="bar-val">59.9%</div></div>
+    <div class="bar-row"><div class="bar-label">react</div><div class="bar-track"><div class="bar-fill" style="width:31.4%;background:#61dafb;opacity:.5"></div></div><div class="bar-val">31.4%</div></div>
+    <div class="bar-row"><div class="bar-label">rust</div><div class="bar-track"><div class="bar-fill" style="width:27.6%;background:#8b5cf6;opacity:.5"></div></div><div class="bar-val">27.6%</div></div>
+    <div class="bar-row"><div class="bar-label">kubernetes</div><div class="bar-track"><div class="bar-fill" style="width:27.5%;background:#58a6ff;opacity:.5"></div></div><div class="bar-val">27.5%</div></div>
+    <div class="bar-row"><div class="bar-label">rails</div><div class="bar-track"><div class="bar-fill" style="width:9.8%;background:#cc0000;opacity:.5"></div></div><div class="bar-val">9.8%</div></div>
+  </div>
+
+  <div class="insight gold">
+    <strong>かたちは完璧だ。欠けているのは関係の証拠だ。</strong><br>
+    単独著者は4,202コミットでバンドラ全体をかたちづくった — Design、Breadth、Indispensability はすべて100 — そして生き残った構造が寄りかかる唯一の著者である。それでも望遠鏡が返す重力は100ではなく15.0だ：一人の宇宙では、彼のモジュールの中で他の誰も決してコミットしないため、robust survival は0と読まれ、survival ゲートは床に張りついたまま、場は内側へ崩れ込む。争われない所有は重力を生まない。77.0%という集中度は権力の判定ではない — 外側の何ものもまだ寄りかかっていない構造の、目に見える痕跡だ。これはこの地図で最も純粋な特異点であり（密度では swc がわずかに上回る）、静かな問いを一つ残す：もし他の誰の手もこのコードを圧の下で担ったことがないのなら、その著者が静かに去ったとき、誰かがそれを受け止めるだろうか。
+  </div>
+</div>
+
+<!-- ========================================= -->
+<!-- 5. React -->
+<!-- ========================================= -->
+<div class="section" id="react">
+  <h2 class="section-title">5. React — 10年の世代交代</h2>
+  <p class="section-desc">
+    1,927人のエンジニアが関わった React は、10年をかけて実際のアーキテクト継承を経てきた。<br>
+    以下の期間別タイムラインは、各窓をそれぞれ単独で読む。構造の椅子は、3つの世代のあいだを移っていく：第1世代（仮想DOM）&rarr; 第2世代（Fiber + Hooks）&rarr; 第3世代（Server Components）。
+  </p>
+
+  <div class="big-stats">
+    <div class="big-stat"><div class="big-num" style="color:#61dafb">1,927</div><div class="big-label">エンジニア</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#61dafb">31.4%</div><div class="big-label">重力集中度 (top-3)</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#f5c211">3</div><div class="big-label">構造の世代</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#238636">12年</div><div class="big-label">追跡期間</div></div>
+  </div>
+
+  <!-- Timeline -->
+  <h3 class="section-subtitle">構造の椅子の世代交代</h3>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2013-2014 — 仮想DOMの時代</div>
+      <div class="tl-content">
+        <strong>第1世代のアーキテクト</strong> が初期の構造を担う — 2013年は Architect（重力約15）、2014年に Anchor へ落ち着く（約6）。<br>
+        <span style="color:#8b949e;font-size:.85em">仮想DOMに最初のかたちを与えた人物。プロジェクトが彼を追い越して育つ前の時代。</span>
+      </div>
+    </div>
+    <div class="tl-item gold">
+      <div class="tl-year">2017-2022 — Fiber + Hooks の時代</div>
+      <div class="tl-content">
+        <strong>第2世代のアーキテクト</strong> がこの年月の支配的な構造の人物だ — Architect 重力 68 (2018) &rarr; 65 (2020) &rarr; 77 (2021)。<br>
+        <span style="color:#8b949e;font-size:.85em"><strong>隣の椅子の著者</strong> が Cleaner/Anchor として隣の椅子を持つ（2018年にピーク約46）。Reconciler が Fiber として書き直され、Hooks が着地した。構造の荷重は第2世代のアーキテクトに正面から乗り、隣の椅子の著者は開発者向けの表層を担った。隣の椅子の著者は2024年に去った。</span>
+      </div>
+    </div>
+    <div class="tl-item gold">
+      <div class="tl-year">2023 & 2025 — Server Components の時代</div>
+      <div class="tl-content">
+        <strong>第3世代のアーキテクト</strong> が椅子に座る — Architect 重力 89 (2023)、Anchor 38 (2025) へ落ち着く。<br>
+        <span style="color:#8b949e;font-size:.85em">Server Components、新しいレンダリングパイプライン。静的な全履歴の読みでは、第3世代のアーキテクトが React の重力で首位（約9.9、Anchor）：他者が彼の上に築き（Catalysis 100）、コードベースはいまも彼に寄りかかる（Indispensability 100）。それでも重力は控えめなまま — 彼が据えた Reconciler はいまや大きく揺らされず、彼のコードは他者の live な churn の下ではあまり生き残っていない。</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">いま — 据えられつつある次の椅子</div>
+      <div class="tl-content">
+        <strong>React Compiler</strong> が Design に現れる — 次世代の設計著者が Design で #1、もう一名の設計著者が隣に並ぶ。<br>
+        <span style="color:#8b949e;font-size:.85em">彼らの関係的な重力はまだ低い：仕事が新しく、まだ誰も圧の下でその上に築いていない。これは据えられつつある次の椅子であって、まだ荷重を担ってはいない、と読める。</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight" style="border-left-color:#61dafb;background:rgba(97,218,251,.06)">
+    <strong>React は、本物の継承として読める。</strong><br><br>
+    第1世代（仮想DOM）&rarr; 第2世代（Fiber + Hooks）&rarr; 第3世代（Server Components）&rarr; いま据えられつつある次の椅子。<br>
+    一人が退くと、次の世代が他者の寄りかかる構造を引き継ぐ。静的な全履歴の読みでは第3世代が約9.9で首位、top-3 が重力の <strong>31.4%</strong> を保持する — 一度に一世代が荷重を担うが、椅子は3つの名前をきれいに渡り、単一の名前が場を支配することはない。<br><br>
+    読みは静かだが一貫している：設計の核心にコードが置かれた貢献者は構造的な重力を刻み、最新の設計仕事は、荷重を担うと読まれるまで、他者がその上に圧をかけるのを待つ。望遠鏡は、誰がどれだけ書いたかではなく、システムがいまどこに寄りかかっているかを読む。
+  </div>
+</div>
+
+<!-- ========================================= -->
+<!-- 6. EISの妥当性 -->
+<!-- ========================================= -->
+<div class="section" id="validity">
+  <h2 class="section-title">6. EISの妥当性 — 感覚とデータは一致するか</h2>
+  <p class="section-desc">
+    重力は <code>git log</code> と <code>git blame</code> だけから計算される。RFC やデザインドキュメントは見えない。<br>
+    それでも2つのゲートで読むと、各宇宙の上位に上がってくる名前は、コミュニティが「システムが寄りかかっている人」として挙げるであろう名前と一致する。
+  </p>
+
+  <div class="big-stats">
+    <div class="big-stat"><div class="big-num" style="color:#238636">64.2%</div><div class="big-label">Tier1 アーキテクトの平均 Recall</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#58a6ff">41.0%</div><div class="big-label">GitHub との平均 Top-10 重複</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#8b5cf6">0.442</div><div class="big-label">平均 Spearman &rho;</div></div>
+    <div class="big-stat"><div class="big-num" style="color:#f5c211">355</div><div class="big-label">見つかった Hidden Architect</div></div>
+  </div>
+
+  <div class="cmp-grid" style="grid-template-columns:1fr">
+    <div class="card">
+      <table class="data-table">
+        <thead><tr><th>検証項目</th><th>重力の読み</th><th>コミュニティの直感</th><th>一致</th></tr></thead>
+        <tbody>
+          <tr><td>Phoenix の中心</td><td>首位の著者が重力88.2、両ゲート開通（Architect）</td><td>コミュニティが中心的設計者と見なす人物と一致</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>Laravel の創造者</td><td>首位の著者が重力65.1、#2 のおよそ10倍</td><td>単独の創造者という見方と一致</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>swc の作者</td><td>首位の著者が重力89.2（Architect）</td><td>単独コンパイラ作者という見方と一致</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>Polars のリード</td><td>首位の著者が重力65.3（Anchor）</td><td>プロジェクトのリードという見方と一致</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>ESLint のメンテナ</td><td>首位の著者が重力77.1（Architect）</td><td>現行メンテナという見方と一致</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>Rails の設計分布</td><td>Top10 Design 平均57.0、40超が9人</td><td>コアチームが厚いという見方と一致</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>esbuild の単独性</td><td>77.0%集中、荷重を担う唯一の著者</td><td>単独作という見方と一致</td><td style="color:#238636;font-weight:700">一致</td></tr>
+          <tr><td>Kubernetes の分散性</td><td>Gravity Conc. 27.5%、多数に分散</td><td>巨大コミュニティという見方と一致</td><td style="color:#238636;font-weight:700">一致</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight green">
+    <strong>「感覚的にいい線いっている」を超えて。</strong><br><br>
+    重力は完璧ではない。RFC での議論、設計の会話、コードレビューを通した指導 — このダークマターは <code>git blame</code> には観測できないまま残る。<br>
+    それでも29の宇宙を通して、各プロジェクトの Tier1 アーキテクトの平均 recall は <strong>64.2%</strong>、コミュニティでの立ち位置との順位相関は &rho; <strong>0.442</strong> を保つ — そして地図は、どのメンテナリストにも名前のない、しかしシステムがいまもそのコードに寄りかかっている <strong>355人の hidden architect</strong> を浮かび上がらせる。<br><br>
+    29リポジトリ・51,321人のエンジニアを横断して読むと、システムが寄りかかる構造は言語ファミリーごとに系統的に異なる — そして同じ計器が、毎回それを同じように読む。その一貫性こそ、経験と直感だけでは数に置けなかった部分だ。
+  </div>
+</div>
+
+<!-- ========================================= -->
+<!-- 7. 結論 -->
+<!-- ========================================= -->
+<div class="section" id="conclusion">
+  <h2 class="section-title">7. 結論</h2>
+
+  <div class="card" style="border-color:#58a6ff">
+    <div class="card-title" style="font-size:1.2em">システムが寄りかかるものは観測できる — そしてそれは宇宙ごとに異なる</div>
+    <div style="margin-top:16px;font-size:.93em;line-height:1.8">
+      <p>重力は関係的だ。構造が観測可能なかたちで誰かに寄りかかっている場所 — 他者の圧力の下で生き残るコード、他者がその上に積む土台 — にしか刻まれない。生き残ったコードだけでも、catalysis だけでも、それを成り立たせることはできない。両方のゲートが開いたままでなければならない。</p>
+      <p style="margin-top:12px">そう読むと、<strong>集中度は言語ファミリー間で約2.1倍ぶれる</strong> — 最も少ない名前に寄りかかる Framework-driven (61.9%) から、最も多くに散らばる Systems C/C++ (30.0%) まで。旧来の加算モデルで最高とされた Go は、いま中位の50.1%に座る。</p>
+      <p style="margin-top:12px">3つのモードが繰り返し現れる — <strong>architect-built</strong>（Go）、<strong>type-distributed</strong>（言語コンパイラ）、<strong>framework-funneled</strong>（Rails &harr; Spring Boot） — そして同じカテゴリが両極を抱えうる：Rails は誰にも傾かず (9.8%)、Spring Boot はほぼ一人に傾く (97.2%)。esbuild は、誰も他にそのコードの上に立たないために計器が重力と呼ぶことを拒む特異点だ。React は10年をかけた本物の継承として読める — 第1→第2→第3世代のアーキテクト。</p>
+      <p style="margin-top:16px;color:#58a6ff;font-weight:600">この地図はリーダーボードではない。問いを一つ開いたまま残す：活動のノイズを濾し取ったあと、システムは実際に何に寄りかかっているのか — そしてそれが静かに去ったとき、誰かが気づくだろうか。</p>
+    </div>
+  </div>
+
+  <!-- Per-repo detail -->
+  <h3 class="section-subtitle">全29リポジトリ一覧</h3>
+  <div style="overflow-x:auto">
+    <table class="data-table" style="font-size:.8rem">
+      <thead><tr><th>Repository</th><th>カテゴリ</th><th>言語</th><th class="right">Engineers</th><th class="right">Top Gravity</th><th class="right">Grav Conc</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td>spring-boot</td><td style="color:#da3633">Framework</td><td>Java</td><td class="right">1,430</td><td class="right">50.2</td><td class="right" style="color:#f5c211;font-weight:700">97.2%</td></tr>
+        <tr><td>prettier</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">782</td><td class="right">87.1</td><td class="right" style="color:#f5c211;font-weight:700">95.3%</td></tr>
+        <tr><td>fastapi</td><td style="color:#da3633">Framework</td><td>Python</td><td class="right">861</td><td class="right">15.0</td><td class="right" style="color:#f5c211;font-weight:700">94.5%</td></tr>
+        <tr><td>swc</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">349</td><td class="right">89.2</td><td class="right" style="color:#f5c211;font-weight:700">92.0%</td></tr>
+        <tr><td>duckdb</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">618</td><td class="right">81.7</td><td class="right" style="color:#f5c211;font-weight:700">83.5%</td></tr>
+        <tr><td>polars</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">665</td><td class="right">65.3</td><td class="right" style="color:#da3633">78.4%</td></tr>
+        <tr><td>esbuild</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">124</td><td class="right">15.0</td><td class="right" style="color:#da3633">77.0%</td></tr>
+        <tr><td>nest</td><td style="color:#da3633">Framework</td><td>TS</td><td class="right">638</td><td class="right">18.9</td><td class="right" style="color:#da3633">68.1%</td></tr>
+        <tr><td>eslint</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">1,153</td><td class="right">77.1</td><td class="right" style="color:#da3633">66.8%</td></tr>
+        <tr><td>prometheus</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,159</td><td class="right">35.8</td><td class="right" style="color:#da3633">64.4%</td></tr>
+        <tr><td>phoenix</td><td style="color:#da3633">Framework</td><td>Elixir</td><td class="right">1,343</td><td class="right">88.2</td><td class="right" style="color:#da3633">63.5%</td></tr>
+        <tr><td>express</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">378</td><td class="right">8.3</td><td class="right" style="color:#da3633">60.3%</td></tr>
+        <tr><td>vite</td><td style="color:#f5c211">Dynamic</td><td>TS</td><td class="right">1,204</td><td class="right">90.7</td><td class="right" style="color:#da3633">59.9%</td></tr>
+        <tr><td>terraform</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">2,121</td><td class="right">27.1</td><td class="right" style="color:#da3633">56.2%</td></tr>
+        <tr><td>argo-cd</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,832</td><td class="right">13.7</td><td class="right" style="color:#da3633">50.9%</td></tr>
+        <tr><td>superset</td><td style="color:#f5c211">Dynamic</td><td>Python/TS</td><td class="right">1,433</td><td class="right">20.5</td><td class="right" style="color:#8b949e">47.7%</td></tr>
+        <tr><td>grafana</td><td style="color:#58a6ff">Go</td><td>Go/TS</td><td class="right">2,715</td><td class="right">28.2</td><td class="right" style="color:#8b949e">45.1%</td></tr>
+        <tr><td>scala3</td><td style="color:#8b5cf6">Expressive</td><td>Scala 3</td><td class="right">895</td><td class="right">7.2</td><td class="right" style="color:#8b949e">38.9%</td></tr>
+        <tr><td>laravel</td><td style="color:#da3633">Framework</td><td>PHP</td><td class="right">4,149</td><td class="right">65.1</td><td class="right" style="color:#8b949e">38.0%</td></tr>
+        <tr><td>scala</td><td style="color:#8b5cf6">Expressive</td><td>Scala</td><td class="right">709</td><td class="right">9.7</td><td class="right" style="color:#8b949e">37.3%</td></tr>
+        <tr><td>ClickHouse</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">2,189</td><td class="right">12.2</td><td class="right" style="color:#8b949e">33.9%</td></tr>
+        <tr><td>react</td><td style="color:#f5c211">Dynamic</td><td>JS</td><td class="right">1,927</td><td class="right">9.9</td><td class="right" style="color:#8b949e">31.4%</td></tr>
+        <tr><td>loki</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">1,272</td><td class="right">12.1</td><td class="right" style="color:#8b949e">29.8%</td></tr>
+        <tr><td>rust</td><td style="color:#8b5cf6">Expressive</td><td>Rust</td><td class="right">7,215</td><td class="right">10.5</td><td class="right" style="color:#8b949e">27.6%</td></tr>
+        <tr><td>kubernetes</td><td style="color:#58a6ff">Go</td><td>Go</td><td class="right">4,510</td><td class="right">16.3</td><td class="right" style="color:#8b949e">27.5%</td></tr>
+        <tr><td>arrow</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">1,369</td><td class="right">3.7</td><td class="right" style="color:#8b949e">14.8%</td></tr>
+        <tr><td>rails</td><td style="color:#da3633">Framework</td><td>Ruby</td><td class="right">6,056</td><td class="right">4.0</td><td class="right" style="color:#8b949e">9.8%</td></tr>
+        <tr><td>redis</td><td style="color:#8b949e">Systems</td><td>C</td><td class="right">848</td><td class="right">3.8</td><td class="right" style="color:#8b949e">9.6%</td></tr>
+        <tr><td>envoy</td><td style="color:#8b949e">Systems</td><td>C++</td><td class="right">1,377</td><td class="right">4.0</td><td class="right" style="color:#8b949e">7.9%</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- ========================================= -->
@@ -426,16 +690,6 @@ h1 .accent{color:#58a6ff}
     重力は<strong>本人のもの</strong>だ。だから——もしあなたが観測された一人なら、<strong>GitHub アカウントで EIS の公開研究に協力</strong>できる。あなたの名前で重力を名乗るか、名前だけ出すか、匿名のままでいるか、あるいは完全に外れるかを、観測される側のあなたが選ぶ。既定は匿名のまま。<strong>出版物に現れる名前は、すべて参加を望んだ本人のものだ。</strong>
   </p>
   <a href="https://api.orbitlens.io/oss/claim" style="display:inline-block;margin-top:6px;padding:11px 22px;background:#58a6ff;color:#0d1117;font-weight:700;font-size:.92em;text-decoration:none;border-radius:6px">OSS重力マップを開いて、重力を名乗る →</a>
-</div>
-
-<!-- ========================================= -->
-<!-- 観測した29リポジトリ -->
-<!-- ========================================= -->
-<div class="section" id="repos">
-  <h2 class="section-title">観測した29リポジトリ</h2>
-  <p class="section-desc" style="font-family:monospace;font-size:.95em;line-height:2.1;color:#8b949e;max-width:780px;margin:1.4em auto;">
-    argo-cd · arrow · ClickHouse · duckdb · envoy · esbuild · eslint · express · fastapi · grafana · kubernetes · laravel · loki · nest · phoenix · polars · prettier · prometheus · rails · react · redis · rust · scala · scala3 · spring-boot · superset · swc · terraform · vite
-  </p>
 </div>
 
 <!-- ========================================= -->
