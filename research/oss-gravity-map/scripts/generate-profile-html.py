@@ -37,7 +37,7 @@ def first_object(path):
 # ---------------------------------------------------------------------------
 PROFILES = {
  'react-abramov': {
-   'repo':'react','author':'Dan Abramov','repo_label':'facebook/react','color':'#61dafb',
+   'repo':'react','author':'Dan Abramov','repo_label':'react/react','color':'#61dafb',
    'tagline':{'en':'Famous Is Not the Same as Load-Bearing','ja':'有名であることと、荷重を負うことは違う'},
    'hero':{
      'en':"Dan Abramov is one of the most recognised names in front-end engineering — Redux, the React docs, years of teaching. He is a long, prolific presence in react itself. Yet his Gravity reads low today: much of his most-felt work was API shape, documentation and advocacy rather than react-core structure that others still press on. His timeline shows a real peak as a Cleaner around 2018, fading since. Gravity is a present-tense reading of structural load — not a measure of fame or influence.",

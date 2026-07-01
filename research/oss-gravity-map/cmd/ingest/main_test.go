@@ -20,7 +20,7 @@ func TestSplitCSV(t *testing.T) {
 
 func TestManifestFilter(t *testing.T) {
 	m := &repoManifest{Repos: []manifestEntry{
-		{Dir: "react", FullName: "facebook/react", LanguageFamily: "javascript"},
+		{Dir: "react", FullName: "react/react", LanguageFamily: "javascript"},
 		{Dir: "vite", FullName: "vitejs/vite", LanguageFamily: "typescript"},
 		{Dir: "go", FullName: "golang/go", LanguageFamily: "go"},
 	}}

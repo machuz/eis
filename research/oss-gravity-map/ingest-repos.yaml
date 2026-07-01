@@ -9,7 +9,7 @@
 #   language_family the primary language family used to group the map. One token,
 #                   lowercase; multi-language repos collapse to their primary.
 repos:
-  - { dir: react,       full_name: facebook/react,            language_family: javascript }
+  - { dir: react,       full_name: react/react,            language_family: javascript }
   - { dir: kubernetes,  full_name: kubernetes/kubernetes,     language_family: go }
   - { dir: terraform,   full_name: hashicorp/terraform,       language_family: go }
   - { dir: redis,       full_name: redis/redis,               language_family: c }

@@ -12,7 +12,7 @@ mkdir -p "$DATA_DIR"
 # All 25 repos: org/repo
 REPOS=(
   # Tier 1: Famous Projects
-  "facebook/react"
+  "react/react"
   "kubernetes/kubernetes"
   "hashicorp/terraform"
   "redis/redis"
