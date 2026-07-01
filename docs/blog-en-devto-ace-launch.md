@@ -40,6 +40,8 @@ The speed of writing code left human hands. Ask a model and a thousand lines arr
 
 What's left is what survives. Of the thousand lines AI just produced, the share that gets rewritten next week has a survival of zero. Only the code still standing in six months is doing structural work. When generation becomes infinitely cheap, the scarce thing isn't output. It's what stays.
 
+And there's a quiet trap here. If you never grasp how much of your code actually survives, and you keep handing everything to a model without regard for structure, the codebase thickens with layers that get rewritten the following week. Generation is fast, yet the features never settle. And because the commit log keeps flowing along nicely, no one notices the team is circling the same ground. A team that can't read survival stays inside that churn until it turns into an incident.
+
 And survival can't be gamed, not even by AI, because time isn't the only thing that decides it. Whether a piece of code lasts is settled by the ecosystem it lands in: whether the next person builds on it or tears it out. The other developers' hands give the answer. So it isn't an absolute ruler. It shifts by environment. A conservative team might keep mediocre-but-bug-free code untouched; an aggressive one might throw the same code out by next month. Survival is a relative signal, valid only inside that particular context.
 
 And the code that survives surfaces as accumulated history: what it set out to solve, what got built, in what structure — a record of having faced those questions with real heat.
