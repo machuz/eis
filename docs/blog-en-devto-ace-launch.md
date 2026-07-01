@@ -71,11 +71,23 @@ Read these as the structure git was hiding, not as a feature list.
 
 **Structural Summary. Numbers into language.** "Survival 23" on its own is useless. Weak design, or a legacy rewrite in progress? Ace reads the whole signal field and tells you, in prose, what's standing and what's coming apart.
 
+![Structural Summary](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-observatory.png?v=1)
+
+*Structural Summary — turning the numbers back into prose.*
+
 **Conway's Law check. Org chart vs. reality.** Ace places the engineer topology next to the module topology and shows where they drift. The team that supposedly owns a service isn't the team writing it. Knowledge quietly migrated somewhere your org chart never noticed.
 
 **Collapse risk. Before it's an incident.** Modules that survive only because nobody touches them. Modules orphaned when an owner left. A bus factor of one. The risk was in the git history from the start. Ace surfaces it before it turns into a crisis.
 
+![Module Topology](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-module-topology.png?v=1)
+
+*Conway Check & Collapse Risk — the org chart next to who actually wrote the code, and the orphaned knowledge found before it becomes an incident.*
+
 **The Organizational Chronicle. The heart of it.** Not a scoreboard. It doesn't rank engineers. It records what the codebase has lived through: the migrations it survived, the architect who shaped a subsystem and moved on, the module that turned fragile after an ownership change.
+
+![Chronicle](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
+
+*Chronicle — not a ranking, but the time a codebase has lived through.*
 
 A scoreboard teaches people to game it. A chronicle is something a team grows attached to. We're after the second. The signal is still there if you want to look closer, but it's a lens you pick up, never the headline.
 
@@ -86,6 +98,10 @@ A scoreboard teaches people to game it. A chronicle is something a team grows at
 To keep this concrete, here is one result from pointing the telescope at a public OSS codebase.
 
 One note first. In this piece the individual names behind the observations are withheld. A name appears only when that person cooperates with OrbitLens Ace's public research and [claims their name](https://api.orbitlens.io/oss/claim) — anonymous by default, disclosed only by the person's own choice.
+
+![Star Detail](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-star-detail.png?v=1)
+
+*Star Detail — all-time gravity and the trajectory: the same person read at two focal lengths, one toggle apart.*
 
 In React (1,927 engineers passed through it), the top of the all-time gravity is one engineer. Indispensability 100, Catalysis 100: the structural shape is saturated, everyone else built on top of them.
 
