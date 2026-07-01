@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="440" viewBox="0 0 1000 440" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace">
+  <rect width="1000" height="440" fill="#1d2021"/>
+  <circle cx="22" cy="20" r="7" fill="#fb4934"/>
+  <circle cx="47" cy="20" r="7" fill="#fabd2f"/>
+  <circle cx="72" cy="20" r="7" fill="#b8bb26"/>
+  <text x="500" y="25" fill="#7c6f64" font-size="14" text-anchor="middle">// two doors, one universe</text>
+
+  <line x1="500" y1="72" x2="500" y2="404" stroke="#3c3836" stroke-width="1"/>
+
+  <!-- LEFT: OSS CLI -->
+  <text x="60" y="100" fill="#fabd2f" font-size="19">OSS CLI &#8212; EIS (telescope)</text>
+  <text x="60" y="146" fill="#b8bb26" font-size="15">$ brew install machuz/tap/eis</text>
+  <text x="60" y="174" fill="#b8bb26" font-size="15">$ eis analyze .</text>
+  <text x="60" y="214" fill="#83a598" font-size="15">&#8594; JSON &#183; 7 axes &#183; 3-axis topology</text>
+  <text x="60" y="258" fill="#928374" font-size="15">local &#183; free &#183; no account, no login</text>
+  <text x="60" y="286" fill="#928374" font-size="15">the facts, on your machine</text>
+  <text x="60" y="360" fill="#7c6f64" font-size="14">observe.</text>
+
+  <!-- RIGHT: SaaS -->
+  <text x="540" y="100" fill="#fabd2f" font-size="19">SaaS &#8212; OrbitLens Ace (observatory)</text>
+  <text x="540" y="146" fill="#83a598" font-size="15">open ace.orbitlens.io</text>
+  <text x="540" y="174" fill="#83a598" font-size="15">log in with GitHub &#183; pick repos</text>
+  <text x="540" y="214" fill="#83a598" font-size="15">&#8594; in browser: summary &#183; Conway</text>
+  <text x="540" y="238" fill="#83a598" font-size="15">&#160;&#160;&#160;collapse risk &#183; chronicle</text>
+  <text x="540" y="282" fill="#928374" font-size="15">continuous observation, no CLI to learn</text>
+  <text x="540" y="360" fill="#7c6f64" font-size="14">read the observation.</text>
+</svg>

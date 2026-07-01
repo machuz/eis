@@ -63,6 +63,10 @@ That is why EIS and Ace are two instruments, not one.
 
 If the instrument that gathers the signal also decides what it means, you can no longer tell where fact ends and opinion begins. Keep the telescope on the facts and let the observatory carry the interpretation. You can trust both because there is a line between them.
 
+![EIS and Ace](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/diagram-eis-ace.png?v=1)
+
+*The telescope observes; the observatory reads. The line is drawn right there.*
+
 ---
 
 ## What the observatory reads
@@ -83,7 +87,7 @@ Read these as the structure git was hiding, not as a feature list.
 
 *Conway Check & Collapse Risk — the org chart next to who actually wrote the code, and the orphaned knowledge found before it becomes an incident.*
 
-**The Organizational Chronicle. The heart of it.** Not a scoreboard. It doesn't rank engineers. It records what the codebase has lived through: the migrations it survived, the architect who shaped a subsystem and moved on, the module that turned fragile after an ownership change.
+**The Organizational Chronicle. Time, not a ranking.** Not a scoreboard. It doesn't rank engineers. It records what the codebase has lived through: the migrations it survived, the architect who shaped a subsystem and moved on, the module that turned fragile after an ownership change.
 
 ![Chronicle](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
 
@@ -134,11 +138,19 @@ eis analyze .
 
 **The observatory (SaaS) is a few clicks.** Open [ace.orbitlens.io](https://ace.orbitlens.io), log in with GitHub, pick the repos you want to watch. From there Ace runs the observation continuously and renders it in your browser: structural summary, Conway check, collapse risk, the chronicle. No CLI to learn.
 
+![OSS CLI vs Ace UI](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/diagram-cli-ui.png?v=1)
+
+*Two doors. The same universe — from the command line, or from the browser.*
+
 Point the lens at your own organization, at your personal repos, at an open-source project you're curious about. Public repos are unlimited, so reading the gravity map of a well-known OSS codebase is worth a look on its own.
 
 EIS, the telescope, stays free and open source forever. No seat limits, no trial clock, no open core with the load-bearing parts behind a wall. We don't want to charge for the idea. We want it to travel, and an idea behind a paywall doesn't get far.
 
 Ace, the observatory, is what carries a price, because running observation continuously and reading it back is real infrastructure. It's priced to be reachable, not to gate. **Free** at $0 (up to five people, public repos unlimited, six months of history). **Pro** at $7/mo (one developer, full history, the complete Gravity Certificate). **Nova** at $39/mo for eight seats, plus $18/seat beyond, for a private org that wants the org-level read. Most engineering-analytics platforms run $15 to $50 per developer per month, often behind "contact sales." Ace is flat for the first eight seats, and the engine beneath it is free. The Gravity Certificate, the trace that travels with a person, is free to mint and verify on every plan. Proving your own work shouldn't cost you anything.
+
+![Pricing](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-pricing.png?v=1)
+
+*From Free to Nova — the engine is free; only the observatory that keeps reading carries a price.*
 
 ---
 
