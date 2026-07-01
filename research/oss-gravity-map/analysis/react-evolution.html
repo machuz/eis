@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React — Generational Succession (Summary) | OSS Gravity Map</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.container{max-width:1000px;margin:0 auto;padding:20px}
+h2{color:#f0f6fc;font-size:1.3em;margin:36px 0 16px;border-bottom:1px solid #30363d;padding-bottom:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75em;font-weight:600;color:#fff}
+.hero{background:linear-gradient(135deg,#1a1708 0%,#0d1117 100%);border:2px solid #f5c211;border-radius:16px;padding:40px;margin-bottom:36px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:18px;background:linear-gradient(135deg,rgba(245,194,17,.15),rgba(245,194,17,.03));z-index:0;pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero-name{font-size:2.8em;font-weight:800;color:#f0f6fc;margin-bottom:8px}
+.hero-tagline{font-size:1.15em;color:#f5c211;font-weight:600;margin-bottom:4px}
+.hero-desc{color:#8b949e;font-size:.95em;line-height:1.7;margin-bottom:20px;max-width:700px}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap}
+.big-stats{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.big-stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px 24px;text-align:center;flex:1;min-width:140px}
+.big-num{font-size:2em;font-weight:800}
+.big-label{color:#8b949e;font-size:.78em;margin-top:4px}
+.singularity{background:#161b22;border:2px solid #f5c211;border-radius:16px;padding:40px;margin:28px 0;text-align:center}
+.singularity-title{font-size:1.4em;font-weight:700;color:#f5c211;margin-bottom:24px}
+.comparison{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.comparison-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;flex:1;min-width:180px;text-align:center}
+.comparison-name{color:#8b949e;font-size:.85em;margin-bottom:6px}
+.comparison-val{font-size:1.6em;font-weight:800}
+.rank-table{width:100%;border-collapse:collapse}
+.rank-table th{text-align:left;padding:10px 12px;border-bottom:2px solid #30363d;color:#8b949e;font-size:.8em;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.rank-table td{padding:10px 12px;border-bottom:1px solid #21262d}
+.rank-table tr:hover{background:#161b22}
+.rank-table tr.hl{background:rgba(245,194,17,.08)}
+.rank-num{color:#8b949e;font-weight:700}.member-name{font-weight:600;color:#f0f6fc}
+.gravity-bar{position:relative;height:20px;background:#21262d;border-radius:10px;min-width:120px;overflow:hidden}
+.gravity-fill{height:100%;border-radius:10px}
+.gravity-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.8em;font-weight:700;color:#f0f6fc}
+.insight{background:rgba(245,194,17,.06);border-left:3px solid #f5c211;border-radius:4px;padding:16px 20px;margin:20px 0;font-size:.95em;line-height:1.7}
+.insight strong{color:#f0f6fc}
+.footer{margin-top:48px;padding-top:16px;border-top:1px solid #30363d;color:#484f58;font-size:.8em;text-align:center}
+.footer a{color:#58a6ff;text-decoration:none}
+.lang-switch{position:absolute;top:18px;right:20px;font-size:.82em;z-index:5}
+.lang-switch a{color:#8b949e;text-decoration:none;padding:2px 4px}
+.lang-switch a.active{color:#58a6ff;font-weight:700}
+.lang-switch a:hover{color:#c9d1d9}
+.lang-switch .sep{color:#30363d;margin:0 2px}
+</style>
+</head>
+<body>
+<div class="lang-switch"><a href="react-evolution.html" class="active">EN</a><span class="sep">·</span><a href="react-evolution-ja.html">日本語</a></div>
+<div class="container">
+
+<div class="hero">
+  <div class="hero-name">React — Generational Succession (Summary)</div>
+  <div class="hero-tagline">Aggregate summary</div>
+  <div class="hero-desc">
+    React is a universe of 1,927 engineers. The per-person timeline — who sat in the structural chair and when — is withheld here, under the anonymity policy of never naming and ranking an individual without their consent. Only the aggregate is shown.
+  </div>
+  <div class="hero-badges">
+    <span class="badge" style="background:#61dafb;color:#000">React</span>
+    <span class="badge" style="background:#1c7ea8;color:#fff">1,927 Engineers</span>
+    <span class="badge" style="background:#155e7d;color:#fff">Aggregate summary</span>
+  </div>
+</div>
+
+<div class="big-stats">
+  <div class="big-stat"><div class="big-num" style="color:#61dafb">1,927</div><div class="big-label">Engineers</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#61dafb">31.4%</div><div class="big-label">Gravity Concentration (top-3)</div></div>
+  <div class="big-stat"><div class="big-num" style="color:#f5c211">Dynamic</div><div class="big-label">Category</div></div>
+</div>
+
+<h2>Insight</h2>
+<div class="insight">
+  The structural chair passed between several stewards over a decade. One carries the load at a time, and the top-3 hold 31.4% of gravity — no single name dominates the field. The breakdown of who held the chair appears only for those who opt into the open research under their own name.
+</div>
+
+<div class="footer">
+  Generated by <a href="https://github.com/machuz/eis">EIS (Engineering Impact Signal)</a> &mdash; OSS Gravity Map Project<br>
+  React &middot; 1,927 engineers &middot; Gravity = catGate(Catalysis) &times; survGate(RobustSurvival) &times; shape(0.45&middot;Design + 0.25&middot;Breadth + 0.30&middot;Indispensability)
+</div>
+</div>
+</body>
+</html>
