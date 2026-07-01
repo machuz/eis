@@ -43,8 +43,12 @@ import (
 // --- ingest payload (mirrors services/public-api usecase.IngestPayload) ---
 
 type ingestObservation struct {
-	ExGitHubID       int64   `json:"ex_github_id"`
+	ExGitHubID int64 `json:"ex_github_id"`
+	// Period "" / "cumulative" = the HEAD standing; "YYYY" = a timeline window
+	// (oss-public-claim.md S4). LifetimeGravity is carried on the cumulative row.
+	Period           string  `json:"period,omitempty"`
 	Gravity          float64 `json:"gravity"`
+	LifetimeGravity  float64 `json:"lifetime_gravity,omitempty"`
 	Survival         float64 `json:"survival"`
 	Production       float64 `json:"production"`
 	Catalysis        float64 `json:"catalysis"`
@@ -92,6 +96,7 @@ type analysisMember struct {
 	DebtCleanup      float64 `json:"debt_cleanup"`
 	Indispensability float64 `json:"indispensability"`
 	Gravity          float64 `json:"gravity"`
+	LifetimeGravity  float64 `json:"lifetime_gravity"`
 	Role             string  `json:"role"`
 	Style            string  `json:"style"`
 	State            string  `json:"state"`
@@ -103,10 +108,36 @@ type analysisJSON struct {
 	} `json:"domains"`
 }
 
+// timelineJSON is the subset of `eis timeline --format json` the ingest needs:
+// per author, their signals in each period window. The author name matches the
+// analysis `member` (eis canonicalizes identically), so both join on the same id.
+type timelinePeriod struct {
+	Label            string  `json:"label"`
+	Production       float64 `json:"production"`
+	Catalysis        float64 `json:"catalysis"`
+	Survival         float64 `json:"survival"`
+	Design           float64 `json:"design"`
+	Breadth          float64 `json:"breadth"`
+	DebtCleanup      float64 `json:"debt_cleanup"`
+	Indispensability float64 `json:"indispensability"`
+	Gravity          float64 `json:"gravity"`
+	Role             string  `json:"role"`
+	Style            string  `json:"style"`
+	State            string  `json:"state"`
+}
+
+type timelineJSON struct {
+	Authors []struct {
+		Author  string           `json:"author"`
+		Periods []timelinePeriod `json:"periods"`
+	} `json:"authors"`
+}
+
 func main() {
 	var (
 		manifestPath = flag.String("manifest", "ingest-repos.yaml", "repo manifest (dir/full_name/language_family)")
 		resultsDir   = flag.String("results-dir", "data/results", "dir of eis analysis JSON (<dir>.json)")
+		timelineDir  = flag.String("timeline-dir", "data/results", "dir of eis timeline JSON (<dir>-timeline.json); missing = cumulative only")
 		reposDir     = flag.String("repos-dir", "data/repos", "dir of cloned repos (<dir>/.git)")
 		configsDir   = flag.String("configs-dir", "configs", "dir of per-repo eis configs (<dir>.yaml)")
 		apiBase      = flag.String("api-base", "https://api.stg.orbitlens.io", "ingest API base URL")
@@ -171,9 +202,12 @@ func main() {
 				dropped++
 				continue
 			}
+			// The cumulative (HEAD) standing carries lifetime_gravity.
 			obs = append(obs, ingestObservation{
 				ExGitHubID:       ra.ID,
+				Period:           "cumulative",
 				Gravity:          mem.Gravity,
+				LifetimeGravity:  mem.LifetimeGravity,
 				Survival:         mem.Survival,
 				Production:       mem.Production,
 				Catalysis:        mem.Catalysis,
@@ -188,6 +222,36 @@ func main() {
 		}
 		resolved += len(obs)
 		totalObs += len(members)
+
+		// Timeline (軌跡): per-period rows, joined to the same ids. Optional — a
+		// missing/failed timeline just leaves the cumulative standing.
+		tl := loadTimeline(filepath.Join(*timelineDir, m.Dir+"-timeline.json"))
+		var periodRows int
+		for name, periods := range tl {
+			ra, ok := ids[name]
+			if !ok || ra.ID == 0 {
+				continue
+			}
+			for _, p := range periods {
+				if p.Label == "" {
+					continue
+				}
+				// Skip fully-inactive periods (no gravity, no archetype): they carry
+				// no signal and would bloat the store with one 0-row per author per
+				// idle window. Any gravity OR any archetype keeps the row.
+				if p.Gravity == 0 && isDash(p.Role) && isDash(p.Style) && isDash(p.State) {
+					continue
+				}
+				obs = append(obs, ingestObservation{
+					ExGitHubID: ra.ID, Period: p.Label,
+					Gravity: p.Gravity, Survival: p.Survival, Production: p.Production,
+					Catalysis: p.Catalysis, Design: p.Design, Breadth: p.Breadth,
+					Indispensability: p.Indispensability, DebtCleanup: p.DebtCleanup,
+					RoleArchetype: p.Role, StyleArchetype: p.Style, StateArchetype: p.State,
+				})
+				periodRows++
+			}
+		}
 		// Deterministic order so a re-run produces an identical payload (W-02).
 		sort.Slice(obs, func(i, j int) bool { return obs[i].ExGitHubID < obs[j].ExGitHubID })
 		payload.Repos = append(payload.Repos, ingestRepo{
@@ -195,7 +259,7 @@ func main() {
 			LanguageFamily: m.LanguageFamily,
 			Observations:   obs,
 		})
-		fmt.Fprintf(os.Stderr, "  %-28s %3d/%-3d authors resolved\n", m.FullName, len(obs), len(members))
+		fmt.Fprintf(os.Stderr, "  %-28s %3d/%-3d authors resolved, %d timeline rows\n", m.FullName, len(obs)-periodRows, len(members), periodRows)
 	}
 
 	fmt.Fprintf(os.Stderr, "\nrun %s: %d repos, %d observations resolved (%d dropped, unresolved identity)\n",
@@ -291,6 +355,37 @@ func loadAnalysis(path string) ([]analysisMember, error) {
 	}
 	sort.Slice(out, func(i, j int) bool { return out[i].Member < out[j].Member })
 	return out, nil
+}
+
+// isDash reports whether an archetype value is absent (empty or the em-dash eis
+// writes when a period has no settled archetype).
+func isDash(s string) bool { return s == "" || s == "—" }
+
+// loadTimeline reads an eis timeline JSON (軌跡) and returns author name → their
+// per-period signals. Missing/unreadable file → nil (timeline is optional; the
+// cumulative standing still ingests). Author names match the analysis `member`.
+func loadTimeline(path string) map[string][]timelinePeriod {
+	f, err := os.Open(path)
+	if err != nil {
+		return nil
+	}
+	defer f.Close()
+	// `eis timeline --format json` emits TWO concatenated JSON objects: the
+	// per-author timeline, then a {team_timelines:…} object. Decode reads only the
+	// first (the per-author one, which is what we need) and ignores the rest.
+	var t timelineJSON
+	if err := json.NewDecoder(f).Decode(&t); err != nil {
+		warnf("timeline %s: %v", path, err)
+		return nil
+	}
+	out := make(map[string][]timelinePeriod, len(t.Authors))
+	for _, a := range t.Authors {
+		if a.Author == "" || len(a.Periods) == 0 {
+			continue
+		}
+		out[a.Author] = a.Periods
+	}
+	return out
 }
 
 // loadRepoConfig mirrors analyze-repos.sh: use configs/<dir>.yaml when present,

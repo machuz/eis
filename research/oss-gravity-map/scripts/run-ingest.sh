@@ -27,6 +27,7 @@ REPO_ROOT="$(cd "$PROJECT_DIR/../.." && pwd)"
 API_BASE="${API_BASE:-https://api.stg.orbitlens.io}"
 RUN_ID="${RUN_ID:-ingest-$(date -u +%Y%m%d)}"
 MAX_COMMIT_PAGES="${MAX_COMMIT_PAGES:-10}"
+TIMELINE_SPAN="${TIMELINE_SPAN:-1y}"   # timeline window span (3m/6m/1y); 1y keeps row counts sane
 ONLY="${ONLY:-}"
 DRY_RUN="${DRY_RUN:-0}"
 
@@ -74,11 +75,20 @@ for row in "${DIRS[@]}"; do
 
   cfg_flag=""
   [ -f "$CONFIGS/$dir.yaml" ] && cfg_flag="--config $CONFIGS/$dir.yaml"
+  # Cumulative (通期): the HEAD standing + lifetime_gravity.
   # shellcheck disable=SC2086
   "$EIS_BIN" analyze $cfg_flag --format json "$DATA_REPOS/$dir" \
     2>/dev/null | sed '/^Analyzing:/d; /^Loaded /d; /^SKIP:/d' > "$DATA_RESULTS/$dir.json"
 
+  # Timeline (軌跡): per-period windows over the full history. Best-effort — a
+  # failure just leaves the cumulative standing (the ingest tool treats a missing
+  # timeline file as optional).
+  # shellcheck disable=SC2086
+  "$EIS_BIN" timeline $cfg_flag --format json --span "$TIMELINE_SPAN" --periods 0 "$DATA_REPOS/$dir" \
+    2>/dev/null | sed '/^Analyzing:/d; /^Loaded /d; /^SKIP:/d' > "$DATA_RESULTS/$dir-timeline.json" || true
+
   ingest_flags=(--manifest "$MANIFEST" --results-dir "$DATA_RESULTS" \
+    --timeline-dir "$DATA_RESULTS" \
     --repos-dir "$DATA_REPOS" --configs-dir "$CONFIGS" \
     --run-id "$RUN_ID" --api-base "$API_BASE" \
     --max-commit-pages "$MAX_COMMIT_PAGES" --only "$dir")
@@ -91,7 +101,7 @@ for row in "${DIRS[@]}"; do
   fi
 
   # Reclaim disk before the next (possibly huge) clone.
-  rm -rf "$DATA_REPOS/$dir" "$DATA_RESULTS/$dir.json"
+  rm -rf "$DATA_REPOS/$dir" "$DATA_RESULTS/$dir.json" "$DATA_RESULTS/$dir-timeline.json"
 done
 
 echo ""
