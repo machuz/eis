@@ -172,7 +172,7 @@ That is what observation is for. Not to score the people who are here, but to ke
 
 So the soul of this isn't measurement. It's observation in the service of succession. **A culture of observation is a culture of succession.**
 
-And this record isn't only the organization's. What you left in git isn't self-reported and it isn't volume — it's the fact that others kept building on it. When a company you've since left runs Ace, the observation of your time there is yours to receive (→ [claim your record](https://api.orbitlens.io/oss/claim)). What accumulates across companies isn't a résumé you wrote, but a career chronicle made of facts.
+And this record isn't only the organization's. What you left in git isn't self-reported and it isn't volume — it's the fact that others kept building on your code. When a company you've since left runs Ace, the observation of your time there accrues to your own certificate — a career chronicle made of facts, not a résumé you wrote. Whether any of it is public stays your call.
 
 → The wider arc — observation, understanding, succession, the design of the next orbit — is the [OrbitLens Vision](https://library.orbitlens.io/articles/vision/).
 
