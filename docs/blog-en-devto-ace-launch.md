@@ -81,7 +81,7 @@ A scoreboard teaches people to game it. A chronicle is something a team grows at
 
 To keep this concrete, here is one result from pointing the telescope at a public OSS codebase.
 
-One note first. In this piece the individual names behind the observations are withheld. A name appears only when that person opts in to cooperate with [OrbitLens Ace](https://ace.orbitlens.io)'s public research — anonymous by default, disclosed only by the person's own choice.
+One note first. In this piece the individual names behind the observations are withheld. A name appears only when that person cooperates with OrbitLens Ace's public research and [claims their name](https://api.orbitlens.io/oss/claim) — anonymous by default, disclosed only by the person's own choice.
 
 In React (1,927 engineers passed through it), the top of the all-time gravity is one engineer. Indispensability 100, Catalysis 100: the structural shape is saturated, everyone else built on top of them.
 
