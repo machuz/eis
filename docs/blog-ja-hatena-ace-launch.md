@@ -69,11 +69,23 @@
 
 **Structural Summary。数字を、文章に。** 「Survival 23」だけでは、設計が弱いのかレガシーを書き換え中なのか分からない。Ace はシグナル全体を読み、いま何が立って何が崩れかけているかを文章で説明する。
 
+![Structural Summary](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-observatory.png?v=1)
+
+*Structural Summary — 数字を、文章に戻す。*
+
 **コンウェイの法則チェック。組織図 vs 実態。** 人のトポロジーとモジュールのトポロジーを並べ、ズレを見せる。「このサービスはAチーム担当」のはずが、実は書いていない。知識が、組織図の気づかないどこかへ移っていた。
 
 **崩壊リスク。事故になる前に。** 誰も触らないから残っているだけのモジュール。オーナーが辞めて宙に浮いたモジュール。バスファクター1。リスクは最初から git 履歴の中にあった。Ace は、それが事故になる前に表に出す。
 
+![Module Topology](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-module-topology.png?v=1)
+
+*Conway Check & Collapse Risk — 組織図と実態のずれを並べ、事故になる前に、宙に浮いた知識を見つける。*
+
 **組織年表（Chronicle）。この製品の心臓だ。** 得点表ではない。エンジニアを順位づけない。代わりに、このコードベースが何をくぐってきたかを記録する。乗り越えたマイグレーション、ある subsystem を作って去ったアーキテクト、オーナーが変わって脆くなったモジュール。
+
+![Chronicle](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-chronicle.png?v=1)
+
+*Chronicle — 順位ではなく、コードベースがくぐってきた時間を読む。*
 
 得点表は、人がゲームの仕方を覚える。年表は、チームが愛着を持つ。狙うのは後者だ。シグナルは見ようと思えば見られるが、見出しではなく、近くで確かめるときに手に取るレンズに留めてある。
 
@@ -84,6 +96,10 @@
 抽象論で終わらせたくない。公開 OSS に実際に向けた結果を一つ出す。
 
 ひとつ断っておく。本記事では、観測に現れた個人名を伏せている。名前が出るのは、その人が OrbitLens Ace の公開研究に協力し、[自分の名前を claim](https://api.orbitlens.io/oss/claim) したときだけ——そういう仕組みにした。既定は匿名、公開は本人が選ぶ。
+
+![Star Detail](https://raw.githubusercontent.com/machuz/eis/main/docs/images/blog/png/ace-star-detail.png?v=1)
+
+*Star Detail — 通期の重力と、軌跡。切り替えひとつで、同じ人を二つの焦点距離で読む。*
 
 React（延べ1,927人が通過）の通期の重力でトップに立つ一人がいる。Indispensability 100、Catalysis 100。構造の形は飽和し、他の全員がその人の上に築いている。
 
