@@ -1,0 +1,56 @@
+name: Deploy Library (Cloudflare Pages)
+
+# The Cloudflare Pages "orbitlens-library" project (library.orbitlens.io) is
+# GitHub-integration connected to this repo, but that integration's push-
+# triggered builds have been stuck at "queued idle" (they never build). An
+# API-triggered ("ad_hoc") deployment builds fine, so this workflow fires one on
+# every docs change — a reliable path to production that bypasses the broken
+# integration. Remove this once the Pages↔GitHub integration is reconnected.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+
+# One deploy at a time; a newer push supersedes an in-flight run.
+concurrency:
+  group: deploy-library
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare Pages deployment
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          resp=$(curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT}/pages/projects/orbitlens-library/deployments" \
+            -H "Authorization: Bearer ${CF_TOKEN}" -F "branch=main")
+          dep_id=$(printf '%s' "$resp" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['result']['id']) if d.get('success') else (sys.stderr.write(json.dumps(d.get('errors'))+'\n'), sys.exit(1))")
+          echo "Triggered deployment $dep_id"
+
+      - name: Wait for the deployment to finish
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          # Re-read the latest ad_hoc deployment and poll its stage. ad_hoc builds
+          # in ~20s, but allow generous headroom.
+          for i in $(seq 1 30); do
+            resp=$(curl -sS "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT}/pages/projects/orbitlens-library/deployments?per_page=5&page=1" \
+              -H "Authorization: Bearer ${CF_TOKEN}")
+            read -r stage status <<<"$(printf '%s' "$resp" | python3 -c "import json,sys; d=json.load(sys.stdin); r=[x for x in (d.get('result') or []) if (x.get('deployment_trigger') or {}).get('type')=='ad_hoc']; st=(r[0].get('latest_stage') or {}) if r else {}; print(st.get('name',''), st.get('status',''))")"
+            echo "stage=$stage status=$status"
+            case "$stage/$status" in
+              deploy/success) echo "Library deployed."; exit 0 ;;
+              */failure|*/canceled) echo "Deployment failed at $stage"; exit 1 ;;
+            esac
+            sleep 8
+          done
+          echo "Timed out waiting for the deployment (it may still finish)."; exit 1
