@@ -33,6 +33,14 @@ TIMELINE_PERIODS="${TIMELINE_PERIODS:-8}"  # windows to score. 0 = full history,
                                            # bounds the cost to the recent, meaningful trajectory.
 ONLY="${ONLY:-}"
 DRY_RUN="${DRY_RUN:-0}"
+# FAST_LOG=1 passes --fast-log to analyze + timeline: numstat-only, skipping the
+# `git log -p` comment filtering that is pathologically slow on giant repos (react,
+# kubernetes, rust). Gravity/survival are essentially unaffected (only insertion
+# counts include comment/blank lines). Off by default to keep parity with the repos
+# already ingested without it; turn on for the giants.
+FAST_LOG="${FAST_LOG:-0}"
+fast_flag=""
+[ "$FAST_LOG" = "1" ] && fast_flag="--fast-log"
 
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
@@ -80,14 +88,16 @@ for row in "${DIRS[@]}"; do
   [ -f "$CONFIGS/$dir.yaml" ] && cfg_flag="--config $CONFIGS/$dir.yaml"
   # Cumulative (通期): the HEAD standing + lifetime_gravity.
   # shellcheck disable=SC2086
-  "$EIS_BIN" analyze $cfg_flag --format json "$DATA_REPOS/$dir" \
+  "$EIS_BIN" analyze $cfg_flag $fast_flag --format json "$DATA_REPOS/$dir" \
     2>/dev/null | sed '/^Analyzing:/d; /^Loaded /d; /^SKIP:/d' > "$DATA_RESULTS/$dir.json"
 
   # Timeline (軌跡): per-period windows over the full history. Best-effort — a
   # failure just leaves the cumulative standing (the ingest tool treats a missing
-  # timeline file as optional).
+  # timeline file as optional). The blame cache ($HOME/.eis/cache, persisted by the
+  # workflow) is shared with analyze above, so the per-period blames reuse warmed
+  # entries across runs.
   # shellcheck disable=SC2086
-  "$EIS_BIN" timeline $cfg_flag --format json --span "$TIMELINE_SPAN" --periods "$TIMELINE_PERIODS" "$DATA_REPOS/$dir" \
+  "$EIS_BIN" timeline $cfg_flag $fast_flag --format json --span "$TIMELINE_SPAN" --periods "$TIMELINE_PERIODS" "$DATA_REPOS/$dir" \
     2>/dev/null | sed '/^Analyzing:/d; /^Loaded /d; /^SKIP:/d' > "$DATA_RESULTS/$dir-timeline.json" || true
 
   ingest_flags=(--manifest "$MANIFEST" --results-dir "$DATA_RESULTS" \

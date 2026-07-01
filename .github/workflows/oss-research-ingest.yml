@@ -25,6 +25,14 @@ on:
         description: "GitHub Commits-API pages for the email→id fallback"
         type: string
         default: "10"
+      run_id:
+        description: "Override run_id (blank = ingest-<github_run_id>). Set to an existing run to ACCRETE repos into it without collapsing the map to the new subset."
+        type: string
+        default: ""
+      fast_log:
+        description: "Pass --fast-log (numstat-only) — much faster on giant repos (react/kubernetes/rust); gravity essentially unaffected"
+        type: boolean
+        default: false
       dry_run:
         description: "Assemble + log but do not POST"
         type: boolean
@@ -45,6 +53,19 @@ jobs:
         with:
           go-version-file: go.mod
 
+      # Persist eis's blame cache ($HOME/.eis/cache) across runs — the CI equivalent
+      # of the worker's S3 blame cache. A rolling key (run_id) with a prefix
+      # restore-key incrementally warms the cache, so giant-repo blames (react etc.)
+      # get progressively cheaper each run instead of always cold. eis namespaces the
+      # cache dir by its own BlameCacheEpoch, so a stale key self-invalidates.
+      - name: Cache eis blame results
+        uses: actions/cache@v4
+        with:
+          path: ~/.eis/cache
+          key: eis-blame-${{ github.run_id }}
+          restore-keys: |
+            eis-blame-
+
       - name: Run ingest
         env:
           # Privileged research-ingest bearer (NOT a per-account eis_ key). stg
@@ -57,5 +78,7 @@ jobs:
           ONLY: ${{ inputs.only }}
           MAX_COMMIT_PAGES: ${{ inputs.max_commit_pages }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
-          RUN_ID: "ingest-${{ github.run_id }}"
+          FAST_LOG: ${{ inputs.fast_log && '1' || '0' }}
+          # Default to a fresh per-run id; override to accrete into an existing run.
+          RUN_ID: ${{ inputs.run_id != '' && inputs.run_id || format('ingest-{0}', github.run_id) }}
         run: ./research/oss-gravity-map/scripts/run-ingest.sh
