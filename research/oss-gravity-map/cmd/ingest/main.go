@@ -52,6 +52,7 @@ type ingestObservation struct {
 	Period           string  `json:"period,omitempty"`
 	Gravity          float64 `json:"gravity"`
 	LifetimeGravity  float64 `json:"lifetime_gravity,omitempty"`
+	Signal           float64 `json:"signal"` // the 7-axis Total (EIS "signal"); peak signal = its max over periods
 	Survival         float64 `json:"survival"`
 	Production       float64 `json:"production"`
 	Catalysis        float64 `json:"catalysis"`
@@ -100,6 +101,7 @@ type analysisMember struct {
 	Indispensability float64 `json:"indispensability"`
 	Gravity          float64 `json:"gravity"`
 	LifetimeGravity  float64 `json:"lifetime_gravity"`
+	Impact           float64 `json:"impact"` // the 7-axis Total (EIS "signal")
 	Role             string  `json:"role"`
 	Style            string  `json:"style"`
 	State            string  `json:"state"`
@@ -124,6 +126,7 @@ type timelinePeriod struct {
 	DebtCleanup      float64 `json:"debt_cleanup"`
 	Indispensability float64 `json:"indispensability"`
 	Gravity          float64 `json:"gravity"`
+	Impact           float64 `json:"impact"` // the 7-axis Total (EIS "signal") for this window
 	Role             string  `json:"role"`
 	Style            string  `json:"style"`
 	State            string  `json:"state"`
@@ -212,6 +215,7 @@ func main() {
 				Period:           "cumulative",
 				Gravity:          mem.Gravity,
 				LifetimeGravity:  mem.LifetimeGravity,
+				Signal:           mem.Impact,
 				Survival:         mem.Survival,
 				Production:       mem.Production,
 				Catalysis:        mem.Catalysis,
@@ -248,7 +252,7 @@ func main() {
 				}
 				obs = append(obs, ingestObservation{
 					ExGitHubID: ra.ID, Period: p.Label,
-					Gravity: p.Gravity, Survival: p.Survival, Production: p.Production,
+					Gravity: p.Gravity, Signal: p.Impact, Survival: p.Survival, Production: p.Production,
 					Catalysis: p.Catalysis, Design: p.Design, Breadth: p.Breadth,
 					Indispensability: p.Indispensability, DebtCleanup: p.DebtCleanup,
 					RoleArchetype: p.Role, StyleArchetype: p.Style, StateArchetype: p.State,
