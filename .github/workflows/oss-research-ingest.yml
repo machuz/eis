@@ -33,6 +33,15 @@ on:
         description: "Pass --fast-log (numstat-only) — much faster on giant repos (react/kubernetes/rust); gravity essentially unaffected"
         type: boolean
         default: false
+      runner:
+        description: "Runner size. Larger runners make the accurate (non-fast-log) `git log -p` tractable on giant repos."
+        type: choice
+        default: "ubuntu-latest"
+        options:
+          - "ubuntu-latest"
+          - "ubuntu-latest-4-cores"
+          - "ubuntu-latest-8-cores"
+          - "ubuntu-latest-16-cores"
       dry_run:
         description: "Assemble + log but do not POST"
         type: boolean
@@ -44,7 +53,7 @@ concurrency:
 
 jobs:
   ingest:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runner || 'ubuntu-latest' }}
     timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
