@@ -1,8 +1,10 @@
 package metric
 
 import (
+	"math"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/machuz/eis/v2/internal/git"
 )
@@ -10,6 +12,13 @@ import (
 // CalcDesign scores architecture contributions weighted by lines changed.
 // A commit touching architecture files scores the sum of (insertions + deletions)
 // for those architecture files, giving more credit to substantial design work.
+//
+// Deprecated in favor of CalcDesignSurviving: line-CHANGED design rewards raw arch
+// churn, so the max-normalization denominator is whoever rewrote the most
+// architecture lines in the window — burying a durable architect beneath a
+// high-volume churner and, at coarse (yearly) window sizes, compressing real
+// architects below the Architect threshold. Kept for callers/tests that still want
+// the activity view.
 func CalcDesign(commits []git.Commit, archPatterns []string) map[string]float64 {
 	result := make(map[string]float64)
 
@@ -21,6 +30,50 @@ func CalcDesign(commits []git.Commit, archPatterns []string) map[string]float64 
 	}
 
 	return result
+}
+
+// CalcDesignSurviving scores architecture influence by the SURVIVING, time-decayed
+// blame lines an author holds in architecture files — not the raw lines they once
+// changed. It mirrors CalcSurvival's decay (weight = exp(-daysAlive/tau)) so design
+// and survival share one time basis.
+//
+// Why survival-weighted, not line-changed: line-changed design measures arch VOLUME,
+// which the most gameable signal (raw churn) dominates. A contributor who rewrites
+// 130k arch lines that are themselves later rewritten pins the window's design max
+// and max-normalizes a durable architect (whose 30k lines still survive) down to a
+// non-Architect score. Blaming SURVIVING arch lines removes that: churned-away arch
+// edits decay out of the blame, so the design max is the author whose structural code
+// actually endures. This also makes the Architect archetype robust to window size —
+// surviving arch ownership registers whether the same history is scored monthly or
+// yearly, instead of being averaged/normalized away by whoever churned most that year.
+//
+// Determinism: pure over (blameLines, archPatterns, tau, now); no wall clock (now is
+// passed by the caller, the window boundary), matching CalcSurvival (W-02).
+func CalcDesignSurviving(blameLines []git.BlameLine, archPatterns []string, tau float64, now time.Time) map[string]float64 {
+	result := make(map[string]float64)
+	for _, bl := range blameLines {
+		if !isArchFile(bl.Filename, archPatterns) {
+			continue
+		}
+		daysAlive := now.Sub(bl.CommitterTime).Hours() / 24
+		if daysAlive < 0 {
+			daysAlive = 0
+		}
+		result[bl.Author] += math.Exp(-daysAlive / tau)
+	}
+	return result
+}
+
+// isArchFile reports whether a blamed file counts as an architecture file under any
+// of the configured patterns (same matcher CalcDesign uses for commit file stats).
+func isArchFile(filename string, patterns []string) bool {
+	normalized := filepath.ToSlash(filename)
+	for _, pattern := range patterns {
+		if matchArchPattern(normalized, pattern) {
+			return true
+		}
+	}
+	return false
 }
 
 // archLinesChanged returns total lines changed in architecture files for a commit.

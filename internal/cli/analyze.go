@@ -529,9 +529,8 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// commit history — to find each file's originator — and the surviving
 		// blame lines — to measure how much of others' work on those files lasts).
 
-		// Design (non-merge only — uses numstat)
-		design := metric.CalcDesign(commits, cfg.ArchitecturePatterns)
-		mergeMap(acc.raw.Design, design)
+		// Design is computed in the blame stage below (survival-weighted: surviving
+		// arch-file blame lines, not arch lines changed — needs blame + analysisTime).
 
 		// Track breadth with commit counts per repo AND per module, plus
 		// date ranges for production rate.
@@ -641,6 +640,13 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			acc.moduleAllFiles[mod] += total
 			acc.moduleTestFiles[mod] += test
 		})
+
+		// Design (survival-weighted): surviving, time-decayed arch-file blame lines
+		// per author, on the same analysisTime + tau as survival. Arch churn that was
+		// itself rewritten has decayed out of the blame, so design measures durable
+		// structural ownership rather than raw arch-edit volume.
+		designSurv := metric.CalcDesignSurviving(blameLines, cfg.ArchitecturePatterns, cfg.Tau, analysisTime)
+		mergeMap(acc.raw.Design, designSurv)
 
 		// Survival: split by change pressure or use classic mode
 		// Keep per-repo survival maps for --per-repo reuse
@@ -788,7 +794,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			repoRaw := metric.NewRawScores()
 			mergeMap(repoRaw.Production, prod)
 			mergeMap(repoRaw.Catalysis, catalysis)
-			mergeMap(repoRaw.Design, design)
+			mergeMap(repoRaw.Design, designSurv)
 			mergeMap(repoRaw.Indispensability, indisp)
 			mergeMap(repoRaw.DebtCleanup, debt)
 			// Reuse already-computed survival data
