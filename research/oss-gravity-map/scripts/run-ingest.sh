@@ -27,10 +27,14 @@ REPO_ROOT="$(cd "$PROJECT_DIR/../.." && pwd)"
 API_BASE="${API_BASE:-https://api.stg.orbitlens.io}"
 RUN_ID="${RUN_ID:-ingest-$(date -u +%Y%m%d)}"
 MAX_COMMIT_PAGES="${MAX_COMMIT_PAGES:-10}"
-TIMELINE_SPAN="${TIMELINE_SPAN:-1y}"       # timeline window span (3m/6m/1y); 1y keeps row counts sane
-TIMELINE_PERIODS="${TIMELINE_PERIODS:-8}"  # windows to score. 0 = full history, but a per-period blame on a
-                                           # giant repo makes that hours per repo (react etc timed out). 8×1y
-                                           # bounds the cost to the recent, meaningful trajectory.
+TIMELINE_SPAN="${TIMELINE_SPAN:-1m}"       # timeline window span. MONTHLY: an Architect's design+survival peak
+                                           # coincides within a month but averages apart over a year, so yearly
+                                           # windows surfaced far fewer archetypes than the galaxy worker's
+                                           # monthly view. Monthly restores parity. Costs more per-period blame,
+                                           # so pair a monthly run with fast_log + a larger runner on the giants.
+TIMELINE_PERIODS="${TIMELINE_PERIODS:-0}"  # 0 = full history (BuildPeriods caps at 10y back). Monthly × 10y is
+                                           # ~120 windows/repo; the blame cache warms across runs so giants get
+                                           # progressively cheaper. Override to bound cost on a one-off run.
 ONLY="${ONLY:-}"
 DRY_RUN="${DRY_RUN:-0}"
 # FAST_LOG=1 passes --fast-log to analyze + timeline: numstat-only, skipping the
