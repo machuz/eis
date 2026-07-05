@@ -201,6 +201,18 @@ func main() {
 		}
 		ids := res.resolve(ctx, m.FullName, emails)
 
+		// Pin config-known identities that email→id can't reach. A founder whose
+		// dominant commit email predates GitHub (Linus Torvalds' 2005 osdl.org
+		// address) never resolves and would be dropped; author_github_ids maps the
+		// canonical name straight to the real id so they appear. Login is backfilled
+		// best-effort (still keyed by the trusted id if the lookup fails).
+		for name, id := range cfg.AuthorGitHubIDs {
+			if id <= 0 {
+				continue
+			}
+			ids[cfg.ResolveAuthor(name)] = resolvedAuthor{ID: id, Login: res.loginForID(ctx, id)}
+		}
+
 		obs := make([]ingestObservation, 0, len(members))
 		for _, mem := range members {
 			ra, ok := ids[mem.Member]

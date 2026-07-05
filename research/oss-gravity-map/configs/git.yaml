@@ -79,6 +79,12 @@ aliases:
   "gitster": "Junio C Hamano"
   "Junio Hamano": "Junio C Hamano"
 
+# Linus's dominant git email is his 2005 founding-era address (pre-GitHub), so
+# email→id resolution can't reach it and he'd be dropped. Pin his canonical name
+# to his GitHub id so git's founding architect actually appears in the map.
+author_github_ids:
+  "Linus Torvalds": 1024025
+
 exclude_authors:
   - "github-actions[bot]"
   - "renovate[bot]"
