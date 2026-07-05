@@ -171,17 +171,28 @@ func repoHash(repoPath string) string {
 }
 
 // BlameKey returns the cache key for ConcurrentBlameFiles results.
-// Uses HEAD commit hash — invalidated when HEAD moves.
-func BlameKey(repoPath, headHash string, files []string, sampleSize int) string {
+// Uses HEAD commit hash — invalidated when HEAD moves. moveDetection is folded in
+// so changing blame_move_detection recomputes rather than serving stale
+// attribution (the flags change which author each line is credited to).
+func BlameKey(repoPath, headHash string, files []string, sampleSize int, moveDetection string) string {
 	filesHash := hashFileList(files, sampleSize)
-	return filepath.Join(repoHash(repoPath), "blame", shortHash(headHash), filesHash+".gob")
+	return filepath.Join(repoHash(repoPath), "blame", shortHash(headHash), filesHash+"-"+blameMoveTag(moveDetection)+".gob")
 }
 
 // BlameAtCommitKey returns the cache key for blame at a specific commit.
 // Immutable: blame at a fixed commit never changes.
-func BlameAtCommitKey(repoPath, commitHash string, files []string, sampleSize int) string {
+func BlameAtCommitKey(repoPath, commitHash string, files []string, sampleSize int, moveDetection string) string {
 	filesHash := hashFileList(files, sampleSize)
-	return filepath.Join(repoHash(repoPath), "blame-commit", shortHash(commitHash), filesHash+".gob")
+	return filepath.Join(repoHash(repoPath), "blame-commit", shortHash(commitHash), filesHash+"-"+blameMoveTag(moveDetection)+".gob")
+}
+
+// blameMoveTag normalises the move-detection level for a stable cache-key segment
+// ("" defaults to "file", matching git.BlameMoveArgs).
+func blameMoveTag(moveDetection string) string {
+	if moveDetection == "" {
+		return "file"
+	}
+	return moveDetection
 }
 
 // LogKey returns the cache key for ParseLog results. commentFilter is folded in

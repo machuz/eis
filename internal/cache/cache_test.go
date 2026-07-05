@@ -97,9 +97,9 @@ func TestStoreMapRoundtrip(t *testing.T) {
 }
 
 func TestBlameKey(t *testing.T) {
-	k1 := BlameKey("/repo", "abc123", []string{"a.go", "b.go"}, 500)
-	k2 := BlameKey("/repo", "abc123", []string{"a.go", "b.go"}, 500)
-	k3 := BlameKey("/repo", "def456", []string{"a.go", "b.go"}, 500)
+	k1 := BlameKey("/repo", "abc123", []string{"a.go", "b.go"}, 500, "file")
+	k2 := BlameKey("/repo", "abc123", []string{"a.go", "b.go"}, 500, "file")
+	k3 := BlameKey("/repo", "def456", []string{"a.go", "b.go"}, 500, "file")
 
 	if k1 != k2 {
 		t.Fatal("same inputs should produce same key")
@@ -107,11 +107,19 @@ func TestBlameKey(t *testing.T) {
 	if k1 == k3 {
 		t.Fatal("different commit should produce different key")
 	}
+	// A different move-detection level must key differently (it changes attribution),
+	// while the empty level aliases "file".
+	if k1 == BlameKey("/repo", "abc123", []string{"a.go", "b.go"}, 500, "full") {
+		t.Fatal("different move detection should produce different key")
+	}
+	if k1 != BlameKey("/repo", "abc123", []string{"a.go", "b.go"}, 500, "") {
+		t.Fatal("empty move detection should alias \"file\"")
+	}
 }
 
 func TestBlameAtCommitKey(t *testing.T) {
-	k1 := BlameAtCommitKey("/repo", "abc123def456", []string{"a.go"}, 500)
-	k2 := BlameAtCommitKey("/repo", "abc123def456", []string{"a.go"}, 500)
+	k1 := BlameAtCommitKey("/repo", "abc123def456", []string{"a.go"}, 500, "file")
+	k2 := BlameAtCommitKey("/repo", "abc123def456", []string{"a.go"}, 500, "file")
 	if k1 != k2 {
 		t.Fatal("same inputs should produce same key")
 	}

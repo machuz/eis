@@ -597,7 +597,10 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		spin.Clear()
 
 		var blameLines []git.BlameLine
-		blameCacheKey := cache.BlameKey(repoPath, headHash, files, cfg.SampleSize)
+		// Apply the run's blame move/copy detection policy (read by every blame
+		// call) and fold it into the cache key so a level change recomputes.
+		git.ConfigureBlameMoveDetection(cfg.BlameMoveDetection)
+		blameCacheKey := cache.BlameKey(repoPath, headHash, files, cfg.SampleSize, cfg.BlameMoveDetection)
 		if headHash != "" && cacheStore.Get(blameCacheKey, &blameLines) {
 			if !quiet {
 				fmt.Fprintf(os.Stderr, "  %s [2/4] Blame (cached)\n", color.New(color.FgGreen).Sprint("✓"))

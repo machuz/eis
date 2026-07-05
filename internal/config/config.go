@@ -26,6 +26,10 @@ type Config struct {
 	ExcludeRepos         []string             `yaml:"exclude_repos"`
 	ActiveDays           int                  `yaml:"active_days"`
 	BlameTimeout         int                  `yaml:"blame_timeout"`
+	// BlameMoveDetection controls git blame move/copy detection: off | file (-M,
+	// default) | commit (-M -C) | full (-M -C -C). Higher levels recover the
+	// original author of lines moved across files at higher cost on large repos.
+	BlameMoveDetection string `yaml:"blame_move_detection"`
 	// ModulePatterns is the set of glob patterns used by module resolution.
 	// Each pattern's components are matched against a file path; `*` matches
 	// a SINGLE path component (no `/`). On match, the module identifier is
@@ -236,6 +240,7 @@ func Default() *Config {
 		DebtThreshold:           10,
 		ActiveDays:              30,
 		BlameTimeout:            120,
+		BlameMoveDetection:      "file",
 		MaxBlameFileBytes:       5 * 1024 * 1024,
 		ProductionDailyRef:      1000,
 		UntestedSurvivalWeight:  0.5,
@@ -330,6 +335,11 @@ func (c *Config) Validate() error {
 	}
 	if c.UntestedSurvivalWeight < 0 || c.UntestedSurvivalWeight > 1.0 {
 		return fmt.Errorf("untested_survival_weight must be within [0.0, 1.0], got %f", c.UntestedSurvivalWeight)
+	}
+	switch c.BlameMoveDetection {
+	case "", "off", "file", "commit", "full":
+	default:
+		return fmt.Errorf("blame_move_detection must be one of off|file|commit|full, got %q", c.BlameMoveDetection)
 	}
 
 	w := c.Weights

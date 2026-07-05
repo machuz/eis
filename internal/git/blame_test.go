@@ -141,3 +141,68 @@ func TestFilterFilesBySize(t *testing.T) {
 		t.Errorf("HEAD fallback gave %d kept files, want 2", len(got))
 	}
 }
+
+// commitAs commits all staged changes authored by a specific person, so a test
+// can create multi-author history (the repo's committer identity is fixed).
+func commitAs(t *testing.T, dir, msg, name, email string) {
+	t.Helper()
+	runIn(t, dir, "git", "add", "-A")
+	runIn(t, dir, "git", "commit", "-q", "-m", msg, "--author", name+" <"+email+">")
+}
+
+func TestBlameMoveArgs(t *testing.T) {
+	wantLen := map[string]int{"off": 0, "file": 1, "commit": 2, "full": 3, "": 1, "bogus": 1}
+	for level, want := range wantLen {
+		if got := len(BlameMoveArgs(level)); got != want {
+			t.Errorf("BlameMoveArgs(%q) = %d flags, want %d", level, got, want)
+		}
+	}
+	if a := BlameMoveArgs("file"); len(a) == 0 || a[0] != "-M" {
+		t.Errorf("file level must start with -M, got %v", a)
+	}
+}
+
+// With move detection on, a code block reordered within a file by a SECOND author
+// stays blamed on the ORIGINAL author — survival must not leak to the refactorer.
+// "off" reproduces the pre-detection behaviour (the mover captures the lines), so
+// the original author keeps strictly more lines with detection than without.
+func TestBlameMoveDetection_ReattributesExtractedBlock(t *testing.T) {
+	t.Cleanup(func() { ConfigureBlameMoveDetection("file") }) // restore package default
+
+	dir := newTempRepo(t)
+	// Distinctive, well-over-40-alnum-char lines so git -C reliably detects the
+	// copied region (its default threshold is 40 alphanumeric chars for -C).
+	block := "const aliceConstantAlphaValueHere = 1001\n" +
+		"const aliceConstantBravoValueHere = 1002\n" +
+		"const aliceConstantCharlieValueHere = 1003\n" +
+		"const aliceConstantDeltaValueHere = 1004\n" +
+		"const aliceConstantEchoValueHere = 1005\n"
+	writeFile(t, dir, "a.go", "package p\n\n"+block+"\nvar fillerVariableForBob = 0\n")
+	commitAs(t, dir, "alice adds block in a.go", "Alice", "alice@x.com")
+	// Bob EXTRACTS the block into b.go (deleting it from a.go in the SAME commit,
+	// so -C can trace the copy back to a.go).
+	writeFile(t, dir, "a.go", "package p\n\nvar fillerVariableForBob = 1\n")
+	writeFile(t, dir, "b.go", "package p\n\n"+block)
+	commitAs(t, dir, "bob extracts block to b.go", "Bob", "bob@x.com")
+
+	countAlice := func(level string) int {
+		ConfigureBlameMoveDetection(level)
+		lines, err := BlameFile(context.Background(), dir, "b.go")
+		if err != nil {
+			t.Fatalf("blame (%s): %v", level, err)
+		}
+		n := 0
+		for _, l := range lines {
+			if l.Author == "Alice" {
+				n++
+			}
+		}
+		return n
+	}
+
+	aliceOff := countAlice("off")     // Bob owns the extracted block
+	aliceCopy := countAlice("commit") // -C traces it back to Alice
+	if aliceCopy <= aliceOff {
+		t.Errorf("copy detection should re-attribute the extracted block to the original author: off=%d commit=%d", aliceOff, aliceCopy)
+	}
+}

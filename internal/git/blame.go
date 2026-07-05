@@ -202,10 +202,52 @@ func moduleOfPath(path string) string {
 	return strings.Join(parts, "/")
 }
 
+// blameMoveArgs is the move/copy detection policy applied to EVERY blame call,
+// set once from config at analysis start via ConfigureBlameMoveDetection. It is a
+// package var (not a threaded param) because it is a cross-cutting git-invocation
+// policy read by all four blame sites + the concurrent worker pool, and it never
+// changes mid-run. Default -M: within-file moves, cheap. Heavier levels (-C, -C -C)
+// recover cross-file moved/copied lines' ORIGINAL author at real cost on large
+// repos, so they are opt-in. "off" restores the pre-move-detection attribution.
+var blameMoveArgs = []string{"-M"}
+
+// ConfigureBlameMoveDetection sets the blame move/copy detection level for the
+// run. Call once before the blame stage. Unknown/empty falls back to "file" (-M).
+func ConfigureBlameMoveDetection(level string) { blameMoveArgs = BlameMoveArgs(level) }
+
+// BlameMoveArgs maps a config level to git blame move/copy flags. Without these,
+// a line moved between files is blamed on the refactor commit, leaking survival
+// from the real author to whoever did the move.
+//
+//	off    → (none)     fastest; original-author attribution across moves is lost
+//	file   → -M         within-file moves/copies (default; cheap)
+//	commit → -M -C      + copies from other files changed in the same commit
+//	full   → -M -C -C   + copies from any file in the commit (expensive on big repos)
+func BlameMoveArgs(level string) []string {
+	switch level {
+	case "off":
+		return nil
+	case "commit":
+		return []string{"-M", "-C"}
+	case "full":
+		return []string{"-M", "-C", "-C"}
+	default: // "file", "", or unknown
+		return []string{"-M"}
+	}
+}
+
+// blameArgs builds a blame argv: fixed base flags + the run's move policy + the
+// caller's extra args (rev / "--" / path). Centralising the four blame call sites
+// keeps --line-porcelain/-w and the move flags from drifting apart.
+func blameArgs(extra ...string) []string {
+	args := make([]string, 0, 4+len(blameMoveArgs)+len(extra))
+	args = append(args, "blame", "--line-porcelain", "-w")
+	args = append(args, blameMoveArgs...)
+	return append(args, extra...)
+}
+
 func BlameFile(ctx context.Context, repoPath, filepath string) ([]BlameLine, error) {
-	lines, err := RunLines(ctx, repoPath,
-		"blame", "--line-porcelain", "-w", filepath,
-	)
+	lines, err := RunLines(ctx, repoPath, blameArgs(filepath)...)
 	if err != nil {
 		return nil, err
 	}
@@ -214,9 +256,7 @@ func BlameFile(ctx context.Context, repoPath, filepath string) ([]BlameLine, err
 }
 
 func BlameFileAtParent(ctx context.Context, repoPath, commitHash, filepath string) ([]string, error) {
-	lines, err := RunLines(ctx, repoPath,
-		"blame", "--line-porcelain", "-w", commitHash+"^", "--", filepath,
-	)
+	lines, err := RunLines(ctx, repoPath, blameArgs(commitHash+"^", "--", filepath)...)
 	if err != nil {
 		return nil, err
 	}
@@ -338,9 +378,7 @@ func parsePorcelainBlame(lines []string, defaultFilename string) []BlameLine {
 
 // BlameFilesStream processes blame with a scanner for memory efficiency on large repos
 func BlameFileStream(ctx context.Context, repoPath, filepath string) ([]BlameLine, error) {
-	stdout, cmd, err := RunStream(ctx, repoPath,
-		"blame", "--line-porcelain", "-w", filepath,
-	)
+	stdout, cmd, err := RunStream(ctx, repoPath, blameArgs(filepath)...)
 	if err != nil {
 		return nil, err
 	}
@@ -473,9 +511,7 @@ func ConcurrentBlameFiles(ctx context.Context, repoPath string, files []string, 
 
 // BlameFileAtCommit runs blame at a specific commit hash.
 func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath string) ([]BlameLine, error) {
-	stdout, cmd, err := RunStream(ctx, repoPath,
-		"blame", "--line-porcelain", "-w", commitHash, "--", filepath,
-	)
+	stdout, cmd, err := RunStream(ctx, repoPath, blameArgs(commitHash, "--", filepath)...)
 	if err != nil {
 		return nil, err
 	}

@@ -114,6 +114,16 @@ exclude_file_patterns:
 # Survival decay parameter
 tau: 180  # days. weight = exp(-age / tau)
 
+# git blame move/copy detection. Without it, a line moved between files is blamed
+# on the refactor commit, leaking survival from the real author to the mover.
+#   off    : no detection (fastest)
+#   file   : -M       within-file moves (default; cheap)
+#   commit : -M -C    + copies from files changed in the same commit
+#   full   : -M -C -C + copies from any file in the commit (slow on large repos)
+# Raise to commit/full for refactor-heavy repos; keep file (or off) if the blame
+# phase is a bottleneck on a very large repo.
+blame_move_detection: file
+
 # Active days — how recently an author must have committed to be marked "active"
 active_days: 30  # default 30 days (1 month)
 
