@@ -681,7 +681,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 			pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
-			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
+			survResult := metric.CalcSurvivalFull(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvRobust = survResult.Robust
@@ -697,7 +697,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		} else {
 			// Classic mode: no pressure split, but still apply the tested-weighting
 			// so comment-era repos still benefit from gaming resistance.
-			survResult := metric.CalcSurvivalFull(blameLines, cfg.Tau, analysisTime, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
+			survResult := metric.CalcSurvivalFull(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvTested = survResult.Tested
@@ -715,7 +715,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Catalysis: surviving mass of others' work on files this author
 		// originated. Needs the commit history (originator per file) and the
 		// blame lines (surviving mass). Same decay reference (analysisTime) as Survival.
-		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.Tau, analysisTime)
+		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime)
 		mergeMap(acc.raw.Catalysis, catalysis)
 
 		// Step 3: Debt cleanup
@@ -757,7 +757,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		acc.ownership = append(acc.ownership, ownership...)
 
 		// Module Science Phase 2: Per-module survival rate
-		repoModSurv := metric.CalcModuleSurvival(blameLines, cfg.Tau, analysisTime, moduleResolver)
+		repoModSurv := metric.CalcModuleSurvival(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
 		for mod, surv := range repoModSurv {
 			if existing, ok := acc.moduleSurvival[mod]; ok {
 				acc.moduleSurvival[mod] = (existing + surv) / 2
@@ -767,7 +767,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 
 		// Per-(module, author) surviving gravity for Breadth (Hill number).
-		repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.Tau, analysisTime, moduleResolver)
+		repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
 		for mod, authors := range repoMSBA {
 			dst := acc.authorModuleSurvival[mod]
 			if dst == nil {

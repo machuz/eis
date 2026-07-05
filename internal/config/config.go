@@ -6,6 +6,8 @@ import (
 	"os"
 
 	"gopkg.in/yaml.v3"
+
+	"github.com/machuz/eis/v2/internal/domain"
 )
 
 type Config struct {
@@ -196,6 +198,26 @@ type DomainsConfig map[string]DomainEntry
 type DomainEntry struct {
 	Repos      []string `yaml:"repos"`
 	Extensions []string `yaml:"extensions"`
+	// Tau overrides the global survival decay half-life (days) for this domain, so
+	// a fast-churn domain (e.g. Frontend) can decay faster than a slow one (e.g.
+	// Infra) — "survival" then measures durability relative to the domain's natural
+	// turnover, not raw calendar time. nil → use the global Tau.
+	Tau *float64 `yaml:"tau"`
+}
+
+// TauForDomain returns the survival decay half-life for a domain: the domain's
+// override if set, else the global Tau. Both the config key and the queried label
+// are run through domain.NormalizeName, so a config key "backend" (or "Backend")
+// matches the resolved label "BE" — otherwise an override would silently never
+// apply, since the pipeline queries with the normalized label.
+func (c *Config) TauForDomain(domainName string) float64 {
+	want := domain.NormalizeName(domainName)
+	for name, entry := range c.Domains {
+		if entry.Tau != nil && domain.NormalizeName(name) == want {
+			return *entry.Tau
+		}
+	}
+	return c.Tau
 }
 
 // UnmarshalYAML supports both legacy format (list of strings) and new format (object).
@@ -351,6 +373,11 @@ func (c *Config) Validate() error {
 	case "", "off", "file", "commit", "full":
 	default:
 		return fmt.Errorf("blame_move_detection must be one of off|file|commit|full, got %q", c.BlameMoveDetection)
+	}
+	for name, entry := range c.Domains {
+		if entry.Tau != nil && *entry.Tau <= 0 {
+			return fmt.Errorf("domains.%s.tau must be positive, got %f", name, *entry.Tau)
+		}
 	}
 
 	w := c.Weights

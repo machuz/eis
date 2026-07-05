@@ -324,3 +324,31 @@ func loadFromString(t *testing.T, yamlContent string) *Config {
 	}
 	return cfg
 }
+
+func TestTauForDomain(t *testing.T) {
+	fe := 60.0
+	be := 90.0
+	c := &Config{
+		Tau: 180,
+		Domains: DomainsConfig{
+			"frontend": {Tau: &fe}, // config key differs from the resolved label "FE"
+			"backend":  {Tau: &be}, // "backend" must match the queried label "BE"
+			"infra":    {},         // no override
+		},
+	}
+	// The pipeline queries with the NORMALIZED label (BE/FE/...), so a config key of
+	// "backend"/"frontend" must still resolve -- that's the silent-miss this guards.
+	cases := map[string]float64{
+		"FE":       60,  // config "frontend" -> normalized FE
+		"fe":       60,  // case-insensitive
+		"BE":       90,  // config "backend" -> normalized BE
+		"Frontend": 60,  // full name also normalizes to FE
+		"Infra":    180, // key present but no tau -> global
+		"FW":       180, // unconfigured -> global
+	}
+	for name, want := range cases {
+		if got := c.TauForDomain(name); got != want {
+			t.Errorf("TauForDomain(%q) = %v, want %v", name, got, want)
+		}
+	}
+}

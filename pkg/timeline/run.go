@@ -575,7 +575,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				// cumulativeCommits (full history up to window.End), not just the
 				// window; survival uses the period-boundary blame. Decay ref =
 				// window.End (matches Survival).
-				catalysis := metric.CalcCatalysis(cumulativeCommits, blameLines, cfg.Tau, window.End)
+				catalysis := metric.CalcCatalysis(cumulativeCommits, blameLines, cfg.TauForDomain(string(repo.domain)), window.End)
 				mergeMap(acc.raw.Catalysis, catalysis)
 				if racc != nil {
 					mergeMap(racc.raw.Catalysis, catalysis)
@@ -600,7 +600,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					}
 					pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 					periodOthers := metric.CalcOthersPressure(periodCommits, blameLines, moduleResolver)
-					survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.Tau, window.End, repoPressure, pressureThreshold, moduleResolver, periodOthers)
+					survResult := metric.CalcSurvivalWithPressure(blameLines, cfg.TauForDomain(string(repo.domain)), window.End, repoPressure, pressureThreshold, moduleResolver, periodOthers)
 					mergeMap(acc.raw.Survival, survResult.Decayed)
 					mergeMap(acc.raw.RawSurvival, survResult.Raw)
 					mergeMap(acc.raw.RobustSurvival, survResult.Robust)
@@ -612,7 +612,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 						mergeMap(racc.raw.DormantSurvival, survResult.Dormant)
 					}
 				} else {
-					survResult := metric.CalcSurvival(blameLines, cfg.Tau, window.End)
+					survResult := metric.CalcSurvival(blameLines, cfg.TauForDomain(string(repo.domain)), window.End)
 					mergeMap(acc.raw.Survival, survResult.Decayed)
 					mergeMap(acc.raw.RawSurvival, survResult.Raw)
 					if racc != nil {
@@ -624,7 +624,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				// Per-(module, author) surviving gravity for Breadth (Hill
 				// number). Independent of the pressure split above; uses this
 				// repo's resolver and the period boundary as the time basis.
-				msba := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.Tau, window.End, moduleResolver)
+				msba := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.TauForDomain(string(repo.domain)), window.End, moduleResolver)
 				for mod, authors := range msba {
 					dst := acc.authorModuleSurvival[mod]
 					if dst == nil {

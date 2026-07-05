@@ -120,6 +120,17 @@ respect_gitattributes: true
 
 # Survival decay parameter
 tau: 180  # days. weight = exp(-age / tau)
+# Per-domain tau overrides the global value, so "survival" measures durability
+# relative to each domain's natural churn (a fast-churn Frontend can decay faster
+# than a slow Infra). Use the object form of a domain entry:
+#   domains:
+#     frontend:
+#       repos: [web, mobile]
+#       tau: 90     # FE code turns over faster → shorter half-life
+#     infra:
+#       repos: [terraform, k8s]
+#       tau: 365    # infra is long-lived → longer half-life
+# Unset domains fall back to the global tau above.
 
 # git blame move/copy detection. Without it, a line moved between files is blamed
 # on the refactor commit, leaking survival from the real author to the mover.
