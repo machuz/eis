@@ -7,11 +7,23 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	"github.com/machuz/eis/v2/internal/git"
 )
+
+// tmpSeq makes each Set's temp filename unique. Under parallel timeline
+// periods two windows can resolve to the SAME cache key (adjacent windows
+// with no commits between their boundaries share a boundary commit), so a
+// fixed "<path>.tmp" suffix would let two concurrent writers create and
+// rename the same temp file and race. A monotonic counter is used instead
+// of time/rand because observation code must stay deterministic (no wall
+// clock, no randomness); the counter only disambiguates in-flight temp
+// files and never appears in a committed cache key.
+var tmpSeq uint64
 
 // Epoch versions the on-disk cache CONTENT — the gob-encoded shapes below
 // (git.BlameLine, git.Commit, …) and the blame/log parsing that fills them.
@@ -106,7 +118,7 @@ func (s *Store) Set(key string, data interface{}) error {
 		return err
 	}
 
-	tmp := path + ".tmp"
+	tmp := path + ".tmp." + strconv.FormatUint(atomic.AddUint64(&tmpSeq, 1), 10)
 	f, err := os.Create(tmp)
 	if err != nil {
 		return err

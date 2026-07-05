@@ -33,6 +33,7 @@ func runTimeline(args []string) error {
 	domainFilter := fs.String("domain", "", "Only analyze specific domain")
 	authorFilter := fs.String("author", "", "Filter to specific author(s), comma-separated")
 	workers := fs.Int("workers", 4, "Number of concurrent blame workers")
+	periodConcurrency := fs.Int("period-concurrency", 1, "Number of timeline periods (windows) to compute in parallel (1=sequential). Peak blame memory ≈ period-concurrency × workers × per-repo blame size, so bound the two jointly.")
 	sampleSize := fs.Int("sample", 0, "Max files to blame per repo (overrides config)")
 	tau := fs.Float64("tau", 0, "Survival decay parameter (overrides config)")
 	activeDays := fs.Int("active-days", 0, "Days to consider author active (overrides config)")
@@ -183,6 +184,17 @@ func runTimeline(args []string) error {
 	cb := &pkgtimeline.Callbacks{}
 	var stopLastProgress func()
 	if !quiet {
+		// The live blame progress bar tracks a single mutable *liveProgress
+		// (currentBlameProg) plus a repoCount, mutated from OnRepoStart /
+		// OnBlameProgress. Under --period-concurrency > 1 those hooks fire
+		// from multiple window goroutines at once, so managing that shared
+		// UI state there would be a data race — and a burst of interleaved
+		// per-window blame bars is meaningless to watch anyway. So the live
+		// bar is a SEQUENTIAL-mode affordance only. The ordered "Period
+		// N/M" header (OnPeriodStart) is kept in both modes: the library
+		// guarantees it fires serially in window order even under
+		// concurrency, so it touches currentBlameProg/repoCount safely.
+		parallel := *periodConcurrency > 1
 		repoCount := 0
 		totalRepos := len(repoPaths)
 		var currentBlameProg *liveProgress
@@ -192,22 +204,24 @@ func runTimeline(args []string) error {
 				currentBlameProg = nil
 			}
 		}
-		cb.OnRepoStart = func(repoName string, d string) {
-			// Stop previous blame progress if still running
-			if currentBlameProg != nil {
-				currentBlameProg.Stop()
-				currentBlameProg = nil
+		if !parallel {
+			cb.OnRepoStart = func(repoName string, d string) {
+				// Stop previous blame progress if still running
+				if currentBlameProg != nil {
+					currentBlameProg.Stop()
+					currentBlameProg = nil
+				}
+				repoCount++
+				bold := color.New(color.Bold)
+				domainLabel := color.New(color.FgCyan).Sprintf("[%s]", d)
+				counter := color.New(color.FgHiBlack).Sprintf("(%d/%d)", repoCount, totalRepos)
+				bold.Fprintf(os.Stderr, "Analyzing: %s %s %s\n", repoName, domainLabel, counter)
+				currentBlameProg = newLiveProgress("  Blame")
 			}
-			repoCount++
-			bold := color.New(color.Bold)
-			domainLabel := color.New(color.FgCyan).Sprintf("[%s]", d)
-			counter := color.New(color.FgHiBlack).Sprintf("(%d/%d)", repoCount, totalRepos)
-			bold.Fprintf(os.Stderr, "Analyzing: %s %s %s\n", repoName, domainLabel, counter)
-			currentBlameProg = newLiveProgress("  Blame")
-		}
-		cb.OnBlameProgress = func(repoName string, done, total int) {
-			if currentBlameProg != nil {
-				currentBlameProg.Update(done, total)
+			cb.OnBlameProgress = func(repoName string, done, total int) {
+				if currentBlameProg != nil {
+					currentBlameProg.Update(done, total)
+				}
 			}
 		}
 		cb.OnPeriodStart = func(label string, index, total int) {
@@ -270,15 +284,16 @@ func runTimeline(args []string) error {
 		effectiveSince = sinceDate.Format("2006-01-02")
 	}
 	opts := pkgtimeline.Options{
-		Span:         *spanFlag,
-		Periods:      effectivePeriods,
-		Since:        effectiveSince,
-		Workers:      *workers,
-		DomainFilter: *domainFilter,
-		PressureMode: *pressureMode,
-		Tau:          *tau,
-		SampleSize:   *sampleSize,
-		ActiveDays:   *activeDays,
+		Span:              *spanFlag,
+		Periods:           effectivePeriods,
+		Since:             effectiveSince,
+		Workers:           *workers,
+		PeriodConcurrency: *periodConcurrency,
+		DomainFilter:      *domainFilter,
+		PressureMode:      *pressureMode,
+		Tau:               *tau,
+		SampleSize:        *sampleSize,
+		ActiveDays:        *activeDays,
 	}
 
 	domainTimelines, err := pkgtimeline.Run(opts, repoPaths, cfg, cb)
