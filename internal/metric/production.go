@@ -11,15 +11,61 @@ func CalcProduction(commits []git.Commit, excludePatterns []string) map[string]f
 	result := make(map[string]float64)
 
 	for _, c := range commits {
+		authors := CommitAuthors(c)
+		share := 1.0 / float64(len(authors))
 		for _, fs := range c.FileStats {
 			if IsExcluded(fs.Filename, excludePatterns) {
 				continue
 			}
-			result[c.Author] += float64(fs.Insertions + fs.Deletions)
+			v := float64(fs.Insertions+fs.Deletions) * share
+			for _, a := range authors {
+				result[a] += v
+			}
 		}
 	}
 
 	return result
+}
+
+// CommitAuthors returns a commit's contributing authors — the Author plus any
+// Co-authored-by names, deduped and Author-first (the Author sometimes lists
+// itself as a co-author). Length ≥ 1. Callers split a commit's contribution
+// equally across this set so squash-merges and pairing credit the real authors.
+func CommitAuthors(c git.Commit) []string {
+	if len(c.CoAuthors) == 0 {
+		return []string{c.Author}
+	}
+	out := make([]string, 0, 1+len(c.CoAuthors))
+	seen := make(map[string]bool, 1+len(c.CoAuthors))
+	add := func(a string) {
+		if a != "" && !seen[a] {
+			seen[a] = true
+			out = append(out, a)
+		}
+	}
+	add(c.Author)
+	for _, a := range c.CoAuthors {
+		add(a)
+	}
+	if len(out) == 0 {
+		return []string{c.Author}
+	}
+	return out
+}
+
+// CoAuthorMap maps commit SHA → its full contributor set, for the commits that
+// HAVE co-authors only (sparse — most commits are solo, so the map stays small
+// even on huge repos). The pipeline attaches these sets to blame lines by SHA so
+// survival is split across the real authors.
+func CoAuthorMap(commits []git.Commit) map[string][]string {
+	m := make(map[string][]string)
+	for _, c := range commits {
+		if len(c.CoAuthors) == 0 {
+			continue
+		}
+		m[c.Hash] = CommitAuthors(c)
+	}
+	return m
 }
 
 // CalcLines returns per-author total lines added and deleted (excluding excluded patterns).

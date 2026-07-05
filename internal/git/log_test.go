@@ -491,3 +491,59 @@ func TestParseLog_GiantSingleLineNoDeadlock(t *testing.T) {
 		}
 	}
 }
+
+// commitTrailer commits with a subject plus a body paragraph (e.g. a
+// Co-authored-by: trailer), so git's %(trailers) format field is populated.
+func commitTrailer(t *testing.T, dir, subject, trailer string) {
+	t.Helper()
+	runIn(t, dir, "git", "add", "-A")
+	runIn(t, dir, "git", "commit", "-q", "-m", subject, "-m", trailer)
+}
+
+// ParseLog captures human Co-authored-by names but drops AI/bot co-authors.
+func TestParseLog_CoAuthors(t *testing.T) {
+	dir := newTempRepo(t)
+	writeFile(t, dir, "a.go", "package p\nvar x = 1\n")
+	commitTrailer(t, dir, "human pair", "Co-authored-by: Bob Human <bob@example.com>")
+	writeFile(t, dir, "b.go", "package p\nvar y = 2\n")
+	commitTrailer(t, dir, "ai assisted", "Co-authored-by: Claude Opus 4.8 (1M context) <noreply@anthropic.com>")
+	writeFile(t, dir, "c.go", "package p\nvar z = 3\n")
+	commitTrailer(t, dir, "bot pr", "Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>")
+
+	commits, err := ParseLog(context.Background(), dir, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	byMsg := map[string][]string{}
+	for _, c := range commits {
+		byMsg[c.Subject] = c.CoAuthors
+	}
+	if got := byMsg["human pair"]; len(got) != 1 || got[0] != "Bob Human" {
+		t.Errorf("human pair co-authors = %v, want [Bob Human]", got)
+	}
+	if got := byMsg["ai assisted"]; len(got) != 0 {
+		t.Errorf("AI co-author must be dropped, got %v", got)
+	}
+	if got := byMsg["bot pr"]; len(got) != 0 {
+		t.Errorf("bot co-author must be dropped, got %v", got)
+	}
+}
+
+func TestIsBotIdentity(t *testing.T) {
+	cases := []struct {
+		name, email string
+		bot         bool
+	}{
+		{"Bob Human", "bob@example.com", false},
+		{"Claude Opus 4.8 (1M context)", "noreply@anthropic.com", true},
+		{"dependabot[bot]", "x@users.noreply.github.com", true},
+		{"github-actions[bot]", "", true},
+		{"Copilot", "copilot@github.com", true},
+		{"Claudia Human", "claudia@example.com", false}, // human, not AI (email-anchored)
+	}
+	for _, c := range cases {
+		if got := isBotIdentity(c.name, c.email); got != c.bot {
+			t.Errorf("isBotIdentity(%q,%q)=%v want %v", c.name, c.email, got, c.bot)
+		}
+	}
+}

@@ -33,6 +33,62 @@ type Commit struct {
 	Subject   string
 	IsMerge   bool
 	FileStats []FileStat
+	// CoAuthors holds the names from Co-authored-by trailers (canonicalized later,
+	// like Author). Squash-merges and pairing land the real authors here; a
+	// commit's contribution is split equally among {Author} ∪ CoAuthors.
+	CoAuthors []string
+}
+
+// coAuthorSep matches the git `%(trailers:...separator=%x1f)` byte between
+// multiple Co-authored-by values.
+const coAuthorSep = "\x1f"
+
+// parseCoAuthorNames extracts human author NAMES from a Co-authored-by trailer
+// field (values are "Name <email>", joined by \x1f). The name is the text before
+// the " <email>". Bot / AI-assistant co-authors are dropped here (see isBotIdentity):
+// gravity measures HUMAN structural influence, so an AI-assisted commit must not
+// dilute the human author. Empty in → nil, so a solo commit allocates nothing.
+func parseCoAuthorNames(field string) []string {
+	if field == "" {
+		return nil
+	}
+	var out []string
+	for _, v := range strings.Split(field, coAuthorSep) {
+		v = strings.TrimSpace(v)
+		if v == "" {
+			continue
+		}
+		name, email := v, ""
+		if i := strings.LastIndex(v, " <"); i > 0 {
+			name = strings.TrimSpace(v[:i])
+			email = strings.TrimSuffix(strings.TrimSpace(v[i+2:]), ">")
+		}
+		if name == "" || isBotIdentity(name, email) {
+			continue
+		}
+		out = append(out, name)
+	}
+	return out
+}
+
+// isBotIdentity reports whether a co-author is a bot or AI assistant (GitHub
+// "[bot]" apps, Claude, Copilot, …) rather than a human engineer, using the more
+// reliable email signal where present. Such co-authors are excluded from the
+// contributor split so an AI-assisted commit doesn't dilute the human author's
+// gravity — gravity is a measure of HUMAN durable contribution.
+func isBotIdentity(name, email string) bool {
+	n := strings.ToLower(strings.TrimSpace(name))
+	e := strings.ToLower(strings.TrimSpace(email))
+	if strings.HasSuffix(n, "[bot]") || strings.Contains(e, "[bot]") {
+		return true
+	}
+	switch {
+	case strings.HasSuffix(e, "@anthropic.com"): // Claude
+		return true
+	case strings.Contains(e, "copilot") || strings.Contains(n, "copilot"): // GitHub Copilot
+		return true
+	}
+	return false
 }
 
 // FileStat holds contribution-eligible line counts for a file in a commit.
@@ -52,7 +108,7 @@ type FileStat struct {
 func logArgs(commentFilter bool, extra ...string) []string {
 	args := []string{
 		"log", "--all", "--no-merges", "--no-color",
-		"--format=COMMIT:%H|%an|%ae|%ai|%s",
+		"--format=COMMIT:%H|%an|%ae|%ai|%(trailers:key=Co-authored-by,valueonly,separator=%x1f)|%s",
 		"--numstat",
 	}
 	if commentFilter {
@@ -206,18 +262,22 @@ func parseLogStream(r io.Reader) ([]Commit, error) {
 			if current != nil {
 				commits = append(commits, *current)
 			}
-			parts := strings.SplitN(line[7:], "|", 5)
-			if len(parts) < 5 {
+			// Fields: hash|an|ae|ai|<co-authors>|subject. The Co-authored-by trailer
+			// field sits BEFORE the subject so the subject stays the LAST field and
+			// may still contain '|'. Co-authors are \x1f-separated (never a newline).
+			parts := strings.SplitN(line[7:], "|", 6)
+			if len(parts) < 6 {
 				current = nil
 				continue
 			}
 			date, _ := time.Parse("2006-01-02 15:04:05 -0700", parts[3])
 			current = &Commit{
-				Hash:    parts[0],
-				Author:  parts[1],
-				Email:   parts[2],
-				Date:    date,
-				Subject: parts[4],
+				Hash:      parts[0],
+				Author:    parts[1],
+				Email:     parts[2],
+				Date:      date,
+				CoAuthors: parseCoAuthorNames(parts[4]),
+				Subject:   parts[5],
 			}
 			continue
 		}
@@ -415,7 +475,7 @@ func parseLogChunk(ctx context.Context, repoPath string, shas []string, commentF
 	defer cancel()
 	args := []string{
 		"log", "--no-walk=unsorted", "--no-merges", "--no-color",
-		"--format=COMMIT:%H|%an|%ae|%ai|%s",
+		"--format=COMMIT:%H|%an|%ae|%ai|%(trailers:key=Co-authored-by,valueonly,separator=%x1f)|%s",
 		"--numstat",
 	}
 	if commentFilter {
@@ -505,6 +565,8 @@ func resolveRenamePath(p string) string {
 func ParseMergeCommits(ctx context.Context, repoPath string) ([]Commit, error) {
 	lines, err := RunLines(ctx, repoPath,
 		"log", "--all", "--merges",
+		// No co-author trailer here: this path only detects fix/revert subjects in
+		// merge messages (no author aggregation), and its parser expects 5 fields.
 		"--format=COMMIT:%H|%an|%ae|%ai|%s",
 	)
 	if err != nil {

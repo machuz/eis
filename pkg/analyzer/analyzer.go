@@ -339,8 +339,12 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			}
 		}
 		git.CanonicalizeAuthors(nil, blameLines, idmap)
+		coMap := metric.CoAuthorMap(commits)
 		for i := range blameLines {
 			blameLines[i].Author = cfg.ResolveAuthor(blameLines[i].Author)
+			if set, ok := coMap[blameLines[i].Commit]; ok {
+				blameLines[i].Authors = set
+			}
 		}
 		blameLines = filterBlameLines(blameLines, cfg)
 
@@ -579,11 +583,33 @@ func filterCommits(commits []git.Commit, cfg *config.Config) []git.Commit {
 	var r []git.Commit
 	for _, c := range commits {
 		c.Author = cfg.ResolveAuthor(c.Author)
-		if !cfg.IsExcludedAuthor(c.Author) {
-			r = append(r, c)
+		if cfg.IsExcludedAuthor(c.Author) {
+			continue
 		}
+		c.CoAuthors = resolveCoAuthors(c.CoAuthors, c.Author, cfg)
+		r = append(r, c)
 	}
 	return r
+}
+
+// resolveCoAuthors aliases each Co-authored-by name, drops excluded authors and
+// any that coincide with the primary. Mirrors the internal/cli helper.
+func resolveCoAuthors(coAuthors []string, primary string, cfg *config.Config) []string {
+	if len(coAuthors) == 0 {
+		return nil
+	}
+	out := coAuthors[:0]
+	for _, a := range coAuthors {
+		a = cfg.ResolveAuthor(a)
+		if a == "" || a == primary || cfg.IsExcludedAuthor(a) {
+			continue
+		}
+		out = append(out, a)
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
 }
 
 func filterFileStats(commits []git.Commit, patterns []string) []git.Commit {

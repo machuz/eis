@@ -70,47 +70,65 @@ func calcSurvivalImpl(blameLines []git.BlameLine, tau float64, now time.Time, pr
 		untestedWeight = 0
 	}
 
-	for _, bl := range blameLines {
-		raw[bl.Author]++
+	// accrue applies one line's contribution to a single author, scaled by share.
+	// Defined once (captures only the stable maps/flags) so co-author splitting adds
+	// no per-line allocation. For a co-authored line share = 1/N; for a solo line
+	// share = 1. The robust/dormant split reads OTHERS-pressure per author, so each
+	// co-author's robust survival correctly excludes their own churn.
+	accrue := func(a string, share, weight, effective float64, isTested bool, mod string) {
+		raw[a] += share
+		if tested != nil {
+			if isTested {
+				testedSurv[a] += weight * share
+			} else {
+				untestedSurv[a] += weight * share
+			}
+		}
+		decayed[a] += effective * share
+		if usePressure {
+			p := pressure[mod]
+			if others != nil {
+				p = others.For(mod, a)
+			}
+			if p >= threshold {
+				robust[a] += effective * share
+			} else {
+				dormant[a] += effective * share
+			}
+		}
+	}
 
+	for _, bl := range blameLines {
 		daysAlive := now.Sub(bl.CommitterTime).Hours() / 24
 		if daysAlive < 0 {
 			daysAlive = 0
 		}
 		weight := math.Exp(-daysAlive / tau)
 
-		// Determine per-line test-coverage multiplier. When tests aren't being
-		// considered, every line weighs fully.
 		isTested := false
 		if tested != nil {
 			isTested = tested.IsTested(bl.Filename)
-			if isTested {
-				testedSurv[bl.Author] += weight
-			} else {
-				untestedSurv[bl.Author] += weight
-			}
 		}
 		coverageMult := 1.0
 		if useTested && !isTested {
 			coverageMult = untestedWeight
 		}
-
 		effective := weight * coverageMult
-		decayed[bl.Author] += effective
 
+		mod := ""
 		if usePressure {
-			mod := mr.ModuleOf(bl.Filename)
-			// Robust = "survives under OTHERS' change pressure" when an others
-			// view is supplied; otherwise the module's total pressure (legacy).
-			p := pressure[mod]
-			if others != nil {
-				p = others.For(mod, bl.Author)
-			}
-			if p >= threshold {
-				robust[bl.Author] += effective
-			} else {
-				dormant[bl.Author] += effective
-			}
+			mod = mr.ModuleOf(bl.Filename)
+		}
+
+		// Split the line equally among the commit's contributor set (co-authors),
+		// falling back to the single blame author for the common solo line.
+		if len(bl.Authors) == 0 {
+			accrue(bl.Author, 1.0, weight, effective, isTested, mod)
+			continue
+		}
+		share := 1.0 / float64(len(bl.Authors))
+		for _, a := range bl.Authors {
+			accrue(a, share, weight, effective, isTested, mod)
 		}
 	}
 
