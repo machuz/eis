@@ -1,8 +1,10 @@
 package cache
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
+	"sync"
 	"testing"
 )
 
@@ -122,6 +124,54 @@ func TestBlameAtCommitKey(t *testing.T) {
 	k2 := BlameAtCommitKey("/repo", "abc123def456", []string{"a.go"}, 500, "file")
 	if k1 != k2 {
 		t.Fatal("same inputs should produce same key")
+	}
+}
+
+// TestStoreConcurrentSetSameKey guards the atomic per-write temp-file
+// suffix in Set. Under parallel timeline periods, two adjacent windows can
+// resolve to the SAME boundary commit → the same blame cache key → a
+// concurrent Set of the same key. With a fixed "<path>.tmp" suffix, two
+// writers would create/truncate the SAME temp file: one truncates the
+// other's in-flight file mid-encode, and the atomic rename then publishes a
+// corrupted gob. This test fires many rounds of high-concurrency identical
+// Sets to one key and asserts every subsequent Get returns the complete,
+// correct value. Revert the atomic-counter suffix and a round corrupts the
+// file → Get misses (self-heal removes the bad file) or decodes short →
+// failure. Note: a -race pass alone would NOT catch this — the hazard is a
+// filesystem write collision, not a Go-memory data race.
+func TestStoreConcurrentSetSameKey(t *testing.T) {
+	dir := t.TempDir()
+	s := &Store{enabled: true, baseDir: dir}
+
+	// Payload large enough that gob encoding spans several writes, widening
+	// the window for a racing writer to truncate a shared temp file.
+	data := make([]string, 2000)
+	for i := range data {
+		data[i] = fmt.Sprintf("author-%04d-with-padding-to-grow-the-encoded-payload-size", i)
+	}
+	key := "concurrent/same-key.gob"
+
+	for round := 0; round < 40; round++ {
+		const writers = 8
+		var wg sync.WaitGroup
+		for w := 0; w < writers; w++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				if err := s.Set(key, data); err != nil {
+					t.Errorf("round %d: concurrent Set: %v", round, err)
+				}
+			}()
+		}
+		wg.Wait()
+
+		var got []string
+		if !s.Get(key, &got) {
+			t.Fatalf("round %d: Get miss after concurrent Set — cache file was corrupted by a racing writer (non-unique temp file?)", round)
+		}
+		if len(got) != len(data) || got[0] != data[0] || got[len(data)-1] != data[len(data)-1] {
+			t.Fatalf("round %d: Get returned corrupted/partial data (len=%d, want %d)", round, len(got), len(data))
+		}
 	}
 }
 

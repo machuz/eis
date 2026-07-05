@@ -134,63 +134,78 @@ func TestRun_PeriodConcurrencyIsDeterministic(t *testing.T) {
 	repoB := buildTimelineFixtureRepoB(t)
 	repos := []string{repoA, repoB}
 
-	run := func(concurrency int) ([]DomainTimeline, []map[string]PeriodResult) {
-		var emitted []map[string]PeriodResult
-		results, err := Run(
-			Options{
-				Span:              "1m",
-				Since:             "2024-01-01",
-				Workers:           2,
-				PressureMode:      "include",
-				PerRepo:           true,
-				PeriodConcurrency: concurrency,
-			},
-			repos,
-			config.Default(),
-			&Callbacks{
-				OnPeriodComplete: func(domains map[string]PeriodResult) {
-					snap := make(map[string]PeriodResult, len(domains))
-					for d, pr := range domains {
-						snap[d] = pr
-					}
-					emitted = append(emitted, snap)
-				},
-			},
-		)
-		if err != nil {
-			t.Fatalf("Run(concurrency=%d): %v", concurrency, err)
-		}
-		return results, emitted
-	}
-
-	seqResults, seqEmitted := run(1)
-	parResults, parEmitted := run(4)
-
-	// (1) Returned structure is byte-identical.
-	if !reflect.DeepEqual(seqResults, parResults) {
-		t.Errorf("returned []DomainTimeline differs between sequential and parallel runs\n  seq=%+v\n  par=%+v",
-			seqResults, parResults)
-	}
-
-	// (2) Ordered OnPeriodComplete sequence is byte-identical — same count,
-	// same order, same payloads.
-	if len(seqEmitted) != len(parEmitted) {
-		t.Fatalf("OnPeriodComplete fired %d times sequentially but %d times in parallel",
-			len(seqEmitted), len(parEmitted))
-	}
-	if !reflect.DeepEqual(seqEmitted, parEmitted) {
-		for i := range seqEmitted {
-			if !reflect.DeepEqual(seqEmitted[i], parEmitted[i]) {
-				t.Errorf("emitted event %d differs between sequential and parallel\n  seq=%+v\n  par=%+v",
-					i, seqEmitted[i], parEmitted[i])
+	// Both PerRepo modes: false is the CLI default (which must stay
+	// bit-identical), true is the SaaS path (extra per-repo scoring, more
+	// PeriodResult fields to compare). A race or ordering bug could hide in
+	// either, so both are proven byte-identical across conc=1 vs conc=4.
+	for _, tc := range []struct {
+		name    string
+		perRepo bool
+	}{
+		{"PerRepoFalse", false},
+		{"PerRepoTrue", true},
+	} {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			run := func(concurrency int) ([]DomainTimeline, []map[string]PeriodResult) {
+				var emitted []map[string]PeriodResult
+				results, err := Run(
+					Options{
+						Span:              "1m",
+						Since:             "2024-01-01",
+						Workers:           2,
+						PressureMode:      "include",
+						PerRepo:           tc.perRepo,
+						PeriodConcurrency: concurrency,
+					},
+					repos,
+					config.Default(),
+					&Callbacks{
+						OnPeriodComplete: func(domains map[string]PeriodResult) {
+							snap := make(map[string]PeriodResult, len(domains))
+							for d, pr := range domains {
+								snap[d] = pr
+							}
+							emitted = append(emitted, snap)
+						},
+					},
+				)
+				if err != nil {
+					t.Fatalf("Run(concurrency=%d): %v", concurrency, err)
+				}
+				return results, emitted
 			}
-		}
-	}
 
-	// Sanity: the fixture actually produced more than one window, otherwise
-	// there is no ordering to prove.
-	if len(seqEmitted) < 2 {
-		t.Fatalf("fixture produced %d windows; need >= 2 to exercise ordered parallel emission", len(seqEmitted))
+			seqResults, seqEmitted := run(1)
+			parResults, parEmitted := run(4)
+
+			// (1) Returned structure is byte-identical.
+			if !reflect.DeepEqual(seqResults, parResults) {
+				t.Errorf("returned []DomainTimeline differs between sequential and parallel runs\n  seq=%+v\n  par=%+v",
+					seqResults, parResults)
+			}
+
+			// (2) Ordered OnPeriodComplete sequence is byte-identical — same
+			// count, same order, same payloads.
+			if len(seqEmitted) != len(parEmitted) {
+				t.Fatalf("OnPeriodComplete fired %d times sequentially but %d times in parallel",
+					len(seqEmitted), len(parEmitted))
+			}
+			if !reflect.DeepEqual(seqEmitted, parEmitted) {
+				for i := range seqEmitted {
+					if !reflect.DeepEqual(seqEmitted[i], parEmitted[i]) {
+						t.Errorf("emitted event %d differs between sequential and parallel\n  seq=%+v\n  par=%+v",
+							i, seqEmitted[i], parEmitted[i])
+					}
+				}
+			}
+
+			// Sanity: the fixture actually produced more than one window,
+			// otherwise there is no ordering to prove.
+			if len(seqEmitted) < 2 {
+				t.Fatalf("fixture produced %d windows; need >= 2 to exercise ordered parallel emission", len(seqEmitted))
+			}
+		})
 	}
 }
 
