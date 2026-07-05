@@ -322,7 +322,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 
 		// Blame analysis (cached)
 		var blameLines []git.BlameLine
-		blameCacheKey := cache.BlameKey(repoPath, headHash, files, cfg.SampleSize)
+		git.ConfigureBlameMoveDetection(cfg.BlameMoveDetection)
+		blameCacheKey := cache.BlameKey(repoPath, headHash, files, cfg.SampleSize, cfg.BlameMoveDetection)
 		if headHash != "" && cacheStore.Get(blameCacheKey, &blameLines) {
 			// cache hit
 		} else {

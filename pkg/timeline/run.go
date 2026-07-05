@@ -541,7 +541,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				}
 
 				var blameLines []git.BlameLine
-				blameCacheKey := cache.BlameAtCommitKey(repo.path, boundaryCommit, files, cfg.SampleSize)
+				git.ConfigureBlameMoveDetection(cfg.BlameMoveDetection)
+				blameCacheKey := cache.BlameAtCommitKey(repo.path, boundaryCommit, files, cfg.SampleSize, cfg.BlameMoveDetection)
 				if cacheStore.Get(blameCacheKey, &blameLines) {
 					// cached
 				} else {
