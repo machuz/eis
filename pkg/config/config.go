@@ -7,6 +7,7 @@ type Weights = config.Weights
 type BusFactor = config.BusFactor
 type TeamEntry = config.TeamEntry
 type DomainsConfig = config.DomainsConfig
+type DomainEntry = config.DomainEntry
 type RepoConfig = config.RepoConfig
 
 var (
