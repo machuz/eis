@@ -449,12 +449,9 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				// Catalysis is computed in the blame stage below (needs the
 				// period commit history for file origin + the period blame lines).
 
-				// Design
-				design := metric.CalcDesign(periodCommits, cfg.ArchitecturePatterns)
-				mergeMap(acc.raw.Design, design)
-				if racc != nil {
-					mergeMap(racc.raw.Design, design)
-				}
+				// Design is computed in the blame stage below (survival-weighted: it
+				// scores SURVIVING arch lines from the blame, not arch lines changed,
+				// so it needs the period blame + the window boundary as the time basis).
 
 				// Breadth + date tracking
 				for _, c := range periodCommits {
@@ -583,6 +580,16 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				mergeMap(acc.raw.Catalysis, catalysis)
 				if racc != nil {
 					mergeMap(racc.raw.Catalysis, catalysis)
+				}
+
+				// Design (survival-weighted): surviving, time-decayed arch-file blame
+				// lines per author, on the same window boundary + tau the survival stage
+				// uses. Churned-away arch edits have decayed out of the blame, so design
+				// tracks durable structural ownership, not arch churn volume.
+				design := metric.CalcDesignSurviving(blameLines, cfg.ArchitecturePatterns, cfg.Tau, window.End)
+				mergeMap(acc.raw.Design, design)
+				if racc != nil {
+					mergeMap(racc.raw.Design, design)
 				}
 
 				// Survival

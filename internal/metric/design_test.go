@@ -1,6 +1,11 @@
 package metric
 
-import "testing"
+import (
+	"testing"
+	"time"
+
+	"github.com/machuz/eis/v2/internal/git"
+)
 
 func TestMatchArchPattern_SegmentPrecise(t *testing.T) {
 	tests := []struct {
@@ -52,5 +57,38 @@ func TestMatchArchPattern_SegmentPrecise(t *testing.T) {
 				t.Errorf("matchArchPattern(%q, %q) = %v, want %v", tt.filename, tt.pattern, got, tt.want)
 			}
 		})
+	}
+}
+
+func TestCalcDesignSurviving(t *testing.T) {
+	now := time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)
+	tau := 365.0
+	patterns := []string{"core/*", "packages/react/src/*"}
+	lines := []git.BlameLine{
+		// Alice: 2 surviving lines in arch files, recent (~full weight).
+		{Author: "alice", Filename: "core/engine.go", CommitterTime: now.AddDate(0, 0, -10)},
+		{Author: "alice", Filename: "packages/react/src/fiber.js", CommitterTime: now.AddDate(0, 0, -10)},
+		// Alice also has a surviving NON-arch line — must NOT count toward design.
+		{Author: "alice", Filename: "docs/readme.md", CommitterTime: now.AddDate(0, 0, -10)},
+		// Bob: 1 surviving arch line but OLD (~1 tau → weight ~e^-1), so churned-away
+		// arch volume decays out and can't out-score fresh durable ownership.
+		{Author: "bob", Filename: "core/legacy.go", CommitterTime: now.AddDate(-1, 0, 0)},
+	}
+	got := CalcDesignSurviving(lines, patterns, tau, now)
+
+	if len(got) != 2 {
+		t.Fatalf("want 2 authors with arch survival, got %d: %v", len(got), got)
+	}
+	// Non-arch file excluded: alice = 2 arch lines only.
+	if got["alice"] < 1.9 || got["alice"] > 2.01 {
+		t.Errorf("alice design = %v, want ~2 (two fresh arch lines, doc excluded)", got["alice"])
+	}
+	// Time decay applied: bob's year-old line is worth ~e^-1 ≈ 0.37, not 1.
+	if got["bob"] > 0.5 || got["bob"] < 0.2 {
+		t.Errorf("bob design = %v, want ~0.37 (one ~1-tau-old arch line)", got["bob"])
+	}
+	// Durable fresh ownership outranks decayed old volume.
+	if got["alice"] <= got["bob"] {
+		t.Errorf("fresh durable arch owner (%.2f) must outscore decayed (%.2f)", got["alice"], got["bob"])
 	}
 }

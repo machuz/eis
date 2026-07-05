@@ -272,8 +272,8 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// Catalysis is computed in the blame stage below (it needs the commit
 		// history for file origin + the surviving blame lines).
 
-		design := metric.CalcDesign(commits, cfg.ArchitecturePatterns)
-		mergeMap(acc.raw.Design, design)
+		// Design is computed in the blame stage below (survival-weighted: surviving
+		// arch-file blame lines, not arch lines changed — needs blame + analysisTime).
 
 		for _, c := range commits {
 			if _, ok := acc.authorRepoCommits[c.Author]; !ok {
@@ -352,6 +352,13 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		acc.allCommits = append(acc.allCommits, commits...)
 		acc.allBlameLines = append(acc.allBlameLines, blameLines...)
 
+		// Design (survival-weighted): surviving, time-decayed arch-file blame lines
+		// per author, on the same analysisTime + tau as survival. Arch churn later
+		// rewritten has decayed out of the blame, so design measures durable structural
+		// ownership rather than raw arch-edit volume.
+		designSurv := metric.CalcDesignSurviving(blameLines, cfg.ArchitecturePatterns, cfg.Tau, analysisTime)
+		mergeMap(acc.raw.Design, designSurv)
+
 		var repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant map[string]float64
 		if opts.PressureMode != "ignore" {
 			repoPressure := metric.CalcChangePressure(commits, blameLines, moduleResolver)
@@ -403,7 +410,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			rr := metric.NewRawScores()
 			mergeMap(rr.Production, prod)
 			mergeMap(rr.Catalysis, catalysis)
-			mergeMap(rr.Design, design)
+			mergeMap(rr.Design, designSurv)
 			mergeMap(rr.Indispensability, indisp)
 			mergeMap(rr.DebtCleanup, debt)
 			mergeMap(rr.Survival, repoSurvDecayed)
