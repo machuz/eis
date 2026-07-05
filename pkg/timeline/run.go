@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/machuz/eis/v2/internal/cache"
@@ -40,6 +41,23 @@ type Options struct {
 	// callers byte-stable; SaaS callers (which persist per-period
 	// snapshots and need per-repo breakdowns for StarDetail) opt in.
 	PerRepo bool
+	// PeriodConcurrency bounds how many timeline windows are computed in
+	// parallel. Each window is fully independent — it re-filters the shared
+	// pre-parsed commits, resolves its own boundary commit at window.End,
+	// runs its own blame, and scores against window.End — so parallelism
+	// cannot change any value (W-02 determinism holds regardless).
+	//
+	//   <= 1 → sequential, exactly the historical behavior (DEFAULT). Existing
+	//          callers and the CLI stay bit-identical.
+	//   >  1 → up to this many windows computed concurrently.
+	//
+	// The OnPeriodComplete / OnPeriodStart callbacks still fire in strict
+	// window order even under concurrency (see the ordered emitter in Run),
+	// so streaming consumers (Ace) need no change. Memory caveat: each window
+	// runs its own blame worker pool, so peak blame memory scales roughly as
+	// PeriodConcurrency × Workers × (hundreds of MB on a large repo). Callers
+	// must bound the two jointly.
+	PeriodConcurrency int
 }
 
 // Callbacks for progress reporting during timeline analysis.
@@ -349,20 +367,21 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 	}
 	allDomains := domain.SortDomains(domainKeys)
 
-	// domainPeriodMap accumulates per-domain results as the period-outer
-	// loop runs, so the original []DomainTimeline shape can be returned
-	// on success even though we now compute period-by-period across all
-	// domains (the order pkgtimeline used to compute domain-by-period).
-	// Flipping the loop is what unlocks OnPeriodComplete: every domain
-	// for a window finishes before the next window starts, so the
-	// callback fires once per window with all domains' results.
-	domainPeriodMap := make(map[string][]PeriodResult, len(allDomains))
+	// Blame move/copy detection is a cross-cutting git-invocation policy
+	// (a package global in internal/git). Set it ONCE here, before any
+	// window is computed, rather than inside the per-window body: under
+	// PeriodConcurrency > 1, concurrent identical writes to that global
+	// would trip the race detector even though the value never differs.
+	git.ConfigureBlameMoveDetection(cfg.BlameMoveDetection)
 
-	for pi, window := range windows {
-		if cb.OnPeriodStart != nil {
-			cb.OnPeriodStart(window.Label, pi, len(windows))
-		}
-
+	// computeWindow performs the full, independent work for a single
+	// timeline window: filter the shared pre-parsed commits to the window,
+	// resolve the boundary commit at window.End, blame, score every domain,
+	// and return the per-domain results keyed by domain name. It reads only
+	// shared read-only state (repos, cfg, cacheStore) plus its own window,
+	// so it is safe to run concurrently for distinct windows — every value
+	// is pinned to window.End, so ordering never changes a result (W-02).
+	computeWindow := func(window TimeWindow) map[string]PeriodResult {
 		windowDomainResults := make(map[string]PeriodResult, len(allDomains))
 
 		for _, d := range allDomains {
@@ -539,7 +558,6 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				}
 
 				var blameLines []git.BlameLine
-				git.ConfigureBlameMoveDetection(cfg.BlameMoveDetection)
 				blameCacheKey := cache.BlameAtCommitKey(repo.path, boundaryCommit, files, cfg.SampleSize, cfg.BlameMoveDetection)
 				if cacheStore.Get(blameCacheKey, &blameLines) {
 					// cached
@@ -787,11 +805,95 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				PerRepo: perRepoOut,
 			}
 			windowDomainResults[string(d)] = pr
-			domainPeriodMap[string(d)] = append(domainPeriodMap[string(d)], pr)
 		}
 
-		if cb.OnPeriodComplete != nil && len(windowDomainResults) > 0 {
-			cb.OnPeriodComplete(windowDomainResults)
+		return windowDomainResults
+	}
+
+	// outputs[pi] holds window pi's per-domain results, written into a
+	// per-window INDEXED slot (never a shared appended map) so concurrent
+	// windows don't contend on a mutex on the hot path and the final
+	// assembled order is deterministic regardless of completion order.
+	outputs := make([]map[string]PeriodResult, len(windows))
+
+	concurrency := opts.PeriodConcurrency
+	if concurrency > len(windows) {
+		concurrency = len(windows)
+	}
+
+	if concurrency <= 1 {
+		// Sequential: bit-identical to the historical behavior. OnPeriodStart
+		// fires BEFORE the window is computed (progress UI depends on that),
+		// then OnPeriodComplete after.
+		for pi, window := range windows {
+			if cb.OnPeriodStart != nil {
+				cb.OnPeriodStart(window.Label, pi, len(windows))
+			}
+			outputs[pi] = computeWindow(window)
+			if cb.OnPeriodComplete != nil && len(outputs[pi]) > 0 {
+				cb.OnPeriodComplete(outputs[pi])
+			}
+		}
+	} else {
+		// Concurrent computation, ORDERED emission. A bounded worker pool
+		// computes windows in whatever order they finish, but an emit cursor
+		// (nextEmit) guarded by mu only ever fires OnPeriodStart/OnPeriod
+		// Complete for window nextEmit once it AND all earlier windows have
+		// landed. Net effect: the callback sequence is identical to sequential
+		// mode, so ordered-emission consumers (Ace's dedup) need no change.
+		//
+		// Note: OnBlameProgress / OnVerbose are best-effort progress hooks and
+		// may be invoked concurrently from multiple window goroutines under
+		// PeriodConcurrency > 1; the ordered guarantee covers only the paired
+		// (OnPeriodStart, OnPeriodComplete) sequence.
+		var mu sync.Mutex
+		done := make([]bool, len(windows))
+		nextEmit := 0
+		emitReady := func() {
+			for nextEmit < len(windows) && done[nextEmit] {
+				if cb.OnPeriodStart != nil {
+					cb.OnPeriodStart(windows[nextEmit].Label, nextEmit, len(windows))
+				}
+				if cb.OnPeriodComplete != nil && len(outputs[nextEmit]) > 0 {
+					cb.OnPeriodComplete(outputs[nextEmit])
+				}
+				nextEmit++
+			}
+		}
+
+		idxCh := make(chan int)
+		var wg sync.WaitGroup
+		for w := 0; w < concurrency; w++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				for pi := range idxCh {
+					res := computeWindow(windows[pi])
+					mu.Lock()
+					outputs[pi] = res
+					done[pi] = true
+					emitReady()
+					mu.Unlock()
+				}
+			}()
+		}
+		for pi := range windows {
+			idxCh <- pi
+		}
+		close(idxCh)
+		wg.Wait()
+	}
+
+	// Assemble domainPeriodMap from the indexed slots IN WINDOW ORDER, so the
+	// returned []DomainTimeline is byte-identical to the sequential build:
+	// every domain present in a window's result is appended in window order.
+	domainPeriodMap := make(map[string][]PeriodResult, len(allDomains))
+	for pi := range windows {
+		res := outputs[pi]
+		for _, d := range allDomains {
+			if pr, ok := res[string(d)]; ok {
+				domainPeriodMap[string(d)] = append(domainPeriodMap[string(d)], pr)
+			}
 		}
 	}
 
