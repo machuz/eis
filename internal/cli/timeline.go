@@ -1,12 +1,15 @@
 package cli
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/fatih/color"
@@ -23,6 +26,7 @@ func runTimeline(args []string) error {
 	periodsFlag := fs.Int("periods", 4, "Number of periods to show (0=all)")
 	sinceFlag := fs.String("since", "", "Start date (e.g. 2024-01-01, overrides --periods)")
 	formatFlag := fs.String("format", "table", "Output format: table, csv, json, ascii, html, svg")
+	streamFlag := fs.Bool("stream", false, "Emit one NDJSON object per period AS IT COMPLETES (not one JSON at the end). Lets a downstream consumer (the research ingest) POST each window the moment it's scored, so a mid-run kill on a giant repo keeps every finished window instead of losing them all.")
 	outputFlag := fs.String("output", "", "Output file/directory path (html: file path, svg: directory; defaults: eis-timeline.html / current dir)")
 	recursive := fs.Bool("recursive", false, "Recursively find git repos under given paths")
 	maxDepth := fs.Int("depth", 2, "Max directory depth for recursive search")
@@ -88,7 +92,7 @@ func runTimeline(args []string) error {
 		cfg.CommentFilter = &off
 	}
 
-	quiet := *formatFlag == "json" || *formatFlag == "csv" || *formatFlag == "html" || *formatFlag == "svg"
+	quiet := *formatFlag == "json" || *formatFlag == "csv" || *formatFlag == "html" || *formatFlag == "svg" || *streamFlag
 	spinnerQuiet = quiet
 
 	if !quiet && len(cfg.Aliases) > 0 {
@@ -218,6 +222,39 @@ func runTimeline(args []string) error {
 		}
 	}
 
+	// Streaming mode: emit one NDJSON object per period the moment it finishes
+	// scoring, instead of buffering every window and marshaling one blob at the end.
+	// A downstream consumer (the research ingest) POSTs each window as it arrives, so
+	// killing a multi-hour giant mid-run keeps every completed window. Merges all
+	// domains' authors for the window into one line (the ingest joins by author name).
+	if *streamFlag {
+		enc := json.NewEncoder(os.Stdout)
+		var mu sync.Mutex
+		cb.OnPeriodComplete = func(domains map[string]pkgtimeline.PeriodResult) {
+			line := streamPeriod{}
+			for _, pr := range domains {
+				if line.Label == "" {
+					line.Label, line.Start, line.End = pr.Label, pr.Start, pr.End
+				}
+				for _, r := range pr.Members {
+					line.Authors = append(line.Authors, streamAuthor{
+						Author: r.Author, Role: r.Role, Style: r.Style, State: r.State,
+						Impact: stream1(r.Impact), Production: stream1(r.Production), Catalysis: stream1(r.Catalysis),
+						Survival: stream1(r.Survival), Design: stream1(r.Design), Breadth: stream1(r.Breadth),
+						DebtCleanup: stream1(r.DebtCleanup), Indispensability: stream1(r.Indispensability),
+						Gravity: stream1(r.Gravity),
+					})
+				}
+			}
+			if line.Label == "" {
+				return
+			}
+			mu.Lock()
+			_ = enc.Encode(line) // one line, flushed by os.Stdout; a write error just drops the window
+			mu.Unlock()
+		}
+	}
+
 	// Run the library analysis. When --since was not supplied, thread
 	// the calendar-month-anchored date we computed above into the
 	// library so pkgtimeline.Run builds the same windows we just
@@ -246,6 +283,12 @@ func runTimeline(args []string) error {
 	}
 	if err != nil {
 		return err
+	}
+
+	// Streaming already emitted every window as it completed (OnPeriodComplete
+	// above); there is no end-of-run blob to build.
+	if *streamFlag {
+		return nil
 	}
 
 	// Build per-domain author timelines
@@ -423,3 +466,33 @@ func firstOfMonthForEarliestCommit(repoPaths []string) time.Time {
 	// uses to align windows on calendar boundaries.
 	return time.Date(earliest.Year(), earliest.Month(), 1, 0, 0, 0, 0, earliest.Location())
 }
+
+// streamPeriod is one NDJSON line in --stream mode: a single timeline window plus
+// every author's scores for it. Field names match what the research ingest's
+// --stream-timeline reader expects (a period-keyed transpose of the batch JSON).
+type streamPeriod struct {
+	Label   string         `json:"label"`
+	Start   string         `json:"start"`
+	End     string         `json:"end"`
+	Authors []streamAuthor `json:"authors"`
+}
+
+type streamAuthor struct {
+	Author           string  `json:"author"`
+	Role             string  `json:"role"`
+	Style            string  `json:"style"`
+	State            string  `json:"state"`
+	Impact           float64 `json:"impact"`
+	Production       float64 `json:"production"`
+	Catalysis        float64 `json:"catalysis"`
+	Survival         float64 `json:"survival"`
+	Design           float64 `json:"design"`
+	Breadth          float64 `json:"breadth"`
+	DebtCleanup      float64 `json:"debt_cleanup"`
+	Indispensability float64 `json:"indispensability"`
+	Gravity          float64 `json:"gravity"`
+}
+
+// stream1 rounds a score to one decimal, matching the batch JSON's precision so a
+// streamed run and a batch run of the same history are byte-comparable per field.
+func stream1(v float64) float64 { return math.Round(v*10) / 10 }

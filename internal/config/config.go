@@ -11,23 +11,30 @@ import (
 )
 
 type Config struct {
-	Tau                  float64              `yaml:"tau"`
-	SampleSize           int                  `yaml:"sample_size"`
-	DebtThreshold        int                  `yaml:"debt_threshold"`
-	ExcludeFilePatterns  []string             `yaml:"exclude_file_patterns"`
-	ArchitecturePatterns []string             `yaml:"architecture_patterns"`
-	BlameExtensions      []string             `yaml:"blame_extensions"`
-	ExcludeAuthors       []string             `yaml:"exclude_authors"`
-	Aliases              map[string]string    `yaml:"aliases"`
-	Weights              Weights              `yaml:"weights"`
-	BusFactor            BusFactor            `yaml:"bus_factor"`
-	DefaultDomains       *bool                `yaml:"default_domains"`
-	Domains              DomainsConfig        `yaml:"domains"`
-	Teams                map[string]TeamEntry `yaml:"teams"`
-	ProductionDailyRef   float64              `yaml:"production_daily_ref"`
-	ExcludeRepos         []string             `yaml:"exclude_repos"`
-	ActiveDays           int                  `yaml:"active_days"`
-	BlameTimeout         int                  `yaml:"blame_timeout"`
+	Tau                  float64           `yaml:"tau"`
+	SampleSize           int               `yaml:"sample_size"`
+	DebtThreshold        int               `yaml:"debt_threshold"`
+	ExcludeFilePatterns  []string          `yaml:"exclude_file_patterns"`
+	ArchitecturePatterns []string          `yaml:"architecture_patterns"`
+	BlameExtensions      []string          `yaml:"blame_extensions"`
+	ExcludeAuthors       []string          `yaml:"exclude_authors"`
+	Aliases              map[string]string `yaml:"aliases"`
+	// AuthorGitHubIDs pins a canonical author name (post-alias) to a GitHub numeric
+	// user id. It exists for the research ingest's identity resolver: a founder whose
+	// dominant commit email predates GitHub (e.g. Linus Torvalds' 2005 osdl.org
+	// address) cannot be resolved email→id and would otherwise be dropped. Pinning
+	// the name lets such a contributor appear under their real id. Ignored by the
+	// analysis pipeline (which keys by name); consumed only by the ingest tool.
+	AuthorGitHubIDs    map[string]int64     `yaml:"author_github_ids"`
+	Weights            Weights              `yaml:"weights"`
+	BusFactor          BusFactor            `yaml:"bus_factor"`
+	DefaultDomains     *bool                `yaml:"default_domains"`
+	Domains            DomainsConfig        `yaml:"domains"`
+	Teams              map[string]TeamEntry `yaml:"teams"`
+	ProductionDailyRef float64              `yaml:"production_daily_ref"`
+	ExcludeRepos       []string             `yaml:"exclude_repos"`
+	ActiveDays         int                  `yaml:"active_days"`
+	BlameTimeout       int                  `yaml:"blame_timeout"`
 	// BlameMoveDetection controls git blame move/copy detection: off | file (-M,
 	// default) | commit (-M -C) | full (-M -C -C). Higher levels recover the
 	// original author of lines moved across files at higher cost on large repos.

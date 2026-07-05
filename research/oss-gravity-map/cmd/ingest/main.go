@@ -21,6 +21,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -151,6 +152,7 @@ func main() {
 		maxPages     = flag.Int("max-commit-pages", 10, "GitHub Commits API pages for the email→id fallback")
 		only         = flag.String("only", "", "comma-separated manifest dirs to ingest (default: all). Lets a CI loop clone+analyze+ingest one repo at a time, keeping disk bounded — re-POSTs share the run-id and upsert idempotently.")
 		dryRun       = flag.Bool("dry-run", false, "resolve and assemble but do not POST; print a summary")
+		streamTL     = flag.Bool("stream-timeline", false, "read per-period NDJSON (from `eis timeline --stream`) on stdin and POST each window as it arrives, instead of one payload per repo. POSTs the cumulative standing first, then one small POST per window — so a kill mid-run on a multi-hour giant keeps every window already scored. Requires a single --only repo.")
 	)
 	flag.Parse()
 
@@ -180,6 +182,11 @@ func main() {
 	payload := ingestPayload{RunID: *runID, ObservedAt: time.Now().UTC()}
 	var totalObs, resolved, dropped int
 
+	// Streaming state: captured for the single --only repo so the post-loop stream
+	// reader can join each incoming window's authors to the ids resolved once here.
+	var streamIDs map[string]resolvedAuthor
+	var streamRepo manifestEntry
+
 	for _, m := range manifest.Repos {
 		resultPath := filepath.Join(*resultsDir, m.Dir+".json")
 		members, err := loadAnalysis(resultPath)
@@ -200,6 +207,18 @@ func main() {
 			continue
 		}
 		ids := res.resolve(ctx, m.FullName, emails)
+
+		// Pin config-known identities that email→id can't reach. A founder whose
+		// dominant commit email predates GitHub (Linus Torvalds' 2005 osdl.org
+		// address) never resolves and would be dropped; author_github_ids maps the
+		// canonical name straight to the real id so they appear. Login is backfilled
+		// best-effort (still keyed by the trusted id if the lookup fails).
+		for name, id := range cfg.AuthorGitHubIDs {
+			if id <= 0 {
+				continue
+			}
+			ids[cfg.ResolveAuthor(name)] = resolvedAuthor{ID: id, Login: res.loginForID(ctx, id)}
+		}
 
 		obs := make([]ingestObservation, 0, len(members))
 		for _, mem := range members {
@@ -231,9 +250,20 @@ func main() {
 		resolved += len(obs)
 		totalObs += len(members)
 
+		// Streaming: the trajectory arrives per-window on stdin AFTER this cumulative
+		// pass POSTs, so skip the batch timeline file here and remember the ids + repo
+		// for the post-loop stream reader.
+		if *streamTL {
+			streamIDs = ids
+			streamRepo = m
+		}
+
 		// Timeline (軌跡): per-period rows, joined to the same ids. Optional — a
 		// missing/failed timeline just leaves the cumulative standing.
-		tl := loadTimeline(filepath.Join(*timelineDir, m.Dir+"-timeline.json"))
+		var tl map[string][]timelinePeriod
+		if !*streamTL {
+			tl = loadTimeline(filepath.Join(*timelineDir, m.Dir+"-timeline.json"))
+		}
 		var periodRows int
 		for name, periods := range tl {
 			ra, ok := ids[name]
@@ -281,13 +311,102 @@ func main() {
 		enc := json.NewEncoder(os.Stdout)
 		enc.SetIndent("", "  ")
 		_ = enc.Encode(payload)
-		return
+	} else if err := post(ctx, *apiBase, token, payload); err != nil {
+		fatalf("ingest POST: %v", err)
+	} else {
+		fmt.Fprintf(os.Stderr, "ingested run %s to %s\n", payload.RunID, *apiBase)
 	}
 
-	if err := post(ctx, *apiBase, token, payload); err != nil {
-		fatalf("ingest POST: %v", err)
+	// Streaming: the cumulative standing is posted above; now drain the per-window
+	// NDJSON on stdin and post each window as it arrives (dry-run just tallies).
+	if *streamTL {
+		if streamIDs == nil {
+			fatalf("--stream-timeline: the --only repo produced no resolved authors (analysis/clone missing?)")
+		}
+		n, err := streamWindows(ctx, os.Stdin, *apiBase, token, *runID, streamRepo, streamIDs, *dryRun)
+		if err != nil {
+			fatalf("stream-timeline: %v", err)
+		}
+		fmt.Fprintf(os.Stderr, "streamed %d windows for %s to %s\n", n, streamRepo.FullName, *apiBase)
 	}
-	fmt.Fprintf(os.Stderr, "ingested run %s to %s\n", payload.RunID, *apiBase)
+}
+
+// streamWindow is one NDJSON line from `eis timeline --stream`: a single window and
+// every author's scores for it. Mirrors internal/cli's streamPeriod/streamAuthor.
+type streamWindow struct {
+	Label   string `json:"label"`
+	Authors []struct {
+		Author           string  `json:"author"`
+		Role             string  `json:"role"`
+		Style            string  `json:"style"`
+		State            string  `json:"state"`
+		Impact           float64 `json:"impact"`
+		Production       float64 `json:"production"`
+		Catalysis        float64 `json:"catalysis"`
+		Survival         float64 `json:"survival"`
+		Design           float64 `json:"design"`
+		Breadth          float64 `json:"breadth"`
+		DebtCleanup      float64 `json:"debt_cleanup"`
+		Indispensability float64 `json:"indispensability"`
+		Gravity          float64 `json:"gravity"`
+	} `json:"authors"`
+}
+
+// streamWindows reads per-window NDJSON and POSTs each window as its own run under
+// the same run_id, joining authors to the already-resolved ids. One POST per window
+// means a kill mid-stream keeps every window already sent (the whole point). The
+// server upserts on (run_id, repo, ex_github_id, period), so a resumed re-run is
+// idempotent. Windows with no resolvable, non-idle rows are skipped (no empty POST).
+func streamWindows(ctx context.Context, r io.Reader, apiBase, token, runID string, repo manifestEntry, ids map[string]resolvedAuthor, dryRun bool) (int, error) {
+	sc := bufio.NewScanner(r)
+	sc.Buffer(make([]byte, 0, 1<<20), 1<<24) // windows can carry thousands of authors
+	posted := 0
+	for sc.Scan() {
+		line := sc.Bytes()
+		if len(line) == 0 {
+			continue
+		}
+		var w streamWindow
+		if err := json.Unmarshal(line, &w); err != nil || w.Label == "" {
+			continue
+		}
+		obs := make([]ingestObservation, 0, len(w.Authors))
+		for _, a := range w.Authors {
+			ra, ok := ids[a.Author]
+			if !ok || ra.ID == 0 {
+				continue
+			}
+			if a.Gravity == 0 && isDash(a.Role) && isDash(a.Style) && isDash(a.State) {
+				continue
+			}
+			obs = append(obs, ingestObservation{
+				ExGitHubID: ra.ID, Period: w.Label,
+				Gravity: a.Gravity, Signal: a.Impact, Survival: a.Survival, Production: a.Production,
+				Catalysis: a.Catalysis, Design: a.Design, Breadth: a.Breadth,
+				Indispensability: a.Indispensability, DebtCleanup: a.DebtCleanup,
+				RoleArchetype: a.Role, StyleArchetype: a.Style, StateArchetype: a.State,
+			})
+		}
+		if len(obs) == 0 {
+			continue
+		}
+		sort.Slice(obs, func(i, j int) bool { return obs[i].ExGitHubID < obs[j].ExGitHubID })
+		payload := ingestPayload{
+			RunID:      runID,
+			ObservedAt: time.Now().UTC(),
+			Repos:      []ingestRepo{{FullName: repo.FullName, LanguageFamily: repo.LanguageFamily, Observations: obs}},
+		}
+		if dryRun {
+			fmt.Fprintf(os.Stderr, "  [dry-run] window %s: %d rows\n", w.Label, len(obs))
+			posted++
+			continue
+		}
+		if err := post(ctx, apiBase, token, payload); err != nil {
+			return posted, fmt.Errorf("window %s: %w", w.Label, err)
+		}
+		posted++
+	}
+	return posted, sc.Err()
 }
 
 func loadManifest(path string) (*repoManifest, error) {

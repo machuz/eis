@@ -25,6 +25,7 @@ repos:
   - { dir: argo-cd,     full_name: argoproj/argo-cd,          language_family: go }
   - { dir: prometheus,  full_name: prometheus/prometheus,     language_family: go }
   - { dir: redis,       full_name: redis/redis,               language_family: c }
+  - { dir: git,         full_name: git/git,                   language_family: c }
   - { dir: polars,      full_name: pola-rs/polars,            language_family: rust }
   - { dir: spring-boot, full_name: spring-projects/spring-boot, language_family: java }
   - { dir: react,       full_name: react/react,            language_family: javascript }

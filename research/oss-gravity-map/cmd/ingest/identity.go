@@ -98,9 +98,9 @@ func emailsByCount(byEmail map[string]int) []string {
 // resolver turns canonical author names into GitHub numeric ids. It layers three
 // email-keyed sources, cheapest first:
 //
-//	1. inline noreply id   — free, all-time, from the full git log
-//	2. Commits API         — email -> id over the repo's recent commits (bounded)
-//	3. /users/{login}      — for login-only noreply emails
+//  1. inline noreply id   — free, all-time, from the full git log
+//  2. Commits API         — email -> id over the repo's recent commits (bounded)
+//  3. /users/{login}      — for login-only noreply emails
 //
 // A display-name match is deliberately NOT used: it could attribute one
 // engineer's gravity to another's account. Email is the stable join key.
@@ -256,6 +256,24 @@ func (r *resolver) loginToID(ctx context.Context, login string) int64 {
 		r.loginID[login] = u.ID
 	}
 	return r.loginID[login]
+}
+
+// loginForID resolves a GitHub numeric id to its login via /user/{id}. Used to
+// backfill the login for a config-pinned author (config.AuthorGitHubIDs gives the
+// id; research_authors still wants the login). Best-effort: an empty login on
+// failure is acceptable (the entry is still keyed by the trusted id).
+func (r *resolver) loginForID(ctx context.Context, id int64) string {
+	body, status, err := r.get(ctx, fmt.Sprintf("https://api.github.com/user/%d", id))
+	if err != nil || status != http.StatusOK {
+		return ""
+	}
+	var u struct {
+		Login string `json:"login"`
+	}
+	if json.Unmarshal(body, &u) == nil {
+		return u.Login
+	}
+	return ""
 }
 
 func (r *resolver) get(ctx context.Context, url string) ([]byte, int, error) {

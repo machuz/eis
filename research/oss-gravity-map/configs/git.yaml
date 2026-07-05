@@ -1,0 +1,93 @@
+# EIS config for git
+# Language: c
+#
+# Research target for observing Linus Torvalds, git's founding architect. Linus
+# wrote the original object model / plumbing in 2005; Junio Hamano (gitster) has
+# maintained it since. Architecture patterns below cover git's CORE plumbing (the
+# object store, refs, index, revision walk, diff/merge) plus the porcelain in
+# builtin/ and the public headers — the files where structural decisions live.
+# Submit a PR to improve these patterns for fairer analysis.
+# See: https://github.com/machuz/eis/tree/main/research/oss-gravity-map
+sample_size: 2000
+blame_timeout: 300
+
+exclude_file_patterns:
+  - "*generated*"
+  - "*.gen.*"
+  - "**/t/**"          # git's test suite lives under t/
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/testdata/**"
+  - "**/fixtures/**"
+  - "**/perf/**"
+  - "compat/**"        # OS-portability shims, not core design
+  - "contrib/**"
+
+architecture_patterns:
+  # Object model + storage — the heart of git's design (Linus's 2005 core).
+  - "object.c"
+  - "object-file.c"
+  - "object-name.c"
+  - "sha1_file.c"      # legacy name for object-file.c pre-rename
+  - "sha1-file.c"
+  - "commit.c"
+  - "tree.c"
+  - "tree-walk.c"
+  - "blob.c"
+  - "tag.c"
+  - "refs.c"
+  - "refs/*.c"
+  - "commit-graph.c"
+  - "midx.c"
+  - "pack-objects.c"
+  - "pack-check.c"
+  - "packfile.c"
+  # Index / working tree — read-cache is Linus's original staging design.
+  - "read-cache.c"
+  - "cache-tree.c"
+  - "unpack-trees.c"
+  - "dir.c"
+  - "entry.c"
+  # History + integration — the revision walk, diff, and merge machinery.
+  - "revision.c"
+  - "diff.c"
+  - "diffcore-*.c"
+  - "merge-recursive.c"
+  - "merge-ort.c"
+  - "sequencer.c"
+  - "apply.c"
+  - "blame.c"
+  - "bisect.c"
+  - "log-tree.c"
+  # Setup / config / process plumbing.
+  - "setup.c"
+  - "environment.c"
+  - "config.c"
+  - "run-command.c"
+  - "pathspec.c"
+  # Porcelain commands + public headers (interfaces = design surface).
+  - "builtin/*.c"
+  - "*.h"
+
+blame_extensions:
+  - "*.c"
+  - "*.h"
+
+aliases:
+  "torvalds": "Linus Torvalds"
+  "Linus Torvalds (using nice.el)": "Linus Torvalds"
+  "gitster": "Junio C Hamano"
+  "Junio Hamano": "Junio C Hamano"
+
+# Linus's dominant git email is his 2005 founding-era address (pre-GitHub), so
+# email→id resolution can't reach it and he'd be dropped. Pin his canonical name
+# to his GitHub id so git's founding architect actually appears in the map.
+author_github_ids:
+  "Linus Torvalds": 1024025
+
+exclude_authors:
+  - "github-actions[bot]"
+  - "renovate[bot]"
+  - "dependabot[bot]"
+  - "web-flow"
+  - "bors[bot]"
