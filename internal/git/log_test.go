@@ -539,11 +539,38 @@ func TestIsBotIdentity(t *testing.T) {
 		{"dependabot[bot]", "x@users.noreply.github.com", true},
 		{"github-actions[bot]", "", true},
 		{"Copilot", "copilot@github.com", true},
-		{"Claudia Human", "claudia@example.com", false}, // human, not AI (email-anchored)
+		{"Cursor Agent", "cursoragent@cursor.com", true},
+		{"Devin", "devin@devin.ai", true},
+		{"Windsurf", "bot@codeium.com", true},
+		{"Cody", "cody@sourcegraph.com", true},
+		{"Claudia Human", "claudia@example.com", false},  // human, not AI (email-anchored)
+		{"Devin Nakamura", "devin.n@example.com", false}, // human named Devin, personal email
 	}
 	for _, c := range cases {
 		if got := isBotIdentity(c.name, c.email); got != c.bot {
 			t.Errorf("isBotIdentity(%q,%q)=%v want %v", c.name, c.email, got, c.bot)
 		}
+	}
+}
+
+func TestConfigureBotCoAuthorPatterns(t *testing.T) {
+	ConfigureBotCoAuthorPatterns(nil)
+	t.Cleanup(func() { ConfigureBotCoAuthorPatterns(nil) })
+	if isBotIdentity("Acmebot Helper", "x@y.com") {
+		t.Fatal("should not be a bot before configuration")
+	}
+	ConfigureBotCoAuthorPatterns([]string{"acmebot", "  ", ""}) // blanks ignored
+	if !isBotIdentity("Acmebot Helper", "x@y.com") {
+		t.Error("configured pattern should match in the name")
+	}
+	if !isBotIdentity("Whoever", "bot@acmebot.ai") {
+		t.Error("configured pattern should match in the email")
+	}
+	if isBotIdentity("Real Human", "person@example.com") {
+		t.Error("unrelated human must not match")
+	}
+	ConfigureBotCoAuthorPatterns(nil) // replaces, does not accumulate
+	if isBotIdentity("Acmebot Helper", "x@y.com") {
+		t.Error("patterns should be cleared on reconfigure")
 	}
 }

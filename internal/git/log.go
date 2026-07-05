@@ -71,22 +71,65 @@ func parseCoAuthorNames(field string) []string {
 	return out
 }
 
-// isBotIdentity reports whether a co-author is a bot or AI assistant (GitHub
-// "[bot]" apps, Claude, Copilot, …) rather than a human engineer, using the more
-// reliable email signal where present. Such co-authors are excluded from the
-// contributor split so an AI-assisted commit doesn't dilute the human author's
-// gravity — gravity is a measure of HUMAN durable contribution.
+// builtinBotEmailSuffixes are AI coding-assistant email domains used in
+// Co-authored-by trailers by their CLIs. Most AGENTS on GitHub already commit as
+// "…[bot]" accounts (caught by the [bot] rule), so this list targets the tool
+// trailers. Email-anchored to avoid excluding a human who shares a first name with
+// a tool (e.g. a person named "Devin").
+var builtinBotEmailSuffixes = []string{
+	"@anthropic.com",   // Claude
+	"@cursor.com",      // Cursor
+	"@cursor.sh",       //
+	"@devin.ai",        // Devin (Cognition)
+	"@codeium.com",     // Windsurf / Codeium
+	"@sourcegraph.com", // Cody — vendor bot address (humans use personal emails)
+}
+
+// builtinBotSubstrings match in the name OR email — only for handles distinctive
+// enough not to collide with a human name.
+var builtinBotSubstrings = []string{"copilot"}
+
+// extraBotCoAuthorPatterns are config-supplied substrings (lowercased) matched in
+// a co-author's name OR email. Set once per run via ConfigureBotCoAuthorPatterns —
+// a package var (like blameMoveArgs) because bot detection runs deep in the parser
+// where config isn't threaded. Lets a repo tag its own AI tools as non-human.
+var extraBotCoAuthorPatterns []string
+
+// ConfigureBotCoAuthorPatterns sets the run's extra bot/AI co-author patterns
+// (config bot_coauthor_patterns). Call once before parsing; empty entries ignored.
+func ConfigureBotCoAuthorPatterns(patterns []string) {
+	extraBotCoAuthorPatterns = extraBotCoAuthorPatterns[:0]
+	for _, p := range patterns {
+		if p = strings.ToLower(strings.TrimSpace(p)); p != "" {
+			extraBotCoAuthorPatterns = append(extraBotCoAuthorPatterns, p)
+		}
+	}
+}
+
+// isBotIdentity reports whether a co-author is a bot or AI assistant rather than a
+// human engineer, so it can be excluded from the contributor split (gravity is a
+// measure of HUMAN durable contribution). Checks the GitHub "[bot]" convention, a
+// built-in list of AI-tool email domains + handles, and any configured extras.
 func isBotIdentity(name, email string) bool {
 	n := strings.ToLower(strings.TrimSpace(name))
 	e := strings.ToLower(strings.TrimSpace(email))
 	if strings.HasSuffix(n, "[bot]") || strings.Contains(e, "[bot]") {
 		return true
 	}
-	switch {
-	case strings.HasSuffix(e, "@anthropic.com"): // Claude
-		return true
-	case strings.Contains(e, "copilot") || strings.Contains(n, "copilot"): // GitHub Copilot
-		return true
+	for _, s := range builtinBotEmailSuffixes {
+		if strings.HasSuffix(e, s) {
+			return true
+		}
+	}
+	for _, s := range builtinBotSubstrings {
+		if strings.Contains(n, s) || (e != "" && strings.Contains(e, s)) {
+			return true
+		}
+	}
+	for _, s := range extraBotCoAuthorPatterns {
+		if (n != "" && strings.Contains(n, s)) || (e != "" && strings.Contains(e, s)) {
+			return true
+		}
 	}
 	return false
 }

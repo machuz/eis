@@ -459,6 +459,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				fmt.Fprintf(os.Stderr, "  (cached)\n")
 			}
 		} else {
+			git.ConfigureBotCoAuthorPatterns(cfg.BotCoAuthorPatterns)
 			commits, err = git.ParseLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled())
 			spin.Stop()
 			if err != nil {

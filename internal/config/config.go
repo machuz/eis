@@ -11,14 +11,19 @@ import (
 )
 
 type Config struct {
-	Tau                  float64           `yaml:"tau"`
-	SampleSize           int               `yaml:"sample_size"`
-	DebtThreshold        int               `yaml:"debt_threshold"`
-	ExcludeFilePatterns  []string          `yaml:"exclude_file_patterns"`
-	ArchitecturePatterns []string          `yaml:"architecture_patterns"`
-	BlameExtensions      []string          `yaml:"blame_extensions"`
-	ExcludeAuthors       []string          `yaml:"exclude_authors"`
-	Aliases              map[string]string `yaml:"aliases"`
+	Tau                  float64  `yaml:"tau"`
+	SampleSize           int      `yaml:"sample_size"`
+	DebtThreshold        int      `yaml:"debt_threshold"`
+	ExcludeFilePatterns  []string `yaml:"exclude_file_patterns"`
+	ArchitecturePatterns []string `yaml:"architecture_patterns"`
+	BlameExtensions      []string `yaml:"blame_extensions"`
+	ExcludeAuthors       []string `yaml:"exclude_authors"`
+	// BotCoAuthorPatterns are extra substrings (matched in a Co-authored-by name or
+	// email) that mark a co-author as a bot/AI tool, on top of the built-in list
+	// ([bot], Claude, Copilot, Cursor, …). Excluded co-authors don't dilute the
+	// human author's gravity. Add your own AI tools here.
+	BotCoAuthorPatterns []string          `yaml:"bot_coauthor_patterns"`
+	Aliases             map[string]string `yaml:"aliases"`
 	// AuthorGitHubIDs pins a canonical author name (post-alias) to a GitHub numeric
 	// user id. It exists for the research ingest's identity resolver: a founder whose
 	// dominant commit email predates GitHub (e.g. Linus Torvalds' 2005 osdl.org

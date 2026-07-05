@@ -13,6 +13,14 @@ exclude_authors:
   - "renovate[bot]"
   - "dependabot[bot]"
 
+# Extra bot/AI Co-authored-by patterns (matched as a substring in the co-author's
+# name OR email). On top of the built-ins ([bot], Claude, Copilot, Cursor, Devin,
+# Windsurf/Codeium, Cody). Such co-authors are dropped from the contributor split
+# so an AI-assisted commit doesn't dilute the human author's gravity.
+bot_coauthor_patterns:
+  - "@my-internal-ai.example.com"
+  - "acme-copilot"
+
 # Domain classification (overrides auto-detection from file extensions)
 # Repos not listed here use auto-detection.
 # Scores are normalized within each domain separately.

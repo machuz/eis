@@ -223,6 +223,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			// cache hit
 		} else {
 			var err error
+			git.ConfigureBotCoAuthorPatterns(cfg.BotCoAuthorPatterns)
 			commits, err = git.ParseLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled())
 			if err != nil {
 				return nil, fmt.Errorf("parse log %s: %w", repoName, err)
