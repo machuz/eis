@@ -644,6 +644,20 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				blameLines[i].Authors = set
 			}
 		}
+		// Drop lines a `git subtree --squash` import collapsed onto the
+		// integrator (blame is at HEAD, so scan squashes reachable from HEAD).
+		// Unlike co-authored lines these have no recoverable author, so they
+		// credit no one rather than the squasher.
+		if !cfg.AttributeSubtreeSquash {
+			if squash, sqErr := git.SubtreeSquashCommits(ctx, repoPath, "HEAD"); sqErr == nil {
+				if kept, dropped := git.DropSubtreeSquashBlame(blameLines, squash); dropped > 0 {
+					blameLines = kept
+					if blameVerbose != nil {
+						blameVerbose(fmt.Sprintf("  [blame] subtree-squash: suppressed %d imported line(s) from %d import commit(s)", dropped, len(squash)))
+					}
+				}
+			}
+		}
 		blameLines = filterBlameLines(blameLines, cfg)
 
 		// Build the test-coverage lookup for this repo. Uses the filtered blame

@@ -44,6 +44,13 @@ type Config struct {
 	// default) | commit (-M -C) | full (-M -C -C). Higher levels recover the
 	// original author of lines moved across files at higher cost on large repos.
 	BlameMoveDetection string `yaml:"blame_move_detection"`
+	// AttributeSubtreeSquash controls whether lines introduced by a
+	// `git subtree ... --squash` import are credited to the integrator who ran
+	// the command. Default false = suppress: such lines collapse the true
+	// authors into the squasher (blame has no one else to point at, and --squash
+	// discarded the originals), so crediting them is always wrong. Set true only
+	// to restore the pre-fix behavior. See git.SubtreeSquashCommits.
+	AttributeSubtreeSquash bool `yaml:"attribute_subtree_squash"`
 	// ModulePatterns is the set of glob patterns used by module resolution.
 	// Each pattern's components are matched against a file path; `*` matches
 	// a SINGLE path component (no `/`). On match, the module identifier is
