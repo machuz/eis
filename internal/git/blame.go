@@ -27,6 +27,32 @@ type BlameLine struct {
 	Author        string
 	CommitterTime time.Time
 	Filename      string
+	// Commit is the SHA that last touched this line (the porcelain block header).
+	// Used to look up the commit's Co-authored-by set.
+	Commit string
+	// Authors is the full canonical contributor set for this line's commit
+	// ({Author} ∪ Co-authors), populated by the pipeline for co-authored commits.
+	// Empty for the common solo-author line — survival then credits Author alone.
+	Authors []string
+}
+
+// blameSHA reports whether a porcelain line is a commit-block header
+// ("<40-hex-sha> <orig> <final> [<group>]") and returns the SHA. Every line's
+// block under --line-porcelain begins with this header.
+func blameSHA(line string) (string, bool) {
+	if len(line) < 40 {
+		return "", false
+	}
+	if len(line) > 40 && line[40] != ' ' {
+		return "", false
+	}
+	for i := 0; i < 40; i++ {
+		c := line[i]
+		if (c < '0' || c > '9') && (c < 'a' || c > 'f') {
+			return "", false
+		}
+	}
+	return line[:40], true
 }
 
 func ListFiles(ctx context.Context, repoPath string, patterns []string) ([]string, error) {
@@ -338,6 +364,7 @@ func BlameFiles(ctx context.Context, repoPath string, files []string, maxFiles i
 func parsePorcelainBlame(lines []string, defaultFilename string) []BlameLine {
 	var result []BlameLine
 	var author string
+	var sha string
 	var committerTime time.Time
 	filename := defaultFilename
 
@@ -345,6 +372,10 @@ func parsePorcelainBlame(lines []string, defaultFilename string) []BlameLine {
 	filterFor := defaultFilename
 
 	for _, line := range lines {
+		if s, ok := blameSHA(line); ok {
+			sha = s
+			continue
+		}
 		switch {
 		case strings.HasPrefix(line, "author "):
 			author = strings.TrimPrefix(line, "author ")
@@ -367,6 +398,7 @@ func parsePorcelainBlame(lines []string, defaultFilename string) []BlameLine {
 					Author:        author,
 					CommitterTime: committerTime,
 					Filename:      filename,
+					Commit:        sha,
 				})
 			}
 			author = ""
@@ -386,6 +418,7 @@ func BlameFileStream(ctx context.Context, repoPath, filepath string) ([]BlameLin
 
 	var result []BlameLine
 	var author string
+	var sha string
 	var committerTime time.Time
 	filename := filepath
 	filter := NewFileFilter(filepath)
@@ -396,6 +429,10 @@ func BlameFileStream(ctx context.Context, repoPath, filepath string) ([]BlameLin
 
 	for scanner.Scan() {
 		line := scanner.Text()
+		if s, ok := blameSHA(line); ok {
+			sha = s
+			continue
+		}
 		switch {
 		case strings.HasPrefix(line, "author "):
 			author = strings.TrimPrefix(line, "author ")
@@ -417,6 +454,7 @@ func BlameFileStream(ctx context.Context, repoPath, filepath string) ([]BlameLin
 					Author:        author,
 					CommitterTime: committerTime,
 					Filename:      filename,
+					Commit:        sha,
 				})
 			}
 			author = ""
@@ -519,6 +557,7 @@ func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath strin
 
 	var result []BlameLine
 	var author string
+	var sha string
 	var committerTime time.Time
 	filename := filepath
 	filter := NewFileFilter(filepath)
@@ -529,6 +568,10 @@ func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath strin
 
 	for scanner.Scan() {
 		line := scanner.Text()
+		if s, ok := blameSHA(line); ok {
+			sha = s
+			continue
+		}
 		switch {
 		case strings.HasPrefix(line, "author "):
 			author = strings.TrimPrefix(line, "author ")
@@ -550,6 +593,7 @@ func BlameFileAtCommit(ctx context.Context, repoPath, commitHash, filepath strin
 					Author:        author,
 					CommitterTime: committerTime,
 					Filename:      filename,
+					Commit:        sha,
 				})
 			}
 			author = ""

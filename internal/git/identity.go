@@ -64,11 +64,11 @@ func BuildIdentityMap(commits []Commit) map[string]string {
 // is NOT shared — it identifies one account, and collapsing its name variants is
 // exactly the intent — so only the generic, account-less addresses are excluded.
 var sharedEmails = map[string]bool{
-	"web-flow@github.com":          true, // GitHub web-UI commits, authored by anyone
-	"noreply@github.com":           true,
-	"actions@github.com":           true,
-	"github-actions@github.com":    true,
-	"githubactions@github.com":     true,
+	"web-flow@github.com":                                   true, // GitHub web-UI commits, authored by anyone
+	"noreply@github.com":                                    true,
+	"actions@github.com":                                    true,
+	"github-actions@github.com":                             true,
+	"githubactions@github.com":                              true,
 	"41898282+github-actions[bot]@users.noreply.github.com": true,
 }
 
@@ -113,6 +113,11 @@ func CanonicalizeAuthors(commits []Commit, blame []BlameLine, idmap map[string]s
 	for i := range commits {
 		if c, ok := idmap[commits[i].Author]; ok {
 			commits[i].Author = c
+		}
+		for j, ca := range commits[i].CoAuthors {
+			if c, ok := idmap[ca]; ok {
+				commits[i].CoAuthors[j] = c
+			}
 		}
 	}
 	for i := range blame {

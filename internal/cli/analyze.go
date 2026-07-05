@@ -634,8 +634,15 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Collapse split identities on blame authors (by name, via the commit
 		// email map), then apply config aliases — same order as the commit path.
 		git.CanonicalizeAuthors(nil, blameLines, idmap)
+		// Attach each line's co-author set (by commit SHA) so survival is split
+		// across squash/pair co-authors. Built from the canonicalized commits, so
+		// the sets carry the same author keys as the blame primaries.
+		coMap := metric.CoAuthorMap(commits)
 		for i := range blameLines {
 			blameLines[i].Author = cfg.ResolveAuthor(blameLines[i].Author)
+			if set, ok := coMap[blameLines[i].Commit]; ok {
+				blameLines[i].Authors = set
+			}
 		}
 		blameLines = filterBlameLines(blameLines, cfg)
 
@@ -1059,9 +1066,30 @@ func filterCommits(commits []git.Commit, cfg *config.Config) []git.Commit {
 		if cfg.IsExcludedAuthor(c.Author) {
 			continue
 		}
+		c.CoAuthors = resolveCoAuthors(c.CoAuthors, c.Author, cfg)
 		result = append(result, c)
 	}
 	return result
+}
+
+// resolveCoAuthors aliases each Co-authored-by name, drops excluded authors and
+// any that coincide with the primary (so the primary is never double-counted).
+func resolveCoAuthors(coAuthors []string, primary string, cfg *config.Config) []string {
+	if len(coAuthors) == 0 {
+		return nil
+	}
+	out := coAuthors[:0]
+	for _, a := range coAuthors {
+		a = cfg.ResolveAuthor(a)
+		if a == "" || a == primary || cfg.IsExcludedAuthor(a) {
+			continue
+		}
+		out = append(out, a)
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
 }
 
 // filterFileStats removes excluded file patterns from commit FileStats
