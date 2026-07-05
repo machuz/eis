@@ -51,8 +51,17 @@ func CalcDesign(commits []git.Commit, archPatterns []string) map[string]float64 
 // passed by the caller, the window boundary), matching CalcSurvival (W-02).
 func CalcDesignSurviving(blameLines []git.BlameLine, archPatterns []string, tau float64, now time.Time) map[string]float64 {
 	result := make(map[string]float64)
+	// isArchFile normalizes the path and matches every arch pattern, so calling it
+	// per blame line re-does that work for every line of the same file. A file has
+	// many blame lines, so memoize the verdict per filename.
+	archFileCache := make(map[string]bool)
 	for _, bl := range blameLines {
-		if !isArchFile(bl.Filename, archPatterns) {
+		isArch, cached := archFileCache[bl.Filename]
+		if !cached {
+			isArch = isArchFile(bl.Filename, archPatterns)
+			archFileCache[bl.Filename] = isArch
+		}
+		if !isArch {
 			continue
 		}
 		daysAlive := now.Sub(bl.CommitterTime).Hours() / 24
