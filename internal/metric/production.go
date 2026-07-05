@@ -2,6 +2,7 @@ package metric
 
 import (
 	"path/filepath"
+	"strings"
 
 	"github.com/machuz/eis/v2/internal/git"
 )
@@ -54,4 +55,25 @@ func IsExcluded(filename string, patterns []string) bool {
 		}
 	}
 	return false
+}
+
+// EscapeGlob quotes filepath.Match metacharacters so a literal path becomes a
+// pattern matching only itself. Used to fold exact .gitattributes-excluded paths
+// (linguist-generated / linguist-vendored) into the pattern-based exclusion that
+// IsExcluded drives, without a path that happens to contain *, ?, [ or \ turning
+// into an over-broad glob.
+func EscapeGlob(path string) string {
+	if !strings.ContainsAny(path, `*?[\`) {
+		return path
+	}
+	var b strings.Builder
+	b.Grow(len(path) + 4)
+	for _, r := range path {
+		switch r {
+		case '*', '?', '[', '\\':
+			b.WriteByte('\\')
+		}
+		b.WriteRune(r)
+	}
+	return b.String()
 }

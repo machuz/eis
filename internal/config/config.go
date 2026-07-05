@@ -94,6 +94,11 @@ type Config struct {
 	// survival + catalysis, not from raw insertion counts), so the fast path is
 	// well suited to timeline / large-repo runs where speed matters most.
 	CommentFilter *bool `yaml:"comment_filter"`
+	// RespectGitattributes controls whether paths marked linguist-generated or
+	// linguist-vendored in .gitattributes are excluded from blame + change-volume
+	// metrics (so generated / vendored files can't inflate gravity). Default true.
+	// Set false to consider every tracked file regardless of attributes.
+	RespectGitattributes *bool `yaml:"respect_gitattributes"`
 	// ModuleLivenessMinMonths is the module liveness gate threshold (ADR step
 	// 2). A FALLBACK-derived module (the conservative 2-component default —
 	// where date-dir / DML / dump pollution enters) earns module-hood only by
@@ -229,6 +234,12 @@ type BusFactor struct {
 // CommentFilterEnabled reports whether ParseLog should request full patches to
 // strip comment/blank lines. It defaults to true; only an explicit
 // `comment_filter: false` (or --no-comment-filter) turns on the fast numstat path.
+// RespectGitattributesEnabled reports whether linguist-generated/vendored paths
+// should be excluded. Defaults to true (nil → on), like CommentFilter.
+func (c *Config) RespectGitattributesEnabled() bool {
+	return c.RespectGitattributes == nil || *c.RespectGitattributes
+}
+
 func (c *Config) CommentFilterEnabled() bool {
 	return c.CommentFilter == nil || *c.CommentFilter
 }

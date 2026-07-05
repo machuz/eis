@@ -475,9 +475,14 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		idmap := git.BuildIdentityMap(commits)
 		git.CanonicalizeAuthors(commits, nil, idmap)
 
+		// Effective exclusions: config patterns + .gitattributes linguist-generated
+		// /vendored paths (so generated/vendored files don't inflate gravity). Used
+		// by every file filter below, so blame + change-volume agree.
+		excludes := effectiveExcludes(ctx, repoPath, cfg)
+
 		// Apply author aliases, filter excluded authors, and strip excluded file patterns
 		commits = filterCommits(commits, cfg)
-		commits = filterFileStats(commits, cfg.ExcludeFilePatterns)
+		commits = filterFileStats(commits, excludes)
 
 		// Detect and exclude reverted commits (both originals and revert commits).
 		// This ensures that code merged then reverted doesn't inflate metrics.
@@ -517,11 +522,11 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 
 		// Production (non-merge only)
-		prod := metric.CalcProduction(commits, cfg.ExcludeFilePatterns)
+		prod := metric.CalcProduction(commits, excludes)
 		mergeMap(acc.raw.Production, prod)
 
 		// Lines added/deleted
-		added, deleted := metric.CalcLines(commits, cfg.ExcludeFilePatterns)
+		added, deleted := metric.CalcLines(commits, excludes)
 		mergeMapInt(acc.raw.LinesAdded, added)
 		mergeMapInt(acc.raw.LinesDeleted, deleted)
 
@@ -586,7 +591,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 
 		// Filter out excluded file patterns from blame targets
-		files = filterFiles(files, cfg.ExcludeFilePatterns)
+		files = filterFiles(files, excludes)
 
 		var blameVerbose func(string)
 		if opts.Verbose {
@@ -1088,6 +1093,27 @@ func filterFiles(files []string, excludePatterns []string) []string {
 		}
 	}
 	return result
+}
+
+// effectiveExcludes returns the file-exclusion patterns for a repo: the config
+// patterns plus, when respect_gitattributes is on, the linguist-generated /
+// vendored paths (escaped to exact-match globs) so generated/vendored files don't
+// inflate gravity. Best-effort — a git error falls back to the config patterns
+// (real files are never dropped on an attribute-setup edge).
+func effectiveExcludes(ctx context.Context, repoPath string, cfg *config.Config) []string {
+	if !cfg.RespectGitattributesEnabled() {
+		return cfg.ExcludeFilePatterns
+	}
+	gen, err := git.LinguistExcluded(ctx, repoPath)
+	if err != nil || len(gen) == 0 {
+		return cfg.ExcludeFilePatterns
+	}
+	out := make([]string, 0, len(cfg.ExcludeFilePatterns)+len(gen))
+	out = append(out, cfg.ExcludeFilePatterns...)
+	for _, p := range gen {
+		out = append(out, metric.EscapeGlob(p))
+	}
+	return out
 }
 
 // filterRevertedCommits removes commits whose hashes are in the reverted set.
