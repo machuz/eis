@@ -39,6 +39,7 @@ func runTimeline(args []string) error {
 	pressureMode := fs.String("pressure-mode", "include", "Change pressure mode: include or ignore")
 	verbose := fs.Bool("verbose", false, "Show detailed debug output")
 	fastLog := fs.Bool("fast-log", false, "Skip git log -p comment filtering (numstat-only) — much faster on large repos; gravity is essentially unaffected")
+	blameMove := fs.String("blame-move", "", "Override blame move/copy detection (off|file|commit|full); empty = config. `off` drops git blame's -M and is markedly faster per window — worth it on full-history monthly runs where co-author move attribution isn't needed.")
 	_ = fs.Bool("no-cache", false, "Skip disk cache (currently unused with library mode)")
 
 	flagArgs, pathArgs := separateArgs(args, fs)
@@ -90,6 +91,9 @@ func runTimeline(args []string) error {
 	if *fastLog {
 		off := false
 		cfg.CommentFilter = &off
+	}
+	if *blameMove != "" {
+		cfg.BlameMoveDetection = *blameMove // pkgtimeline.Run reads this and configures blame accordingly
 	}
 
 	quiet := *formatFlag == "json" || *formatFlag == "csv" || *formatFlag == "html" || *formatFlag == "svg" || *streamFlag

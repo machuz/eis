@@ -45,6 +45,12 @@ DRY_RUN="${DRY_RUN:-0}"
 FAST_LOG="${FAST_LOG:-0}"
 fast_flag=""
 [ "$FAST_LOG" = "1" ] && fast_flag="--fast-log"
+# Blame workers (the per-window blame is the monthly bottleneck) and move detection.
+# The map ranks by gravity/archetype, not by whose lines moved where, so -M's per-window
+# cost buys nothing here — drop it (BLAME_MOVE=off). Oversubscribe the runner's cores a
+# little since blame is git-subprocess-bound (I/O waits the extra workers can fill).
+WORKERS="${WORKERS:-8}"
+BLAME_MOVE="${BLAME_MOVE:-off}"
 
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
@@ -108,7 +114,7 @@ for row in "${DIRS[@]}"; do
   [ "$DRY_RUN" = "1" ] && ingest_flags+=(--dry-run)
 
   # shellcheck disable=SC2086
-  if "$EIS_BIN" timeline $cfg_flag $fast_flag --stream --span "$TIMELINE_SPAN" --periods "$TIMELINE_PERIODS" "$DATA_REPOS/$dir" 2>/dev/null \
+  if "$EIS_BIN" timeline $cfg_flag $fast_flag --stream --blame-move "$BLAME_MOVE" --workers "$WORKERS" --span "$TIMELINE_SPAN" --periods "$TIMELINE_PERIODS" "$DATA_REPOS/$dir" 2>/dev/null \
        | "$INGEST_BIN" "${ingest_flags[@]}"; then
     ingested=$((ingested + 1))
   else
