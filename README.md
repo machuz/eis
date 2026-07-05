@@ -91,7 +91,7 @@ From these signals, EIS derives **Roles** (Architect, Anchor, Producer...), **St
 
 ```bash
 # Install
-go install github.com/machuz/eis/cmd/eis@latest
+go install github.com/machuz/eis/v2/cmd/eis@latest
 # or
 brew tap machuz/tap && brew install eis
 
@@ -560,7 +560,7 @@ Telescope     →     EIS
 - [x] JSON / CSV output format (`--format json|csv`)
 - [x] Team-level analysis (`eis team`) with 7 health axes
 - [x] **Module Topology** — 3-axis module classification (Coupling / Vitality / Ownership) with 4 structural indicators
-- [ ] GitHub Action for automated quarterly tracking
+- [x] GitHub Action (`uses: machuz/eis@v2`) for automated tracking in CI
 - [x] Timeline analysis (`eis timeline`) with per-period profiling
 - [x] Chart visualization (`--format ascii|html|svg`)
 - [ ] **[OSS Gravity Map](research/oss-gravity-map/)** — empirical validation against 25 major OSS projects (React, Kubernetes, Terraform, Redis, Rust, etc.). Architect detection, hidden architect discovery, entropy fighter detection, collapse risk analysis. ~50,000 engineers across 8 languages. [Configs open for PRs](research/oss-gravity-map/CONTRIBUTING.md)
