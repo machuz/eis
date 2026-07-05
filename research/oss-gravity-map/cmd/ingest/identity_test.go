@@ -95,3 +95,19 @@ func TestResolve_PrefersInlineNoreply_NoAPI(t *testing.T) {
 		t.Errorf("Bob must stay unresolved without a token/inline id, got %+v", got["Bob"])
 	}
 }
+
+// TestResolveViaAPI_CarriesCommitsAPILogin locks the fix: an author resolved
+// through the Commits-API email map (a normal, non-noreply email) must come back
+// NAMED — both id and login — not id-only. Before the fix this path returned
+// {ID} with a blank login, so the whole non-noreply long tail (many top OSS
+// committers, e.g. antirez) stayed a scoreless Member-N even under dev reveal.
+func TestResolveViaAPI_CarriesCommitsAPILogin(t *testing.T) {
+	r := newResolver("", 0)
+	repoMail := map[string]resolvedAuthor{
+		"salvatore@example.com": {ID: 65632, Login: "antirez"},
+	}
+	got, ok := r.resolveViaAPI(context.Background(), []string{"salvatore@example.com"}, repoMail)
+	if !ok || got.ID != 65632 || got.Login != "antirez" {
+		t.Errorf("resolveViaAPI = %+v (ok=%v), want id=65632 login=antirez", got, ok)
+	}
+}

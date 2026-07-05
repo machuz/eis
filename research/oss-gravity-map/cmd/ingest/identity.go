@@ -109,8 +109,8 @@ type resolver struct {
 	githubToken string
 	maxPages    int
 	// caches, keyed to avoid re-hitting the API
-	loginID  map[string]int64            // login -> id (/users)
-	repoMail map[string]map[string]int64 // "owner/repo" -> email -> id (Commits API)
+	loginID  map[string]int64                     // login -> id (/users)
+	repoMail map[string]map[string]resolvedAuthor // "owner/repo" -> email -> {id, login} (Commits API)
 }
 
 func newResolver(githubToken string, maxPages int) *resolver {
@@ -119,7 +119,7 @@ func newResolver(githubToken string, maxPages int) *resolver {
 		githubToken: githubToken,
 		maxPages:    maxPages,
 		loginID:     map[string]int64{},
-		repoMail:    map[string]map[string]int64{},
+		repoMail:    map[string]map[string]resolvedAuthor{},
 	}
 }
 
@@ -170,10 +170,15 @@ func resolveInlineNoreply(orderedEmails []string) (resolvedAuthor, bool) {
 
 // resolveViaAPI resolves through the Commits-API email map first, then falls back
 // to a /users/{login} lookup for login-only noreply emails.
-func (r *resolver) resolveViaAPI(ctx context.Context, orderedEmails []string, repoMail map[string]int64) (resolvedAuthor, bool) {
+func (r *resolver) resolveViaAPI(ctx context.Context, orderedEmails []string, repoMail map[string]resolvedAuthor) (resolvedAuthor, bool) {
 	for _, e := range orderedEmails {
-		if id := repoMail[e]; id > 0 {
-			return resolvedAuthor{ID: id}, true
+		if ra, ok := repoMail[e]; ok && ra.ID > 0 {
+			// Carry the login the Commits API already returned alongside the id, so
+			// an author with an ordinary (non-noreply) email is NAMED, not left as a
+			// scoreless Member-N. Without this the whole non-noreply long tail — many
+			// top OSS committers — was id-resolved but login-blank, so even the dev
+			// "reveal all" toggle couldn't show them.
+			return ra, true
 		}
 	}
 	for _, e := range orderedEmails {
@@ -190,11 +195,11 @@ func (r *resolver) resolveViaAPI(ctx context.Context, orderedEmails []string, re
 // commits via the GitHub Commits API. Bounded to maxPages * 100 commits — this is
 // a best-effort enrichment for authors whose dominant email isn't a noreply, not
 // an exhaustive sweep. Cached per repo for the run.
-func (r *resolver) repoEmailIDs(ctx context.Context, fullName string) map[string]int64 {
+func (r *resolver) repoEmailIDs(ctx context.Context, fullName string) map[string]resolvedAuthor {
 	if m, ok := r.repoMail[fullName]; ok {
 		return m
 	}
-	m := map[string]int64{}
+	m := map[string]resolvedAuthor{}
 	r.repoMail[fullName] = m
 	parts := strings.SplitN(fullName, "/", 2)
 	if len(parts) != 2 {
@@ -207,7 +212,8 @@ func (r *resolver) repoEmailIDs(ctx context.Context, fullName string) map[string
 			} `json:"author"`
 		} `json:"commit"`
 		Author *struct {
-			ID int64 `json:"id"`
+			ID    int64  `json:"id"`
+			Login string `json:"login"`
 		} `json:"author"`
 	}
 	for page := 1; page <= r.maxPages; page++ {
@@ -229,7 +235,7 @@ func (r *resolver) repoEmailIDs(ctx context.Context, fullName string) map[string
 				continue
 			}
 			if _, seen := m[email]; !seen {
-				m[email] = e.Author.ID
+				m[email] = resolvedAuthor{ID: e.Author.ID, Login: e.Author.Login}
 			}
 		}
 		if len(batch) < 100 {
