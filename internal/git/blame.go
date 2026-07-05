@@ -281,7 +281,11 @@ func BlameFile(ctx context.Context, repoPath, filepath string) ([]BlameLine, err
 	return parsePorcelainBlame(lines, filepath), nil
 }
 
-func BlameFileAtParent(ctx context.Context, repoPath, commitHash, filepath string) ([]string, error) {
+// BlameFileAtParent blames a file at commitHash's parent and returns one
+// BlameLine per surviving code line, carrying the Author and the Commit SHA that
+// last touched it. The SHA lets the debt metric look up that original commit's
+// Co-authored-by set and split "who generated this debt" across co-authors.
+func BlameFileAtParent(ctx context.Context, repoPath, commitHash, filepath string) ([]BlameLine, error) {
 	lines, err := RunLines(ctx, repoPath, blameArgs(commitHash+"^", "--", filepath)...)
 	if err != nil {
 		return nil, err
@@ -291,12 +295,16 @@ func BlameFileAtParent(ctx context.Context, repoPath, commitHash, filepath strin
 	filename := filepath
 	filterFor := filepath
 
-	var authors []string
-	var pendingAuthor string
+	var result []BlameLine
+	var author, sha string
 	for _, line := range lines {
+		if s, ok := blameSHA(line); ok {
+			sha = s
+			continue
+		}
 		switch {
 		case strings.HasPrefix(line, "author "):
-			pendingAuthor = strings.TrimPrefix(line, "author ")
+			author = strings.TrimPrefix(line, "author ")
 		case strings.HasPrefix(line, "filename "):
 			filename = strings.TrimPrefix(line, "filename ")
 			if filename != filterFor {
@@ -305,13 +313,13 @@ func BlameFileAtParent(ctx context.Context, repoPath, commitHash, filepath strin
 			}
 		case strings.HasPrefix(line, "\t"):
 			content := line[1:]
-			if pendingAuthor != "" && !filter.IsSkip(content) {
-				authors = append(authors, pendingAuthor)
+			if author != "" && !filter.IsSkip(content) {
+				result = append(result, BlameLine{Author: author, Commit: sha})
 			}
-			pendingAuthor = ""
+			author = ""
 		}
 	}
-	return authors, nil
+	return result, nil
 }
 
 func DiffTreeFiles(ctx context.Context, repoPath, commitHash string) ([]string, error) {

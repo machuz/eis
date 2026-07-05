@@ -677,7 +677,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					if cacheStore.Get(debtCacheKey, &debt) {
 						// cached
 					} else {
-						debt, _ = metric.CalcDebt(ctx, repo.path, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor, nil, nil)
+						debt, _ = metric.CalcDebt(ctx, repo.path, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor, metric.CoAuthorMap(repo.commits), nil, nil)
 						if len(debt) > 0 {
 							cacheStore.Set(debtCacheKey, debt)
 						}

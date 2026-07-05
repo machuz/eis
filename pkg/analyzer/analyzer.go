@@ -403,7 +403,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		if cb.OnDebtProgress != nil {
 			debtProg = metric.ProgressFunc(cb.OnDebtProgress)
 		}
-		debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor, debtProg, debtVerbose)
+		debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor, metric.CoAuthorMap(commits), debtProg, debtVerbose)
 		mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
 
 		if opts.PerRepo {
