@@ -755,6 +755,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		} else {
 			debtProg := newLiveProgress("[3/4] Debt")
 			debt, _ = metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor,
+				metric.CoAuthorMap(commits),
 				func(done, total int) {
 					debtProg.Update(done, total)
 				}, debtVerbose)

@@ -10,8 +10,8 @@ import (
 )
 
 type DebtData struct {
-	Generated map[string]int
-	Cleaned   map[string]int
+	Generated map[string]float64
+	Cleaned   map[string]float64
 }
 
 // ResolveFunc maps a git author name to its canonical name
@@ -27,9 +27,12 @@ type VerboseFunc func(msg string)
 // 50 = neutral (equal generation and cleanup, or insufficient data)
 // >50 = net cleaner, <50 = net debt creator
 // Formula: 50 + 50 * (cleaned - generated) / (cleaned + generated)
-func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, maxSample int, debtThreshold int, blameTimeoutSec int, resolve ResolveFunc, progressFn ProgressFunc, verboseFn VerboseFunc) (map[string]float64, *DebtData) {
-	generated := make(map[string]int)
-	cleaned := make(map[string]int)
+// coMap (commit SHA → contributor set) lets the "who generated this debt" side be
+// split across the original lines' co-authors, matching the fixer side which
+// splits across the fix commit's co-authors. Pass nil to disable co-author split.
+func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, maxSample int, debtThreshold int, blameTimeoutSec int, resolve ResolveFunc, coMap map[string][]string, progressFn ProgressFunc, verboseFn VerboseFunc) (map[string]float64, *DebtData) {
+	generated := make(map[string]float64)
+	cleaned := make(map[string]float64)
 
 	if resolve == nil {
 		resolve = func(s string) string { return s }
@@ -48,7 +51,10 @@ func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, max
 			break
 		}
 
-		fixer := resolve(fc.Author)
+		fixer := resolve(fc.Author) // display / logging
+		// The fix commit's contributor set shares the cleanup credit.
+		fixerSet := CommitAuthors(fc)
+		fShare := 1.0 / float64(len(fixerSet))
 		commitStart := time.Now()
 
 		// Get changed files
@@ -81,7 +87,7 @@ func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, max
 			}
 			fileCtx, fileCancel := context.WithTimeout(ctx, timeout)
 			fileStart := time.Now()
-			authors, err := git.BlameFileAtParent(fileCtx, repoPath, fc.Hash, f)
+			blLines, err := git.BlameFileAtParent(fileCtx, repoPath, fc.Hash, f)
 			timedOut := fileCtx.Err() != nil
 			fileCancel()
 			elapsed := time.Since(fileStart)
@@ -97,17 +103,35 @@ func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, max
 			}
 			if verboseFn != nil {
 				if elapsed > 2*time.Second {
-					verboseFn(fmt.Sprintf("    blame %s: %d authors (SLOW: %v)", f, len(authors), elapsed.Round(time.Millisecond)))
+					verboseFn(fmt.Sprintf("    blame %s: %d lines (SLOW: %v)", f, len(blLines), elapsed.Round(time.Millisecond)))
 				} else {
-					verboseFn(fmt.Sprintf("    blame %s: %d authors (%v)", f, len(authors), elapsed.Round(time.Millisecond)))
+					verboseFn(fmt.Sprintf("    blame %s: %d lines (%v)", f, len(blLines), elapsed.Round(time.Millisecond)))
 				}
 			}
 
-			for _, origAuthor := range authors {
-				origAuthor = resolve(origAuthor)
-				if origAuthor != fixer && origAuthor != "" {
-					generated[origAuthor]++
-					cleaned[fixer]++
+			// Each original line's debt is split across its co-authors (via coMap),
+			// and its cleanup credit across the fixer's co-authors — the cross-product
+			// of shares. Self-cleaning (an author fixing their own line) is excluded,
+			// as before. Per line the shares sum to ~1, so magnitudes are preserved.
+			for _, bl := range blLines {
+				origSet := coMap[bl.Commit]
+				if len(origSet) == 0 {
+					origSet = []string{resolve(bl.Author)}
+				}
+				oShare := 1.0 / float64(len(origSet))
+				for _, oa := range origSet {
+					if oa == "" {
+						continue
+					}
+					for _, fx := range fixerSet {
+						fxr := resolve(fx)
+						if fxr == "" || oa == fxr {
+							continue
+						}
+						w := oShare * fShare
+						generated[oa] += w
+						cleaned[fxr] += w
+					}
 				}
 			}
 		}
@@ -138,14 +162,14 @@ func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, max
 		cln := cleaned[author]
 		total := gen + cln
 
-		if total < debtThreshold {
+		if total < float64(debtThreshold) {
 			result[author] = 50 // neutral: insufficient data
 			continue
 		}
 
 		// Score: 50 + 50 * (cleaned - generated) / (cleaned + generated)
 		// Range: 0 (pure debt creator) to 100 (pure cleaner), 50 = balanced
-		score := 50.0 + 50.0*float64(cln-gen)/float64(total)
+		score := 50.0 + 50.0*(cln-gen)/total
 		result[author] = math.Max(0, math.Min(100, score))
 	}
 
