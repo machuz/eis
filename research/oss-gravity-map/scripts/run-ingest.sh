@@ -95,23 +95,21 @@ for row in "${DIRS[@]}"; do
   "$EIS_BIN" analyze $cfg_flag $fast_flag --format json "$DATA_REPOS/$dir" \
     2>/dev/null | sed '/^Analyzing:/d; /^Loaded /d; /^SKIP:/d' > "$DATA_RESULTS/$dir.json"
 
-  # Timeline (軌跡): per-period windows over the full history. Best-effort — a
-  # failure just leaves the cumulative standing (the ingest tool treats a missing
-  # timeline file as optional). The blame cache ($HOME/.eis/cache, persisted by the
-  # workflow) is shared with analyze above, so the per-period blames reuse warmed
-  # entries across runs.
-  # shellcheck disable=SC2086
-  "$EIS_BIN" timeline $cfg_flag $fast_flag --format json --span "$TIMELINE_SPAN" --periods "$TIMELINE_PERIODS" "$DATA_REPOS/$dir" \
-    2>/dev/null | sed '/^Analyzing:/d; /^Loaded /d; /^SKIP:/d' > "$DATA_RESULTS/$dir-timeline.json" || true
-
+  # Timeline (軌跡): per-period windows over the full history, STREAMED. `eis timeline
+  # --stream` emits one NDJSON window the moment it finishes scoring; the ingest reads
+  # them on stdin and POSTs each as it arrives (after POSTing the cumulative standing
+  # first). So a kill mid-run on a multi-hour giant keeps every window already scored,
+  # instead of losing the whole repo's trajectory. The blame cache ($HOME/.eis/cache,
+  # persisted by the workflow) warms the per-window blames across runs.
   ingest_flags=(--manifest "$MANIFEST" --results-dir "$DATA_RESULTS" \
-    --timeline-dir "$DATA_RESULTS" \
     --repos-dir "$DATA_REPOS" --configs-dir "$CONFIGS" \
     --run-id "$RUN_ID" --api-base "$API_BASE" \
-    --max-commit-pages "$MAX_COMMIT_PAGES" --only "$dir")
+    --max-commit-pages "$MAX_COMMIT_PAGES" --only "$dir" --stream-timeline)
   [ "$DRY_RUN" = "1" ] && ingest_flags+=(--dry-run)
 
-  if "$INGEST_BIN" "${ingest_flags[@]}"; then
+  # shellcheck disable=SC2086
+  if "$EIS_BIN" timeline $cfg_flag $fast_flag --stream --span "$TIMELINE_SPAN" --periods "$TIMELINE_PERIODS" "$DATA_REPOS/$dir" 2>/dev/null \
+       | "$INGEST_BIN" "${ingest_flags[@]}"; then
     ingested=$((ingested + 1))
   else
     echo "WARN ingest failed for $full (continuing)"
