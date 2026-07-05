@@ -1,6 +1,6 @@
 # Engineering Impact Signal: Quantifying Software Engineering Contributions from Git History
 
-**Version 0.12.0** — March 2026
+**Version 0.13.0** — July 2026 (tracks eis v2.22.x)
 
 **Author:** machuz ([@machuz](https://github.com/machuz))
 
@@ -305,9 +305,9 @@ A separate composite measures **structural influence** — how much the system's
 
 $$\text{shape} = 0.45\,\text{Design} + 0.25\,\text{Breadth} + 0.30\,\text{Indispensability}$$
 
-$$\text{Gravity} = \underbrace{\left(0.15 + 0.85\tfrac{\text{Catalysis}}{100}\right)}_{\text{catGate}} \cdot \underbrace{\left(0.15 + 0.85\tfrac{\text{Survival}}{100}\right)}_{\text{survGate}} \cdot \text{shape}$$
+$$\text{Gravity} = \underbrace{\left(0.15 + 0.85\tfrac{\text{Catalysis}}{100}\right)}_{\text{catGate}} \cdot \underbrace{\left(0.15 + 0.85\tfrac{\text{RobustSurvival}}{100}\right)}_{\text{survGate}} \cdot \text{shape}$$
 
-Shape (design, reach, sole ownership) is what an engineer shaped — but every shape axis is computed from change *history*, so a foundation that was later rewritten still reads high on shape. The two gates correct this. **survGate**: did the code last? Survival is total time-decayed survival, so a founder whose code stabilised in quiet modules still passes — but a "foundation" rewritten away (Survival → 0) collapses to the floor no matter how much design history it accrued. Gravity decays with the code, because structural dependence is on code that is still there. **catGate**: is it relational? Catalysis (others building on your surviving code) is the only axis necessarily zero in a solo project, so it is the witness that the structure observably leans on someone; a one-person project cannot mint gravity. RobustSurvival is *not* used here — empirically it is ≈0 for most foundational authors once their code stabilises into low-pressure modules, so total Survival is the honest "is it still load-bearing" signal.
+Shape (design, reach, sole ownership) is what an engineer shaped — but every shape axis is computed from change *history*, so a foundation that was later rewritten still reads high on shape. The two gates correct this. **survGate**: did the code last *where other people work*? It uses **RobustSurvival** — surviving lines only in modules where authors other than the contributor actively commit (others-contested survival). A "foundation" rewritten away collapses to the floor, and so does code that "survives" only because nobody else has touched it: a dead corner, or a module the author alone churns. Both are untested by anyone but the author, so neither earns structural dependence; a founder whose foundational module others keep editing still passes. We gate on RobustSurvival rather than total Survival on purpose — total survival rewards mere persistence, which a solo author of untouched low-quality code accrues for free, whereas others-contested survival is the honest "is it load-bearing where people actually work" signal. (LifetimeGravity, the all-time twin of Gravity, gates on *total* Survival instead — a durable-footprint reading rather than current load-bearing.) **catGate**: is it relational? Catalysis (others building on your surviving code) is the only axis necessarily zero in a solo project, so it is the witness that the structure observably leans on someone; a one-person project cannot mint gravity.
 
 ---
 
