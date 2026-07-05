@@ -588,6 +588,20 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 						blameLines[i].Authors = set
 					}
 				}
+				// Drop lines a `git subtree --squash` import collapsed onto the
+				// integrator. Blame here is at the period boundary, so scan
+				// squashes reachable from boundaryCommit — a squash that lands
+				// after this window must not retroactively suppress it.
+				if !cfg.AttributeSubtreeSquash {
+					if squash, sqErr := git.SubtreeSquashCommits(ctx, repo.path, boundaryCommit); sqErr == nil {
+						if kept, dropped := git.DropSubtreeSquashBlame(blameLines, squash); dropped > 0 {
+							blameLines = kept
+							if blameVerbose != nil {
+								blameVerbose(fmt.Sprintf("  [blame] subtree-squash: suppressed %d imported line(s) from %d import commit(s)", dropped, len(squash)))
+							}
+						}
+					}
+				}
 				blameLines = filterBlameLines(blameLines, cfg)
 
 				// Catalysis: surviving mass others built on this author's still-
