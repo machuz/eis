@@ -235,8 +235,11 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// email) before alias resolution; reused to remap blame authors by name.
 		idmap := git.BuildIdentityMap(commits)
 		git.CanonicalizeAuthors(commits, nil, idmap)
+		// config patterns + .gitattributes linguist-generated/vendored (so generated
+		// /vendored files don't inflate gravity); used by every file filter below.
+		excludes := effectiveExcludes(ctx, repoPath, cfg)
 		commits = filterCommits(commits, cfg)
-		commits = filterFileStats(commits, cfg.ExcludeFilePatterns)
+		commits = filterFileStats(commits, excludes)
 
 		// Module liveness gate (ADR step 2): fold fallback-derived modules that
 		// were not touched in >= ModuleLivenessMinMonths distinct calendar
@@ -259,10 +262,10 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		}
 		mergeCommits = filterCommits(mergeCommits, cfg)
 
-		prod := metric.CalcProduction(commits, cfg.ExcludeFilePatterns)
+		prod := metric.CalcProduction(commits, excludes)
 		mergeMap(acc.raw.Production, prod)
 
-		added, deleted := metric.CalcLines(commits, cfg.ExcludeFilePatterns)
+		added, deleted := metric.CalcLines(commits, excludes)
 		mergeMapInt(acc.raw.LinesAdded, added)
 		mergeMapInt(acc.raw.LinesDeleted, deleted)
 
@@ -313,7 +316,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		if err != nil {
 			continue
 		}
-		files = filterFiles(files, cfg.ExcludeFilePatterns)
+		files = filterFiles(files, excludes)
 
 		var blameVerbose func(string)
 		if cb.OnVerbose != nil {
@@ -610,6 +613,27 @@ func filterFiles(files []string, patterns []string) []string {
 		}
 	}
 	return r
+}
+
+// effectiveExcludes returns the config exclude patterns plus, when
+// respect_gitattributes is on, the linguist-generated/vendored paths (escaped to
+// exact-match globs) so generated/vendored files don't inflate gravity.
+// Best-effort — a git error falls back to the config patterns. Mirrors the same
+// helper in internal/cli so the CLI and library pipelines exclude identically.
+func effectiveExcludes(ctx context.Context, repoPath string, cfg *config.Config) []string {
+	if !cfg.RespectGitattributesEnabled() {
+		return cfg.ExcludeFilePatterns
+	}
+	gen, err := git.LinguistExcluded(ctx, repoPath)
+	if err != nil || len(gen) == 0 {
+		return cfg.ExcludeFilePatterns
+	}
+	out := make([]string, 0, len(cfg.ExcludeFilePatterns)+len(gen))
+	out = append(out, cfg.ExcludeFilePatterns...)
+	for _, p := range gen {
+		out = append(out, metric.EscapeGlob(p))
+	}
+	return out
 }
 
 func filterBlameLines(lines []git.BlameLine, cfg *config.Config) []git.BlameLine {

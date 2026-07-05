@@ -111,6 +111,13 @@ exclude_file_patterns:
   - "mock_*"
   - "*.gen.*"
 
+# Respect .gitattributes linguist-generated / linguist-vendored: exclude those
+# paths (lockfiles, *.pb.go, minified bundles, vendored deps) from blame and
+# change-volume so generated/vendored files can't inflate gravity. Default true.
+# One batched `git check-attr` (cheap even on large repos). Set false to consider
+# every tracked file. exclude_file_patterns still applies on top.
+respect_gitattributes: true
+
 # Survival decay parameter
 tau: 180  # days. weight = exp(-age / tau)
 
