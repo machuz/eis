@@ -53,6 +53,20 @@ func CommitAuthors(c git.Commit) []string {
 	return out
 }
 
+// blameShares invokes fn(author, share) for each contributor of a blame line's
+// commit: 1/N for each of N co-authors, or 1.0 for the common solo author. Lets
+// every blame-derived metric split co-authored lines the same way survival does.
+func blameShares(bl git.BlameLine, fn func(author string, share float64)) {
+	if len(bl.Authors) == 0 {
+		fn(bl.Author, 1.0)
+		return
+	}
+	share := 1.0 / float64(len(bl.Authors))
+	for _, a := range bl.Authors {
+		fn(a, share)
+	}
+}
+
 // CoAuthorMap maps commit SHA → its full contributor set, for the commits that
 // HAVE co-authors only (sparse — most commits are solo, so the map stays small
 // even on huge repos). The pipeline attaches these sets to blame lines by SHA so
