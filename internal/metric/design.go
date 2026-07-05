@@ -25,7 +25,11 @@ func CalcDesign(commits []git.Commit, archPatterns []string) map[string]float64 
 	for _, c := range commits {
 		archLines := archLinesChanged(c.FileStats, archPatterns)
 		if archLines > 0 {
-			result[c.Author] += float64(archLines)
+			authors := CommitAuthors(c)
+			v := float64(archLines) / float64(len(authors))
+			for _, a := range authors {
+				result[a] += v
+			}
 		}
 	}
 

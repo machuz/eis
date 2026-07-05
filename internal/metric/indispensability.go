@@ -17,7 +17,7 @@ type ModuleRisk struct {
 func CalcIndispensability(blameLines []git.BlameLine, mr ModuleResolver, criticalThreshold, highThreshold float64) (map[string]float64, []ModuleRisk) {
 	// Group blame lines by module via the shared resolver, so module_patterns
 	// and ExcludeModules apply consistently with the other module metrics.
-	moduleAuthors := make(map[string]map[string]int) // module -> author -> count
+	moduleAuthors := make(map[string]map[string]float64) // module -> author -> owned lines (co-author-split)
 
 	for _, bl := range blameLines {
 		module := mr.ModuleOf(bl.Filename)
@@ -30,9 +30,9 @@ func CalcIndispensability(blameLines []git.BlameLine, mr ModuleResolver, critica
 		}
 
 		if _, ok := moduleAuthors[module]; !ok {
-			moduleAuthors[module] = make(map[string]int)
+			moduleAuthors[module] = make(map[string]float64)
 		}
-		moduleAuthors[module][bl.Author]++
+		blameShares(bl, func(a string, s float64) { moduleAuthors[module][a] += s })
 	}
 
 	// Calculate indispensability per author
@@ -41,9 +41,9 @@ func CalcIndispensability(blameLines []git.BlameLine, mr ModuleResolver, critica
 	var risks []ModuleRisk
 
 	for module, authors := range moduleAuthors {
-		total := 0
+		total := 0.0
 		topAuthor := ""
-		topCount := 0
+		topCount := 0.0
 
 		for author, count := range authors {
 			total += count
@@ -57,7 +57,7 @@ func CalcIndispensability(blameLines []git.BlameLine, mr ModuleResolver, critica
 			continue
 		}
 
-		share := float64(topCount) / float64(total)
+		share := topCount / total
 
 		if share >= criticalThreshold {
 			criticalModules[topAuthor]++
@@ -120,8 +120,8 @@ type ModuleOwnership struct {
 // risk ("this person owns too much"), while OwnershipFragmentation measures
 // module-level risk ("this module's knowledge is too concentrated/scattered").
 func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) []ModuleOwnership {
-	// Group blame lines by module → author → count
-	moduleAuthors := make(map[string]map[string]int)
+	// Group blame lines by module → author → owned lines (co-author-split)
+	moduleAuthors := make(map[string]map[string]float64)
 
 	for _, bl := range blameLines {
 		mod := mr.ModuleOf(bl.Filename)
@@ -129,16 +129,16 @@ func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) [
 			continue // excluded module (ExcludeModules) or peripheral bucket
 		}
 		if _, ok := moduleAuthors[mod]; !ok {
-			moduleAuthors[mod] = make(map[string]int)
+			moduleAuthors[mod] = make(map[string]float64)
 		}
-		moduleAuthors[mod][bl.Author]++
+		blameShares(bl, func(a string, s float64) { moduleAuthors[mod][a] += s })
 	}
 
 	var results []ModuleOwnership
 	for mod, authors := range moduleAuthors {
-		total := 0
+		total := 0.0
 		topAuthor := ""
-		topCount := 0
+		topCount := 0.0
 
 		for author, count := range authors {
 			total += count
@@ -152,13 +152,13 @@ func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) [
 			continue
 		}
 
-		topShare := float64(topCount) / float64(total)
+		topShare := topCount / total
 
 		// Shannon entropy: H = -Σ p·log₂(p)
 		// Higher entropy = more distributed ownership
 		entropy := 0.0
 		for _, count := range authors {
-			p := float64(count) / float64(total)
+			p := count / total
 			if p > 0 {
 				entropy -= p * math.Log2(p)
 			}
@@ -168,7 +168,7 @@ func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) [
 
 		results = append(results, ModuleOwnership{
 			Module:      mod,
-			TotalLines:  total,
+			TotalLines:  int(math.Round(total)),
 			AuthorCount: len(authors),
 			TopAuthor:   topAuthor,
 			TopShare:    topShare,

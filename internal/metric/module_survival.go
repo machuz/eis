@@ -85,7 +85,7 @@ func CalcModuleSurvivalByAuthor(blameLines []git.BlameLine, tau float64, now tim
 			authors = make(map[string]float64)
 			result[mod] = authors
 		}
-		authors[bl.Author] += weight
+		blameShares(bl, func(a string, s float64) { authors[a] += weight * s })
 	}
 
 	return result

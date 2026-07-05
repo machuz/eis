@@ -48,8 +48,12 @@ func CalcCatalysis(commits []git.Commit, blameLines []git.BlameLine, tau float64
 				fa = make(map[string]time.Time)
 				firstContrib[fs.Filename] = fa
 			}
-			if d, ok := fa[c.Author]; !ok || c.Date.Before(d) {
-				fa[c.Author] = c.Date
+			// Every contributor (author + co-authors) shares the origination date,
+			// so a co-authored file-creating commit makes both foundations.
+			for _, a := range CommitAuthors(c) {
+				if d, ok := fa[a]; !ok || c.Date.Before(d) {
+					fa[a] = c.Date
+				}
 			}
 		}
 	}
@@ -70,7 +74,7 @@ func CalcCatalysis(commits []git.Commit, blameLines []git.BlameLine, tau float64
 		if tau > 0 {
 			factor = math.Exp(-daysAlive / tau)
 		}
-		fa[bl.Author] += factor
+		blameShares(bl, func(a string, s float64) { fa[a] += factor * s })
 	}
 
 	result := make(map[string]float64)
