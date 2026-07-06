@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"sort"
 	"strings"
 	"sync"
@@ -204,6 +205,26 @@ func BuildPeriods(spanMonths, spanDays, numPeriods int, since time.Time, now tim
 // copy sources in other files, so a file's blame then depends on other files'
 // commits and the per-file key would unify blames that differ. Those levels use
 // the whole-boundary key instead.
+// autoPeriodConcurrency picks the default number of timeline windows to compute
+// in parallel when PeriodConcurrency is unset (<= 0). The cold-run cost is
+// concentrated in a handful of HEAVY windows (large boundary blames), and each
+// window already fans its blame across `Workers` threads. Measurement showed the
+// sweet spot is modest window parallelism WITH full per-window workers —
+// overlapping ~4 heavy windows captures most of the win, while pushing window
+// parallelism higher and stealing workers per window is slower (heavy windows get
+// throttled). Peak blame memory ≈ this × Workers × per-repo blame, so it is
+// clamped low (≤ 4) to stay safe for SaaS/ingest runners.
+func autoPeriodConcurrency() int {
+	n := runtime.NumCPU() / 3
+	if n < 1 {
+		n = 1
+	}
+	if n > 4 {
+		n = 4
+	}
+	return n
+}
+
 func incrementalBlame(moveDetection string) bool {
 	return moveDetection == "" || moveDetection == "file"
 }
@@ -938,7 +959,15 @@ func Run(ctx context.Context, opts Options, repoPaths []string, cfg *config.Conf
 	// assembled order is deterministic regardless of completion order.
 	outputs := make([]map[string]PeriodResult, len(windows))
 
+	// PeriodConcurrency <= 0 means "auto": pick a good default here so every
+	// caller — CLI, SaaS, and the ingest jobs — gets window parallelism without
+	// having to specify it. Windows run sequentially at 1; the cold-run cost is
+	// concentrated in a handful of heavy windows (large boundary blames), and
+	// overlapping those is the biggest remaining lever.
 	concurrency := opts.PeriodConcurrency
+	if concurrency <= 0 {
+		concurrency = autoPeriodConcurrency()
+	}
 	if concurrency > len(windows) {
 		concurrency = len(windows)
 	}

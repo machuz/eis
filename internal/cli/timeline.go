@@ -34,7 +34,7 @@ func runTimeline(args []string) error {
 	domainFilter := fs.String("domain", "", "Only analyze specific domain")
 	authorFilter := fs.String("author", "", "Filter to specific author(s), comma-separated")
 	workers := fs.Int("workers", 0, "Concurrent blame workers (0 = auto, based on CPU count)")
-	periodConcurrency := fs.Int("period-concurrency", 1, "Number of timeline periods (windows) to compute in parallel (1=sequential). Peak blame memory ≈ period-concurrency × workers × per-repo blame size, so bound the two jointly.")
+	periodConcurrency := fs.Int("period-concurrency", 0, "Timeline windows computed in parallel (0 = auto, based on CPU count; 1 = sequential). Peak blame memory ≈ period-concurrency × workers × per-repo blame size.")
 	sampleSize := fs.Int("sample", 0, "Max files to blame per repo (overrides config)")
 	tau := fs.Float64("tau", 0, "Survival decay parameter (overrides config)")
 	activeDays := fs.Int("active-days", 0, "Days to consider author active (overrides config)")
