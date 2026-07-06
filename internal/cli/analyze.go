@@ -38,6 +38,14 @@ func defaultWorkers() int {
 	return n
 }
 
+// resolveWorkers returns w when explicitly set (>0), else the auto default.
+func resolveWorkers(w int) int {
+	if w > 0 {
+		return w
+	}
+	return defaultWorkers()
+}
+
 // AnalyzeOptions holds CLI flags for the analysis pipeline.
 type AnalyzeOptions struct {
 	ConfigPath     string

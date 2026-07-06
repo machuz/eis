@@ -1161,10 +1161,13 @@ func filterFileStats(commits []git.Commit, patterns []string) []git.Commit {
 	if len(patterns) == 0 {
 		return commits
 	}
+	// Memoize by filename: a path recurs across thousands of commits and the glob
+	// match is otherwise re-run every time (see metric.Excluder).
+	excl := metric.NewExcluder(patterns)
 	for i := range commits {
 		var f []git.FileStat
 		for _, fs := range commits[i].FileStats {
-			if !metric.IsExcluded(fs.Filename, patterns) {
+			if !excl.IsExcluded(fs.Filename) {
 				f = append(f, fs)
 			}
 		}

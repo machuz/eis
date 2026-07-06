@@ -88,8 +88,17 @@ func BuildTimeline(periods []PeriodResult) []AuthorTimeline {
 		}
 	}
 
-	var timelines []AuthorTimeline
+	// Emit authors in a deterministic (sorted) order — iterating authorSet
+	// directly is Go-map-random, which made the timeline output row order vary
+	// run-to-run (a reproducibility break for a fixed git_sha + windows).
+	authors := make([]string, 0, len(authorSet))
 	for author := range authorSet {
+		authors = append(authors, author)
+	}
+	sort.Strings(authors)
+
+	var timelines []AuthorTimeline
+	for _, author := range authors {
 		tl := AuthorTimeline{Author: author}
 
 		for _, p := range periods {
