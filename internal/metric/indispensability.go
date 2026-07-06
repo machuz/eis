@@ -47,7 +47,11 @@ func CalcIndispensability(blameLines []git.BlameLine, mr ModuleResolver, critica
 
 		for author, count := range authors {
 			total += count
-			if count > topCount {
+			// Tie-break by author name so a module owned equally by two authors
+			// picks the same top author on every run (map iteration order is
+			// nondeterministic) — otherwise the credited owner, and the scores
+			// derived from it, would vary run-to-run.
+			if count > topCount || (count == topCount && (topAuthor == "" || author < topAuthor)) {
 				topCount = count
 				topAuthor = author
 			}
@@ -77,6 +81,16 @@ func CalcIndispensability(blameLines []git.BlameLine, mr ModuleResolver, critica
 			})
 		}
 	}
+
+	// Deterministic risk ordering: risks are appended in map-iteration order
+	// above, so sort them (highest share first, then module name) before they
+	// reach output.
+	sort.Slice(risks, func(i, j int) bool {
+		if risks[i].Share != risks[j].Share {
+			return risks[i].Share > risks[j].Share
+		}
+		return risks[i].Module < risks[j].Module
+	})
 
 	result := make(map[string]float64)
 	allAuthors := make(map[string]bool)
@@ -142,7 +156,11 @@ func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) [
 
 		for author, count := range authors {
 			total += count
-			if count > topCount {
+			// Tie-break by author name so a module owned equally by two authors
+			// picks the same top author on every run (map iteration order is
+			// nondeterministic) — otherwise the credited owner, and the scores
+			// derived from it, would vary run-to-run.
+			if count > topCount || (count == topCount && (topAuthor == "" || author < topAuthor)) {
 				topCount = count
 				topAuthor = author
 			}
@@ -179,7 +197,10 @@ func CalcOwnershipFragmentation(blameLines []git.BlameLine, mr ModuleResolver) [
 
 	// Sort by TopShare descending (most concentrated first = highest risk)
 	sort.Slice(results, func(i, j int) bool {
-		return results[i].TopShare > results[j].TopShare
+		if results[i].TopShare != results[j].TopShare {
+			return results[i].TopShare > results[j].TopShare
+		}
+		return results[i].Module < results[j].Module
 	})
 
 	return results

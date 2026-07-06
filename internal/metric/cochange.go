@@ -84,10 +84,18 @@ func CalcCochange(commits []git.Commit, mr ModuleResolver) CochangeResult {
 
 	// Sort by coupling descending
 	sort.Slice(pairs, func(i, j int) bool {
-		if pairs[i].Coupling == pairs[j].Coupling {
+		if pairs[i].Coupling != pairs[j].Coupling {
+			return pairs[i].Coupling > pairs[j].Coupling
+		}
+		if pairs[i].CochangeCount != pairs[j].CochangeCount {
 			return pairs[i].CochangeCount > pairs[j].CochangeCount
 		}
-		return pairs[i].Coupling > pairs[j].Coupling
+		// Tie-break by module names so equally-coupled pairs keep a stable
+		// order across runs (pairs are built from map iteration).
+		if pairs[i].ModuleA != pairs[j].ModuleA {
+			return pairs[i].ModuleA < pairs[j].ModuleA
+		}
+		return pairs[i].ModuleB < pairs[j].ModuleB
 	})
 
 	return CochangeResult{
