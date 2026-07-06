@@ -449,61 +449,47 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Get HEAD hash for cache keys
 		headHash, _ := git.HeadHash(ctx, repoPath)
 
-		// Step 1: Parse git log (feeds Production, Catalysis, Design)
-		spin := spinner("[1/4] Parsing git log...")
-		var commits []git.Commit
-		logCacheKey := cache.LogKey(repoPath, headHash, cfg.CommentFilterEnabled())
-		if headHash != "" && cacheStore.Get(logCacheKey, &commits) {
-			spin.Stop()
-			if !quiet {
-				fmt.Fprintf(os.Stderr, "  (cached)\n")
-			}
-		} else {
-			git.ConfigureBotCoAuthorPatterns(cfg.BotCoAuthorPatterns)
-			commits, err = git.ParseLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled())
-			spin.Stop()
-			if err != nil {
-				return nil, nil, time.Time{}, fmt.Errorf("parse log %s: %w", repoName, err)
-			}
-			if headHash != "" {
-				cacheStore.Set(logCacheKey, commits)
-			}
-		}
-
-		// Collapse split identities (one person, several display names under one
-		// email) before alias resolution and aggregation. Built from raw commits
-		// (which carry author email); reused below to remap blame authors by name.
-		idmap := git.BuildIdentityMap(commits)
-		git.CanonicalizeAuthors(commits, nil, idmap)
+		// Step 1: build the commit aggregate (feeds Production, Catalysis, Design,
+		// Breadth, co-change, change pressure). Both strategies fold every filtered
+		// commit into the SAME metric.CommitAggregator, so their output is identical
+		// (verified byte-for-byte); they differ only in whether the history is held:
+		//   - materialized (default): one `git log -p` walk into a []Commit that
+		//     feeds the aggregator. Fast; peak RSS is dominated by the blame stage
+		//     anyway, so holding the slice is fine up to very large repos.
+		//   - streaming (only past streamingCommitThreshold): three lighter passes
+		//     that fold each commit and discard it, never materializing []Commit —
+		//     lower LIVE heap on Linux-scale histories (1M+ commits) where the slice
+		//     genuinely dominates. Empirically this does NOT lower peak RSS on repos
+		//     up to ~200k commits (blame + Go arenas dominate), so it is gated behind
+		//     the threshold to avoid the extra passes' latency on ordinary repos.
+		git.ConfigureBotCoAuthorPatterns(cfg.BotCoAuthorPatterns)
 
 		// Effective exclusions: config patterns + .gitattributes linguist-generated
 		// /vendored paths (so generated/vendored files don't inflate gravity). Used
 		// by every file filter below, so blame + change-volume agree.
 		excludes := effectiveExcludes(ctx, repoPath, cfg)
-
-		// Apply author aliases, filter excluded authors, and strip excluded file patterns
-		commits = filterCommits(commits, cfg)
-		commits = filterFileStats(commits, excludes)
-
-		// Detect and exclude reverted commits (both originals and revert commits).
-		// This ensures that code merged then reverted doesn't inflate metrics.
+		// Reverted commits (originals + reverts) are dropped so code merged then
+		// reverted doesn't inflate metrics. HEAD-derived set; retains no history.
 		revertedHashes, _ := git.FindRevertedCommits(ctx, repoPath)
-		if len(revertedHashes) > 0 {
-			before := len(commits)
-			commits = filterRevertedCommits(commits, revertedHashes)
-			excluded := before - len(commits)
-			if excluded > 0 && !quiet {
-				fmt.Fprintf(os.Stderr, "  Excluded %d reverted commits\n", excluded)
-			}
-		}
 
-		// Module liveness gate (ADR step 2): fold fallback-derived modules not
-		// touched in >= ModuleLivenessMinMonths distinct calendar months into
-		// metric.PeripheralModule. Computed from commit.Date over the filtered
-		// non-merge commits (deterministic, W-02); must run before the resolver
-		// reaches any module-topology metric below.
-		fold := metric.ComputeModuleFold(commits, moduleResolver, cfg.ModuleLivenessMinMonths)
-		moduleResolver = moduleResolver.WithFold(fold)
+		spin := spinner("[1/4] Parsing git log...")
+		commitCount, _ := git.CountCommits(ctx, repoPath)
+		var res *aggResult
+		if commitCount >= streamingCommitThreshold {
+			res, err = aggregateStreaming(ctx, repoPath, workers, cfg, moduleResolver, excludes, revertedHashes)
+		} else {
+			res, err = aggregateMaterialized(ctx, repoPath, headHash, workers, cfg, moduleResolver, excludes, revertedHashes, cacheStore)
+		}
+		spin.Stop()
+		if err != nil {
+			return nil, nil, time.Time{}, fmt.Errorf("parse log %s: %w", repoName, err)
+		}
+		ag := res.ag
+		idmap := res.idmap
+		moduleResolver = res.resolver
+		if res.revertedDropped > 0 && !quiet {
+			fmt.Fprintf(os.Stderr, "  Excluded %d reverted commits\n", res.revertedDropped)
+		}
 
 		// Also fetch merge commits for fix detection in Catalysis
 		var mergeCommits []git.Commit
@@ -522,14 +508,12 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			mergeCommits = filterRevertedCommits(mergeCommits, revertedHashes)
 		}
 
-		// Production (non-merge only)
-		prod := metric.CalcProduction(commits, excludes)
-		mergeMap(acc.raw.Production, prod)
-
-		// Lines added/deleted
-		added, deleted := metric.CalcLines(commits, excludes)
-		mergeMapInt(acc.raw.LinesAdded, added)
-		mergeMapInt(acc.raw.LinesDeleted, deleted)
+		// Production + Lines, from the aggregator (streaming equivalents of
+		// CalcProduction / CalcLines, folded in history order so the float sum is
+		// bit-identical to the serial walk).
+		mergeMap(acc.raw.Production, ag.Production)
+		mergeMapInt(acc.raw.LinesAdded, ag.LinesAdded)
+		mergeMapInt(acc.raw.LinesDeleted, ag.LinesDeleted)
 
 		// Catalysis is computed in the blame stage below (it needs both the
 		// commit history — to find each file's originator — and the surviving
@@ -538,34 +522,33 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Design is computed in the blame stage below (survival-weighted: surviving
 		// arch-file blame lines, not arch lines changed — needs blame + analysisTime).
 
-		// Track breadth with commit counts per repo AND per module, plus
-		// date ranges for production rate.
-		for _, c := range commits {
-			if _, ok := acc.authorRepoCommits[c.Author]; !ok {
-				acc.authorRepoCommits[c.Author] = make(map[string]int)
+		// Breadth inputs (per-repo + per-module commit counts) and activity dates,
+		// from the aggregator (the streaming equivalent of the old per-commit loop).
+		for author, n := range ag.TotalCommits {
+			if _, ok := acc.authorRepoCommits[author]; !ok {
+				acc.authorRepoCommits[author] = make(map[string]int)
 			}
-			acc.authorRepoCommits[c.Author][repoName]++
-			// Per-module commit counts feed module-unit Breadth. A commit
-			// counts once per distinct module it touches.
-			if _, ok := acc.authorModuleCommits[c.Author]; !ok {
-				acc.authorModuleCommits[c.Author] = make(map[string]int)
+			acc.authorRepoCommits[author][repoName] += n
+			acc.raw.TotalCommits[author] += n
+		}
+		for author, mods := range ag.AuthorModuleCommits {
+			dst := acc.authorModuleCommits[author]
+			if dst == nil {
+				dst = make(map[string]int)
+				acc.authorModuleCommits[author] = dst
 			}
-			touchedModules := make(map[string]bool)
-			for _, fs := range c.FileStats {
-				if mod := moduleResolver.ModuleOf(fs.Filename); mod != "" {
-					touchedModules[mod] = true
-				}
+			for mod, n := range mods {
+				dst[mod] += n
 			}
-			for mod := range touchedModules {
-				acc.authorModuleCommits[c.Author][mod]++
+		}
+		for author, d := range ag.FirstDate {
+			if first, ok := acc.authorFirstDate[author]; !ok || d.Before(first) {
+				acc.authorFirstDate[author] = d
 			}
-			acc.raw.TotalCommits[c.Author]++
-
-			if first, ok := acc.authorFirstDate[c.Author]; !ok || c.Date.Before(first) {
-				acc.authorFirstDate[c.Author] = c.Date
-			}
-			if last, ok := acc.authorLastDate[c.Author]; !ok || c.Date.After(last) {
-				acc.authorLastDate[c.Author] = c.Date
+		}
+		for author, d := range ag.LastDate {
+			if last, ok := acc.authorLastDate[author]; !ok || d.After(last) {
+				acc.authorLastDate[author] = d
 			}
 		}
 		// Also track activity dates from merge commits
@@ -578,8 +561,8 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		}
 
-		// Module Science: Co-change Coupling (uses commit data, no extra git calls)
-		cochange := metric.CalcCochange(commits, moduleResolver)
+		// Module Science: Co-change Coupling (folded by the aggregator during pass 2)
+		cochange := ag.Cochange
 		acc.cochangeResults = append(acc.cochangeResults, cochange)
 
 		// Step 2: Blame analysis (feeds Survival, Indispensability)
@@ -637,7 +620,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Attach each line's co-author set (by commit SHA) so survival is split
 		// across squash/pair co-authors. Built from the canonicalized commits, so
 		// the sets carry the same author keys as the blame primaries.
-		coMap := metric.CoAuthorMap(commits)
+		coMap := ag.CoMap
 		for i := range blameLines {
 			blameLines[i].Author = cfg.ResolveAuthor(blameLines[i].Author)
 			if set, ok := coMap[blameLines[i].Commit]; ok {
@@ -683,7 +666,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		var repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant map[string]float64
 		var repoSurvTested, repoSurvUntested map[string]float64
 		if opts.PressureMode == "include" {
-			repoPressure := metric.CalcChangePressure(commits, blameLines, moduleResolver)
+			repoPressure := metric.CalcChangePressureFrom(ag.Cochange.ModuleCommits, blameLines, moduleResolver)
 			for mod, p := range repoPressure {
 				key := repoName + "/" + mod
 				acc.changePressure[key] = p
@@ -708,7 +691,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				blameByAuthor[bl.Author]++
 			}
 			pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
-			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
+			repoOthers := metric.CalcOthersPressureFrom(ag.Cochange.ModuleCommits, ag.ModuleAuthorCommits, blameLines, moduleResolver)
 			survResult := metric.CalcSurvivalFull(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
@@ -743,11 +726,11 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Catalysis: surviving mass of others' work on files this author
 		// originated. Needs the commit history (originator per file) and the
 		// blame lines (surviving mass). Same decay reference (analysisTime) as Survival.
-		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime)
+		catalysis := metric.CalcCatalysisFrom(ag.FirstContrib, blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime)
 		mergeMap(acc.raw.Catalysis, catalysis)
 
 		// Step 3: Debt cleanup
-		fixCommits := metric.GetFixCommits(commits)
+		fixCommits := ag.FixCommits
 		spin = spinner(fmt.Sprintf("[3/4] Debt analysis (%d fix commits)...", len(fixCommits)))
 		var debtVerbose metric.VerboseFunc
 		if opts.Verbose {
@@ -770,7 +753,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		} else {
 			debtProg := newLiveProgress("[3/4] Debt")
 			debt, _ = metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor,
-				metric.CoAuthorMap(commits),
+				ag.CoMap,
 				func(done, total int) {
 					debtProg.Update(done, total)
 				}, debtVerbose)
@@ -823,7 +806,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Per-repo: build independent raw scores for this repo
 		if opts.PerRepo {
 			repoRaw := metric.NewRawScores()
-			mergeMap(repoRaw.Production, prod)
+			mergeMap(repoRaw.Production, ag.Production)
 			mergeMap(repoRaw.Catalysis, catalysis)
 			mergeMap(repoRaw.Design, designSurv)
 			mergeMap(repoRaw.Indispensability, indisp)
@@ -843,17 +826,18 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			if repoSurvUntested != nil {
 				mergeMap(repoRaw.UntestedSurvival, repoSurvUntested)
 			}
-			// Track commit counts and dates per author for this repo
+			// Track commit counts and dates per author for this repo (from the
+			// aggregator — this repo's non-merge stream).
 			repoFirstDate := make(map[string]time.Time)
 			repoLastDate := make(map[string]time.Time)
-			for _, c := range commits {
-				repoRaw.TotalCommits[c.Author]++
-				if first, ok := repoFirstDate[c.Author]; !ok || c.Date.Before(first) {
-					repoFirstDate[c.Author] = c.Date
-				}
-				if last, ok := repoLastDate[c.Author]; !ok || c.Date.After(last) {
-					repoLastDate[c.Author] = c.Date
-				}
+			for author, n := range ag.TotalCommits {
+				repoRaw.TotalCommits[author] += n
+			}
+			for author, d := range ag.FirstDate {
+				repoFirstDate[author] = d
+			}
+			for author, d := range ag.LastDate {
+				repoLastDate[author] = d
 			}
 			for _, c := range mergeCommits {
 				if first, ok := repoFirstDate[c.Author]; !ok || c.Date.Before(first) {
@@ -1092,6 +1076,136 @@ func filterCommits(commits []git.Commit, cfg *config.Config) []git.Commit {
 		result = append(result, c)
 	}
 	return result
+}
+
+// streamingCommitThreshold is the non-merge commit count at/above which the
+// analyzer switches from the materialized log walk to the three-pass streaming
+// ingest. It is set high on purpose: measurements show the streaming path lowers
+// LIVE heap but NOT peak RSS on repos up to ~200k commits (the blame stage and Go
+// arenas dominate there), while costing an extra ~10% wall time for its extra
+// passes. Only Linux-scale histories (1M+ commits), where the []Commit slice
+// genuinely dominates memory, benefit — so ordinary and even large repos keep the
+// faster single-walk path. var (not const) so a test can lower it.
+var streamingCommitThreshold = 400000
+
+// aggResult bundles the commit-aggregation outputs the per-repo loop consumes,
+// so the materialized and streaming strategies present an identical interface.
+type aggResult struct {
+	ag              metric.Aggregate
+	idmap           map[string]string
+	resolver        metric.ModuleResolver
+	revertedDropped int
+}
+
+// aggregateStreaming builds the aggregate WITHOUT materializing []Commit, via
+// three streaming passes (identity map, then the module-liveness fold, then the
+// CommitAggregator). Passes 1 and 2 apply keepFilteredCommit per commit — the
+// same transform the materialized path applies to the whole slice — so the
+// result is identical. For giant (Linux-scale) histories only.
+func aggregateStreaming(ctx context.Context, repoPath string, workers int, cfg *config.Config, resolver metric.ModuleResolver, excludes []string, reverted map[string]bool) (*aggResult, error) {
+	// Pass 0: identity map over all raw commits (cheap format-only walk).
+	idmap, err := git.StreamIdentityMap(ctx, repoPath)
+	if err != nil {
+		return nil, err
+	}
+	// Pass 1: module-liveness fold over the filtered stream, then fold the
+	// resolver (must precede every module-topology metric, W-02).
+	foldAcc := metric.NewModuleFoldAccumulator(resolver, cfg.ModuleLivenessMinMonths)
+	if err := git.StreamLogParallel(ctx, repoPath, workers, false, func(c *git.Commit) {
+		if keepFilteredCommit(c, cfg, idmap, excludes) && !reverted[c.Hash] {
+			foldAcc.Add(c)
+		}
+	}); err != nil {
+		return nil, err
+	}
+	resolver = resolver.WithFold(foldAcc.Result())
+	// Pass 2: fold every commit's contribution into the aggregator.
+	agg := metric.NewCommitAggregator(resolver)
+	dropped := 0
+	if err := git.StreamLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled(), func(c *git.Commit) {
+		if !keepFilteredCommit(c, cfg, idmap, excludes) {
+			return
+		}
+		if reverted[c.Hash] {
+			dropped++
+			return
+		}
+		agg.Fold(c)
+	}); err != nil {
+		return nil, err
+	}
+	return &aggResult{ag: agg.Finalize(), idmap: idmap, resolver: resolver, revertedDropped: dropped}, nil
+}
+
+// aggregateMaterialized builds the aggregate the classic way: one `git log -p`
+// walk into a []Commit (cached under LogKey), filtered in place, then folded into
+// the SAME CommitAggregator. Holding the slice is fine here because peak RSS is
+// dominated by the blame stage, not the log, up to very large repos.
+func aggregateMaterialized(ctx context.Context, repoPath, headHash string, workers int, cfg *config.Config, resolver metric.ModuleResolver, excludes []string, reverted map[string]bool, cacheStore *cache.Store) (*aggResult, error) {
+	var commits []git.Commit
+	logCacheKey := cache.LogKey(repoPath, headHash, cfg.CommentFilterEnabled())
+	if headHash == "" || !cacheStore.Get(logCacheKey, &commits) {
+		var err error
+		commits, err = git.ParseLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled())
+		if err != nil {
+			return nil, err
+		}
+		if headHash != "" {
+			cacheStore.Set(logCacheKey, commits)
+		}
+	}
+	// Collapse split identities, apply aliases, strip excluded files/authors and
+	// reverted commits — the same up-front transform, then feed the aggregator.
+	idmap := git.BuildIdentityMap(commits)
+	git.CanonicalizeAuthors(commits, nil, idmap)
+	commits = filterCommits(commits, cfg)
+	commits = filterFileStats(commits, excludes)
+	dropped := 0
+	if len(reverted) > 0 {
+		before := len(commits)
+		commits = filterRevertedCommits(commits, reverted)
+		dropped = before - len(commits)
+	}
+	fold := metric.ComputeModuleFold(commits, resolver, cfg.ModuleLivenessMinMonths)
+	resolver = resolver.WithFold(fold)
+	agg := metric.NewCommitAggregator(resolver)
+	for i := range commits {
+		agg.Fold(&commits[i])
+	}
+	return &aggResult{ag: agg.Finalize(), idmap: idmap, resolver: resolver, revertedDropped: dropped}, nil
+}
+
+// keepFilteredCommit applies, IN PLACE, the same per-commit transform the
+// materialized pipeline applies to the whole slice up front —
+// git.CanonicalizeAuthors (idmap) → filterCommits (alias + excluded-author drop)
+// → filterFileStats (excluded paths) — and reports whether the commit survives.
+// Reverted-commit dropping is intentionally NOT here: callers apply it after this
+// (matching the materialized order filterCommits→filterFileStats→filterReverted),
+// so a reverted commit can still be counted for the stderr "excluded N" note.
+func keepFilteredCommit(c *git.Commit, cfg *config.Config, idmap map[string]string, excludes []string) bool {
+	if cn, ok := idmap[c.Author]; ok {
+		c.Author = cn
+	}
+	for j, ca := range c.CoAuthors {
+		if cn, ok := idmap[ca]; ok {
+			c.CoAuthors[j] = cn
+		}
+	}
+	c.Author = cfg.ResolveAuthor(c.Author)
+	if cfg.IsExcludedAuthor(c.Author) {
+		return false
+	}
+	c.CoAuthors = resolveCoAuthors(c.CoAuthors, c.Author, cfg)
+	if len(excludes) > 0 {
+		kept := c.FileStats[:0]
+		for _, fs := range c.FileStats {
+			if !metric.IsExcluded(fs.Filename, excludes) {
+				kept = append(kept, fs)
+			}
+		}
+		c.FileStats = kept
+	}
+	return true
 }
 
 // resolveCoAuthors aliases each Co-authored-by name, drops excluded authors and

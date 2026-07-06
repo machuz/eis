@@ -500,6 +500,146 @@ func ParseLogParallel(ctx context.Context, repoPath string, workers int, comment
 	return out, nil
 }
 
+// streamChunkSize bounds how many commits a single streaming chunk holds. Unlike
+// ParseLogParallel — which cuts history into workers*K chunks, so a chunk grows
+// with total history — the streaming path uses a FIXED chunk size so peak
+// resident commits stay O(workers * streamChunkSize), independent of history
+// length. That is the whole point of streaming: a giant repo's full commit set
+// is never materialized at once.
+const streamChunkSize = 1500
+
+// StreamLogParallel walks the SAME commit set/order as ParseLogParallel
+// (--all --no-merges) but, instead of materializing a []Commit, invokes fn once
+// per commit IN HISTORY ORDER on a single consumer, then discards the commit.
+// Parsing stays parallel (the expensive `-p` generation + comment filtering);
+// delivery is serialized so order-sensitive reductions — notably the
+// non-associative float sum in Production — are bit-identical to the serial walk.
+//
+// fn receives a pointer valid only for the duration of the call; it must copy
+// anything it retains (the aggregator does).
+//
+// It uses bounded "waves": a group of up to `workers` contiguous chunks is parsed
+// concurrently, then folded in order and freed, before the next group starts.
+// Peak resident commits ≈ workers * streamChunkSize — decoupled from history
+// length. Small repos (or workers < 2) fall back to a serial stream.
+func StreamLogParallel(ctx context.Context, repoPath string, workers int, commentFilter bool, fn func(*Commit)) error {
+	if workers < 2 {
+		return streamLogSerial(ctx, repoPath, commentFilter, fn)
+	}
+	shas, err := revListAll(ctx, repoPath)
+	if err != nil {
+		return err
+	}
+	if len(shas) < parallelLogMinCommits {
+		return streamLogSerial(ctx, repoPath, commentFilter, fn)
+	}
+
+	numChunks := (len(shas) + streamChunkSize - 1) / streamChunkSize
+	chunks := chunkStrings(shas, numChunks)
+
+	for base := 0; base < len(chunks); base += workers {
+		end := base + workers
+		if end > len(chunks) {
+			end = len(chunks)
+		}
+		results := make([][]Commit, end-base)
+		errs := make([]error, end-base)
+		var wg sync.WaitGroup
+		for i := base; i < end; i++ {
+			wg.Add(1)
+			go func(idx int) {
+				defer wg.Done()
+				results[idx-base], errs[idx-base] = parseLogChunk(ctx, repoPath, chunks[idx], commentFilter)
+			}(i)
+		}
+		wg.Wait()
+		// Fold this wave's chunks in history order, freeing each as we go.
+		for k := range results {
+			if errs[k] != nil {
+				return errs[k]
+			}
+			for i := range results[k] {
+				fn(&results[k][i])
+			}
+			results[k] = nil
+		}
+	}
+	return nil
+}
+
+// streamLogSerial drives fn per commit over the serial ParseLog result. Used for
+// small repos where memory is a non-issue and the parallel machinery isn't worth
+// its overhead.
+func streamLogSerial(ctx context.Context, repoPath string, commentFilter bool, fn func(*Commit)) error {
+	commits, err := ParseLog(ctx, repoPath, commentFilter)
+	for i := range commits {
+		fn(&commits[i])
+	}
+	return err
+}
+
+// StreamIdentityMap builds the raw-name → canonical-name identity map over ALL
+// non-merge commits with a FORMAT-ONLY log walk (no --numstat, no -p) — so it is
+// cheap even on a giant repo and never materializes commits. It is the streaming
+// equivalent of BuildIdentityMap(ParseLog(...)) and yields the identical map
+// (same commit set, same name/email counts, same deterministic pickTop). The
+// analyzer runs this first so the identity map is final before the fold and main
+// aggregation passes canonicalize authors per commit.
+func StreamIdentityMap(ctx context.Context, repoPath string) (map[string]string, error) {
+	// \x1f-separated name/email so a name containing a tab or '|' can't confuse
+	// the split (the same delimiter the co-author trailer uses).
+	stdout, cmd, err := RunStream(ctx, repoPath,
+		"log", "--all", "--no-merges", "--no-color", "--format=%an\x1f%ae")
+	if err != nil {
+		return nil, err
+	}
+	defer stdout.Close()
+
+	acc := NewIdentityAccumulator()
+	sc := bufio.NewScanner(stdout)
+	sc.Buffer(make([]byte, 64*1024), scannerMaxBufLog)
+	for sc.Scan() {
+		line := sc.Text()
+		name, email, ok := strings.Cut(line, "\x1f")
+		if !ok {
+			continue
+		}
+		acc.Add(name, email)
+	}
+	scanErr := sc.Err()
+	if scanErr != nil && cmd.Process != nil {
+		_ = cmd.Process.Kill()
+	}
+	waitErr := cmd.Wait()
+	if scanErr != nil {
+		return acc.Build(), scanErr
+	}
+	return acc.Build(), waitErr
+}
+
+// scannerMaxBufLog bounds a single format-only log line (name+email). Names are
+// short, but a pathological commit shouldn't overflow bufio.Scanner's default.
+const scannerMaxBufLog = 1 << 20
+
+// CountCommits returns the number of non-merge commits reachable from any ref —
+// the same set ParseLog/StreamLog walk. A single `rev-list --count` is far
+// cheaper than materializing the SHAs, so the analyzer can use it to choose
+// between the materialized and streaming ingest paths before either walk.
+func CountCommits(ctx context.Context, repoPath string) (int, error) {
+	lines, err := RunLines(ctx, repoPath, "rev-list", "--all", "--no-merges", "--count")
+	if err != nil {
+		return 0, err
+	}
+	if len(lines) == 0 {
+		return 0, nil
+	}
+	n, err := strconv.Atoi(strings.TrimSpace(lines[0]))
+	if err != nil {
+		return 0, err
+	}
+	return n, nil
+}
+
 // revListAll returns every non-merge commit SHA reachable from any ref, in git's
 // default (reverse-chronological) order — the same set and order ParseLog walks,
 // but with no patch generation, so it returns in ~a second even on huge repos.
