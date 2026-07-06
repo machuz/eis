@@ -58,7 +58,7 @@ I had that eye. At least, that's my self-assessment.
 
 EIS is that **observer's eye, turned into an open-source telescope.**
 
-Anyone can use it. Point it at any team. Through the lens of git history — a lens that cannot lie.
+Anyone can use it. Point it at any team. Through the lens of git history — the record politics can't spin.
 
 ---
 
