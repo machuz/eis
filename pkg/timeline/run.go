@@ -854,7 +854,7 @@ func Run(ctx context.Context, opts Options, repoPaths []string, cfg *config.Conf
 					if cacheStore.Get(debtCacheKey, &debt) {
 						// cached
 					} else {
-						debt, _ = metric.CalcDebt(ctx, repo.path, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor, metric.CoAuthorMap(repo.commits), nil, nil)
+						debt, _ = metric.CalcDebt(ctx, repo.path, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor, metric.CoAuthorMap(repo.commits), cfg.ExcludeFilePatterns, nil, nil)
 						if len(debt) > 0 {
 							cacheStore.Set(debtCacheKey, debt)
 						}
