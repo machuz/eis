@@ -103,6 +103,24 @@ func CalcLines(commits []git.Commit, excludePatterns []string) (added map[string
 // IsExcluded checks if a filename matches any of the exclude patterns.
 func IsExcluded(filename string, patterns []string) bool {
 	for _, pattern := range patterns {
+		// Directory pattern (trailing "/"): exclude the whole tree under a
+		// directory of this name AT ANY DEPTH. filepath.Match can't express this —
+		// "*" never crosses "/", so "vendor/*" misses vendor/github.com/x/y.go and
+		// "vendor/**" isn't a Match glob at all. Vendored/generated TREES
+		// (vendor/, third_party/, node_modules/) are the dominant source of both
+		// score inflation (someone gets credited for third-party code) and blame
+		// RSS blow-up, so they need an explicit path-segment form. "vendor/"
+		// matches vendor/… at the root AND services/x/vendor/… nested, but NOT a
+		// file named vendor.go, nor a myvendor/ or vendored/ directory.
+		if strings.HasSuffix(pattern, "/") {
+			dir := strings.TrimSuffix(pattern, "/")
+			if filename == dir ||
+				strings.HasPrefix(filename, dir+"/") ||
+				strings.Contains(filename, "/"+dir+"/") {
+				return true
+			}
+			continue
+		}
 		matched, _ := filepath.Match(pattern, filename)
 		if matched {
 			return true

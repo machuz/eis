@@ -298,10 +298,31 @@ func Default() *Config {
 		UntestedSurvivalWeight:  0.5,
 		ModuleLivenessMinMonths: 2,
 		ExcludeFilePatterns: []string{
+			// Vendored / third-party TREES (trailing "/" = match the whole
+			// directory at any depth). These are the dominant source of both score
+			// inflation and blame-RSS blow-up: e.g. a Go monorepo commits vendor/,
+			// so whoever runs `go mod vendor` is credited with tens of thousands of
+			// third-party files' survival, and blaming them all pushes peak memory
+			// into multi-GB. Not the team's engineering — exclude by default.
+			"vendor/",
+			"third_party/",
+			"node_modules/",
+			// Dependency lockfiles (machine-generated, no authored engineering).
 			"package-lock.json",
 			"yarn.lock",
 			"pnpm-lock.yaml",
 			"go.sum",
+			"Cargo.lock",
+			"Gemfile.lock",
+			"composer.lock",
+			"poetry.lock",
+			"Podfile.lock",
+			// Generated code + minified bundles (basename globs; not authored).
+			"*.pb.go",
+			"*_pb2.py",
+			"*_pb2.pyi",
+			"*.min.js",
+			"*.min.css",
 			"docs/swagger*",
 			"docs/doc.go",
 			"docs/openapi*",
