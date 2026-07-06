@@ -658,6 +658,8 @@ func Run(ctx context.Context, opts Options, repoPaths []string, cfg *config.Conf
 					// set is unchanged); cache/reblame operate on that subset.
 					sampled := git.SampleFiles(files, cfg.SampleSize)
 					touch := lastTouchByFile(cumulativeCommits)
+					// Resolve each sampled file from cache; collect misses as cold.
+					cached := make(map[string][]git.BlameLine, len(sampled))
 					var cold []string
 					for _, f := range sampled {
 						th, ok := touch[f]
@@ -670,24 +672,37 @@ func Run(ctx context.Context, opts Options, repoPaths []string, cfg *config.Conf
 						}
 						var fl []git.BlameLine
 						if cacheStore.Get(cache.BlameFileAtCommitKey(repo.path, f, th, cfg.SampleSize, cfg.BlameMoveDetection), &fl) {
-							blameLines = append(blameLines, fl...)
+							cached[f] = fl
 						} else {
 							cold = append(cold, f)
 						}
 					}
+					var fresh map[string][]git.BlameLine
 					if len(cold) > 0 {
 						// cold is already the sampled subset; blame per input path
 						// (grouped) so each file's lines cache under its own key
 						// regardless of git's historical Filename reporting.
-						fresh := git.ConcurrentBlameFilesAtCommitByFile(ctx, repo.path, boundaryCommit, cold, workers, cfg.BlameTimeout, blameProg, blameVerbose)
+						fresh = git.ConcurrentBlameFilesAtCommitByFile(ctx, repo.path, boundaryCommit, cold, workers, cfg.BlameTimeout, blameProg, blameVerbose)
 						for _, f := range cold {
-							fl := fresh[f]
-							if len(fl) == 0 {
-								continue
+							if fl := fresh[f]; len(fl) > 0 {
+								if th, ok := touch[f]; ok {
+									cacheStore.Set(cache.BlameFileAtCommitKey(repo.path, f, th, cfg.SampleSize, cfg.BlameMoveDetection), fl)
+								}
 							}
-							if th, ok := touch[f]; ok {
-								cacheStore.Set(cache.BlameFileAtCommitKey(repo.path, f, th, cfg.SampleSize, cfg.BlameMoveDetection), fl)
-							}
+						}
+					}
+					// Assemble in sampled order — INDEPENDENT of which files were
+					// cache hits. Appending cached files first then cold second (the
+					// previous behavior) made blameLines' order depend on cache state,
+					// so the order-sensitive float sums downstream (survival,
+					// catalysis) varied with cache timing: nondeterministic under
+					// PeriodConcurrency > 1, and cache-on ≠ cache-off. One pass in
+					// sampled order, each file's lines in git-blame order, is
+					// deterministic and cache-independent.
+					for _, f := range sampled {
+						if fl, ok := cached[f]; ok {
+							blameLines = append(blameLines, fl...)
+						} else if fl := fresh[f]; len(fl) > 0 {
 							blameLines = append(blameLines, fl...)
 						}
 					}
