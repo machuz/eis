@@ -51,7 +51,7 @@ func TestCalcDebt_SplitsFixCoAuthors(t *testing.T) {
 		t.Fatal("no fix commits detected")
 	}
 	coMap := CoAuthorMap(commits)
-	_, data := CalcDebt(context.Background(), dir, fixCommits, 50, 0, 120, 4, nil, coMap, nil, nil)
+	_, data := CalcDebt(context.Background(), dir, fixCommits, 50, 0, 120, 4, nil, coMap, nil, nil, nil)
 
 	if data.Cleaned["Bob"] <= 0 || data.Cleaned["Carol"] <= 0 {
 		t.Errorf("cleanup credit not split to co-author: Bob=%v Carol=%v", data.Cleaned["Bob"], data.Cleaned["Carol"])
@@ -61,5 +61,47 @@ func TestCalcDebt_SplitsFixCoAuthors(t *testing.T) {
 	}
 	if data.Generated["Alice"] <= 0 {
 		t.Errorf("Alice should be credited with generating the cleaned debt: %v", data.Generated["Alice"])
+	}
+}
+
+// Debt honors the file-exclusion patterns: a fix that only touches an excluded
+// (generated / lockfile) path contributes nothing — consistent with Survival and
+// Production, and avoiding the pathologically slow -M blame of churny lockfiles.
+func TestCalcDebt_ExcludesFiles(t *testing.T) {
+	dir := t.TempDir()
+	gitDebt(t, dir, "init", "-q", "-b", "main")
+	gitDebt(t, dir, "config", "user.email", "t@x.com")
+	gitDebt(t, dir, "config", "user.name", "T")
+	gitDebt(t, dir, "config", "commit.gpgsign", "false")
+
+	writeF := func(name, s string) {
+		if err := os.WriteFile(filepath.Join(dir, name), []byte(s), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	// Alice adds lines to a generated lockfile; Bob removes them (a "fix").
+	writeF("package-lock.json", "{\n\"a\":1,\n\"b\":2,\n\"c\":3\n}\n")
+	gitDebt(t, dir, "add", "-A")
+	gitDebt(t, dir, "commit", "-q", "-m", "add lock", "--author", "Alice <alice@x.com>")
+	writeF("package-lock.json", "{\n}\n")
+	gitDebt(t, dir, "add", "-A")
+	gitDebt(t, dir, "commit", "-q", "-m", "fix lock", "--author", "Bob <bob@x.com>")
+
+	commits, err := git.ParseLog(context.Background(), dir, false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fixCommits := GetFixCommits(commits)
+	coMap := CoAuthorMap(commits)
+
+	// Without excludes, the lockfile churn IS counted.
+	_, incl := CalcDebt(context.Background(), dir, fixCommits, 50, 0, 120, 4, nil, coMap, nil, nil, nil)
+	if incl.Generated["Alice"] <= 0 {
+		t.Fatalf("precondition: lockfile debt should count without excludes, got %v", incl.Generated["Alice"])
+	}
+	// With the lockfile excluded, it contributes nothing.
+	_, excl := CalcDebt(context.Background(), dir, fixCommits, 50, 0, 120, 4, nil, coMap, []string{"package-lock.json"}, nil, nil)
+	if len(excl.Generated) != 0 || len(excl.Cleaned) != 0 {
+		t.Errorf("excluded lockfile should contribute no debt, got generated=%v cleaned=%v", excl.Generated, excl.Cleaned)
 	}
 }

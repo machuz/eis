@@ -31,7 +31,7 @@ type VerboseFunc func(msg string)
 // coMap (commit SHA → contributor set) lets the "who generated this debt" side be
 // split across the original lines' co-authors, matching the fixer side which
 // splits across the fix commit's co-authors. Pass nil to disable co-author split.
-func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, maxSample int, debtThreshold int, blameTimeoutSec int, workers int, resolve ResolveFunc, coMap map[string][]string, progressFn ProgressFunc, verboseFn VerboseFunc) (map[string]float64, *DebtData) {
+func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, maxSample int, debtThreshold int, blameTimeoutSec int, workers int, resolve ResolveFunc, coMap map[string][]string, excludePatterns []string, progressFn ProgressFunc, verboseFn VerboseFunc) (map[string]float64, *DebtData) {
 	generated := make(map[string]float64)
 	cleaned := make(map[string]float64)
 
@@ -77,7 +77,11 @@ func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, max
 		}
 		fbs := make([]fileBlame, 0, len(files))
 		for _, f := range files {
-			if f != "" {
+			// Honor the exclude patterns here too — otherwise Debt blames
+			// generated / vendored / lockfiles that Survival and Production
+			// already skip (an inconsistency), and blaming a churny lockfile like
+			// package-lock.json with -M is pathologically slow (seconds per file).
+			if f != "" && !IsExcluded(f, excludePatterns) {
 				fbs = append(fbs, fileBlame{file: f})
 			}
 		}
