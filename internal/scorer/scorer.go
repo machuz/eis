@@ -304,9 +304,13 @@ func scoreImpl(raw *metric.RawScores, cfg *config.Config, authorLastDate map[str
 		results = append(results, r)
 	}
 
-	// Sort by impact descending
+	// Sort by impact descending, tie-broken by author so equal-impact authors
+	// keep a stable order across runs (results are built from map iteration).
 	sort.Slice(results, func(i, j int) bool {
-		return results[i].Impact > results[j].Impact
+		if results[i].Impact != results[j].Impact {
+			return results[i].Impact > results[j].Impact
+		}
+		return results[i].Author < results[j].Author
 	})
 
 	return results

@@ -28,11 +28,11 @@ type ModuleScore struct {
 	OwnerActive       bool
 
 	// 3-axis classification
-	Coupling      string  // "Isolated" / "Independent" / "Linked" / "Hub"
+	Coupling      string // "Isolated" / "Independent" / "Linked" / "Hub"
 	CouplingConf  float64
-	Vitality      string  // "Stable" / "Fragile" / "Warming" / "Turbulent" / "Critical" / "Dead"
+	Vitality      string // "Stable" / "Fragile" / "Warming" / "Turbulent" / "Critical" / "Dead"
 	VitalityConf  float64
-	Ownership     string  // "Distributed" / "Concentrated" / "Orphaned"
+	Ownership     string // "Distributed" / "Concentrated" / "Orphaned"
 	OwnershipConf float64
 
 	// Per-module test coverage ratio ([0.0, 1.0]) computed from the file
@@ -211,9 +211,13 @@ func ScoreModules(
 		scores = append(scores, ms)
 	}
 
-	// Sort by Stability ascending (most unstable first = most interesting)
+	// Sort by Stability ascending (most unstable first = most interesting),
+	// tie-broken by module id so equal-stability modules keep a stable order.
 	sort.Slice(scores, func(i, j int) bool {
-		return scores[i].Stability < scores[j].Stability
+		if scores[i].Stability != scores[j].Stability {
+			return scores[i].Stability < scores[j].Stability
+		}
+		return scores[i].Module < scores[j].Module
 	})
 
 	return scores
@@ -263,8 +267,14 @@ func percentileRanks(pressure metric.ChangePressure) map[string]float64 {
 	for mod, p := range pressure {
 		sorted = append(sorted, kv{mod, p})
 	}
+	// Tie-break by module id: equal-pressure modules must get a stable order so
+	// their percentile rank (assigned by index below) is reproducible — this is
+	// a VALUE, not just display order.
 	sort.Slice(sorted, func(i, j int) bool {
-		return sorted[i].pressure < sorted[j].pressure
+		if sorted[i].pressure != sorted[j].pressure {
+			return sorted[i].pressure < sorted[j].pressure
+		}
+		return sorted[i].mod < sorted[j].mod
 	})
 
 	n := float64(len(sorted))
