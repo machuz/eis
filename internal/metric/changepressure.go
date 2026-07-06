@@ -59,7 +59,15 @@ func CalcChangePressure(commits []git.Commit, blameLines []git.BlameLine, mr Mod
 			moduleCommits[mod]++
 		}
 	}
+	return CalcChangePressureFrom(moduleCommits, blameLines, mr)
+}
 
+// CalcChangePressureFrom is CalcChangePressure with the per-module commit counts
+// already tallied (e.g. by the streaming CommitAggregator — Cochange.ModuleCommits
+// is exactly this map), so the full commit slice need not be retained. Only the
+// blame-derived denominator is computed here. Value-identical to CalcChangePressure
+// for the same moduleCommits.
+func CalcChangePressureFrom(moduleCommits map[string]int, blameLines []git.BlameLine, mr ModuleResolver) ChangePressure {
 	// Count blame lines per module
 	moduleBlameLines := make(map[string]int)
 	for _, bl := range blameLines {
@@ -111,11 +119,8 @@ type OthersPressure struct {
 // commit counts, plus the surviving blame-line count, so For(mod, author) can
 // return the module's pressure from everyone EXCEPT author.
 func CalcOthersPressure(commits []git.Commit, blameLines []git.BlameLine, mr ModuleResolver) *OthersPressure {
-	o := &OthersPressure{
-		moduleCommits:       make(map[string]int),
-		authorModuleCommits: make(map[string]map[string]int),
-		moduleBlame:         make(map[string]int),
-	}
+	moduleCommits := make(map[string]int)
+	moduleAuthorCommits := make(map[string]map[string]int)
 	for _, c := range commits {
 		touched := make(map[string]bool)
 		for _, fs := range c.FileStats {
@@ -124,14 +129,28 @@ func CalcOthersPressure(commits []git.Commit, blameLines []git.BlameLine, mr Mod
 			}
 		}
 		for mod := range touched {
-			o.moduleCommits[mod]++
-			am := o.authorModuleCommits[mod]
+			moduleCommits[mod]++
+			am := moduleAuthorCommits[mod]
 			if am == nil {
 				am = make(map[string]int)
-				o.authorModuleCommits[mod] = am
+				moduleAuthorCommits[mod] = am
 			}
 			am[c.Author]++
 		}
+	}
+	return CalcOthersPressureFrom(moduleCommits, moduleAuthorCommits, blameLines, mr)
+}
+
+// CalcOthersPressureFrom is CalcOthersPressure with the commit-derived tallies
+// (total commits per module + module→author→commits) already computed — the
+// streaming CommitAggregator supplies Cochange.ModuleCommits and
+// ModuleAuthorCommits, so the commit slice need not be retained. Only the
+// surviving blame count per module is computed here.
+func CalcOthersPressureFrom(moduleCommits map[string]int, moduleAuthorCommits map[string]map[string]int, blameLines []git.BlameLine, mr ModuleResolver) *OthersPressure {
+	o := &OthersPressure{
+		moduleCommits:       moduleCommits,
+		authorModuleCommits: moduleAuthorCommits,
+		moduleBlame:         make(map[string]int),
 	}
 	for _, bl := range blameLines {
 		if mod := mr.ModuleOf(bl.Filename); mod != "" {

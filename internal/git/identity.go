@@ -19,35 +19,60 @@ import "strings"
 // Ordering is deterministic: ties break toward the higher commit count, then the
 // lexically smaller name, so the same repo always yields the same canonical set.
 func BuildIdentityMap(commits []Commit) map[string]string {
-	// email -> name -> commit count
-	emailNames := map[string]map[string]int{}
-	// name -> email -> commit count
-	nameEmails := map[string]map[string]int{}
-
-	for _, c := range commits {
-		email := strings.ToLower(strings.TrimSpace(c.Email))
-		name := c.Author
-		if email == "" || name == "" || isSharedEmail(email) {
-			continue
-		}
-		if emailNames[email] == nil {
-			emailNames[email] = map[string]int{}
-		}
-		emailNames[email][name]++
-		if nameEmails[name] == nil {
-			nameEmails[name] = map[string]int{}
-		}
-		nameEmails[name][email]++
+	acc := NewIdentityAccumulator()
+	for i := range commits {
+		acc.Add(commits[i].Author, commits[i].Email)
 	}
+	return acc.Build()
+}
 
+// IdentityAccumulator builds the raw-name → canonical-name identity map
+// incrementally, one (name, email) observation at a time, so a streaming log
+// walk can derive the map without materializing []Commit. Feed every commit's
+// (Author, Email) via Add, then call Build. Build is a pure function of the
+// accumulated counts, so the result is identical to BuildIdentityMap over the
+// same commits regardless of Add order (counts + deterministic pickTop).
+type IdentityAccumulator struct {
+	// email -> name -> commit count
+	emailNames map[string]map[string]int
+	// name -> email -> commit count
+	nameEmails map[string]map[string]int
+}
+
+// NewIdentityAccumulator returns an empty identity accumulator.
+func NewIdentityAccumulator() *IdentityAccumulator {
+	return &IdentityAccumulator{
+		emailNames: map[string]map[string]int{},
+		nameEmails: map[string]map[string]int{},
+	}
+}
+
+// Add records one commit's (author name, email) observation.
+func (a *IdentityAccumulator) Add(name, email string) {
+	email = strings.ToLower(strings.TrimSpace(email))
+	if email == "" || name == "" || isSharedEmail(email) {
+		return
+	}
+	if a.emailNames[email] == nil {
+		a.emailNames[email] = map[string]int{}
+	}
+	a.emailNames[email][name]++
+	if a.nameEmails[name] == nil {
+		a.nameEmails[name] = map[string]int{}
+	}
+	a.nameEmails[name][email]++
+}
+
+// Build finalizes the identity map (only entries where name != canonical).
+func (a *IdentityAccumulator) Build() map[string]string {
 	// canonical name per email = most-committed name (deterministic tiebreak)
-	emailCanon := make(map[string]string, len(emailNames))
-	for email, names := range emailNames {
+	emailCanon := make(map[string]string, len(a.emailNames))
+	for email, names := range a.emailNames {
 		emailCanon[email] = pickTop(names)
 	}
 
 	out := map[string]string{}
-	for name, emails := range nameEmails {
+	for name, emails := range a.nameEmails {
 		// attach this name to the email it commits under most, then take that
 		// email's canonical name.
 		canon := emailCanon[pickTop(emails)]

@@ -36,7 +36,16 @@ import (
 // `now` is the decay reference (passed in, never time.Now() here) so the result
 // is reproducible for a given (commits, blame, now).
 func CalcCatalysis(commits []git.Commit, blameLines []git.BlameLine, tau float64, now time.Time) map[string]float64 {
-	// file -> author -> earliest (non-merge) contribution date
+	return CalcCatalysisFrom(BuildFirstContrib(commits), blameLines, tau, now)
+}
+
+// BuildFirstContrib maps file → author → earliest (non-merge) contribution date
+// over the given commits. Every contributor (author + co-authors) shares the
+// origination date, so a co-authored file-creating commit makes both
+// foundations. This is the only thing CalcCatalysis reads from the commit
+// history; the streaming aggregator builds the same map incrementally so the
+// full []Commit never has to be retained for catalysis.
+func BuildFirstContrib(commits []git.Commit) map[string]map[string]time.Time {
 	firstContrib := make(map[string]map[string]time.Time)
 	for _, c := range commits {
 		if c.IsMerge {
@@ -48,8 +57,6 @@ func CalcCatalysis(commits []git.Commit, blameLines []git.BlameLine, tau float64
 				fa = make(map[string]time.Time)
 				firstContrib[fs.Filename] = fa
 			}
-			// Every contributor (author + co-authors) shares the origination date,
-			// so a co-authored file-creating commit makes both foundations.
 			for _, a := range CommitAuthors(c) {
 				if d, ok := fa[a]; !ok || c.Date.Before(d) {
 					fa[a] = c.Date
@@ -57,7 +64,16 @@ func CalcCatalysis(commits []git.Commit, blameLines []git.BlameLine, tau float64
 			}
 		}
 	}
+	return firstContrib
+}
 
+// CalcCatalysisFrom computes Catalysis from a prebuilt firstContrib map (file →
+// author → earliest contribution date) plus surviving blame. Splitting the
+// firstContrib construction out lets both the analyzer (streaming aggregator)
+// and the timeline (End-filtered global map) supply precedence without keeping
+// the commit history around. Value-identical to the original CalcCatalysis for
+// the same firstContrib.
+func CalcCatalysisFrom(firstContrib map[string]map[string]time.Time, blameLines []git.BlameLine, tau float64, now time.Time) map[string]float64 {
 	// file -> author -> surviving, time-decayed mass
 	survMass := make(map[string]map[string]float64)
 	for _, bl := range blameLines {

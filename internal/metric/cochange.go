@@ -64,6 +64,13 @@ func CalcCochange(commits []git.Commit, mr ModuleResolver) CochangeResult {
 		}
 	}
 
+	return buildCochangeResult(moduleCommits, pairCount)
+}
+
+// buildCochangeResult turns accumulated per-module commit counts and per-pair
+// co-occurrence counts into the sorted Jaccard-coupled CochangeResult. Shared by
+// CalcCochange and the streaming CommitAggregator so the two cannot drift.
+func buildCochangeResult(moduleCommits map[string]int, pairCount map[[2]string]int) CochangeResult {
 	// Calculate Jaccard coupling coefficient
 	var pairs []ModulePair
 	for key, count := range pairCount {
