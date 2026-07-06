@@ -33,7 +33,7 @@ func runTimeline(args []string) error {
 	maxDepth := fs.Int("depth", 2, "Max directory depth for recursive search")
 	domainFilter := fs.String("domain", "", "Only analyze specific domain")
 	authorFilter := fs.String("author", "", "Filter to specific author(s), comma-separated")
-	workers := fs.Int("workers", 4, "Number of concurrent blame workers")
+	workers := fs.Int("workers", 0, "Concurrent blame workers (0 = auto, based on CPU count)")
 	periodConcurrency := fs.Int("period-concurrency", 1, "Number of timeline periods (windows) to compute in parallel (1=sequential). Peak blame memory ≈ period-concurrency × workers × per-repo blame size, so bound the two jointly.")
 	sampleSize := fs.Int("sample", 0, "Max files to blame per repo (overrides config)")
 	tau := fs.Float64("tau", 0, "Survival decay parameter (overrides config)")
@@ -42,7 +42,7 @@ func runTimeline(args []string) error {
 	verbose := fs.Bool("verbose", false, "Show detailed debug output")
 	fastLog := fs.Bool("fast-log", false, "Skip git log -p comment filtering (numstat-only) — much faster on large repos; gravity is essentially unaffected")
 	blameMove := fs.String("blame-move", "", "Override blame move/copy detection (off|file|commit|full); empty = config. `off` drops git blame's -M and is markedly faster per window — worth it on full-history monthly runs where co-author move attribution isn't needed.")
-	_ = fs.Bool("no-cache", false, "Skip disk cache (currently unused with library mode)")
+	noCache := fs.Bool("no-cache", false, "Skip disk cache (blame/log). Cache is ON by default — the per-file incremental blame cache lets each window reuse unchanged files' blames from earlier windows, which is the dominant cold-run cost.")
 
 	flagArgs, pathArgs := separateArgs(args, fs)
 	if err := fs.Parse(flagArgs); err != nil {
@@ -288,13 +288,14 @@ func runTimeline(args []string) error {
 		Span:              *spanFlag,
 		Periods:           effectivePeriods,
 		Since:             effectiveSince,
-		Workers:           *workers,
+		Workers:           resolveWorkers(*workers),
 		PeriodConcurrency: *periodConcurrency,
 		DomainFilter:      *domainFilter,
 		PressureMode:      *pressureMode,
 		Tau:               *tau,
 		SampleSize:        *sampleSize,
 		ActiveDays:        *activeDays,
+		CacheEnabled:      !*noCache,
 	}
 
 	// The CLI walks to completion — no budget to time-box, so pass a
