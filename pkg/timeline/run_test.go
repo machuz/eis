@@ -1,6 +1,7 @@
 package timeline
 
 import (
+	"context"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -41,6 +42,7 @@ func TestRun_OnPeriodCompleteFiresPerWindow(t *testing.T) {
 	var emitted []map[string]PeriodResult
 
 	results, err := Run(
+		context.Background(),
 		Options{
 			Span:         "1m",
 			Periods:      2,
@@ -150,6 +152,7 @@ func TestRun_PeriodConcurrencyIsDeterministic(t *testing.T) {
 			run := func(concurrency int) ([]DomainTimeline, []map[string]PeriodResult) {
 				var emitted []map[string]PeriodResult
 				results, err := Run(
+					context.Background(),
 					Options{
 						Span:              "1m",
 						Since:             "2024-01-01",
@@ -235,6 +238,7 @@ func TestRun_PerRepoEmitsPerRepoBreakdown(t *testing.T) {
 
 	// Off by default — existing CLI behaviour preserved.
 	resultsOff, err := Run(
+		context.Background(),
 		Options{Span: "1m", Since: "2024-01-01", Workers: 1, PressureMode: "include"},
 		[]string{repoA, repoB},
 		cfg,
@@ -254,6 +258,7 @@ func TestRun_PerRepoEmitsPerRepoBreakdown(t *testing.T) {
 
 	// On — per-repo breakdown lands on every period.
 	resultsOn, err := Run(
+		context.Background(),
 		Options{Span: "1m", Since: "2024-01-01", Workers: 1, PressureMode: "include", PerRepo: true},
 		[]string{repoA, repoB},
 		cfg,
@@ -336,6 +341,7 @@ func TestRun_RepoOverrideAppliesModulePatterns(t *testing.T) {
 	}
 
 	results, err := Run(
+		context.Background(),
 		Options{Span: "1m", Since: "2024-01-01", Workers: 1, PressureMode: "include"},
 		[]string{dir},
 		cfg,
@@ -512,4 +518,50 @@ func buildTimelineFixtureRepo(t *testing.T) string {
 	commit("2024-06-10", "second", "b.go", "package a\n\nfunc B() {}\n")
 
 	return dir
+}
+
+// TestRun_ContextCancellationStopsWalk locks the ctx budget contract: a caller
+// that cancels ctx mid-walk (Ace time-boxing a years-long backfill into bounded
+// jobs) must stop the walk, not run it to the present. This is the whole point
+// of threading ctx into Run — before it, Run built its own context.Background()
+// (run.go) and ignored the caller entirely, so a "30-minute" budget silently
+// walked the full history and the chunking never truncated. Cancellation is not
+// an error: the windows completed before the deadline are a valid partial result
+// the caller resumes from.
+func TestRun_ContextCancellationStopsWalk(t *testing.T) {
+	dir := buildTimelineFixtureRepo(t)
+	cfg := config.Default()
+
+	// Since 2024-01 to the present is dozens of monthly windows — enough that an
+	// uninterrupted walk dispatches many, so stopping after the first is a clear
+	// signal the cancellation took effect (not just a one-window fixture).
+	// PeriodConcurrency:1 keeps the cancel-after-first assertion deterministic:
+	// the sequential scheduler checks ctx at the top of every iteration.
+	opts := Options{Span: "1m", Since: "2024-01-01", Workers: 1, PressureMode: "include", PeriodConcurrency: 1}
+
+	var fullStarts int
+	if _, err := Run(context.Background(), opts, []string{dir}, cfg, &Callbacks{
+		OnPeriodStart: func(string, int, int) { fullStarts++ },
+	}); err != nil {
+		t.Fatalf("baseline Run: %v", err)
+	}
+	if fullStarts < 3 {
+		t.Fatalf("fixture produced only %d windows; need >= 3 to exercise truncation", fullStarts)
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	var cancelledStarts int
+	_, err := Run(ctx, opts, []string{dir}, cfg, &Callbacks{
+		OnPeriodStart: func(string, int, int) {
+			cancelledStarts++
+			cancel() // budget elapsed the moment the first window starts
+		},
+	})
+	if err != nil {
+		t.Fatalf("cancelled Run must return nil error (truncation is not a failure): %v", err)
+	}
+	if cancelledStarts >= fullStarts {
+		t.Fatalf("walk ignored cancellation: %d/%d windows dispatched after cancel (want the scheduler to stop early)", cancelledStarts, fullStarts)
+	}
 }

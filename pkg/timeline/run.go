@@ -199,7 +199,21 @@ func BuildPeriods(spanMonths, spanDays, numPeriods int, since time.Time, now tim
 
 // Run executes the timeline analysis pipeline on the given repository paths.
 // It returns per-domain timeline results without any CLI-specific behavior.
-func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([]DomainTimeline, error) {
+// Run walks the timeline for repoPaths and returns per-domain period results.
+//
+// ctx bounds the walk: every git operation (log parse, boundary resolution,
+// blame) runs under it, and the window scheduler stops dispatching new windows
+// once ctx is cancelled. A caller that time-boxes a long backfill (Ace splits a
+// years-long history into bounded jobs) passes a ctx it cancels at the budget;
+// the walk then stops MID-window instead of running to the present. Cancellation
+// yields a PARTIAL result (the windows completed before the deadline) with a nil
+// error — the caller detects the truncation via context.Cause and resumes the
+// tail. Pass context.Background() for an uninterrupted, historical-behavior walk
+// (the CLI does); that path is bit-identical to before ctx threading (W-02).
+func Run(ctx context.Context, opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([]DomainTimeline, error) {
+	if ctx == nil {
+		ctx = context.Background()
+	}
 	if cb == nil {
 		cb = &Callbacks{}
 	}
@@ -216,7 +230,6 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		cfg.ActiveDays = opts.ActiveDays
 	}
 
-	ctx := context.Background()
 	workers := opts.Workers
 	if workers == 0 {
 		workers = 4
@@ -840,6 +853,11 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// fires BEFORE the window is computed (progress UI depends on that),
 		// then OnPeriodComplete after.
 		for pi, window := range windows {
+			// Stop dispatching new windows once the caller's budget cancels ctx.
+			// Windows already emitted stay; the remainder is the caller's to resume.
+			if ctx.Err() != nil {
+				break
+			}
 			if cb.OnPeriodStart != nil {
 				cb.OnPeriodStart(window.Label, pi, len(windows))
 			}
@@ -892,6 +910,13 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			}()
 		}
 		for pi := range windows {
+			// Stop feeding new windows once the caller's budget cancels ctx. In-flight
+			// windows drain fast (their git ops honor ctx); windows never fed leave
+			// done[pi]=false, so the ordered emitter halts at the first unfed window —
+			// exactly the truncation frontier the caller resumes from.
+			if ctx.Err() != nil {
+				break
+			}
 			idxCh <- pi
 		}
 		close(idxCh)

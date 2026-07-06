@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -296,7 +297,9 @@ func runTimeline(args []string) error {
 		ActiveDays:        *activeDays,
 	}
 
-	domainTimelines, err := pkgtimeline.Run(opts, repoPaths, cfg, cb)
+	// The CLI walks to completion — no budget to time-box, so pass a
+	// never-cancelled context (bit-identical to the pre-ctx behavior).
+	domainTimelines, err := pkgtimeline.Run(context.Background(), opts, repoPaths, cfg, cb)
 	if stopLastProgress != nil {
 		stopLastProgress()
 	}
