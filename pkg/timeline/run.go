@@ -197,6 +197,48 @@ func BuildPeriods(spanMonths, spanDays, numPeriods int, since time.Time, now tim
 	return windows
 }
 
+// incrementalBlame reports whether the per-file last-touch blame cache
+// (cache.BlameFileAtCommitKey) is sound for this move-detection level. Only
+// within-file detection (-M — the default and what observation uses) keeps a
+// file's blame a pure function of its own history; -C/-C -C attribute lines to
+// copy sources in other files, so a file's blame then depends on other files'
+// commits and the per-file key would unify blames that differ. Those levels use
+// the whole-boundary key instead.
+func incrementalBlame(moveDetection string) bool {
+	return moveDetection == "" || moveDetection == "file"
+}
+
+// lastTouchByFile maps each file path to the SHA of the newest commit (by date)
+// that modified it within commits — which the caller passes pre-filtered to a
+// window boundary (cumulativeCommits, all commits <= window.End). That SHA is
+// the per-file cache coordinate for incremental blame: a file unchanged since
+// its last-touch commit has identical -M blame at every later boundary, so the
+// last-touch SHA — not the moving window boundary — is the stable key.
+//
+// "Newest by date" is consistent with the timeline's own date-based windowing
+// (windows and cumulativeCommits are themselves date-filtered), so it introduces
+// no ordering assumption the model doesn't already make. On equal dates the
+// later position in commits wins, which is deterministic for a fixed parsed log.
+func lastTouchByFile(commits []git.Commit) map[string]string {
+	type touch struct {
+		sha  string
+		date time.Time
+	}
+	latest := make(map[string]touch)
+	for _, c := range commits {
+		for _, fs := range c.FileStats {
+			if prev, ok := latest[fs.Filename]; !ok || !c.Date.Before(prev.date) {
+				latest[fs.Filename] = touch{c.Hash, c.Date}
+			}
+		}
+	}
+	out := make(map[string]string, len(latest))
+	for f, t := range latest {
+		out[f] = t.sha
+	}
+	return out
+}
+
 // Run executes the timeline analysis pipeline on the given repository paths.
 // It returns per-domain timeline results without any CLI-specific behavior.
 // Run walks the timeline for repoPaths and returns per-domain period results.
@@ -570,25 +612,78 @@ func Run(ctx context.Context, opts Options, repoPaths []string, cfg *config.Conf
 					continue
 				}
 
+				var blameProg func(int, int)
+				if cb.OnBlameProgress != nil {
+					repoName := repo.name
+					blameProg = func(done, total int) {
+						cb.OnBlameProgress(repoName, done, total)
+					}
+				}
+
 				var blameLines []git.BlameLine
-				blameCacheKey := cache.BlameAtCommitKey(repo.path, boundaryCommit, files, cfg.SampleSize, cfg.BlameMoveDetection)
-				if cacheStore.Get(blameCacheKey, &blameLines) {
-					// cached
-				} else {
-					var blameProg func(int, int)
-					if cb.OnBlameProgress != nil {
-						repoName := repo.name
-						blameProg = func(done, total int) {
-							cb.OnBlameProgress(repoName, done, total)
+				if incrementalBlame(cfg.BlameMoveDetection) {
+					// Incremental per-file blame cache (see
+					// cache.BlameFileAtCommitKey). Under -M a file's blame is a
+					// pure function of its own history, so blaming it here equals
+					// blaming it at the commit that last touched it — key the
+					// cache on that last-touch SHA and files unchanged since an
+					// earlier window (or run) are reused; only files modified in
+					// this window are re-blamed. This collapses the per-window
+					// blame from O(all files) to O(files changed in the window),
+					// which is the dominant cost of a timeline backfill.
+					//
+					// Sample first so the CLI's default file sampling is
+					// preserved exactly (observation sets SampleSize=all, so its
+					// set is unchanged); cache/reblame operate on that subset.
+					sampled := git.SampleFiles(files, cfg.SampleSize)
+					touch := lastTouchByFile(cumulativeCommits)
+					var cold []string
+					for _, f := range sampled {
+						th, ok := touch[f]
+						if !ok {
+							// No recorded touch (file present in the tree but not
+							// in the parsed/sampled log window) — blame fresh and
+							// don't cache, since we have no stable key for it.
+							cold = append(cold, f)
+							continue
+						}
+						var fl []git.BlameLine
+						if cacheStore.Get(cache.BlameFileAtCommitKey(repo.path, f, th, cfg.SampleSize, cfg.BlameMoveDetection), &fl) {
+							blameLines = append(blameLines, fl...)
+						} else {
+							cold = append(cold, f)
 						}
 					}
-
-					blameLines, err = git.ConcurrentBlameFilesAtCommit(ctx, repo.path, boundaryCommit, files, cfg.SampleSize, workers, cfg.BlameTimeout, blameProg, blameVerbose)
-					if err != nil {
-						// Non-fatal: continue with whatever blame lines we got
+					if len(cold) > 0 {
+						// cold is already the sampled subset; blame per input path
+						// (grouped) so each file's lines cache under its own key
+						// regardless of git's historical Filename reporting.
+						fresh := git.ConcurrentBlameFilesAtCommitByFile(ctx, repo.path, boundaryCommit, cold, workers, cfg.BlameTimeout, blameProg, blameVerbose)
+						for _, f := range cold {
+							fl := fresh[f]
+							if len(fl) == 0 {
+								continue
+							}
+							if th, ok := touch[f]; ok {
+								cacheStore.Set(cache.BlameFileAtCommitKey(repo.path, f, th, cfg.SampleSize, cfg.BlameMoveDetection), fl)
+							}
+							blameLines = append(blameLines, fl...)
+						}
 					}
-					if len(blameLines) > 0 {
-						cacheStore.Set(blameCacheKey, blameLines)
+				} else {
+					// -C / -C -C: a line can be attributed to a copy source in
+					// another file, so a file's blame depends on other files'
+					// commits and the per-file last-touch key is unsound. Fall
+					// back to the whole-boundary key (immutable at a fixed commit).
+					blameCacheKey := cache.BlameAtCommitKey(repo.path, boundaryCommit, files, cfg.SampleSize, cfg.BlameMoveDetection)
+					if !cacheStore.Get(blameCacheKey, &blameLines) {
+						blameLines, err = git.ConcurrentBlameFilesAtCommit(ctx, repo.path, boundaryCommit, files, cfg.SampleSize, workers, cfg.BlameTimeout, blameProg, blameVerbose)
+						if err != nil {
+							// Non-fatal: continue with whatever blame lines we got
+						}
+						if len(blameLines) > 0 {
+							cacheStore.Set(blameCacheKey, blameLines)
+						}
 					}
 				}
 

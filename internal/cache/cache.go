@@ -205,6 +205,24 @@ func BlameAtCommitKey(repoPath, commitHash string, files []string, sampleSize in
 	return filepath.Join(repoHash(repoPath), "blame-commit-"+cacheSchema, shortHash(commitHash), filesHash+"-"+blameMoveTag(moveDetection)+".gob")
 }
 
+// BlameFileAtCommitKey returns the cache key for ONE file's blame, keyed by the
+// commit that last modified that file at/before a window boundary (its
+// "last-touch" commit). A file is byte-identical from its last-touch commit up
+// to any later boundary, so — under within-file move detection (-M) — blaming it
+// at the boundary yields the same lines as blaming it at last-touch. Keying on
+// last-touch (not the boundary commit) makes the entry shared by every timeline
+// window and every run in which the file was not re-touched, collapsing the
+// per-window blame from O(all files) to O(files changed in the window).
+//
+// Only sound for -M: with -C/-C -C a line can be attributed to a copy source in
+// another file, so a file's blame depends on other files' commits and the
+// per-file last-touch key no longer captures every input — callers must gate on
+// move detection and fall back to BlameAtCommitKey there.
+func BlameFileAtCommitKey(repoPath, filePath, touchHash string, sampleSize int, moveDetection string) string {
+	fileHash := hashFileList([]string{filePath}, sampleSize)
+	return filepath.Join(repoHash(repoPath), "blame-file-"+cacheSchema, shortHash(touchHash), fileHash+"-"+blameMoveTag(moveDetection)+".gob")
+}
+
 // blameMoveTag normalises the move-detection level for a stable cache-key segment
 // ("" defaults to "file", matching git.BlameMoveArgs).
 func blameMoveTag(moveDetection string) string {
