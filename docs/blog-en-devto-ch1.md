@@ -116,7 +116,7 @@ The scale is intentionally strict:
 | 20–29 | Junior–Mid |
 | <20 | Junior |
 
-**40 = Senior.** Putting up decent numbers across seven axes simultaneously requires serious, well-rounded ability. An engineer in the 40s can compete in any market.
+**40 = Senior.** Putting up decent numbers across seven axes simultaneously requires serious, well-rounded ability. Few clear it. (The axes are normalized within a codebase, so 40 is a high bar *here* — not a portable cross-company grade.)
 
 **Critical caveat:** EIS measures **impact on *this* codebase**, not absolute engineering ability. High Survival might even mean the code can't be refactored away. If the observations don't match your gut feeling, that's worth investigating — it may reveal codebase design issues rather than people issues. (We call this [Engineering Relativity](https://dev.to/machuz/git-archaeology-8-engineering-relativity-why-the-same-engineer-gets-different-scores-5dnl).)
 

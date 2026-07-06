@@ -83,7 +83,7 @@ EIS reads `git log` and `git blame` to compute 7 axes:
 
 From these signals, EIS derives **Roles** (Architect, Anchor, Producer...), **Styles** (Builder, Emergent, Rescue...), and **States** (Active, Growing, Fragile...) — a 3-axis topology for each engineer.
 
-**Survival is the core thesis.** Exponential time-decay ensures that "are you *still* writing durable code?" matters most. This is naturally resistant to gaming — busy work doesn't survive.
+**Survival is the core thesis.** Exponential time-decay ensures that "are you *still* writing durable code?" matters most. This resists the obvious gaming — busy work doesn't survive to be counted. (It is not immune to everything: a repo-wide reformat or a squash-merge workflow can still shift blame — see the whitepaper's Limitations.)
 
 ---
 
@@ -178,7 +178,7 @@ keeps the observatory current even in quiet weeks — see
 
 The core gap this model fills: **existing frameworks measure activity or velocity, not whether individual contributions actually lasted.** DORA tells you how fast code reaches production. This model tells you whether it was worth deploying.
 
-Time-decayed survival is also naturally resistant to gaming — you can't inflate your signal with busy work, because only code that remains in the codebase months later counts.
+Time-decayed survival also resists the obvious inflation — busy work doesn't help, because only code that remains in the codebase months later counts.
 
 ## The 7 Axes
 
@@ -198,7 +198,7 @@ Time-decayed survival is also naturally resistant to gaming — you can't inflat
 
 ## Signal Guide
 
-**40 = Senior.** This metric is deliberately harsh. Reaching 40+ across 7 relative axes requires serious, well-rounded ability.
+**40 = Senior.** This metric is deliberately harsh, and the relative axes are normalized *within a codebase* — so 40 is a high bar here, not a portable cross-company grade. Reaching 40+ across 7 axes at once requires serious, well-rounded ability.
 
 > **Important: EIS measures impact on *this codebase*, not absolute engineering ability.** A strong signal means "on this codebase, this person's contributions are surviving, shaping architecture, and cleaning up debt." It does not mean they are a better engineer than someone with a weak signal. If signals don't match your gut feeling, that's worth investigating: it may reveal codebase design issues rather than people issues.
 
