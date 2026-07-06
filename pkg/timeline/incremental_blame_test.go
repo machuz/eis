@@ -1,6 +1,7 @@
 package timeline
 
 import (
+	"context"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -121,6 +122,7 @@ func TestRun_IncrementalBlameMatchesFullBlame(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			run := func(cacheEnabled bool) []DomainTimeline {
 				results, err := Run(
+					context.Background(),
 					Options{
 						Span:              "1m",
 						Since:             "2024-01-01",

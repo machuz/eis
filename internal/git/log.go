@@ -252,6 +252,20 @@ func trimLineEnd(b []byte) []byte {
 func parseLogStream(r io.Reader) ([]Commit, error) {
 	br := bufio.NewReaderSize(r, maxLineKeep)
 
+	// intern deduplicates FileStat.Filename backing strings. The same path recurs
+	// across thousands of commits, and each numstat line would otherwise allocate
+	// its own copy — millions of identical strings on a large history. Collapsing
+	// them to one backing string per distinct path is the dominant filename-memory
+	// win and is value-neutral (an interned string is byte-equal to the original).
+	intern := make(map[string]string)
+	internStr := func(s string) string {
+		if got, ok := intern[s]; ok {
+			return got
+		}
+		intern[s] = s
+		return s
+	}
+
 	var commits []Commit
 	var current *Commit
 
@@ -407,7 +421,7 @@ func parseLogStream(r io.Reader) ([]Commit, error) {
 		current.FileStats = append(current.FileStats, FileStat{
 			Insertions: ins,
 			Deletions:  del,
-			Filename:   resolveRenamePath(parts[2]),
+			Filename:   internStr(resolveRenamePath(parts[2])),
 		})
 	}
 
@@ -476,8 +490,12 @@ func ParseLogParallel(ctx context.Context, repoPath string, workers int, comment
 		total += len(results[i])
 	}
 	out := make([]Commit, 0, total)
-	for _, r := range results {
-		out = append(out, r...)
+	for i := range results {
+		out = append(out, results[i]...)
+		// Release each chunk as it is copied so the concatenation doesn't hold
+		// BOTH the per-chunk slices and the merged slice at once — that doubled
+		// peak resident commits on large histories. Output is unchanged.
+		results[i] = nil
 	}
 	return out, nil
 }
