@@ -100,6 +100,40 @@ func CalcLines(commits []git.Commit, excludePatterns []string) (added map[string
 	return added, deleted
 }
 
+// Excluder memoizes IsExcluded by filename. The same path recurs across
+// thousands of commits, and IsExcluded runs filepath.Match (a glob rescan) for
+// every pattern on every call — profiling a large-repo analyze showed this was
+// ~a third of all Go CPU. Caching filename → verdict collapses the millions of
+// per-file-touch checks to one per DISTINCT path. The verdict is a pure function
+// of (filename, patterns), so the cache is exact. Not safe for concurrent use;
+// the analyzer's filtering runs on a single goroutine.
+type Excluder struct {
+	patterns []string
+	cache    map[string]bool
+}
+
+// NewExcluder returns a memoizing excluder over the given patterns.
+func NewExcluder(patterns []string) *Excluder {
+	return &Excluder{patterns: patterns, cache: make(map[string]bool)}
+}
+
+// Active reports whether the excluder has any patterns (so callers can keep the
+// original fast-path of skipping the filter loop entirely when none are set).
+func (e *Excluder) Active() bool { return e != nil && len(e.patterns) > 0 }
+
+// IsExcluded reports whether filename matches any pattern, memoized.
+func (e *Excluder) IsExcluded(filename string) bool {
+	if e == nil || len(e.patterns) == 0 {
+		return false
+	}
+	if v, ok := e.cache[filename]; ok {
+		return v
+	}
+	v := IsExcluded(filename, e.patterns)
+	e.cache[filename] = v
+	return v
+}
+
 // IsExcluded checks if a filename matches any of the exclude patterns.
 func IsExcluded(filename string, patterns []string) bool {
 	for _, pattern := range patterns {

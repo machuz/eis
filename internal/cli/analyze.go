@@ -483,8 +483,11 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 
 		// Effective exclusions: config patterns + .gitattributes linguist-generated
 		// /vendored paths (so generated/vendored files don't inflate gravity). Used
-		// by every file filter below, so blame + change-volume agree.
+		// by every file filter below, so blame + change-volume agree. Wrapped in a
+		// memoizing Excluder — the per-file-touch glob match was ~a third of Go CPU
+		// on large repos; one verdict per distinct path collapses it.
 		excludes := effectiveExcludes(ctx, repoPath, cfg)
+		excl := metric.NewExcluder(excludes)
 		// Reverted commits (originals + reverts) are dropped so code merged then
 		// reverted doesn't inflate metrics. HEAD-derived set; retains no history.
 		revertedHashes, _ := git.FindRevertedCommits(ctx, repoPath)
@@ -493,9 +496,9 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		commitCount, _ := git.CountCommits(ctx, repoPath)
 		var res *aggResult
 		if commitCount >= streamingCommitThreshold {
-			res, err = aggregateStreaming(ctx, repoPath, workers, cfg, moduleResolver, excludes, revertedHashes)
+			res, err = aggregateStreaming(ctx, repoPath, workers, cfg, moduleResolver, excl, revertedHashes)
 		} else {
-			res, err = aggregateMaterialized(ctx, repoPath, headHash, workers, cfg, moduleResolver, excludes, revertedHashes, cacheStore)
+			res, err = aggregateMaterialized(ctx, repoPath, headHash, workers, cfg, moduleResolver, excl, revertedHashes, cacheStore)
 		}
 		spin.Stop()
 		if err != nil {
@@ -1119,7 +1122,7 @@ type aggResult struct {
 // CommitAggregator). Passes 1 and 2 apply keepFilteredCommit per commit — the
 // same transform the materialized path applies to the whole slice — so the
 // result is identical. For giant (Linux-scale) histories only.
-func aggregateStreaming(ctx context.Context, repoPath string, workers int, cfg *config.Config, resolver metric.ModuleResolver, excludes []string, reverted map[string]bool) (*aggResult, error) {
+func aggregateStreaming(ctx context.Context, repoPath string, workers int, cfg *config.Config, resolver metric.ModuleResolver, excl *metric.Excluder, reverted map[string]bool) (*aggResult, error) {
 	// Pass 0: identity map over all raw commits (cheap format-only walk).
 	idmap, err := git.StreamIdentityMap(ctx, repoPath)
 	if err != nil {
@@ -1129,7 +1132,7 @@ func aggregateStreaming(ctx context.Context, repoPath string, workers int, cfg *
 	// resolver (must precede every module-topology metric, W-02).
 	foldAcc := metric.NewModuleFoldAccumulator(resolver, cfg.ModuleLivenessMinMonths)
 	if err := git.StreamLogParallel(ctx, repoPath, workers, false, func(c *git.Commit) {
-		if keepFilteredCommit(c, cfg, idmap, excludes) && !reverted[c.Hash] {
+		if keepFilteredCommit(c, cfg, idmap, excl) && !reverted[c.Hash] {
 			foldAcc.Add(c)
 		}
 	}); err != nil {
@@ -1140,7 +1143,7 @@ func aggregateStreaming(ctx context.Context, repoPath string, workers int, cfg *
 	agg := metric.NewCommitAggregator(resolver)
 	dropped := 0
 	if err := git.StreamLogParallel(ctx, repoPath, workers, cfg.CommentFilterEnabled(), func(c *git.Commit) {
-		if !keepFilteredCommit(c, cfg, idmap, excludes) {
+		if !keepFilteredCommit(c, cfg, idmap, excl) {
 			return
 		}
 		if reverted[c.Hash] {
@@ -1158,7 +1161,7 @@ func aggregateStreaming(ctx context.Context, repoPath string, workers int, cfg *
 // walk into a []Commit (cached under LogKey), filtered in place, then folded into
 // the SAME CommitAggregator. Holding the slice is fine here because peak RSS is
 // dominated by the blame stage, not the log, up to very large repos.
-func aggregateMaterialized(ctx context.Context, repoPath, headHash string, workers int, cfg *config.Config, resolver metric.ModuleResolver, excludes []string, reverted map[string]bool, cacheStore *cache.Store) (*aggResult, error) {
+func aggregateMaterialized(ctx context.Context, repoPath, headHash string, workers int, cfg *config.Config, resolver metric.ModuleResolver, excl *metric.Excluder, reverted map[string]bool, cacheStore *cache.Store) (*aggResult, error) {
 	var commits []git.Commit
 	logCacheKey := cache.LogKey(repoPath, headHash, cfg.CommentFilterEnabled())
 	if headHash == "" || !cacheStore.Get(logCacheKey, &commits) {
@@ -1176,7 +1179,7 @@ func aggregateMaterialized(ctx context.Context, repoPath, headHash string, worke
 	idmap := git.BuildIdentityMap(commits)
 	git.CanonicalizeAuthors(commits, nil, idmap)
 	commits = filterCommits(commits, cfg)
-	commits = filterFileStats(commits, excludes)
+	commits = filterFileStats(commits, excl)
 	dropped := 0
 	if len(reverted) > 0 {
 		before := len(commits)
@@ -1199,7 +1202,7 @@ func aggregateMaterialized(ctx context.Context, repoPath, headHash string, worke
 // Reverted-commit dropping is intentionally NOT here: callers apply it after this
 // (matching the materialized order filterCommits→filterFileStats→filterReverted),
 // so a reverted commit can still be counted for the stderr "excluded N" note.
-func keepFilteredCommit(c *git.Commit, cfg *config.Config, idmap map[string]string, excludes []string) bool {
+func keepFilteredCommit(c *git.Commit, cfg *config.Config, idmap map[string]string, excl *metric.Excluder) bool {
 	if cn, ok := idmap[c.Author]; ok {
 		c.Author = cn
 	}
@@ -1213,10 +1216,10 @@ func keepFilteredCommit(c *git.Commit, cfg *config.Config, idmap map[string]stri
 		return false
 	}
 	c.CoAuthors = resolveCoAuthors(c.CoAuthors, c.Author, cfg)
-	if len(excludes) > 0 {
+	if excl.Active() {
 		kept := c.FileStats[:0]
 		for _, fs := range c.FileStats {
-			if !metric.IsExcluded(fs.Filename, excludes) {
+			if !excl.IsExcluded(fs.Filename) {
 				kept = append(kept, fs)
 			}
 		}
@@ -1245,15 +1248,17 @@ func resolveCoAuthors(coAuthors []string, primary string, cfg *config.Config) []
 	return out
 }
 
-// filterFileStats removes excluded file patterns from commit FileStats
-func filterFileStats(commits []git.Commit, excludePatterns []string) []git.Commit {
-	if len(excludePatterns) == 0 {
+// filterFileStats removes excluded file patterns from commit FileStats, using a
+// memoizing excluder so a path recurring across thousands of commits is matched
+// against the glob patterns only once.
+func filterFileStats(commits []git.Commit, excl *metric.Excluder) []git.Commit {
+	if !excl.Active() {
 		return commits
 	}
 	for i := range commits {
 		var filtered []git.FileStat
 		for _, fs := range commits[i].FileStats {
-			if !metric.IsExcluded(fs.Filename, excludePatterns) {
+			if !excl.IsExcluded(fs.Filename) {
 				filtered = append(filtered, fs)
 			}
 		}
