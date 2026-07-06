@@ -51,7 +51,7 @@ func TestCalcDebt_SplitsFixCoAuthors(t *testing.T) {
 		t.Fatal("no fix commits detected")
 	}
 	coMap := CoAuthorMap(commits)
-	_, data := CalcDebt(context.Background(), dir, fixCommits, 50, 0, 120, nil, coMap, nil, nil)
+	_, data := CalcDebt(context.Background(), dir, fixCommits, 50, 0, 120, 4, nil, coMap, nil, nil)
 
 	if data.Cleaned["Bob"] <= 0 || data.Cleaned["Carol"] <= 0 {
 		t.Errorf("cleanup credit not split to co-author: Bob=%v Carol=%v", data.Cleaned["Bob"], data.Cleaned["Carol"])

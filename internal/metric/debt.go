@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math"
+	"sync"
 	"time"
 
 	"github.com/machuz/eis/v2/internal/git"
@@ -30,12 +31,15 @@ type VerboseFunc func(msg string)
 // coMap (commit SHA → contributor set) lets the "who generated this debt" side be
 // split across the original lines' co-authors, matching the fixer side which
 // splits across the fix commit's co-authors. Pass nil to disable co-author split.
-func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, maxSample int, debtThreshold int, blameTimeoutSec int, resolve ResolveFunc, coMap map[string][]string, progressFn ProgressFunc, verboseFn VerboseFunc) (map[string]float64, *DebtData) {
+func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, maxSample int, debtThreshold int, blameTimeoutSec int, workers int, resolve ResolveFunc, coMap map[string][]string, progressFn ProgressFunc, verboseFn VerboseFunc) (map[string]float64, *DebtData) {
 	generated := make(map[string]float64)
 	cleaned := make(map[string]float64)
 
 	if resolve == nil {
 		resolve = func(s string) string { return s }
+	}
+	if workers <= 0 {
+		workers = 4
 	}
 
 	// Sample fix commits
@@ -43,77 +47,86 @@ func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, max
 	if len(sample) > maxSample {
 		sample = sample[:maxSample]
 	}
-
 	total := len(sample)
-	for i, fc := range sample {
-		// Check context cancellation
-		if ctx.Err() != nil {
-			break
-		}
 
-		fixer := resolve(fc.Author) // display / logging
-		// The fix commit's contributor set shares the cleanup credit.
-		fixerSet := CommitAuthors(fc)
-		fShare := 1.0 / float64(len(fixerSet))
-		commitStart := time.Now()
+	timeout := time.Duration(blameTimeoutSec) * time.Second
+	if timeout <= 0 {
+		timeout = 120 * time.Second
+	}
 
-		// Get changed files
-		files, err := git.DiffTreeFiles(ctx, repoPath, fc.Hash)
+	// The git work — diff-tree per commit + blame-at-parent per changed file — is
+	// the dominant cost of analysis on large repos and was fully serial. Run the
+	// blames concurrently (each is an independent git subprocess), but ACCUMULATE
+	// in the original (commit, file, line) order so the float sums are
+	// bit-identical to the serial version. So: parallel gather → serial fold.
+	type fileBlame struct {
+		file  string
+		lines []git.BlameLine
+		ok    bool
+	}
+	perCommitFiles := make([][]fileBlame, total)
+
+	// Phase 1: changed files per sampled commit (parallel diff-tree).
+	parallelForEach(ctx, workers, total, func(i int) {
+		files, err := git.DiffTreeFiles(ctx, repoPath, sample[i].Hash)
 		if err != nil {
 			if verboseFn != nil {
-				verboseFn(fmt.Sprintf("  [debt] skip commit %s (diff-tree error: %v)", fc.Hash[:8], err))
+				verboseFn(fmt.Sprintf("  [debt] skip commit %s (diff-tree error: %v)", sample[i].Hash[:8], err))
 			}
-			if progressFn != nil {
-				progressFn(i+1, total)
-			}
-			continue
+			return
 		}
-
-		if verboseFn != nil {
-			verboseFn(fmt.Sprintf("  [debt] commit %d/%d %s by %s (%d files)", i+1, total, fc.Hash[:8], fixer, len(files)))
-		}
-
+		fbs := make([]fileBlame, 0, len(files))
 		for _, f := range files {
-			if f == "" {
-				continue
+			if f != "" {
+				fbs = append(fbs, fileBlame{file: f})
 			}
-			if verboseFn != nil {
-				verboseFn(fmt.Sprintf("    blaming %s ...", f))
-			}
-			// Blame at parent to find original authors (with configurable timeout per file)
-			timeout := time.Duration(blameTimeoutSec) * time.Second
-			if timeout <= 0 {
-				timeout = 120 * time.Second
-			}
-			fileCtx, fileCancel := context.WithTimeout(ctx, timeout)
-			fileStart := time.Now()
-			blLines, err := git.BlameFileAtParent(fileCtx, repoPath, fc.Hash, f)
-			timedOut := fileCtx.Err() != nil
-			fileCancel()
-			elapsed := time.Since(fileStart)
-			if err != nil || timedOut {
-				if verboseFn != nil {
-					if timedOut {
-						verboseFn(fmt.Sprintf("    blame %s: TIMEOUT (>%ds, skipped)", f, blameTimeoutSec))
-					} else {
-						verboseFn(fmt.Sprintf("    blame %s: error (%v)", f, err))
-					}
-				}
-				continue
-			}
-			if verboseFn != nil {
-				if elapsed > 2*time.Second {
-					verboseFn(fmt.Sprintf("    blame %s: %d lines (SLOW: %v)", f, len(blLines), elapsed.Round(time.Millisecond)))
-				} else {
-					verboseFn(fmt.Sprintf("    blame %s: %d lines (%v)", f, len(blLines), elapsed.Round(time.Millisecond)))
-				}
-			}
+		}
+		perCommitFiles[i] = fbs
+	})
 
-			// Each original line's debt is split across its co-authors (via coMap),
-			// and its cleanup credit across the fixer's co-authors — the cross-product
-			// of shares. Self-cleaning (an author fixing their own line) is excluded,
-			// as before. Per line the shares sum to ~1, so magnitudes are preserved.
-			for _, bl := range blLines {
+	// Phase 2: blame each (commit, file) at the fix's parent (parallel worker pool
+	// over the flattened job list; results written to their fixed slots).
+	type job struct{ ci, fi int }
+	var jobs []job
+	for ci := range perCommitFiles {
+		for fi := range perCommitFiles[ci] {
+			jobs = append(jobs, job{ci, fi})
+		}
+	}
+	parallelForEach(ctx, workers, len(jobs), func(k int) {
+		j := jobs[k]
+		if ctx.Err() != nil {
+			return
+		}
+		fb := &perCommitFiles[j.ci][j.fi]
+		fileCtx, fileCancel := context.WithTimeout(ctx, timeout)
+		lines, err := git.BlameFileAtParent(fileCtx, repoPath, sample[j.ci].Hash, fb.file)
+		timedOut := fileCtx.Err() != nil
+		fileCancel()
+		if err != nil || timedOut {
+			if verboseFn != nil {
+				if timedOut {
+					verboseFn(fmt.Sprintf("    blame %s: TIMEOUT (>%ds, skipped)", fb.file, blameTimeoutSec))
+				} else {
+					verboseFn(fmt.Sprintf("    blame %s: error (%v)", fb.file, err))
+				}
+			}
+			return
+		}
+		fb.lines = lines
+		fb.ok = true
+	})
+
+	// Phase 3: fold into the debt maps in serial (commit, file, line) order — the
+	// exact order the previous implementation used, so results are byte-identical.
+	for i, fc := range sample {
+		fixerSet := CommitAuthors(fc)
+		fShare := 1.0 / float64(len(fixerSet))
+		for _, fb := range perCommitFiles[i] {
+			if !fb.ok {
+				continue
+			}
+			for _, bl := range fb.lines {
 				origSet := coMap[bl.Commit]
 				if len(origSet) == 0 {
 					origSet = []string{resolve(bl.Author)}
@@ -135,11 +148,6 @@ func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, max
 				}
 			}
 		}
-
-		if verboseFn != nil {
-			verboseFn(fmt.Sprintf("  [debt] commit %s done in %v", fc.Hash[:8], time.Since(commitStart).Round(time.Millisecond)))
-		}
-
 		if progressFn != nil {
 			progressFn(i+1, total)
 		}
@@ -174,4 +182,38 @@ func CalcDebt(ctx context.Context, repoPath string, fixCommits []git.Commit, max
 	}
 
 	return result, &DebtData{Generated: generated, Cleaned: cleaned}
+}
+
+// parallelForEach runs fn(i) for i in [0,n) across a bounded worker pool. fn must
+// be safe to run concurrently for distinct i (the debt phases write only to slot
+// i, so they are). Returns once every index has been processed.
+func parallelForEach(ctx context.Context, workers, n int, fn func(i int)) {
+	if n <= 0 {
+		return
+	}
+	if workers < 1 {
+		workers = 1
+	}
+	if workers > n {
+		workers = n
+	}
+	jobs := make(chan int, n)
+	for i := 0; i < n; i++ {
+		jobs <- i
+	}
+	close(jobs)
+	var wg sync.WaitGroup
+	for w := 0; w < workers; w++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for i := range jobs {
+				if ctx.Err() != nil {
+					return
+				}
+				fn(i)
+			}
+		}()
+	}
+	wg.Wait()
 }
