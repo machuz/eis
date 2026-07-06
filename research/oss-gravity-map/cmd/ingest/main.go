@@ -323,11 +323,8 @@ func main() {
 		if streamIDs == nil {
 			fatalf("--stream-timeline: the --only repo produced no resolved authors (analysis/clone missing?)")
 		}
-		n, err := streamWindows(ctx, os.Stdin, *apiBase, token, *runID, streamRepo, streamIDs, *dryRun)
-		if err != nil {
-			fatalf("stream-timeline: %v", err)
-		}
-		fmt.Fprintf(os.Stderr, "streamed %d windows for %s to %s\n", n, streamRepo.FullName, *apiBase)
+		posted, failed := streamWindows(ctx, os.Stdin, *apiBase, token, *runID, streamRepo, streamIDs, *dryRun)
+		fmt.Fprintf(os.Stderr, "streamed %d windows for %s to %s (%d windows skipped after retries)\n", posted, streamRepo.FullName, *apiBase, failed)
 	}
 }
 
@@ -357,10 +354,9 @@ type streamWindow struct {
 // means a kill mid-stream keeps every window already sent (the whole point). The
 // server upserts on (run_id, repo, ex_github_id, period), so a resumed re-run is
 // idempotent. Windows with no resolvable, non-idle rows are skipped (no empty POST).
-func streamWindows(ctx context.Context, r io.Reader, apiBase, token, runID string, repo manifestEntry, ids map[string]resolvedAuthor, dryRun bool) (int, error) {
+func streamWindows(ctx context.Context, r io.Reader, apiBase, token, runID string, repo manifestEntry, ids map[string]resolvedAuthor, dryRun bool) (posted, failed int) {
 	sc := bufio.NewScanner(r)
-	sc.Buffer(make([]byte, 0, 1<<20), 1<<24) // windows can carry thousands of authors
-	posted := 0
+	sc.Buffer(make([]byte, 0, 1<<24), 1<<27) // windows can carry thousands of authors; a big giant window must not ErrTooLong
 	for sc.Scan() {
 		line := sc.Bytes()
 		if len(line) == 0 {
@@ -401,12 +397,41 @@ func streamWindows(ctx context.Context, r io.Reader, apiBase, token, runID strin
 			posted++
 			continue
 		}
-		if err := post(ctx, apiBase, token, payload); err != nil {
-			return posted, fmt.Errorf("window %s: %w", w.Label, err)
+		// Retry a failed window, then SKIP it — never abort the repo. A transient
+		// POST failure (rate limit, blip) on one window used to kill the whole
+		// stream, truncating the repo to whatever had landed. Losing one window is
+		// the acceptable failure; losing the tail is not (the resumable re-run fills
+		// a skipped window's gap anyway, since the server upserts on the period key).
+		if postWithRetry(ctx, apiBase, token, payload, 4) {
+			posted++
+		} else {
+			failed++
+			warnf("%s window %s: POST failed after retries, skipping", repo.FullName, w.Label)
 		}
-		posted++
 	}
-	return posted, sc.Err()
+	// A scanner error (e.g. an over-long line) ends the stream early but is NOT
+	// fatal: the windows already posted stand, and a re-run resumes the tail.
+	if err := sc.Err(); err != nil {
+		warnf("%s: stream ended early (%v) after %d windows", repo.FullName, err, posted)
+	}
+	return posted, failed
+}
+
+// postWithRetry posts with exponential backoff, returning false only after all
+// attempts fail. Backoff (0.5s, 1s, 2s, …) rides out rate limits / transient blips
+// that rapid per-window POSTs can trip.
+func postWithRetry(ctx context.Context, apiBase, token string, payload ingestPayload, attempts int) bool {
+	backoff := 500 * time.Millisecond
+	for i := 0; i < attempts; i++ {
+		if err := post(ctx, apiBase, token, payload); err == nil {
+			return true
+		}
+		if i < attempts-1 {
+			time.Sleep(backoff)
+			backoff *= 2
+		}
+	}
+	return false
 }
 
 func loadManifest(path string) (*repoManifest, error) {
