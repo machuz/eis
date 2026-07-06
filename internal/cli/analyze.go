@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"sort"
 	"strings"
 	"sync"
@@ -20,6 +21,22 @@ import (
 	"github.com/machuz/eis/v2/internal/output"
 	"github.com/machuz/eis/v2/internal/scorer"
 )
+
+// defaultWorkers picks the concurrency for the log/blame/debt git fan-out when
+// --workers is 0 (auto). The work is git-subprocess-bound, so it scales with
+// cores; leave two for the main goroutine + git's own threads, floor at 4 (never
+// slower than the old fixed default), cap at 16 (diminishing returns past there,
+// and the blame pool caps there too).
+func defaultWorkers() int {
+	n := runtime.NumCPU() - 2
+	if n < 4 {
+		n = 4
+	}
+	if n > 16 {
+		n = 16
+	}
+	return n
+}
 
 // AnalyzeOptions holds CLI flags for the analysis pipeline.
 type AnalyzeOptions struct {
@@ -134,7 +151,7 @@ func runAnalyze(args []string) error {
 	configPath := fs.String("config", "", "Config file path")
 	tau := fs.Float64("tau", 0, "Survival decay parameter (overrides config)")
 	sampleSize := fs.Int("sample", 0, "Max files to blame per repo (overrides config)")
-	workers := fs.Int("workers", 4, "Number of concurrent blame workers")
+	workers := fs.Int("workers", 0, "Concurrent workers for log/blame/debt (0 = auto, based on CPU count)")
 	recursive := fs.Bool("recursive", false, "Recursively find git repos under given paths")
 	maxDepth := fs.Int("depth", 2, "Max directory depth for recursive search")
 	formatFlag := fs.String("format", "table", "Output format: table, csv, json")
@@ -347,7 +364,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 	start := time.Now() // perf timer only — NOT a decay/classification reference
 	workers := opts.Workers
 	if workers == 0 {
-		workers = 4
+		workers = defaultWorkers()
 	}
 
 	// Module resolvers are built per repo (see the loop below) so each
@@ -752,7 +769,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		} else {
 			debtProg := newLiveProgress("[3/4] Debt")
-			debt, _ = metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, cfg.ResolveAuthor,
+			debt, _ = metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor,
 				ag.CoMap,
 				func(done, total int) {
 					debtProg.Update(done, total)
