@@ -654,7 +654,29 @@ func ListFilesAtCommit(ctx context.Context, repoPath, commitHash string, pattern
 // because the boundary tree can include checked-in dumps absent from HEAD.
 func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash string, files []string, maxFiles, workers int, blameTimeoutSec int, progressFn func(done, total int), verboseFn func(string)) ([]BlameLine, error) {
 	sampled := SampleFiles(files, maxFiles)
-	total := len(sampled)
+	byFile := ConcurrentBlameFilesAtCommitByFile(ctx, repoPath, commitHash, sampled, workers, blameTimeoutSec, progressFn, verboseFn)
+	// Flatten in the sampled (input) order. Downstream metrics aggregate per
+	// author, so line order never changes a result — the ordered flatten just
+	// makes the flat output stable rather than arrival-order dependent.
+	var allLines []BlameLine
+	for _, f := range sampled {
+		allLines = append(allLines, byFile[f]...)
+	}
+	return allLines, nil
+}
+
+// ConcurrentBlameFilesAtCommitByFile blames each input file at commitHash and
+// returns the lines grouped by the INPUT path. It groups by the path the caller
+// asked for — NOT BlameLine.Filename, which git reports as the historical
+// (pre-rename) name for lines that predate a rename. Grouping by input path is
+// what lets a caller cache each file's blame independently and reassemble it
+// across timeline windows (see cache.BlameFileAtCommitKey).
+//
+// files is taken as-is (no SampleFiles here — the flat wrapper samples before
+// calling, and per-file cache callers sample their own cold set). Files that
+// error or time out are simply absent from the map.
+func ConcurrentBlameFilesAtCommitByFile(ctx context.Context, repoPath, commitHash string, files []string, workers int, blameTimeoutSec int, progressFn func(done, total int), verboseFn func(string)) map[string][]BlameLine {
+	total := len(files)
 
 	if workers <= 0 {
 		workers = 4
@@ -692,17 +714,17 @@ func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash stri
 	}
 
 	// Send files
-	for _, f := range sampled {
+	for _, f := range files {
 		fileCh <- f
 	}
 	close(fileCh)
 
 	// Collect results
-	var allLines []BlameLine
+	byFile := make(map[string][]BlameLine, total)
 	for i := 0; i < total; i++ {
 		r := <-resultCh
 		if r.err == nil && !r.timeout {
-			allLines = append(allLines, r.lines...)
+			byFile[r.file] = r.lines
 		}
 		if verboseFn != nil && (r.dur > 2*time.Second || r.err != nil || r.timeout) {
 			short := commitHash
@@ -726,7 +748,7 @@ func ConcurrentBlameFilesAtCommit(ctx context.Context, repoPath, commitHash stri
 		progressFn(total, total)
 	}
 
-	return allLines, nil
+	return byFile
 }
 
 // FilterFilesBySize returns files whose blob size at commitHash is <= maxBytes.
