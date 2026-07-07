@@ -35,6 +35,17 @@ type CommitAggregator struct {
 	firstDate           map[string]time.Time
 	lastDate            map[string]time.Time
 
+	// Others-pressure accumulators — SUBSTANCE-GATED, kept SEPARATE from the
+	// activity-based moduleCommits/authorModuleCommits above. A commit counts
+	// toward a module here only if it made a substantive (non-cosmetic) change to
+	// that module's files (see MinSubstantiveLines), so a rename/comment/blank-only
+	// touch by another author no longer fakes "contested". Change-pressure,
+	// co-change, and Breadth deliberately keep the un-gated tallies (they measure
+	// activity/coupling, not contest). Mirrors the batch CalcOthersPressure gate so
+	// the two ingest paths stay value-identical.
+	substModuleCommits       map[string]int            // module → substantive commits touching it
+	substModuleAuthorCommits map[string]map[string]int // module → author → substantive commits
+
 	// co-change accumulators (Jaccard computed once at Finalize)
 	moduleCommits map[string]int
 	pairCount     map[[2]string]int
@@ -56,18 +67,20 @@ type CommitAggregator struct {
 // NewCommitAggregator returns an aggregator over the given FOLDED resolver.
 func NewCommitAggregator(mr ModuleResolver) *CommitAggregator {
 	return &CommitAggregator{
-		mr:                  mr,
-		production:          make(map[string]float64),
-		linesAdded:          make(map[string]int),
-		linesDeleted:        make(map[string]int),
-		totalCommits:        make(map[string]int),
-		authorModuleCommits: make(map[string]map[string]int),
-		firstDate:           make(map[string]time.Time),
-		lastDate:            make(map[string]time.Time),
-		moduleCommits:       make(map[string]int),
-		pairCount:           make(map[[2]string]int),
-		firstContrib:        make(map[string]map[string]time.Time),
-		coMap:               make(map[string][]string),
+		mr:                       mr,
+		production:               make(map[string]float64),
+		linesAdded:               make(map[string]int),
+		linesDeleted:             make(map[string]int),
+		totalCommits:             make(map[string]int),
+		authorModuleCommits:      make(map[string]map[string]int),
+		firstDate:                make(map[string]time.Time),
+		lastDate:                 make(map[string]time.Time),
+		substModuleCommits:       make(map[string]int),
+		substModuleAuthorCommits: make(map[string]map[string]int),
+		moduleCommits:            make(map[string]int),
+		pairCount:                make(map[[2]string]int),
+		firstContrib:             make(map[string]map[string]time.Time),
+		coMap:                    make(map[string][]string),
 	}
 }
 
@@ -122,6 +135,32 @@ func (a *CommitAggregator) Fold(c *git.Commit) {
 				a.pairCount[[2]string{mods[i], mods[j]}]++
 			}
 		}
+	}
+
+	// Others-pressure tallies (SUBSTANCE-GATED, separate from the activity set
+	// above). A module is contested by this commit only if at least one of its
+	// files had a substantive (non-cosmetic) change — mirrors the batch
+	// CalcOthersPressure gate so streaming and materialized stay value-identical.
+	var substTouched map[string]bool
+	for _, fs := range c.FileStats {
+		if fs.Insertions+fs.Deletions < MinSubstantiveLines {
+			continue
+		}
+		if mod := a.mr.ModuleOf(fs.Filename); mod != "" {
+			if substTouched == nil {
+				substTouched = make(map[string]bool)
+			}
+			substTouched[mod] = true
+		}
+	}
+	for mod := range substTouched {
+		a.substModuleCommits[mod]++
+		am := a.substModuleAuthorCommits[mod]
+		if am == nil {
+			am = make(map[string]int)
+			a.substModuleAuthorCommits[mod] = am
+		}
+		am[c.Author]++
 	}
 
 	if d, ok := a.firstDate[c.Author]; !ok || c.Date.Before(d) {
@@ -184,28 +223,22 @@ type Aggregate struct {
 	FirstContrib        map[string]map[string]time.Time
 	CoMap               map[string][]string
 	FixCommits          []git.Commit
-	// ModuleAuthorCommits is authorModuleCommits transposed to module → author →
-	// commit count (a commit counted once per module its PRIMARY author touches),
-	// the exact shape CalcOthersPressure needs. ModuleCommits (total per module)
-	// is Cochange.ModuleCommits.
+	// OthersModuleCommits and ModuleAuthorCommits are the SUBSTANCE-GATED
+	// others-pressure inputs: a commit is counted (once per module) only if it made
+	// a substantive change to that module's files (MinSubstantiveLines) — cosmetic
+	// touches (rename/comment/blank-only) are excluded so they can't fake
+	// "contested". OthersModuleCommits is the total per module; ModuleAuthorCommits
+	// is module → author → substantive commits. These are the exact
+	// (moduleCommits, moduleAuthorCommits) pair CalcOthersPressureFrom needs, and
+	// they must be used TOGETHER (never mixed with the un-gated Cochange.ModuleCommits,
+	// or the others = total − self subtraction would over-count cosmetic commits).
+	OthersModuleCommits map[string]int
 	ModuleAuthorCommits map[string]map[string]int
 }
 
 // Finalize returns the accumulated maps. Cochange's Jaccard + sort runs once here
 // (deterministic regardless of fold order), matching CalcCochange.
 func (a *CommitAggregator) Finalize() Aggregate {
-	// Transpose author→module→n into module→author→n for CalcOthersPressure.
-	moduleAuthorCommits := make(map[string]map[string]int, len(a.moduleCommits))
-	for author, mods := range a.authorModuleCommits {
-		for mod, n := range mods {
-			am := moduleAuthorCommits[mod]
-			if am == nil {
-				am = make(map[string]int)
-				moduleAuthorCommits[mod] = am
-			}
-			am[author] += n
-		}
-	}
 	return Aggregate{
 		Production:          a.production,
 		LinesAdded:          a.linesAdded,
@@ -218,6 +251,7 @@ func (a *CommitAggregator) Finalize() Aggregate {
 		FirstContrib:        a.firstContrib,
 		CoMap:               a.coMap,
 		FixCommits:          a.fixCommits,
-		ModuleAuthorCommits: moduleAuthorCommits,
+		OthersModuleCommits: a.substModuleCommits,
+		ModuleAuthorCommits: a.substModuleAuthorCommits,
 	}
 }

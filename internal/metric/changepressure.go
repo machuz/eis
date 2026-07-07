@@ -12,6 +12,29 @@ import (
 // dormant pressure split is meaningful (see PressureThreshold).
 const SubstantialAuthorLines = 1000
 
+// MinSubstantiveLines is the minimum comment-excluded changed-line count
+// (Insertions+Deletions on a single file) for that file to mark its module as
+// "touched" for OTHERS-pressure — the contest signal behind RobustSurvival.
+//
+// git.FileStat.Insertions/Deletions are already comment- and blank-line-excluded
+// (see internal/git/comment.go + log_test.go: a pure-comment or blank-only change
+// yields 0/0), and a pure rename / mode-only change yields 0/0 from --numstat.
+// So a file whose Insertions+Deletions is 0 changed NOTHING substantive — it is a
+// cosmetic touch (rename, comment/doc edit, whitespace-only blank line). Counting
+// such a touch as "another author contested this module" fakes contest: a solo
+// author's surviving lines there would score as RobustSurvival and mint gravity
+// where no one has actually stress-tested the code.
+//
+// The value is 1: ANY single real (non-comment, non-blank) inserted or deleted
+// line is enough to count as a genuine touch. We intentionally do not raise the
+// bar higher — a one-line fix by another engineer IS a real edit and a real
+// contest; the goal is only to exclude ZERO-substance cosmetic commits, not to
+// judge how large a change must be. (Note: git log here does not pass -w, so a
+// pure re-indent/reformat that git records as changed line content still counts
+// as substantive — this is the same signal Production/Design already trust, so
+// others-pressure stays consistent with the rest of the metric path.)
+const MinSubstantiveLines = 1
+
 // PressureThreshold returns the change-pressure cutoff that the robust/dormant
 // survival split compares against. It returns +Inf — forcing every surviving
 // line into dormant — when the repo is solo-dominated, because "others'
@@ -124,6 +147,12 @@ func CalcOthersPressure(commits []git.Commit, blameLines []git.BlameLine, mr Mod
 	for _, c := range commits {
 		touched := make(map[string]bool)
 		for _, fs := range c.FileStats {
+			// Substance gate: a cosmetic touch (rename / comment / blank-only,
+			// i.e. Insertions+Deletions == 0 after comment-exclusion) does NOT
+			// mark the module contested. See MinSubstantiveLines.
+			if fs.Insertions+fs.Deletions < MinSubstantiveLines {
+				continue
+			}
 			if mod := mr.ModuleOf(fs.Filename); mod != "" {
 				touched[mod] = true
 			}

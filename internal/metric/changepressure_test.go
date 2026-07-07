@@ -73,6 +73,59 @@ func TestOthersPressure_SoloAuthorZero(t *testing.T) {
 	}
 }
 
+// cosmeticTouch is a commit whose files register ZERO substantive changed lines
+// (Insertions+Deletions == 0) — the shape git.FileStat takes for a pure rename,
+// a comment/doc-only edit, or a blank-only change after comment-exclusion.
+func cosmeticTouch(author string, files ...string) git.Commit {
+	fs := make([]git.FileStat, len(files))
+	for i, f := range files {
+		fs[i] = git.FileStat{Filename: f, Insertions: 0, Deletions: 0}
+	}
+	return git.Commit{Author: author, FileStats: fs}
+}
+
+// TestOthersPressure_CosmeticTouchDoesNotContest is the gaming-resistance gate:
+// a module solo-owned by author A must NOT read as "others-contested" just because
+// another author B ran a rename / comment / whitespace-only commit over it. Only a
+// SUBSTANTIVE change by B may lift others-pressure above zero — otherwise a solo
+// author's untouched lines mint RobustSurvival (and gravity) with no real contest.
+func TestOthersPressure_CosmeticTouchDoesNotContest(t *testing.T) {
+	// A solo-owns core with 10 surviving lines and 5 real commits.
+	base := []git.Commit{}
+	for i := 0; i < 5; i++ {
+		base = append(base, commitTouching("alice", "core/a.go"))
+	}
+	blame := make([]git.BlameLine, 10)
+	for i := range blame {
+		blame[i] = git.BlameLine{Filename: "core/a.go"}
+	}
+
+	// Before: B only makes a cosmetic (0/0) touch to core — NOT a contest.
+	cosmetic := append(append([]git.Commit{}, base...),
+		cosmeticTouch("bob", "core/a.go"),
+		cosmeticTouch("bob", "core/a.go"),
+	)
+	o := CalcOthersPressure(cosmetic, blame, ModuleResolver{})
+	if got := o.For("core", "alice"); got != 0 {
+		t.Fatalf("cosmetic touch by bob must NOT contest core; For(core, alice) = %v, want 0", got)
+	}
+
+	// After: B makes a SUBSTANTIVE commit (real changed lines) to core — a real
+	// contest, so others-pressure for alice rises above zero.
+	substantive := append(append([]git.Commit{}, base...),
+		commitTouching("bob", "core/a.go"),
+		commitTouching("bob", "core/a.go"),
+	)
+	o2 := CalcOthersPressure(substantive, blame, ModuleResolver{})
+	if got := o2.For("core", "alice"); got <= 0 {
+		t.Fatalf("substantive contest by bob must lift others-pressure; For(core, alice) = %v, want >0", got)
+	}
+	// Exactly bob's 2 substantive commits over 10 surviving lines.
+	if got, want := o2.For("core", "alice"), float64(2)/10; math.Abs(got-want) > 1e-9 {
+		t.Errorf("For(core, alice) = %v, want %v", got, want)
+	}
+}
+
 // TestOthersPressure_NilSafe: a nil receiver returns 0 (classic mode passes nil).
 func TestOthersPressure_NilSafe(t *testing.T) {
 	var o *OthersPressure

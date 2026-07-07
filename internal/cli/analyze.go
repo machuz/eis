@@ -719,7 +719,12 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				blameByAuthor[bl.Author]++
 			}
 			pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
-			repoOthers := metric.CalcOthersPressureFrom(ag.Cochange.ModuleCommits, ag.ModuleAuthorCommits, blameLines, moduleResolver)
+			// Others-pressure uses the SUBSTANCE-GATED tallies (OthersModuleCommits +
+			// ModuleAuthorCommits), NOT Cochange.ModuleCommits: a cosmetic touch by
+			// another author must not fake "contested" and mint gravity. The total and
+			// the per-author counts must both be substance-gated (same map pair), or
+			// the others = total − self subtraction would over-count cosmetic commits.
+			repoOthers := metric.CalcOthersPressureFrom(ag.OthersModuleCommits, ag.ModuleAuthorCommits, blameLines, moduleResolver)
 			survResult := metric.CalcSurvivalFull(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
