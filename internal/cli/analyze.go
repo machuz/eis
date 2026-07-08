@@ -64,6 +64,28 @@ type AnalyzeOptions struct {
 	PerRepo        bool
 	FastLog        bool // skip `git log -p` comment filtering (numstat-only) for speed
 
+	// BlameMoveDetection, when non-empty, overrides cfg.BlameMoveDetection for
+	// this run (off|file|commit|full). structural-debt sets "off": -M move/copy
+	// detection refines per-author attribution but is not needed for debt-grade
+	// ownership, and it is a large share of blame wall-time. Applied to BOTH the
+	// lean and --full structural-debt modes so the two stay byte-equivalent (only
+	// the science differs between them). Empty ⇒ use the config value (analyze/
+	// team/timeline never set this, so their blame policy is unchanged).
+	BlameMoveDetection string
+
+	// LeanDebt runs only the computations structural-debt consumes (blame→
+	// ownership, per-module commit counts + last-touch, author last-commit dates)
+	// and SKIPS the heavy science debt never reads: co-change survival/pressure,
+	// survival/gravity, design, catalysis, indispensability, per-module survival,
+	// breadth, and the fix-commit debt-cleanup re-blame. The debt-relevant path is
+	// byte-identical to the full run (same aggregate, blame, ownership, and
+	// ScoreModules call), so SDR and top_debt_modules are unchanged — only the
+	// unused inputs (modulePressure, moduleSurvival) go empty, and those feed only
+	// non-Dead Vitality/Coupling, never the Dead gate or Orphaned. Opt-in; used
+	// exclusively by `eis structural-debt` (default). Never set by analyze/team/
+	// timeline, so their full pipeline is untouched.
+	LeanDebt bool
+
 	// AnalysisTime is the W-02 envelope clock: the single wall-clock reference
 	// against which time-decay (survival/catalysis) and lifecycle classification
 	// (State/RecentlyActive) are computed. Pin it to make a run reproducible —
@@ -340,6 +362,9 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 	if opts.FastLog {
 		off := false
 		cfg.CommentFilter = &off
+	}
+	if opts.BlameMoveDetection != "" {
+		cfg.BlameMoveDetection = opts.BlameMoveDetection
 	}
 	if opts.Tau > 0 {
 		cfg.Tau = opts.Tau
@@ -704,158 +729,172 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			acc.moduleTestFiles[mod] += test
 		})
 
-		// Design (survival-weighted): surviving, time-decayed arch-file blame lines
-		// per author, on the same analysisTime + tau as survival. Arch churn that was
-		// itself rewritten has decayed out of the blame, so design measures durable
-		// structural ownership rather than raw arch-edit volume.
-		designSurv := metric.CalcDesignSurviving(blameLines, repoCfg.ArchitecturePatterns, repoCfg.Tau, analysisTime)
-		mergeMap(acc.raw.Design, designSurv)
+		// --- Heavy science below is SKIPPED in LeanDebt mode (structural-debt does
+		// not read Design/Survival/Pressure/Indispensability/Catalysis/DebtCleanup/
+		// module-survival). Ownership (which debt DOES use) stays outside the guard.
+		// PerRepo-scoped vars are declared here so the (lean-disabled) --per-repo
+		// block still compiles. ---
+		var (
+			designSurv, indisp, catalysis, debt               map[string]float64
+			repoSurvDecayed, repoSurvRaw, repoSurvRobust      map[string]float64
+			repoSurvDormant, repoSurvTested, repoSurvUntested map[string]float64
+			risks                                             []metric.ModuleRisk
+		)
 
-		// Survival: split by change pressure or use classic mode
-		// Keep per-repo survival maps for --per-repo reuse
-		var repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant map[string]float64
-		var repoSurvTested, repoSurvUntested map[string]float64
-		if opts.PressureMode == "include" {
-			repoPressure := metric.CalcChangePressureFrom(ag.Cochange.ModuleCommits, blameLines, moduleResolver)
-			for mod, p := range repoPressure {
-				key := repoName + "/" + mod
-				acc.changePressure[key] = p
-				// Module Science Phase 2: accumulate pressure without repo prefix
-				n := acc.modulePressureCounts[mod]
-				if n > 0 {
-					acc.modulePressure[mod] = (acc.modulePressure[mod]*float64(n) + p) / float64(n+1)
-				} else {
-					acc.modulePressure[mod] = p
+		if !opts.LeanDebt {
+			// Design (survival-weighted): surviving, time-decayed arch-file blame lines
+			// per author, on the same analysisTime + tau as survival. Arch churn that was
+			// itself rewritten has decayed out of the blame, so design measures durable
+			// structural ownership rather than raw arch-edit volume.
+			designSurv = metric.CalcDesignSurviving(blameLines, repoCfg.ArchitecturePatterns, repoCfg.Tau, analysisTime)
+			mergeMap(acc.raw.Design, designSurv)
+
+			// Survival: split by change pressure or use classic mode
+			if opts.PressureMode == "include" {
+				repoPressure := metric.CalcChangePressureFrom(ag.Cochange.ModuleCommits, blameLines, moduleResolver)
+				for mod, p := range repoPressure {
+					key := repoName + "/" + mod
+					acc.changePressure[key] = p
+					// Module Science Phase 2: accumulate pressure without repo prefix
+					n := acc.modulePressureCounts[mod]
+					if n > 0 {
+						acc.modulePressure[mod] = (acc.modulePressure[mod]*float64(n) + p) / float64(n+1)
+					} else {
+						acc.modulePressure[mod] = p
+					}
+					acc.modulePressureCounts[mod] = n + 1
 				}
-				acc.modulePressureCounts[mod] = n + 1
+
+				// Need at least 2 substantial authors for the pressure split to be
+				// meaningful; otherwise everything becomes dormant. See
+				// metric.PressureThreshold for why this is an absolute footprint and
+				// not a share of the repo.
+				// blameLines authors are already alias-resolved in place above, so
+				// count on bl.Author directly (matches the survival maps' keys).
+				blameByAuthor := make(map[string]int)
+				for _, bl := range blameLines {
+					blameByAuthor[bl.Author]++
+				}
+				pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
+				// Others-pressure uses the SUBSTANCE-GATED tallies (OthersModuleCommits +
+				// ModuleAuthorCommits), NOT Cochange.ModuleCommits: a cosmetic touch by
+				// another author must not fake "contested" and mint gravity. The total and
+				// the per-author counts must both be substance-gated (same map pair), or
+				// the others = total − self subtraction would over-count cosmetic commits.
+				repoOthers := metric.CalcOthersPressureFrom(ag.OthersModuleCommits, ag.ModuleAuthorCommits, blameLines, moduleResolver)
+				survResult := metric.CalcSurvivalFull(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
+				repoSurvDecayed = survResult.Decayed
+				repoSurvRaw = survResult.Raw
+				repoSurvRobust = survResult.Robust
+				repoSurvDormant = survResult.Dormant
+				repoSurvTested = survResult.Tested
+				repoSurvUntested = survResult.Untested
+				mergeMap(acc.raw.Survival, repoSurvDecayed)
+				mergeMap(acc.raw.RawSurvival, repoSurvRaw)
+				mergeMap(acc.raw.RobustSurvival, repoSurvRobust)
+				mergeMap(acc.raw.DormantSurvival, repoSurvDormant)
+				mergeMap(acc.raw.TestedSurvival, repoSurvTested)
+				mergeMap(acc.raw.UntestedSurvival, repoSurvUntested)
+			} else {
+				// Classic mode: no pressure split, but still apply the tested-weighting
+				// so comment-era repos still benefit from gaming resistance.
+				survResult := metric.CalcSurvivalFull(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
+				repoSurvDecayed = survResult.Decayed
+				repoSurvRaw = survResult.Raw
+				repoSurvTested = survResult.Tested
+				repoSurvUntested = survResult.Untested
+				mergeMap(acc.raw.Survival, repoSurvDecayed)
+				mergeMap(acc.raw.RawSurvival, repoSurvRaw)
+				mergeMap(acc.raw.TestedSurvival, repoSurvTested)
+				mergeMap(acc.raw.UntestedSurvival, repoSurvUntested)
 			}
 
-			// Need at least 2 substantial authors for the pressure split to be
-			// meaningful; otherwise everything becomes dormant. See
-			// metric.PressureThreshold for why this is an absolute footprint and
-			// not a share of the repo.
-			// blameLines authors are already alias-resolved in place above, so
-			// count on bl.Author directly (matches the survival maps' keys).
-			blameByAuthor := make(map[string]int)
-			for _, bl := range blameLines {
-				blameByAuthor[bl.Author]++
+			// Indispensability
+			indisp, risks = metric.CalcIndispensability(blameLines, moduleResolver, cfg.BusFactor.Critical, cfg.BusFactor.High)
+			mergeMap(acc.raw.Indispensability, indisp)
+
+			// Catalysis: surviving mass of others' work on files this author
+			// originated. Needs the commit history (originator per file) and the
+			// blame lines (surviving mass). Same decay reference (analysisTime) as Survival.
+			catalysis = metric.CalcCatalysisFrom(ag.FirstContrib, blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime)
+			mergeMap(acc.raw.Catalysis, catalysis)
+
+			// Step 3: Debt cleanup (author-level "負債清掃" — NOT structural debt).
+			fixCommits := ag.FixCommits
+			spin = spinner(fmt.Sprintf("[3/4] Debt analysis (%d fix commits)...", len(fixCommits)))
+			var debtVerbose metric.VerboseFunc
+			if opts.Verbose {
+				debtVerbose = func(msg string) {
+					fmt.Fprintf(os.Stderr, "\n%s", msg)
+				}
 			}
-			pressureThreshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
-			// Others-pressure uses the SUBSTANCE-GATED tallies (OthersModuleCommits +
-			// ModuleAuthorCommits), NOT Cochange.ModuleCommits: a cosmetic touch by
-			// another author must not fake "contested" and mint gravity. The total and
-			// the per-author counts must both be substance-gated (same map pair), or
-			// the others = total − self subtraction would over-count cosmetic commits.
-			repoOthers := metric.CalcOthersPressureFrom(ag.OthersModuleCommits, ag.ModuleAuthorCommits, blameLines, moduleResolver)
-			survResult := metric.CalcSurvivalFull(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
-			repoSurvDecayed = survResult.Decayed
-			repoSurvRaw = survResult.Raw
-			repoSurvRobust = survResult.Robust
-			repoSurvDormant = survResult.Dormant
-			repoSurvTested = survResult.Tested
-			repoSurvUntested = survResult.Untested
-			mergeMap(acc.raw.Survival, repoSurvDecayed)
-			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
-			mergeMap(acc.raw.RobustSurvival, repoSurvRobust)
-			mergeMap(acc.raw.DormantSurvival, repoSurvDormant)
-			mergeMap(acc.raw.TestedSurvival, repoSurvTested)
-			mergeMap(acc.raw.UntestedSurvival, repoSurvUntested)
-		} else {
-			// Classic mode: no pressure split, but still apply the tested-weighting
-			// so comment-era repos still benefit from gaming resistance.
-			survResult := metric.CalcSurvivalFull(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
-			repoSurvDecayed = survResult.Decayed
-			repoSurvRaw = survResult.Raw
-			repoSurvTested = survResult.Tested
-			repoSurvUntested = survResult.Untested
-			mergeMap(acc.raw.Survival, repoSurvDecayed)
-			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
-			mergeMap(acc.raw.TestedSurvival, repoSurvTested)
-			mergeMap(acc.raw.UntestedSurvival, repoSurvUntested)
-		}
+			spin.Clear()
 
-		// Indispensability
-		indisp, risks := metric.CalcIndispensability(blameLines, moduleResolver, cfg.BusFactor.Critical, cfg.BusFactor.High)
-		mergeMap(acc.raw.Indispensability, indisp)
-
-		// Catalysis: surviving mass of others' work on files this author
-		// originated. Needs the commit history (originator per file) and the
-		// blame lines (surviving mass). Same decay reference (analysisTime) as Survival.
-		catalysis := metric.CalcCatalysisFrom(ag.FirstContrib, blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime)
-		mergeMap(acc.raw.Catalysis, catalysis)
-
-		// Step 3: Debt cleanup
-		fixCommits := ag.FixCommits
-		spin = spinner(fmt.Sprintf("[3/4] Debt analysis (%d fix commits)...", len(fixCommits)))
-		var debtVerbose metric.VerboseFunc
-		if opts.Verbose {
-			debtVerbose = func(msg string) {
-				fmt.Fprintf(os.Stderr, "\n%s", msg)
+			var fixHashes []string
+			for _, fc := range fixCommits {
+				fixHashes = append(fixHashes, fc.Hash)
 			}
-		}
-		spin.Clear()
-
-		var debt map[string]float64
-		var fixHashes []string
-		for _, fc := range fixCommits {
-			fixHashes = append(fixHashes, fc.Hash)
-		}
-		debtCacheKey := cache.DebtKey(repoPath, fixHashes)
-		if headHash != "" && cacheStore.Get(debtCacheKey, &debt) {
-			if !quiet {
-				fmt.Fprintf(os.Stderr, "  %s [3/4] Debt (cached)\n", color.New(color.FgGreen).Sprint("✓"))
+			debtCacheKey := cache.DebtKey(repoPath, fixHashes)
+			if headHash != "" && cacheStore.Get(debtCacheKey, &debt) {
+				if !quiet {
+					fmt.Fprintf(os.Stderr, "  %s [3/4] Debt (cached)\n", color.New(color.FgGreen).Sprint("✓"))
+				}
+			} else {
+				debtProg := newLiveProgress("[3/4] Debt")
+				debt, _ = metric.CalcDebt(ctx, repoPath, fixCommits, 50, repoCfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor,
+					ag.CoMap, excludes,
+					func(done, total int) {
+						debtProg.Update(done, total)
+					}, debtVerbose)
+				debtProg.Stop()
+				if headHash != "" && len(debt) > 0 {
+					cacheStore.Set(debtCacheKey, debt)
+				}
 			}
-		} else {
-			debtProg := newLiveProgress("[3/4] Debt")
-			debt, _ = metric.CalcDebt(ctx, repoPath, fixCommits, 50, repoCfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor,
-				ag.CoMap, excludes,
-				func(done, total int) {
-					debtProg.Update(done, total)
-				}, debtVerbose)
-			debtProg.Stop()
-			if headHash != "" && len(debt) > 0 {
-				cacheStore.Set(debtCacheKey, debt)
-			}
-		}
-		mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
+			mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
+		} // end !LeanDebt heavy science
 
-		// Module Science: Ownership Fragmentation (uses blame data)
+		// Module Science: Ownership Fragmentation (uses blame data). REQUIRED by
+		// structural-debt (Orphaned/concentration) — always computed, even lean.
 		ownership := metric.CalcOwnershipFragmentation(blameLines, moduleResolver)
 		acc.ownership = append(acc.ownership, ownership...)
 
-		// Module Science Phase 2: Per-module survival rate
-		repoModSurv := metric.CalcModuleSurvival(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
-		for mod, surv := range repoModSurv {
-			if existing, ok := acc.moduleSurvival[mod]; ok {
-				acc.moduleSurvival[mod] = (existing + surv) / 2
-			} else {
-				acc.moduleSurvival[mod] = surv
+		if !opts.LeanDebt {
+			// Module Science Phase 2: Per-module survival rate (feeds ChangeAbsorption /
+			// non-Dead Vitality — not consumed by structural-debt).
+			repoModSurv := metric.CalcModuleSurvival(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
+			for mod, surv := range repoModSurv {
+				if existing, ok := acc.moduleSurvival[mod]; ok {
+					acc.moduleSurvival[mod] = (existing + surv) / 2
+				} else {
+					acc.moduleSurvival[mod] = surv
+				}
 			}
-		}
 
-		// Per-(module, author) surviving gravity for Breadth (Hill number).
-		repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
-		for mod, authors := range repoMSBA {
-			dst := acc.authorModuleSurvival[mod]
-			if dst == nil {
-				dst = make(map[string]float64)
-				acc.authorModuleSurvival[mod] = dst
+			// Per-(module, author) surviving gravity for Breadth (Hill number).
+			repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
+			for mod, authors := range repoMSBA {
+				dst := acc.authorModuleSurvival[mod]
+				if dst == nil {
+					dst = make(map[string]float64)
+					acc.authorModuleSurvival[mod] = dst
+				}
+				for author, mass := range authors {
+					dst[author] += mass
+				}
 			}
-			for author, mass := range authors {
-				dst[author] += mass
+
+			// Step 4: Accumulate bus factor risks per domain; print immediately for table format
+			acc.risks = append(acc.risks, risks...)
+			if opts.Format == "table" && len(risks) > 0 {
+				output.PrintBusFactorRisks(risks)
 			}
-		}
 
-		// Step 4: Accumulate bus factor risks per domain; print immediately for table format
-		acc.risks = append(acc.risks, risks...)
-		if opts.Format == "table" && len(risks) > 0 {
-			output.PrintBusFactorRisks(risks)
-		}
-
-		// Print module science results inline for table format
-		if opts.Format == "table" {
-			output.PrintCochangeCoupling(repoName, cochange)
-			output.PrintOwnershipFragmentation(repoName, ownership)
+			// Print module science results inline for table format
+			if opts.Format == "table" {
+				output.PrintCochangeCoupling(repoName, cochange)
+				output.PrintOwnershipFragmentation(repoName, ownership)
+			}
 		}
 
 		// Per-repo: build independent raw scores for this repo
