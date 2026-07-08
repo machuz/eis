@@ -163,10 +163,11 @@ func TestComputeStructuralDebt(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// debtOwnerGoneDays=0 so Orphaned modules (OwnerLastActiveDays 0 in
-			// these fixtures) still count as debt — these cases predate the horizon
-			// gate, which has its own dedicated test below.
-			got := computeStructuralDebt("Backend", tt.mods, nil, tt.includePeripheral, false, 0, tt.topN)
+			// debtOwnerGoneDays=0 / debtStaleDays=0 so Orphaned modules
+			// (OwnerLastActiveDays 0, ModuleUntouchedDays 0 in these fixtures) still
+			// count as debt — these cases predate the horizon/stale gates, which
+			// have their own dedicated tests below.
+			got := computeStructuralDebt("Backend", tt.mods, nil, tt.includePeripheral, false, 0, 0, tt.topN)
 
 			if !approx(got.SDR, tt.wantSDR) {
 				t.Errorf("SDR = %v, want %v", got.SDR, tt.wantSDR)
@@ -215,7 +216,7 @@ func TestComputeStructuralDebt_OwnerStoryWired(t *testing.T) {
 		},
 	}
 	names := map[string]string{"svc/auth": "tanaka"}
-	got := computeStructuralDebt("Backend", mods, names, false, false, debtOwnerGoneDaysDefault, 10)
+	got := computeStructuralDebt("Backend", mods, names, false, false, debtOwnerGoneDaysDefault, debtStaleDaysDefault, 10)
 	if len(got.TopDebtModules) != 1 {
 		t.Fatalf("expected 1 debt module, got %d", len(got.TopDebtModules))
 	}
@@ -242,9 +243,9 @@ func TestComputeStructuralDebt_OwnerGoneHorizon(t *testing.T) {
 	const horizon = 180
 
 	idle100 := []scorer.ModuleScore{
-		{Module: "svc/a", BlameLines: 500, Ownership: "Orphaned", OwnerLastActiveDays: 100},
+		{Module: "svc/a", BlameLines: 500, Ownership: "Orphaned", OwnerLastActiveDays: 100, ModuleUntouchedDays: 300},
 	}
-	got := computeStructuralDebt("BE", idle100, nil, false, false, horizon, 10)
+	got := computeStructuralDebt("BE", idle100, nil, false, false, horizon, horizon, 10)
 	if got.SDR != 0 {
 		t.Errorf("owner idle 100d: SDR = %v, want 0 (below %dd horizon)", got.SDR, horizon)
 	}
@@ -256,9 +257,9 @@ func TestComputeStructuralDebt_OwnerGoneHorizon(t *testing.T) {
 	}
 
 	idle200 := []scorer.ModuleScore{
-		{Module: "svc/a", BlameLines: 500, Ownership: "Orphaned", OwnerLastActiveDays: 200},
+		{Module: "svc/a", BlameLines: 500, Ownership: "Orphaned", OwnerLastActiveDays: 200, ModuleUntouchedDays: 300},
 	}
-	got = computeStructuralDebt("BE", idle200, nil, false, false, horizon, 10)
+	got = computeStructuralDebt("BE", idle200, nil, false, false, horizon, horizon, 10)
 	if got.SDR != 1.0 {
 		t.Errorf("owner idle 200d: SDR = %v, want 1.0 (past %dd horizon)", got.SDR, horizon)
 	}
@@ -267,19 +268,77 @@ func TestComputeStructuralDebt_OwnerGoneHorizon(t *testing.T) {
 	}
 }
 
+// TestComputeStructuralDebt_StaleModuleRequired pins calibration ③: debt needs
+// the module ITSELF to be stale (untouched >= horizon), not merely its original
+// author gone. The immutable-js __tests__ case — owner left 1506d ago but the
+// code is actively maintained (touched 8d ago) — is inherited-alive, not debt.
+func TestComputeStructuralDebt_StaleModuleRequired(t *testing.T) {
+	const owner, stale = 180, 180
+
+	// Owner long gone (1506d) but module freshly maintained (untouched 8d, has
+	// commits) ⇒ NOT debt.
+	alive := []scorer.ModuleScore{
+		{Module: "__tests__", BlameLines: 6800, Ownership: "Orphaned",
+			OwnerLastActiveDays: 1506, ModuleUntouchedDays: 8, ModuleCommits: 42},
+	}
+	got := computeStructuralDebt("JS", alive, nil, false, false, owner, stale, 10)
+	if got.SDR != 0 || got.DebtMass != 0 {
+		t.Errorf("owner-gone but freshly maintained: SDR=%v DebtMass=%d, want 0/0", got.SDR, got.DebtMass)
+	}
+	if got.ClassifiedMass != 6800 {
+		t.Errorf("ClassifiedMass = %d, want 6800 (still in denominator)", got.ClassifiedMass)
+	}
+
+	// Owner gone (400d) AND module stale (untouched 400d) ⇒ debt.
+	abandoned := []scorer.ModuleScore{
+		{Module: "legacy/parser", BlameLines: 6800, Ownership: "Orphaned",
+			OwnerLastActiveDays: 400, ModuleUntouchedDays: 400, ModuleCommits: 42},
+	}
+	got = computeStructuralDebt("JS", abandoned, nil, false, false, owner, stale, 10)
+	if got.SDR != 1.0 || got.DebtMass != 6800 {
+		t.Errorf("owner gone + module stale: SDR=%v DebtMass=%d, want 1.0/6800", got.SDR, got.DebtMass)
+	}
+}
+
+// TestComputeStructuralDebt_InsufficientData pins calibration ④: "no classified
+// source" must be reported as insufficient data, NOT as a healthy SDR of 0.
+func TestComputeStructuralDebt_InsufficientData(t *testing.T) {
+	// No modules at all.
+	empty := computeStructuralDebt("X", nil, nil, false, false, 180, 180, 10)
+	if !empty.InsufficientData {
+		t.Error("no modules: InsufficientData=false, want true")
+	}
+
+	// Modules present but all zero-mass ⇒ still no classified mass.
+	zero := computeStructuralDebt("X", []scorer.ModuleScore{{Module: "a", BlameLines: 0}}, nil, false, false, 180, 180, 10)
+	if !zero.InsufficientData {
+		t.Error("zero classified mass: InsufficientData=false, want true")
+	}
+
+	// A genuinely healthy repo (has classified mass, no debt) must NOT be flagged
+	// — this is the "clean" vs "no data" distinction.
+	healthy := computeStructuralDebt("X", []scorer.ModuleScore{{Module: "src", BlameLines: 1000, Ownership: "Distributed"}}, nil, false, false, 180, 180, 10)
+	if healthy.InsufficientData {
+		t.Error("healthy repo with classified mass: InsufficientData=true, want false")
+	}
+	if healthy.SDR != 0 {
+		t.Errorf("healthy SDR = %v, want 0", healthy.SDR)
+	}
+}
+
 // TestComputeStructuralDebt_NonSourceExcluded pins calibration ②: examples/docs/
 // website/root modules are dropped from BOTH numerator and denominator when the
 // default blocklist is active, and INCLUDED when it is disabled.
 func TestComputeStructuralDebt_NonSourceExcluded(t *testing.T) {
 	mods := []scorer.ModuleScore{
-		{Module: "examples/counter-ts", BlameLines: 300, Ownership: "Orphaned", OwnerLastActiveDays: 400},
-		{Module: "website", BlameLines: 200, Ownership: "Orphaned", OwnerLastActiveDays: 400},
-		{Module: ".", BlameLines: 69, Ownership: "Orphaned", OwnerLastActiveDays: 400},
+		{Module: "examples/counter-ts", BlameLines: 300, Ownership: "Orphaned", OwnerLastActiveDays: 400, ModuleUntouchedDays: 400},
+		{Module: "website", BlameLines: 200, Ownership: "Orphaned", OwnerLastActiveDays: 400, ModuleUntouchedDays: 400},
+		{Module: ".", BlameLines: 69, Ownership: "Orphaned", OwnerLastActiveDays: 400, ModuleUntouchedDays: 400},
 		{Module: "src/core", BlameLines: 1000, Ownership: "Distributed"},
 	}
 
 	// Default excludes ON: only src/core survives, and it's healthy ⇒ SDR 0.
-	on := computeStructuralDebt("BE", mods, nil, false, true, debtOwnerGoneDaysDefault, 10)
+	on := computeStructuralDebt("BE", mods, nil, false, true, debtOwnerGoneDaysDefault, debtStaleDaysDefault, 10)
 	if on.ClassifiedMass != 1000 {
 		t.Errorf("excludes on: ClassifiedMass = %d, want 1000 (only src/core)", on.ClassifiedMass)
 	}
@@ -291,7 +350,7 @@ func TestComputeStructuralDebt_NonSourceExcluded(t *testing.T) {
 	}
 
 	// Default excludes OFF: the non-source areas are counted as debt again.
-	off := computeStructuralDebt("BE", mods, nil, false, false, debtOwnerGoneDaysDefault, 10)
+	off := computeStructuralDebt("BE", mods, nil, false, false, debtOwnerGoneDaysDefault, debtStaleDaysDefault, 10)
 	if off.ClassifiedMass != 1569 {
 		t.Errorf("excludes off: ClassifiedMass = %d, want 1569 (all modules)", off.ClassifiedMass)
 	}

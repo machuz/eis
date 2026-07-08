@@ -29,6 +29,12 @@ type StructuralDebtReport struct {
 	ModuleCount    int           `json:"module_count"`
 	TopDebtModules []DebtModule  `json:"top_debt_modules"`
 	Concentration  Concentration `json:"concentration"`
+
+	// InsufficientData distinguishes "no debt (healthy)" from "nothing to
+	// measure": true when there is no classified source mass at all (e.g. every
+	// file was folded/excluded), so SDR=0 must be read as "cannot compute", not
+	// "clean". Consumers should branch on this before trusting sdr.
+	InsufficientData bool `json:"insufficient_data"`
 }
 
 // DebtModule is one drill row for the "worst debt (by mass)" list. LastOwner /
@@ -64,6 +70,15 @@ func PrintStructuralDebtTable(reports []StructuralDebtReport) {
 	for _, r := range reports {
 		fmt.Println()
 		title.Printf("Structural Debt — %s\n", r.Domain)
+
+		// No classified source mass ⇒ SDR is undefined, not 0%. Say so rather
+		// than showing a reassuring "SDR 0%" that a "clean" and a "no data" repo
+		// would share.
+		if r.InsufficientData {
+			dim.Printf("  Insufficient data — no classified source modules (cannot compute SDR)\n")
+			fmt.Println()
+			continue
+		}
 
 		head.Printf("  SDR  %s   ", pct(r.SDR))
 		dim.Printf("debt / classified source mass\n")

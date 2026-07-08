@@ -42,6 +42,15 @@ import (
 // commit happens to be 35 days before the analysis window mints false debt.
 const debtOwnerGoneDaysDefault = 180
 
+// debtStaleDaysDefault is the horizon past which a module counts as stale (no
+// one has touched it). Debt requires BOTH the owner to be gone AND the module
+// itself to be stale — a departed original author whose code is still actively
+// maintained by others is inherited-but-alive, not abandoned. This mirrors the
+// RobustSurvival idea that others-contested code is not debt: immutable-js's
+// __tests__ (owner left 1506d ago, but touched 8 days ago) is NOT structural
+// debt, it is living code with a new steward.
+const debtStaleDaysDefault = 180
+
 // defaultNonSourceDirs are top-level directory names whose modules are NOT
 // production source and so are excluded from BOTH the debt numerator and the
 // classified-mass denominator by default. Tests are deliberately absent — test
@@ -79,6 +88,10 @@ func runStructuralDebt(args []string) error {
 	// owner has been idle at least this long. Separate from --active-days so the
 	// debt bar ("owner has left") is stricter than the general activity bar.
 	debtOwnerGoneDays := fs.Int("debt-owner-gone-days", debtOwnerGoneDaysDefault, "Days the module owner must be idle before an Orphaned module counts as structural debt")
+	// A module counts as debt only if it is ALSO stale (untouched by anyone for
+	// this many days). Symmetric with --debt-owner-gone-days: debt = owner gone
+	// AND module stale. Guards against flagging actively-maintained inherited code.
+	debtStaleDays := fs.Int("debt-stale-days", debtStaleDaysDefault, "Days a module must be untouched by anyone before it can count as structural debt")
 	// Non-source modules (examples/docs/website/root catch-all) are excluded from
 	// both numerator and denominator by default; --no-default-excludes disables
 	// that, and a declared architecture (eis.yaml module_patterns) always wins.
@@ -131,7 +144,8 @@ func runStructuralDebt(args []string) error {
 	for _, dr := range domainResults {
 		reports = append(reports, computeStructuralDebt(
 			string(dr.Domain), dr.ModuleScores, ownerNames(dr.Ownership),
-			*includePeripheral, applyDefaultExcludes, float64(*debtOwnerGoneDays), *topN))
+			*includePeripheral, applyDefaultExcludes,
+			float64(*debtOwnerGoneDays), float64(*debtStaleDays), *topN))
 	}
 	if len(reports) == 0 {
 		return fmt.Errorf("no modules to analyze")
@@ -173,8 +187,10 @@ func ownerNames(ownership []metric.ModuleOwnership) map[string]string {
 //
 // applyDefaultExcludes drops non-source modules (examples/docs/website/root) from
 // BOTH numerator and denominator. debtOwnerGoneDays is the owner-idle horizon an
-// Orphaned module must clear to count as debt (decoupled from activeDays).
-func computeStructuralDebt(domain string, mods []scorer.ModuleScore, ownerNames map[string]string, includePeripheral bool, applyDefaultExcludes bool, debtOwnerGoneDays float64, topN int) output.StructuralDebtReport {
+// Orphaned module must clear to count as debt (decoupled from activeDays);
+// debtStaleDays is the module-untouched horizon a module (either tier) must clear
+// — debt requires BOTH owner-gone AND module-stale.
+func computeStructuralDebt(domain string, mods []scorer.ModuleScore, ownerNames map[string]string, includePeripheral bool, applyDefaultExcludes bool, debtOwnerGoneDays, debtStaleDays float64, topN int) output.StructuralDebtReport {
 	var total, dead, orphaned, atRisk, classifiedCount int
 	var debtMods []output.DebtModule
 
@@ -198,14 +214,24 @@ func computeStructuralDebt(domain string, mods []scorer.ModuleScore, ownerNames 
 		total += mass
 		classifiedCount++
 
-		// Orphaned counts as debt only once the owner has been idle past the
-		// debt horizon. A still-active maintainer whose last commit merely
-		// predates the window by a few weeks is NOT gone — that was the redux
-		// "Erikson left 35d" false positive.
-		orphanedDebt := m.Ownership == "Orphaned" && m.OwnerLastActiveDays >= debtOwnerGoneDays
-		isDebt := m.Vitality == "Dead" || orphanedDebt
+		// Debt requires the module ITSELF to be stale, not just its owner absent.
+		// moduleStale is true when nobody has touched it for debtStaleDays, OR
+		// when it has no commits at all in the window (ModuleCommits==0 ⇒ no
+		// last-touch date ⇒ maximally stale, the Dead case). A module still being
+		// edited by others is inherited-but-alive, not abandoned — this mirrors
+		// RobustSurvival (others-contested code is not debt). immutable-js's
+		// __tests__ (owner left 1506d, but untouched only 8d) is correctly spared.
+		moduleStale := m.ModuleUntouchedDays >= debtStaleDays || m.ModuleCommits == 0
+
+		// Orphaned counts as debt only once the owner has been idle past the debt
+		// horizon AND the module is stale. A still-active maintainer whose last
+		// commit merely predates the window by a few weeks is NOT gone — that was
+		// the redux "Erikson left 35d" false positive.
+		deadDebt := m.Vitality == "Dead" && moduleStale
+		orphanedDebt := m.Ownership == "Orphaned" && m.OwnerLastActiveDays >= debtOwnerGoneDays && moduleStale
+		isDebt := deadDebt || orphanedDebt
 		switch {
-		case m.Vitality == "Dead":
+		case deadDebt:
 			dead += mass
 		case orphanedDebt:
 			orphaned += mass
@@ -248,6 +274,9 @@ func computeStructuralDebt(domain string, mods []scorer.ModuleScore, ownerNames 
 		ModuleCount:    classifiedCount,
 		TopDebtModules: debtMods,
 		Concentration:  conc,
+		// No classified source mass ⇒ SDR is undefined, not a healthy 0. Flag it
+		// so a consumer never reads "no data" as "clean".
+		InsufficientData: total == 0,
 		// TODO(gravity-variant): a secondary SDR weighted by survival mass
 		// (metric.CalcModuleSurvival) could carry the thesis story — keep it OFF
 		// the headline.
