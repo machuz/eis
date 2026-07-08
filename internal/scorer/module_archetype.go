@@ -26,6 +26,14 @@ type ModuleScore struct {
 	OwnershipLevel    string
 	TopAuthorShare    float64
 	OwnerActive       bool
+	// OwnerLastActiveDays is days since the module's TopAuthor last committed
+	// anywhere (0 when no ownership/last-active data). For an Orphaned/Dead
+	// module whose owner has left, this reads as "last touched by its owner N
+	// days ago" — the "since" in the debt drill row.
+	OwnerLastActiveDays float64
+	// ModuleUntouchedDays is days since ANY commit last touched this module
+	// (0 when no per-module last-commit date is available).
+	ModuleUntouchedDays float64
 
 	// 3-axis classification
 	Coupling      string // "Isolated" / "Independent" / "Linked" / "Hub"
@@ -71,6 +79,7 @@ func ScoreModules(
 	authorLastDate map[string]time.Time,
 	activeDays int,
 	moduleTestRatio map[string]float64,
+	moduleLastDate map[string]time.Time,
 ) []ModuleScore {
 	// Collect all modules from all data sources
 	allModules := make(map[string]bool)
@@ -180,11 +189,19 @@ func ScoreModules(
 			ms.TopAuthorShare = o.TopShare
 			ms.KnowledgeDistribution = knowledgeScore(o.Level, o.Entropy)
 
-			// Check if top author is active
+			// Check if top author is active. Keep daysSince (don't discard it) so
+			// the debt drill row can say "owner last touched N days ago".
 			if lastDate, ok := authorLastDate[o.TopAuthor]; ok {
 				daysSince := time.Since(lastDate).Hours() / 24
 				ms.OwnerActive = daysSince <= float64(activeDays)
+				ms.OwnerLastActiveDays = daysSince
 			}
+		}
+
+		// Days since any commit last touched this module (leading indicator for
+		// dead/dormant code; 0 when no per-module last-commit date is available).
+		if d, ok := moduleLastDate[mod]; ok {
+			ms.ModuleUntouchedDays = time.Since(d).Hours() / 24
 		}
 
 		// Per-module test coverage ratio (populated only when manifest data was passed in).

@@ -50,6 +50,12 @@ type CommitAggregator struct {
 	moduleCommits map[string]int
 	pairCount     map[[2]string]int
 
+	// moduleLastDate: per (folded) module → the latest commit date that touched
+	// it. Date max is order-independent, so it's value-identical across the
+	// streaming and materialized ingest paths. Feeds the "untouched N days"
+	// figure in the structural-debt drill rows.
+	moduleLastDate map[string]time.Time
+
 	// catalysis precedence: file → author → earliest contribution date. History-
 	// sublinear (bounded by distinct files × authors-per-file), retained past the
 	// stream so the blame stage can combine it with surviving mass.
@@ -79,6 +85,7 @@ func NewCommitAggregator(mr ModuleResolver) *CommitAggregator {
 		substModuleAuthorCommits: make(map[string]map[string]int),
 		moduleCommits:            make(map[string]int),
 		pairCount:                make(map[[2]string]int),
+		moduleLastDate:           make(map[string]time.Time),
 		firstContrib:             make(map[string]map[string]time.Time),
 		coMap:                    make(map[string][]string),
 	}
@@ -126,6 +133,9 @@ func (a *CommitAggregator) Fold(c *git.Commit) {
 		for mod := range touched {
 			m[mod]++
 			a.moduleCommits[mod]++
+			if d, ok := a.moduleLastDate[mod]; !ok || c.Date.After(d) {
+				a.moduleLastDate[mod] = c.Date
+			}
 			mods = append(mods, mod)
 		}
 		// Canonical order for deterministic pair keys (matches CalcCochange).
@@ -234,6 +244,9 @@ type Aggregate struct {
 	// or the others = total − self subtraction would over-count cosmetic commits).
 	OthersModuleCommits map[string]int
 	ModuleAuthorCommits map[string]map[string]int
+	// ModuleLastDate maps each folded module → the latest commit date that
+	// touched it (for the structural-debt "untouched N days" figure).
+	ModuleLastDate map[string]time.Time
 }
 
 // Finalize returns the accumulated maps. Cochange's Jaccard + sort runs once here
@@ -253,5 +266,6 @@ func (a *CommitAggregator) Finalize() Aggregate {
 		FixCommits:          a.fixCommits,
 		OthersModuleCommits: a.substModuleCommits,
 		ModuleAuthorCommits: a.substModuleAuthorCommits,
+		ModuleLastDate:      a.moduleLastDate,
 	}
 }
