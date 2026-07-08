@@ -187,6 +187,12 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			continue
 		}
 		repoName := filepath.Base(repoPath)
+		// repoCfg layers this repo's eis.yaml repo_overrides on the galaxy config
+		// so every repo-granularity knob below (blame set, sample size, tau,
+		// architecture, file excludes, debt threshold) honors a per-repo override.
+		// Module patterns/excludes keep their own PatternsForRepo/ExcludesForRepo
+		// resolution. Returns cfg unchanged for a repo with no override.
+		repoCfg := config.EffectiveConfigForRepo(cfg, repoName)
 		if cfg.IsExcludedRepo(repoName) {
 			if cb.OnRepoSkipped != nil {
 				cb.OnRepoSkipped(repoName, "excluded")
@@ -238,7 +244,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		git.CanonicalizeAuthors(commits, nil, idmap)
 		// config patterns + .gitattributes linguist-generated/vendored (so generated
 		// /vendored files don't inflate gravity); used by every file filter below.
-		excludes := effectiveExcludes(ctx, repoPath, cfg)
+		excludes := effectiveExcludes(ctx, repoPath, repoCfg)
 		commits = filterCommits(commits, cfg)
 		commits = filterFileStats(commits, excludes)
 
@@ -313,7 +319,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			}
 		}
 
-		files, err := git.ListFiles(ctx, repoPath, cfg.BlameExtensions)
+		files, err := git.ListFiles(ctx, repoPath, repoCfg.BlameExtensions)
 		if err != nil {
 			continue
 		}
@@ -327,14 +333,14 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// Blame analysis (cached)
 		var blameLines []git.BlameLine
 		git.ConfigureBlameMoveDetection(cfg.BlameMoveDetection)
-		blameCacheKey := cache.BlameKey(repoPath, headHash, files, cfg.SampleSize, cfg.BlameMoveDetection)
+		blameCacheKey := cache.BlameKey(repoPath, headHash, files, repoCfg.SampleSize, cfg.BlameMoveDetection)
 		if headHash != "" && cacheStore.Get(blameCacheKey, &blameLines) {
 			// cache hit
 		} else {
 			// Pre-skip oversized files so blame can't deadlock on a
 			// single huge single-line dump.
 			files, _ = git.FilterFilesBySize(ctx, repoPath, "HEAD", files, cfg.MaxBlameFileBytes, blameVerbose)
-			blameLines, _ = git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers, cfg.BlameTimeout, cb.OnBlameProgress, blameVerbose)
+			blameLines, _ = git.ConcurrentBlameFiles(ctx, repoPath, files, repoCfg.SampleSize, workers, cfg.BlameTimeout, cb.OnBlameProgress, blameVerbose)
 			if headHash != "" && len(blameLines) > 0 {
 				cacheStore.Set(blameCacheKey, blameLines)
 			}
@@ -371,7 +377,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		// per author, on the same analysisTime + tau as survival. Arch churn later
 		// rewritten has decayed out of the blame, so design measures durable structural
 		// ownership rather than raw arch-edit volume.
-		designSurv := metric.CalcDesignSurviving(blameLines, cfg.ArchitecturePatterns, cfg.Tau, analysisTime)
+		designSurv := metric.CalcDesignSurviving(blameLines, repoCfg.ArchitecturePatterns, repoCfg.Tau, analysisTime)
 		mergeMap(acc.raw.Design, designSurv)
 
 		var repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant map[string]float64
@@ -387,14 +393,14 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 			}
 			threshold := metric.PressureThreshold(repoPressure, blameByAuthor, metric.SubstantialAuthorLines)
 			repoOthers := metric.CalcOthersPressure(commits, blameLines, moduleResolver)
-			sr := metric.CalcSurvivalWithPressure(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, threshold, moduleResolver, repoOthers)
+			sr := metric.CalcSurvivalWithPressure(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, threshold, moduleResolver, repoOthers)
 			repoSurvDecayed, repoSurvRaw, repoSurvRobust, repoSurvDormant = sr.Decayed, sr.Raw, sr.Robust, sr.Dormant
 			mergeMap(acc.raw.Survival, repoSurvDecayed)
 			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
 			mergeMap(acc.raw.RobustSurvival, repoSurvRobust)
 			mergeMap(acc.raw.DormantSurvival, repoSurvDormant)
 		} else {
-			sr := metric.CalcSurvival(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime)
+			sr := metric.CalcSurvival(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime)
 			repoSurvDecayed, repoSurvRaw = sr.Decayed, sr.Raw
 			mergeMap(acc.raw.Survival, repoSurvDecayed)
 			mergeMap(acc.raw.RawSurvival, repoSurvRaw)
@@ -405,7 +411,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 
 		// Catalysis: surviving mass of others' work on files this author
 		// originated (commit history → file origin; blame → surviving mass).
-		catalysis := metric.CalcCatalysis(commits, blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime)
+		catalysis := metric.CalcCatalysis(commits, blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime)
 		mergeMap(acc.raw.Catalysis, catalysis)
 		acc.risks = append(acc.risks, risks...)
 
@@ -418,7 +424,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 		if cb.OnDebtProgress != nil {
 			debtProg = metric.ProgressFunc(cb.OnDebtProgress)
 		}
-		debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor, metric.CoAuthorMap(commits), excludes, debtProg, debtVerbose)
+		debt, _ := metric.CalcDebt(ctx, repoPath, fixCommits, 50, repoCfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor, metric.CoAuthorMap(commits), excludes, debtProg, debtVerbose)
 		mergeMapAvg(acc.raw.DebtCleanup, debt, acc.debtCounts)
 
 		if opts.PerRepo {
@@ -522,6 +528,10 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				if ra.domain != d {
 					continue
 				}
+				// Per-repo RepoResult: honor this repo's tau override for its own
+				// module-survival rollups (the domain-merge rollups above stay on
+				// the galaxy tau, since they aggregate across repos).
+				raCfg := config.EffectiveConfigForRepo(cfg, ra.repoName)
 				for a, t := range ra.acc.raw.Production {
 					days := ra.authorLastDate[a].Sub(ra.authorFirstDate[a]).Hours() / 24
 					if days < 1 {
@@ -533,7 +543,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 				// holds gravity in WITHIN this repo (Hill number over this
 				// repo's per-module gravity), using this repo's resolver so
 				// RepoOverrides apply. Reused for the RepoResult below.
-				repoModuleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(ra.blameLines, cfg.TauForDomain(string(ra.domain)), analysisTime, ra.resolver)
+				repoModuleSurvivalByAuthor := metric.CalcModuleSurvivalByAuthor(ra.blameLines, raCfg.TauForDomain(string(ra.domain)), analysisTime, ra.resolver)
 				repoBreadth := metric.ComputeBreadth(repoModuleSurvivalByAuthor)
 				for a := range ra.acc.raw.TotalCommits {
 					ra.acc.raw.Breadth[a] = repoBreadth[a]
@@ -550,7 +560,7 @@ func Run(opts Options, repoPaths []string, cfg *config.Config, cb *Callbacks) ([
 					// (which honors RepoOverrides).
 					repoCochange := metric.CalcCochange(ra.commits, ra.resolver)
 					repoOwnership := metric.CalcOwnershipFragmentation(ra.blameLines, ra.resolver)
-					repoModuleSurvival := metric.CalcModuleSurvival(ra.blameLines, cfg.TauForDomain(string(ra.domain)), analysisTime, ra.resolver)
+					repoModuleSurvival := metric.CalcModuleSurvival(ra.blameLines, raCfg.TauForDomain(string(ra.domain)), analysisTime, ra.resolver)
 					dr.PerRepo = append(dr.PerRepo, RepoResult{
 						RepoName: ra.repoName, Domain: ra.domain, Results: rf,
 						Cochange: repoCochange, Ownership: repoOwnership, ModuleSurvival: repoModuleSurvival,
