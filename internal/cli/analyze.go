@@ -427,6 +427,14 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 
 		repoName := filepath.Base(repoPath)
 
+		// repoCfg layers this repo's per-repo overrides (eis.yaml repo_overrides)
+		// on top of the galaxy config. Every cfg.<knob> read below that the analysis
+		// consumes at repo granularity (blame set, sample size, tau, architecture,
+		// file excludes, debt threshold) goes through repoCfg so a per-repo override
+		// wins; module patterns/excludes keep their own PatternsForRepo/ExcludesForRepo
+		// resolution. Returns cfg unchanged when the repo has no override.
+		repoCfg := config.EffectiveConfigForRepo(cfg, repoName)
+
 		// Skip excluded repos
 		if cfg.IsExcludedRepo(repoName) {
 			fmt.Fprintf(os.Stderr, "SKIP: %s (excluded in config)\n", repoName)
@@ -494,7 +502,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// by every file filter below, so blame + change-volume agree. Wrapped in a
 		// memoizing Excluder — the per-file-touch glob match was ~a third of Go CPU
 		// on large repos; one verdict per distinct path collapses it.
-		excludes := effectiveExcludes(ctx, repoPath, cfg)
+		excludes := effectiveExcludes(ctx, repoPath, repoCfg)
 		excl := metric.NewExcluder(excludes)
 		// Reverted commits (originals + reverts) are dropped so code merged then
 		// reverted doesn't inflate metrics. HEAD-derived set; retains no history.
@@ -595,7 +603,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 
 		// Step 2: Blame analysis (feeds Survival, Indispensability)
 		spin = spinner("[2/4] Blame analysis...")
-		files, err := git.ListFiles(ctx, repoPath, cfg.BlameExtensions)
+		files, err := git.ListFiles(ctx, repoPath, repoCfg.BlameExtensions)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "  Warning: could not list files: %v\n", err)
 			continue
@@ -616,7 +624,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Apply the run's blame move/copy detection policy (read by every blame
 		// call) and fold it into the cache key so a level change recomputes.
 		git.ConfigureBlameMoveDetection(cfg.BlameMoveDetection)
-		blameCacheKey := cache.BlameKey(repoPath, headHash, files, cfg.SampleSize, cfg.BlameMoveDetection)
+		blameCacheKey := cache.BlameKey(repoPath, headHash, files, repoCfg.SampleSize, cfg.BlameMoveDetection)
 		if headHash != "" && cacheStore.Get(blameCacheKey, &blameLines) {
 			if !quiet {
 				fmt.Fprintf(os.Stderr, "  %s [2/4] Blame (cached)\n", color.New(color.FgGreen).Sprint("✓"))
@@ -629,7 +637,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 				blameVerbose(fmt.Sprintf("  [blame] size filter error: %v", err))
 			}
 			blameProg := newLiveProgress("[2/4] Blame")
-			blameLines, err = git.ConcurrentBlameFiles(ctx, repoPath, files, cfg.SampleSize, workers, cfg.BlameTimeout,
+			blameLines, err = git.ConcurrentBlameFiles(ctx, repoPath, files, repoCfg.SampleSize, workers, cfg.BlameTimeout,
 				func(done, total int) {
 					blameProg.Update(done, total)
 				}, blameVerbose)
@@ -686,7 +694,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// per author, on the same analysisTime + tau as survival. Arch churn that was
 		// itself rewritten has decayed out of the blame, so design measures durable
 		// structural ownership rather than raw arch-edit volume.
-		designSurv := metric.CalcDesignSurviving(blameLines, cfg.ArchitecturePatterns, cfg.Tau, analysisTime)
+		designSurv := metric.CalcDesignSurviving(blameLines, repoCfg.ArchitecturePatterns, repoCfg.Tau, analysisTime)
 		mergeMap(acc.raw.Design, designSurv)
 
 		// Survival: split by change pressure or use classic mode
@@ -725,7 +733,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			// the per-author counts must both be substance-gated (same map pair), or
 			// the others = total − self subtraction would over-count cosmetic commits.
 			repoOthers := metric.CalcOthersPressureFrom(ag.OthersModuleCommits, ag.ModuleAuthorCommits, blameLines, moduleResolver)
-			survResult := metric.CalcSurvivalFull(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
+			survResult := metric.CalcSurvivalFull(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, repoPressure, pressureThreshold, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, repoOthers)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvRobust = survResult.Robust
@@ -741,7 +749,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		} else {
 			// Classic mode: no pressure split, but still apply the tested-weighting
 			// so comment-era repos still benefit from gaming resistance.
-			survResult := metric.CalcSurvivalFull(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
+			survResult := metric.CalcSurvivalFull(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, nil, 0, moduleResolver, testedSet, cfg.UntestedSurvivalWeight, nil)
 			repoSurvDecayed = survResult.Decayed
 			repoSurvRaw = survResult.Raw
 			repoSurvTested = survResult.Tested
@@ -759,7 +767,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		// Catalysis: surviving mass of others' work on files this author
 		// originated. Needs the commit history (originator per file) and the
 		// blame lines (surviving mass). Same decay reference (analysisTime) as Survival.
-		catalysis := metric.CalcCatalysisFrom(ag.FirstContrib, blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime)
+		catalysis := metric.CalcCatalysisFrom(ag.FirstContrib, blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime)
 		mergeMap(acc.raw.Catalysis, catalysis)
 
 		// Step 3: Debt cleanup
@@ -785,7 +793,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			}
 		} else {
 			debtProg := newLiveProgress("[3/4] Debt")
-			debt, _ = metric.CalcDebt(ctx, repoPath, fixCommits, 50, cfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor,
+			debt, _ = metric.CalcDebt(ctx, repoPath, fixCommits, 50, repoCfg.DebtThreshold, cfg.BlameTimeout, workers, cfg.ResolveAuthor,
 				ag.CoMap, excludes,
 				func(done, total int) {
 					debtProg.Update(done, total)
@@ -802,7 +810,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		acc.ownership = append(acc.ownership, ownership...)
 
 		// Module Science Phase 2: Per-module survival rate
-		repoModSurv := metric.CalcModuleSurvival(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
+		repoModSurv := metric.CalcModuleSurvival(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
 		for mod, surv := range repoModSurv {
 			if existing, ok := acc.moduleSurvival[mod]; ok {
 				acc.moduleSurvival[mod] = (existing + surv) / 2
@@ -812,7 +820,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		}
 
 		// Per-(module, author) surviving gravity for Breadth (Hill number).
-		repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, cfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
+		repoMSBA := metric.CalcModuleSurvivalByAuthor(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver)
 		for mod, authors := range repoMSBA {
 			dst := acc.authorModuleSurvival[mod]
 			if dst == nil {

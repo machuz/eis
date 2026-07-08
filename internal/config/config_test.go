@@ -310,6 +310,67 @@ func TestPatternsForRepoLookup(t *testing.T) {
 	}
 }
 
+// EffectiveConfigForRepo layers a repo's per-repo overrides on the galaxy config:
+// lists REPLACE (BlameExtensions, ArchitecturePatterns), ExcludeFilePatterns ADDs,
+// scalars override only when their pointer is set. A repo with no entry returns
+// cfg untouched, and cfg is never mutated.
+func TestEffectiveConfigForRepo(t *testing.T) {
+	tau := 45.0
+	sample := 500
+	cfg := &Config{
+		Tau:                  30,
+		SampleSize:           1000,
+		DebtThreshold:        90,
+		BlameExtensions:      []string{".go"},
+		ArchitecturePatterns: []string{"internal/*"},
+		ExcludeFilePatterns:  []string{"vendor/**"},
+		RepoOverrides: map[string]RepoConfig{
+			"mono": {
+				Tau:                  &tau,
+				SampleSize:           &sample,
+				BlameExtensions:      []string{".rs", ".toml"},
+				ArchitecturePatterns: []string{"crates/*"},
+				ExcludeFilePatterns:  []string{"target/**"},
+			},
+		},
+	}
+
+	// No override entry → the SAME pointer back (no copy, no change).
+	if got := EffectiveConfigForRepo(cfg, "other"); got != cfg {
+		t.Errorf("no-override repo should return cfg unchanged (same pointer)")
+	}
+
+	eff := EffectiveConfigForRepo(cfg, "mono")
+	if eff.Tau != 45.0 {
+		t.Errorf("Tau override: got %v, want 45", eff.Tau)
+	}
+	if eff.SampleSize != 500 {
+		t.Errorf("SampleSize override: got %d, want 500", eff.SampleSize)
+	}
+	if eff.DebtThreshold != 90 {
+		t.Errorf("DebtThreshold (no override): got %d, want galaxy 90", eff.DebtThreshold)
+	}
+	if len(eff.BlameExtensions) != 2 || eff.BlameExtensions[0] != ".rs" {
+		t.Errorf("BlameExtensions should REPLACE: got %v, want [.rs .toml]", eff.BlameExtensions)
+	}
+	if len(eff.ArchitecturePatterns) != 1 || eff.ArchitecturePatterns[0] != "crates/*" {
+		t.Errorf("ArchitecturePatterns should REPLACE: got %v, want [crates/*]", eff.ArchitecturePatterns)
+	}
+	// ExcludeFilePatterns ADDs the repo's on top of the galaxy's.
+	if len(eff.ExcludeFilePatterns) != 2 || eff.ExcludeFilePatterns[0] != "vendor/**" || eff.ExcludeFilePatterns[1] != "target/**" {
+		t.Errorf("ExcludeFilePatterns should ADD: got %v, want [vendor/** target/**]", eff.ExcludeFilePatterns)
+	}
+
+	// cfg must be untouched by the override.
+	if cfg.Tau != 30 || len(cfg.BlameExtensions) != 1 || len(cfg.ExcludeFilePatterns) != 1 {
+		t.Errorf("cfg was mutated: Tau=%v BlameExtensions=%v ExcludeFilePatterns=%v", cfg.Tau, cfg.BlameExtensions, cfg.ExcludeFilePatterns)
+	}
+
+	if EffectiveConfigForRepo(nil, "x") != nil {
+		t.Errorf("nil cfg should return nil")
+	}
+}
+
 // loadFromString writes YAML to a temp file and loads it as Config.
 func loadFromString(t *testing.T, yamlContent string) *Config {
 	t.Helper()
