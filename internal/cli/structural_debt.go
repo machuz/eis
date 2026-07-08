@@ -228,28 +228,16 @@ func computeStructuralDebt(domain string, mods []scorer.ModuleScore, ownerNames 
 		total += mass
 		classifiedCount++
 
-		// Debt requires the module ITSELF to be stale, not just its owner absent.
-		// moduleStale is true when nobody has touched it for debtStaleDays, OR
-		// when it has no commits at all in the window (ModuleCommits==0 ⇒ no
-		// last-touch date ⇒ maximally stale, the Dead case). A module still being
-		// edited by others is inherited-but-alive, not abandoned — this mirrors
-		// RobustSurvival (others-contested code is not debt). immutable-js's
-		// __tests__ (owner left 1506d, but untouched only 8d) is correctly spared.
-		moduleStale := m.ModuleUntouchedDays >= debtStaleDays || m.ModuleCommits == 0
-
-		// Orphaned counts as debt only once the owner has been idle past the debt
-		// horizon AND the module is stale. A still-active maintainer whose last
-		// commit merely predates the window by a few weeks is NOT gone — that was
-		// the redux "Erikson left 35d" false positive.
-		deadDebt := m.Vitality == "Dead" && moduleStale
-		orphanedDebt := m.Ownership == "Orphaned" && m.OwnerLastActiveDays >= debtOwnerGoneDays && moduleStale
-		isDebt := deadDebt || orphanedDebt
+		// Shared debt verdict (identical logic to write-index, so the two can
+		// never disagree).
+		v := classifyModuleDebt(m, debtOwnerGoneDays, debtStaleDays)
+		isDebt := v.DeadDebt || v.OrphanedDebt
 		switch {
-		case deadDebt:
+		case v.DeadDebt:
 			dead += mass
-		case orphanedDebt:
+		case v.OrphanedDebt:
 			orphaned += mass
-		case m.Ownership == "Concentrated" && m.OwnerActive:
+		case v.AtRisk:
 			// Leading indicator: NOT counted in SDR (SDR = already-unowned mass).
 			atRisk += mass
 		}
@@ -302,6 +290,38 @@ func ratio(n, d int) float64 {
 		return 0
 	}
 	return float64(n) / float64(d)
+}
+
+// debtVerdict is the per-module structural-debt classification. It is the single
+// source of truth shared by `structural-debt` (SDR aggregation) and `write-index`
+// (per-module recommendations) so the two commands can never disagree about what
+// counts as debt.
+type debtVerdict struct {
+	DeadDebt     bool // Vitality "Dead" AND module stale
+	OrphanedDebt bool // owner gone >= horizon AND module stale
+	AtRisk       bool // concentrated ownership + owner still active (bus-factor 1)
+}
+
+// IsDebt reports whether the module is already structural debt (either tier).
+func (v debtVerdict) IsDebt() bool { return v.DeadDebt || v.OrphanedDebt }
+
+// classifyModuleDebt applies the calibrated debt rules to one module: debt needs
+// BOTH an absent owner (or Dead vitality) AND a stale module (untouched past the
+// horizon, or zero commits). AtRisk is the leading indicator (owner still active
+// but sole). Precedence matches structural-debt's aggregation: Dead > Orphaned >
+// AtRisk.
+func classifyModuleDebt(m scorer.ModuleScore, debtOwnerGoneDays, debtStaleDays float64) debtVerdict {
+	// A module still being edited by others is inherited-but-alive, not
+	// abandoned (mirrors RobustSurvival: others-contested code is not debt).
+	// ModuleCommits==0 ⇒ no last-touch date ⇒ maximally stale (the Dead case).
+	moduleStale := m.ModuleUntouchedDays >= debtStaleDays || m.ModuleCommits == 0
+
+	dead := m.Vitality == "Dead" && moduleStale
+	orphaned := m.Ownership == "Orphaned" && m.OwnerLastActiveDays >= debtOwnerGoneDays && moduleStale
+	// AtRisk only when the module is not already debt (Dead takes precedence when
+	// a module is both Dead and concentrated).
+	atRisk := !dead && !orphaned && m.Ownership == "Concentrated" && m.OwnerActive
+	return debtVerdict{DeadDebt: dead, OrphanedDebt: orphaned, AtRisk: atRisk}
 }
 
 // architectureDeclared reports whether the user has declared a module
