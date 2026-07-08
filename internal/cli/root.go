@@ -25,6 +25,8 @@ func Run(args []string) error {
 		return runStructuralDebt(args[1:])
 	case "write-index":
 		return runWriteIndex(args[1:])
+	case "precheck-hook":
+		return runPrecheckHook(args[1:])
 	case "cache":
 		return runCache(args[1:])
 	case "version":
@@ -131,6 +133,7 @@ Usage:
   eis timeline [path...]      Track score evolution over time periods
   eis structural-debt [path...] Structural Debt meter (SDR: Dead/Orphaned source mass)
   eis write-index [path...]   Emit per-module write-index (.eis/write-index.json) for AI agents
+  eis precheck-hook           Claude Code PreToolUse hook: inject a module's debt context before a write
   eis cache clear              Clear cached data
   eis cache status             Show cache size
   eis version                 Print version
