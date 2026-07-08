@@ -96,6 +96,13 @@ func runStructuralDebt(args []string) error {
 	// both numerator and denominator by default; --no-default-excludes disables
 	// that, and a declared architecture (eis.yaml module_patterns) always wins.
 	noDefaultExcludes := fs.Bool("no-default-excludes", false, "Do not apply the built-in non-source module blocklist (examples/docs/website/...)")
+	// structural-debt runs the LEAN pipeline by default: it computes only what
+	// debt consumes (ownership, per-module commits + last-touch, author dates) and
+	// skips the heavy science (survival/gravity, co-change pressure, breadth,
+	// design, catalysis, debt-cleanup re-blame) so it scales to large repos and
+	// costs less. --full runs the complete analysis pipeline instead; SDR and
+	// top_debt_modules are identical either way (verified in tests).
+	full := fs.Bool("full", false, "Run the full analysis pipeline instead of the lean debt-only path (same SDR, slower)")
 	// TODO(significant-lines): blank/comment exclusion. v0 uses BlameLines as-is.
 	// Add --strip-blank (cheap) then --strip-comments (needs a light per-lang lexer).
 	verbose := fs.Bool("verbose", false, "Show detailed debug output")
@@ -125,6 +132,13 @@ func runStructuralDebt(args []string) error {
 		DomainFilter:   *domainFilter,
 		Verbose:        *verbose,
 		NoCache:        *noCache,
+		// Lean by default: skip the heavy science debt never reads. --full opts
+		// back into the complete pipeline (identical SDR, just slower).
+		LeanDebt: !*full,
+		// -M move detection isn't needed for debt-grade ownership and is a big
+		// share of blame time. Off for BOTH lean and --full so they stay
+		// byte-equivalent (only the science differs).
+		BlameMoveDetection: "off",
 	}
 
 	// Reuse the shared pipeline — excludePatterns (vendored/generated) are already
