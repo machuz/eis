@@ -23,6 +23,8 @@ func Run(args []string) error {
 		return runTimeline(args[1:])
 	case "structural-debt", "debt-meter":
 		return runStructuralDebt(args[1:])
+	case "write-index":
+		return runWriteIndex(args[1:])
 	case "cache":
 		return runCache(args[1:])
 	case "version":
@@ -128,6 +130,7 @@ Usage:
   eis team [path...]          Analyze and aggregate into team-level metrics
   eis timeline [path...]      Track score evolution over time periods
   eis structural-debt [path...] Structural Debt meter (SDR: Dead/Orphaned source mass)
+  eis write-index [path...]   Emit per-module write-index (.eis/write-index.json) for AI agents
   eis cache clear              Clear cached data
   eis cache status             Show cache size
   eis version                 Print version
