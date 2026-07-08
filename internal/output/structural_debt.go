@@ -38,9 +38,9 @@ type DebtModule struct {
 	Mass   int    `json:"mass"`
 	Tier   string `json:"tier"` // "Dead" | "Orphaned"
 	// LastOwner is the module's top blame author (from metric.ModuleOwnership).
-	// TODO(owner-story): OwnerLeftDays / UntouchedDays need per-author last-active
-	// dates (authorLastDate) and per-module last-commit dates, which the shared
-	// pipeline does not yet surface on DomainResults — they stay 0 until wired.
+	// OwnerLeftDays is days since that owner last committed anywhere; UntouchedDays
+	// is days since any commit last touched the module. Either is 0 when the
+	// underlying date wasn't available (e.g. no ownership/last-commit record).
 	LastOwner     string `json:"last_owner"`
 	OwnerLeftDays int    `json:"owner_left_days"`
 	UntouchedDays int    `json:"untouched_days"`
@@ -86,7 +86,10 @@ func PrintStructuralDebtTable(reports []StructuralDebtReport) {
 				}
 				since := ""
 				if m.OwnerLeftDays > 0 {
-					since = fmt.Sprintf(" · left %dd ago", m.OwnerLeftDays)
+					since += fmt.Sprintf(" · owner last %dd ago", m.OwnerLeftDays)
+				}
+				if m.UntouchedDays > 0 {
+					since += fmt.Sprintf(" · untouched %dd", m.UntouchedDays)
 				}
 				fmt.Printf("    %10s  %-8s  %s  %s%s\n",
 					commafy(m.Mass), m.Tier, m.Module, owner, since)

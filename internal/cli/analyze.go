@@ -134,6 +134,10 @@ type domainAccumulator struct {
 	// from the convention-aware metric.ModuleResolver.
 	moduleAllFiles  map[string]int
 	moduleTestFiles map[string]int
+
+	// moduleLastDate: per-module latest commit date across all repos in this
+	// domain (max-merged). Feeds ScoreModules' ModuleUntouchedDays.
+	moduleLastDate map[string]time.Time
 }
 
 func newDomainAccumulator() *domainAccumulator {
@@ -151,6 +155,7 @@ func newDomainAccumulator() *domainAccumulator {
 		modulePressureCounts: make(map[string]int),
 		moduleAllFiles:       make(map[string]int),
 		moduleTestFiles:      make(map[string]int),
+		moduleLastDate:       make(map[string]time.Time),
 	}
 }
 
@@ -601,6 +606,15 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		cochange := ag.Cochange
 		acc.cochangeResults = append(acc.cochangeResults, cochange)
 
+		// Per-module latest commit date (max across repos) — feeds the
+		// "untouched N days" figure in the structural-debt drill rows. Keys are
+		// folded module ids (no repo prefix), matching acc.moduleSurvival etc.
+		for mod, d := range ag.ModuleLastDate {
+			if existing, ok := acc.moduleLastDate[mod]; !ok || d.After(existing) {
+				acc.moduleLastDate[mod] = d
+			}
+		}
+
 		// Step 2: Blame analysis (feeds Survival, Indispensability)
 		spin = spinner("[2/4] Blame analysis...")
 		files, err := git.ListFiles(ctx, repoPath, repoCfg.BlameExtensions)
@@ -972,6 +986,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			acc.authorLastDate,
 			cfg.ActiveDays,
 			moduleTestRatio,
+			acc.moduleLastDate,
 		)
 
 		dr := DomainResults{

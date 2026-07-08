@@ -168,11 +168,12 @@ func computeStructuralDebt(domain string, mods []scorer.ModuleScore, ownerNames 
 				Mass:      mass,
 				Tier:      debtTier(m), // "Dead" | "Orphaned"
 				LastOwner: ownerNames[m.Module],
-				// TODO(owner-story): OwnerLeftDays / UntouchedDays need per-author
-				// last-active dates + per-module last-commit dates, which the shared
-				// pipeline does not surface on DomainResults yet. Left 0 for now.
-				OwnerLeftDays: 0,
-				UntouchedDays: 0,
+				// owner_left_days: days since the module's owner last committed
+				// (for a departed owner, "left N days ago"). untouched_days: days
+				// since ANY commit touched the module. Both come straight from the
+				// classifier (0 when the underlying date wasn't available).
+				OwnerLeftDays: int(m.OwnerLastActiveDays),
+				UntouchedDays: int(m.ModuleUntouchedDays),
 			})
 		}
 	}

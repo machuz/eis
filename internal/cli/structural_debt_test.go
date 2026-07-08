@@ -198,20 +198,35 @@ func TestComputeStructuralDebt(t *testing.T) {
 	}
 }
 
-func TestComputeStructuralDebt_OwnerNameWired(t *testing.T) {
+func TestComputeStructuralDebt_OwnerStoryWired(t *testing.T) {
+	// An Orphaned module whose owner left 243 days ago and which hasn't been
+	// touched by anyone in 243 days — the visceral CTO drill row.
 	mods := []scorer.ModuleScore{
-		{Module: "svc/auth", BlameLines: 200, Ownership: "Orphaned"},
+		{
+			Module:              "svc/auth",
+			BlameLines:          200,
+			Ownership:           "Orphaned",
+			OwnerLastActiveDays: 243.7, // truncates to 243
+			ModuleUntouchedDays: 243.2,
+		},
 	}
 	names := map[string]string{"svc/auth": "tanaka"}
 	got := computeStructuralDebt("Backend", mods, names, false, 10)
 	if len(got.TopDebtModules) != 1 {
 		t.Fatalf("expected 1 debt module, got %d", len(got.TopDebtModules))
 	}
-	if got.TopDebtModules[0].LastOwner != "tanaka" {
-		t.Errorf("LastOwner = %q, want tanaka", got.TopDebtModules[0].LastOwner)
+	dm := got.TopDebtModules[0]
+	if dm.LastOwner != "tanaka" {
+		t.Errorf("LastOwner = %q, want tanaka", dm.LastOwner)
 	}
-	if got.TopDebtModules[0].Tier != "Orphaned" {
-		t.Errorf("Tier = %q, want Orphaned", got.TopDebtModules[0].Tier)
+	if dm.Tier != "Orphaned" {
+		t.Errorf("Tier = %q, want Orphaned", dm.Tier)
+	}
+	if dm.OwnerLeftDays != 243 {
+		t.Errorf("OwnerLeftDays = %d, want 243", dm.OwnerLeftDays)
+	}
+	if dm.UntouchedDays != 243 {
+		t.Errorf("UntouchedDays = %d, want 243", dm.UntouchedDays)
 	}
 }
 
