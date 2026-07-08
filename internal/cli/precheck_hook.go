@@ -125,23 +125,35 @@ func loadWriteIndex(path string) (output.WriteIndex, error) {
 	return idx, nil
 }
 
-// precheckContext is the pure core: resolve filePath -> module via the SAME
-// patterns the index was built with (single source of truth), look up the
-// module, and render its directive. Returns (context, true) only when the
-// module is notable; (\"\", false) for clean / unresolved / not-in-index.
-func precheckContext(filePath, cwd string, idx output.WriteIndex) (string, bool) {
+// resolveIndexModule resolves filePath → module id using the SAME patterns the
+// index was built with (single source of truth), then looks the module up in the
+// index. Returns (module, entry, true) only when the path resolves to a real,
+// indexed module. Shared by precheck-hook and get-write-context so path→module
+// resolution and lookup can never drift between them.
+func resolveIndexModule(filePath, cwd string, idx output.WriteIndex) (string, output.WriteIndexModule, bool) {
 	rel := repoRelPath(filePath, cwd)
 	if rel == "" {
-		return "", false
+		return "", output.WriteIndexModule{}, false
 	}
 	// Build the resolver from the index's own module_patterns so path→module
 	// resolution can never drift from how the index keys were produced.
 	resolver := metric.NewModuleResolver(idx.ModulePatterns)
 	mod := resolver.ModuleOf(rel)
 	if mod == "" || mod == metric.PeripheralModule {
-		return "", false
+		return "", output.WriteIndexModule{}, false
 	}
 	entry, ok := idx.Modules[mod]
+	if !ok {
+		return mod, output.WriteIndexModule{}, false
+	}
+	return mod, entry, true
+}
+
+// precheckContext is the pure core for the hook: resolve + look up the module,
+// then render its directive. Returns (context, true) only when the module is
+// notable; ("", false) for clean / unresolved / not-in-index.
+func precheckContext(filePath, cwd string, idx output.WriteIndex) (string, bool) {
+	mod, entry, ok := resolveIndexModule(filePath, cwd, idx)
 	if !ok {
 		return "", false
 	}
@@ -172,6 +184,35 @@ func directiveFor(m output.WriteIndexModule) string {
 			"write in a way others can build on."
 	default:
 		return "" // clean -> no output.
+	}
+}
+
+// recommendationDirectives is the structured (array) form of the same guidance
+// directiveFor renders as one prose line — used by get-write-context, which
+// returns a query response rather than a hook envelope. Kept adjacent to
+// directiveFor so the two stay consistent (same recommendation vocabulary). A
+// clean module returns an empty (non-nil) slice. No owner identity, ever.
+func recommendationDirectives(recommendation string) []string {
+	switch recommendation {
+	case "orphaned_module":
+		return []string{
+			"Prefer a minimal diff",
+			"Add a test to establish shared ownership",
+			"Don't expand the public surface",
+			"Flag to a human",
+		}
+	case "dead_module":
+		return []string{
+			"Consider deletion over extension",
+			"Escalate the revive decision to a human",
+		}
+	case "bus_factor_1":
+		return []string{
+			"Avoid concentrating more logic here",
+			"Write so others can build on it",
+		}
+	default:
+		return []string{}
 	}
 }
 
