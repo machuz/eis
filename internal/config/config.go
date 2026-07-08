@@ -149,6 +149,71 @@ type RepoConfig struct {
 	// ExcludeModules is ADDED to (not replacing) Config.ExcludeModules for
 	// this repo — org-level excludes always apply; the repo adds its own.
 	ExcludeModules []string `yaml:"exclude_modules"`
+
+	// --- per-repo overrides applied by EffectiveConfigForRepo (v2.x) ---
+	// These mirror the like-named org-level Config fields but scope them to one
+	// repo. Only fields the analysis consumes at REPO granularity are here; knobs
+	// read during cross-repo/domain aggregation (ActiveDays, ProductionDailyRef)
+	// and the structured domain taxonomy stay org-level and have no per-repo form.
+
+	// ExcludeFilePatterns is ADDED to Config.ExcludeFilePatterns for this repo
+	// (org excludes always apply; the repo adds its own) — same additive rule as
+	// ExcludeModules, since dropping a file is safe to layer.
+	ExcludeFilePatterns []string `yaml:"exclude_file_patterns"`
+	// BlameExtensions, when non-empty, REPLACES Config.BlameExtensions for this
+	// repo (a repo may blame a different language set than the galaxy default).
+	BlameExtensions []string `yaml:"blame_extensions"`
+	// ArchitecturePatterns, when non-empty, REPLACES Config.ArchitecturePatterns
+	// for this repo (what counts as "architecture" is repo-specific).
+	ArchitecturePatterns []string `yaml:"architecture_patterns"`
+	// Tau / SampleSize / DebtThreshold override the org-level scalar knob for this
+	// repo ONLY when the pointer is non-nil — a nil (absent) field falls back to
+	// the galaxy value, and an explicit value (including 0 where the org default is
+	// non-zero) wins. Pointer-for-optional mirrors DomainEntry.Tau.
+	Tau           *float64 `yaml:"tau"`
+	SampleSize    *int     `yaml:"sample_size"`
+	DebtThreshold *int     `yaml:"debt_threshold"`
+}
+
+// EffectiveConfigForRepo returns the config the analysis should use for a single
+// repo: the org-level cfg with this repo's RepoOverrides layered on. The galaxy
+// config is the DEFAULT; a per-repo override wins where set. The list fields use
+// the same replace/add split as the module knobs (BlameExtensions,
+// ArchitecturePatterns REPLACE; ExcludeFilePatterns ADDs on top of the org list),
+// and the scalar knobs override only when their pointer is non-nil. Repos with no
+// override entry return cfg unchanged (no allocation). The returned Config shares
+// cfg's maps/other slices read-only — only the overridden fields are reassigned
+// to fresh values, so cfg itself is never mutated. Module patterns/excludes keep
+// their existing PatternsForRepo / ExcludesForRepo resolution (unchanged), so the
+// module-resolution call sites do not go through this helper.
+func EffectiveConfigForRepo(cfg *Config, repoName string) *Config {
+	if cfg == nil {
+		return nil
+	}
+	ov, ok := cfg.RepoOverrides[repoName]
+	if !ok {
+		return cfg
+	}
+	eff := *cfg // shallow copy; only whole overridden fields are reassigned below
+	if len(ov.BlameExtensions) > 0 {
+		eff.BlameExtensions = ov.BlameExtensions
+	}
+	if len(ov.ArchitecturePatterns) > 0 {
+		eff.ArchitecturePatterns = ov.ArchitecturePatterns
+	}
+	if len(ov.ExcludeFilePatterns) > 0 {
+		eff.ExcludeFilePatterns = append(append([]string(nil), cfg.ExcludeFilePatterns...), ov.ExcludeFilePatterns...)
+	}
+	if ov.Tau != nil {
+		eff.Tau = *ov.Tau
+	}
+	if ov.SampleSize != nil {
+		eff.SampleSize = *ov.SampleSize
+	}
+	if ov.DebtThreshold != nil {
+		eff.DebtThreshold = *ov.DebtThreshold
+	}
+	return &eff
 }
 
 // DefaultModulePatterns is the built-in set of monorepo-convention glob
