@@ -31,6 +31,8 @@ func Run(args []string) error {
 		return runGetWriteContext(args[1:])
 	case "anchors":
 		return runAnchors(args[1:])
+	case "graveyard":
+		return runGraveyard(args[1:])
 	case "cache":
 		return runCache(args[1:])
 	case "version":
@@ -140,6 +142,7 @@ Usage:
   eis precheck-hook           Claude Code PreToolUse hook: inject a module's debt context before a write
   eis get-write-context       Structured per-path write context (MCP get_write_context core)
   eis anchors [path...]       Surviving exemplar code per module (propagation anchors)
+  eis graveyard [path...]     Where past attempts died: repeated others-contested rewrites (anchors' complement)
   eis cache clear              Clear cached data
   eis cache status             Show cache size
   eis version                 Print version
