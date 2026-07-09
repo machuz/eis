@@ -38,6 +38,21 @@ import (
 // others-contested deaths to be a hotspot (1 death = healthy one-off refactor).
 const graveyardMinDeaths = 2
 
+// nonCodeSkipGlobs drops docs/config/data/images from the numstat walk (blame-
+// based commands get this for free via blame_extensions; graveyard sees every
+// file, so it filters here). A blocklist — not the blame-extension allowlist —
+// so real code that allowlist omits (e.g. *.js) is still counted.
+var nonCodeSkipGlobs = []string{
+	// docs
+	"*.md", "*.mdx", "*.markdown", "*.rst", "*.txt", "*.adoc",
+	// config / data
+	"*.yml", "*.yaml", "*.json", "*.toml", "*.ini", "*.cfg", "*.conf",
+	"*.lock", "*.env", "*.xml", "*.properties",
+	// images / assets
+	"*.svg", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.ico", "*.webp",
+	"*.csv", "*.tsv",
+}
+
 func runGraveyard(args []string) error {
 	fs := flag.NewFlagSet("graveyard", flag.ExitOnError)
 	configPath := fs.String("config", "", "Config file path")
@@ -128,7 +143,7 @@ func runGraveyard(args []string) error {
 		resolver := metric.NewModuleResolverWithExcludes(
 			config.PatternsForRepo(cfg, repoName), config.ExcludesForRepo(cfg, repoName))
 
-		for _, g := range metric.CalcGraveyard(commits, resolver) {
+		for _, g := range metric.CalcGraveyard(commits, resolver, nonCodeSkipGlobs) {
 			graves = append(graves, *g)
 		}
 

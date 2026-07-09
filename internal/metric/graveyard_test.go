@@ -24,7 +24,7 @@ func TestCalcGraveyard_OthersContestedVsSelfRewrite(t *testing.T) {
 		{Author: "C", FileStats: fstats(fstat("svc/x/hard.go", 8, 8))},
 		{Author: "C", FileStats: fstats(fstat("svc/x/hard.go", 4, 4))},
 	}
-	g := CalcGraveyard(commits, mr)["svc/x/hard.go"]
+	g := CalcGraveyard(commits, mr, nil)["svc/x/hard.go"]
 	if g == nil {
 		t.Fatal("missing hard.go")
 	}
@@ -54,7 +54,7 @@ func TestCalcGraveyard_PureSelfRewriteIsSilent(t *testing.T) {
 		{Author: "A", FileStats: fstats(fstat("a/b/f.go", 15, 15))},
 		{Author: "A", FileStats: fstats(fstat("a/b/f.go", 10, 10))},
 	}
-	g := CalcGraveyard(commits, mr)["a/b/f.go"]
+	g := CalcGraveyard(commits, mr, nil)["a/b/f.go"]
 	if g.Deaths != 0 || g.OthersDeadLines != 0 {
 		t.Errorf("self-rewrite should have 0 deaths, got deaths=%d dead=%d", g.Deaths, g.OthersDeadLines)
 	}
@@ -66,8 +66,31 @@ func TestCalcGraveyard_MergesSkipped(t *testing.T) {
 		{Author: "A", FileStats: fstats(fstat("a/b/f.go", 10, 0))},
 		{Author: "B", IsMerge: true, FileStats: fstats(fstat("a/b/f.go", 5, 5))}, // merge -> ignored
 	}
-	g := CalcGraveyard(commits, mr)["a/b/f.go"]
+	g := CalcGraveyard(commits, mr, nil)["a/b/f.go"]
 	if g.Deaths != 0 {
 		t.Errorf("merge commit must be skipped, got deaths=%d", g.Deaths)
+	}
+}
+
+func TestCalcGraveyard_NonCodeSkipped(t *testing.T) {
+	mr := NewModuleResolver(nil)
+	skip := []string{"*.md", "*.yml", "*.svg"}
+	// Same others-contested death pattern on a code file and non-code files.
+	mk := func(f string) []git.Commit {
+		return []git.Commit{
+			{Author: "A", FileStats: fstats(fstat(f, 10, 0))},
+			{Author: "B", FileStats: fstats(fstat(f, 8, 8))},
+			{Author: "A", FileStats: fstats(fstat(f, 6, 6))},
+		}
+	}
+	// Code file (*.js — NOT in the blame allowlist) must still be counted.
+	if g := CalcGraveyard(mk("src/Map.js"), mr, skip)["src/Map.js"]; g == nil || g.Deaths == 0 {
+		t.Errorf("*.js is code and must be counted, got %+v", g)
+	}
+	// Non-code files must be dropped entirely.
+	for _, f := range []string{"README.md", ".github/workflows/ci.yml", "logo/logo.svg"} {
+		if g := CalcGraveyard(mk(f), mr, skip)[f]; g != nil {
+			t.Errorf("non-code %s must be skipped, got %+v", f, g)
+		}
 	}
 }

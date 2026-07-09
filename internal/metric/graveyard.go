@@ -32,7 +32,13 @@ type FileGrave struct {
 // than the deleter is an others-contested death. Additions push a new run. Self-
 // rewrite (deleter == author of the popped run) is NOT a death — that's healthy
 // refactoring.
-func CalcGraveyard(commits []git.Commit, mr ModuleResolver) map[string]*FileGrave {
+// skipGlobs is a NON-code blocklist (e.g. "*.md","*.yml","*.svg"): files whose
+// basename matches are skipped. Numstat (unlike blame) reports every extension,
+// so this is what keeps README/logo/CI-config churn out of the graveyard. A
+// blocklist (not the blame-extension allowlist) is used deliberately so real
+// code the allowlist happens to omit — e.g. *.js — is still counted. Pass nil
+// to disable.
+func CalcGraveyard(commits []git.Commit, mr ModuleResolver, skipGlobs []string) map[string]*FileGrave {
 	type run struct {
 		author string
 		n      int
@@ -55,6 +61,9 @@ func CalcGraveyard(commits []git.Commit, mr ModuleResolver) map[string]*FileGrav
 		}
 		for _, fsStat := range c.FileStats {
 			f := fsStat.Filename
+			if len(skipGlobs) > 0 && IsExcluded(f, skipGlobs) {
+				continue // non-code file (docs/config/image) — not a code graveyard
+			}
 			g := get(f)
 
 			// Deletions first, against the pre-commit inventory (LIFO).
