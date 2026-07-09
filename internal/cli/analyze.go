@@ -73,6 +73,11 @@ type AnalyzeOptions struct {
 	// team/timeline never set this, so their blame policy is unchanged).
 	BlameMoveDetection string
 
+	// CaptureAnchors makes the pipeline fold per-file surviving-mass stats
+	// (metric.CalcFileSurvival) from the blame it already computes, for
+	// `eis anchors`. Additive and flag-guarded — off for analyze/team/timeline.
+	CaptureAnchors bool
+
 	// LeanDebt runs only the computations structural-debt consumes (blame→
 	// ownership, per-module commit counts + last-touch, author last-commit dates)
 	// and SKIPS the heavy science debt never reads: co-change survival/pressure,
@@ -113,6 +118,21 @@ type DomainResults struct {
 
 	// Module Science Phase 2: 3-axis module topology
 	ModuleScores []scorer.ModuleScore
+
+	// Anchors holds per-file surviving-mass stats (only when opts.CaptureAnchors).
+	// Consumed by `eis anchors` to pick propagation exemplars.
+	Anchors []AnchorStat
+}
+
+// AnchorStat is one file's surviving-exemplar stats. Contributors is an
+// anonymous COUNT (no author identity) — the others-contested signal.
+type AnchorStat struct {
+	Module       string
+	File         string  // repo-relative display path
+	AbsPath      string  // absolute path, for reading the digest
+	DecayedMass  float64 // surviving gravity (Σ decay)
+	Lines        int
+	Contributors int
 }
 
 // RepoResult holds scored results for a single repository.
@@ -160,6 +180,9 @@ type domainAccumulator struct {
 	// moduleLastDate: per-module latest commit date across all repos in this
 	// domain (max-merged). Feeds ScoreModules' ModuleUntouchedDays.
 	moduleLastDate map[string]time.Time
+
+	// anchorStats: per-file surviving-mass stats (only when opts.CaptureAnchors).
+	anchorStats []AnchorStat
 }
 
 func newDomainAccumulator() *domainAccumulator {
@@ -859,6 +882,24 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 		ownership := metric.CalcOwnershipFragmentation(blameLines, moduleResolver)
 		acc.ownership = append(acc.ownership, ownership...)
 
+		// Anchor capture: fold per-file surviving-mass stats from the blame we
+		// already have (same tau + analysisTime as survival). Additive, flag-gated.
+		if opts.CaptureAnchors {
+			for _, fs := range metric.CalcFileSurvival(blameLines, repoCfg.TauForDomain(string(repoDomain)), analysisTime, moduleResolver) {
+				if fs.Module == "" || fs.Module == metric.PeripheralModule {
+					continue
+				}
+				acc.anchorStats = append(acc.anchorStats, AnchorStat{
+					Module:       fs.Module,
+					File:         fs.File,
+					AbsPath:      filepath.Join(repoPath, fs.File),
+					DecayedMass:  fs.DecayedMass,
+					Lines:        fs.Lines,
+					Contributors: fs.Contributors,
+				})
+			}
+		}
+
 		if !opts.LeanDebt {
 			// Module Science Phase 2: Per-module survival rate (feeds ChangeAbsorption /
 			// non-Dead Vitality — not consumed by structural-debt).
@@ -1038,6 +1079,7 @@ func RunAnalyzePipeline(opts AnalyzeOptions, paths []string) ([]DomainResults, *
 			ModuleScores:   moduleScores,
 			TotalFiles:     acc.totalFiles,
 			TotalTestFiles: acc.totalTestFiles,
+			Anchors:        acc.anchorStats,
 		}
 		if acc.totalFiles > 0 {
 			dr.TestFileRatio = float64(acc.totalTestFiles) / float64(acc.totalFiles)
