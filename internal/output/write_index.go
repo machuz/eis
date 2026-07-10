@@ -25,7 +25,7 @@ type WriteIndex struct {
 
 	// Reserved for later increments (intentionally absent in v0):
 	//   - per-module change_pressure: cut by the lean debt pipeline (#355).
-	//   - surviving_idiom_digest / anchors: Build2 idiom propagation.
+	//   - semantic graveyard (WHICH approach died, WHAT replaced it): needs an LLM.
 }
 
 // WriteIndexModule is one module's structural facts. No owner name (firewall).
@@ -37,6 +37,28 @@ type WriteIndexModule struct {
 	UntouchedDays          int     `json:"untouched_days"`          // days since any commit touched the module
 	OwnershipConcentration float64 `json:"ownership_concentration"` // top-author blame share, 0-1
 	Recommendation         string  `json:"recommendation"`          // orphaned_module|dead_module|bus_factor_1|""
+
+	// Anchors are the module's surviving EXEMPLARS — code that lasted AND that
+	// others built on ("write toward this pattern"). Populated only when the index
+	// is generated with --anchors; omitted otherwise. Firewall-safe: code + weights
+	// + anonymous contested_by_n, never authorship.
+	Anchors []Anchor `json:"anchors,omitempty"`
+
+	// Graveyard is the module's dead-pattern signal — where past attempts were
+	// repeatedly torn out by others ("do not reintroduce this"), the complement of
+	// Anchors. Populated only when the index is generated with --graveyard; a nil
+	// pointer (omitted) means "not requested", never "no deaths". Firewall-safe:
+	// structure only, no author names.
+	Graveyard *WriteIndexGraveyard `json:"graveyard,omitempty"`
+}
+
+// WriteIndexGraveyard is the per-module dead-pattern payload embedded in the
+// index. The module id is the map key, so it is not repeated here (this is the
+// only reason it is not the standalone GraveyardModule).
+type WriteIndexGraveyard struct {
+	DeathIntensity float64            `json:"death_intensity"` // others-contested dead lines / total writes, 0-1
+	DeathEvents    int                `json:"death_events"`    // B≠A deletion events in repeated-death files
+	Hotspots       []GraveyardHotspot `json:"hotspots"`
 }
 
 // EncodeWriteIndex writes the index as indented JSON to w.

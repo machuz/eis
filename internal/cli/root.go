@@ -140,7 +140,7 @@ Usage:
   eis team [path...]          Analyze and aggregate into team-level metrics
   eis timeline [path...]      Track score evolution over time periods
   eis structural-debt [path...] Structural Debt meter (SDR: Dead/Orphaned source mass)
-  eis write-index [path...]   Emit per-module write-index (.eis/write-index.json) for AI agents
+  eis write-index [path...]   Emit per-module write-index (.eis/write-index.json) for AI agents (--anchors/--graveyard to embed idiom payloads)
   eis precheck-hook           Claude Code PreToolUse hook: inject a module's debt context before a write
   eis get-write-context       Structured per-path write context (MCP get_write_context core)
   eis anchors [path...]       Surviving exemplar code per module (propagation anchors)

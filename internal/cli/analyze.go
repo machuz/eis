@@ -46,6 +46,40 @@ func resolveWorkers(w int) int {
 	return defaultWorkers()
 }
 
+// resolveRepoPaths turns raw path args into absolute repo paths, defaulting to
+// "." when none are given and expanding each root into its contained git repos
+// when recursive is set. Shared by the commands that walk repos outside
+// RunAnalyzePipeline (graveyard, and write-index's --graveyard wiring) so they
+// resolve targets identically.
+func resolveRepoPaths(pathArgs []string, recursive bool, maxDepth int) ([]string, error) {
+	repoPaths := pathArgs
+	if len(repoPaths) == 0 {
+		repoPaths = []string{"."}
+	}
+	for i, p := range repoPaths {
+		abs, aerr := filepath.Abs(p)
+		if aerr != nil {
+			return nil, fmt.Errorf("resolve %s: %w", p, aerr)
+		}
+		repoPaths[i] = abs
+	}
+	if recursive {
+		var discovered []string
+		for _, root := range repoPaths {
+			repos, derr := findGitRepos(root, maxDepth)
+			if derr != nil {
+				return nil, fmt.Errorf("scan %s: %w", root, derr)
+			}
+			discovered = append(discovered, repos...)
+		}
+		if len(discovered) == 0 {
+			return nil, fmt.Errorf("no git repos found under %v", repoPaths)
+		}
+		repoPaths = discovered
+	}
+	return repoPaths, nil
+}
+
 // AnalyzeOptions holds CLI flags for the analysis pipeline.
 type AnalyzeOptions struct {
 	ConfigPath     string

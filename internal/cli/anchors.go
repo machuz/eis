@@ -12,8 +12,9 @@ package cli
 // FIREWALL: anchors are code + weights, never authorship. contested_by_n is an
 // anonymous count; no owner name is emitted.
 //
-// TODO(wiring): a follow-up wires these digests into write-index's reserved
-// `surviving_idiom_digest` slot. v0 is a standalone command.
+// buildAnchors is also consumed by `eis write-index --anchors`, which embeds each
+// module's exemplars inline so the pre-write hook serves them from the local
+// index (see write_index.go). This command is the standalone view of the same data.
 
 import (
 	"bufio"
