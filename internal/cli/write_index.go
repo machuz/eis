@@ -41,6 +41,16 @@ func runWriteIndex(args []string) error {
 	outputPath := fs.String("output", defaultWriteIndexPath, "Where to write the index; \"-\" for stdout")
 	verbose := fs.Bool("verbose", false, "Show detailed debug output")
 	noCache := fs.Bool("no-cache", false, "Skip disk cache")
+	// Idiom-propagation payloads (Build2) — OFF by default so the base index stays
+	// lean and near-free. The index-refresh job opts in; the pre-write hook then
+	// serves "write toward these" (anchors) / "don't reintroduce this" (graveyard)
+	// from the same local lookup. --anchors rides the lean pipeline (it needs only
+	// the blame the index already computes); --graveyard adds a separate numstat
+	// death walk, so it is the more expensive of the two.
+	withAnchors := fs.Bool("anchors", false, "Embed per-module surviving-exemplar digests (propagation anchors)")
+	withGraveyard := fs.Bool("graveyard", false, "Embed per-module dead-pattern hotspots (anchors' complement)")
+	anchorsTop := fs.Int("anchors-top", 3, "Anchors to embed per module (with --anchors)")
+	graveyardTop := fs.Int("graveyard-top", 5, "Graveyard hotspots to embed per module (with --graveyard)")
 
 	flagArgs, pathArgs := separateArgs(args, fs)
 	if err := fs.Parse(flagArgs); err != nil {
@@ -68,6 +78,10 @@ func runWriteIndex(args []string) error {
 		// debt reads, and identical ownership attribution.
 		LeanDebt:           true,
 		BlameMoveDetection: "off",
+		// Anchor capture folds per-file surviving mass from the blame the lean
+		// pipeline already computes (metric.CalcFileSurvival) — it stays lean, no
+		// heavy science is switched on. Only set when --anchors is requested.
+		CaptureAnchors: *withAnchors,
 	}
 
 	domainResults, cfg, _, err := RunAnalyzePipeline(opts, pathArgs)
@@ -87,8 +101,57 @@ func runWriteIndex(args []string) error {
 		}
 	}
 
+	// Default excludes match anchors/graveyard: drop non-source modules (unless the
+	// user declared an architecture) and test files, so the agent is never told to
+	// imitate — or avoid — a config/example/test.
+	applyModuleBlocklist := !architectureDeclared(cfg)
+	excludeTests := true
+
+	// --anchors: surviving exemplars, from the per-file stats the lean pipeline just
+	// captured. nil map when off ⇒ modules omit the field.
+	var anchorsByModule map[string][]output.Anchor
+	if *withAnchors {
+		var stats []AnchorStat
+		for _, dr := range domainResults {
+			stats = append(stats, dr.Anchors...)
+		}
+		report := buildAnchors(stats, *anchorsTop, applyModuleBlocklist, excludeTests, readDigest)
+		anchorsByModule = make(map[string][]output.Anchor, len(report.Modules))
+		for _, m := range report.Modules {
+			anchorsByModule[m.Module] = m.Anchors
+		}
+	}
+
+	// --graveyard: dead patterns, from a separate cheap numstat death walk (no
+	// blame). The extra log parse is why this is opt-in, not part of the lean base.
+	//
+	// The payload is attached (below, in buildWriteIndex) only to modules the
+	// pipeline actually scored. The death walk resolves modules over ALL history,
+	// so it can surface a module the topology pipeline buckets into the peripheral
+	// sentinel (tiny / low-liveness) and never emits as an index row — that
+	// module's graveyard is intentionally dropped here so the index stays keyed to
+	// its own denoised module set (i.e. `eis graveyard` may list a module this
+	// index does not; that is the standalone view, not a disagreement).
+	var graveyardByModule map[string]output.WriteIndexGraveyard
+	if *withGraveyard {
+		repoPaths, rerr := resolveRepoPaths(pathArgs, *recursive, *maxDepth)
+		if rerr != nil {
+			return rerr
+		}
+		graves, currentFiles := walkGraveyard(context.Background(), repoPaths, cfg, resolveWorkers(*workers))
+		report := buildGraveyard(graves, currentFiles, *graveyardTop, applyModuleBlocklist, excludeTests)
+		graveyardByModule = make(map[string]output.WriteIndexGraveyard, len(report.Modules))
+		for _, m := range report.Modules {
+			graveyardByModule[m.Module] = output.WriteIndexGraveyard{
+				DeathIntensity: m.DeathIntensity,
+				DeathEvents:    m.DeathEvents,
+				Hotspots:       m.Hotspots,
+			}
+		}
+	}
+
 	idx := buildWriteIndex(domainResults, cfg, commit, time.Now().UTC(),
-		float64(*debtOwnerGoneDays), float64(*debtStaleDays))
+		float64(*debtOwnerGoneDays), float64(*debtStaleDays), anchorsByModule, graveyardByModule)
 
 	if *outputPath == "-" {
 		return output.EncodeWriteIndex(os.Stdout, idx)
@@ -112,13 +175,15 @@ func runWriteIndex(args []string) error {
 
 // buildWriteIndex is the pure, testable core: every module across every domain,
 // mapped to its structural facts and a shared debt verdict. No owner names.
-func buildWriteIndex(domainResults []DomainResults, cfg *config.Config, commit string, generatedAt time.Time, debtOwnerGoneDays, debtStaleDays float64) output.WriteIndex {
+// anchorsByModule / graveyardByModule are nil unless the caller requested the
+// --anchors / --graveyard payloads; modules absent from them omit those fields.
+func buildWriteIndex(domainResults []DomainResults, cfg *config.Config, commit string, generatedAt time.Time, debtOwnerGoneDays, debtStaleDays float64, anchorsByModule map[string][]output.Anchor, graveyardByModule map[string]output.WriteIndexGraveyard) output.WriteIndex {
 	modules := make(map[string]output.WriteIndexModule)
 	for _, dr := range domainResults {
 		for _, m := range dr.ModuleScores {
 			// Same debt logic as structural-debt (Dead > Orphaned > AtRisk).
 			v := classifyModuleDebt(m, debtOwnerGoneDays, debtStaleDays)
-			modules[m.Module] = output.WriteIndexModule{
+			wim := output.WriteIndexModule{
 				DebtTier:               debtTierOf(v),
 				AtRisk:                 v.AtRisk,
 				OwnerActive:            m.OwnerActive,
@@ -129,6 +194,13 @@ func buildWriteIndex(domainResults []DomainResults, cfg *config.Config, commit s
 				// NOTE (firewall): m.Module's owner name (metric.ModuleOwnership.
 				// TopAuthor) is deliberately NOT emitted here.
 			}
+			if a := anchorsByModule[m.Module]; len(a) > 0 {
+				wim.Anchors = a
+			}
+			if g, ok := graveyardByModule[m.Module]; ok {
+				wim.Graveyard = &g
+			}
+			modules[m.Module] = wim
 		}
 	}
 

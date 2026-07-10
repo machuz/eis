@@ -84,76 +84,12 @@ func runGraveyard(args []string) error {
 	ctx := context.Background()
 	w := resolveWorkers(*workers)
 
-	repoPaths := pathArgs
-	if len(repoPaths) == 0 {
-		repoPaths = []string{"."}
-	}
-	for i, p := range repoPaths {
-		abs, aerr := filepath.Abs(p)
-		if aerr != nil {
-			return fmt.Errorf("resolve %s: %w", p, aerr)
-		}
-		repoPaths[i] = abs
-	}
-	if *recursive {
-		var discovered []string
-		for _, root := range repoPaths {
-			repos, derr := findGitRepos(root, *maxDepth)
-			if derr != nil {
-				return fmt.Errorf("scan %s: %w", root, derr)
-			}
-			discovered = append(discovered, repos...)
-		}
-		if len(discovered) == 0 {
-			return fmt.Errorf("no git repos found under %v", repoPaths)
-		}
-		repoPaths = discovered
+	repoPaths, rerr := resolveRepoPaths(pathArgs, *recursive, *maxDepth)
+	if rerr != nil {
+		return rerr
 	}
 
-	var graves []metric.FileGrave
-	currentFiles := make(map[string]bool)
-
-	for _, repoPath := range repoPaths {
-		if _, serr := os.Stat(filepath.Join(repoPath, ".git")); os.IsNotExist(serr) {
-			fmt.Fprintf(os.Stderr, "SKIP: %s (not a git repo)\n", repoPath)
-			continue
-		}
-		repoName := filepath.Base(repoPath)
-		if cfg.IsExcludedRepo(repoName) {
-			continue
-		}
-		repoCfg := config.EffectiveConfigForRepo(cfg, repoName)
-
-		// numstat-only log (no -p, no blame): cheap. Reverse-chronological, so
-		// reverse to chronological for the inventory walk.
-		commits, perr := git.ParseLogParallel(ctx, repoPath, w, false)
-		if perr != nil {
-			fmt.Fprintf(os.Stderr, "SKIP: %s (log: %v)\n", repoName, perr)
-			continue
-		}
-		// Same commit canonicalization/filtering the analysis pipeline applies, so
-		// B≠A is accurate (alias-collapsed) and excluded authors/files are dropped.
-		idmap := git.BuildIdentityMap(commits)
-		git.CanonicalizeAuthors(commits, nil, idmap)
-		commits = filterCommits(commits, cfg)
-		excl := metric.NewExcluder(effectiveExcludes(ctx, repoPath, repoCfg))
-		commits = filterFileStats(commits, excl)
-		reverseCommits(commits)
-
-		resolver := metric.NewModuleResolverWithExcludes(
-			config.PatternsForRepo(cfg, repoName), config.ExcludesForRepo(cfg, repoName))
-
-		for _, g := range metric.CalcGraveyard(commits, resolver, nonCodeSkipGlobs) {
-			graves = append(graves, *g)
-		}
-
-		// Files present at HEAD — the "still exists" gate.
-		if files, ferr := git.ListAllFiles(ctx, repoPath); ferr == nil {
-			for _, f := range files {
-				currentFiles[f] = true
-			}
-		}
-	}
+	graves, currentFiles := walkGraveyard(ctx, repoPaths, cfg, w)
 
 	// Module blocklist follows structural-debt/anchors (suppressed when an
 	// architecture is declared); test exclusion is on unless opted out.
@@ -258,6 +194,61 @@ func buildGraveyard(graves []metric.FileGrave, currentFiles map[string]bool, top
 		})
 	}
 	return report
+}
+
+// walkGraveyard reconstructs, from each repo's numstat-only log (no blame, cheap),
+// the per-file others-contested death record plus the set of files present at HEAD
+// (the "still exists" gate). It is the shared collection step behind both
+// `eis graveyard` and the write-index `--graveyard` wiring, so the two can never
+// diverge on what counts as a death. repoPaths must already be resolved (abs /
+// recursion done by the caller).
+func walkGraveyard(ctx context.Context, repoPaths []string, cfg *config.Config, workers int) ([]metric.FileGrave, map[string]bool) {
+	var graves []metric.FileGrave
+	currentFiles := make(map[string]bool)
+
+	for _, repoPath := range repoPaths {
+		if _, serr := os.Stat(filepath.Join(repoPath, ".git")); os.IsNotExist(serr) {
+			fmt.Fprintf(os.Stderr, "SKIP: %s (not a git repo)\n", repoPath)
+			continue
+		}
+		repoName := filepath.Base(repoPath)
+		if cfg.IsExcludedRepo(repoName) {
+			continue
+		}
+		repoCfg := config.EffectiveConfigForRepo(cfg, repoName)
+
+		// numstat-only log (no -p, no blame): cheap. Reverse-chronological, so
+		// reverse to chronological for the inventory walk.
+		commits, perr := git.ParseLogParallel(ctx, repoPath, workers, false)
+		if perr != nil {
+			fmt.Fprintf(os.Stderr, "SKIP: %s (log: %v)\n", repoName, perr)
+			continue
+		}
+		// Same commit canonicalization/filtering the analysis pipeline applies, so
+		// B≠A is accurate (alias-collapsed) and excluded authors/files are dropped.
+		idmap := git.BuildIdentityMap(commits)
+		git.CanonicalizeAuthors(commits, nil, idmap)
+		commits = filterCommits(commits, cfg)
+		excl := metric.NewExcluder(effectiveExcludes(ctx, repoPath, repoCfg))
+		commits = filterFileStats(commits, excl)
+		reverseCommits(commits)
+
+		resolver := metric.NewModuleResolverWithExcludes(
+			config.PatternsForRepo(cfg, repoName), config.ExcludesForRepo(cfg, repoName))
+
+		for _, g := range metric.CalcGraveyard(commits, resolver, nonCodeSkipGlobs) {
+			graves = append(graves, *g)
+		}
+
+		// Files present at HEAD — the "still exists" gate.
+		if files, ferr := git.ListAllFiles(ctx, repoPath); ferr == nil {
+			for _, f := range files {
+				currentFiles[f] = true
+			}
+		}
+	}
+
+	return graves, currentFiles
 }
 
 func reverseCommits(c []git.Commit) {
