@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/machuz/eis/v2/internal/config"
 )
@@ -149,6 +150,15 @@ func TestRun_PeriodConcurrencyIsDeterministic(t *testing.T) {
 	} {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
+			// Pin the analysis instant. BuildPeriods clamps the trailing,
+			// still-open window's End to Now, and window.End is that window's
+			// decay reference — so leaving Now to sample time.Now() would make
+			// the two runs (seq then par, milliseconds apart) score the trailing
+			// window against different instants and drift in the last float
+			// digits. That drift is a wall-clock artifact, NOT a concurrency
+			// bug; pinning Now isolates the property this test actually asserts:
+			// sequential and parallel window computation are bit-identical.
+			fixedNow := time.Date(2026, 7, 11, 12, 0, 0, 0, time.UTC)
 			run := func(concurrency int) ([]DomainTimeline, []map[string]PeriodResult) {
 				var emitted []map[string]PeriodResult
 				results, err := Run(
@@ -160,6 +170,7 @@ func TestRun_PeriodConcurrencyIsDeterministic(t *testing.T) {
 						PressureMode:      "include",
 						PerRepo:           tc.perRepo,
 						PeriodConcurrency: concurrency,
+						Now:               fixedNow,
 					},
 					repos,
 					config.Default(),

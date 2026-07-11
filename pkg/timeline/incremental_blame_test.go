@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/machuz/eis/v2/internal/config"
 )
@@ -120,6 +121,13 @@ func TestRun_IncrementalBlameMatchesFullBlame(t *testing.T) {
 			name = "PerRepoTrue"
 		}
 		t.Run(name, func(t *testing.T) {
+			// Pin the analysis instant so both runs (cache off, then on) share
+			// the same trailing window. BuildPeriods clamps the still-open final
+			// window's End to Now, and window.End is that window's decay
+			// reference — so an unpinned time.Now() would score it against two
+			// different instants and drift in the last float digits, unrelated
+			// to the incremental-vs-full blame equality this test asserts.
+			fixedNow := time.Date(2026, 7, 11, 12, 0, 0, 0, time.UTC)
 			run := func(cacheEnabled bool) []DomainTimeline {
 				results, err := Run(
 					context.Background(),
@@ -131,6 +139,7 @@ func TestRun_IncrementalBlameMatchesFullBlame(t *testing.T) {
 						PerRepo:           perRepo,
 						PeriodConcurrency: 3,
 						CacheEnabled:      cacheEnabled,
+						Now:               fixedNow,
 					},
 					[]string{repo},
 					cfg,

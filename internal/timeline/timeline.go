@@ -25,6 +25,14 @@ type PeriodResult struct {
 	// the same shape the org-analysis path (analyzer.Run with
 	// Options.PerRepo=true) already produces via DomainResults.PerRepo.
 	PerRepo []RepoPeriodResult
+	// ModuleSurvivalByAuthor decomposes surviving blame mass by module →
+	// author as of this period's End, mirroring analyzer.DomainResults's
+	// field of the same name. It's already computed each window to derive
+	// Breadth (the Hill number over per-(module,author) survival); exposing
+	// it lets SaaS callers persist per-period module ownership / Orphaned
+	// Gravity / per-module survival history instead of only HEAD-cadence
+	// snapshots. Nil unless the window produced module survival.
+	ModuleSurvivalByAuthor map[string]map[string]float64
 }
 
 // RepoPeriodResult holds per-author scored results for a single repo
@@ -35,6 +43,10 @@ type RepoPeriodResult struct {
 	RepoName string
 	Domain   string
 	Members  []scorer.Result
+	// ModuleSurvivalByAuthor is this repo's module → author survival as of
+	// the period End (same basis as the domain-level field above), so per-repo
+	// module rows fan out the same way analyzer.RepoResult does.
+	ModuleSurvivalByAuthor map[string]map[string]float64
 }
 
 // AuthorTimeline tracks one author's scores across periods.
