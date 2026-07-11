@@ -30,8 +30,11 @@ from datetime import datetime, timezone
 
 
 def git(repo, *args, check=True):
+    # errors="replace": blame output of non-UTF-8 / binary source files must not
+    # crash the walk — the author/porcelain markers we parse are ASCII, and the
+    # tab-prefixed content lines are only counted, never interpreted.
     return subprocess.run(["git", "-C", repo, *args],
-                          capture_output=True, text=True, check=check)
+                          capture_output=True, text=True, errors="replace", check=check)
 
 
 def sha_at(repo, until):
@@ -55,38 +58,49 @@ def files_at(repo, sha):
     return [f for f in r.stdout.splitlines() if f]
 
 
-def cohort_authors(repo, sha, path):
-    """Per-line author of `path` as it existed at sha (the cohort). One entry per
-    line, in file order. [] if unblameable."""
-    r = git(repo, "blame", "--line-porcelain", "-w", sha, "--", path, check=False)
+def show_linecount(repo, sha, path):
+    """Lines of `path` at `sha` — the cohort size (all lines existed at T, so all
+    are <=T by construction). Cheap: one `git show`, no blame."""
+    r = git(repo, "show", f"{sha}:{path}", check=False)
+    if r.returncode != 0:
+        return 0
+    s = r.stdout
+    if not s:
+        return 0
+    return s.count("\n") + (0 if s.endswith("\n") else 1)
+
+
+def blame_lines(repo, rev, path):
+    """(author, author_time_epoch) per line of `path` at `rev`. [] if unblameable.
+    Forward blame — fast. For survivors we filter author-time <= T; because git
+    blame keeps a line with its own file (no cross-file moves without -M), a file's
+    <=T lines at HEAD are a subset of that same file's lines at sha_T, so per-file
+    survivors <= cohort and the ratio stays in [0,1]."""
+    r = git(repo, "blame", "--line-porcelain", "-w", rev, "--", path, check=False)
     if r.returncode != 0:
         return []
-    out, author = [], None
+    out, author, atime = [], None, None
     for ln in r.stdout.split("\n"):
         if ln.startswith("author "):
             author = ln[7:]
+        elif ln.startswith("author-time "):
+            try:
+                atime = int(ln[12:])
+            except ValueError:
+                atime = None
         elif ln.startswith("\t"):
-            out.append(author)
-            author = None
+            out.append((author, atime))
+            author, atime = None, None
     return out
 
 
-def survives_flags(repo, sha_T, head_sha, path):
-    """For each line of `path` at sha_T, True iff it still exists at HEAD, via
-    reverse blame over sha_T..HEAD. One entry per line, in the SAME file order as
-    cohort_authors(sha_T), so the two zip line-for-line. [] if unblameable."""
-    r = git(repo, "blame", "--reverse", "-w", "--line-porcelain",
-            f"{sha_T}..{head_sha}", "--", path, check=False)
-    if r.returncode != 0:
-        return []
-    # In reverse blame each line-block's leading 40-hex sha is the LAST commit in
-    # which the line survived; the HEAD tip means it lasted all the way.
-    flags = []
-    for ln in r.stdout.split("\n"):
-        if len(ln) >= 40 and all(c in "0123456789abcdef" for c in ln[:40]) and \
-           (len(ln) == 40 or ln[40] == " "):
-            flags.append(ln[:40] == head_sha)
-    return flags
+def sample(seq, cap):
+    """Deterministic even-stride subsample of at most `cap` items (no RNG — keeps
+    the backtest reproducible, W-02)."""
+    if cap <= 0 or len(seq) <= cap:
+        return seq
+    step = len(seq) / cap
+    return [seq[int(i * step)] for i in range(cap)]
 
 
 def main():
@@ -98,15 +112,20 @@ def main():
     ap.add_argument("--out-modules", required=True)
     ap.add_argument("--with-authors", action="store_true")
     ap.add_argument("--out-authors", default="")
+    ap.add_argument("--sample-files", type=int, default=0,
+                    help="cap files blamed (0=all); even-stride subsample for big repos")
     args = ap.parse_args()
 
     sha_T = sha_at(args.repo, args.anchor_date)
-    head_sha = git(args.repo, "rev-parse", "HEAD").stdout.strip()
+    T_epoch = int(datetime.strptime(args.anchor_date, "%Y-%m-%d")
+                  .replace(tzinfo=timezone.utc).timestamp())
 
     with open(args.modules) as f:
         module_paths = [row["module"] for row in csv.DictReader(f)]
 
     files_T = files_at(args.repo, sha_T)
+    head_files = set(files_at(args.repo, "HEAD"))
+    files_T = sample(files_T, args.sample_files)
 
     cohort_mod = defaultdict(int)
     surv_mod = defaultdict(int)
@@ -115,33 +134,38 @@ def main():
 
     for path in files_T:
         mod = module_of(path, module_paths)
-        if mod is None and not args.with_authors:
+        want_mod = mod is not None
+        if not want_mod and not args.with_authors:
             continue
-        authors = cohort_authors(args.repo, sha_T, path)
-        if not authors:
-            continue
-        flags = survives_flags(args.repo, sha_T, head_sha, path)
-        # Reverse blame should return one flag per cohort line; if the counts
-        # disagree (rename edge cases), align by the shorter length so survivors
-        # can never exceed cohort.
-        n = min(len(authors), len(flags)) if flags else 0
-        for i in range(len(authors)):
-            alive = i < n and flags[i]
-            if mod is not None:
-                cohort_mod[mod] += 1
-                if alive:
+        # cohort = lines at sha_T (cheap show); author cohort needs sha_T blame.
+        if args.with_authors:
+            shaT = blame_lines(args.repo, sha_T, path)
+            cohort_lines = len(shaT)
+            for author, _ in shaT:
+                if author is not None:
+                    cohort_author[author] += 1
+        else:
+            cohort_lines = show_linecount(args.repo, sha_T, path)
+        if want_mod:
+            cohort_mod[mod] += cohort_lines
+        # survivors = HEAD lines (same file) authored <= T. One forward blame.
+        if path in head_files:
+            for author, atime in blame_lines(args.repo, "HEAD", path):
+                if atime is None or atime > T_epoch:
+                    continue
+                if want_mod:
                     surv_mod[mod] += 1
-            if args.with_authors and authors[i] is not None:
-                cohort_author[authors[i]] += 1
-                if alive:
-                    surv_author[authors[i]] += 1
+                if args.with_authors and author is not None:
+                    surv_author[author] += 1
 
     with open(args.out_modules, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["module", "cohort", "survivors", "survival_ratio"])
         for mod in sorted(set(cohort_mod) | set(surv_mod)):
             c, s = cohort_mod.get(mod, 0), surv_mod.get(mod, 0)
-            w.writerow([mod, c, s, (s / c) if c > 0 else ""])
+            # clamp: rare cross-file rename (blame without -M) can nudge a module's
+            # survivors just past its cohort; the true ratio is capped at 1.0.
+            w.writerow([mod, c, s, min(1.0, s / c) if c > 0 else ""])
 
     if args.with_authors and args.out_authors:
         with open(args.out_authors, "w", newline="") as f:
@@ -149,7 +173,7 @@ def main():
             w.writerow(["author", "cohort", "survivors", "survival_ratio"])
             for a in sorted(set(cohort_author) | set(surv_author)):
                 c, s = cohort_author.get(a, 0), surv_author.get(a, 0)
-                w.writerow([a, c, s, (s / c) if c > 0 else ""])
+                w.writerow([a, c, s, min(1.0, s / c) if c > 0 else ""])
 
     sys.stderr.write(f"sha_T={sha_T[:10]} files@T={len(files_T)} "
                      f"modules={len(cohort_mod)} authors={len(cohort_author)}\n")

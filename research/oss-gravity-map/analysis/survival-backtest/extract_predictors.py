@@ -153,7 +153,7 @@ def churn_and_age(repo, anchor_dt, module_paths, window_days=365):
     r = subprocess.run(
         ["git", "-C", repo, "log", f"--until={until}", "--numstat",
          "--format=commit%x09%cI", "--no-merges"],
-        capture_output=True, text=True, check=True)
+        capture_output=True, text=True, errors="replace", check=True)
     churn_commits = defaultdict(set)      # module -> set(commit) in window
     churn_loc = defaultdict(int)          # module -> added+deleted LOC in window
     first_touch = {}                      # module -> earliest date seen

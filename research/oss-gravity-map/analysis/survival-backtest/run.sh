@@ -25,8 +25,9 @@ mkdir -p "$OUT"
 
 echo "[$REPO_NAME] extracting predictors @T ..." >&2
 ANCHOR_ARG=(); [ -n "$ANCHOR" ] && ANCHOR_ARG=(--anchor-date "$ANCHOR")
-python3 "$HERE/extract_predictors.py" --eis "$EIS" --repo "$REPO" "${CFG_ARG[@]}" \
-  --horizon-days "$HORIZON" "${ANCHOR_ARG[@]}" \
+python3 "$HERE/extract_predictors.py" --eis "$EIS" --repo "$REPO" \
+  ${CFG_ARG[@]+"${CFG_ARG[@]}"} \
+  --horizon-days "$HORIZON" ${ANCHOR_ARG[@]+"${ANCHOR_ARG[@]}"} \
   --out-modules "$OUT/${REPO_NAME}_mods.csv" \
   --out-authors "$OUT/${REPO_NAME}_auths.csv" \
   --out-meta "$OUT/${REPO_NAME}_meta.json"
@@ -36,6 +37,7 @@ echo "[$REPO_NAME] anchor=$ANCHOR_END — cohort-survival outcome @HEAD ..." >&2
 python3 "$HERE/outcome_cohort_survival.py" --repo "$REPO" --anchor-date "$ANCHOR_END" \
   --modules "$OUT/${REPO_NAME}_mods.csv" \
   --out-modules "$OUT/${REPO_NAME}_out_mods.csv" \
+  --sample-files "${SAMPLE_FILES:-500}" \
   --with-authors --out-authors "$OUT/${REPO_NAME}_out_auths.csv"
 
 echo "[$REPO_NAME] done." >&2
