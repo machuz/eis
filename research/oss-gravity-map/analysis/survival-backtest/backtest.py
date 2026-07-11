@@ -21,7 +21,8 @@ from collections import defaultdict
 
 MODULE_FEATURES = ["raw_survival", "contest_mass", "spread", "author_count",
                    "churn_commits", "churn_loc", "age_days"]
-AUTHOR_FEATURES = ["raw_gravity", "module_count", "top_module_share"]
+AUTHOR_FEATURES = ["raw_gravity", "module_count", "top_module_share",
+                   "tenure_days", "commit_count"]
 
 
 def load_join(pred_csv, out_csv, key):
@@ -152,10 +153,13 @@ def summarize(rows, features, decay_threshold, min_cohort):
     return out, rows
 
 
-def stratified_contest(rows, strat="raw_survival", feat="spread", nbins=3):
-    """Claim-2 robustness: within raw_survival strata, does contest/spread still
-    rank-correlate with survival? If yes, catalysis adds info beyond survival."""
-    rows = [r for r in rows if feat in r and strat in r]
+def stratified(rows, strat, feats, nbins=3):
+    """Claim-2 (survival!=gravity), confound-controlled: split rows into nbins by
+    `strat` (the dominant confound — age for modules) and, within each stratum,
+    rank-correlate each catalysis feature with survival. A positive within-stratum
+    ρ means the feature predicts durability BEYOND the confound. The module result
+    is age-conditional: contest predicts survival for YOUNG code, reverses for old."""
+    rows = [r for r in rows if strat in r]
     if len(rows) < nbins * 5:
         return None
     rows = sorted(rows, key=lambda r: r[strat])
@@ -163,9 +167,10 @@ def stratified_contest(rows, strat="raw_survival", feat="spread", nbins=3):
     out = []
     for b in range(nbins):
         chunk = rows[b * per: (b + 1) * per] if b < nbins - 1 else rows[b * per:]
-        rho, p = spearman([r[feat] for r in chunk],
-                          [r["survival_ratio"] for r in chunk])
-        out.append((len(chunk), rho, p))
+        y = [r["survival_ratio"] for r in chunk]
+        stats = {f: spearman([r.get(f, 0.0) for r in chunk], y) for f in feats}
+        lo = min(r[strat] for r in chunk); hi = max(r[strat] for r in chunk)
+        out.append((len(chunk), lo, hi, stats))
     return out
 
 
@@ -176,6 +181,10 @@ def main():
                     help="predictor.csv:outcome.csv")
     ap.add_argument("--min-cohort", type=int, default=30)
     ap.add_argument("--decay-threshold", type=float, default=0.7)
+    ap.add_argument("--stratify-by", default="",
+                    help="confound to hold in the claim-2 test (module: age_days)")
+    ap.add_argument("--catalysis", default="",
+                    help="comma-list of catalysis features for the stratified test")
     args = ap.parse_args()
 
     key = "module" if args.level == "module" else "author"
@@ -203,13 +212,24 @@ def main():
                "*" if (d['p'] == d['p'] and d['p'] < 0.05) else ""
         print(f"{f:<16} {d['spearman']:>9.3f} {d['p']:>9.4f} {d['auc']:>7.3f} {star}")
 
-    if args.level == "module":
-        strat = stratified_contest(prows)
+    strat_by = args.stratify_by or ("age_days" if args.level == "module" else "")
+    catal = [c for c in args.catalysis.split(",") if c] or \
+            (["spread", "author_count", "contest_mass"] if args.level == "module"
+             else ["module_count"])
+    if strat_by:
+        strat = stratified(prows, strat_by, catal)
         if strat:
-            print("\nClaim-2 (survival!=gravity): contest/spread ~ survival WITHIN "
-                  "raw_survival terciles:")
-            for i, (nb, rho, p) in enumerate(strat):
-                print(f"  tercile {i+1}: n={nb:<5} spearman(spread, outcome)={rho:.3f} (p={p:.3f})")
+            print(f"\nClaim-2 (survival!=gravity), confound-controlled — catalysis ~ "
+                  f"survival WITHIN {strat_by} terciles:")
+            hdr = "  ".join(f"{c:>13}" for c in catal)
+            print(f"  {'stratum':<26} {hdr}")
+            names = ["low", "mid", "high"]
+            for i, (nb, lo, hi, stats) in enumerate(strat):
+                cells = "  ".join(
+                    f"{stats[c][0]:>+8.3f}{'*' if stats[c][1]==stats[c][1] and stats[c][1]<0.05 else ' ':<5}"
+                    for c in catal)
+                lab = f"{names[i]} {strat_by}[{lo:.0f}..{hi:.0f}] n={nb}"
+                print(f"  {lab:<26} {cells}")
 
     if len(per_repo) > 1:
         print("\nper-repo AUC (survives) for the headline features:")
