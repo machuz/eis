@@ -2,7 +2,7 @@
 title: "Every engineering metric gets gamed. One of them structurally can't."
 series: "OrbitLens Ace"
 published: false
-description: "DORA, velocity, commit counts, lines, even churn — every metric that measures activity gets gamed, because activity is producible at will. Survival is the one signal in git you cannot inflate without actually leaving code that lasts. Here is the mechanism, and the data."
+description: "Lines, commits, velocity, DORA, even churn — every metric that measures activity ends up gamed, because activity is cheap to produce. There is one number in a git history you can't move by being busier. Here's why, and the data."
 tags: opensource, ai, git, metrics
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-ace-mark.png?v=1
 ---
@@ -11,63 +11,62 @@ cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-
 
 **[OrbitLens Ace → ace.orbitlens.io](https://ace.orbitlens.io)**
 
-*You can fake a busy quarter. You cannot fake what is still there two years later.*
+*A busy quarter is easy to stage. Code that's still there in two years isn't.*
 
 ---
 
-Every engineering metric that has ever been used to judge people has been gamed.
+Pick any metric a team has ever used to judge people, and someone has quietly figured out how to move it without doing the underlying thing.
 
-Lines of code rewarded whoever typed the most, so people typed more. Commit counts rewarded whoever committed the most, so people split commits. Velocity rewarded whoever closed the most points, so points inflated. DORA measured deployment frequency, so teams deployed trivia. Even code churn — the metric the "code health" tools lean on — rewards low numbers, and a number you can lower on purpose is a number you can manage instead of the thing underneath it.
+Lines of code rewarded typing, so people typed. Commit counts rewarded committing, so commits got smaller and more frequent. Velocity rewarded closed points, and points drifted upward until a "3" meant nothing. DORA measured how often you deploy, so trivial changes started shipping on their own. Even churn — the number the "code health" tools lean on — is something you can lower on purpose, which means you can manage the number instead of the mess underneath it.
 
-This is not a story about dishonest engineers. It is Goodhart's law, and it is structural. **Every one of those metrics measures *activity*. And activity is producible at will.** The moment a measure of activity becomes a target, the cheapest way to move it is to produce more activity — not more of whatever the activity was supposed to stand for.
+None of that requires dishonest engineers. It's Goodhart's law doing what it always does. Every one of those numbers is a measure of *activity*, and activity is cheap to produce. Once you're paid for activity, the fastest way to get paid more is to produce more of it — not more of whatever the activity was supposed to be a sign of.
 
-So the honest question is not "which activity metric is best?" It is: **is there anything in a git history that you cannot move by being busier?**
+So the question worth asking isn't which activity metric is least bad. It's whether a git history contains anything at all that you can't move just by being busier.
 
-There is exactly one thing. Not because we were clever, but because of what it is made of.
+It turns out there's one. And it's not because we were clever — it's because of what the thing is actually made of.
 
-## What survives is not something you do
+## What lasts isn't something you do
 
-Take every line a person wrote. Wait. Come back months later and ask a narrower question than "did they work hard?" Ask: *is that specific line still there?* Not rewritten. Not reverted. Not quietly deleted in someone else's refactor. Still load-bearing at HEAD.
+Take everything a person wrote, wait a while, and ask a smaller question than "did they work hard." Ask whether the specific lines are still there. Not reverted, not rewritten, not quietly swallowed by someone else's refactor. Still holding weight at HEAD.
 
-That is survival. In EIS we measure it with time-decayed `git blame`: a line's weight falls off as the months pass unless the line keeps existing, and it counts for more when *other* people have built on top of it rather than leaving it as a private island. Survival weighted by others building on it is what we call **gravity** — structural pull that lasts.
+That's survival. We read it with time-decayed `git blame`: a line's weight fades month by month unless the line keeps existing, and it counts for more once *other* people have built on top of it instead of leaving it as a private island. Survival that others have built on is what we call gravity — the structural pull that outlives the person who created it.
 
-Now watch what happens to each way of gaming it.
+Try to game it and watch where each trick goes.
 
-- **Split your commits into a hundred.** Survival counts surviving *lines*, never commits. A hundred commits that touch the same ten lines leave ten lines. The denominator does not see your commit graph at all.
-- **Write busywork — reformatting, churn, motion.** Code that gets rewritten is, by definition, code that did not survive. Churn *removes* itself from the number. The harder you thrash a file, the less of your thrashing is there later to count.
-- **Write an enormous volume.** Only the fraction that lasts survives. Volume with a short half-life decays to nothing on the same schedule as anyone else's.
-- **Build a private empire nobody touches.** The gravity weighting asks whether *others* built on your code. You cannot supply that yourself. It is contributed by other people, over time, and it is the one input to the score that is not in your hands.
+Split one commit into a hundred, and survival still counts the surviving lines, never the commits — a hundred commits over the same ten lines leave you ten lines. Write reformatting and busywork, and it deletes itself from the score, because code that gets rewritten is, by definition, code that didn't survive; the harder you thrash a file, the less of the thrashing is left to count later. Write an enormous volume, and only the part that lasts registers; a large body of code with a short half-life decays on the same clock as anyone else's.
 
-Every gaming vector routes through activity. Survival is what is *left when the activity is subtracted*. You cannot inflate the residue by adding more of the thing that gets subtracted.
+The last trick is the one that gives it away. Build a private empire nobody else touches, and the gravity weighting asks whether *others* built on your code — and that's the one input you can't supply yourself. Other people contribute it, over months, by choosing to build on your work or choosing to tear it out. It's the only term in the score that never passes through your own hands.
 
-## The data says volume barely predicts it
+Every gaming move runs through activity. Survival is what's left after you subtract the activity. You can't inflate the remainder by adding more of the thing that gets subtracted.
 
-If survival were just a fancier way of counting output, the people who commit the most would be the people whose code survives the most. They are not.
+## Volume barely predicts it
 
-Across seven open-source repositories — 547 real contributors — the rank correlation between a person's commit count and the mass of their surviving code is **ρ = 0.28**. Commit volume explains a single-digit share of who is still standing in the codebase. In three of the seven, the top committer is *not* the top survivor. Being the busiest person in the git log tells you surprisingly little about whose work the codebase actually kept.
+If survival were just output with better makeup, the people who commit the most would be the ones whose code lasts the most. They aren't.
 
-We saw the same thing, sharper, inside a small production team. At one point in time, one engineer held roughly fifteen times the surviving-code mass of a peer — by the activity story, a landslide. Two years later, most of that lead had been overwritten by the normal churn of a living codebase, and the peer's code had quietly become the part everyone else was building on. The volume did not survive. The structure did. No performance review reversed that ranking — the git history did, on its own, by simply letting time pass over both.
+Across seven open-source repositories and 547 real contributors, a person's commit count and the surviving mass of their code correlate at ρ = 0.28. Being busy in the log explains a single-digit slice of who's still standing in the codebase. In three of the seven, the person with the most commits isn't the person with the most surviving code at all.
 
-(The names do not matter and are not the point. We do not publish them — a measure that would rank a colleague in public is exactly the kind of measure we are arguing against. Survival is read at the level of the code, never the person's worth.)
+I saw a sharper version of this inside a small production team. At one point one engineer held roughly fifteen times the surviving-code mass of a colleague — a landslide, if you were reading the activity. Two years on, most of that lead had been overwritten by the ordinary churn of a codebase that was still alive, and the colleague's work had quietly become the part everyone else was building against. Nobody ran a review to correct the ranking. Time did, by passing over both of them the same way.
 
-## Why this matters now, and not five years ago
+(The names aren't the point, and we don't publish them. A number that would rank a coworker in public is exactly the thing we're arguing against. Survival is read at the level of the code, never the level of a person's worth.)
 
-For most of software's history, activity was a *decent proxy*. If you wanted a lot of surviving code, one workable route really was to write a lot of code. The proxy held because writing was expensive, so volume correlated with intent.
+## Why this lands now
 
-AI breaks the proxy. When a model can emit a thousand lines a minute, activity stops being scarce, and a metric that measures a thing which is no longer scarce measures noise. Commit counts, diff sizes, PR throughput — in an AI-heavy repo they inflate for free and mean nothing.
+For most of software's history, activity was a decent stand-in. If you wanted a lot of surviving code, writing a lot of code really was one way to get there — writing was expensive, so volume tracked intent well enough.
 
-Survival is the layer left standing. A model can generate code; it cannot decide whether that code lasts. That is decided later, by whether the code holds under change and whether other people build on it — the two inputs no author, human or machine, controls. Which is why, as everything else collapses into noise, the surviving layer is the only signal in the repository that still carries information.
+Then a model started writing a thousand lines a minute, and the stand-in came apart. Commit counts, diff sizes, PR throughput — in a repo where half the code is generated, they inflate for free. A measure of something that's no longer scarce is a measure of nothing.
 
-## What survival is *not* — because the honesty is the product
+Survival is the layer that's still standing. A model can produce code; whether the code lasts gets decided afterward, by whether it holds under change and whether anyone builds on it — the two things no author controls, human or otherwise. So as the rest of the dashboard fills with noise, the surviving layer is the last part of the repository that still carries a signal.
 
-Here is where we part company with the rest of the category, which sells fear and certainty. Survival is not virtue. Code can survive because it is excellent, or because it sits in a corner nobody dares touch — persistence and value are not the same thing, and we spend real effort separating "lasted because others built on it" from "lasted because it was abandoned." The gate that does that separation needs a *crowd* to work; on a three-person team there are not enough independent hands for it to fully fire, and the measure leans back toward raw persistence.
+## What survival isn't
 
-And survival is not a forecast. It tells you what *did* last. We have tested, hard, whether it predicts what *will* last, and across many repositories it does not do that cleanly — a result we will write up in full, including the parts that did not go our way, because an observatory that only reports its wins is not an observatory.
+Here's where we walk away from the rest of the category, which mostly sells fear. Survival isn't virtue. Code can last because it's good, and code can last because it sits in a corner everyone's afraid to touch — persistence and value aren't the same thing, and separating "lasted because others built on it" from "lasted because it was abandoned" is real work, work that needs a crowd to do at all. On a three-person team there aren't enough independent hands for that separation to fire, and the measure leans back toward raw persistence. We say so.
 
-That is the whole posture. We are not claiming a number that tells you who to promote or which file will break. We are claiming one honest thing: **of everything git records, survival is the only measurement you cannot move by being busier.** In a year when busyness became free, that turns out to be the only measurement left worth reading.
+And survival doesn't predict. It tells you what lasted, not what will. We spent real effort testing whether it forecasts durability, and across a lot of repositories it doesn't do that cleanly — a result we'll write up in full, the inconvenient parts included, because an observatory that only reports its wins isn't one.
+
+That's the whole claim, and it's a small one. Not a number that says who to promote or which file breaks next. Just this: of everything git records, survival is the one measurement you can't move by being busier. In a year where being busy got free, that turned out to be the only measurement left worth reading.
 
 ---
 
-The telescope does not bend. It reads what is there — the code that survived, and the pull it still exerts — and it refuses to turn that reading into a scoreboard over people. If that is the instrument you want pointed at your own repository, it runs locally, on git alone, and sends nothing outward.
+The telescope doesn't bend. It reads what's on the ground — the code that survived, and the pull it still has — and it won't turn that into a scoreboard over people. If that's the instrument you want pointed at your own repo, it runs locally, on git alone, and sends nothing out.
 
 **[Read your own surviving layer → ace.orbitlens.io](https://ace.orbitlens.io)** · **[EIS is open source →](https://github.com/machuz/eis)**
