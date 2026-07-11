@@ -19,6 +19,16 @@ type timelineJSONPeriod struct {
 	Label string `json:"label"`
 	Start string `json:"start"`
 	End   string `json:"end"`
+	// ModuleSurvivalByAuthor: module → author → time-decayed surviving blame
+	// mass as of this period's End. Emitted so research/SaaS callers can
+	// reconstruct per-(module,author) survival history (Orphaned Gravity,
+	// post-departure module collapse). nil (omitted) on windows with no
+	// module survival. Map keys are marshalled in sorted order by
+	// encoding/json, so output is deterministic. Values are emitted exactly as
+	// computed — the surviving-mass sum is a pure function of the blame line
+	// set and the window's decay reference (W-02), so there is no run-to-run
+	// noise to mask.
+	ModuleSurvivalByAuthor map[string]map[string]float64 `json:"module_survival_by_author,omitempty"`
 }
 
 type timelineJSONAuthor struct {
@@ -58,6 +68,27 @@ type timelineJSONTransition struct {
 	AtPeriod string `json:"at_period"`
 }
 
+// nonEmptyMSBA returns m with empty inner maps dropped, or nil if nothing
+// remains, so the JSON field is omitted (omitempty) on windows with no module
+// survival. Values pass through unchanged — the surviving-mass sums are exact
+// per W-02, so there is nothing to round or mask.
+func nonEmptyMSBA(m map[string]map[string]float64) map[string]map[string]float64 {
+	if len(m) == 0 {
+		return nil
+	}
+	out := make(map[string]map[string]float64, len(m))
+	for mod, authors := range m {
+		if len(authors) == 0 {
+			continue
+		}
+		out[mod] = authors
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
+}
+
 // PrintTimelineJSON outputs timeline data as JSON.
 func PrintTimelineJSON(domainName, span string, periods []timeline.PeriodResult, timelines []timeline.AuthorTimeline) {
 	out := timelineJSONOutput{
@@ -67,9 +98,10 @@ func PrintTimelineJSON(domainName, span string, periods []timeline.PeriodResult,
 
 	for _, p := range periods {
 		out.Periods = append(out.Periods, timelineJSONPeriod{
-			Label: p.Label,
-			Start: p.Start,
-			End:   p.End,
+			Label:                  p.Label,
+			Start:                  p.Start,
+			End:                    p.End,
+			ModuleSurvivalByAuthor: nonEmptyMSBA(p.ModuleSurvivalByAuthor),
 		})
 	}
 

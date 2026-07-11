@@ -2,6 +2,7 @@ package metric
 
 import (
 	"math"
+	"sort"
 	"time"
 
 	"github.com/machuz/eis/v2/internal/git"
@@ -66,8 +67,15 @@ func CalcModuleSurvival(blameLines []git.BlameLine, tau float64, now time.Time, 
 // to whether the code is packaged as one monorepo or many repos. The decay
 // math mirrors CalcModuleSurvival exactly so the two stay consistent (W-02).
 func CalcModuleSurvivalByAuthor(blameLines []git.BlameLine, tau float64, now time.Time, mr ModuleResolver) map[string]map[string]float64 {
-	result := make(map[string]map[string]float64)
-
+	// Collect the raw per-(module, author) contributions first, then sum each
+	// author's list in a canonical (sorted) order. Blame assembly can emit
+	// lines in a run-dependent order under window concurrency, and float
+	// addition is non-associative — a naive `+=` in line order yields last-bit
+	// drift between runs. Summing sorted contributions makes the result a pure
+	// function of the line SET, not its order (W-02 determinism). This was
+	// latent while the map only fed the integer-rounded Breadth Hill number;
+	// it matters now that per-period module survival is persisted directly.
+	contribs := make(map[string]map[string][]float64)
 	for _, bl := range blameLines {
 		mod := mr.ModuleOf(bl.Filename)
 		if mod == "" {
@@ -80,12 +88,26 @@ func CalcModuleSurvivalByAuthor(blameLines []git.BlameLine, tau float64, now tim
 		}
 		weight := math.Exp(-daysAlive / tau)
 
-		authors, ok := result[mod]
+		am, ok := contribs[mod]
 		if !ok {
-			authors = make(map[string]float64)
-			result[mod] = authors
+			am = make(map[string][]float64)
+			contribs[mod] = am
 		}
-		blameShares(bl, func(a string, s float64) { authors[a] += weight * s })
+		blameShares(bl, func(a string, s float64) { am[a] = append(am[a], weight*s) })
+	}
+
+	result := make(map[string]map[string]float64, len(contribs))
+	for mod, am := range contribs {
+		authors := make(map[string]float64, len(am))
+		for a, cs := range am {
+			sort.Float64s(cs)
+			var sum float64
+			for _, c := range cs {
+				sum += c
+			}
+			authors[a] = sum
+		}
+		result[mod] = authors
 	}
 
 	return result

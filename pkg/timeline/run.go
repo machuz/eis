@@ -59,6 +59,17 @@ type Options struct {
 	// PeriodConcurrency × Workers × (hundreds of MB on a large repo). Callers
 	// must bound the two jointly.
 	PeriodConcurrency int
+	// Now is the analysis instant — the envelope timestamp the whole run is
+	// evaluated against. It selects which windows exist AND supplies the End
+	// of the final, still-open window (the one running "up to now"), which is
+	// that window's decay/score reference. Leaving it zero samples the wall
+	// clock (time.Now()) once at the start of Run, which is fine for the CLI
+	// but makes the final window's scores wall-clock-dependent: two runs at
+	// different instants score the trailing window against different decay
+	// references (W-02). SaaS/observation callers that need reproducible
+	// output for a fixed (git_sha, analysis_time) MUST pin this to the
+	// envelope time so re-observation is bit-identical.
+	Now time.Time
 }
 
 // Callbacks for progress reporting during timeline analysis.
@@ -323,11 +334,18 @@ func Run(ctx context.Context, opts Options, repoPaths []string, cfg *config.Conf
 		periods = 0 // all history
 	}
 
-	// now drives ONLY default-window/period selection (which time windows to
-	// analyze) — it is an INPUT, not a decay/classification reference. Each
-	// period scores against its own window.End (see CalcSurvival*/ScoreAt
-	// below), so wall-clock here never leaks into a score (W-02).
-	now := time.Now()
+	// now is the analysis instant. It selects which windows exist, and it also
+	// becomes window.End for the final, still-open window (BuildPeriods clamps
+	// the trailing End to now). Since window.End is each window's decay/score
+	// reference (CalcSurvival*/ScoreAt below), the trailing window's scores are
+	// evaluated against this instant — so it MUST be a stable input, not a
+	// fresh wall-clock sample per run, or the trailing window drifts between
+	// otherwise-identical runs (W-02). Callers pin it via opts.Now; zero means
+	// "sample the wall clock once, here" (CLI default).
+	now := opts.Now
+	if now.IsZero() {
+		now = time.Now()
+	}
 	windows := BuildPeriods(spanMonths, spanDays, periods, sinceDate, now)
 	if len(windows) == 0 {
 		return nil, fmt.Errorf("no periods to analyze")
@@ -948,19 +966,21 @@ func Run(ctx context.Context, opts Options, repoPaths []string, cfg *config.Conf
 						continue
 					}
 					perRepoOut = append(perRepoOut, RepoPeriodResult{
-						RepoName: name,
-						Domain:   string(d),
-						Members:  rfiltered,
+						RepoName:               name,
+						Domain:                 string(d),
+						Members:                rfiltered,
+						ModuleSurvivalByAuthor: racc.authorModuleSurvival,
 					})
 				}
 			}
 
 			pr := PeriodResult{
-				Label:   window.Label,
-				Start:   window.Start.Format("2006-01-02"),
-				End:     window.End.Format("2006-01-02"),
-				Members: filtered,
-				PerRepo: perRepoOut,
+				Label:                  window.Label,
+				Start:                  window.Start.Format("2006-01-02"),
+				End:                    window.End.Format("2006-01-02"),
+				Members:                filtered,
+				PerRepo:                perRepoOut,
+				ModuleSurvivalByAuthor: acc.authorModuleSurvival,
 			}
 			windowDomainResults[string(d)] = pr
 		}
