@@ -386,5 +386,9 @@
   "blog-ja-hatena-survival-ungameable.md": {
     "hatena_id": "14945776032052507695",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/07/12/024519"
+  },
+  "blog-en-devto-survival-ungameable.md": {
+    "devto_id": 4121383,
+    "devto_url": "https://dev.to/machuz/every-engineering-metric-gets-gamed-one-of-them-structurally-cant-hpj-temp-slug-3214302"
   }
 }

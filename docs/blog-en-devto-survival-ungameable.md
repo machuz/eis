@@ -1,7 +1,7 @@
 ---
 title: "Every engineering metric gets gamed. One of them structurally can't."
 series: "OrbitLens Ace"
-published: false
+published: true
 description: "Lines, commits, velocity, DORA, even churn — every metric that measures activity ends up gamed, because activity is cheap to produce. There is one number in a git history you can't move by being busier. Here's why, and the data."
 tags: opensource, ai, git, metrics
 cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-ace-mark.png?v=1
@@ -17,7 +17,7 @@ cover_image: https://raw.githubusercontent.com/machuz/eis/main/docs/images/logo-
 
 Pick any metric a team has ever used to judge people, and someone has quietly figured out how to move it without doing the underlying thing.
 
-Lines of code rewarded typing, so people typed. Commit counts rewarded committing, so commits got smaller and more frequent. Velocity rewarded closed points, and points drifted upward until a "3" meant nothing. DORA measured how often you deploy, so trivial changes started shipping on their own. Even churn — the number the "code health" tools lean on — is something you can lower on purpose, which means you can manage the number instead of the mess underneath it.
+Lines of code rewarded typing, so people typed. Commit counts rewarded committing, so commits got smaller and more frequent. Velocity rewarded closed points, and points drifted upward until a "3" meant nothing. DORA measured how often you deploy, so teams shipped trivial changes just to move it. Even churn — the number the "code health" tools lean on — is something you can lower on purpose, which means you can manage the number instead of the mess underneath it.
 
 None of that requires dishonest engineers. It's Goodhart's law doing what it always does. Every one of those numbers is a measure of *activity*, and activity is cheap to produce. Once you're paid for activity, the fastest way to get paid more is to produce more of it — not more of whatever the activity was supposed to be a sign of.
 
@@ -31,7 +31,7 @@ Take everything a person wrote, wait a while, and ask a smaller question than "d
 
 That's survival. We read it with time-decayed `git blame`: a line's weight fades month by month unless the line keeps existing, and it counts for more once *other* people have built on top of it instead of leaving it as a private island. Survival that others have built on is what we call gravity — the structural pull that outlives the person who created it.
 
-Try to game it and watch where each trick goes.
+Try to game it and watch where each trick lands.
 
 Split one commit into a hundred, and survival still counts the surviving lines, never the commits — a hundred commits over the same ten lines leave you ten lines. Write reformatting and busywork, and it deletes itself from the score, because code that gets rewritten is, by definition, code that didn't survive; the harder you thrash a file, the less of the thrashing is left to count later. Write an enormous volume, and only the part that lasts registers; a large body of code with a short half-life decays on the same clock as anyone else's.
 
@@ -45,7 +45,7 @@ If survival were just output with better makeup, the people who commit the most 
 
 Across seven open-source repositories and 547 real contributors, a person's commit count and the surviving mass of their code correlate at ρ = 0.28. Being busy in the log explains a single-digit slice of who's still standing in the codebase. In three of the seven, the person with the most commits isn't the person with the most surviving code at all.
 
-I saw a sharper version of this inside a small production team. At one point one engineer held roughly fifteen times the surviving-code mass of a colleague — a landslide, if you were reading the activity. Two years on, most of that lead had been overwritten by the ordinary churn of a codebase that was still alive, and the colleague's work had quietly become the part everyone else was building against. Nobody ran a review to correct the ranking. Time did, by passing over both of them the same way.
+I saw a sharper version of this inside a small production team. At one point one engineer held roughly fifteen times the surviving-code mass of a colleague — a landslide, if you were reading the activity. Two years on, most of that lead had been overwritten by the ordinary churn of a codebase that was still alive, and the colleague's work had quietly become the part everyone else was building on. Nobody ran a review to correct the ranking. Time did, by passing over both of them the same way.
 
 (The names aren't the point, and we don't publish them. A number that would rank a coworker in public is exactly the thing we're arguing against. Survival is read at the level of the code, never the level of a person's worth.)
 
@@ -59,7 +59,7 @@ Survival is the layer that's still standing. A model can produce code; whether t
 
 ## What survival isn't
 
-Here's where we walk away from the rest of the category, which mostly sells fear. Survival isn't virtue. Code can last because it's good, and code can last because it sits in a corner everyone's afraid to touch — persistence and value aren't the same thing, and separating "lasted because others built on it" from "lasted because it was abandoned" is real work, work that needs a crowd to do at all. On a three-person team there aren't enough independent hands for that separation to fire, and the measure leans back toward raw persistence. We say so.
+Here's where we walk away from the rest of the category, which mostly sells fear. Survival isn't virtue. Code can last because it's good, and code can last because it sits in a corner everyone's afraid to touch — persistence and value aren't the same thing, and separating "lasted because others built on it" from "lasted because it was abandoned" is real work, work that needs a crowd to do at all. On a three-person team there aren't enough independent hands for that separation to work, and the measure leans back toward raw persistence. We say so.
 
 And survival doesn't predict. It tells you what lasted, not what will. We spent real effort testing whether it forecasts durability, and across a lot of repositories it doesn't do that cleanly — a result we'll write up in full, the inconvenient parts included, because an observatory that only reports its wins isn't one.
 
