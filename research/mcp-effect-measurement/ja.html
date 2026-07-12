@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>diff からは読めない事実を1つ渡したら、AI エージェントは後でレビューが要求したのと同じテストを自分から書いた</title>
+<meta name="description" content="ある AI コーディングエージェントは、自分の変更にテストは不要だと判断した。git 履歴から来る事実を1つ——誰がモジュールを所有し、どれだけ書き換えられるか——渡すと、人間のレビューが後で強制するのと同じテストを自分から足した。実在する 8 本の PR でレビューを 6 回先回りし、4 アームの対照実験が、その変化は注入という行為ではなくシグナルの中身に駆動されることを示す。">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Hiragino Kaku Gothic ProN',Meiryo,sans-serif;line-height:1.85;padding:0 16px 80px;overflow-x:hidden}
+::selection{background:#388bfd44;color:#fff}
+.container{max-width:960px;margin:0 auto}
+
+/* Hero */
+header{max-width:960px;margin:0 auto;padding:60px 0 12px;text-align:center}
+h1{font-size:clamp(1.3rem,3.2vw,2rem);font-weight:800;color:#f0f6fc;letter-spacing:-.01em;margin-bottom:14px;line-height:1.45}
+h1 .accent{color:#58a6ff}
+.subtitle{font-size:clamp(.85rem,1.8vw,1.05rem);color:#8b949e;margin-bottom:0}
+.hero-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.badge{display:inline-block;padding:3px 12px;font-size:.75em;font-weight:600;color:#fff}
+
+/* Lead / opening */
+.lead{margin-top:36px;font-size:1.03rem;color:#c9d1d9}
+.lead p{margin-bottom:18px}
+.lead p strong{color:#f0f6fc}
+.lead .anon-note{font-size:.85rem;color:#768390;font-style:italic;line-height:1.7}
+
+/* Sections */
+.section{margin-top:56px}
+.section-title{font-size:1.35rem;font-weight:700;color:#f0f6fc;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #21262d}
+.section p{margin-bottom:16px;color:#c9d1d9}
+.section p strong{color:#f0f6fc}
+.section ul,.section ol{margin:14px 0 16px 26px;line-height:1.85}
+.section li{margin-bottom:9px;color:#c9d1d9}
+.section li strong{color:#f0f6fc}
+
+/* Inline */
+strong{color:#f0f6fc}
+em{color:#d9c8a9;font-style:italic}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:#1d2021;border:1px solid #30363d;border-radius:4px;padding:1px 5px;color:#79c0ff}
+
+/* Code blocks */
+.codeblock{background:#1d2021;border:1px solid #3c3836;border-radius:6px;padding:16px 18px;margin:20px 0;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;line-height:1.7;color:#ebdbb2;white-space:pre-wrap;word-break:break-word}
+.codeblock .k{color:#83a598}
+.codeblock .s{color:#b8bb26}
+.codeblock .n{color:#d3869b}
+.codeblock .b{color:#fabd2f}
+.codeblock .p{color:#a89984}
+
+/* Pull-quote — verbatim agent reasoning (centerpiece) */
+.pullquote{position:relative;background:#1d2021;border:1px solid #3c3836;border-left:4px solid #f5c211;padding:24px 28px 20px 56px;margin:26px 0;font-size:1.08em;line-height:1.9;color:#ebdbb2}
+.pullquote::before{content:'\201C';position:absolute;left:14px;top:2px;font-size:3em;color:#f5c211;opacity:.55;font-family:Georgia,'Times New Roman',serif;line-height:1}
+.pullquote strong{color:#fabd2f}
+.pullquote .who{display:block;margin-top:14px;font-size:.7em;letter-spacing:.08em;color:#a89984}
+
+/* Blockquote */
+blockquote{background:rgba(88,166,255,.06);border-left:3px solid #58a6ff;padding:16px 22px;margin:22px 0;font-size:1.05em;color:#f0f6fc;line-height:1.85}
+blockquote strong{color:#fff}
+blockquote em{color:#e6d3a8}
+
+/* Divider */
+hr{border:0;border-top:1px solid #21262d;margin:36px 0}
+
+/* Tables */
+.table-wrap{overflow-x:auto;margin:22px 0}
+.data-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.data-table th{text-align:left;padding:10px 12px;border-bottom:2px solid #30363d;color:#8b949e;font-weight:600;font-size:.8em;letter-spacing:.2px;vertical-align:bottom}
+.data-table td{padding:10px 12px;border-bottom:1px solid #21262d;vertical-align:top;line-height:1.65}
+.data-table tr:hover{background:#161b22}
+.data-table td strong{color:#f0f6fc}
+.data-table .num{text-align:center;font-weight:700;color:#8b949e}
+.pre-yes{color:#3fb950;font-weight:800}
+.pre-partial{color:#f5c211;font-weight:700}
+.pre-no{color:#8b949e;font-weight:700}
+
+/* Insight box */
+.insight{background:rgba(88,166,255,.06);border-left:3px solid #58a6ff;padding:16px 20px;margin:22px 0;font-size:.95em;line-height:1.85}
+.insight strong{color:#f0f6fc}
+.insight.gold{background:rgba(245,194,17,.06);border-left-color:#f5c211}
+
+/* TOC */
+.toc{background:#161b22;border:1px solid #30363d;padding:20px 28px;margin:36px 0 8px}
+.toc-title{font-size:1em;font-weight:700;color:#f0f6fc;margin-bottom:12px}
+.toc a{color:#58a6ff;text-decoration:none;font-size:.9em;display:block;padding:4px 0}
+.toc a:hover{text-decoration:underline}
+
+/* Closing note */
+.closing{margin-top:48px;padding:20px 24px;border:1px solid #30363d;background:#161b22;color:#a9b3bd;font-size:.95em;line-height:1.85}
+.closing em{color:#e6d3a8}
+
+/* Footer */
+.footer{margin-top:56px;padding-top:16px;border-top:1px solid #30363d;color:#484f58;font-size:.8em;text-align:center;line-height:1.8}
+.footer a{color:#58a6ff;text-decoration:none}
+
+/* Lang switch */
+.lang-switch{position:absolute;top:18px;right:20px;font-size:.82em;z-index:50}
+.lang-switch a{color:#8b949e;text-decoration:none;padding:2px 4px}
+.lang-switch a.active{color:#58a6ff;font-weight:700}
+.lang-switch a:hover{color:#c9d1d9}
+.lang-switch .sep{color:#30363d;margin:0 2px}
+
+/* Responsive */
+@media(max-width:640px){
+  .data-table{font-size:.78rem}
+  .data-table th,.data-table td{padding:8px 8px}
+  .toc{padding:16px 20px}
+  .pullquote{padding:20px 20px 18px 42px;font-size:1.02em}
+  .codeblock{font-size:.76rem}
+}
+</style>
+</head>
+<body>
+<div class="lang-switch"><a href="./en.html">English</a><span class="sep">·</span><a href="./ja.html" class="active">日本語</a></div>
+
+<header>
+  <h1>diff からは読めない事実を1つ渡したら、<span class="accent">AI エージェントは後でレビューが要求したのと同じテストを自分から書いた</span></h1>
+  <div class="hero-badges">
+    <span class="badge" style="background:#238636">実在する 8 本の PR</span>
+    <span class="badge" style="background:#1f6feb">レビューを 6 回先回り</span>
+    <span class="badge" style="background:#8b5cf6">within-agent + 4 アーム対照</span>
+    <span class="badge" style="background:#6e7681">匿名化</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- Opening lead: verbatim agent reasoning as centerpiece -->
+<div class="lead">
+  <p>ある AI コーディングエージェントが変更を書き終え、プルリクを開こうとしていた。テストしたかと聞くと、正直な答えは「していない」だった。</p>
+
+  <div class="pullquote">
+    「新規ロジックの無い機械的なフィールド passthrough。既にテスト済みの兄弟フィールドと構造的に同一。ここでテストを足しても、コンパイラを再主張するだけだ。」
+    <span class="who">エージェント——文脈を渡す前</span>
+  </div>
+
+  <p>コードについては間違っていない。diff は本当に機械的だった。</p>
+  <p>そこで同じエージェントに、同じ会話の中で、プルリクを開く前に、diff からは読めない事実を1つ渡した。<strong>このモジュールは一人が保守していて、絶えず書き換えられている。</strong> すると自分の言葉で考えを変え、コードの層まで自分でたどり着いた。</p>
+
+  <div class="pullquote">
+    「ビルドで止めたのが間違いだった。型付きの層については私の弁明は正しいが、この変更の実体はビルドされない SQL にあり、脆い層に乗っている。そこで null を取りこぼせば、コンパイル時ではなく実行時に落ちる。最も価値の高いテスト——レコードが不在でフラグが false になる場合——をマージ前に足す。」
+    <span class="who">同じエージェント——事実を1つ渡した後</span>
+  </div>
+
+  <p>注入した文脈には「テスト」という語は一つも無い。誰がコードを所有し、どれだけ書き換えられるかを伝えただけだ。脆い SQL の層も、テストの必要も、エージェントが自分でたどり着いた。そして決定的なのは、<strong>この機能が実際にリリースされたとき、人間のコードレビューがまさにそのテストを理由に差し戻していた</strong>という点だ。渡した事実は、レビューが後で拾ったものを、実装の時点で先回りした。</p>
+  <p>これが測ろうとしたものだ。「コードが良くなったか」（現場では検証不能。diff の質にはエンジニアの力量・タスクの難易度・レビューの厳しさが混ざる）ではなく、より切り分けの利く問い——<strong>git 履歴から来た事実は、エージェントの決めることを変えるか。そしてその変化は、良いレビューが強制したはずのものと一致するか。</strong></p>
+  <p class="anon-note">（全体を匿名化。対象は実在する大規模 Go モノレポ1本の実マージ履歴。機能・モジュール・チケットは一般化し、エージェントの推論は原文のまま引用する。）</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">目次</div>
+  <a href="#received">エージェントが実際に受け取ったもの</a>
+  <a href="#measuring">逸話にしないための測定</a>
+  <a href="#reproduces">再現する——8本中6本</a>
+  <a href="#control">「注入すれば LLM は慎重になるだけでは」への対照</a>
+  <a href="#failure">失敗モード——小さいモデルは数字を鵜呑みにする</a>
+  <a href="#not">これは何ではないか</a>
+  <a href="#try">試す</a>
+</div>
+
+<!-- エージェントが受け取ったもの -->
+<div class="section" id="received">
+  <h2 class="section-title">エージェントが実際に受け取ったもの</h2>
+  <p>渡した事実は、演出用に書いた散文ではない。書き込む前に、エージェントは触ろうとしているファイルについて MCP ツール <code>get_write_context</code> を呼び、素の JSON を受け取った（モジュール名は匿名化）：</p>
+
+  <div class="codeblock">{
+  <span class="k">"affected_modules"</span>: [
+    {
+      <span class="k">"repo_name"</span>: <span class="s">"core-service"</span>,
+      <span class="k">"module_path"</span>: <span class="s">"reporting/exporter"</span>,
+      <span class="k">"change_pressure"</span>: <span class="n">87</span>,
+      <span class="k">"bus_factor"</span>: <span class="n">1</span>,
+      <span class="k">"concentration"</span>: <span class="s">"SOLE_OWNER"</span>,
+      <span class="k">"survival_score"</span>: <span class="n">41</span>,
+      <span class="k">"is_sludge"</span>: <span class="b">false</span>
+    }
+  ],
+  <span class="k">"guidance"</span>: <span class="s">"This is the structural risk of where you're about to write. A module with bus_factor 1 or is_sludge true is ownerless, uncontested mass. [&hellip;] These numbers are the module's HISTORY, not the risk of your specific change. A trivial or mechanical change stays trivial no matter how high they are — verify against the actual code; let the code, not the numbers, size your response."</span>
+}</div>
+
+  <p>（JSON はツールの実出力そのままなので英語で載せる。<code>guidance</code> は要するに「これらの数字はモジュールの&quot;歴史&quot;であって、この変更のリスクではない。些末な変更は数字が高くても些末なまま。数字ではなくコードで応答の大きさを決めよ」という但し書きだ。）<code>change_pressure</code> は churn（書き換えの圧力）、<code>bus_factor</code> は生き残っているコードを何人が所有しているか。どちらも git 履歴から計算され、どちらも diff には無い。この <code>guidance</code> 文字列は、見た目より後で効いてくる。覚えておいてほしい。</p>
+</div>
+
+<!-- 逸話にしないための測定 -->
+<div class="section" id="measuring">
+  <h2 class="section-title">逸話にしないための測定</h2>
+  <p>鮮やかな反転が1つあっても、それは逸話だ。結果にするにはクリーンな因果設計が要る。そして分かりやすい設計は間違っている。別々のエージェント個体（文脈あり・なし）を最終 diff で比べても何も出ない。二個体間のサンプリングノイズが効果を飲み込むし、そもそも最終 diff は効果を隠す。文脈が変えるのは推論であって、打鍵された文字とは限らないからだ。</p>
+  <p>効くのは <strong>within-agent 反実仮想（同一エージェント内での比較）</strong> だ。一体のエージェントに判断させ、そこへ文脈を注入し、<em>同じエージェントの</em>判断がどう変わるかを測る。同一個体だからサンプリングノイズが無い。しかも歴史 PR で走らせれば正解データがタダで手に入る。「機能追加 → レビュー起因の修正」ペアの PR を引けば、その修正こそがレビューの拾った穴だ。問いはこう測定可能になる——注入した文脈は、レビューが後で強制したものを、実装時点で先回りできたか。</p>
+</div>
+
+<!-- 再現する -->
+<div class="section" id="reproduces">
+  <h2 class="section-title">再現する——8本中6本</h2>
+  <p>「機能追加 → レビュー修正」の 8 本の PR で、文脈の注入は著者エージェントを「先送り・skip」から「マージ前に検証」へ動かし、その方向は1本ずつ、レビューが実際に要求したものと一致した：</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>#</th><th>変更内容</th><th>文脈なしの既定判断</th><th>文脈を渡した後</th><th>レビューが強制したもの</th><th>先回り？</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>bool passthrough フィールド</td><td>「機械的、テスト不要」</td><td>DB 境界テストを足す</td><td>規約整合 + テスト</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">2</td><td>設定 upsert（handler+usecase）</td><td>「穴だが出せる」</td><td>出す前に検証</td><td>validation + テスト</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">3</td><td>表示ステータスの決定化</td><td>「テスト無し、should-have 止まり」</td><td>clock を注入しテストを PR 前に</td><td>決定化 + テスト</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">4</td><td>設定 upsert（イベント発行つき）</td><td>「高い確信」</td><td>結線テストをマージ前に</td><td>migration + テスト</td><td><span class="pre-partial">部分<sup>1</sup></span></td></tr>
+        <tr><td class="num">5</td><td>経過時間の計算</td><td>既に低確信</td><td>自力でバグを検出済み</td><td>計算修正 + テスト容易性</td><td><span class="pre-no">無<sup>2</sup></span></td></tr>
+        <tr><td class="num">6</td><td>小計（除外ロジック）</td><td>「テスト追加を迷っている」</td><td>マージ前にやる</td><td>分岐テスト</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">7</td><td>明細の SQL クエリ</td><td>「parity テストを skip した」</td><td>ブロッカー。このままは出さない</td><td>parity テスト</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">8</td><td>ステータス導出クエリ</td><td>「7 分岐中 1 つだけ」</td><td>matrix テストを PR 前に</td><td>status-matrix テスト</td><td><span class="pre-yes">&#10003;</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>明確に 6 本、部分的に 1 本、空振り 1 本。</strong> <sup>1</sup>#4 では結線テストは格上げしたが、シグナルが符号化しない migration は見落とした。<sup>2</sup>#5 では既にコードを読んで自力でバグを捕まえており、先回りする余地が無かった。どちらの空振りも正直だ。文脈は、自身が運んでいない穴を救えない。</p>
+  <p>機序は毎回同じだった。文脈は穴を「発見」しない。<strong>エージェントが既に気づいて先送りしようとしていた検証を、格上げする</strong>。効いたシグナルは2つ：</p>
+  <ul>
+    <li><strong>change_pressure（churn）</strong>：「この結線は次の編集で壊れる。skip しようとしたテストが今、元を取る」</li>
+    <li><strong>ownership_concentration（bus factor）</strong>：「単一所有のコードには二人目のレビュアがいない。テストが唯一の永続的な仕様だ」</li>
+  </ul>
+  <p>どちらも diff からは読めない。コードをどれだけ調べても、誰がそのモジュールを保守できるか、どれだけ書き換えられるかは分からない。エージェントたちは問わず語りに言った。actionable なのは、まさにコードに無いシグナルだと。</p>
+</div>
+
+<!-- 対照 -->
+<div class="section" id="control">
+  <h2 class="section-title">「注入すれば LLM は慎重になるだけでは」への対照</h2>
+  <p>当然の反論がある。会話の途中で何かを注入する行為そのものが「再考せよ」という要求特性を持ち、何を入れてもエージェントは慎重になるのでは、という疑いだ。そこで、同じ些末な変更（テスト済みの兄弟がある bool passthrough <code>is_featured</code>）を、同じエージェントに対し、<strong>注入する中身だけを変えて 4 通り</strong>走らせた：</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th></th><th>baseline</th><th>中立な事実</th><th>怖いが無関係</th><th>関連するリスク</th></tr></thead>
+      <tbody>
+        <tr><td><strong>テストを足す</strong></td><td>しない（任意）</td><td>しない・不変</td><td>しない・不変</td><td><strong>する（必須）</strong></td></tr>
+        <tr><td><strong>検証タイミング</strong></td><td>follow-up</td><td>follow-up・不変</td><td>follow-up・不変</td><td><strong>マージ前</strong></td></tr>
+        <tr><td><strong>「現状で安全」の確信</strong></td><td>約 0.80</td><td>約 0.85・不変</td><td>約 0.80・不変</td><td><strong>約 0.40 に低下</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ul>
+    <li><strong>中立な事実</strong>（「Go・約200行・API 層・churn の偏り無し・所有の集中無し」）：姿勢は不変。注入という行為が原因なら、ここでも動いたはずだが、動かなかった。</li>
+    <li><strong>怖いが無関係</strong>（「<em>別の</em>モジュールが高 churn・bus_factor 1、一般的な JSON ライブラリに新規 CVE」。どちらも触っているファイルとは disjoint）：不変。エージェントは一行で却下した——<em>「怖い数字は別のモジュールと依存ライブラリに属する。私が触る passthrough 経路は型付きで、兄弟テストがあり、コンパイラに守られている。切り離せる」</em>。怖い語彙が原因なら動いたはずだが、動かなかった。</li>
+    <li><strong>関連するリスク</strong>（実際の churn + bus factor + 生 SQL の事実）：反転する。</li>
+  </ul>
+  <p>3 つのアームが駆動因を絞り込む。注入という行為でも、語の情動価でもなく、残った唯一の因子——<strong>関連するシグナルの中身</strong>——に姿勢の変化は帰属する。（これは N=1、効果量ではなく質的パターンの主張で、2 つの標準的な反論を棄却する。関連性の強さを段階的に変えた用量反応と、複数被験者での確認が次段になる。）</p>
+  <p>このアームについて正直な但し書きを1つ。純粋な履歴シグナル（churn・bus factor）に加えて、「変更が生 SQL に乗っている」というコード層の事実も一緒に注入してしまっている。これは diff を丁寧に読めば自力でも見える類のヒントだ。つまりこの対照は「注入という行為そのもの」と「情動価」は明確に棄却できるが、履歴シグナルとコードから読めるヒントの分離までは、まだできていない。それは次のアームの仕事だ。ただし上の 8 本の pilot では、エージェント自身が姿勢を動かした理由として churn と bus factor——履歴シグナルの側——を名指ししている。</p>
+</div>
+
+<!-- 失敗モード -->
+<div class="section" id="failure">
+  <h2 class="section-title">失敗モード——小さいモデルは数字を鵜呑みにする</h2>
+  <p>判断を変えるシグナルは、判断を誤らせもする。同じ些末な一行変更に、<em>捏造した</em>シグナル（片方は高、片方は低）を、フロンティア級と小型級のモデルに与えた：</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>モデル</th><th>偽の低シグナル</th><th>偽の高シグナル</th></tr></thead>
+      <tbody>
+        <tr><td><strong>フロンティア</strong></td><td>適正</td><td>依然適正——「このスコアは<em>この変更</em>のリスクを上げない」</td></tr>
+        <tr><td><strong>小型</strong></td><td>適正</td><td>膨張——偽の数字を根拠に一行変更を中〜高リスクと評価、テスト増、sign-off 強制、スコープ膨張</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>小型モデルは、数字にコードを上書きさせた。これは負の価値で、弱いエージェントをかえって悪くする文脈の層になっている。</p>
+  <p>修正は framing——ペイロードにあったあの <code>guidance</code> 文字列——であり、効くかどうかは<strong>配置</strong>が決める。接続時に一度だけ提示したときは部分的だった。小型モデルは機械的リスクの低さは認めたが、目立つ数字がスコープを膨張させ続けた。数字を運ぶ同じ応答の中に <strong>inline で置く</strong>と、完全になった。小型モデルは高い bus factor を些末な変更に「無関係」と呼び、スコープを最小に保った。判別力の低いモデルほど、離れた指示より目の前のシグナルを重く見る。だからガードは入口だけでなく、数字の隣に置く。</p>
+</div>
+
+<!-- これは何ではないか -->
+<div class="section" id="not">
+  <h2 class="section-title">これは何ではないか</h2>
+  <p>エージェントをレビュー姿勢に置き、diff を敵対的に読ませると、実際の穴（忘れた migration、時刻計算のバグ、validation の抜け）を文脈<strong>なし</strong>で捕まえた。文脈が新たに出した correctness の発見はゼロで、base モデルが強くなるほどこの領域は縮む。つまりこれはバグ検出器ではない。しかも効くのは姿勢次第だ。既に批判的にレビューしているエージェントに注入すれば冗長で、価値が出るのは、実際に穴を抱えたまま先送りしようとしている前進実装者や、自分のコードを自己チェックする著者に対してだ。</p>
+  <p>そして変更あたりの効果は nudge だ。半分書くつもりだったテストを、今、正しい場所で書かせる。強いレビュー体制なら同じものをいずれ拾う。違うのは「いつ」（レビュー時ではなく実装時）と「見えるかどうか」だ。効果は diff ではなく判断に宿るので、測らない限り不可視だ。効果がコストに見合うのは、AI が薄いレビューの下で大量のコードを書き、単一所有の危険地帯を抱えるコードベースを、判別力あるエージェントが消費する場面に限る。そして framing の無い弱いエージェントに繋ぐと、害になりうる。</p>
+  <p>その下にある賭けは単純だ。AI がコードの大半を書くようになるほど、希少な入力は「これを書けるか」（解決済み）から「<em>この</em>コードベースの構造とリスクを理解しているか」へ移る。それはコードの中に無く、上のすべての判断を動かしたまさにその事実だ。</p>
+</div>
+
+<!-- 試す -->
+<div class="section" id="try">
+  <h2 class="section-title">試す</h2>
+  <p>これは MCP サーバーだ。<a href="https://ace.orbitlens.io">ace.orbitlens.io</a> で自分の GitHub org を接続し（試すだけなら無料枠で足りる）、MCP 設定でトークンを発行してからエージェントを向けておけば、書く前にこれらのツールを呼ぶ：</p>
+
+  <div class="codeblock">claude mcp add --transport http orbitlens https://ace.orbitlens.io/mcp <span class="p">\</span>
+  --header <span class="s">"Authorization: Bearer &lt;your-token&gt;"</span></div>
+
+  <p>観測ツールはすべて read-only（唯一の書き込みは自分の介入記録だけ）、トークンで自分の GitHub org にスコープされ、結果は常に匿名（<code>bus_factor</code> は人数であって名前ではない）。編集前に <code>assess_change</code> と <code>get_write_context</code>、マージ前に <code>blast_radius</code> と <code>knowledge_holder</code>。</p>
+</div>
+
+<hr>
+
+<div class="closing">
+  <em>次回は同じ計器を前向きに使う。決着した歴史を再生するのではなく、これから作る実 PR を「文脈あり・なし」の2本に分岐し、マージ後の結末を追う。</em>
+</div>
+
+<div class="footer">
+  Read in <a href="./en.html">English</a><br>
+  Generated by <a href="https://github.com/machuz/eis">EIS (Engineering Impact Signal)</a> · OrbitLens research<br>
+  diff ではなく意思決定を測る——実装者姿勢での within-agent 反実仮想で。
+</div>
+
+</div>
+</body>
+</html>
