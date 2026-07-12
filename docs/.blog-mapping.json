@@ -386,5 +386,13 @@
   "blog-ja-hatena-survival-ungameable.md": {
     "hatena_id": "14945776032052507695",
     "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/07/12/024519"
+  },
+  "blog-en-devto-mcp-decision-effect.md": {
+    "devto_id": 4124643,
+    "devto_url": "https://dev.to/machuz/we-gave-an-ai-agent-one-fact-it-couldnt-read-from-the-diff-it-added-the-exact-test-code-review-1l4k"
+  },
+  "blog-ja-hatena-mcp-decision-effect.md": {
+    "hatena_id": "14945776032052771280",
+    "hatena_url": "https://ma2k8.hateblo.jp/entry/2026/07/12/184213"
   }
 }
