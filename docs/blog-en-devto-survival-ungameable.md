@@ -35,9 +35,11 @@ Try to game it and watch where each trick lands.
 
 Split one commit into a hundred, and survival still counts the surviving lines, never the commits — a hundred commits over the same ten lines leave you ten lines. Write reformatting and busywork, and it deletes itself from the score, because code that gets rewritten is, by definition, code that didn't survive; the harder you thrash a file, the less of the thrashing is left to count later. Write an enormous volume, and only the part that lasts registers; a large body of code with a short half-life decays on the same clock as anyone else's.
 
-The last trick is the one that gives it away. Build a private empire nobody else touches, and the gravity weighting asks whether *others* built on your code — and that's the one input you can't supply yourself. Other people contribute it, over months, by choosing to build on your work or choosing to tear it out. It's the only term in the score that never passes through your own hands.
+Build a private empire nobody else touches, and the gravity weighting breaks it: your code can still survive, but gravity asks whether *other people* built on it, and that term you can't supply yourself. Others contribute it over months, by choosing to build on your work or to tear it out.
 
-Every gaming move runs through activity. Survival is what's left after you subtract the activity. You can't inflate the remainder by adding more of the thing that gets subtracted.
+One subtler move is left, and it finds the seam. A line's survival weight is exp(-age_in_days/τ) — it runs on how long ago the line was written. Rewrite the line and its blame author-date resets, the age falls back to zero, and the weight refills. So if you keep touching your own code and territorially push back everyone else's refactors, you can hold survival high with no build-on from anyone. The irony cuts the other way too: genuinely durable code, the kind nobody needs to rewrite, ages and decays, while code that's kept churned gets paid. Raw survival on its own can penalize the most durable work and reward the most fussed-over. (A separate abandonment analysis showed the same seam: survival falls once replenishment stops, so it is partly a measure of maintenance recency — and maintenance is something you can supply alone.)
+
+So the thing you can't move by being busier isn't raw survival after all. If self-churn refills it, survival hasn't fully subtracted the activity; what it can't subtract is gravity, the others-contested gate. A territorial self-churn empire keeps its survival and scores zero gravity, and since τ is measured in months, the churn has to run forever or the weight decays — all the while the gate is asking whether anyone else built on the code, and self-maintenance has no answer. The one term that never passes through your own hands is whether other people built on your work.
 
 ## Volume barely predicts it
 
@@ -63,7 +65,7 @@ Here's where we walk away from the rest of the category, which mostly sells fear
 
 And survival doesn't predict. It tells you what lasted, not what will. We spent real effort testing whether it forecasts durability, and across a lot of repositories it doesn't do that cleanly — a result we'll write up in full, the inconvenient parts included, because an observatory that only reports its wins isn't one.
 
-That's the whole claim, and it's a small one. Not a number that says who to promote or which file breaks next. Just this: of everything git records, survival is the one measurement you can't move by being busier. In a year where being busy got free, that turned out to be the only measurement left worth reading.
+That's the whole claim, and it's a small one. Not a number that says who to promote or which file breaks next. Just this: of everything git records, the measurement you can't move by being busier is whether other people built on your code — survival gated by their contribution, the thing we call gravity, the one term that never passes through your own hands. In a year where being busy got free, that turned out to be the only measurement left worth reading.
 
 ---
 
