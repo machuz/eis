@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We gave an AI agent one fact it couldn't read from the diff. It added the exact test code review later demanded.</title>
+<meta name="description" content="An AI coding agent decided its change needed no test. We fed it one fact from git history — who owns the module, and how fast it churns — and it added the test human review would later force. Across 8 real PRs it pre-empted review 6 times, and a 4-arm control shows the shift is driven by the signal's content, not by the act of injection.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans',sans-serif;line-height:1.7;padding:0 16px 80px;overflow-x:hidden}
+::selection{background:#388bfd44;color:#fff}
+.container{max-width:960px;margin:0 auto}
+
+/* Hero */
+header{max-width:960px;margin:0 auto;padding:60px 0 12px;text-align:center}
+h1{font-size:clamp(1.45rem,3.6vw,2.25rem);font-weight:800;color:#f0f6fc;letter-spacing:-.02em;margin-bottom:14px;line-height:1.3}
+h1 .accent{color:#58a6ff}
+.subtitle{font-size:clamp(.85rem,1.8vw,1.05rem);color:#8b949e;margin-bottom:0}
+.hero-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.badge{display:inline-block;padding:3px 12px;font-size:.75em;font-weight:600;color:#fff}
+
+/* Lead / opening */
+.lead{margin-top:36px;font-size:1.04rem;color:#c9d1d9}
+.lead p{margin-bottom:18px}
+.lead p strong{color:#f0f6fc}
+.lead .anon-note{font-size:.85rem;color:#768390;font-style:italic;line-height:1.6}
+
+/* Sections */
+.section{margin-top:56px}
+.section-title{font-size:1.35rem;font-weight:700;color:#f0f6fc;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #21262d}
+.section p{margin-bottom:16px;color:#c9d1d9}
+.section p strong{color:#f0f6fc}
+.section ul,.section ol{margin:14px 0 16px 26px;line-height:1.8}
+.section li{margin-bottom:9px;color:#c9d1d9}
+.section li strong{color:#f0f6fc}
+
+/* Inline */
+strong{color:#f0f6fc}
+em{color:#d9c8a9}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:#1d2021;border:1px solid #30363d;border-radius:4px;padding:1px 5px;color:#79c0ff}
+
+/* Code blocks */
+.codeblock{background:#1d2021;border:1px solid #3c3836;border-radius:6px;padding:16px 18px;margin:20px 0;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;line-height:1.65;color:#ebdbb2;white-space:pre-wrap;word-break:break-word}
+.codeblock .k{color:#83a598}
+.codeblock .s{color:#b8bb26}
+.codeblock .n{color:#d3869b}
+.codeblock .b{color:#fabd2f}
+.codeblock .p{color:#a89984}
+.codeblock .flag{color:#83a598}
+
+/* Pull-quote — verbatim agent reasoning (centerpiece) */
+.pullquote{position:relative;background:#1d2021;border:1px solid #3c3836;border-left:4px solid #f5c211;padding:24px 28px 20px 58px;margin:26px 0;font-size:1.12em;line-height:1.75;color:#ebdbb2;font-style:italic}
+.pullquote::before{content:'\201C';position:absolute;left:16px;top:2px;font-size:3em;color:#f5c211;opacity:.55;font-family:Georgia,'Times New Roman',serif;font-style:normal;line-height:1}
+.pullquote strong{color:#fabd2f;font-style:normal}
+.pullquote .who{display:block;margin-top:14px;font-style:normal;font-size:.68em;letter-spacing:.12em;text-transform:uppercase;color:#a89984}
+
+/* Blockquote */
+blockquote{background:rgba(88,166,255,.06);border-left:3px solid #58a6ff;padding:16px 22px;margin:22px 0;font-style:italic;font-size:1.05em;color:#f0f6fc;line-height:1.7}
+blockquote strong{color:#fff}
+blockquote em{color:#e6d3a8}
+
+/* Divider */
+hr{border:0;border-top:1px solid #21262d;margin:36px 0}
+
+/* Tables */
+.table-wrap{overflow-x:auto;margin:22px 0}
+.data-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.data-table th{text-align:left;padding:10px 12px;border-bottom:2px solid #30363d;color:#8b949e;font-weight:600;font-size:.78em;text-transform:uppercase;letter-spacing:.4px;vertical-align:bottom}
+.data-table td{padding:10px 12px;border-bottom:1px solid #21262d;vertical-align:top;line-height:1.55}
+.data-table tr:hover{background:#161b22}
+.data-table td strong{color:#f0f6fc}
+.data-table .num{text-align:center;font-weight:700;color:#8b949e}
+.pre-yes{color:#3fb950;font-weight:800}
+.pre-partial{color:#f5c211;font-weight:700}
+.pre-no{color:#8b949e;font-weight:700}
+
+/* Insight box */
+.insight{background:rgba(88,166,255,.06);border-left:3px solid #58a6ff;padding:16px 20px;margin:22px 0;font-size:.95em;line-height:1.8}
+.insight strong{color:#f0f6fc}
+.insight.gold{background:rgba(245,194,17,.06);border-left-color:#f5c211}
+
+/* TOC */
+.toc{background:#161b22;border:1px solid #30363d;padding:20px 28px;margin:36px 0 8px}
+.toc-title{font-size:1em;font-weight:700;color:#f0f6fc;margin-bottom:12px}
+.toc a{color:#58a6ff;text-decoration:none;font-size:.9em;display:block;padding:4px 0}
+.toc a:hover{text-decoration:underline}
+
+/* Closing note */
+.closing{margin-top:48px;padding:20px 24px;border:1px solid #30363d;background:#161b22;font-style:italic;color:#a9b3bd;font-size:.95em;line-height:1.8}
+.closing em{color:#e6d3a8}
+
+/* Footer */
+.footer{margin-top:56px;padding-top:16px;border-top:1px solid #30363d;color:#484f58;font-size:.8em;text-align:center;line-height:1.7}
+.footer a{color:#58a6ff;text-decoration:none}
+
+/* Lang switch */
+.lang-switch{position:absolute;top:18px;right:20px;font-size:.82em;z-index:50}
+.lang-switch a{color:#8b949e;text-decoration:none;padding:2px 4px}
+.lang-switch a.active{color:#58a6ff;font-weight:700}
+.lang-switch a:hover{color:#c9d1d9}
+.lang-switch .sep{color:#30363d;margin:0 2px}
+
+/* Responsive */
+@media(max-width:640px){
+  .data-table{font-size:.78rem}
+  .data-table th,.data-table td{padding:8px 8px}
+  .toc{padding:16px 20px}
+  .pullquote{padding:20px 20px 18px 44px;font-size:1.05em}
+  .codeblock{font-size:.76rem}
+}
+</style>
+</head>
+<body>
+<div class="lang-switch"><a href="./en.html" class="active">English</a><span class="sep">·</span><a href="./ja.html">日本語</a></div>
+
+<header>
+  <h1>We gave an AI agent one fact it couldn't read from the diff. <span class="accent">It added the exact test code review later demanded.</span></h1>
+  <div class="hero-badges">
+    <span class="badge" style="background:#238636">8 real PRs</span>
+    <span class="badge" style="background:#1f6feb">pre-empted review 6&times;</span>
+    <span class="badge" style="background:#8b5cf6">within-agent + 4-arm control</span>
+    <span class="badge" style="background:#6e7681">anonymized</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- Opening lead: verbatim agent reasoning as centerpiece -->
+<div class="lead">
+  <p>An AI coding agent finished a change and got ready to open the pull request. Asked whether it had tested it, the honest answer was no:</p>
+
+  <div class="pullquote">
+    "A mechanical field passthrough with no new logic, structurally identical to already-covered sibling fields; adding a test would only re-assert the compiler."
+    <span class="who">The agent, before the context</span>
+  </div>
+
+  <p>It was not wrong about the code. The diff really was mechanical.</p>
+  <p>Then we gave the same agent — same conversation, before it opened the PR — a single fact it could not have read from the diff: <strong>this module is owned by one person and rewritten constantly.</strong> It changed its mind, and reached the code layer on its own:</p>
+
+  <div class="pullquote">
+    "This is where I was wrong to stop at the build. My defense holds for the typed layer, but the substance of the change is in unbuilt SQL, in a fragile layer. A missed null there fails at runtime, not compile time. I'd add the highest-value test — the case where a record is absent and the flag must read false — before merge."
+    <span class="who">The same agent, after one fact</span>
+  </div>
+
+  <p>The context we injected never used the word <em>test.</em> We told it who owns the code and how often it churns; it reached the fragile SQL layer and the test on its own. And <strong>when this feature actually shipped, human code review sent it back for exactly that test.</strong> The context pre-empted, at authoring time, what review caught later.</p>
+  <p>That is what we set out to measure — not "did the code get better" (unprovable in the wild; a diff's quality confounds engineer skill, task difficulty, and review rigor), but a cleaner question: <strong>does a fact from git history change what the agent decides to do, and does that change track what good review would have forced?</strong></p>
+  <p class="anon-note">(Anonymized throughout: one real, large production Go monorepo, its actual merged history. Features, modules, and tickets are genericized; the agents' reasoning is quoted verbatim.)</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <a href="#received">What the agent actually received</a>
+  <a href="#measuring">Measuring it so it isn't an anecdote</a>
+  <a href="#reproduces">It reproduces — 6 of 8</a>
+  <a href="#control">"But any injection makes an LLM cautious" — a control</a>
+  <a href="#failure">The failure mode — small models cargo-cult the numbers</a>
+  <a href="#not">What this is not</a>
+  <a href="#try">Try it</a>
+</div>
+
+<!-- What the agent received -->
+<div class="section" id="received">
+  <h2 class="section-title">What the agent actually received</h2>
+  <p>The fact wasn't prose we hand-wrote for effect. Before writing, the agent called an MCP tool — <code>get_write_context</code> — for the files it was about to touch, and got back a plain JSON object (anonymized module names):</p>
+
+  <div class="codeblock">{
+  <span class="k">"affected_modules"</span>: [
+    {
+      <span class="k">"repo_name"</span>: <span class="s">"core-service"</span>,
+      <span class="k">"module_path"</span>: <span class="s">"reporting/exporter"</span>,
+      <span class="k">"change_pressure"</span>: <span class="n">87</span>,
+      <span class="k">"bus_factor"</span>: <span class="n">1</span>,
+      <span class="k">"concentration"</span>: <span class="s">"SOLE_OWNER"</span>,
+      <span class="k">"survival_score"</span>: <span class="n">41</span>,
+      <span class="k">"is_sludge"</span>: <span class="b">false</span>
+    }
+  ],
+  <span class="k">"guidance"</span>: <span class="s">"This is the structural risk of where you're about to write. A module with bus_factor 1 or is_sludge true is ownerless, uncontested mass. [&hellip;] These numbers are the module's HISTORY, not the risk of your specific change. A trivial or mechanical change stays trivial no matter how high they are — verify against the actual code; let the code, not the numbers, size your response."</span>
+}</div>
+
+  <p><code>change_pressure</code> is churn; <code>bus_factor</code> is how many people own the surviving code. Both are computed from git history. Neither is in the diff. Keep an eye on that <code>guidance</code> string — it does more work than it looks like it does, later.</p>
+</div>
+
+<!-- Measuring it -->
+<div class="section" id="measuring">
+  <h2 class="section-title">Measuring it so it isn't an anecdote</h2>
+  <p>One vivid flip is a demo. To make it a result you need a clean causal design, and the obvious one is wrong. Comparing two <em>different</em> agent instances — one with context, one without — on their final diffs finds nothing: the sampling noise between two instances drowns the effect, and the final diff hides it anyway, because context changes <em>reasoning</em>, not always the typed characters.</p>
+  <p>The design that works is a <strong>within-agent counterfactual</strong>: let one agent decide, then inject the context, then measure how <em>the same agent's</em> decision changes. Same instance, no sampling noise. Run it on historical PRs and you get ground truth for free: draw PRs that are <code>feature &rarr; review-driven fix</code> pairs, and the fix <em>is</em> what human review caught. The question becomes measurable — did the injected context pre-empt, at authoring time, what review later forced?</p>
+</div>
+
+<!-- It reproduces -->
+<div class="section" id="reproduces">
+  <h2 class="section-title">It reproduces — 6 of 8</h2>
+  <p>Across eight <code>feature &rarr; review-fix</code> PRs, injecting the context moved the authoring agent from <em>defer/skip</em> to <em>verify-before-merge</em>, and the shift lined up, case by case, with what review actually demanded:</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>#</th><th>The change</th><th>Agent's default, no context</th><th>With the context</th><th>What review forced</th><th>Pre-empted?</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>boolean passthrough field</td><td>"mechanical, no test"</td><td>adds a DB-boundary test</td><td>convention + test</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">2</td><td>settings upsert (handler+usecase)</td><td>"a gap, but shippable"</td><td>verify before shipping</td><td>validation + test</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">3</td><td>display status made deterministic</td><td>"no test, only a should-have"</td><td>inject the clock, test pre-PR</td><td>determinize + test</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">4</td><td>settings upsert (with event emit)</td><td>"high confidence"</td><td>wiring test before merge</td><td>migration + test</td><td><span class="pre-partial">partial<sup>1</sup></span></td></tr>
+        <tr><td class="num">5</td><td>elapsed-duration calculation</td><td>already low-confidence</td><td>already flagged its own bug</td><td>calc fix + testability</td><td><span class="pre-no">no<sup>2</sup></span></td></tr>
+        <tr><td class="num">6</td><td>subtotal with exclusion logic</td><td>"on the fence about a test"</td><td>do it before merge</td><td>branch test</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">7</td><td>line-item SQL query</td><td>"skipped the parity test"</td><td>blocker — won't ship as-is</td><td>parity test</td><td><span class="pre-yes">&#10003;</span></td></tr>
+        <tr><td class="num">8</td><td>status-derivation query</td><td>"one of seven branches covered"</td><td>matrix test before the PR</td><td>status-matrix test</td><td><span class="pre-yes">&#10003;</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Six clear, one partial, one miss.</strong> <sup>1</sup>On #4 the context escalated the wiring test but still missed a migration the signals don't encode. <sup>2</sup>On #5 the agent had already caught its own bug by reading — nothing left to pre-empt. Both misses are honest: context can't rescue a gap it doesn't carry.</p>
+  <p>The mechanism was identical every time. The context never <em>discovers</em> a gap. It <strong>re-prioritizes a gap the agent already saw but was going to defer</strong>, via two signals:</p>
+  <ul>
+    <li><strong>Change pressure (churn):</strong> "this wiring will be broken by the next edit — the test I'd skip pays for itself now."</li>
+    <li><strong>Ownership concentration (bus factor):</strong> "sole-owned code has no second reviewer; the test is the only durable spec."</li>
+  </ul>
+  <p>Both are impossible to read from the diff. No amount of studying the code tells you who can maintain a module or how often it churns. The agents said so unprompted: the actionable signal is precisely the one that isn't in the code.</p>
+</div>
+
+<!-- Control -->
+<div class="section" id="control">
+  <h2 class="section-title">"But any injection makes an LLM cautious" — a control</h2>
+  <p>The obvious objection: maybe the <em>act</em> of injecting something mid-conversation is a demand characteristic — "reconsider this" — and the agent would get cautious no matter what you inject. So we ran the same trivial change (<code>is_featured</code>, a boolean passthrough with a tested sibling) through four arms on the same agent, changing only what we injected:</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th></th><th>baseline</th><th>+ neutral facts</th><th>+ scary but unrelated</th><th>+ relevant risk</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Adds a test</strong></td><td>no (optional)</td><td>no — unchanged</td><td>no — unchanged</td><td><strong>yes (required)</strong></td></tr>
+        <tr><td><strong>Verify timing</strong></td><td>follow-up</td><td>follow-up — unchanged</td><td>follow-up — unchanged</td><td><strong>before merge</strong></td></tr>
+        <tr><td><strong>Confidence "safe as-is"</strong></td><td>~0.80</td><td>~0.85 — unchanged</td><td>~0.80 — unchanged</td><td><strong>drops to ~0.40</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ul>
+    <li><strong>Neutral facts</strong> ("Go, ~200 lines, API layer, no churn or ownership concentration"): no shift. If the act of injection drove the change, this arm would move. It didn't.</li>
+    <li><strong>Scary but unrelated</strong> ("a <em>different</em> module is high-churn, bus_factor 1; a CVE in a common JSON library" — both disjoint from the file being touched): no shift. The agent rejected it in one line: <em>"the frightening numbers belong to another module and a dependency; the passthrough path I'm touching is typed, has a sibling test, and is compiler-guarded — disjoint. Relevance-test it and hold."</em> If frightening <em>vocabulary</em> drove the change, this arm would move. It didn't.</li>
+    <li><strong>Relevant risk</strong> (the real churn + bus-factor + unbuilt-SQL fact): it flips.</li>
+  </ul>
+  <p>Three arms isolate the driver. Not the act of injection, not the emotional valence of the words — the shift is attributable to <strong>relevant signal content</strong>, the one factor left. (This is N=1, a qualitative pattern, not an effect size. It rebuts the two standard objections; a dose-response across relevance strengths and multiple subjects is the next step.)</p>
+  <p>One honest caveat about this arm: alongside the pure history signals (churn, bus factor) it also carried a code-layer fact — that the change rides on unbuilt SQL — which a careful diff read could surface on its own. So this control cleanly rules out injection-as-such and valence, but it does not yet separate the history signals from a code-readable hint; that is a further arm. In the eight-PR pilot above, though, the agents named churn and bus factor — the history signals — as what moved them, in their own words.</p>
+</div>
+
+<!-- Failure mode -->
+<div class="section" id="failure">
+  <h2 class="section-title">The failure mode — small models cargo-cult the numbers</h2>
+  <p>A signal that changes decisions can change them wrongly. We gave the same trivial one-line change <em>fabricated</em> signals — high in one arm, low in the other — to a frontier-tier and a small-tier model:</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Model</th><th>Fake LOW signals</th><th>Fake HIGH signals</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Frontier</strong></td><td>proportionate</td><td>still proportionate — "these scores don't raise <em>this</em> change's risk"</td></tr>
+        <tr><td><strong>Small</strong></td><td>proportionate</td><td>inflated — rates a one-liner medium-high risk on a fake number, adds tests, forces sign-off, balloons scope</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The small model let the number override the code. That is negative value: a context layer that makes a weak agent worse.</p>
+  <p>The fix is framing — that <code>guidance</code> string from the payload — and <em>placement</em> decides whether it works. Stated once at connect time, it was partial: the small model conceded low mechanical risk but still let the vivid number balloon scope. Moved <strong>inline, into the same response that carries the numbers</strong>, it was complete: the small model called the high bus-factor "irrelevant" to a trivial change and kept scope minimal. A weaker consumer weights the proximate signal over distant instructions, so the guard rides next to the number, not just at the door.</p>
+</div>
+
+<!-- What this is not -->
+<div class="section" id="not">
+  <h2 class="section-title">What this is not</h2>
+  <p>Put the agents in review posture — reading the diff adversarially — and they caught the real gaps (a forgotten migration, a time-math bug, a validation hole) <em>without</em> the context. The context surfaced zero new correctness findings there, and that shrinks further as base models improve. So this is not a bug-finder. It also only fires on the right posture: injected into an agent already reviewing critically, it's redundant; its value is on the forward implementer or the author self-checking, who has a real gap and is about to defer it.</p>
+  <p>And the per-change effect is a nudge — the test you were half-going-to-write, done now, in the right place. A strong review process catches the same things eventually. What's different is <em>when</em> (authoring time, not review time) and <em>whether you can see it</em>: the effect lives in decisions, not diffs, so it's invisible unless you measure it. It earns its keep where AI writes substantial code under thin review, in codebases with real single-owner danger zones, consumed by a capable agent — and it can hurt a weak, un-framed one.</p>
+  <p>The bet underneath is simple: as AI writes more of the code, the scarce input shifts from "can it write this?" (solved) to "does it understand <em>this</em> codebase's structure and risk?" — which is not in the code, and is exactly the fact that moved every decision above.</p>
+</div>
+
+<!-- Try it -->
+<div class="section" id="try">
+  <h2 class="section-title">Try it</h2>
+  <p>This is an MCP server. Connect your GitHub org at <a href="https://ace.orbitlens.io">ace.orbitlens.io</a> (the free tier is enough to try it) and mint a token in the MCP settings, then point your agent at it and it will call these tools before writing:</p>
+
+  <div class="codeblock">claude mcp add --transport http orbitlens https://ace.orbitlens.io/mcp <span class="p">\</span>
+  --header <span class="s">"Authorization: Bearer &lt;your-token&gt;"</span></div>
+
+  <p>The observation tools are read-only (the only write records your own intervention receipt), the token scopes everything to your GitHub org, and every result is anonymous — <code>bus_factor</code> is a count, never a name. <code>assess_change</code> and <code>get_write_context</code> before editing; <code>blast_radius</code> and <code>knowledge_holder</code> before merging.</p>
+</div>
+
+<hr>
+
+<div class="closing">
+  <em>Next: the same instrument, forward. Instead of replaying settled history, fork a real in-flight change into with- and without-context arms and follow the outcome after merge.</em>
+</div>
+
+<div class="footer">
+  Read in <a href="./ja.html">日本語</a><br>
+  Generated by <a href="https://github.com/machuz/eis">EIS (Engineering Impact Signal)</a> · OrbitLens research<br>
+  Measuring the decision, not the diff — via a within-agent counterfactual in implementer posture.
+</div>
+
+</div>
+</body>
+</html>
