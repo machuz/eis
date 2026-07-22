@@ -138,6 +138,63 @@ def wsum(months, lo, hi):
 # ---------------------------------------------------------------- panel
 
 
+def build_panel_from_saas(repo, horizon, keep_non_source=False):
+    """Same units, but predictors read from a SaaS-exported panel.
+
+    On a 13-year monorepo, `eis timeline --span 1m` is not tractable locally
+    (see README). A deployment has already computed that panel and stored it,
+    so panel_csv.py exports it to <repo>.panel.json and we read the predictors
+    from there instead of recomputing them.
+
+    The outcome is unchanged: raw `git log` via activity.json. Predictor and
+    outcome still come from two independent pipelines — swapping the predictor
+    *source* does not weaken that, it only removes the local recompute.
+    """
+    panel_path = os.path.join(DATA, f"{repo}.panel.json")
+    act_path = os.path.join(DATA, f"{repo}.activity.json")
+    if not (os.path.exists(panel_path) and os.path.exists(act_path)):
+        return []
+    panel = json.load(open(panel_path))
+    act = json.load(open(act_path))
+    if not panel or not act:
+        return []
+    who_path = os.path.join(DATA, f"{repo}.committers.json")
+    who = json.load(open(who_path)) if os.path.exists(who_path) else {}
+    last_idx = max(midx(mo) for mm in act.values() for mo in mm)
+
+    units = []
+    for r in panel:
+        module = r["module"]
+        if module == "." or (not keep_non_source and not is_source_module(module)):
+            continue
+        t = midx(r["month"])
+        if t + horizon > last_idx + 1:
+            continue
+        months = act.get(module, {})
+        before = wsum(months, t - W, t)
+        if before < MIN_BEFORE:
+            continue
+        after = wsum(months, t, t + horizon)
+
+        mod_who = who.get(module, {})
+        recent = {a for k in range(t - W, t)
+                  for a in mod_who.get(f"{k // 12:04d}-{k % 12 + 1:02d}", ())}
+
+        units.append({
+            "repo": repo,
+            "module": f"{repo}:{module}",
+            "t": t,
+            "n_hold": r["n_hold"],
+            "n_recent": len(recent),
+            "hhi": r["hhi"],
+            "top_share": r["top_share"],
+            "survival": r["survival"],
+            "churn": before,
+            "abandoned": 1 if after == 0 else 0,
+        })
+    return units
+
+
 def build_panel(repo, horizon, keep_non_source=False):
     """-> list of unit dicts, one per (module, anchor period)."""
     tl_path = os.path.join(DATA, f"{repo}.timeline.json")
@@ -409,7 +466,8 @@ def main():
 
     repos = args.repos or sorted({
         os.path.basename(p).split(".")[0]
-        for p in glob.glob(os.path.join(DATA, "*.timeline.json"))
+        for p in (glob.glob(os.path.join(DATA, "*.timeline.json"))
+                  + glob.glob(os.path.join(DATA, "*.panel.json")))
     })
     if not repos:
         print(f"no timeline data in {DATA} — run run.sh first")
@@ -420,7 +478,10 @@ def main():
     for horizon in HORIZONS:
         pooled = []
         for repo in repos:
-            units = build_panel(repo, horizon, args.keep_non_source)
+            if os.path.exists(os.path.join(DATA, f"{repo}.panel.json")):
+                units = build_panel_from_saas(repo, horizon, args.keep_non_source)
+            else:
+                units = build_panel(repo, horizon, args.keep_non_source)
             pooled.extend(units)
             if len(repos) > 1 and not args.pooled:
                 continue
