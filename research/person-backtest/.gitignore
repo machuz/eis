@@ -1,0 +1,6 @@
+# Track only the code + docs. Data is regenerable from the deployment export.
+*
+!*.py
+!*.sh
+!*.md
+!.gitignore
