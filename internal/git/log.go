@@ -586,12 +586,21 @@ func streamLogSerial(ctx context.Context, repoPath string, commentFilter bool, f
 // analyzer runs this first so the identity map is final before the fold and main
 // aggregation passes canonicalize authors per commit.
 func StreamIdentityMap(ctx context.Context, repoPath string) (map[string]string, error) {
+	idmap, _, err := StreamIdentityAndEmails(ctx, repoPath)
+	return idmap, err
+}
+
+// StreamIdentityAndEmails is StreamIdentityMap plus the canonical-name →
+// primary-email map from the same single walk. Callers that need to resolve
+// authors to external accounts want the email: it is a stabler key than a name
+// and a GitHub noreply address carries the numeric user id outright.
+func StreamIdentityAndEmails(ctx context.Context, repoPath string) (map[string]string, map[string]string, error) {
 	// \x1f-separated name/email so a name containing a tab or '|' can't confuse
 	// the split (the same delimiter the co-author trailer uses).
 	stdout, cmd, err := RunStream(ctx, repoPath,
 		"log", "--all", "--no-merges", "--no-color", "--format=%an\x1f%ae")
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	defer stdout.Close()
 
@@ -612,9 +621,9 @@ func StreamIdentityMap(ctx context.Context, repoPath string) (map[string]string,
 	}
 	waitErr := cmd.Wait()
 	if scanErr != nil {
-		return acc.Build(), scanErr
+		return acc.Build(), acc.PrimaryEmails(), scanErr
 	}
-	return acc.Build(), waitErr
+	return acc.Build(), acc.PrimaryEmails(), waitErr
 }
 
 // scannerMaxBufLog bounds a single format-only log line (name+email). Names are

@@ -15,6 +15,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/machuz/eis/v2/internal/config"
+	"github.com/machuz/eis/v2/internal/git"
 	"github.com/machuz/eis/v2/internal/output"
 	"github.com/machuz/eis/v2/internal/timeline"
 	pkgtimeline "github.com/machuz/eis/v2/pkg/timeline"
@@ -314,6 +315,28 @@ func runTimeline(args []string) error {
 		return nil
 	}
 
+	// Canonical author → primary email, from ONE format-only log walk per repo
+	// (the same walk the analyzer already does for the identity map). Cheap —
+	// sub-second even on a 13-year history — and it is what lets a consumer
+	// resolve authors to accounts without a Commits API sweep.
+	authorEmails := map[string]string{}
+	if *formatFlag == "json" {
+		for _, rp := range repoPaths {
+			_, emails, err := git.StreamIdentityAndEmails(context.Background(), rp)
+			if err != nil {
+				// Non-fatal: the timeline is still correct, consumers just fall
+				// back to name-only resolution.
+				fmt.Fprintf(os.Stderr, "author emails unavailable for %s: %v\n", rp, err)
+				continue
+			}
+			for name, email := range emails {
+				if _, seen := authorEmails[name]; !seen {
+					authorEmails[name] = email
+				}
+			}
+		}
+	}
+
 	// Build per-domain author timelines
 	type builtDomainTimeline struct {
 		domain    string
@@ -408,7 +431,7 @@ func runTimeline(args []string) error {
 		for _, bt := range builtTimelines {
 			switch *formatFlag {
 			case "json":
-				output.PrintTimelineJSON(bt.domain, *spanFlag, bt.periods, bt.timelines)
+				output.PrintTimelineJSONWithEmails(bt.domain, *spanFlag, bt.periods, bt.timelines, authorEmails)
 			case "csv":
 				output.PrintTimelineCSV(bt.domain, bt.timelines)
 			case "ascii":
