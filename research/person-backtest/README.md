@@ -46,7 +46,27 @@ is the stratified one (`--stratify`): inside each `flow` tercile, does `stock`
 still separate? A headline AUC that evaporates within strata is the confound
 talking, not the thesis.
 
-## What this cannot test, and why
+## Raw activity (the 6th CSV column) — what makes C-02 testable
+
+`flow` is mass added, so it is durability-filtered and **cannot** express "busy
+but their code does not survive": that person has `flow ≈ 0` and reads as quiet.
+Raw commit counts can, so the loader takes an optional 6th column and
+`--activity commits` puts it in the stratified and quadrant views.
+
+Joining raw git to the mass panel is possible because `resolveAuthor` falls back
+to `fnv1a64(lower(trim(author))) | (1<<62)` for unresolved authors — a pure
+function of the author string, reproducible outside the service — and because the
+author string EIS emits is the plain commit name. On react that alone joins 930
+of 1052 panel keys; the persistent identity cache covers a few more.
+
+**Rows whose key cannot be joined must be dropped, never passed through as
+commits = 0.** An unjoined author would be mislabelled "quiet", and the unjoined
+set is not random: identity resolution sweeps only the first
+`ListRepoCommitAuthors` pages (~300 commits), so what is missing is *recent,
+high-volume* contributors — precisely the "busy" population the claim is about.
+On react that is 88.6% of panel keys but only 79.2% of commits.
+
+## Older note: what the mass-only version cannot test
 
 `flow` is `max(0, mass_t − mass_{t−1})` — **surviving** mass added, not commits.
 So it is already durability-filtered, and that breaks the one comparison the
