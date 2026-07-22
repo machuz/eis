@@ -87,7 +87,8 @@ MIN_FLOW = 1e-9
 
 PREDICTORS = {
     "stock": "high",        # more surviving mass -> more future output?
-    "flow": "high",         # more recent output  -> more future output?
+    "flow": "high",         # more recent surviving output
+    "commits": "high",      # RAW activity (git), when the CSV carries it
     "n_modules": "high",
     "top_share": "low",
 }
@@ -99,16 +100,30 @@ def midx(label):
 
 
 def load_person_panel(path):
-    """CSV, no header: YYYY-MM,author_key,n_modules,total_mass,max_module_mass"""
+    """CSV, no header.
+
+    5 columns: YYYY-MM,author_key,n_modules,total_mass,max_module_mass
+    6 columns: ...,commits   <- raw git commit count for that (author, period)
+
+    The 6th column is what makes C-02 testable at all. `flow` (mass added) is
+    already durability-filtered, so it cannot express "busy but their code does
+    not survive" — that person has flow ~ 0 and reads as quiet. Raw commits can.
+
+    Rows for authors whose key could not be joined to git MUST be dropped by the
+    exporter, never passed through as commits=0: an unjoined author would be
+    mislabelled "quiet", and the unjoined set skews to recent high-volume
+    contributors, i.e. exactly the "busy" population the claim is about.
+    """
     rows = defaultdict(dict)                     # author -> t -> record
     for line in open(path):
         line = line.strip()
         if not line:
             continue
         parts = line.split(",")
-        if len(parts) != 5:
+        if len(parts) not in (5, 6):
             continue
-        ym, who, n_mod, tot, mx = parts
+        ym, who, n_mod, tot, mx = parts[:5]
+        commits = float(parts[5]) if len(parts) >= 6 else None
         try:
             t = midx(ym)
             tot_f, mx_f = float(tot), float(mx)
@@ -118,6 +133,7 @@ def load_person_panel(path):
             "stock": tot_f,
             "n_modules": int(n_mod),
             "top_share": (mx_f / tot_f) if tot_f > 0 else 1.0,
+            "commits": commits,
         }
     return rows
 
@@ -147,6 +163,11 @@ def build_units(panel, horizon):
                 continue                          # not currently active
             future = sum(d for k, d in delta.items() if t < k <= t + horizon)
             r = by_t[t]
+            # raw activity over the same trailing window as `flow`
+            raw = None
+            if r.get("commits") is not None:
+                raw = sum(by_t[k].get("commits") or 0
+                          for k in by_t if t - W <= k < t)
             units.append({
                 "author": who,
                 "t": t,
@@ -154,6 +175,7 @@ def build_units(panel, horizon):
                 "flow": flow,
                 "n_modules": r["n_modules"],
                 "top_share": r["top_share"],
+                "commits": raw if raw is not None else 0.0,
                 "future_flow": future,
                 "productive": 1 if future > MIN_FLOW else 0,
             })
@@ -273,6 +295,8 @@ def report(units, horizon, rng, label, full=True):
         return
     print(f"  {'predictor':<10} {'AUC':>6}  {'author 95% CI':>18}  {'perm p':>8}")
     for key in PREDICTORS:
+        if len({u[key] for u in units}) < 2:
+            continue                      # e.g. commits absent from the CSV
         a = signed_auc(units, key)
         if a is None:
             continue
@@ -349,6 +373,9 @@ def main():
     ap.add_argument("--csv", required=True, help="person panel CSV")
     ap.add_argument("--label", default="panel")
     ap.add_argument("--quick", action="store_true")
+    ap.add_argument("--activity", default="flow",
+                    help="which predictor plays 'activity' in the stratified/quadrant "
+                         "views: flow (mass added) or commits (raw git). C-02 needs commits.")
     ap.add_argument("--stratify", action="store_true",
                     help="also run the fixed-activity contrast (the quadrant claim)")
     args = ap.parse_args()
@@ -359,8 +386,8 @@ def main():
         units = build_units(panel, horizon)
         report(units, horizon, rng, args.label, full=not args.quick)
         if args.stratify and units:
-            stratified(units, horizon, rng)
-            quadrants(units, horizon)
+            stratified(units, horizon, rng, by=args.activity)
+            quadrants(units, horizon, other=args.activity)
     return 0
 
 
