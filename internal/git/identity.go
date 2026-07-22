@@ -83,6 +83,45 @@ func (a *IdentityAccumulator) Build() map[string]string {
 	return out
 }
 
+// PrimaryEmails returns canonical-name → the email that name commits under
+// most, for every canonical name in the accumulator. It is the piece Build()
+// computes internally and then throws away.
+//
+// Consumers outside eis need it because a git author NAME is a poor identity
+// key — it collides, it changes, and it carries no link to any account — while
+// the email often does carry one (a GitHub noreply address embeds the numeric
+// user id). Emitting the mapping lets a caller resolve identities from the
+// clone it already has, instead of paying a paginated Commits API sweep that
+// truncates on long histories and resolves only whoever committed recently.
+//
+// Deterministic: pickTop breaks ties the same way Build() does, so the result
+// is a pure function of the commit set (W-02). Shared/automation addresses are
+// excluded by the same isSharedEmail rule Build() uses — they identify nobody.
+func (a *IdentityAccumulator) PrimaryEmails() map[string]string {
+	emailCanon := make(map[string]string, len(a.emailNames))
+	for email, names := range a.emailNames {
+		emailCanon[email] = pickTop(names)
+	}
+
+	out := make(map[string]string, len(a.nameEmails))
+	for name, emails := range a.nameEmails {
+		email := pickTop(emails)
+		if email == "" || isSharedEmail(email) {
+			continue
+		}
+		canon := emailCanon[email]
+		if canon == "" {
+			canon = name
+		}
+		// Key by the canonical name, which is what every downstream author
+		// string has already been rewritten to.
+		if _, seen := out[canon]; !seen {
+			out[canon] = email
+		}
+	}
+	return out
+}
+
 // sharedEmails are addresses used by MANY distinct people, so grouping names
 // under them would merge unrelated engineers. Note: a per-user GitHub noreply
 // (e.g. "user@users.noreply.github.com" or "1234+user@users.noreply.github.com")

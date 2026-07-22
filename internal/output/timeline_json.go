@@ -13,6 +13,19 @@ type timelineJSONOutput struct {
 	Span    string               `json:"span"`
 	Periods []timelineJSONPeriod `json:"periods"`
 	Authors []timelineJSONAuthor `json:"authors"`
+	// AuthorEmails: canonical author name → the email that author commits
+	// under most. Emitted so a consumer can resolve authors to external
+	// accounts from the clone it already has — a GitHub noreply address
+	// (12345+login@users.noreply.github.com) carries the numeric user id
+	// outright, and an email is a stabler key than a name, which collides and
+	// changes. Without it a SaaS consumer has only the name and must pay a
+	// paginated Commits API sweep, which truncates on long histories and so
+	// resolves recent contributors while leaving earlier ones anonymous.
+	//
+	// Shared/automation addresses (web-flow@, github-actions@) are excluded —
+	// they identify nobody. Deterministic: a pure function of the commit set
+	// (W-02). Omitted when empty.
+	AuthorEmails map[string]string `json:"author_emails,omitempty"`
 }
 
 type timelineJSONPeriod struct {
@@ -91,9 +104,16 @@ func nonEmptyMSBA(m map[string]map[string]float64) map[string]map[string]float64
 
 // PrintTimelineJSON outputs timeline data as JSON.
 func PrintTimelineJSON(domainName, span string, periods []timeline.PeriodResult, timelines []timeline.AuthorTimeline) {
+	PrintTimelineJSONWithEmails(domainName, span, periods, timelines, nil)
+}
+
+// PrintTimelineJSONWithEmails is PrintTimelineJSON plus the canonical-author →
+// primary-email map (see timelineJSONOutput.AuthorEmails).
+func PrintTimelineJSONWithEmails(domainName, span string, periods []timeline.PeriodResult, timelines []timeline.AuthorTimeline, authorEmails map[string]string) {
 	out := timelineJSONOutput{
-		Domain: domainName,
-		Span:   span,
+		Domain:       domainName,
+		Span:         span,
+		AuthorEmails: authorEmails,
 	}
 
 	for _, p := range periods {
