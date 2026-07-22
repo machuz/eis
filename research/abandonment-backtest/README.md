@@ -105,6 +105,39 @@ evidence.
   destroys only the pairing. `p = P(AUC_perm ≥ AUC_obs)`. If the association is
   really "some modules are just busier", this keeps it and p stays high.
 
+## When `eis timeline` is not tractable: read the panel from a deployment
+
+On a 13-year monorepo the local route does not finish: `eis analyze` alone spawns
+~9 concurrent `git blame` children at ~2min each with 1.1GB RSS, before the
+~160-period monthly timeline even starts.
+
+But a SaaS deployment has already computed that panel. `panel_csv.py` takes a
+pre-aggregated CSV of it — one row per (module, period) —
+
+    YYYY-MM,n_hold,survival_total,survival_sumsq,survival_max,module_path
+
+and `abandonment.py` uses it in place of the timeline when `<repo>.panel.json`
+exists. `hhi` and `top_share` are recovered as `sumsq/total²` and `max/total`, so
+**per-author rows never have to leave the deployment** — the export is already
+aggregated.
+
+The outcome still comes from raw `git log` on a local clone. Swapping where the
+*predictors* are read from does not weaken predictor ⊥ outcome; it only removes
+the local recompute.
+
+## Two ways to get a false answer here, both hit in practice
+
+**Fixture directories manufacture an ownership signal.** See the non-source
+section above. Real, but repo-specific — it inflated prettier (0.711 → 0.602
+once excluded) and barely touched react (0.723 → 0.741).
+
+**An underpowered null looks like a refutation.** A 7-repo pool with 105
+abandonment events put every ownership predictor's *repo*-clustered CI across
+0.5, which reads as "no effect". Adding two repos (280 events, 9 clusters) put
+all of them clear of 0.5 at every horizon. Report cluster count and event count
+next to any clustered CI, and do not call a null a refutation when the cluster
+count is single-digit.
+
 ## Running
 
 ```sh
